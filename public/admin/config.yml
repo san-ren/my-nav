@@ -23,15 +23,19 @@ collections:
           - { label: "页脚作者名", name: "author", widget: "string" }
 
   # 2. 导航页面管理 (文件夹模式：左侧会出现页面列表)
-  - name: "nav_pages"
+    - name: "nav_pages"
     label: "导航页面管理"
-    folder: "src/data/nav" # 扫描这个文件夹下的所有json
+    folder: "src/data/nav"
     extension: "json"
     format: "json"
-    create: true # 允许在后台直接新建页面
+    create: true
     identifier_field: "name"
-    summary: "页面：{{name}}"
+    summary: "{{sortOrder}} - {{name}}" # 修改这里：在列表页直接显示序号，方便你看
+    sortable_fields: ["sortOrder", "name", "id"] # 关键：告诉 CMS 允许按这个字段排序
     fields:
+      # --- 新增：排序权重字段 ---
+      - { label: "排序权重(越小越靠前)", name: "sortOrder", widget: "number", default: 10, value_type: "int" } 
+      
       - { label: "页面ID(路由名称)", name: "id", widget: "string", hint: "例如 home 或 sub1" }
       - { label: "侧边栏名称", name: "name", widget: "string" }
       - { label: "侧边栏图标", name: "icon", widget: "string", hint: "Lucide图标名，如 Star" }

@@ -1,46 +1,110 @@
-# Astro Starter Kit: Basics
+# 🌟 Astro Nav - 极简高性能静态导航站模板
 
-```sh
-npm create astro@latest -- --template basics
+基于 **Astro 5.0** + **Tailwind CSS** + **React** 构建的现代化静态导航网站。集成 **Sveltia CMS**，支持可视化管理后台，无需触碰代码即可管理链接。
+
+![项目截图](public/favicon.svg) <!-- 建议替换为您网站的实际截图 -->
+
+## ✨ 功能特性
+
+- **🚀 极速性能**：基于 Astro 静态生成 (SSG)，Lighthouse 跑分满分，加载速度极快。
+- **🎨 玻璃拟态 UI**：现代化的 Glassmorphism 设计风格，配合呼吸感背景光晕，视觉体验极佳。
+- **🌗 深色模式**：完美支持系统自动切换及手动切换亮/暗模式。
+- **🧩 多层级导航**：支持 **页面 -> 分类 -> 标签页 (Tabs) -> 网址** 四级结构，侧边栏支持折叠与锚点联动。
+- **📝 可视化后台**：集成 Sveltia CMS，基于 Git 工作流，直接在浏览器中管理数据、上传图标。
+- **🔍 全局搜索**：集成 Fuse.js 模糊搜索，支持快捷键 (`Cmd/Ctrl + K`) 唤起，毫秒级响应。
+- **ℹ️ 详情悬浮窗**：卡片支持 Markdown 格式的详细说明，并自动集成 GitHub Stars/Version 徽章。
+- **📱 响应式设计**：完美适配桌面端与移动端。
+
+## 🛠️ 技术栈
+
+- **核心框架**: [Astro](https://astro.build/)
+- **样式库**: [Tailwind CSS](https://tailwindcss.com/)
+- **UI 组件**: React (用于搜索和交互逻辑)
+- **图标库**: [Lucide React](https://lucide.dev/)
+- **CMS**: [Sveltia CMS](https://github.com/sveltia/sveltia-cms) (兼容 Netlify CMS 配置)
+- **搜索**: Fuse.js
+- **部署**: GitHub Pages (通过 GitHub Actions)
+
+## 🔧 实现原理
+
+1.  **数据驱动**：数据存储在 `src/data/nav/*.json` 中，每个 JSON 文件代表一个独立的导航页面（如“首页”、“工具集”）。
+2.  **动态路由**：利用 Astro 的 `getStaticPaths` API，读取数据文件夹并自动生成静态 HTML 页面。
+3.  **零 JS 核心**：侧边栏和主内容的渲染在构建时完成，仅搜索组件和 Tab 切换逻辑使用少量客户端 JS，保证极致性能。
+4.  **Git-based CMS**：后台管理直接操作 GitHub API 修改仓库中的 JSON 文件，触发 GitHub Actions 自动重新构建并发布。
+
+## 🚀 快速开始
+
+### 1. 克隆项目
+
+```bash
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+```
+### 2. 安装依赖
+
+```bash
+npm install
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+### 3. 本地开发
 
-## 🚀 Project Structure
+```bash
+npm run dev
+```
+访问 `http://localhost:4321/my-nav/` 预览网站。
+访问 `http://localhost:4321/my-nav/admin/` 进入本地管理后台。
 
-Inside of your Astro project, you'll see the following folders and files:
+### 4. 构建打包
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```bash
+npm run build
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## ⚙️ 配置说明
 
-## 🧞 Commands
+### 1. 基础信息配置
+修改 `src/data/config.json`：
+```json
+{
+  "title": "我的导航站",
+  "description": "收集好用的工具",
+  "author": "Your Name",
+  "githubUser": "your-github-user",
+  "githubRepo": "repo-name"
+}
+```
 
-All commands are run from the root of the project, from a terminal:
+### 2. 导航数据管理
+推荐使用 `/admin/` 后台进行管理。如果需手动修改，数据位于 `src/data/nav/` 目录下。
+- **id**: 路由路径（如 `home` 对应 `/my-nav/home`）。
+- **categories**: 分类列表。
+- **tabs**: 若分类下有多个子板块（如 Windows/Mac），使用 tabs。
+- **detail**: 支持 Markdown 语法，支持 HTML 标签（如 `<img>` 徽章）。
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+### 3. 部署配置 (GitHub Pages)
+项目包含自动部署脚本 `.github/workflows/deploy.yml`。
+修改 `astro.config.mjs` 中的 `base` 属性为您仓库名称（如果是根域名部署则留空）：
+```javascript
+export default defineConfig({
+  base: '/your-repo-name', // 修改这里
+  // ...
+});
+```
 
-## 👀 Want to learn more?
+### 4. CMS 配置
+修改 `public/admin/config.yml`：
+```yaml
+backend:
+  name: github
+  repo: your-username/your-repo # 修改为你的仓库地址
+  branch: main
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## 📝 详细说明与徽章
+
+在后台编辑卡片时，“详细说明”字段支持 Markdown。
+自动生成 GitHub 徽章：勾选后台的 "Badge List" 选项（Stars, Version 等），系统会自动根据填写的 GitHub 仓库地址生成 Shields.io 徽章。
+
+## 📄 License
+
+MIT License.

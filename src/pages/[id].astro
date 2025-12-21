@@ -1,24 +1,28 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Sidebar from '../components/Sidebar.astro'; // 引入 Sidebar
 import SiteCard from '../components/SiteCard.astro';
 import SearchModal from '../components/SearchModal.jsx';
-import siteConfig from '../data/config.json'; // 导入全局配置
+import siteConfig from '../data/config.json';
 import { LayoutDashboard, Star, Code, Palette, Edit, Sun, Moon } from 'lucide-react';
 
-// 获取文件夹内所有 JSON 文件
 export async function getStaticPaths() {
   const allNavFiles = import.meta.glob('../data/nav/*.json', { eager: true });
-  const navResources = Object.values(allNavFiles);
+  let navResources = Object.values(allNavFiles);
+
+  // 排序逻辑
+  navResources.sort((a: any, b: any) => {
+    return (a.sortOrder || 99) - (b.sortOrder || 99);
+  });
 
   return navResources.map((section: any) => ({
     params: { id: section.id },
-    props: { section, navResources }, // 把当前页面数据和全站菜单传下去
+    props: { section, navResources }, // 传递当前页面数据(section) 和 全站数据(navResources)
   }));
 }
 
 const { section, navResources } = Astro.props;
 const { id } = Astro.params;
-const base = '/my-nav';
 
 const Icons = { Star, Code, Palette, LayoutDashboard };
 const CurrentIcon = Icons[section.icon] || LayoutDashboard;
@@ -27,36 +31,8 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 <Layout title={`${section.name} - ${siteConfig.title}`}>
   <div class="flex min-h-screen">
     
-    <!-- 侧边栏 Sidebar -->
-    <aside class="fixed inset-y-0 left-0 z-40 w-64 bg-white/40 dark:bg-gray-900/60 backdrop-blur-2xl border-r border-slate-200/50 dark:border-gray-800/50 hidden md:block">
-      <div class="p-6 mb-2 flex items-center gap-3">
-        <div class="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30">
-          <img src={`${base}/favicon.svg`} class="w-6 h-6 invert brightness-0" alt="Logo" />
-        </div>
-        <span class="text-lg font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-500 dark:from-white dark:to-slate-400">
-          {siteConfig.title}
-        </span>
-      </div>
-      
-      <nav class="p-4 space-y-2">
-        {navResources.map((item) => {
-          const isActive = item.id === id;
-          return (
-            <a href={`${base}/${item.id}`} 
-               class={`relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group
-               ${isActive 
-                 ? 'bg-white dark:bg-gray-800 text-blue-600 shadow-[0_10px_25px_-5px_rgba(59,130,246,0.2)] translate-x-1 font-bold' 
-                 : 'text-slate-500 hover:text-slate-900 dark:hover:text-white hover:translate-x-1'
-               }`}
-            >
-              {isActive && <div class="absolute left-0 w-1.5 h-5 bg-blue-600 rounded-r-full shadow-[4px_0_12px_rgba(37,99,235,0.6)]"></div>}
-              <LayoutDashboard size={18} /> 
-              <span class="text-[14px] font-medium">{item.name}</span>
-            </a>
-          );
-        })}
-      </nav>
-    </aside>
+    <!-- 使用 Sidebar 组件 -->
+    <Sidebar navResources={navResources} currentId={id} siteConfig={siteConfig} />
 
     <main class="flex-1 md:ml-64">
       <header class="sticky top-0 z-30 flex items-center justify-between px-8 py-4 bg-white/40 dark:bg-gray-900/40 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50">
