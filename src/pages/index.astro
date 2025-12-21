@@ -1,19 +1,10 @@
 ---
-// 前置逻辑保持你之前的获取 navData, section 等
-import Layout from '../layouts/Layout.astro';
-import SiteCard from '../components/SiteCard.astro';
-import SearchModal from '../components/SearchModal.jsx';
-import navData from '../data/nav.json';
-import { LayoutDashboard, Star, Code, Palette, Edit, Sun, Moon } from 'lucide-react';
-
-const { siteConfig, navResources } = navData;
-const section = navData.navResources[0]; // index.astro 用这个
-
-const id = section.id;
-const base = '/my-nav';
-
-const Icons = { Star, Code, Palette, LayoutDashboard };
-const CurrentIcon = Icons[section.icon] || LayoutDashboard;
+import siteConfig from '../data/config.json';
+// 获取 nav 文件夹下第一个文件
+const allNavFiles = import.meta.glob('../data/nav/*.json', { eager: true });
+const navResources = Object.values(allNavFiles);
+const section = navResources[0] as any;
+// ... 后续同 [id].astro
 ---
 
 <Layout title={`${section.name} - ${siteConfig.title}`}>

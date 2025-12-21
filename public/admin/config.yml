@@ -8,61 +8,56 @@ media_folder: "public/images"
 public_folder: "/images"
 
 collections:
-  - name: "settings"
-    label: "内容管理"
+  # 1. 网站全局设置 (独立文件)
+  - name: "site_settings"
+    label: "网站基础配置"
     delete: false
-    editor:
-      preview: false # 建议关闭右侧预览，让左侧编辑区更大
     files:
-      - name: "navigation_data"
-        label: "导航全站数据"
-        file: "src/data/nav.json"
+      - name: "config"
+        label: "站点信息"
+        file: "src/data/config.json"
         fields:
-          - label: "站点基础配置"
-            name: "siteConfig"
-            widget: "object"
-            fields:
-              - { label: "网站标题", name: "title", widget: "string" }
-              - { label: "GitHub 用户名", name: "githubUser", widget: "string" }
-              - { label: "GitHub 仓库名", name: "githubRepo", widget: "string" }
-              - { label: "页脚作者名", name: "author", widget: "string" }
+          - { label: "网站标题", name: "title", widget: "string" }
+          - { label: "GitHub 用户名", name: "githubUser", widget: "string" }
+          - { label: "GitHub 仓库名", name: "githubRepo", widget: "string" }
+          - { label: "页脚作者名", name: "author", widget: "string" }
 
-          - label: "导航菜单(页面)"
-            name: "navResources"
+  # 2. 导航页面管理 (文件夹模式：左侧会出现页面列表)
+  - name: "nav_pages"
+    label: "导航页面管理"
+    folder: "src/data/nav" # 扫描这个文件夹下的所有json
+    extension: "json"
+    format: "json"
+    create: true # 允许在后台直接新建页面
+    identifier_field: "name"
+    summary: "页面：{{name}}"
+    fields:
+      - { label: "页面ID(路由名称)", name: "id", widget: "string", hint: "例如 home 或 sub1" }
+      - { label: "侧边栏名称", name: "name", widget: "string" }
+      - { label: "侧边栏图标", name: "icon", widget: "string", hint: "Lucide图标名，如 Star" }
+      - label: "内部分类"
+        name: "categories"
+        widget: "list"
+        collapsed: true
+        summary: "分类：{{name}}"
+        fields:
+          - { label: "分类名称", name: "name", widget: "string" }
+          - { label: "分类图标", name: "icon", widget: "string" }
+          - label: "标签页(Tabs)"
+            name: "tabs"
             widget: "list"
-            summary: "{{name}}" # 重点：折叠时显示页面名称（如：精华推荐）
+            collapsed: true
+            summary: "页签：{{tabName}}"
             fields:
-              - { label: "页面ID", name: "id", widget: "string" }
-              - { label: "显示名称", name: "name", widget: "string" }
-              - { label: "菜单图标", name: "icon", widget: "string" }
-              - label: "内部分类"
-                name: "categories"
+              - { label: "页签名称", name: "tabName", widget: "string" }
+              - label: "网址列表"
+                name: "list"
                 widget: "list"
-                summary: "{{name}}" # 重点：折叠时显示分类名称（如：影音媒体）
+                collapsed: true
+                summary: "{{name}}"
                 fields:
-                  - { label: "分类名称", name: "name", widget: "string" }
-                  - { label: "分类图标", name: "icon", widget: "string" }
-                  - label: "标签页(Tabs)"
-                    name: "tabs"
-                    widget: "list"
-                    summary: "{{tabName}}" # 重点：折叠时显示标签名（如：Windows）
-                    fields:
-                      - { label: "标签名称", name: "tabName", widget: "string" }
-                      - label: "网址列表"
-                        name: "list"
-                        widget: "list"
-                        summary: "{{name}} - {{desc}}" # 重点：显示网址名称和描述
-                        fields:
-                          - { label: "网址名称", name: "name", widget: "string" }
-                          - { label: "链接地址", name: "url", widget: "string" }
-                          - { label: "简短描述", name: "desc", widget: "string" }
-                          - { label: "详细说明(支持HTML/徽章)", name: "detail", widget: "text" } # 核心修改：增加了 detail
-
-          - label: "友情链接"
-            name: "friendLinks"
-            widget: "list"
-            summary: "{{name}}"
-            fields:
-              - { label: "名称", name: "name", widget: "string" }
-              - { label: "链接", name: "url", widget: "string" }
-              - { label: "描述", name: "desc", widget: "string" }
+                  - { label: "名称", name: "name", widget: "string" }
+                  - { label: "链接", name: "url", widget: "string" }
+                  - { label: "简短描述", name: "desc", widget: "string" }
+                  # --- 重点：这里改为 markdown 插件，支持分屏预览 ---
+                  - { label: "详细说明", name: "detail", widget: "markdown", buttons: ["bold", "italic", "link", "bulleted-list"], editor_components: [] }

@@ -2,20 +2,22 @@
 import Layout from '../layouts/Layout.astro';
 import SiteCard from '../components/SiteCard.astro';
 import SearchModal from '../components/SearchModal.jsx';
-import navData from '../data/nav.json';
+import siteConfig from '../data/config.json'; // 导入全局配置
 import { LayoutDashboard, Star, Code, Palette, Edit, Sun, Moon } from 'lucide-react';
 
-// --- 关键修正：必须导出 getStaticPaths ---
+// 获取文件夹内所有 JSON 文件
 export async function getStaticPaths() {
-  return navData.navResources.map((section) => ({
+  const allNavFiles = import.meta.glob('../data/nav/*.json', { eager: true });
+  const navResources = Object.values(allNavFiles);
+
+  return navResources.map((section: any) => ({
     params: { id: section.id },
-    props: { section },
+    props: { section, navResources }, // 把当前页面数据和全站菜单传下去
   }));
 }
 
-const { section } = Astro.props;
+const { section, navResources } = Astro.props;
 const { id } = Astro.params;
-const { siteConfig, navResources } = navData;
 const base = '/my-nav';
 
 const Icons = { Star, Code, Palette, LayoutDashboard };

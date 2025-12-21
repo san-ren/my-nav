@@ -1,0 +1,57 @@
+{
+  "id": "home",
+  "name": "精华推荐",
+  "icon": "Star",
+  "categories": [
+    {
+      "name": "精华资源",
+      "icon": "Star",
+      "list": [
+        { "name": "小田田", "url": "https://xydh.fun/xiaotiantian", "desc": "汇总导航,你想要的都有", "detail": "**资源聚合站**\n涵盖了影视、工具、学习等全方位资源索引。" },
+        { "name": "奔跑中的奶酪", "url": "https://www.runningcheese.com/", "desc": "有智，有趣，有爱", "detail": "深度技术博客，主打浏览器定制、系统优化方案。" },
+        { "name": "小众软件", "url": "https://www.appinn.com/", "desc": "分享、体验、评测电脑软件", "detail": "发现冷门但极其好用的“小众”利器。" },
+        { "name": "423down", "url": "https://www.423down.com/", "desc": "知名软件达人", "detail": "提供各类常用软件的精简版、无广告版。" }
+      ]
+    },
+    {
+      "name": "影音媒体",
+      "icon": "Music",
+      "tabs": [
+        {
+          "tabName": "Windows",
+          "list": [
+            { "name": "Listen1", "url": "https://github.com/listen1", "desc": "聚合音乐播放", "detail": "**一站式搜索**\n支持网易云、QQ、酷狗等多平台音乐聚合。\n\n<img src='https://img.shields.io/github/stars/listen1/listen1_desktop?style=flat-square&color=blue' />" },
+            { "name": "洛雪音乐助手", "url": "https://github.com/lyswhut/lx-music-desktop", "desc": "全网在线音乐播放", "detail": "支持多平台搜索，内置强力音源。\n\n<img src='https://img.shields.io/github/stars/lyswhut/lx-music-desktop?style=flat-square&color=orange' />" }
+          ]
+        },
+        {
+          "tabName": "Android",
+          "list": [
+            { "name": "酷狗概念版", "url": "https://activity.kugou.com/download/v-a23b0cf0/index.html", "desc": "每日领VIP", "detail": "官方良心版，每天播放一首歌即可领取VIP。" },
+            { "name": "Spotube", "url": "https://spotube.krtirtho.dev/", "desc": "开源 Spotify 客户端", "detail": "无需 Premium 即可免费播放。\n\n<img src='https://img.shields.io/github/stars/KRTirtho/spotube?style=flat-square&color=blue' />" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "常用工具",
+      "icon": "Hammer",
+      "tabs": [
+        {
+          "tabName": "图影截图",
+          "list": [
+            { "name": "Honeyview", "url": "http://www.bandisoft.com/honeyview/", "desc": "蜂蜜浏览器", "detail": "支持压缩包直接预览图片，速度极快。" },
+            { "name": "PixPin", "url": "https://pixpinapp.com/", "desc": "长截图、贴图神器", "detail": "Snipaste 的强力竞争者，支持长截图和智能OCR。" }
+          ]
+        },
+        {
+          "tabName": "下载利器",
+          "list": [
+            { "name": "IDM", "url": "https://www.internetdownloadmanager.com/", "desc": "多线程下载利器", "detail": "下载之王，多线程分割下载，满带宽速度。" },
+            { "name": "Gopeed", "url": "https://gopeed.com/zh-CN", "desc": "全平台开源下载", "detail": "界面简洁，完全开源。\n\n<img src='https://img.shields.io/github/stars/GopeedLab/gopeed?style=flat-square&color=green' />" }
+          ]
+        }
+      ]
+    }
+  ]
+}

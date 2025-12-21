@@ -1,0 +1,47 @@
+{
+  "id": "sub1",
+  "name": "工具大全",
+  "icon": "Hammer",
+  "categories": [
+    {
+      "name": "系统与通讯",
+      "icon": "Settings",
+      "tabs": [
+        {
+          "tabName": "系统工具",
+          "list": [
+            { "name": "Geek", "url": "https://geekuninstaller.com/", "desc": "单文件软件卸载", "detail": "卸载后自动扫描残留，单文件绿色版。" },
+            { "name": "WindowTop", "url": "https://github.com/WindowTop/WindowTop-App", "desc": "窗口置顶画中画", "detail": "让任何窗口支持置顶、透明、画中画模式。" }
+          ]
+        },
+        {
+          "tabName": "局域网传输",
+          "list": [
+            { "name": "LocalSend", "url": "https://github.com/localsend/localsend", "desc": "开源局域网传输", "detail": "跨端神器，无需联网，完全开源。\n\n<img src='https://img.shields.io/github/stars/localsend/localsend?style=flat-square&color=green' />" },
+            { "name": "爱传送", "url": "https://mfiles.maokebing.com/", "desc": "多端同步文件", "detail": "扫码即连，网页版操作，无需安装客户端。" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "办公与效率",
+      "icon": "Briefcase",
+      "tabs": [
+        {
+          "tabName": "翻译OCR",
+          "list": [
+            { "name": "Pot", "url": "https://pot-app.com/", "desc": "划词翻译和OCR", "detail": "支持多种翻译引擎，生产力爆表工具。" },
+            { "name": "Umi-OCR", "url": "https://github.com/hiroi-sora/Umi-OCR", "desc": "离线OCR识别", "detail": "无需联网识别图片文字，保护隐私。\n\n<img src='https://img.shields.io/github/stars/hiroi-sora/Umi-OCR?style=flat-square&color=blue' />" }
+          ]
+        },
+        {
+          "tabName": "Office相关",
+          "list": [
+            { "name": "LKY Office Tools", "url": "https://github.com/OdysseusYuan/LKY_OfficeTools", "desc": "Office安装激活", "detail": "一键下载原版并自动激活。" },
+            { "name": "MAS", "url": "https://github.com/massgravel/Microsoft-Activation-Scripts", "desc": "Win/Office激活脚本", "detail": "GitHub最火激活脚本，安全透明。\n\n<img src='https://img.shields.io/github/stars/massgravel/Microsoft-Activation-Scripts?style=flat-square&color=blue' />" }
+          ]
+        }
+      ]
+    }
+  ]
+}

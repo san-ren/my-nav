@@ -1,32 +1,34 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Fuse from 'fuse.js';
-// 注意：这里引入的是 navResources，因为我们改用了多页面结构
-import { navResources } from '../data/nav.json';
 import { Search, X, Command, CornerDownLeft } from 'lucide-react';
+
+// --- 核心修改：动态获取 nav 文件夹下的所有页面数据 ---
+const navFiles = import.meta.glob('../data/nav/*.json', { eager: true });
+const navResources = Object.values(navFiles);
 
 export default function SearchModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
-  const [selectedIndex, setSelectedIndex] = useState(0); // 增加键盘上下选择功能
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef(null);
   const listRef = useRef(null);
 
   // 核心逻辑：数据扁平化，支持普通 list 和 tabs 结构
   const allLinks = navResources.flatMap(section =>
     section.categories.flatMap(cat => {
-      // 1. 如果有 tabs 结构，遍历所有 tab 里的 list
+      // 1. 如果有 tabs 结构
       if (cat.tabs) {
         return cat.tabs.flatMap(tab => 
           (tab.list || []).map(item => ({
             ...item,
             category: cat.name,
-            tabName: tab.tabName, // 额外记录标签名，方便搜索展示
+            tabName: tab.tabName,
             sectionName: section.name
           }))
         );
       }
-      // 2. 如果是原来的普通 list 结构
+      // 2. 如果是普通 list 结构
       return (cat.list || []).map(item => ({
         ...item,
         category: cat.name,
@@ -35,176 +37,120 @@ export default function SearchModal() {
     })
   );
 
-  
   // 配置模糊搜索
   const fuse = new Fuse(allLinks, {
-    keys: ['name', 'desc', 'url', 'category', 'sectionName'], // 增加搜索权重
-    threshold: 0.3, // 0.0 精确匹配，1.0 任意匹配，0.3 比较自然
-    includeMatches: true,
+    keys: ['name', 'desc', 'category', 'tabName'],
+    threshold: 0.4,
   });
 
-  // 快捷键监听
   useEffect(() => {
-    const handleKeydown = (e) => {
-      // 打开搜索: Cmd+K 或 Ctrl+K
+    if (query.length > 0) {
+      const res = fuse.search(query);
+      setResults(res.slice(0, 8)); // 只显示前 8 条
+      setSelectedIndex(0);
+    } else {
+      setResults([]);
+    }
+  }, [query]);
+
+  // 快捷键监听 (Ctrl+K 或 Cmd+K)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         setIsOpen(true);
       }
-      // 关闭搜索: Escape
-      if (e.key === 'Escape') {
-        setIsOpen(false);
-      }
-      
-      // 只有在打开状态下才监听上下键
-      if (isOpen) {
-        if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          setSelectedIndex(prev => (prev + 1 < results.length ? prev + 1 : prev));
-        }
-        if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          setSelectedIndex(prev => (prev - 1 >= 0 ? prev - 1 : 0));
-        }
-        if (e.key === 'Enter' && results.length > 0) {
-          window.open(results[selectedIndex].url, '_blank');
-        }
-      }
+      if (e.key === 'Escape') setIsOpen(false);
     };
-    window.addEventListener('keydown', handleKeydown);
-    return () => window.removeEventListener('keydown', handleKeydown);
-  }, [isOpen, results, selectedIndex]);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
-  // 打开时自动聚焦，并重置选中项
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 100);
-      setSelectedIndex(0);
-    }
-    // 搜索逻辑
-    if (query) {
-      const searchRes = fuse.search(query).map(r => r.item);
-      setResults(searchRes);
-      setSelectedIndex(0); // 搜索变动时重置选中第一项
+      document.body.style.overflow = 'hidden';
     } else {
-      setResults([]);
+      document.body.style.overflow = 'auto';
     }
-  }, [isOpen, query]);
+  }, [isOpen]);
 
-  // 1. 未打开状态下的触发按钮
-  if (!isOpen) return (
-    <button 
-      onClick={() => setIsOpen(true)} 
-      className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-500 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors border border-transparent hover:border-gray-300 dark:hover:border-gray-600"
-    >
-      <Search size={14} />
-      <span className="hidden sm:inline">搜索</span>
-      <div className="hidden sm:flex items-center gap-0.5 px-1.5 py-0.5 text-xs font-mono bg-white dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600 text-gray-400">
-        <Command size={10} />
-        <span>K</span>
-      </div>
-    </button>
-  );
-
-  // 2. 打开状态下的模态框
   return (
-    <div 
-      className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] bg-black/40 backdrop-blur-sm p-4 animate-in fade-in duration-200" 
-      onClick={() => setIsOpen(false)}
-    >
-      <div 
-        className="w-full max-w-2xl bg-white dark:bg-gray-900 rounded-xl shadow-2xl overflow-hidden ring-1 ring-gray-900/5 dark:ring-white/10 flex flex-col max-h-[70vh]" 
-        onClick={e => e.stopPropagation()}
+    <>
+      {/* 搜索按钮 */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="flex items-center gap-2 px-3 py-1.5 text-sm text-slate-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:ring-2 hover:ring-blue-500/20 transition-all border border-slate-200 dark:border-slate-700"
       >
-        {/* 顶部输入框 */}
-        <div className="flex items-center border-b border-gray-100 dark:border-gray-800 p-4">
-          <Search className="text-blue-500 mr-3" size={20} />
-          <input
-            ref={inputRef}
-            type="text"
-            className="flex-1 bg-transparent outline-none text-lg text-gray-800 dark:text-gray-100 placeholder-gray-400"
-            placeholder="搜索网站、开发工具或设计资源..."
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-          />
-          <button 
-            onClick={() => setIsOpen(false)} 
-            className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        <Search size={16} />
+        <span className="hidden sm:inline">搜索...</span>
+        <kbd className="hidden sm:flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-sans font-medium text-slate-500 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md">
+          <Command size={10} />K
+        </kbd>
+      </button>
+
+      {/* 搜索弹窗 */}
+      {isOpen && (
+        <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] px-4 bg-slate-900/60 backdrop-blur-sm">
+          <div 
+            className="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
           >
-            <X className="text-gray-400" size={20} />
-          </button>
+            <div className="flex items-center px-4 py-4 border-b border-slate-100 dark:border-slate-800">
+              <Search className="text-slate-400 mr-3" size={20} />
+              <input
+                ref={inputRef}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="输入关键字搜索全站工具..."
+                className="flex-1 bg-transparent border-none outline-none text-slate-800 dark:text-slate-100 placeholder-slate-400"
+              />
+              <button onClick={() => setIsOpen(false)} className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-slate-400">
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="max-h-[60vh] overflow-y-auto p-2" ref={listRef}>
+              {results.length > 0 ? (
+                <div className="space-y-1">
+                  {results.map((result, index) => (
+                    <a
+                      key={index}
+                      href={result.item.url}
+                      target="_blank"
+                      className={`flex items-center justify-between p-3 rounded-xl transition-all ${
+                        selectedIndex === index ? 'bg-blue-600 text-white shadow-lg' : 'hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300'
+                      }`}
+                    >
+                      <div className="flex flex-col overflow-hidden">
+                        <span className="font-bold text-sm truncate">{result.item.name}</span>
+                        <div className="flex items-center gap-2 text-[11px] opacity-70">
+                          <span>{result.item.sectionName}</span>
+                          <span>/</span>
+                          <span>{result.item.category}</span>
+                          {result.item.tabName && (
+                            <><span>/</span><span>{result.item.tabName}</span></>
+                          )}
+                        </div>
+                      </div>
+                      <CornerDownLeft size={14} className="opacity-40" />
+                    </a>
+                  ))}
+                </div>
+              ) : query ? (
+                <div className="py-12 text-center text-slate-400">
+                  没有找到与 "{query}" 相关的结果
+                </div>
+              ) : (
+                <div className="py-12 text-center text-slate-400 text-sm">
+                  输入名称或描述开始搜索
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="fixed inset-0 -z-10" onClick={() => setIsOpen(false)} />
         </div>
-
-        {/* 结果列表 */}
-        <div className="overflow-y-auto p-2" ref={listRef}>
-          {results.length === 0 && query ? (
-            <div className="py-12 text-center text-gray-500">
-              <p>未找到 "{query}" 相关结果</p>
-            </div>
-          ) : (
-            <div className="space-y-1">
-              {(query ? results : allLinks.slice(0, 5)).map((item, idx) => (
-                <a 
-                  key={idx} 
-                  href={item.url} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className={`flex items-center p-3 rounded-lg group transition-colors cursor-pointer ${
-                    idx === selectedIndex 
-                      ? 'bg-blue-50 dark:bg-blue-900/20' 
-                      : 'hover:bg-gray-50 dark:hover:bg-gray-800'
-                  }`}
-                  onMouseEnter={() => setSelectedIndex(idx)}
-                >
-                  {/* 图标/Favicon (可选，这里用简单的圆圈代替，或者你可以复用 SiteCard 的 Logo 逻辑) */}
-                  <div className={`mr-4 flex h-8 w-8 items-center justify-center rounded-full border ${
-                     idx === selectedIndex ? 'border-blue-200 bg-white dark:border-blue-800 dark:bg-gray-800' : 'border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800'
-                  }`}>
-                     <img 
-                        src={`https://www.google.com/s2/favicons?domain=${new URL(item.url).hostname}&sz=32`} 
-                        className="w-4 h-4" 
-                        loading="lazy"
-                        onError={(e) => e.target.style.display='none'}
-                     />
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <h4 className={`font-medium truncate ${
-                        idx === selectedIndex ? 'text-blue-600 dark:text-blue-400' : 'text-gray-900 dark:text-gray-100'
-                      }`}>
-                        {item.name}
-                      </h4>
-                      {/* 显示所属板块和分类 */}
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500">
-                        {item.sectionName} · {item.category}
-                      </span>
-                    </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                      {item.desc || item.url}
-                    </p>
-                  </div>
-
-                  {/* 选中时的回车提示 */}
-                  {idx === selectedIndex && (
-                    <CornerDownLeft className="text-gray-400 ml-3" size={16} />
-                  )}
-                </a>
-              ))}
-            </div>
-          )}
-          
-          {/* 底部提示 */}
-          {!query && (
-            <div className="px-4 py-8 text-center">
-              <p className="text-xs text-gray-400">
-                支持拼音、中文、英文搜索 <br/>
-                按 <kbd className="font-sans bg-gray-100 dark:bg-gray-800 px-1 rounded">↑</kbd> <kbd className="font-sans bg-gray-100 dark:bg-gray-800 px-1 rounded">↓</kbd> 切换，<kbd className="font-sans bg-gray-100 dark:bg-gray-800 px-1 rounded">Enter</kbd> 访问
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }

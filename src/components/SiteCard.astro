@@ -1,54 +1,90 @@
 ---
-const { title, url, desc, detail } = Astro.props; // 增加 detail 属性
+import { marked } from 'marked';
 
+const { title, url, desc, detail } = Astro.props;
+const base = '/my-nav'; // 统一使用项目基础路径
+
+// 自动 Logo 逻辑
 const getFavicon = (u) => {
   try {
     const domain = new URL(u).hostname;
+    // 使用 Google API 获取高质量图标
     return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
   } catch (e) {
-    return '/my-nav/favicon.svg';
+    return `${base}/favicon.svg`;
   }
 };
 
+// Markdown 解析逻辑
+const detailHtml = detail ? marked.parse(detail) : '';
 const logoUrl = getFavicon(url);
 ---
 
 <div class="group relative">
+  <!-- 主卡片 -->
   <a href={url} target="_blank" 
      class="flex items-center p-4 h-[90px] bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl border border-white/50 dark:border-gray-700/30 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1.5 transition-all duration-300 hover:border-blue-500/50"
   >
+    <!-- 图标容器 -->
     <div class="flex-shrink-0 mr-4 w-11 h-11 rounded-xl bg-white dark:bg-gray-700 shadow-sm overflow-hidden flex items-center justify-center border border-gray-100 dark:border-gray-600 group-hover:scale-110 transition-transform duration-300">
-      <img src={logoUrl} alt={title} class="w-7 h-7 object-contain" />
+      <img 
+        src={logoUrl} 
+        alt={title} 
+        loading="lazy"
+        class="w-7 h-7 object-contain" 
+        onerror={`this.src='${base}/favicon.svg'`} 
+      />
     </div>
     
-    <div class="flex-1 min-w-0"> <!-- min-w-0 是为了让内层溢出控制生效 -->
+    <!-- 文字内容 -->
+    <div class="flex-1 min-w-0">
       <h3 class="font-bold text-[14px] text-slate-800 dark:text-slate-100 group-hover:text-blue-600 transition-colors line-clamp-1">
         {title}
       </h3>
-      
-      {/* 修改点：将 truncate 换成 line-clamp-2 */}
-      <p class="text-[12px] text-slate-400 dark:text-slate-500 mt-1 leading-snug line-clamp-2">
+      <p class="text-[12px] text-slate-400 dark:text-slate-500 mt-1 leading-snug line-clamp-2 italic">
         {desc || url}
       </p>
     </div>
   </a>
 
-
-  <!-- 浮动说明框 (只有存在 detail 时才渲染) -->
+  <!-- 浮动说明框 (支持 Markdown 和 分屏预览效果) -->
   {detail && (
     <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 p-4 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-300 z-50 pointer-events-none">
-      <!-- 小三角 -->
+      <!-- 装饰性小三角 -->
       <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white/95 dark:bg-gray-900/95 border-r border-b border-slate-200 dark:border-slate-700 rotate-45"></div>
       
-      <!-- 标题 -->
-      <div class="text-[13px] font-bold text-slate-800 dark:text-slate-100 mb-2 flex items-center gap-2">
-        <div class="w-1.5 h-3 bg-blue-500 rounded-full"></div>
-        {title} 详情
+      <!-- 顶部小标题 -->
+      <div class="text-[12px] font-black text-blue-600 dark:text-blue-400 mb-2.5 flex items-center gap-2 uppercase tracking-wider">
+        <span class="w-1.5 h-3 bg-blue-500 rounded-full"></span>
+        详情介绍
       </div>
       
-      <!-- 详情内容 (支持 HTML) -->
-      <div class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed break-words" set:html={detail}>
+      <!-- Markdown 渲染区 -->
+      <div 
+        class="detail-markdown text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed" 
+        set:html={detailHtml}
+      >
       </div>
     </div>
   )}
 </div>
+
+<style is:global>
+  /* 针对详情框内 Markdown 样式的微调 */
+  .detail-markdown p {
+    @apply mb-2;
+  }
+  .detail-markdown b, .detail-markdown strong {
+    @apply text-slate-800 dark:text-slate-200 font-bold;
+  }
+  .detail-markdown ul {
+    @apply list-disc list-inside mb-2;
+  }
+  .detail-markdown img {
+    @apply inline-block mt-1 mb-1 rounded-sm;
+    max-height: 20px; /* 限制徽章高度 */
+  }
+  .detail-markdown hr {
+    @apply border-slate-100 dark:border-slate-800 my-2;
+  }
+</style>
