@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Fuse from 'fuse.js';
 // 注意：这里引入的是 navResources，因为我们改用了多页面结构
-import { navResources } from '../data/siteData';
+import { navResources } from '../data/nav.json';
 import { Search, X, Command, CornerDownLeft } from 'lucide-react';
 
 export default function SearchModal() {
