@@ -2,7 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import SiteCard from '../components/SiteCard.astro';
 import SearchModal from '../components/SearchModal.jsx';
-import { navResources, friendLinks, siteConfig } from '../data/siteData';
+import navData from '../data/nav.json';
+const { navResources, friendLinks, siteConfig } = navData;
 import { LayoutDashboard, Star, Code, Palette, Menu, Github, Edit, Sun, Moon } from 'lucide-react';
 
 // 1. 生成静态路径：告诉 Astro 我们有哪些页面 (home, dev, design)
