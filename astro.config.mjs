@@ -1,12 +1,14 @@
 import { defineConfig } from 'astro/config';
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
+import keystatic from '@keystatic/astro';
 
-// https://astro.build/config
 export default defineConfig({
-  // 关键在这里！必须把 tailwind() 和 react() 放进去
-  integrations: [
-    tailwind(), 
-    react()
-  ],
+  integrations: [tailwind(), react(), keystatic()],
+  
+  // 1. 你的 GitHub Pages 完整域名
+  site: 'https://san-ren.github.io',
+  
+  // 2. 关键！必须加上你的仓库名作为后缀
+  base: '/my-nav', 
 });

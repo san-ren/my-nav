@@ -1,4 +1,4 @@
 ---
-// 直接重定向到你的第一个分组，这里假设第一个分组 id 是 "home"
-return Astro.redirect('/home');
+// 必须加上仓库名前缀，否则它会跳到根域名的 /home
+return Astro.redirect('/my-nav/home');
 ---
