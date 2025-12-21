@@ -13,55 +13,81 @@
       "icon": "Star",
       "categories": [
         {
-          "name": "看了不吃亏，不看别后悔",
+          "name": "精华资源",
           "icon": "Star",
           "list": [
-            { "name": "小田田", "url": "https://xydh.fun/xiaotiantian", "desc": "汇总导航,你想要的都有" },
-            { "name": "低调观影", "url": "https://shouku123.com/tiantian", "desc": "观影网站导航" },
-            { "name": "奔跑中的奶酪", "url": "https://www.runningcheese.com/", "desc": "有智，有趣，有爱" },
-            { "name": "小众软件", "url": "https://www.appinn.com/", "desc": "分享、体验、评测电脑软件" },
-            { "name": "异次元", "url": "https://www.iplaysoft.com/", "desc": "专注于推荐优秀软件" },
-            { "name": "IT之家", "url": "https://soft.ithome.com/", "desc": "软件资讯、教程、下载" },
-            { "name": "下一个好软件", "url": "https://x1g.la/", "desc": "公众号“下一个好软件”网站" },
-            { "name": "不死鸟", "url": "https://iui.su/", "desc": "专注分享优质资源" },
-            { "name": "423down", "url": "https://www.423down.com/", "desc": "知名软件达人" }
+            { "name": "小田田", "url": "https://xydh.fun/xiaotiantian", "desc": "汇总导航,你想要的都有", "detail": "<b>资源聚合站</b><br/>涵盖了影视、工具、学习等全方位资源索引，非常适合寻找冷门素材。" },
+            { "name": "低调观影", "url": "https://shouku123.com/tiantian", "desc": "观影网站导航", "detail": "<b>影视导航</b><br/>收录全网优质观影站点，实时更新线路，从此找剧不求人。" },
+            { "name": "奔跑中的奶酪", "url": "https://www.runningcheese.com/", "desc": "有智，有趣，有爱", "detail": "<b>深度技术博客</b><br/>主打浏览器定制、系统优化方案，奶酪出品必属精品。" },
+            { "name": "小众软件", "url": "https://www.appinn.com/", "desc": "分享、体验、评测电脑软件", "detail": "<b>老牌软件媒体</b><br/>发现冷门但极其好用的“小众”利器，让你的电脑效率翻倍。" },
+            { "name": "异次元", "url": "https://www.iplaysoft.com/", "desc": "专注于推荐优秀软件", "detail": "<b>全方位软件站</b><br/>除了软件评测，还有大量的高清壁纸和福利资源。" },
+            { "name": "IT之家", "url": "https://soft.ithome.com/", "desc": "软件资讯、教程、下载", "detail": "<b>行业资讯风向标</b><br/>第一时间掌握科技圈大事和系统更新动态。" },
+            { "name": "423down", "url": "https://www.423down.com/", "desc": "知名软件达人", "detail": "<b>去广告精简站</b><br/>提供各类常用软件的精简版、无广告版，洁癖用户首选。" }
           ]
         },
         {
-          "name": "音乐-win",
+          "name": "影音媒体",
           "icon": "Music",
-          "list": [
-            { "name": "Listen1", "url": "https://github.com/listen1", "desc": "聚合音乐播放" },
-            { "name": "洛雪音乐助手", "url": "https://github.com/lyswhut/lx-music-desktop", "desc": "全网在线音乐播放" },
-            { "name": "MusicFree", "url": "https://github.com/maotoumao", "desc": "定制化无广告播放器" },
-            { "name": "YesPlayMusic", "url": "https://github.com/qier222/YesPlayMusic", "desc": "高颜值第三方网易云" }
+          "tabs": [
+            {
+              "tabName": "Windows",
+              "list": [
+                { 
+                  "name": "Listen1", "url": "https://github.com/listen1", "desc": "聚合音乐播放", 
+                  "detail": "<b>一站式搜索</b><br/>支持网易云、QQ、虾米、酷狗等多平台音乐聚合。<br/><br/><img src='https://img.shields.io/github/stars/listen1/listen1_desktop?style=flat-square&color=blue' />"
+                },
+                { 
+                  "name": "洛雪音乐助手", "url": "https://github.com/lyswhut/lx-music-desktop", "desc": "全网在线音乐播放", 
+                  "detail": "<b>音乐神器</b><br/>支持多平台搜索，内置强力音源。界面清爽无广告。<br/><br/><img src='https://img.shields.io/github/stars/lyswhut/lx-music-desktop?style=flat-square&color=orange' />"
+                },
+                { 
+                  "name": "MusicFree", "url": "https://github.com/maotoumao", "desc": "定制化无广告播放器", 
+                  "detail": "<b>插件化驱动</b><br/>通过安装插件获取音源，具有极强的可扩展性和自由度。<br/><br/><img src='https://img.shields.io/github/stars/maotoumao/MusicFree?style=flat-square&color=green' />"
+                },
+                { 
+                  "name": "YesPlayMusic", "url": "https://github.com/qier222/YesPlayMusic", "desc": "高颜值第三方网易云", 
+                  "detail": "<b>颜值巅峰</b><br/>基于Vue构建的网易云三方客户端，支持 UnblockNeteaseMusic。<br/><br/><img src='https://img.shields.io/github/stars/qier222/YesPlayMusic?style=flat-square&color=red' />"
+                }
+              ]
+            },
+            {
+              "tabName": "Android",
+              "list": [
+                { "name": "酷狗概念版", "url": "https://activity.kugou.com/download/v-a23b0cf0/index.html", "desc": "每日领VIP", "detail": "<b>官方良心版</b><br/>每天播放一首歌即可领取VIP，纯净无广告。" },
+                { 
+                  "name": "Spotube", "url": "https://spotube.krtirtho.dev/", "desc": "开源 Spotify 客户端", 
+                  "detail": "<b>跨平台播放</b><br/>无需 Spotify Premium 即可免费播放，使用 YouTube 音源。<br/><br/><img src='https://img.shields.io/github/stars/KRTirtho/spotube?style=flat-square&color=blue' />"
+                }
+              ]
+            }
           ]
         },
         {
-          "name": "音乐-Android",
-          "icon": "Headphones",
-          "list": [
-            { "name": "酷狗概念版", "url": "https://activity.kugou.com/download/v-a23b0cf0/index.html", "desc": "每日领VIP" },
-            { "name": "Spotube", "url": "https://spotube.krtirtho.dev/", "desc": "开源 Spotify 客户端" },
-            { "name": "InnerTune", "url": "https://github.com/z-huang/InnerTune", "desc": "第三方 YouTube Music" }
-          ]
-        },
-        {
-          "name": "看图、截图",
-          "icon": "Camera",
-          "list": [
-            { "name": "Honeyview", "url": "http://www.bandisoft.com/honeyview/", "desc": "蜂蜜浏览器" },
-            { "name": "PixPin", "url": "https://pixpinapp.com/", "desc": "长截图、贴图神器" },
-            { "name": "Snipaste", "url": "https://zh.snipaste.com/", "desc": "截图+贴图" }
-          ]
-        },
-        {
-          "name": "文件下载",
-          "icon": "Download",
-          "list": [
-            { "name": "IDM", "url": "https://www.internetdownloadmanager.com/", "desc": "多线程下载利器" },
-            { "name": "Motrix", "url": "https://motrix.app/", "desc": "高颜值下载工具" },
-            { "name": "Gopeed", "url": "https://gopeed.com/zh-CN", "desc": "全平台开源下载" }
+          "name": "常用工具",
+          "icon": "Hammer",
+          "tabs": [
+            {
+              "tabName": "图影截图",
+              "list": [
+                { "name": "Honeyview", "url": "http://www.bandisoft.com/honeyview/", "desc": "蜂蜜浏览器", "detail": "<b>轻快看图</b><br/>支持压缩包直接预览图片，速度极快，格式支持极其丰富。" },
+                { "name": "PixPin", "url": "https://pixpinapp.com/", "desc": "长截图、贴图神器", "detail": "<b>全能选手</b><br/>Snipaste 的强力竞争者，支持长截图、GIF录制和智能OCR。" },
+                { "name": "Snipaste", "url": "https://zh.snipaste.com/", "desc": "截图+贴图", "detail": "<b>经典工具</b><br/>将截图贴在屏幕上，极大地提高工作效率，UI设计利器。" }
+              ]
+            },
+            {
+              "tabName": "下载利器",
+              "list": [
+                { "name": "IDM", "url": "https://www.internetdownloadmanager.com/", "desc": "多线程下载利器", "detail": "<b>下载之王</b><br/>通过多线程分割下载，支持浏览器插件嗅探，下载速度满带宽。" },
+                { 
+                  "name": "Motrix", "url": "https://motrix.app/", "desc": "高颜值下载工具", 
+                  "detail": "<b>全能下载器</b><br/>支持 HTTP、FTP、BT、磁力链接等。基于 Electron 开发。<br/><br/><img src='https://img.shields.io/github/stars/agalwood/Motrix?style=flat-square&color=blue' />"
+                },
+                { 
+                  "name": "Gopeed", "url": "https://gopeed.com/zh-CN", "desc": "全平台开源下载", 
+                  "detail": "<b>Go开发</b><br/>支持全平台，界面简洁，完全开源，无广告。<br/><br/><img src='https://img.shields.io/github/stars/GopeedLab/gopeed?style=flat-square&color=green' />"
+                }
+              ]
+            }
           ]
         }
       ]
@@ -72,59 +98,67 @@
       "icon": "Hammer",
       "categories": [
         {
-          "name": "系统工具",
-          "icon": "Hammer",
-          "list": [
-            { "name": "Geek", "url": "https://geekuninstaller.com/", "desc": "单文件软件卸载" },
-            { "name": "HiBit Uninstaller", "url": "https://www.hibitsoft.ir/", "desc": "支持中文软件卸载" },
-            { "name": "Uninstalr", "url": "https://uninstalr.com/", "desc": "深度分析软件数据" },
-            { "name": "WindowTop", "url": "https://github.com/WindowTop/WindowTop-App", "desc": "窗口置顶画中画" },
-            { "name": "MemReduct", "url": "https://www.henrypp.org/product/memreduct", "desc": "开源内存清理" }
+          "name": "系统与通讯",
+          "icon": "Settings",
+          "tabs": [
+            {
+              "tabName": "系统工具",
+              "list": [
+                { "name": "Geek", "url": "https://geekuninstaller.com/", "desc": "单文件软件卸载", "detail": "<b>强力清理</b><br/>卸载软件后自动扫描并清除注册表和残留文件，单文件绿色免安装。" },
+                { "name": "WindowTop", "url": "https://github.com/WindowTop/WindowTop-App", "desc": "窗口置顶画中画", "detail": "<b>多窗管理</b><br/>让任何窗口支持置顶、透明、画中画模式。" },
+                { "name": "MemReduct", "url": "https://www.henrypp.org/product/memreduct", "desc": "开源内存清理", "detail": "<b>轻量清理</b><br/>一键释放被系统占用的内存，监控系统内存实时状态。" }
+              ]
+            },
+            {
+              "tabName": "大厂相关",
+              "list": [
+                { "name": "CleanMyWechat", "url": "https://github.com/blackboxo/CleanMyWechat", "desc": "自动删除微信缓存", "detail": "<b>空间杀手</b><br/>自动清理PC微信的重复文件、过期缓存，找回被微信吞掉的G级磁盘空间。" },
+                { "name": "WeChatMsg/留痕", "url": "https://memotrace.lc044.love/", "desc": "提取微信聊天记录", "detail": "<b>回忆留存</b><br/>提取并导出微信聊天记录为 HTML、Word 等格式。<br/><br/><img src='https://img.shields.io/github/stars/LC044/WeChatMsg?style=flat-square&color=orange' />" }
+              ]
+            },
+            {
+              "tabName": "局域网传输",
+              "list": [
+                { 
+                  "name": "LocalSend", "url": "https://github.com/localsend/localsend", "desc": "开源局域网传输", 
+                  "detail": "<b>跨端神器</b><br/>无需联网，局域网内手机电脑互传。全平台支持，完全开源。<br/><br/><img src='https://img.shields.io/github/stars/localsend/localsend?style=flat-square&color=green' />"
+                },
+                { "name": "爱传送", "url": "https://mfiles.maokebing.com/", "desc": "多端同步文件", "detail": "<b>极简传输</b><br/>扫码即连，网页版操作，无需在电脑端安装软件。" }
+              ]
+            }
           ]
         },
         {
-          "name": "大厂相关",
-          "icon": "Github",
-          "list": [
-            { "name": "RevokeMsgPatcher", "url": "https://github.com/huiyadanli/RevokeMsgPatcher", "desc": "微信/QQ防撤回" },
-            { "name": "CleanMyWechat", "url": "https://github.com/blackboxo/CleanMyWechat", "desc": "自动删除微信缓存" },
-            { "name": "WeChatMsg/留痕", "url": "https://memotrace.lc044.love/", "desc": "提取微信聊天记录" }
-          ]
-        },
-        {
-          "name": "翻译 & OCR",
-          "icon": "Languages",
-          "list": [
-            { "name": "Pot", "url": "https://pot-app.com/", "desc": "划词翻译和OCR" },
-            { "name": "CrowTranslate", "url": "https://github.com/crow-translate/crow-translate", "desc": "开源翻译API调用" },
-            { "name": "Umi-OCR", "url": "https://github.com/hiroi-sora/Umi-OCR", "desc": "离线OCR识别" }
-          ]
-        },
-        {
-          "name": "PDF 工具",
-          "icon": "FileText",
-          "list": [
-            { "name": "SumatraPDF", "url": "https://www.sumatrapdfreader.org", "desc": "极简PDF阅读器" },
-            { "name": "PDFgear", "url": "https://www.pdfgear.com/zh/", "desc": "阅读、编辑、转换PDF" },
-            { "name": "PDFPatcher", "url": "https://www.cnblogs.com/pdfpatcher/", "desc": "多功能PDF工具箱" }
-          ]
-        },
-        {
-          "name": "Office 相关",
+          "name": "办公与效率",
           "icon": "Briefcase",
-          "list": [
-            { "name": "LKY Office Tools", "url": "https://github.com/OdysseusYuan/LKY_OfficeTools", "desc": "Office自动化安装激活" },
-            { "name": "MAS", "url": "https://github.com/massgravel/Microsoft-Activation-Scripts", "desc": "Win/Office激活脚本" },
-            { "name": "HEU KMS Activator", "url": "https://github.com/zbezj/HEU_KMS_Activator", "desc": "知名的全能激活工具" }
-          ]
-        },
-        {
-          "name": "局域网传输",
-          "icon": "Network",
-          "list": [
-            { "name": "闪电藤", "url": "https://lightningvine.zishu.life/", "desc": "局域网传输工具" },
-            { "name": "LocalSend", "url": "https://github.com/localsend/localsend", "desc": "开源局域网传输" },
-            { "name": "爱传送", "url": "https://mfiles.maokebing.com/", "desc": "多端同步文件" }
+          "tabs": [
+            {
+              "tabName": "翻译OCR",
+              "list": [
+                { "name": "Pot", "url": "https://pot-app.com/", "desc": "划词翻译和OCR", "detail": "<b>一键识图</b><br/>支持多种翻译引擎，快捷键划词/截图翻译，生产力爆表。" },
+                { 
+                  "name": "Umi-OCR", "url": "https://github.com/hiroi-sora/Umi-OCR", "desc": "离线OCR识别", 
+                  "detail": "<b>本地运行</b><br/>无需联网即可识别图片文字，保护隐私，速度极快。<br/><br/><img src='https://img.shields.io/github/stars/hiroi-sora/Umi-OCR?style=flat-square&color=blue' />"
+                }
+              ]
+            },
+            {
+              "tabName": "PDF工具",
+              "list": [
+                { "name": "PDFgear", "url": "https://www.pdfgear.com/zh/", "desc": "阅读、编辑、转换PDF", "detail": "<b>免费全能</b><br/>集阅读、转换、合并、签名于一体，完全免费且无水印。" },
+                { "name": "PDFPatcher", "url": "https://www.cnblogs.com/pdfpatcher/", "desc": "多功能PDF工具箱", "detail": "<b>PDF补丁丁</b><br/>国内开发者出品，功能极其强大的PDF二次加工工具。" }
+              ]
+            },
+            {
+              "tabName": "Office相关",
+              "list": [
+                { "name": "LKY Office Tools", "url": "https://github.com/OdysseusYuan/LKY_OfficeTools", "desc": "Office自动化安装激活", "detail": "<b>懒人福音</b><br/>一键下载原版并自动激活，省去寻找镜像和序列号的烦恼。" },
+                { 
+                  "name": "MAS", "url": "https://github.com/massgravel/Microsoft-Activation-Scripts", "desc": "Win/Office激活脚本", 
+                  "detail": "<b>数字权利</b><br/>GitHub 上星数最多的激活脚本，安全、透明、强大。<br/><br/><img src='https://img.shields.io/github/stars/massgravel/Microsoft-Activation-Scripts?style=flat-square&color=blue' />"
+                }
+              ]
+            }
           ]
         }
       ]

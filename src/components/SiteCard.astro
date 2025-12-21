@@ -1,38 +1,54 @@
 ---
-import { Image } from 'astro:assets';
-const { title, url, desc } = Astro.props;
+const { title, url, desc, detail } = Astro.props; // 增加 detail 属性
 
-// 自动 Logo API 策略：优先用 Google，失败回退到默认
-// 你也可以换成 https://api.iowen.cn/favicon/ (WebStack同款)
 const getFavicon = (u) => {
   try {
     const domain = new URL(u).hostname;
     return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
   } catch (e) {
-    return '/favicon.svg';
+    return '/my-nav/favicon.svg';
   }
 };
 
 const logoUrl = getFavicon(url);
 ---
 
-<a href={url} target="_blank" class="group relative flex items-center p-3 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300">
-  <div class="flex-shrink-0 mr-3 w-10 h-10 rounded-full bg-gray-50 dark:bg-gray-700 overflow-hidden flex items-center justify-center border border-gray-100 dark:border-gray-600">
-    <!-- 图片加载失败时会自动隐藏，这里可以加一段简单的 JS 处理 onerror，或者直接利用 object-cover -->
-    <img 
-      src={logoUrl} 
-      alt={title} 
-      loading="lazy"
-      class="w-full h-full object-cover" 
-      onerror="this.src='/favicon.svg'" 
-    />
-  </div>
-  <div class="overflow-hidden flex-1">
-    <h3 class="font-bold text-sm text-gray-800 dark:text-gray-100 truncate group-hover:text-blue-500 transition-colors">
-      {title}
-    </h3>
-    <p class="text-xs text-gray-400 dark:text-gray-500 truncate mt-0.5">
-      {desc || url}
-    </p>
-  </div>
-</a>
+<div class="group relative">
+  <a href={url} target="_blank" 
+     class="flex items-center p-4 h-[90px] bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl border border-white/50 dark:border-gray-700/30 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1.5 transition-all duration-300 hover:border-blue-500/50"
+  >
+    <div class="flex-shrink-0 mr-4 w-11 h-11 rounded-xl bg-white dark:bg-gray-700 shadow-sm overflow-hidden flex items-center justify-center border border-gray-100 dark:border-gray-600 group-hover:scale-110 transition-transform duration-300">
+      <img src={logoUrl} alt={title} class="w-7 h-7 object-contain" />
+    </div>
+    
+    <div class="flex-1 min-w-0"> <!-- min-w-0 是为了让内层溢出控制生效 -->
+      <h3 class="font-bold text-[14px] text-slate-800 dark:text-slate-100 group-hover:text-blue-600 transition-colors line-clamp-1">
+        {title}
+      </h3>
+      
+      {/* 修改点：将 truncate 换成 line-clamp-2 */}
+      <p class="text-[12px] text-slate-400 dark:text-slate-500 mt-1 leading-snug line-clamp-2">
+        {desc || url}
+      </p>
+    </div>
+  </a>
+
+
+  <!-- 浮动说明框 (只有存在 detail 时才渲染) -->
+  {detail && (
+    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 p-4 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-300 z-50 pointer-events-none">
+      <!-- 小三角 -->
+      <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white/95 dark:bg-gray-900/95 border-r border-b border-slate-200 dark:border-slate-700 rotate-45"></div>
+      
+      <!-- 标题 -->
+      <div class="text-[13px] font-bold text-slate-800 dark:text-slate-100 mb-2 flex items-center gap-2">
+        <div class="w-1.5 h-3 bg-blue-500 rounded-full"></div>
+        {title} 详情
+      </div>
+      
+      <!-- 详情内容 (支持 HTML) -->
+      <div class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed break-words" set:html={detail}>
+      </div>
+    </div>
+  )}
+</div>

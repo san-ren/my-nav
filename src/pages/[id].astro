@@ -3,92 +3,145 @@ import Layout from '../layouts/Layout.astro';
 import SiteCard from '../components/SiteCard.astro';
 import SearchModal from '../components/SearchModal.jsx';
 import navData from '../data/nav.json';
-import { LayoutDashboard, Star, Code, Palette, Menu, Github, Edit, Sun, Moon } from 'lucide-react';
+import { LayoutDashboard, Star, Code, Palette, Edit, Sun, Moon } from 'lucide-react';
 
-// 1. 生成静态路径
+// --- 关键修正：必须导出 getStaticPaths ---
 export async function getStaticPaths() {
-  // 直接从导入的 navData 中获取路径，最稳妥
   return navData.navResources.map((section) => ({
     params: { id: section.id },
     props: { section },
   }));
 }
 
-// 2. 获取数据
 const { section } = Astro.props;
 const { id } = Astro.params;
 const { siteConfig, navResources } = navData;
+const base = '/my-nav';
 
-// 图标映射
 const Icons = { Star, Code, Palette, LayoutDashboard };
 const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 ---
 
 <Layout title={`${section.name} - ${siteConfig.title}`}>
-  <div class="flex min-h-screen bg-[#f4f6f9] dark:bg-[#0d1117]">
+  <div class="flex min-h-screen">
     
     <!-- 侧边栏 Sidebar -->
-    <aside class="fixed inset-y-0 left-0 z-40 w-64 bg-white/90 dark:bg-gray-900/90 backdrop-blur border-r border-gray-200 dark:border-gray-800 hidden md:block">
-      <div class="p-6 border-b border-gray-100 dark:border-gray-800 flex items-center gap-3">
-        <img src="/favicon.svg" class="w-8 h-8 rounded-lg" alt="Logo" />
-        <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-600">
+    <aside class="fixed inset-y-0 left-0 z-40 w-64 bg-white/40 dark:bg-gray-900/60 backdrop-blur-2xl border-r border-slate-200/50 dark:border-gray-800/50 hidden md:block">
+      <div class="p-6 mb-2 flex items-center gap-3">
+        <div class="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30">
+          <img src={`${base}/favicon.svg`} class="w-6 h-6 invert brightness-0" alt="Logo" />
+        </div>
+        <span class="text-lg font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-500 dark:from-white dark:to-slate-400">
           {siteConfig.title}
         </span>
       </div>
-      <nav class="p-4 space-y-1">
+      
+      <nav class="p-4 space-y-2">
         {navResources.map((item) => {
           const isActive = item.id === id;
           return (
-            <a href={`/${item.id}`} class={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all group ${isActive ? 'bg-blue-50 text-blue-600 dark:bg-gray-800 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'}`}>
+            <a href={`${base}/${item.id}`} 
+               class={`relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group
+               ${isActive 
+                 ? 'bg-white dark:bg-gray-800 text-blue-600 shadow-[0_10px_25px_-5px_rgba(59,130,246,0.2)] translate-x-1 font-bold' 
+                 : 'text-slate-500 hover:text-slate-900 dark:hover:text-white hover:translate-x-1'
+               }`}
+            >
+              {isActive && <div class="absolute left-0 w-1.5 h-5 bg-blue-600 rounded-r-full shadow-[4px_0_12px_rgba(37,99,235,0.6)]"></div>}
               <LayoutDashboard size={18} /> 
-              <span class="font-medium">{item.name}</span>
+              <span class="text-[14px] font-medium">{item.name}</span>
             </a>
           );
         })}
       </nav>
     </aside>
 
-    <!-- 主内容区 -->
     <main class="flex-1 md:ml-64">
-      <header class="sticky top-0 z-30 flex items-center justify-between px-6 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur border-b border-gray-200/50 dark:border-gray-800/50">
-        <h1 class="text-xl font-bold flex items-center gap-2 text-gray-800 dark:text-gray-100">
-          <CurrentIcon className="text-blue-500" />
+      <header class="sticky top-0 z-30 flex items-center justify-between px-8 py-4 bg-white/40 dark:bg-gray-900/40 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50">
+        <h1 class="text-xl font-black flex items-center gap-3 text-slate-800 dark:text-white">
+          <div class="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-blue-600"><CurrentIcon size={20} /></div>
           {section.name}
         </h1>
-        
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-3">
           <SearchModal client:load />
-           <a href={`https://github.com/${siteConfig.githubUser}/${siteConfig.githubRepo}/edit/main/src/data/nav.json`} target="_blank" class="p-2 text-gray-500 hover:text-blue-500 transition-colors" title="在线编辑">
-            <Edit size={20} />
-          </a>
-          <button id="theme-toggle" class="p-2 text-gray-500 hover:text-yellow-500 transition-colors">
-            <Sun className="hidden dark:block" size={20} />
-            <Moon className="block dark:hidden" size={20} />
+          <button id="theme-toggle" class="p-2.5 bg-slate-100 dark:bg-gray-800 rounded-xl text-slate-500 hover:text-blue-600 transition-all">
+            <Sun size={20} className="hidden dark:block" />
+            <Moon size={20} className="block dark:hidden" />
           </button>
         </div>
       </header>
 
-      <div class="p-4 md:p-8 space-y-12 max-w-7xl mx-auto">
-        {section.categories.map((category) => (
-          <section>
-            <h2 class="flex items-center gap-2 text-lg font-bold text-gray-700 dark:text-gray-200 mb-6">
-              <span class="w-1 h-6 bg-blue-500 rounded-full"></span>
-              {category.name}
-            </h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-              {category.list.map((site) => (
-                <SiteCard {...site} />
-              ))}
+      <div class="p-8 space-y-16 max-w-7xl">
+        {section.categories.map((category, catIdx) => (
+          <section class="category-group">
+            <div class="flex flex-row items-center justify-start gap-8 mb-8">
+              <h2 class="flex items-center gap-3 text-lg font-bold text-slate-800 dark:text-slate-100 shrink-0">
+                <span class="w-2 h-7 bg-gradient-to-b from-blue-500 to-indigo-600 rounded-full shadow-lg shadow-blue-500/20"></span>
+                {category.name}
+              </h2>
+
+              {category.tabs && (
+                <div class="flex bg-slate-200/50 dark:bg-gray-800/50 p-1 rounded-2xl gap-1 backdrop-blur-sm">
+                  {category.tabs.map((tab, tabIdx) => (
+                    <button
+                      class={`tab-btn px-6 py-1.5 text-xs font-bold rounded-xl transition-all duration-300
+                      ${tabIdx === 0 
+                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/40 scale-105' 
+                        : 'text-slate-500 hover:text-slate-800 dark:text-slate-400'
+                      }`}
+                      data-target={`pane-${catIdx}-${tabIdx}`}
+                    >
+                      {tab.tabName}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div class="tab-content">
+              {category.tabs ? (
+                category.tabs.map((tab, tabIdx) => (
+                  <div id={`pane-${catIdx}-${tabIdx}`} class={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 tab-pane ${tabIdx !== 0 ? 'hidden' : ''}`}>
+                    {tab.list.map((site) => <SiteCard {...site} />)}
+                  </div>
+                ))
+              ) : (
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                  {category.list?.map((site) => <SiteCard {...site} />)}
+                </div>
+              )}
             </div>
           </section>
         ))}
-
-        <footer class="mt-20 py-8 text-center text-sm text-gray-400 border-t border-gray-100 dark:border-gray-800">
-          <p>Copyright © {new Date().getFullYear()} {siteConfig.author}.</p>
+        
+        <footer class="mt-20 py-10 text-center text-[13px] text-slate-400 border-t border-slate-200/50 dark:border-gray-800/50">
+          <p>Made with ❤️ by {siteConfig.author} © {new Date().getFullYear()}</p>
         </footer>
       </div>
     </main>
   </div>
-  
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </Layout>
+
+<script is:inline>
+  function initTabs() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const parent = btn.closest('.category-group');
+        const targetId = btn.getAttribute('data-target');
+
+        parent.querySelectorAll('.tab-btn').forEach(b => {
+          b.classList.remove('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600', 'text-white', 'shadow-lg', 'shadow-blue-500/40', 'scale-105');
+          b.classList.add('text-slate-500');
+        });
+        btn.classList.add('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600', 'text-white', 'shadow-lg', 'shadow-blue-500/40', 'scale-105');
+        btn.classList.remove('text-slate-500');
+
+        parent.querySelectorAll('.tab-pane').forEach(p => p.classList.add('hidden'));
+        document.getElementById(targetId).classList.remove('hidden');
+      });
+    });
+  }
+  initTabs();
+  document.addEventListener('astro:after-swap', initTabs);
+</script>

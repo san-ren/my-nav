@@ -1,5 +1,7 @@
 ---
 const { title } = Astro.props;
+// 统一处理 base 路径
+const base = '/my-nav';
 ---
 
 <!doctype html>
@@ -7,10 +9,9 @@ const { title } = Astro.props;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-    <!-- 暗色模式防闪烁脚本 -->
     <script is:inline>
       if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         document.documentElement.classList.add('dark');
@@ -19,9 +20,15 @@ const { title } = Astro.props;
       }
     </script>
 	</head>
-	<body>
+	<body class="bg-slate-50 dark:bg-[#0b0f1a] transition-colors duration-500">
+    <!-- 背景装饰：解决“太白”的关键 -->
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+      <div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-blue-400/10 dark:bg-blue-600/5 blur-[100px]"></div>
+      <div class="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] rounded-full bg-purple-400/10 dark:bg-purple-600/5 blur-[100px]"></div>
+    </div>
+
 		<slot />
-    <!-- 主题切换逻辑 -->
+
     <script>
       const themeToggleBtn = document.getElementById('theme-toggle');
       themeToggleBtn?.addEventListener('click', () => {

@@ -12,18 +12,30 @@ export default function SearchModal() {
   const inputRef = useRef(null);
   const listRef = useRef(null);
 
-  // 核心逻辑：数据扁平化
-  // 将 "页面 -> 分类 -> 链接" 三层结构拍扁成一层，方便 Fuse 搜索
-  const allLinks = navResources.flatMap(section => 
-    section.categories.flatMap(cat => 
-      cat.list.map(item => ({
+  // 核心逻辑：数据扁平化，支持普通 list 和 tabs 结构
+  const allLinks = navResources.flatMap(section =>
+    section.categories.flatMap(cat => {
+      // 1. 如果有 tabs 结构，遍历所有 tab 里的 list
+      if (cat.tabs) {
+        return cat.tabs.flatMap(tab => 
+          (tab.list || []).map(item => ({
+            ...item,
+            category: cat.name,
+            tabName: tab.tabName, // 额外记录标签名，方便搜索展示
+            sectionName: section.name
+          }))
+        );
+      }
+      // 2. 如果是原来的普通 list 结构
+      return (cat.list || []).map(item => ({
         ...item,
-        category: cat.name,       // 保留分类名 (如: 前端框架)
-        sectionName: section.name // 保留页面名 (如: 开发专区)
-      }))
-    )
+        category: cat.name,
+        sectionName: section.name
+      }));
+    })
   );
 
+  
   // 配置模糊搜索
   const fuse = new Fuse(allLinks, {
     keys: ['name', 'desc', 'url', 'category', 'sectionName'], // 增加搜索权重

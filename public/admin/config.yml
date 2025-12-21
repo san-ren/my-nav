@@ -1,59 +1,68 @@
 backend:
   name: github
-  repo: san-ren/my-nav  # ⚠️ 修改这里：你的用户名/仓库名
+  repo: san-ren/my-nav
   branch: main
-  auth_type: token      # 强制使用 Token 登录，最稳定
+  auth_type: token
 
 media_folder: "public/images"
 public_folder: "/images"
 
-# 这里定义数据结构，完全对应 src/data/nav.json
 collections:
   - name: "settings"
-    label: "数据管理"
-    delete: false # 禁止删除整个文件
+    label: "内容管理"
+    delete: false
+    editor:
+      preview: false # 建议关闭右侧预览，让左侧编辑区更大
     files:
       - name: "navigation_data"
         label: "导航全站数据"
-        file: "src/data/nav.json" # CMS 会直接修改这个文件
+        file: "src/data/nav.json"
         fields:
-          # 1. 站点基础配置
-          - label: "站点配置 (Site Config)"
+          - label: "站点基础配置"
             name: "siteConfig"
             widget: "object"
             fields:
               - { label: "网站标题", name: "title", widget: "string" }
               - { label: "GitHub 用户名", name: "githubUser", widget: "string" }
               - { label: "GitHub 仓库名", name: "githubRepo", widget: "string" }
-          
-          # 2. 页面与链接管理 (三层嵌套结构)
-          - label: "页面与链接 (Resources)"
+              - { label: "页脚作者名", name: "author", widget: "string" }
+
+          - label: "导航菜单(页面)"
             name: "navResources"
             widget: "list"
-            collapsed: false
-            summary: "{{name}} ({{id}})"
+            summary: "{{name}}" # 重点：折叠时显示页面名称（如：精华推荐）
             fields:
-              - { label: "页面路由 ID (例如 home, dev)", name: "id", widget: "string" }
-              - { label: "页面显示名称", name: "name", widget: "string" }
-              - { label: "图标 (Lucide Name)", name: "icon", widget: "string", default: "Star" }
-              
-              # 第二层：分类
-              - label: "分类列表"
+              - { label: "页面ID", name: "id", widget: "string" }
+              - { label: "显示名称", name: "name", widget: "string" }
+              - { label: "菜单图标", name: "icon", widget: "string" }
+              - label: "内部分类"
                 name: "categories"
                 widget: "list"
-                collapsed: true
-                summary: "{{name}}"
+                summary: "{{name}}" # 重点：折叠时显示分类名称（如：影音媒体）
                 fields:
                   - { label: "分类名称", name: "name", widget: "string" }
-                  - { label: "分类图标", name: "icon", widget: "string", default: "Hash", required: false }
-                  
-                  # 第三层：具体的链接
-                  - label: "网址列表"
-                    name: "list"
+                  - { label: "分类图标", name: "icon", widget: "string" }
+                  - label: "标签页(Tabs)"
+                    name: "tabs"
                     widget: "list"
-                    collapsed: true
-                    summary: "{{name}}"
+                    summary: "{{tabName}}" # 重点：折叠时显示标签名（如：Windows）
                     fields:
-                      - { label: "网站名称", name: "name", widget: "string" }
-                      - { label: "链接地址", name: "url", widget: "string" }
-                      - { label: "描述信息", name: "desc", widget: "string", required: false }
+                      - { label: "标签名称", name: "tabName", widget: "string" }
+                      - label: "网址列表"
+                        name: "list"
+                        widget: "list"
+                        summary: "{{name}} - {{desc}}" # 重点：显示网址名称和描述
+                        fields:
+                          - { label: "网址名称", name: "name", widget: "string" }
+                          - { label: "链接地址", name: "url", widget: "string" }
+                          - { label: "简短描述", name: "desc", widget: "string" }
+                          - { label: "详细说明(支持HTML/徽章)", name: "detail", widget: "text" } # 核心修改：增加了 detail
+
+          - label: "友情链接"
+            name: "friendLinks"
+            widget: "list"
+            summary: "{{name}}"
+            fields:
+              - { label: "名称", name: "name", widget: "string" }
+              - { label: "链接", name: "url", widget: "string" }
+              - { label: "描述", name: "desc", widget: "string" }
