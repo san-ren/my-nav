@@ -3,22 +3,23 @@ import Layout from '../layouts/Layout.astro';
 import SiteCard from '../components/SiteCard.astro';
 import SearchModal from '../components/SearchModal.jsx';
 import navData from '../data/nav.json';
-const { navResources, friendLinks, siteConfig } = navData;
 import { LayoutDashboard, Star, Code, Palette, Menu, Github, Edit, Sun, Moon } from 'lucide-react';
 
-// 1. 生成静态路径：告诉 Astro 我们有哪些页面 (home, dev, design)
+// 1. 生成静态路径
 export async function getStaticPaths() {
-  return navResources.map((section) => ({
+  // 直接从导入的 navData 中获取路径，最稳妥
+  return navData.navResources.map((section) => ({
     params: { id: section.id },
     props: { section },
   }));
 }
 
-// 2. 获取当前页面的数据
+// 2. 获取数据
 const { section } = Astro.props;
 const { id } = Astro.params;
+const { siteConfig, navResources } = navData;
 
-// 图标映射表 (因为 Lucide 图标是 React 组件，这里做个简单映射)
+// 图标映射
 const Icons = { Star, Code, Palette, LayoutDashboard };
 const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 ---
@@ -36,7 +37,6 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
       </div>
       <nav class="p-4 space-y-1">
         {navResources.map((item) => {
-          // 判断是否是当前页，高亮显示
           const isActive = item.id === id;
           return (
             <a href={`/${item.id}`} class={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all group ${isActive ? 'bg-blue-50 text-blue-600 dark:bg-gray-800 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'}`}>
@@ -50,7 +50,6 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 
     <!-- 主内容区 -->
     <main class="flex-1 md:ml-64">
-      <!-- 顶部 Header -->
       <header class="sticky top-0 z-30 flex items-center justify-between px-6 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur border-b border-gray-200/50 dark:border-gray-800/50">
         <h1 class="text-xl font-bold flex items-center gap-2 text-gray-800 dark:text-gray-100">
           <CurrentIcon className="text-blue-500" />
@@ -59,7 +58,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
         
         <div class="flex items-center gap-4">
           <SearchModal client:load />
-           <a href={`https://github.com/${siteConfig.githubUser}/${siteConfig.githubRepo}/edit/main/src/data/siteData.ts`} target="_blank" class="p-2 text-gray-500 hover:text-blue-500 transition-colors" title="在线编辑">
+           <a href={`https://github.com/${siteConfig.githubUser}/${siteConfig.githubRepo}/edit/main/src/data/nav.json`} target="_blank" class="p-2 text-gray-500 hover:text-blue-500 transition-colors" title="在线编辑">
             <Edit size={20} />
           </a>
           <button id="theme-toggle" class="p-2 text-gray-500 hover:text-yellow-500 transition-colors">
@@ -69,7 +68,6 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
         </div>
       </header>
 
-      <!-- 当前页面的内容列表 -->
       <div class="p-4 md:p-8 space-y-12 max-w-7xl mx-auto">
         {section.categories.map((category) => (
           <section>
@@ -85,7 +83,6 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
           </section>
         ))}
 
-        <!-- 页脚 (只在最后一页或者所有页显示，随你) -->
         <footer class="mt-20 py-8 text-center text-sm text-gray-400 border-t border-gray-100 dark:border-gray-800">
           <p>Copyright © {new Date().getFullYear()} {siteConfig.author}.</p>
         </footer>
