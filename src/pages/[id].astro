@@ -1,0 +1,96 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteCard from '../components/SiteCard.astro';
+import SearchModal from '../components/SearchModal.jsx';
+import { navResources, friendLinks, siteConfig } from '../data/siteData';
+import { LayoutDashboard, Star, Code, Palette, Menu, Github, Edit, Sun, Moon } from 'lucide-react';
+
+// 1. 生成静态路径：告诉 Astro 我们有哪些页面 (home, dev, design)
+export async function getStaticPaths() {
+  return navResources.map((section) => ({
+    params: { id: section.id },
+    props: { section },
+  }));
+}
+
+// 2. 获取当前页面的数据
+const { section } = Astro.props;
+const { id } = Astro.params;
+
+// 图标映射表 (因为 Lucide 图标是 React 组件，这里做个简单映射)
+const Icons = { Star, Code, Palette, LayoutDashboard };
+const CurrentIcon = Icons[section.icon] || LayoutDashboard;
+---
+
+<Layout title={`${section.name} - ${siteConfig.title}`}>
+  <div class="flex min-h-screen bg-[#f4f6f9] dark:bg-[#0d1117]">
+    
+    <!-- 侧边栏 Sidebar -->
+    <aside class="fixed inset-y-0 left-0 z-40 w-64 bg-white/90 dark:bg-gray-900/90 backdrop-blur border-r border-gray-200 dark:border-gray-800 hidden md:block">
+      <div class="p-6 border-b border-gray-100 dark:border-gray-800 flex items-center gap-3">
+        <img src="/favicon.svg" class="w-8 h-8 rounded-lg" alt="Logo" />
+        <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-600">
+          {siteConfig.title}
+        </span>
+      </div>
+      <nav class="p-4 space-y-1">
+        {navResources.map((item) => {
+          // 判断是否是当前页，高亮显示
+          const isActive = item.id === id;
+          return (
+            <a href={`/${item.id}`} class={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all group ${isActive ? 'bg-blue-50 text-blue-600 dark:bg-gray-800 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'}`}>
+              <LayoutDashboard size={18} /> 
+              <span class="font-medium">{item.name}</span>
+            </a>
+          );
+        })}
+      </nav>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="flex-1 md:ml-64">
+      <!-- 顶部 Header -->
+      <header class="sticky top-0 z-30 flex items-center justify-between px-6 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur border-b border-gray-200/50 dark:border-gray-800/50">
+        <h1 class="text-xl font-bold flex items-center gap-2 text-gray-800 dark:text-gray-100">
+          <CurrentIcon className="text-blue-500" />
+          {section.name}
+        </h1>
+        
+        <div class="flex items-center gap-4">
+          <SearchModal client:load />
+           <a href={`https://github.com/${siteConfig.githubUser}/${siteConfig.githubRepo}/edit/main/src/data/siteData.ts`} target="_blank" class="p-2 text-gray-500 hover:text-blue-500 transition-colors" title="在线编辑">
+            <Edit size={20} />
+          </a>
+          <button id="theme-toggle" class="p-2 text-gray-500 hover:text-yellow-500 transition-colors">
+            <Sun className="hidden dark:block" size={20} />
+            <Moon className="block dark:hidden" size={20} />
+          </button>
+        </div>
+      </header>
+
+      <!-- 当前页面的内容列表 -->
+      <div class="p-4 md:p-8 space-y-12 max-w-7xl mx-auto">
+        {section.categories.map((category) => (
+          <section>
+            <h2 class="flex items-center gap-2 text-lg font-bold text-gray-700 dark:text-gray-200 mb-6">
+              <span class="w-1 h-6 bg-blue-500 rounded-full"></span>
+              {category.name}
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              {category.list.map((site) => (
+                <SiteCard {...site} />
+              ))}
+            </div>
+          </section>
+        ))}
+
+        <!-- 页脚 (只在最后一页或者所有页显示，随你) -->
+        <footer class="mt-20 py-8 text-center text-sm text-gray-400 border-t border-gray-100 dark:border-gray-800">
+          <p>Copyright © {new Date().getFullYear()} {siteConfig.author}.</p>
+        </footer>
+      </div>
+    </main>
+  </div>
+  
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</Layout>

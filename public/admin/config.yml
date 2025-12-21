@@ -1,0 +1,38 @@
+backend:
+  name: github
+  # ⚠️ 修改成你的仓库路径
+  repo: san-ren/WWW_NAV
+  branch: main
+  # 关键点：禁用 OAuth，强制使用 Token 登录
+  auth_type: token 
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "navigation"
+    label: "导航数据"
+    files:
+      - label: "首页配置"
+        name: "nav_data"
+        file: "src/data/nav.json"
+        fields:
+          - { label: "站点配置", name: "siteConfig", widget: "object", fields: [
+              { label: "标题", name: "title", widget: "string" },
+              { label: "GitHub用户", name: "githubUser", widget: "string" },
+              { label: "仓库名", name: "githubRepo", widget: "string" }
+            ]}
+          - label: "页面资源", name: "navResources", widget: "list", fields: [
+              { label: "路由ID", name: "id", widget: "string", hint: "例如 home, dev" },
+              { label: "页面名称", name: "name", widget: "string" },
+              { label: "图标", name: "icon", widget: "string" },
+              { label: "分类列表", name: "categories", widget: "list", fields: [
+                  { label: "分类名", name: "name", widget: "string" },
+                  { label: "图标", name: "icon", widget: "string", required: false },
+                  { label: "链接列表", name: "list", widget: "list", fields: [
+                      { label: "名称", name: "name", widget: "string" },
+                      { label: "链接", name: "url", widget: "string" },
+                      { label: "描述", name: "desc", widget: "string", required: false }
+                    ]}
+                ]}
+            ]
