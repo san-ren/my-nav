@@ -4,73 +4,135 @@
     "description": "基于 Astro 构建的下一代导航站",
     "author": "San Ren",
     "githubUser": "san-ren",
-    "githubRepo": "WWW_NAV"
+    "githubRepo": "my-nav"
   },
   "navResources": [
     {
       "id": "home",
-      "name": "常用推荐",
+      "name": "精华推荐",
       "icon": "Star",
       "categories": [
         {
-          "name": "热门工具",
+          "name": "看了不吃亏，不看别后悔",
+          "icon": "Star",
+          "list": [
+            { "name": "小田田", "url": "https://xydh.fun/xiaotiantian", "desc": "汇总导航,你想要的都有" },
+            { "name": "低调观影", "url": "https://shouku123.com/tiantian", "desc": "观影网站导航" },
+            { "name": "奔跑中的奶酪", "url": "https://www.runningcheese.com/", "desc": "有智，有趣，有爱" },
+            { "name": "小众软件", "url": "https://www.appinn.com/", "desc": "分享、体验、评测电脑软件" },
+            { "name": "异次元", "url": "https://www.iplaysoft.com/", "desc": "专注于推荐优秀软件" },
+            { "name": "IT之家", "url": "https://soft.ithome.com/", "desc": "软件资讯、教程、下载" },
+            { "name": "下一个好软件", "url": "https://x1g.la/", "desc": "公众号“下一个好软件”网站" },
+            { "name": "不死鸟", "url": "https://iui.su/", "desc": "专注分享优质资源" },
+            { "name": "423down", "url": "https://www.423down.com/", "desc": "知名软件达人" }
+          ]
+        },
+        {
+          "name": "音乐-win",
+          "icon": "Music",
+          "list": [
+            { "name": "Listen1", "url": "https://github.com/listen1", "desc": "聚合音乐播放" },
+            { "name": "洛雪音乐助手", "url": "https://github.com/lyswhut/lx-music-desktop", "desc": "全网在线音乐播放" },
+            { "name": "MusicFree", "url": "https://github.com/maotoumao", "desc": "定制化无广告播放器" },
+            { "name": "YesPlayMusic", "url": "https://github.com/qier222/YesPlayMusic", "desc": "高颜值第三方网易云" }
+          ]
+        },
+        {
+          "name": "音乐-Android",
+          "icon": "Headphones",
+          "list": [
+            { "name": "酷狗概念版", "url": "https://activity.kugou.com/download/v-a23b0cf0/index.html", "desc": "每日领VIP" },
+            { "name": "Spotube", "url": "https://spotube.krtirtho.dev/", "desc": "开源 Spotify 客户端" },
+            { "name": "InnerTune", "url": "https://github.com/z-huang/InnerTune", "desc": "第三方 YouTube Music" }
+          ]
+        },
+        {
+          "name": "看图、截图",
+          "icon": "Camera",
+          "list": [
+            { "name": "Honeyview", "url": "http://www.bandisoft.com/honeyview/", "desc": "蜂蜜浏览器" },
+            { "name": "PixPin", "url": "https://pixpinapp.com/", "desc": "长截图、贴图神器" },
+            { "name": "Snipaste", "url": "https://zh.snipaste.com/", "desc": "截图+贴图" }
+          ]
+        },
+        {
+          "name": "文件下载",
+          "icon": "Download",
+          "list": [
+            { "name": "IDM", "url": "https://www.internetdownloadmanager.com/", "desc": "多线程下载利器" },
+            { "name": "Motrix", "url": "https://motrix.app/", "desc": "高颜值下载工具" },
+            { "name": "Gopeed", "url": "https://gopeed.com/zh-CN", "desc": "全平台开源下载" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sub1",
+      "name": "工具大全",
+      "icon": "Hammer",
+      "categories": [
+        {
+          "name": "系统工具",
           "icon": "Hammer",
           "list": [
-            { "name": "Google", "url": "https://google.com", "desc": "全球最大搜索" },
-            { "name": "ChatGPT", "url": "https://chat.openai.com", "desc": "AI 助手" }
+            { "name": "Geek", "url": "https://geekuninstaller.com/", "desc": "单文件软件卸载" },
+            { "name": "HiBit Uninstaller", "url": "https://www.hibitsoft.ir/", "desc": "支持中文软件卸载" },
+            { "name": "Uninstalr", "url": "https://uninstalr.com/", "desc": "深度分析软件数据" },
+            { "name": "WindowTop", "url": "https://github.com/WindowTop/WindowTop-App", "desc": "窗口置顶画中画" },
+            { "name": "MemReduct", "url": "https://www.henrypp.org/product/memreduct", "desc": "开源内存清理" }
           ]
         },
         {
-          "name": "每日必看",
-          "icon": "Flame",
+          "name": "大厂相关",
+          "icon": "Github",
           "list": [
-            { "name": "GitHub", "url": "https://github.com", "desc": "开源社区" },
-            { "name": "Bilibili", "url": "https://bilibili.com", "desc": "视频网站" }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "dev",
-      "name": "开发专区",
-      "icon": "Code",
-      "categories": [
-        {
-          "name": "前端框架",
-          "icon": "Layout",
-          "list": [
-            { "name": "React", "url": "https://react.dev", "desc": "前端库" },
-            { "name": "Astro", "url": "https://astro.build", "desc": "静态站框架" },
-            { "name": "Tailwind", "url": "https://tailwindcss.com", "desc": "CSS 框架" }
+            { "name": "RevokeMsgPatcher", "url": "https://github.com/huiyadanli/RevokeMsgPatcher", "desc": "微信/QQ防撤回" },
+            { "name": "CleanMyWechat", "url": "https://github.com/blackboxo/CleanMyWechat", "desc": "自动删除微信缓存" },
+            { "name": "WeChatMsg/留痕", "url": "https://memotrace.lc044.love/", "desc": "提取微信聊天记录" }
           ]
         },
         {
-          "name": "后端服务",
-          "icon": "Server",
+          "name": "翻译 & OCR",
+          "icon": "Languages",
           "list": [
-            { "name": "Vercel", "url": "https://vercel.com", "desc": "部署平台" },
-            { "name": "Supabase", "url": "https://supabase.com", "desc": "开源 Firebase" }
+            { "name": "Pot", "url": "https://pot-app.com/", "desc": "划词翻译和OCR" },
+            { "name": "CrowTranslate", "url": "https://github.com/crow-translate/crow-translate", "desc": "开源翻译API调用" },
+            { "name": "Umi-OCR", "url": "https://github.com/hiroi-sora/Umi-OCR", "desc": "离线OCR识别" }
           ]
-        }
-      ]
-    },
-    {
-      "id": "design",
-      "name": "设计资源",
-      "icon": "Palette",
-      "categories": [
+        },
         {
-          "name": "灵感采集",
-          "icon": "Image",
+          "name": "PDF 工具",
+          "icon": "FileText",
           "list": [
-            { "name": "Pinterest", "url": "https://pinterest.com", "desc": "灵感图库" },
-            { "name": "Dribbble", "url": "https://dribbble.com", "desc": "设计社区" }
+            { "name": "SumatraPDF", "url": "https://www.sumatrapdfreader.org", "desc": "极简PDF阅读器" },
+            { "name": "PDFgear", "url": "https://www.pdfgear.com/zh/", "desc": "阅读、编辑、转换PDF" },
+            { "name": "PDFPatcher", "url": "https://www.cnblogs.com/pdfpatcher/", "desc": "多功能PDF工具箱" }
+          ]
+        },
+        {
+          "name": "Office 相关",
+          "icon": "Briefcase",
+          "list": [
+            { "name": "LKY Office Tools", "url": "https://github.com/OdysseusYuan/LKY_OfficeTools", "desc": "Office自动化安装激活" },
+            { "name": "MAS", "url": "https://github.com/massgravel/Microsoft-Activation-Scripts", "desc": "Win/Office激活脚本" },
+            { "name": "HEU KMS Activator", "url": "https://github.com/zbezj/HEU_KMS_Activator", "desc": "知名的全能激活工具" }
+          ]
+        },
+        {
+          "name": "局域网传输",
+          "icon": "Network",
+          "list": [
+            { "name": "闪电藤", "url": "https://lightningvine.zishu.life/", "desc": "局域网传输工具" },
+            { "name": "LocalSend", "url": "https://github.com/localsend/localsend", "desc": "开源局域网传输" },
+            { "name": "爱传送", "url": "https://mfiles.maokebing.com/", "desc": "多端同步文件" }
           ]
         }
       ]
     }
   ],
   "friendLinks": [
-    { "name": "Astro", "url": "https://astro.build", "desc": "新一代静态站框架" }
+    { "name": "WebStack", "url": "https://webstack.cc", "desc": "设计师网址导航" },
+    { "name": "一为导航", "url": "https://nav.iowen.cn/", "desc": "onenav主题演示" },
+    { "name": "404导航", "url": "https://www.404dh.icu/", "desc": "只导航优质资源" }
   ]
 }
