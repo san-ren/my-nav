@@ -23,7 +23,7 @@ collections:
           - { label: "页脚作者名", name: "author", widget: "string" }
 
   # 2. 导航页面管理 (文件夹模式：左侧会出现页面列表)
-    - name: "nav_pages"
+  - name: "nav_pages"
     label: "导航页面管理"
     folder: "src/data/nav"
     extension: "json"
