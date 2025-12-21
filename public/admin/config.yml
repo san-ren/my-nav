@@ -57,7 +57,24 @@ collections:
                 summary: "{{name}}"
                 fields:
                   - { label: "名称", name: "name", widget: "string" }
-                  - { label: "链接", name: "url", widget: "string" }
+                  - { label: "链接地址", name: "url", widget: "string", hint: "如果是GitHub仓库，请填写完整仓库URL" }
+                  # --- 新增：官网地址字段 ---
+                  - label: "官网/项目主页 (可选)"
+                    name: "official_site"
+                    widget: "string"
+                    required: false
+                    hint: "如果填了，卡片图标将显示此网址的图标，而不是 GitHub 图标"
                   - { label: "简短描述", name: "desc", widget: "string" }
-                  # --- 重点：这里改为 markdown 插件，支持分屏预览 ---
+                  # --- 新增：徽章勾选字段 ---
+                  - label: "GitHub 自动徽章"
+                    name: "badge_list"
+                    widget: "select"
+                    multiple: true
+                    required: false
+                    options:
+                      - { label: "GitHub Stars", value: "stars" }
+                      - { label: "最新版本", value: "version" }
+                      - { label: "开源协议", value: "license" }
+                      - { label: "最近更新", value: "last_commit" }
+                  # --- 详细说明：支持Markdown分屏预览 ---
                   - { label: "详细说明", name: "detail", widget: "markdown", buttons: ["bold", "italic", "link", "bulleted-list"], editor_components: [] }
