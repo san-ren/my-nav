@@ -1,10 +1,24 @@
 ---
+// 1. 补全组件导入 (这是报错的核心原因)
+import Layout from '../layouts/Layout.astro';
+import SiteCard from '../components/SiteCard.astro';
+import SearchModal from '../components/SearchModal.jsx';
+
+// 2. 导入新的全局配置
 import siteConfig from '../data/config.json';
-// 获取 nav 文件夹下第一个文件
+
+// 3. 导入图标库
+import { LayoutDashboard, Star, Code, Palette, Menu, Github, Edit, Sun, Moon } from 'lucide-react';
+
+// 4. 动态获取 nav 文件夹下的第一个文件作为首页内容
 const allNavFiles = import.meta.glob('../data/nav/*.json', { eager: true });
-const navResources = Object.values(allNavFiles);
-const section = navResources[0] as any;
-// ... 后续同 [id].astro
+const navResources: any[] = Object.values(allNavFiles);
+const section = navResources[0]; // 默认取第一个 JSON 文件的数据
+const id = section.id;
+const base = '/my-nav';
+
+const Icons = { Star, Code, Palette, LayoutDashboard };
+const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 ---
 
 <Layout title={`${section.name} - ${siteConfig.title}`}>
@@ -34,7 +48,7 @@ const section = navResources[0] as any;
             >
               {isActive && <div class="absolute left-0 w-1.5 h-5 bg-blue-600 rounded-r-full shadow-[4px_0_12px_rgba(37,99,235,0.6)]"></div>}
               <LayoutDashboard size={18} /> 
-              <span class="text-[14px]">{item.name}</span>
+              <span class="text-[14px] font-medium">{item.name}</span>
             </a>
           );
         })}
@@ -49,7 +63,10 @@ const section = navResources[0] as any;
         </h1>
         <div class="flex items-center gap-3">
           <SearchModal client:load />
-          <button id="theme-toggle" class="p-2.5 bg-slate-100 dark:bg-gray-800 rounded-xl text-slate-500 hover:text-blue-600 transition-all"><Sun size={20} className="hidden dark:block" /><Moon size={20} className="block dark:hidden" /></button>
+          <button id="theme-toggle" class="p-2.5 bg-slate-100 dark:bg-gray-800 rounded-xl text-slate-500 hover:text-blue-600 transition-all">
+            <Sun size={20} className="hidden dark:block" />
+            <Moon size={20} className="block dark:hidden" />
+          </button>
         </div>
       </header>
 
