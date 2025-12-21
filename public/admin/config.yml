@@ -1,38 +1,59 @@
 backend:
   name: github
-  # ⚠️ 修改成你的仓库路径
-  repo: san-ren/WWW_NAV
+  repo: san-ren/my-nav  # ⚠️ 修改这里：你的用户名/仓库名
   branch: main
-  # 关键点：禁用 OAuth，强制使用 Token 登录
-  auth_type: token 
+  auth_type: token      # 强制使用 Token 登录，最稳定
 
 media_folder: "public/images"
 public_folder: "/images"
 
+# 这里定义数据结构，完全对应 src/data/nav.json
 collections:
-  - name: "navigation"
-    label: "导航数据"
+  - name: "settings"
+    label: "数据管理"
+    delete: false # 禁止删除整个文件
     files:
-      - label: "首页配置"
-        name: "nav_data"
-        file: "src/data/nav.json"
+      - name: "navigation_data"
+        label: "导航全站数据"
+        file: "src/data/nav.json" # CMS 会直接修改这个文件
         fields:
-          - { label: "站点配置", name: "siteConfig", widget: "object", fields: [
-              { label: "标题", name: "title", widget: "string" },
-              { label: "GitHub用户", name: "githubUser", widget: "string" },
-              { label: "仓库名", name: "githubRepo", widget: "string" }
-            ]}
-          - label: "页面资源", name: "navResources", widget: "list", fields: [
-              { label: "路由ID", name: "id", widget: "string", hint: "例如 home, dev" },
-              { label: "页面名称", name: "name", widget: "string" },
-              { label: "图标", name: "icon", widget: "string" },
-              { label: "分类列表", name: "categories", widget: "list", fields: [
-                  { label: "分类名", name: "name", widget: "string" },
-                  { label: "图标", name: "icon", widget: "string", required: false },
-                  { label: "链接列表", name: "list", widget: "list", fields: [
-                      { label: "名称", name: "name", widget: "string" },
-                      { label: "链接", name: "url", widget: "string" },
-                      { label: "描述", name: "desc", widget: "string", required: false }
-                    ]}
-                ]}
-            ]
+          # 1. 站点基础配置
+          - label: "站点配置 (Site Config)"
+            name: "siteConfig"
+            widget: "object"
+            fields:
+              - { label: "网站标题", name: "title", widget: "string" }
+              - { label: "GitHub 用户名", name: "githubUser", widget: "string" }
+              - { label: "GitHub 仓库名", name: "githubRepo", widget: "string" }
+          
+          # 2. 页面与链接管理 (三层嵌套结构)
+          - label: "页面与链接 (Resources)"
+            name: "navResources"
+            widget: "list"
+            collapsed: false
+            summary: "{{name}} ({{id}})"
+            fields:
+              - { label: "页面路由 ID (例如 home, dev)", name: "id", widget: "string" }
+              - { label: "页面显示名称", name: "name", widget: "string" }
+              - { label: "图标 (Lucide Name)", name: "icon", widget: "string", default: "Star" }
+              
+              # 第二层：分类
+              - label: "分类列表"
+                name: "categories"
+                widget: "list"
+                collapsed: true
+                summary: "{{name}}"
+                fields:
+                  - { label: "分类名称", name: "name", widget: "string" }
+                  - { label: "分类图标", name: "icon", widget: "string", default: "Hash", required: false }
+                  
+                  # 第三层：具体的链接
+                  - label: "网址列表"
+                    name: "list"
+                    widget: "list"
+                    collapsed: true
+                    summary: "{{name}}"
+                    fields:
+                      - { label: "网站名称", name: "name", widget: "string" }
+                      - { label: "链接地址", name: "url", widget: "string" }
+                      - { label: "描述信息", name: "desc", widget: "string", required: false }
