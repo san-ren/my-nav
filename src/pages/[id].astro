@@ -1,37 +1,36 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Sidebar from '../components/Sidebar.astro'; // 引入 Sidebar
+import Sidebar from '../components/Sidebar.astro';
 import SiteCard from '../components/SiteCard.astro';
 import SearchModal from '../components/SearchModal.jsx';
 import siteConfig from '../data/config.json';
-import { LayoutDashboard, Star, Code, Palette, Edit, Sun, Moon } from 'lucide-react';
+import { LayoutDashboard, Star, Code, Palette, Edit, Sun, Moon, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download } from 'lucide-react';
 
 export async function getStaticPaths() {
   const allNavFiles = import.meta.glob('../data/nav/*.json', { eager: true });
   let navResources = Object.values(allNavFiles);
 
-  // 排序逻辑
   navResources.sort((a: any, b: any) => {
     return (a.sortOrder || 99) - (b.sortOrder || 99);
   });
 
   return navResources.map((section: any) => ({
     params: { id: section.id },
-    props: { section, navResources }, // 传递当前页面数据(section) 和 全站数据(navResources)
+    props: { section, navResources }, 
   }));
 }
 
 const { section, navResources } = Astro.props;
 const { id } = Astro.params;
+const base = '/my-nav';
 
-const Icons = { Star, Code, Palette, LayoutDashboard };
+const Icons = { Star, Code, Palette, LayoutDashboard, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download };
 const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 ---
 
 <Layout title={`${section.name} - ${siteConfig.title}`}>
   <div class="flex min-h-screen">
     
-    <!-- 使用 Sidebar 组件 -->
     <Sidebar navResources={navResources} currentId={id} siteConfig={siteConfig} />
 
     <main class="flex-1 md:ml-64">
@@ -50,46 +49,64 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
       </header>
 
       <div class="p-8 space-y-16 max-w-7xl">
-        {section.categories.map((category, catIdx) => (
-          <section class="category-group">
-            <div class="flex flex-row items-center justify-start gap-8 mb-8">
-              <h2 class="flex items-center gap-3 text-lg font-bold text-slate-800 dark:text-slate-100 shrink-0">
-                <span class="w-2 h-7 bg-gradient-to-b from-blue-500 to-indigo-600 rounded-full shadow-lg shadow-blue-500/20"></span>
-                {category.name}
-              </h2>
-
-              {category.tabs && (
-                <div class="flex bg-slate-200/50 dark:bg-gray-800/50 p-1 rounded-2xl gap-1 backdrop-blur-sm">
-                  {category.tabs.map((tab, tabIdx) => (
-                    <button
-                      class={`tab-btn px-6 py-1.5 text-xs font-bold rounded-xl transition-all duration-300
-                      ${tabIdx === 0 
-                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/40 scale-105' 
-                        : 'text-slate-500 hover:text-slate-800 dark:text-slate-400'
-                      }`}
-                      data-target={`pane-${catIdx}-${tabIdx}`}
-                    >
-                      {tab.tabName}
-                    </button>
-                  ))}
-                </div>
-              )}
+        {(section.groups || []).map((group, groupIdx) => (
+          <div class="group-wrapper">
+            <div id={`group-${groupIdx}`} class="flex items-center gap-3 mb-8 mt-12 first:mt-0 pb-2 border-b border-slate-100 dark:border-slate-800 scroll-mt-24">
+              <h2 class="text-xl font-black text-slate-800 dark:text-slate-100">{group.name}</h2>
             </div>
 
-            <div class="tab-content">
-              {category.tabs ? (
-                category.tabs.map((tab, tabIdx) => (
-                  <div id={`pane-${catIdx}-${tabIdx}`} class={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 tab-pane ${tabIdx !== 0 ? 'hidden' : ''}`}>
-                    {tab.list.map((site) => <SiteCard {...site} />)}
-                  </div>
-                ))
-              ) : (
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                  {category.list?.map((site) => <SiteCard {...site} />)}
-                </div>
-              )}
+            <div class="space-y-16">
+              {(group.categories || []).map((category, catIdx) => {
+                const uniqueId = `${groupIdx}-${catIdx}`;
+                
+                return (
+                  <section id={`cat-${uniqueId}`} class="category-group scroll-mt-24">
+                    <div class="flex flex-row items-center justify-start gap-8 mb-8">
+                      <h3 class="flex items-center gap-3 text-lg font-bold text-slate-700 dark:text-slate-200 shrink-0">
+                        <span class="w-1.5 h-5 bg-blue-500 rounded-full"></span>
+                        {category.name}
+                      </h3>
+
+                      {category.tabs && (
+                        <div class="tab-nav-container relative flex bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-full">
+                          <div class="tab-indicator absolute bg-white dark:bg-slate-700 shadow-sm rounded-full h-[calc(100%-8px)] top-1 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1.0)]"></div>
+                          {category.tabs.map((tab, tabIdx) => (
+                            <button
+                              class={`tab-btn relative z-10 px-4 py-1.5 text-xs font-bold rounded-full transition-colors duration-200
+                              ${tabIdx === 0 ? 'text-blue-600 dark:text-blue-400 active-tab' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}`}
+                              data-target={`pane-${uniqueId}-${tabIdx}`}
+                              data-index={tabIdx}
+                            >
+                              {tab.tabName}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    <div class="tab-content-wrapper">
+                      {category.tabs ? (
+                        category.tabs.map((tab, tabIdx) => (
+                          <div 
+                            id={`pane-${uniqueId}-${tabIdx}`} 
+                            class={`tab-pane animate-fade-in ${tabIdx !== 0 ? 'hidden' : ''}`}
+                          >
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 pt-1">
+                              {(tab.list || []).map((site) => <SiteCard {...site} />)}
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                          {(category.list || []).map((site) => <SiteCard {...site} />)}
+                        </div>
+                      )}
+                    </div>
+                  </section>
+                );
+              })}
             </div>
-          </section>
+          </div>
         ))}
         
         <footer class="mt-20 py-10 text-center text-[13px] text-slate-400 border-t border-slate-200/50 dark:border-gray-800/50">
@@ -102,24 +119,70 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 
 <script is:inline>
   function initTabs() {
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    tabButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const parent = btn.closest('.category-group');
-        const targetId = btn.getAttribute('data-target');
+    const containers = document.querySelectorAll('.tab-nav-container');
+    
+    containers.forEach(container => {
+      const indicator = container.querySelector('.tab-indicator');
+      const btns = container.querySelectorAll('.tab-btn');
+      
+      if (!indicator || btns.length === 0) return;
 
-        parent.querySelectorAll('.tab-btn').forEach(b => {
-          b.classList.remove('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600', 'text-white', 'shadow-lg', 'shadow-blue-500/40', 'scale-105');
-          b.classList.add('text-slate-500');
+      const moveIndicator = (targetBtn) => {
+        indicator.style.left = `${targetBtn.offsetLeft}px`;
+        indicator.style.width = `${targetBtn.offsetWidth}px`;
+      };
+
+      const activeBtn = container.querySelector('.active-tab') || btns[0];
+      if(activeBtn) moveIndicator(activeBtn);
+
+      btns.forEach(btn => {
+        btn.addEventListener('mouseenter', () => moveIndicator(btn));
+        
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          
+          btns.forEach(b => {
+            b.classList.remove('active-tab', 'text-blue-600', 'dark:text-blue-400');
+            b.classList.add('text-slate-500');
+          });
+          btn.classList.add('active-tab', 'text-blue-600', 'dark:text-blue-400');
+          btn.classList.remove('text-slate-500');
+
+          const group = container.closest('.category-group');
+          const targetId = btn.getAttribute('data-target');
+          
+          group.querySelectorAll('.tab-pane').forEach(p => {
+            p.classList.add('hidden');
+            p.classList.remove('animate-fade-in');
+          });
+          
+          const targetPane = document.getElementById(targetId);
+          if(targetPane) {
+            targetPane.classList.remove('hidden');
+            void targetPane.offsetWidth;
+            targetPane.classList.add('animate-fade-in');
+          }
         });
-        btn.classList.add('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600', 'text-white', 'shadow-lg', 'shadow-blue-500/40', 'scale-105');
-        btn.classList.remove('text-slate-500');
+      });
 
-        parent.querySelectorAll('.tab-pane').forEach(p => p.classList.add('hidden'));
-        document.getElementById(targetId).classList.remove('hidden');
+      container.addEventListener('mouseleave', () => {
+        const currentActive = container.querySelector('.active-tab');
+        if (currentActive) moveIndicator(currentActive);
       });
     });
   }
+
   initTabs();
   document.addEventListener('astro:after-swap', initTabs);
+  window.addEventListener('resize', initTabs);
 </script>
+
+<style is:global>
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in {
+    animation: fadeInUp 0.4s ease-out forwards;
+  }
+</style>

@@ -1,5 +1,5 @@
 ---
-import { LayoutDashboard, Star, Code, Palette, ChevronRight, Github } from 'lucide-react';
+import { LayoutDashboard, Star, Code, Palette, ChevronRight, Github, Hash } from 'lucide-react';
 
 const { navResources, currentId, siteConfig } = Astro.props;
 const base = '/my-nav';
@@ -8,7 +8,7 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
 ---
 
 <aside class="fixed inset-y-0 left-0 z-40 w-64 bg-white/80 dark:bg-gray-900/90 backdrop-blur-2xl border-r border-slate-200/50 dark:border-gray-800/50 hidden md:flex flex-col h-screen">
-  <!-- Logo 区域 -->
+  <!-- Logo -->
   <div class="p-6 flex-shrink-0 flex items-center gap-3 border-b border-slate-100 dark:border-slate-800/50">
     <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/30 text-white">
       <img src={`${base}/favicon.svg`} class="w-5 h-5 invert brightness-0" alt="Logo" />
@@ -18,68 +18,97 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
     </span>
   </div>
 
-  <!-- 滚动菜单区域 -->
+  <!-- 菜单区域 -->
   <nav class="flex-1 overflow-y-auto p-4 space-y-2 scrollbar-hide">
     {navResources.map((page) => {
       const isActivePage = page.id === currentId;
       const PageIcon = Icons[page.icon] || LayoutDashboard;
 
       return (
-        <div class="group/page">
-          <!-- Level 1: 页面标题 -->
+        <div class="group/page mb-1">
+          {/* Level 1: 页面 (如：精华推荐) */}
           <a href={`${base}/${page.id}`} 
-             class={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 font-bold mb-1
+             class={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 font-bold
              ${isActivePage 
-               ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' 
-               : 'text-slate-500 hover:bg-slate-50 dark:hover:bg-gray-800 hover:text-slate-900 dark:hover:text-slate-200'
+               ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30' 
+               : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-gray-800 hover:text-slate-900 dark:hover:text-slate-200'
              }`}
           >
             <PageIcon size={18} />
             <span class="text-[14px] flex-1">{page.name}</span>
           </a>
 
-          {/* Level 2 & 3: 仅在当前页面显示详细分类 */}
-          {isActivePage && (
-            <div class="pl-3 space-y-0.5 relative animate-in slide-in-from-left-2 duration-300">
-              <!-- 左侧连接线 -->
-              <div class="absolute left-[21px] top-1 bottom-2 w-[1.5px] bg-slate-200 dark:bg-slate-800"></div>
+          {/* Level 2: 分组 (如：多媒体专区) - 仅在当前页显示 */}
+          {isActivePage && page.groups && (
+            <div class="pl-0 mt-3 space-y-4 animate-in slide-in-from-left-2 duration-300">
+              
+              {page.groups.map((group, groupIdx) => (
+                <div class="relative pl-3">
+                  
+                  {/* 分组标题 (Level 2) - 点击跳转锚点 */}
+                  <button 
+                    onclick={`window.scrollToSection('group-${groupIdx}')`}
+                    class="w-full flex items-center gap-2 px-3 py-1.5 mb-1 text-[12px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-left group/label"
+                  >
+                    <Hash size={12} class="opacity-0 group-hover/label:opacity-100 -ml-4 transition-opacity" />
+                    {group.name}
+                  </button>
 
-              {page.categories.map((cat, catIdx) => {
-                const hasTabs = cat.tabs && cat.tabs.length > 0;
-                return (
-                  <div class="relative">
-                    {/* Level 2: 分类标题 (可点击滚动/折叠) */}
-                    <button 
-                      class="sidebar-cat-btn w-full flex items-center justify-between px-3 py-2 rounded-lg text-[13px] font-medium text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-gray-800/50 transition-colors group z-10 relative"
-                      data-target={`sidebar-sub-${catIdx}`}
-                      onclick={!hasTabs ? `window.scrollToSection('cat-${catIdx}')` : ''}
-                    >
-                      <span class="flex items-center gap-2.5">
-                        {/* 装饰小圆点 */}
-                        <span class="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600 group-hover:bg-blue-500 transition-colors"></span>
-                        {cat.name}
-                      </span>
-                      {hasTabs && (
-                        <ChevronRight size={14} class="arrow-icon text-slate-400 transition-transform duration-200" />
-                      )}
-                    </button>
+                  {/* 视觉引导线：连接该分组下的所有分类 */}
+                  <div class="absolute left-[18px] top-8 bottom-2 w-[1.5px] bg-slate-200 dark:bg-slate-800/60 rounded-full"></div>
 
-                    {/* Level 3: Tabs 子菜单 (默认折叠) */}
-                    {hasTabs && (
-                      <div id={`sidebar-sub-${catIdx}`} class="hidden pl-8 space-y-1 pt-1 pb-2">
-                        {cat.tabs.map((tab, tabIdx) => (
+                  {/* Level 3: 具体分类 (如：音乐、图片) */}
+                  <div class="space-y-0.5 pl-3">
+                    {group.categories.map((cat, catIdx) => {
+                      const hasTabs = cat.tabs && cat.tabs.length > 0;
+                      // 生成唯一ID
+                      const uniqueId = `${groupIdx}-${catIdx}`;
+                      
+                      return (
+                        <div class="relative">
+                          {/* 分类标题 (点击折叠/滚动) */}
                           <button 
-                            class="w-full text-left px-2 py-1 text-[12px] text-slate-500 hover:text-blue-600 dark:text-slate-500 dark:hover:text-blue-400 transition-colors border-l-2 border-transparent hover:border-blue-500"
-                            onclick={`window.scrollToTab(${catIdx}, ${tabIdx})`}
+                            class="sidebar-cat-btn w-full flex items-center justify-between px-3 py-2 rounded-lg text-[13px] font-medium text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-gray-800/50 transition-colors group z-10 relative"
+                            data-target={`sidebar-sub-${uniqueId}`}
+                            onclick={!hasTabs ? `window.scrollToSection('cat-${uniqueId}')` : ''}
                           >
-                            {tab.tabName}
+                            <span class="flex items-center gap-3">
+                              {/* 装饰：水平短横线，连接左侧长竖线 */}
+                              <span class="w-2 h-[1.5px] bg-slate-200 dark:bg-slate-800 group-hover:bg-blue-400 transition-colors"></span>
+                              {cat.name}
+                            </span>
+                            {hasTabs && (
+                              <ChevronRight size={14} class="arrow-icon text-slate-300 group-hover:text-slate-500 transition-transform duration-200" />
+                            )}
                           </button>
-                        ))}
-                      </div>
-                    )}
+
+                          {/* Level 4: Tabs 子菜单 */}
+                          {hasTabs && (
+                            <div 
+                              id={`sidebar-sub-${uniqueId}`} 
+                              class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out"
+                            >
+                              <div class="overflow-hidden">
+                                {/* 这里再次缩进，并添加左侧更细的线 */}
+                                <div class="pl-4 ml-1.5 border-l border-slate-100 dark:border-slate-800/50 space-y-1 pt-1 pb-2">
+                                  {cat.tabs.map((tab, tabIdx) => (
+                                    <button 
+                                      class="w-full text-left px-3 py-1 text-[12px] text-slate-500 hover:text-blue-600 dark:text-slate-500 dark:hover:text-blue-400 transition-colors rounded-md hover:bg-slate-50 dark:hover:bg-gray-800/30"
+                                      onclick={`window.scrollToTab('${uniqueId}', ${tabIdx})`}
+                                    >
+                                      {tab.tabName}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
           )}
         </div>
@@ -87,38 +116,36 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
     })}
   </nav>
   
-  <!-- 底部信息 -->
   <div class="p-4 border-t border-slate-100 dark:border-slate-800/50">
     <a href={`https://github.com/${siteConfig.githubUser}/${siteConfig.githubRepo}`} target="_blank" class="flex items-center gap-2 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors justify-center">
       <Github size={14} />
-      <span>{siteConfig.author} © {new Date().getFullYear()}</span>
+      <span>{siteConfig.author}</span>
     </a>
   </div>
 </aside>
 
 <script is:inline>
-  // 1. 侧边栏折叠逻辑
+  // 1. 侧边栏折叠
   function initSidebarInteraction() {
     const catBtns = document.querySelectorAll('.sidebar-cat-btn');
     catBtns.forEach(btn => {
-      // 移除旧的监听器防止重复
       const newBtn = btn.cloneNode(true);
       btn.parentNode.replaceChild(newBtn, btn);
 
       newBtn.addEventListener('click', (e) => {
         const targetId = newBtn.getAttribute('data-target');
         const arrow = newBtn.querySelector('.arrow-icon');
-        
-        // 如果是普通分类（没Tab），只负责滚动（onclick里处理了），这里直接返回
         if (!targetId) return;
 
         const subMenu = document.getElementById(targetId);
         if (subMenu) {
-          if (subMenu.classList.contains('hidden')) {
-            subMenu.classList.remove('hidden');
+          if (subMenu.classList.contains('grid-rows-[0fr]')) {
+            subMenu.classList.remove('grid-rows-[0fr]');
+            subMenu.classList.add('grid-rows-[1fr]');
             if(arrow) arrow.style.transform = 'rotate(90deg)';
           } else {
-            subMenu.classList.add('hidden');
+            subMenu.classList.remove('grid-rows-[1fr]');
+            subMenu.classList.add('grid-rows-[0fr]');
             if(arrow) arrow.style.transform = 'rotate(0deg)';
           }
         }
@@ -126,32 +153,22 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
     });
   }
 
-  // 2. 全局滚动函数 (挂载到 window 以便 onclick 调用)
+  // 2. 滚动逻辑：增加对 Group 的支持
   window.scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
-      // 减去 header 的高度 (约 80px)
       const headerOffset = 80;
       const elementPosition = section.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-  
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
+      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
     }
   };
 
-  window.scrollToTab = (catIdx, tabIdx) => {
-    // 先滚动到分类
-    window.scrollToSection(`cat-${catIdx}`);
-    // 再模拟点击主内容区的 Tab
-    // 注意：需要确保 index.astro 里生成的 Tab 按钮有对应的 class
-    // 我们假设 index.astro 里按钮的 class 包含 `tab-btn` 且顺序对应，
-    // 或者我们通过 data 属性查找更稳妥。
-    // 这里使用简单的延迟点击策略
+  // 3. Tab 跳转
+  window.scrollToTab = (uniqueId, tabIdx) => {
+    window.scrollToSection(`cat-${uniqueId}`);
     setTimeout(() => {
-       const group = document.querySelectorAll('.category-group')[catIdx];
+       const group = document.getElementById(`cat-${uniqueId}`);
        if(group) {
          const btn = group.querySelectorAll('.tab-btn')[tabIdx];
          if(btn) btn.click();
@@ -159,7 +176,6 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
     }, 300);
   };
 
-  // 初始化
   initSidebarInteraction();
   document.addEventListener('astro:after-swap', initSidebarInteraction);
 </script>

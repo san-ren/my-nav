@@ -1,6 +1,6 @@
 ---
+import { ClientRouter } from 'astro:transitions'; // 引入 View Transitions 路由组件
 const { title } = Astro.props;
-// 统一处理 base 路径
 const base = '/my-nav';
 ---
 
@@ -12,16 +12,35 @@ const base = '/my-nav';
 		<link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+    <!-- 启用 View Transitions -->
+    <ClientRouter />
+    
+    <!-- 1. 这是一个放在 head 里的阻塞脚本，防止页面闪烁 -->
     <script is:inline>
-      if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      const getTheme = () => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      };
+      
+      const setTheme = (theme) => {
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+        localStorage.setItem('theme', theme);
+      };
+
+      // 初始化
+      setTheme(getTheme());
+
+      // 监听 Astro 页面切换，确保切换后主题依然正确
+      document.addEventListener('astro:after-swap', () => setTheme(getTheme()));
     </script>
 	</head>
 	<body class="bg-slate-50 dark:bg-[#0b0f1a] transition-colors duration-500">
-    <!-- 背景装饰：解决“太白”的关键 -->
     <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
       <div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-blue-400/10 dark:bg-blue-600/5 blur-[100px]"></div>
       <div class="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] rounded-full bg-purple-400/10 dark:bg-purple-600/5 blur-[100px]"></div>
@@ -29,17 +48,32 @@ const base = '/my-nav';
 
 		<slot />
 
-    <script>
-      const themeToggleBtn = document.getElementById('theme-toggle');
-      themeToggleBtn?.addEventListener('click', () => {
-        if (document.documentElement.classList.contains('dark')) {
-          document.documentElement.classList.remove('dark');
-          localStorage.setItem('theme', 'light');
-        } else {
-          document.documentElement.classList.add('dark');
-          localStorage.setItem('theme', 'dark');
-        }
-      });
+    <!-- 2. 按钮点击逻辑：放在 body 底部 -->
+    <script is:inline>
+      function setupThemeToggle() {
+        const btn = document.getElementById('theme-toggle');
+        if (!btn) return;
+
+        // 移除旧监听器 (虽然 Astro 换页 dom 是新的，但为了保险)
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+
+        newBtn.addEventListener('click', () => {
+          const isDark = document.documentElement.classList.contains('dark');
+          const newTheme = isDark ? 'light' : 'dark';
+          
+          if (newTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+          localStorage.setItem('theme', newTheme);
+        });
+      }
+
+      // 初始化 + 页面切换后重新绑定
+      setupThemeToggle();
+      document.addEventListener('astro:after-swap', setupThemeToggle);
     </script>
 	</body>
 </html>

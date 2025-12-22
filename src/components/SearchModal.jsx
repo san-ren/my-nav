@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Fuse from 'fuse.js';
 import { Search, X, Command, CornerDownLeft } from 'lucide-react';
 
-// --- 核心修改：动态获取 nav 文件夹下的所有页面数据 ---
+// 动态获取 nav 文件夹下的所有页面数据
 const navFiles = import.meta.glob('../data/nav/*.json', { eager: true });
 const navResources = Object.values(navFiles);
 
@@ -14,27 +14,31 @@ export default function SearchModal() {
   const inputRef = useRef(null);
   const listRef = useRef(null);
 
-  // 核心逻辑：数据扁平化，支持普通 list 和 tabs 结构
+  // --- 核心修复：适配 Groups 结构的扁平化逻辑 ---
   const allLinks = navResources.flatMap(section =>
-    section.categories.flatMap(cat => {
-      // 1. 如果有 tabs 结构
-      if (cat.tabs) {
-        return cat.tabs.flatMap(tab => 
-          (tab.list || []).map(item => ({
-            ...item,
-            category: cat.name,
-            tabName: tab.tabName,
-            sectionName: section.name
-          }))
-        );
-      }
-      // 2. 如果是普通 list 结构
-      return (cat.list || []).map(item => ({
-        ...item,
-        category: cat.name,
-        sectionName: section.name
-      }));
-    })
+    // 1. 遍历 Groups (如果页面没有 groups，就给个空数组防崩)
+    (section.groups || []).flatMap(group => 
+      // 2. 遍历 Categories
+      (group.categories || []).flatMap(cat => {
+        // 3. 如果有 tabs 结构
+        if (cat.tabs) {
+          return cat.tabs.flatMap(tab => 
+            (tab.list || []).map(item => ({
+              ...item,
+              category: cat.name,
+              tabName: tab.tabName,
+              sectionName: section.name
+            }))
+          );
+        }
+        // 4. 如果是普通 list 结构
+        return (cat.list || []).map(item => ({
+          ...item,
+          category: cat.name,
+          sectionName: section.name
+        }));
+      })
+    )
   );
 
   // 配置模糊搜索
@@ -46,14 +50,14 @@ export default function SearchModal() {
   useEffect(() => {
     if (query.length > 0) {
       const res = fuse.search(query);
-      setResults(res.slice(0, 8)); // 只显示前 8 条
+      setResults(res.slice(0, 8));
       setSelectedIndex(0);
     } else {
       setResults([]);
     }
   }, [query]);
 
-  // 快捷键监听 (Ctrl+K 或 Cmd+K)
+  // 快捷键监听
   useEffect(() => {
     const handleKeyDown = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -77,7 +81,6 @@ export default function SearchModal() {
 
   return (
     <>
-      {/* 搜索按钮 */}
       <button
         onClick={() => setIsOpen(true)}
         className="flex items-center gap-2 px-3 py-1.5 text-sm text-slate-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:ring-2 hover:ring-blue-500/20 transition-all border border-slate-200 dark:border-slate-700"
@@ -89,7 +92,6 @@ export default function SearchModal() {
         </kbd>
       </button>
 
-      {/* 搜索弹窗 */}
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] px-4 bg-slate-900/60 backdrop-blur-sm">
           <div 
@@ -102,7 +104,7 @@ export default function SearchModal() {
                 ref={inputRef}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="输入关键字搜索全站工具..."
+                placeholder="输入关键字搜索..."
                 className="flex-1 bg-transparent border-none outline-none text-slate-800 dark:text-slate-100 placeholder-slate-400"
               />
               <button onClick={() => setIsOpen(false)} className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-slate-400">
@@ -138,13 +140,9 @@ export default function SearchModal() {
                   ))}
                 </div>
               ) : query ? (
-                <div className="py-12 text-center text-slate-400">
-                  没有找到与 "{query}" 相关的结果
-                </div>
+                <div className="py-12 text-center text-slate-400">无相关结果</div>
               ) : (
-                <div className="py-12 text-center text-slate-400 text-sm">
-                  输入名称或描述开始搜索
-                </div>
+                <div className="py-12 text-center text-slate-400 text-sm">输入名称或描述开始搜索</div>
               )}
             </div>
           </div>

@@ -1,10 +1,8 @@
 ---
 import { marked } from 'marked';
 
-// 1. 核心修复：同时接收 title 和 name，解决标题不显示的问题
 const { title, name, url, desc, detail, official_site, badge_list = [] } = Astro.props;
-const displayTitle = title || name; // 优先取 title，没有就取 name
-
+const displayTitle = title || name;
 const base = '/my-nav';
 
 const getFavicon = (mainUrl, secondaryUrl) => {
@@ -17,7 +15,6 @@ const getFavicon = (mainUrl, secondaryUrl) => {
   }
 };
 
-// 徽章生成逻辑保持不变
 let badgeHtml = "";
 if (url && url.includes("github.com")) {
   try {
@@ -52,7 +49,6 @@ const logoUrl = getFavicon(url, official_site);
   <a href={url} target="_blank" 
      class="flex items-center p-3 h-[90px] bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl border border-white/50 dark:border-gray-700/30 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1.5 transition-all duration-300 hover:border-blue-500/50"
   >
-    <!-- 左侧图标：稍微缩小一点边距，给文字腾空间 -->
     <div class="flex-shrink-0 mr-3 w-10 h-10 rounded-xl bg-white dark:bg-gray-700 shadow-sm overflow-hidden flex items-center justify-center border border-gray-100 dark:border-gray-600 group-hover:scale-110 transition-transform duration-300">
       <img 
         src={logoUrl} 
@@ -63,22 +59,21 @@ const logoUrl = getFavicon(url, official_site);
       />
     </div>
     
-    <!-- 右侧文字区域：改为 flex-col + justify-center 实现垂直居中，text-center 实现水平居中 -->
     <div class="flex-1 min-w-0 flex flex-col justify-center text-center px-1">
-      
-      <!-- 标题：加粗，限制1行 -->
       <h3 class="font-bold text-[14px] text-slate-800 dark:text-slate-100 group-hover:text-blue-600 transition-colors line-clamp-1 mb-0.5">
         {displayTitle}
       </h3>
       
-      <!-- 描述：字体变小，允许显示2行，行高调紧 -->
-      <p class="text-[12px] text-slate-400 dark:text-slate-500 leading-tight line-clamp-2 h-[2.2em] overflow-hidden">
-        {desc || url}
-      </p>
+      {/* 核心修改：只有当 desc 存在时才渲染 p 标签，且去掉了 || url */}
+      {desc && (
+        <p class="text-[12px] text-slate-400 dark:text-slate-500 leading-tight line-clamp-2 h-[2.2em] overflow-hidden">
+          {desc}
+        </p>
+      )}
+      
     </div>
   </a>
 
-  <!-- 浮动说明框保持不变 -->
   {detail && (
     <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 p-4 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-300 z-50 pointer-events-none">
       <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white/95 dark:bg-gray-900/95 border-r border-b border-slate-200 dark:border-slate-700 rotate-45"></div>
