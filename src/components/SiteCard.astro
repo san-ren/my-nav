@@ -34,9 +34,7 @@ if (url && url.includes("github.com")) {
         }
       });
     }
-  } catch(e) {
-    console.log("URL parsing error", e);
-  }
+  } catch(e) { }
 }
 
 const rawMarkdown = detail || "";
@@ -46,50 +44,49 @@ const logoUrl = getFavicon(url, official_site);
 ---
 
 <div class="group relative">
+  <!-- 主卡片 -->
   <a href={url} target="_blank" 
-     class="flex items-center p-3 h-[90px] bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl border border-white/50 dark:border-gray-700/30 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1.5 transition-all duration-300 hover:border-blue-500/50"
+     class="flex items-center p-3 h-[90px] bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl border border-white/50 dark:border-gray-700/30 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 hover:border-blue-500/50"
   >
-    <div class="flex-shrink-0 mr-3 w-10 h-10 rounded-xl bg-white dark:bg-gray-700 shadow-sm overflow-hidden flex items-center justify-center border border-gray-100 dark:border-gray-600 group-hover:scale-110 transition-transform duration-300">
-      <img 
-        src={logoUrl} 
-        alt={displayTitle} 
-        loading="lazy"
-        class="w-6 h-6 object-contain" 
-        onerror={`this.src='${base}/favicon.svg'`} 
-      />
+    <div class="flex-shrink-0 mr-3 w-10 h-10 rounded-xl bg-white dark:bg-gray-700 shadow-sm overflow-hidden flex items-center justify-center border border-gray-100 dark:border-gray-600">
+      <img src={logoUrl} alt={displayTitle} loading="lazy" class="w-6 h-6 object-contain" onerror={`this.src='${base}/favicon.svg'`} />
     </div>
-    
     <div class="flex-1 min-w-0 flex flex-col justify-center text-center px-1">
-      <h3 class="font-bold text-[14px] text-slate-800 dark:text-slate-100 group-hover:text-blue-600 transition-colors line-clamp-1 mb-0.5">
-        {displayTitle}
-      </h3>
-      
-      {/* 核心修改：只有当 desc 存在时才渲染 p 标签，且去掉了 || url */}
-      {desc && (
-        <p class="text-[12px] text-slate-400 dark:text-slate-500 leading-tight line-clamp-2 h-[2.2em] overflow-hidden">
-          {desc}
-        </p>
-      )}
-      
+      <h3 class="font-bold text-[14px] text-slate-800 dark:text-slate-100 group-hover:text-blue-600 transition-colors line-clamp-1 mb-0.5">{displayTitle}</h3>
+      {desc && <p class="text-[12px] text-slate-400 dark:text-slate-500 leading-tight line-clamp-2 h-[2.2em] overflow-hidden">{desc}</p>}
     </div>
   </a>
 
+  <!-- 浮动说明框：彻底移除所有透明度类名 -->
   {detail && (
-    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 p-4 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-300 z-50 pointer-events-none">
-      <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white/95 dark:bg-gray-900/95 border-r border-b border-slate-200 dark:border-slate-700 rotate-45"></div>
-      <div class="text-[12px] font-black text-blue-600 dark:text-blue-400 mb-2.5 flex items-center gap-2 uppercase tracking-wider">
-        <span class="w-1.5 h-3 bg-blue-500 rounded-full"></span>
-        详情介绍
+    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-64 pointer-events-none z-[1000] opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-200">
+      
+      <div 
+        class="relative rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-200/60 dark:border-slate-700 p-5"
+        style="background: #ffffff; background-color: white !important; opacity: 1 !important;"
+      >
+        <!-- 强制实心底层 -->
+        <div class="absolute inset-0 rounded-2xl -z-10 bg-white dark:bg-[#1e2025]" style="opacity: 1 !important;"></div>
+
+        <!-- 小三角 -->
+        <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 border-r border-b border-slate-200 dark:border-slate-700 rotate-45" style="background: inherit; opacity: 1 !important;"></div>
+        
+        <div class="relative z-10">
+          <div class="text-[11px] font-black text-blue-600 dark:text-blue-400 mb-2.5 flex items-center gap-2 uppercase tracking-widest">
+            <span class="w-2 h-3 bg-blue-500 rounded-sm"></span>
+            详情介绍
+          </div>
+          <!-- 增加 whitespace-normal 确保长文字自动换行 -->
+          <div class="detail-markdown text-[12px] text-slate-700 dark:text-slate-300 leading-relaxed font-medium whitespace-normal break-words" set:html={finalDetailHtml}></div>
+        </div>
       </div>
-      <div class="detail-markdown text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed" set:html={finalDetailHtml}></div>
     </div>
   )}
 </div>
 
 <style is:global>
-  .detail-markdown p { @apply mb-2; }
-  .detail-markdown b, .detail-markdown strong { @apply text-slate-800 dark:text-slate-200 font-bold; }
-  .detail-markdown ul { @apply list-disc list-inside mb-2; }
-  .detail-markdown img { @apply inline-block mt-1 mb-1 rounded-sm; max-height: 20px; }
-  .detail-markdown hr { @apply border-slate-100 dark:border-slate-800 my-2; }
+  /* 保险3：强制暗色模式背景 */
+  .dark .detail-markdown-parent {
+    background-color: #1e2025 !important;
+  }
 </style>
