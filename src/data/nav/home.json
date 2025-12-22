@@ -1,8 +1,8 @@
 {
+  "sortOrder": 1,
   "id": "home",
   "name": "精华推荐",
   "icon": "Star",
-  "sortOrder": 1,
   "groups": [
     {
       "name": "必看资源",
@@ -16,7 +16,8 @@
               "name": "小田田",
               "url": "https://xydh.fun/xiaotiantian",
               "desc": "",
-              "detail": "汇总导航,你想要的都有"
+              "detail": "汇总导航,你想要的都有",
+              "official_site": ""
             },
             {
               "name": "低调观影",
@@ -34,7 +35,8 @@
               "name": "小众软件",
               "url": "https://www.appinn.com/",
               "desc": "",
-              "detail": "一个分享、体验、评测电脑软件、手机应用、互联网产品的网站"
+              "detail": "一个分享、体验、评测电脑软件、手机应用、互联网产品的网站",
+              "official_site": ""
             },
             {
               "name": "异次元",
@@ -84,8 +86,14 @@
                 {
                   "name": "Listen1",
                   "url": "https://github.com/listen1",
-                  "desc": "",
-                  "detail": "9.3k star,一个基于 electron 的音乐软件,PC、浏览器扩展、安卓、iOS，在线音乐播放"
+                  "desc": "一个基于 electron 的音乐软件",
+                  "detail": "- 支持PC、浏览器扩展、安卓、iOS\n\n- 在线音乐播放",
+                  "official_site": "",
+                  "badge_list": [
+                    "stars",
+                    "version",
+                    "last_commit"
+                  ]
                 },
                 {
                   "name": "洛雪音乐助手",
