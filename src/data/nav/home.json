@@ -90,9 +90,6 @@
                   "detail": "- 支持PC、浏览器扩展、安卓、iOS\n- 在线音乐播放",
                   "official_site": "",
                   "badge_list": [
-                    "stars",
-                    "version",
-                    "last_commit",
                     "last_commit"
                   ]
                 },
