@@ -1,6 +1,6 @@
 ---
 import { marked } from 'marked';
-import { BookOpen } from 'lucide-react';
+import { BookOpen, Info } from 'lucide-react';
 
 const { title, name, url, desc, detail, official_site, badge_list = [], guide_id } = Astro.props;
 const displayTitle = title || name;
@@ -48,7 +48,7 @@ const detailContent = marked.parse(rawMarkdown);
 const logoUrl = getFavicon(url, official_site);
 ---
 
-<div class="group relative hover:z-[999]">
+<div class="site-card-wrapper group relative hover:z-[999]">
   <a href={url} target="_blank" 
      class="flex items-center py-2 px-3 h-[90px] bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl border border-white/50 dark:border-gray-700/30 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 hover:border-blue-500/50 relative"
   >
@@ -69,14 +69,29 @@ const logoUrl = getFavicon(url, official_site);
     </div>
 
     <!-- 
-      🚀 新增：教程文章入口图标 
-      如果 guide_id 存在，显示一个小书本图标
-      点击时阻止冒泡，避免打开卡片的主链接
+      (i) 详情开关按钮：
+      修改点：添加 md:hidden
+      作用：只在手机端显示，电脑端(md及以上)自动隐藏
+    -->
+    {detail && (
+      <button
+        onclick="toggleDetail(this, event)"
+        class="info-btn md:hidden absolute top-2 right-2 p-1.5 rounded-full bg-slate-100/50 dark:bg-slate-700/50 text-slate-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-gray-600 z-20 transition-all scale-90"
+        title="显示/隐藏详情"
+      >
+        <Info size={14} />
+      </button>
+    )}
+
+    <!-- 
+      教程文章入口图标：
+      修改点：right-9 md:right-2
+      作用：手机上因为有 (i) 按钮，所以靠左一点(right-9)；电脑上 (i) 没了，所以靠右复位(right-2)
     -->
     {guide_id && (
       <button
         onclick={`event.preventDefault(); event.stopPropagation(); window.open('${base}/guide/${guide_id}', '_blank');`}
-        class="absolute top-2 right-2 p-1.5 rounded-lg bg-blue-50 text-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-200 z-20 opacity-0 group-hover:opacity-100 scale-90 hover:scale-105"
+        class={`absolute top-2 p-1.5 rounded-lg bg-blue-50 text-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-200 z-20 opacity-0 group-hover:opacity-100 scale-90 hover:scale-105 ${detail ? 'right-9 md:right-2' : 'right-2'}`}
         title="查看详细教程"
       >
         <BookOpen size={14} strokeWidth={2.5} />
@@ -86,7 +101,7 @@ const logoUrl = getFavicon(url, official_site);
 
   <!-- 浮动说明框 -->
   {detail && (
-    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 pointer-events-none z-[1000] opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-200">
+    <div class="detail-popup absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 pointer-events-none z-[1000] opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-200">
       <div 
         class="relative rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-200/60 dark:border-slate-700 p-5"
         style="background: #ffffff; background-color: white !important; opacity: 1 !important;"
@@ -114,6 +129,44 @@ const logoUrl = getFavicon(url, official_site);
     </div>
   )}
 </div>
+
+<script is:inline>
+  function toggleDetail(btn, e) {
+    e.preventDefault(); 
+    e.stopPropagation(); 
+
+    const wrapper = btn.closest('.site-card-wrapper');
+    const popup = wrapper.querySelector('.detail-popup');
+    if(!popup) return;
+
+    const isVisible = popup.classList.contains('mobile-visible');
+
+    document.querySelectorAll('.detail-popup').forEach(p => {
+      p.classList.remove('mobile-visible');
+      p.style.opacity = '';
+      p.style.visibility = '';
+      p.style.transform = '';
+    });
+
+    if (!isVisible) {
+      popup.classList.add('mobile-visible');
+      popup.style.opacity = '1';
+      popup.style.visibility = 'visible';
+      popup.style.transform = 'translateY(0) translateX(-50%)'; 
+    }
+  }
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.info-btn') && !e.target.closest('.detail-popup')) {
+      document.querySelectorAll('.detail-popup').forEach(p => {
+        p.classList.remove('mobile-visible');
+        p.style.opacity = '';
+        p.style.visibility = '';
+        p.style.transform = '';
+      });
+    }
+  });
+</script>
 
 <style is:global>
   .dark .detail-markdown-parent {

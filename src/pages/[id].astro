@@ -4,7 +4,7 @@ import Sidebar from '../components/Sidebar.astro';
 import SiteCard from '../components/SiteCard.astro';
 import SearchModal from '../components/SearchModal.jsx';
 import siteConfig from '../data/config.json';
-import { LayoutDashboard, Star, Code, Palette, Edit, Sun, Moon, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download } from 'lucide-react';
+import { LayoutDashboard, Star, Code, Palette, Sun, Moon, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu } from 'lucide-react';
 
 export async function getStaticPaths() {
   const allNavFiles = import.meta.glob('../data/nav/*.json', { eager: true });
@@ -22,7 +22,6 @@ export async function getStaticPaths() {
 
 const { section, navResources } = Astro.props;
 const { id } = Astro.params;
-const base = '/my-nav';
 
 const Icons = { Star, Code, Palette, LayoutDashboard, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download };
 const CurrentIcon = Icons[section.icon] || LayoutDashboard;
@@ -33,15 +32,24 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     
     <Sidebar navResources={navResources} currentId={id} siteConfig={siteConfig} />
 
-    <!-- 修改点 1：md:ml-[240px] -> md:ml-52 -->
+    <!-- 移动端侧边栏遮罩层 -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/40 z-40 hidden md:hidden backdrop-blur-sm transition-opacity" onclick="toggleSidebar()"></div>
+
     <main class="flex-1 md:ml-52 transition-all duration-300 bg-gray-50/50 dark:bg-gray-900/50 min-h-screen">
       
-      <!-- 修改点 3：添加 id="page-header" 和 transition-transform -->
-      <header id="page-header" class="sticky top-0 z-30 flex items-center justify-between px-8 py-4 bg-white/40 dark:bg-gray-900/40 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50 transition-transform duration-300">
-        <h1 class="text-xl font-black flex items-center gap-3 text-slate-800 dark:text-white">
-          <div class="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-blue-600"><CurrentIcon size={20} /></div>
-          {section.name}
-        </h1>
+      <header id="page-header" class="sticky top-0 z-30 flex items-center justify-between px-4 md:px-8 py-4 bg-white/40 dark:bg-gray-900/40 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50 transition-transform duration-300">
+        <div class="flex items-center gap-3">
+          <!-- 移动端汉堡菜单按钮 -->
+          <button id="menu-btn" class="md:hidden p-2 text-slate-600 dark:text-slate-300 bg-white/80 dark:bg-gray-800/80 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700" onclick="toggleSidebar()">
+            <Menu size={20} />
+          </button>
+
+          <h1 class="text-xl font-black flex items-center gap-3 text-slate-800 dark:text-white">
+            <div class="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-blue-600"><CurrentIcon size={20} /></div>
+            {section.name}
+          </h1>
+        </div>
+        
         <div class="flex items-center gap-3">
           <SearchModal client:load />
           <button id="theme-toggle" class="p-2.5 bg-slate-100 dark:bg-gray-800 rounded-xl text-slate-500 hover:text-blue-600 transition-all">
@@ -51,7 +59,6 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
         </div>
       </header>
 
-      <!-- 修改点 2：p-8 lg:pl-24 -> p-6 lg:p-8 -->
       <div class="p-6 lg:p-8 space-y-12 max-w-[1600px] mx-auto">
         {(section.groups || []).map((group, groupIdx) => (
           <div class="group-wrapper">
@@ -122,45 +129,44 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 </Layout>
 
 <script is:inline>
-  // 1. Tab 切换逻辑
+  // 侧边栏切换逻辑
+  window.toggleSidebar = () => {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    if (sidebar && overlay) {
+      sidebar.classList.toggle('-translate-x-full');
+      overlay.classList.toggle('hidden');
+    }
+  };
+
   function initTabs() {
     const containers = document.querySelectorAll('.tab-nav-container');
-    
     containers.forEach(container => {
       const indicator = container.querySelector('.tab-indicator');
       const btns = container.querySelectorAll('.tab-btn');
-      
       if (!indicator || btns.length === 0) return;
-
       const moveIndicator = (targetBtn) => {
         indicator.style.left = `${targetBtn.offsetLeft}px`;
         indicator.style.width = `${targetBtn.offsetWidth}px`;
       };
-
       const activeBtn = container.querySelector('.active-tab') || btns[0];
       if(activeBtn) moveIndicator(activeBtn);
-
       btns.forEach(btn => {
         btn.addEventListener('mouseenter', () => moveIndicator(btn));
-        
         btn.addEventListener('click', (e) => {
           e.preventDefault();
-          
           btns.forEach(b => {
             b.classList.remove('active-tab', 'text-blue-600', 'dark:text-blue-400');
             b.classList.add('text-slate-500');
           });
           btn.classList.add('active-tab', 'text-blue-600', 'dark:text-blue-400');
           btn.classList.remove('text-slate-500');
-
           const group = container.closest('.category-group');
           const targetId = btn.getAttribute('data-target');
-          
           group.querySelectorAll('.tab-pane').forEach(p => {
             p.classList.add('hidden');
             p.classList.remove('animate-fade-in');
           });
-          
           const targetPane = document.getElementById(targetId);
           if(targetPane) {
             targetPane.classList.remove('hidden');
@@ -169,7 +175,6 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
           }
         });
       });
-
       container.addEventListener('mouseleave', () => {
         const currentActive = container.querySelector('.active-tab');
         if (currentActive) moveIndicator(currentActive);
@@ -177,37 +182,29 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     });
   }
 
-  // 2. 顶栏自动隐藏逻辑
   function initHeaderScroll() {
     let lastScrollY = window.scrollY;
     const header = document.getElementById('page-header');
     const scrollThreshold = 100;
-
     window.addEventListener('scroll', () => {
       if (!header) return;
       const currentScrollY = window.scrollY;
-
       if (currentScrollY < scrollThreshold) {
         header.style.transform = 'translateY(0)';
         lastScrollY = currentScrollY;
         return;
       }
-
       if (currentScrollY > lastScrollY) {
-        // 下滑 -> 隐藏
         header.style.transform = 'translateY(-150%)';
       } else {
-        // 上滑 -> 显示
         header.style.transform = 'translateY(0)';
       }
       lastScrollY = currentScrollY;
     }, { passive: true });
   }
 
-  // 初始化
   initTabs();
   initHeaderScroll();
-
   document.addEventListener('astro:after-swap', () => {
     initTabs();
     initHeaderScroll();
