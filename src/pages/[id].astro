@@ -33,8 +33,11 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     
     <Sidebar navResources={navResources} currentId={id} siteConfig={siteConfig} />
 
-    <main class="flex-1 md:ml-[240px] transition-all duration-300">
-      <header class="sticky top-0 z-30 flex items-center justify-between px-8 py-4 bg-white/40 dark:bg-gray-900/40 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50">
+    <!-- 修改点 1：md:ml-[240px] -> md:ml-52 -->
+    <main class="flex-1 md:ml-52 transition-all duration-300 bg-gray-50/50 dark:bg-gray-900/50 min-h-screen">
+      
+      <!-- 修改点 3：添加 id="page-header" 和 transition-transform -->
+      <header id="page-header" class="sticky top-0 z-30 flex items-center justify-between px-8 py-4 bg-white/40 dark:bg-gray-900/40 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50 transition-transform duration-300">
         <h1 class="text-xl font-black flex items-center gap-3 text-slate-800 dark:text-white">
           <div class="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-blue-600"><CurrentIcon size={20} /></div>
           {section.name}
@@ -48,7 +51,8 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
         </div>
       </header>
 
-      <div class="p-8 lg:pl-24 space-y-16 max-w-7xl">
+      <!-- 修改点 2：p-8 lg:pl-24 -> p-6 lg:p-8 -->
+      <div class="p-6 lg:p-8 space-y-12 max-w-[1600px] mx-auto">
         {(section.groups || []).map((group, groupIdx) => (
           <div class="group-wrapper">
             <div id={`group-${groupIdx}`} class="flex items-center gap-3 mb-8 mt-12 first:mt-0 pb-2 border-b border-slate-100 dark:border-slate-800 scroll-mt-24">
@@ -68,7 +72,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
                       </h3>
 
                       {category.tabs && (
-                        <div class="tab-nav-container relative flex z-0 bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-full">
+                        <div class="tab-nav-container relative z-0 flex bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-full">
                           <div class="tab-indicator absolute bg-white dark:bg-slate-700 shadow-sm rounded-full h-[calc(100%-8px)] top-1 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1.0)]"></div>
                           {category.tabs.map((tab, tabIdx) => (
                             <button
@@ -118,6 +122,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 </Layout>
 
 <script is:inline>
+  // 1. Tab 切换逻辑
   function initTabs() {
     const containers = document.querySelectorAll('.tab-nav-container');
     
@@ -172,8 +177,41 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     });
   }
 
+  // 2. 顶栏自动隐藏逻辑
+  function initHeaderScroll() {
+    let lastScrollY = window.scrollY;
+    const header = document.getElementById('page-header');
+    const scrollThreshold = 100;
+
+    window.addEventListener('scroll', () => {
+      if (!header) return;
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY < scrollThreshold) {
+        header.style.transform = 'translateY(0)';
+        lastScrollY = currentScrollY;
+        return;
+      }
+
+      if (currentScrollY > lastScrollY) {
+        // 下滑 -> 隐藏
+        header.style.transform = 'translateY(-150%)';
+      } else {
+        // 上滑 -> 显示
+        header.style.transform = 'translateY(0)';
+      }
+      lastScrollY = currentScrollY;
+    }, { passive: true });
+  }
+
+  // 初始化
   initTabs();
-  document.addEventListener('astro:after-swap', initTabs);
+  initHeaderScroll();
+
+  document.addEventListener('astro:after-swap', () => {
+    initTabs();
+    initHeaderScroll();
+  });
   window.addEventListener('resize', initTabs);
 </script>
 

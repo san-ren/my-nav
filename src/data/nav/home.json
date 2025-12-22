@@ -83,9 +83,15 @@
               "list": [
                 {
                   "name": "Listen1",
-                  "url": "https://github.com/listen1",
+                  "url": "https://github.com/listen1/listen1_desktop",
                   "desc": "",
-                  "detail": "9.3k star,一个基于 electron 的音乐软件,PC、浏览器扩展、安卓、iOS，在线音乐播放"
+                  "detail": "9.3k star,一个基于 electron 的音乐软件,PC、浏览器扩展、安卓、iOS，在线音乐播放",
+                  "badge_list": [
+                    "stars",
+                    "version",
+                    "license",
+                    "last_commit"
+                  ]
                 },
                 {
                   "name": "洛雪音乐助手",
