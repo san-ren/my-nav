@@ -5,7 +5,6 @@ const { title, name, url, desc, detail, official_site, badge_list = [] } = Astro
 const displayTitle = title || name;
 const base = '/my-nav';
 
-// 1. 图标获取逻辑
 const getFavicon = (mainUrl, secondaryUrl) => {
   const targetUrl = secondaryUrl || mainUrl;
   try {
@@ -16,7 +15,6 @@ const getFavicon = (mainUrl, secondaryUrl) => {
   }
 };
 
-// 2. 徽章生成逻辑 (改为生成数组，而不是字符串)
 let badges = [];
 if (url && url.includes("github.com") && badge_list && badge_list.length > 0) {
   try {
@@ -24,8 +22,6 @@ if (url && url.includes("github.com") && badge_list && badge_list.length > 0) {
     if (pathParts.length >= 2) {
       const owner = pathParts[0];
       const repo = pathParts[1];
-      
-      // 统一风格配置：style=flat
       const styleParam = "?style=flat&color=blue"; 
       
       const badgeConfigs = {
@@ -35,7 +31,6 @@ if (url && url.includes("github.com") && badge_list && badge_list.length > 0) {
         last_commit: { src: `https://img.shields.io/github/last-commit/${owner}/${repo}${styleParam}&color=slate&label=Updated`, alt: "Last Commit" }
       };
 
-      // 遍历传入的 badge_list，只添加存在的配置
       badge_list.forEach(key => {
         if (badgeConfigs[key]) {
           badges.push(badgeConfigs[key]);
@@ -47,38 +42,48 @@ if (url && url.includes("github.com") && badge_list && badge_list.length > 0) {
   }
 }
 
-// 3. Markdown 解析
 const rawMarkdown = detail || "";
 const detailContent = marked.parse(rawMarkdown);
 const logoUrl = getFavicon(url, official_site);
 ---
 
 <div class="group relative hover:z-[999]">
-  <!-- 主卡片 -->
+  <!-- 
+    修改点 1: p-3 -> py-2 px-3 
+    (减少上下内边距，让内容区域更高，左右保持原样)
+  -->
   <a href={url} target="_blank" 
-     class="flex items-center p-3 h-[90px] bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl border border-white/50 dark:border-gray-700/30 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 hover:border-blue-500/50"
+     class="flex items-center py-2 px-3 h-[90px] bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl border border-white/50 dark:border-gray-700/30 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 hover:border-blue-500/50"
   >
     <div class="flex-shrink-0 mr-3 w-10 h-10 rounded-xl bg-white dark:bg-gray-700 shadow-sm overflow-hidden flex items-center justify-center border border-gray-100 dark:border-gray-600">
       <img src={logoUrl} alt={displayTitle} loading="lazy" class="w-6 h-6 object-contain" onerror={`this.src='${base}/favicon.svg'`} />
     </div>
+    
     <div class="flex-1 min-w-0 flex flex-col justify-center text-center px-1">
       <h3 class="font-bold text-[14px] text-slate-800 dark:text-slate-100 group-hover:text-blue-600 transition-colors line-clamp-1 mb-0.5">{displayTitle}</h3>
-      {desc && <p class="text-[12px] text-slate-400 dark:text-slate-500 leading-tight line-clamp-2 h-[2.2em] overflow-hidden">{desc}</p>}
+      
+      {desc && (
+        /* 
+           修改点 2: 
+           - line-clamp-2 -> line-clamp-3 (允许3行)
+           - 删除了 h-[2.2em] (这个是导致遮挡的元凶)
+           - leading-tight -> leading-4 (设置固定行高16px，防止行间距过大，3行刚好48px，不会溢出)
+        */
+        <p class="text-[12px] text-slate-400 dark:text-slate-500 leading-4 line-clamp-3 overflow-hidden">
+          {desc}
+        </p>
+      )}
     </div>
   </a>
 
-  <!-- 浮动说明框 -->
+  <!-- 浮动说明框 (保持原样) -->
   {detail && (
     <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 pointer-events-none z-[1000] opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-200">
-      
       <div 
         class="relative rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-200/60 dark:border-slate-700 p-5"
         style="background: #ffffff; background-color: white !important; opacity: 1 !important;"
       >
-        <!-- 强制实心底层 -->
         <div class="absolute inset-0 rounded-2xl -z-10 bg-white dark:bg-[#1e2025]" style="opacity: 1 !important;"></div>
-
-        <!-- 小三角 -->
         <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 border-r border-b border-slate-200 dark:border-slate-700 rotate-45" style="background: inherit; opacity: 1 !important;"></div>
         
         <div class="relative z-10">
@@ -87,12 +92,6 @@ const logoUrl = getFavicon(url, official_site);
             详情介绍
           </div>
 
-          <!-- 
-             修复徽章显示区域：
-             1. 使用 flex-wrap 允许换行
-             2. 使用 gap-2 增加行列间距
-             3. 独立于 Markdown 内容，互不干扰
-          -->
           {badges.length > 0 && (
             <div class="flex flex-wrap gap-2 mb-3 border-b border-slate-100 dark:border-slate-800 pb-3">
               {badges.map(badge => (
@@ -112,7 +111,6 @@ const logoUrl = getFavicon(url, official_site);
   .dark .detail-markdown-parent {
     background-color: #1e2025 !important;
   }
-  /* 优化 Markdown 内部样式 */
   .detail-markdown p { margin-bottom: 0.5rem; }
   .detail-markdown p:last-child { margin-bottom: 0; }
   .detail-markdown ul { list-style-type: disc; padding-left: 1.2em; margin-bottom: 0.5rem; }
