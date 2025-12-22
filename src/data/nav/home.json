@@ -86,12 +86,13 @@
                 {
                   "name": "Listen1",
                   "url": "https://github.com/listen1/listen1_desktop",
-                  "desc": "",
-                  "detail": "9.3k star,一个基于 electron 的音乐软件,PC、浏览器扩展、安卓、iOS，在线音乐播放",
+                  "desc": "一个基于 electron 的音乐软件",
+                  "detail": "- 支持PC、浏览器扩展、安卓、iOS\n- 在线音乐播放",
+                  "official_site": "",
                   "badge_list": [
                     "stars",
                     "version",
-                    "license",
+                    "last_commit",
                     "last_commit"
                   ]
                 },
@@ -99,7 +100,13 @@
                   "name": "洛雪音乐助手",
                   "url": "https://github.com/lyswhut/lx-music-desktop",
                   "desc": "",
-                  "detail": "35.6k star,在线音乐播放，"
+                  "detail": "35.6k star,在线音乐播放，",
+                  "official_site": "",
+                  "badge_list": [
+                    "stars",
+                    "version",
+                    "last_commit"
+                  ]
                 },
                 {
                   "name": "六音音源",
