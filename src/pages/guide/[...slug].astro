@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+// 1. 生成所有文章的静态路径
+export async function getStaticPaths() {
+  const guideEntries = await getCollection('guides');
+  return guideEntries.map(entry => ({
+    params: { slug: entry.slug }, props: { entry },
+  }));
+}
+
+// 2. 获取当前文章内容
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout title={entry.data.title}>
+  <div class="max-w-4xl mx-auto px-6 py-12 min-h-screen">
+    <!-- 返回按钮 -->
+    <a href="/my-nav/home" class="inline-flex items-center text-sm text-blue-600 mb-8 hover:underline">
+      ← 返回导航首页
+    </a>
+
+    <article class="prose prose-slate dark:prose-invert lg:prose-lg mx-auto bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700">
+      <h1 class="mb-4">{entry.data.title}</h1>
+      <div class="text-sm text-gray-400 mb-8 border-b border-gray-100 dark:border-gray-700 pb-4">
+        发布时间：{entry.data.date?.toISOString().split('T')[0]}
+      </div>
+      
+      <!-- 这里渲染 Markdown 正文 -->
+      <Content />
+    </article>
+  </div>
+</Layout>

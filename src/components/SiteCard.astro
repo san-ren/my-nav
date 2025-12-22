@@ -1,7 +1,8 @@
 ---
 import { marked } from 'marked';
+import { BookOpen } from 'lucide-react';
 
-const { title, name, url, desc, detail, official_site, badge_list = [] } = Astro.props;
+const { title, name, url, desc, detail, official_site, badge_list = [], guide_id } = Astro.props;
 const displayTitle = title || name;
 const base = '/my-nav';
 
@@ -48,35 +49,42 @@ const logoUrl = getFavicon(url, official_site);
 ---
 
 <div class="group relative hover:z-[999]">
-  <!-- 
-    修改点 1: p-3 -> py-2 px-3 
-    (减少上下内边距，让内容区域更高，左右保持原样)
-  -->
   <a href={url} target="_blank" 
-     class="flex items-center py-2 px-3 h-[90px] bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl border border-white/50 dark:border-gray-700/30 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 hover:border-blue-500/50"
+     class="flex items-center py-2 px-3 h-[90px] bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl border border-white/50 dark:border-gray-700/30 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 hover:border-blue-500/50 relative"
   >
+    <!-- 左侧图标 -->
     <div class="flex-shrink-0 mr-3 w-10 h-10 rounded-xl bg-white dark:bg-gray-700 shadow-sm overflow-hidden flex items-center justify-center border border-gray-100 dark:border-gray-600">
       <img src={logoUrl} alt={displayTitle} loading="lazy" class="w-6 h-6 object-contain" onerror={`this.src='${base}/favicon.svg'`} />
     </div>
     
+    <!-- 中间文字内容 -->
     <div class="flex-1 min-w-0 flex flex-col justify-center text-center px-1">
       <h3 class="font-bold text-[14px] text-slate-800 dark:text-slate-100 group-hover:text-blue-600 transition-colors line-clamp-1 mb-0.5">{displayTitle}</h3>
       
       {desc && (
-        /* 
-           修改点 2: 
-           - line-clamp-2 -> line-clamp-3 (允许3行)
-           - 删除了 h-[2.2em] (这个是导致遮挡的元凶)
-           - leading-tight -> leading-4 (设置固定行高16px，防止行间距过大，3行刚好48px，不会溢出)
-        */
         <p class="text-[12px] text-slate-400 dark:text-slate-500 leading-4 line-clamp-3 overflow-hidden">
           {desc}
         </p>
       )}
     </div>
+
+    <!-- 
+      🚀 新增：教程文章入口图标 
+      如果 guide_id 存在，显示一个小书本图标
+      点击时阻止冒泡，避免打开卡片的主链接
+    -->
+    {guide_id && (
+      <button
+        onclick={`event.preventDefault(); event.stopPropagation(); window.open('${base}/guide/${guide_id}', '_blank');`}
+        class="absolute top-2 right-2 p-1.5 rounded-lg bg-blue-50 text-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-200 z-20 opacity-0 group-hover:opacity-100 scale-90 hover:scale-105"
+        title="查看详细教程"
+      >
+        <BookOpen size={14} strokeWidth={2.5} />
+      </button>
+    )}
   </a>
 
-  <!-- 浮动说明框 (保持原样) -->
+  <!-- 浮动说明框 -->
   {detail && (
     <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 pointer-events-none z-[1000] opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-200">
       <div 

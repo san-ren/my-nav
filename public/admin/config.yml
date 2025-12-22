@@ -3,6 +3,7 @@ backend:
   repo: san-ren/my-nav
   branch: main
   auth_type: token
+  
   commit_messages:
     create: '创建 {{collection}} “{{slug}}”'
     update: '更新 {{collection}} “{{slug}}”'
@@ -49,12 +50,12 @@ collections:
       preview: false
     fields:
       - { label: "排序权重", name: "sortOrder", widget: "number", default: 10, value_type: "int", required: false }
-      - { label: "页面ID (路由)", name: "id", widget: "string", required: true }
+      - { label: "页面ID (路由)", name: "id", widget: "string", required: true, hint: "对应URL路径，如 home 或 sub1" }
       - { label: "侧边栏名称", name: "name", widget: "string", required: true }
-      - { label: "侧边栏图标", name: "icon", widget: "string", required: false }
+      - { label: "侧边栏图标", name: "icon", widget: "string", required: false, hint: "Lucide图标名" }
       
-      # --- 第一层：分组 (Group) ---
-      - label: "内容分组"
+      # --- 第一层：内容分组 (Section) ---
+      - label: "内容分组 (页内锚点)"
         name: "groups"
         widget: "list"
         collapsed: true
@@ -76,7 +77,6 @@ collections:
               - { label: "分类图标", name: "icon", widget: "string", required: false }
 
               # --- 模式 A：无Tabs，直接显示网址列表 ---
-              # 对应 sub1.json 中的 "通用工具" 和 home.json 中的 "看了不吃亏"
               - label: "🔗 直属资源列表 (无Tab模式)"
                 name: "list"
                 widget: "list"
@@ -87,8 +87,8 @@ collections:
                   - { label: "名称", name: "name", widget: "string", required: true }
                   - { label: "链接地址", name: "url", widget: "string", required: false }
                   - { label: "简短描述", name: "desc", widget: "string", required: false }
-                  - { label: "详细说明", name: "detail", widget: "markdown", required: false, buttons: ["bold", "italic", "link", "bulleted-list"], editor_components: [] }
-                  - { label: "官网/项目主页", name: "official_site", widget: "string", required: false }
+                  - { label: "详细说明 (悬浮窗)", name: "detail", widget: "markdown", required: false, buttons: ["bold", "italic", "link", "bulleted-list", "code"], editor_components: [], hint: "支持 Markdown 语法" }
+                  - { label: "官网/项目主页 (可选)", name: "official_site", widget: "string", required: false }
                   - label: "GitHub 自动徽章"
                     name: "badge_list"
                     widget: "select"
@@ -99,9 +99,10 @@ collections:
                       - { label: "最新版本", value: "version" }
                       - { label: "开源协议", value: "license" }
                       - { label: "最近更新", value: "last_commit" }
+                  # 🚀 新增字段：教程文章ID
+                  - { label: "关联教程文章ID", name: "guide_id", widget: "string", required: false, hint: "填写 src/content/guides/ 下的文章文件名 (不带.md)，例如 'listen1'" }
 
               # --- 模式 B：有Tabs，显示标签页 ---
-              # 对应 home.json 中的 "音乐"、"图片" 等
               - label: "🗃️ 标签页 (Tabs模式)"
                 name: "tabs"
                 widget: "list"
@@ -109,7 +110,6 @@ collections:
                 collapsed: true
                 summary: "Tab：{{tabName}}" 
                 fields:
-                  # 【关键修改】这里必须是 tabName，以匹配你的 home.json
                   - { label: "页签名称", name: "tabName", widget: "string", required: true } 
                   
                   - label: "资源列表"
@@ -119,3 +119,17 @@ collections:
                     required: false
                     summary: "{{name}}"
                     fields: *site_fields # 【引用锚点】复用上面的卡片字段结构
+  
+  # 🚀 新增集合：管理教程文章
+  - name: "guides"
+    label: "📚 教程文章管理"
+    folder: "src/content/guides"
+    extension: "md"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: "title"
+    summary: "{{title}} - {{date | date('YYYY-MM-DD')}}"
+    fields:
+      - { label: "文章标题", name: "title", widget: "string", required: true }
+      - { label: "发布日期", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false }
+      - { label: "文章内容", name: "body", widget: "markdown", required: true }
