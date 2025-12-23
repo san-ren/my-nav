@@ -5,7 +5,7 @@
   "icon": "Star",
   "groups": [
     {
-      "name": "",
+      "name": ".",
       "icon": "Star",
       "categories": [
         {
@@ -86,122 +86,206 @@
                 {
                   "name": "Listen1",
                   "url": "https://github.com/listen1/listen1_desktop",
-                  "desc": "一个基于 electron 的音乐软件，一个基于 electron 的音乐软件，一个基于 electron 的音乐软件，一个基于 electron 的音乐软件，一个基于 electron 的音乐软件，一个基于 electron 的音乐软件，",
-                  "detail": "- 支持PC、浏览器扩展、安卓、iOS\n\n在线音乐播放\n\n",
+                  "desc": "一个基于 electron 的音乐软件，",
+                  "detail": "- 支持PC、浏览器扩展、安卓、iOS\n- 在线音乐播放",
                   "official_site": "",
                   "badge_list": [
                     "stars",
                     "version",
                     "last_commit"
-                  ]
+                  ],
+                  "guide_id": ""
                 },
                 {
                   "name": "洛雪音乐助手",
                   "url": "https://github.com/lyswhut/lx-music-desktop",
                   "desc": "",
-                  "detail": "35.6k star,在线音乐播放，",
+                  "detail": "",
                   "official_site": "",
                   "badge_list": [
                     "stars",
                     "version",
                     "last_commit"
-                  ]
+                  ],
+                  "guide_id": ""
                 },
                 {
                   "name": "六音音源",
                   "url": "https://www.sixyin.com/8498.html",
                   "desc": "",
-                  "detail": ""
+                  "detail": "",
+                  "official_site": "",
+                  "guide_id": ""
                 },
                 {
                   "name": "MusicFree",
-                  "url": "https://github.com/maotoumao",
+                  "url": "https://github.com/maotoumao/MusicFreeDesktop",
                   "desc": "",
-                  "detail": "5.1k/1.7k star,安卓、Windows、macos，插件化、定制化、无广告的免费音乐播放器"
+                  "detail": "安卓、Windows、macos，插件化、定制化、无广告的免费音乐播放器",
+                  "official_site": "",
+                  "badge_list": [
+                    "stars",
+                    "version",
+                    "last_commit"
+                  ],
+                  "guide_id": ""
                 },
                 {
                   "name": "方格音乐",
                   "url": "http://fonger.top/",
                   "desc": "",
-                  "detail": "安卓（魔音）、Windows，在线播放,B站：不知名非羽；微信公众号：方格MUSIC"
+                  "detail": "安卓（魔音）、Windows，在线播放,B站：不知名非羽；微信公众号：方格MUSIC",
+                  "official_site": "",
+                  "guide_id": ""
                 },
                 {
                   "name": "NSMusicS",
                   "url": "https://github.com/Super-Badmen-Viper/NSMusicS",
                   "desc": "",
-                  "detail": "1.7k satr,九歌 云原生音乐服务器/ 全平台客户端，支持 Navidrome、Jellyfin、Emby"
+                  "detail": "九歌 云原生音乐服务器/ 全平台客户端，支持 Navidrome、Jellyfin、Emby",
+                  "official_site": "",
+                  "badge_list": [
+                    "stars",
+                    "last_commit",
+                    "version"
+                  ],
+                  "guide_id": ""
                 },
                 {
                   "name": "TTKMusicPlayer",
                   "url": "https://github.com/Greedysky/TTKMusicPlayer",
                   "desc": "",
-                  "detail": "2.2k star,音乐播放器模仿酷狗，基于Qt和Qmmp库开发，支持Windows和Linux平台."
+                  "detail": "音乐播放器模仿酷狗，基于Qt和Qmmp库开发，支持Windows和Linux平台.",
+                  "official_site": "",
+                  "badge_list": [
+                    "stars",
+                    "last_commit",
+                    "version"
+                  ],
+                  "guide_id": ""
                 },
                 {
                   "name": "go-musicfox",
                   "url": "https://github.com/go-musicfox/go-musicfox",
                   "desc": "",
-                  "detail": "1.2K Star,基于Go语言，支持UnblockNeteaseMusic、各种音质级别、lastfm、MPRIS、MacOS交互响应（睡眠暂停、蓝牙耳机连接断开响应、菜单栏控制等）..."
+                  "detail": "基于Go语言，支持UnblockNeteaseMusic、各种音质级别、lastfm、MPRIS、MacOS交互响应（睡眠暂停、蓝牙耳机连接断开响应、菜单栏控制等）...",
+                  "official_site": "",
+                  "badge_list": [
+                    "stars",
+                    "last_commit",
+                    "version"
+                  ],
+                  "guide_id": ""
                 },
                 {
                   "name": "musicn",
                   "url": "https://github.com/zonemeen/musicn",
                   "desc": "",
-                  "detail": "1.6k star，可播放及下载音乐的 Node.js 命令行工具"
+                  "detail": "可播放及下载音乐的 Node.js 命令行工具",
+                  "official_site": "",
+                  "badge_list": [
+                    "version",
+                    "stars",
+                    "last_commit"
+                  ],
+                  "guide_id": ""
                 },
                 {
                   "name": "music-dl",
                   "url": "https://www.guanguans.cn/music-dl/",
                   "desc": "",
-                  "detail": "音乐搜索下载"
+                  "detail": "音乐搜索下载",
+                  "official_site": "",
+                  "guide_id": ""
                 },
                 {
                   "name": "YesPlayMusic",
                   "url": "https://github.com/qier222/YesPlayMusic",
                   "desc": "",
-                  "detail": "26.5k star,高颜值的第三方网易云播放器，支持 Windows / macOS / Linux"
+                  "detail": "高颜值的第三方网易云播放器，支持 Windows / macOS / Linux",
+                  "official_site": "",
+                  "badge_list": [
+                    "stars",
+                    "last_commit",
+                    "version"
+                  ],
+                  "guide_id": ""
                 },
                 {
                   "name": "SPlayer",
                   "url": "https://github.com/imsyy/SPlayer",
                   "desc": "",
-                  "detail": "网易云第三方"
+                  "detail": "网易云第三方",
+                  "official_site": "",
+                  "badge_list": [
+                    "stars",
+                    "last_commit",
+                    "version"
+                  ],
+                  "guide_id": ""
                 },
                 {
                   "name": "unblockneteasemusic",
                   "url": "https://github.com/topics/unblockneteasemusic",
                   "desc": "",
-                  "detail": "网易云第三方，5 public repositories"
+                  "detail": "网易云第三方，5 public repositories",
+                  "official_site": "",
+                  "guide_id": ""
                 },
                 {
                   "name": "NSMusicS",
                   "url": "https://github.com/Super-Badmen-Viper/NSMusicS",
                   "desc": "",
-                  "detail": ""
+                  "detail": "",
+                  "official_site": "",
+                  "badge_list": [
+                    "stars",
+                    "last_commit",
+                    "version"
+                  ],
+                  "guide_id": ""
                 },
                 {
                   "name": "mp3tag-douban-id3-plugins",
                   "url": "https://github.com/yoyicue/mp3tag-douban-id3-plugins",
                   "desc": "",
-                  "detail": "Mp3tag 豆瓣音乐 id3 插件 v2.5 （2020年10月可用）"
+                  "detail": "Mp3tag 豆瓣音乐 id3 插件 v2.5 （2020年10月可用）",
+                  "official_site": "",
+                  "badge_list": [
+                    "stars",
+                    "last_commit",
+                    "version"
+                  ],
+                  "guide_id": ""
                 },
                 {
                   "name": "音乐标签",
                   "url": "https://www.cnblogs.com/vinlxc/p/11347744.html",
                   "desc": "",
-                  "detail": "编辑歌曲的标题，专辑，艺术家，歌词，封面等信息,支持FLAC, APE, WAV, AIFF, WV, TTA, MP3, MP4, M4A, OGG, MPC, OPUS, WMA, DSF, DFF等"
+                  "detail": "编辑歌曲的标题，专辑，艺术家，歌词，封面等信息,支持FLAC, APE, WAV, AIFF, WV, TTA, MP3, MP4, M4A, OGG, MPC, OPUS, WMA, DSF, DFF等",
+                  "official_site": "",
+                  "guide_id": ""
                 },
                 {
                   "name": "foobar2000",
                   "url": "https://www.foobar2000.org/",
                   "desc": "",
-                  "detail": "在音乐界的地位震古烁今"
+                  "detail": "在音乐界的地位震古烁今",
+                  "official_site": "",
+                  "guide_id": ""
                 },
                 {
                   "name": "foobox-cn",
                   "url": "https://github.com/dream7180/foobox-cn",
                   "desc": "",
-                  "detail": "4.1k star,一个 foobar2000 默认用户界面 (DUI) 的皮肤配置，基于 jsplitter (Spider Monkey Panel 版) 组件"
+                  "detail": "一个 foobar2000 默认用户界面 (DUI) 的皮肤配置，基于 jsplitter (Spider Monkey Panel 版) 组件",
+                  "official_site": "",
+                  "badge_list": [
+                    "stars",
+                    "last_commit",
+                    "version"
+                  ],
+                  "guide_id": ""
                 },
                 {
                   "name": "foobar2000汉化版",
