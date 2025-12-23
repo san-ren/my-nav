@@ -8,22 +8,18 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
 ---
 
 <!-- 
-  🔴 关键修改：
-  1. 删除了 'h-screen'。
-  2. 删除了 'h-[100dvh]'。
-  3. 只保留 'fixed inset-y-0'。
-  
-  原理：'inset-y-0' 等于 top:0 和 bottom:0。
-  在不指定 height 的情况下，这会强制浏览器将元素高度拉伸至填满整个视口，
-  无论工具栏是否显示，背景都会自动铺满，不会出现悬空。
+  🔴 修复重点：
+  1. class 改回 "fixed inset-y-0 ..." (删除了 h-screen 和 top-0) -> 解决手机底部遮挡/闪烁
+  2. 宽度改为 "w-[var(--sidebar-width)]" -> 强制读取 CSS 变量，不再依赖 tailwind.config 配置，彻底解决“太宽”问题
 -->
 <aside 
   id="sidebar"
-  class="fixed inset-y-0 left-0 z-50 w-52 bg-white/90 dark:bg-gray-900/90 backdrop-blur-2xl shadow-[10px_0_40px_rgba(0,0,0,0.04)] dark:shadow-none flex flex-col transition-transform duration-300 -translate-x-full md:translate-x-0"
+  class="fixed inset-y-0 left-0 z-50 w-[var(--sidebar-width)] bg-white/90 dark:bg-gray-900/90 backdrop-blur-2xl shadow-[10px_0_40px_rgba(0,0,0,0.04)] dark:shadow-none flex flex-col transition-transform duration-300 -translate-x-full md:translate-x-0"
 >
   <!-- Logo -->
   <div class="p-6 flex-shrink-0 flex items-center gap-3 border-b border-slate-100/50 dark:border-slate-800/50">
-    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/30 text-white">
+    <!-- 颜色使用 brand-600 -->
+    <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/30 text-white">
       <img src={`${base}/favicon.svg`} class="w-5 h-5 invert brightness-0" alt="Logo" />
     </div>
     <span class="text-base font-black tracking-tight text-slate-800 dark:text-slate-100">
@@ -42,8 +38,8 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
           <a href={`${base}/${page.id}`} 
              class={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 font-bold
              ${isActivePage 
-               ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' 
-               : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-gray-800 hover:text-slate-900 dark:hover:text-slate-200'
+               ? 'bg-brand-600 text-white shadow-md shadow-blue-500/20' 
+               : 'text-slate-500 hover:bg-sidebar-hover dark:hover:bg-gray-800 hover:text-slate-900 dark:hover:text-slate-200'
              }`}
           >
             <PageIcon size={16} />
@@ -56,7 +52,7 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
                 <div class="relative pl-3">
                   <button 
                     onclick={`window.scrollToSection('group-${groupIdx}'); window.closeSidebarMobile();`}
-                    class="w-full flex items-center gap-2 px-3 py-1 mb-1 text-[11px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest hover:text-blue-600 transition-colors text-left"
+                    class="w-full flex items-center gap-2 px-3 py-1 mb-1 text-[11px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest hover:text-brand-600 transition-colors text-left"
                   >
                     {group.name}
                   </button>
@@ -70,7 +66,7 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
                       return (
                         <div class="relative">
                           <button 
-                            class="sidebar-cat-btn w-full flex items-center justify-between px-2 py-1.5 rounded-lg text-[12px] font-medium text-slate-600 dark:text-slate-400 hover:text-blue-600 hover:bg-slate-50 dark:hover:bg-gray-800/50 transition-colors group z-10 relative"
+                            class="sidebar-cat-btn w-full flex items-center justify-between px-2 py-1.5 rounded-lg text-[12px] font-medium text-slate-600 dark:text-slate-400 hover:text-brand-600 hover:bg-sidebar-sub-hover dark:hover:bg-blue-900/30 transition-colors group z-10 relative"
                             data-target={`sidebar-sub-${uniqueId}`}
                             onclick={!hasTabs ? `window.scrollToSection('cat-${uniqueId}'); window.closeSidebarMobile();` : ''}
                           >
@@ -89,7 +85,7 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
                                 <div class="pl-4 ml-1 border-l border-slate-100 dark:border-slate-800/50 space-y-0.5 pt-0.5 pb-1">
                                   {cat.tabs.map((tab, tabIdx) => (
                                     <button 
-                                      class="w-full text-left px-2 py-1 text-[11px] text-slate-500 hover:text-blue-600 transition-colors rounded-md"
+                                      class="w-full text-left px-2 py-1 text-[11px] text-slate-500 hover:text-brand-600 hover:bg-sidebar-sub-hover dark:hover:bg-gray-800 transition-colors rounded-md"
                                       onclick={`window.scrollToTab('${uniqueId}', ${tabIdx}); window.closeSidebarMobile();`}
                                     >
                                       {tab.tabName}
@@ -112,15 +108,12 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
     })}
   </nav>
   
-  <!-- 
-    底部保持 pb-24，确保内容不被遮挡
-  -->
+  <!-- 底部保留 pb-24 防止手机遮挡 -->
   <div class="p-4 pb-24 md:pb-4 border-t border-slate-100/50 dark:border-slate-800/50 text-center">
     <span class="text-[10px] text-slate-400 font-medium">By {siteConfig.author}</span>
   </div>
 </aside>
 
-<!-- JS 代码保持不变 -->
 <script is:inline>
   function initSidebarInteraction() {
     const catBtns = document.querySelectorAll('.sidebar-cat-btn');

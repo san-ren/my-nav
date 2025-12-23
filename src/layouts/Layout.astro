@@ -1,60 +1,79 @@
 ---
-import { ClientRouter } from 'astro:transitions'; // 引入 View Transitions 路由组件
+import { ClientRouter } from 'astro:transitions'; 
+// ✅ 1. 引入全局样式和主题配置
+import '../styles/global.css'; 
+import '../styles/theme.css';  
+
 const { title } = Astro.props;
 const base = '/my-nav';
 ---
 
 <!doctype html>
 <html lang="zh-CN" class="scroll-smooth">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    
     <!-- 启用 View Transitions -->
     <ClientRouter />
     
-    <!-- 1. 这是一个放在 head 里的阻塞脚本，防止页面闪烁 -->
+    <!-- ✅ 2. 升级版防闪烁脚本 (同时处理 DarkMode + AppTheme) -->
     <script is:inline>
-      const getTheme = () => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme');
-        }
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      };
-      
-      const setTheme = (theme) => {
+      // 定义初始化函数：负责读取 LocalStorage 并应用样式
+      const initAllThemes = () => {
+        // --- A. 处理暗色模式 (Dark Mode) ---
+        const getDarkMode = () => {
+          if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+            return localStorage.getItem('theme');
+          }
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        };
+
+        const theme = getDarkMode();
         if (theme === 'dark') {
           document.documentElement.classList.add('dark');
         } else {
           document.documentElement.classList.remove('dark');
         }
-        localStorage.setItem('theme', theme);
+
+        // --- B. 处理自定义颜色主题 (App Theme - 紫色/绿色等) ---
+        const savedAppTheme = localStorage.getItem('app-theme');
+        if (savedAppTheme) {
+          document.documentElement.setAttribute('data-theme', savedAppTheme);
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+        }
       };
 
-      // 初始化
-      setTheme(getTheme());
+      // 1. 页面初次加载时立即运行
+      initAllThemes();
 
-      // 监听 Astro 页面切换，确保切换后主题依然正确
-      document.addEventListener('astro:after-swap', () => setTheme(getTheme()));
+      // 2. 监听 Astro 页面切换，确保跳转后样式不丢失
+      document.addEventListener('astro:after-swap', initAllThemes);
     </script>
-	</head>
-	<body class="bg-slate-50 dark:bg-[#0b0f1a] transition-colors duration-500">
+  </head>
+  
+  <!-- ✅ 3. 保留原有的 body 样式 -->
+  <body class="bg-slate-50 dark:bg-[#0b0f1a] transition-colors duration-500">
+    
+    <!-- ✅ 4. 保留背景光斑装饰 -->
     <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
       <div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-blue-400/10 dark:bg-blue-600/5 blur-[100px]"></div>
       <div class="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] rounded-full bg-purple-400/10 dark:bg-purple-600/5 blur-[100px]"></div>
     </div>
 
-		<slot />
+    <slot />
 
-    <!-- 2. 按钮点击逻辑：放在 body 底部 -->
+    <!-- ✅ 5. 保留原有暗色模式按钮逻辑 (Sun/Moon Toggle) -->
     <script is:inline>
       function setupThemeToggle() {
         const btn = document.getElementById('theme-toggle');
         if (!btn) return;
 
-        // 移除旧监听器 (虽然 Astro 换页 dom 是新的，但为了保险)
+        // 克隆节点以移除旧监听器 (防止重复绑定)
         const newBtn = btn.cloneNode(true);
         btn.parentNode.replaceChild(newBtn, btn);
 
@@ -75,5 +94,5 @@ const base = '/my-nav';
       setupThemeToggle();
       document.addEventListener('astro:after-swap', setupThemeToggle);
     </script>
-	</body>
+  </body>
 </html>
