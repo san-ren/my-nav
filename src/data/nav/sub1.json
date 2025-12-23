@@ -170,7 +170,7 @@
             },
             {
               "name": "Ventoy",
-              "url": "https://github.com/ventoy/Ventoy/releases",
+              "url": "https://github.com/ventoy/Ventoy",
               "desc": "",
               "detail": "开源，U盘启动盘制作，支持多系统，还能当普通U盘保存文件"
             },
@@ -266,7 +266,7 @@
             },
             {
               "name": "ImTip",
-              "url": "https://github.com/aardio/ImTip?tab=readme-ov-file",
+              "url": "https://github.com/aardio/ImTip",
               "desc": "",
               "detail": "1.1k star,通用输入法状态跟踪提示"
             },
@@ -578,7 +578,7 @@
             },
             {
               "name": "Microsoft Activation Scripts (MAS)",
-              "url": "https://github.com/massgravel/Microsoft-Activation-Scripts?tab=readme-ov-file",
+              "url": "https://github.com/massgravel/Microsoft-Activation-Scripts",
               "desc": "",
               "detail": "67.4k star,windows和office激活"
             },
@@ -878,7 +878,7 @@
             },
             {
               "name": "团子翻译器",
-              "url": "https://github.com/PantsuDango/Dango-Translator/releases/tag/Ver3.4",
+              "url": "https://github.com/PantsuDango/Dango-Translator",
               "desc": "",
               "detail": "全局翻译"
             },
@@ -908,7 +908,7 @@
             },
             {
               "name": "Translumo",
-              "url": "https://github.com/Danily07/Translumohttps://github.com/Danily07/Translumo",
+              "url": "https://github.com/Danily07/Translumo",
               "desc": "",
               "detail": "高级实时游戏屏幕翻译器，视频中的硬编码字幕，静态文本等。"
             }

@@ -5,7 +5,7 @@
   "icon": "Star",
   "groups": [
     {
-      "name": "必看资源",
+      "name": "",
       "icon": "Star",
       "categories": [
         {
@@ -73,7 +73,7 @@
       ]
     },
     {
-      "name": "多媒体专区",
+      "name": "多媒体00",
       "icon": "Clapperboard",
       "categories": [
         {
@@ -87,7 +87,7 @@
                   "name": "Listen1",
                   "url": "https://github.com/listen1/listen1_desktop",
                   "desc": "一个基于 electron 的音乐软件，一个基于 electron 的音乐软件，一个基于 electron 的音乐软件，一个基于 electron 的音乐软件，一个基于 electron 的音乐软件，一个基于 electron 的音乐软件，",
-                  "detail": "- 支持PC、浏览器扩展、安卓、iOS\n\n在线音乐播放\n\n## 大模型启动器\n\n| 项目 | 徽章 | 说明 |\n| --- | --- | --- |\n| [awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps) | [![Stars](https://img.shields.io/github/stars/Shubhamsaboo/awesome-llm-apps?style=flat)](https://github.com/Shubhamsaboo/awesome-llm-apps/stargazers)<br>[![Language](https://img.shields.io/github/languages/top/Shubhamsaboo/awesome-llm-apps?style=flat)](https://github.com/Shubhamsaboo/awesome-llm-apps/search?l=Python) | AI Agents 和 RAG LLM应用程序集合 |\n| [ollama](https://github.com/ollama/ollama) | [![Stars](https://img.shields.io/github/stars/ollama/ollama?style=flat)](https://github.com/ollama/ollama/stargazers)<br>[![Version](https://img.shields.io/github/v/tag/ollama/ollama?label=Version&style=flat)](https://github.com/ollama/ollama/releases)<br>[![Latest Release](https://img.shields.io/github/release-date/ollama/ollama?label=Latest+Release&style=flat)](https://github.com/ollama/ollama/releases)<br>[![Language](https://img.shields.io/github/languages/top/ollama/ollama?style=flat)](https://github.com/ollama/ollama/search?l=Go)<br>[![Downloads](https://img.shields.io/github/downloads/ollama/ollama/total?style=flat)](https://github.com/ollama/ollama/releases) |  |\n| [open-webui](https://github.com/open-webui/open-webui) | [![Stars](https://img.shields.io/github/stars/open-webui/open-webui?style=flat)](https://github.com/open-webui/open-webui/stargazers)<br>[![Version](https://img.shields.io/github/v/tag/open-webui/open-webui?label=Version&style=flat)](https://github.com/open-webui/open-webui/releases)<br>[![Latest Release](https://img.shields.io/github/release-date/open-webui/open-webui?label=Latest+Release&style=flat)](https://github.com/open-webui/open-webui/releases)<br>[![Language](https://img.shields.io/github/languages/top/open-webui/open-webui?style=flat)](https://github.com/open-webui/open-webui/search?l=JavaScript)<br>[![Downloads](https://img.shields.io/github/downloads/open-webui/open-webui/total?style=flat)](https://github.com/open-webui/open-webui/releases) | 前身ollama webui |\n| [ragflow](https://github.com/infiniflow/ragflow) | [![Stars](https://img.shields.io/github/stars/infiniflow/ragflow?style=flat)](https://github.com/infiniflow/ragflow/stargazers)<br>[![Version](https://img.shields.io/github/v/tag/infiniflow/ragflow?label=Version&style=flat)](https://github.com/infiniflow/ragflow/releases)<br>[![Latest Release](https://img.shields.io/github/release-date/infiniflow/ragflow?label=Latest+Release&style=flat)](https://github.com/infiniflow/ragflow/releases)<br>[![Language](https://img.shields.io/github/languages/top/infiniflow/ragflow?style=flat)](https://github.com/infiniflow/ragflow/search?l=TypeScript)<br>[![Downloads](https://img.shields.io/github/downloads/infiniflow/ragflow/total?style=flat)](https://github.com/infiniflow/ragflow/releases) |  |\n| [anything-llm](https://github.com/Mintplex-Labs/anything-llm) | [![Stars](https://img.shields.io/github/stars/Mintplex-Labs/anything-llm?style=flat)](https://github.com/Mintplex-Labs/anything-llm/stargazers)<br>[![Version](https://img.shields.io/github/v/tag/Mintplex-Labs/anything-llm?label=Version&style=flat)](https://github.com/Mintplex-Labs/anything-llm/releases)<br>[![Latest Release](https://img.shields.io/github/release-date/Mintplex-Labs/anything-llm?label=Latest+Release&style=flat)](https://github.com/Mintplex-Labs/anything-llm/releases)<br>[![Language](https://img.shields.io/github/languages/top/Mintplex-Labs/anything-llm?style=flat)](https://github.com/Mintplex-Labs/anything-llm/search?l=JavaScript)<br>[![Downloads](https://img.shields.io/github/downloads/Mintplex-Labs/anything-llm/total?style=flat)](https://github.com/Mintplex-Labs/anything-llm/releases) |  |\n| [FastGPT](https://github.com/labring/FastGPT) | [![Stars](https://img.shields.io/github/stars/labring/FastGPT?style=flat)](https://github.com/labring/FastGPT/stargazers)<br>[![Version](https://img.shields.io/github/v/tag/labring/FastGPT?label=Version&style=flat)](https://github.com/labring/FastGPT/releases)<br>[![Latest Release](https://img.shields.io/github/release-date/labring/FastGPT?label=Latest+Release&style=flat)](https://github.com/labring/FastGPT/releases)<br>[![Language](https://img.shields.io/github/languages/top/labring/FastGPT?style=flat)](https://github.com/labring/FastGPT/search?l=TypeScript)<br>[![Downloads](https://img.shields.io/github/downloads/labring/FastGPT/total?style=flat)](https://github.com/labring/FastGPT/releases) |  |\n| [dify](https://github.com/langgenius/dify) | [![Stars](https://img.shields.io/github/stars/langgenius/dify?style=flat)](https://github.com/langgenius/dify/stargazers)<br>[![Version](https://img.shields.io/github/v/tag/langgenius/dify?label=Version&style=flat)](https://github.com/langgenius/dify/releases)<br>[![Latest Release](https://img.shields.io/github/release-date/langgenius/dify?label=Latest+Release&style=flat)](https://github.com/langgenius/dify/releases)<br>[![Language](https://img.shields.io/github/languages/top/langgenius/dify?style=flat)](https://github.com/langgenius/dify/search?l=TypeScript)<br>[![Downloads](https://img.shields.io/github/downloads/langgenius/dify/total?style=flat)](https://github.com/langgenius/dify/releases) |  |\n| [MaxKB](https://github.com/1Panel-dev/MaxKB) | [![Stars](https://img.shields.io/github/stars/1Panel-dev/MaxKB?style=flat)](https://github.com/1Panel-dev/MaxKB/stargazers)<br>[![Version](https://img.shields.io/github/v/tag/1Panel-dev/MaxKB?label=Version&style=flat)](https://github.com/1Panel-dev/MaxKB/releases)<br>[![Latest Release](https://img.shields.io/github/release-date/1Panel-dev/MaxKB?label=Latest+Release&style=flat)](https://github.com/1Panel-dev/MaxKB/releases)<br>[![Language](https://img.shields.io/github/languages/top/1Panel-dev/MaxKB?style=flat)](https://github.com/1Panel-dev/MaxKB/search?l=Python)<br>[![Downloads](https://img.shields.io/github/downloads/1Panel-dev/MaxKB/total?style=flat)](https://github.com/1Panel-dev/MaxKB/releases) | 部署要求：Ubuntu 22.04 / CentOS 7.6 64 位系统，windows使用wsl |\n| [LangBot](https://github.com/RockChinQ/LangBot) | [![Stars](https://img.shields.io/github/stars/RockChinQ/LangBot?style=flat)](https://github.com/RockChinQ/LangBot/stargazers)<br>[![Version](https://img.shields.io/github/v/tag/RockChinQ/LangBot?label=Version&style=flat)](https://github.com/RockChinQ/LangBot/releases)<br>[![Latest Release](https://img.shields.io/github/release-date/RockChinQ/LangBot?label=Latest+Release&style=flat)](https://github.com/RockChinQ/LangBot/releases)<br>[![Language](https://img.shields.io/github/languages/top/RockChinQ/LangBot?style=flat)](https://github.com/RockChinQ/LangBot/search?l=Python)<br>[![Downloads](https://img.shields.io/github/downloads/RockChinQ/LangBot/total?style=flat)](https://github.com/RockChinQ/LangBot/releases) | 适配 QQ / 微信（企业微信、个人微信）/ 飞书（feishu）/ Discord / OneBot 等消息平台  支持 OpenAI GPT、ChatGPT、DeepSeek、Dify、Claude、Gemini、Ollama、LM Studio、SiliconFlow、Qwen、Moonshot、ChatGLM 等 LLM 的机器人 |\n| [awesome-deepseek-integration](https://github.com/deepseek-ai/awesome-deepseek-integration) | [![Stars](https://img.shields.io/github/stars/deepseek-ai/awesome-deepseek-integration?style=flat)](https://github.com/deepseek-ai/awesome-deepseek-integration/stargazers) | DeepSeek 实用集成 · 官方仓库 |\n| [DeepClaude](https://github.com/ErlichLiu/DeepClaude) | [![Stars](https://img.shields.io/github/stars/ErlichLiu/DeepClaude?style=flat)](https://github.com/ErlichLiu/DeepClaude/stargazers)<br>[![Version](https://img.shields.io/github/v/tag/ErlichLiu/DeepClaude?label=Version&style=flat)](https://github.com/ErlichLiu/DeepClaude/releases)<br>[![Latest Release](https://img.shields.io/github/release-date/ErlichLiu/DeepClaude?label=Latest+Release&style=flat)](https://github.com/ErlichLiu/DeepClaude/releases)<br>[![Language](https://img.shields.io/github/languages/top/ErlichLiu/DeepClaude?style=flat)](https://github.com/ErlichLiu/DeepClaude/search?l=Python)<br>[![Downloads](https://img.shields.io/github/downloads/ErlichLiu/DeepClaude/total?style=flat)](https://github.com/ErlichLiu/DeepClaude/releases) | 复合模型使用 |\n\n| [deep-research](https://github.com/u14app/deep-research) | [![Stars](https://img.shields.io/github/stars/u14app/deep-research?style=flat)](https://github.com/u14app/deep-research/stargazers)<br>[![Version](https://img.shields.io/github/v/tag/u14app/deep-research?label=Version&style=flat)](https://github.com/u14app/deep-research/releases)<br>[![Latest Release](https://img.shields.io/github/release-date/u14app/deep-research?label=Latest+Release&style=flat)](https://github.com/u14app/deep-research/releases)<br>[![Language](https://img.shields.io/github/languages/top/u14app/deep-research?style=flat)](https://github.com/u14app/deep-research/search?l=TypeScript)<br>[![Downloads](https://img.shields.io/github/downloads/u14app/deep-research/total?style=flat)](https://github.com/u14app/deep-research/releases) |",
+                  "detail": "- 支持PC、浏览器扩展、安卓、iOS\n\n在线音乐播放\n\n",
                   "official_site": "",
                   "badge_list": [
                     "stars",
@@ -133,7 +133,7 @@
                 },
                 {
                   "name": "TTKMusicPlayer",
-                  "url": "https://github.com/Greedysky/TTKMusicPlayer?tab=readme-ov-file",
+                  "url": "https://github.com/Greedysky/TTKMusicPlayer",
                   "desc": "",
                   "detail": "2.2k star,音乐播放器模仿酷狗，基于Qt和Qmmp库开发，支持Windows和Linux平台."
                 },
@@ -199,7 +199,7 @@
                 },
                 {
                   "name": "foobox-cn",
-                  "url": "https://github.com/dream7180/foobox-cn?tab=readme-ov-file",
+                  "url": "https://github.com/dream7180/foobox-cn",
                   "desc": "",
                   "detail": "4.1k star,一个 foobar2000 默认用户界面 (DUI) 的皮肤配置，基于 jsplitter (Spider Monkey Panel 版) 组件"
                 },
@@ -1131,7 +1131,7 @@
                 },
                 {
                   "name": "imFile",
-                  "url": "https://github.com/imfile-io/imfile-desktop?tab=readme-ov-file",
+                  "url": "https://github.com/imfile-io/imfile-desktop",
                   "desc": "",
                   "detail": "1.2k star，基于Motrix"
                 },
@@ -1279,7 +1279,7 @@
                 },
                 {
                   "name": "PasteEx",
-                  "url": "https://github.com/huiyadanli/PasteEx/tree/master",
+                  "url": "https://github.com/huiyadanli/PasteEx",
                   "desc": "",
                   "detail": "将剪切板内容存为文件"
                 },
@@ -1967,7 +1967,7 @@
                 },
                 {
                   "name": "Sucrose",
-                  "url": "https://github.com/Taiizor/Sucrose/tree/v24.7.13.0",
+                  "url": "https://github.com/Taiizor/Sucrose",
                   "desc": "",
                   "detail": "内置壁纸库，全动态壁纸"
                 },
