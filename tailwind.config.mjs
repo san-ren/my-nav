@@ -23,6 +23,12 @@ export default {
       // 3. 圆角配置
       borderRadius: {
         'card': 'var(--card-radius)',
+      // ✅ 新增：字体大小配置
+      fontSize: {
+        'sidebar-link': 'var(--sidebar-font-link)',
+        'sidebar-group': 'var(--sidebar-font-group)',
+        'sidebar-cat': 'var(--sidebar-font-cat)',
+        'sidebar-tab': 'var(--sidebar-font-tab)',
       }
     },
   },
