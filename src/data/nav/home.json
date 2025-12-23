@@ -73,7 +73,7 @@
       ]
     },
     {
-      "name": "多媒体00",
+      "name": "多媒体",
       "icon": "Clapperboard",
       "categories": [
         {
@@ -701,66 +701,7 @@
           "icon": "",
           "tabs": [
             {
-              "tabName": "音、视频编辑",
-              "list": [
-                {
-                  "name": "LosslessCut",
-                  "url": "https://github.com/mifi/lossless-cut",
-                  "desc": "",
-                  "detail": "31k star，无损修剪和剪切"
-                },
-                {
-                  "name": "AutoAudioRecorder/内部万能录音器",
-                  "url": "https://autoclose.net/autoaudiorecorder.html",
-                  "desc": "",
-                  "detail": "将电脑内部所有的声音录制成 mp3/wav ，可根据有无音源自动开启和停止录音"
-                },
-                {
-                  "name": "HandBrake",
-                  "url": "https://github.com/HandBrake/HandBrake",
-                  "desc": "",
-                  "detail": "20K star，音视频格式转换、重编码"
-                },
-                {
-                  "name": "ShanaEncoder",
-                  "url": "https://github.com/1265578519/ShanaEncoder",
-                  "desc": "",
-                  "detail": "最强的视频压制软件"
-                },
-                {
-                  "name": "Video-subtitle-remover",
-                  "url": "https://github.com/YaoFANGUK/video-subtitle-remover",
-                  "desc": "",
-                  "detail": "AI去除视频水印、字幕"
-                },
-                {
-                  "name": "ProPainter",
-                  "url": "https://github.com/sczhou/ProPainter",
-                  "desc": "",
-                  "detail": "去视频的移动水印和移动物体"
-                },
-                {
-                  "name": "ProPainter（2）",
-                  "url": "https://huggingface.co/spaces/sczhou/ProPainter",
-                  "desc": "",
-                  "detail": "HuggingFace在线使用"
-                },
-                {
-                  "name": "UniFab Toolkit",
-                  "url": "https://www.123pan.com/s/h6nrVv-Dxmrv.html",
-                  "desc": "",
-                  "detail": "付费（替换文件），视频工具、音频工具、图片工具、水印工具、字幕工具"
-                },
-                {
-                  "name": "FFmpegFreeUI",
-                  "url": "https://github.com/Lake1059/FFmpegFreeUI/",
-                  "desc": "",
-                  "detail": "FFmpegFreeUI（简称 3FUI）是在 Windows 上的 FFmpeg 的专业交互外壳，纯填参数，没有内置傻瓜方案"
-                }
-              ]
-            },
-            {
-              "tabName": "GIF、录屏、屏幕演示",
+              "tabName": "GIF、录屏",
               "list": [
                 {
                   "name": "Gif123",
@@ -851,6 +792,65 @@
                   "url": "https://github.com/MathewSachin/Captura",
                   "desc": "",
                   "detail": "9.5k star,2018停更，2023归档，作品被盗取贩卖"
+                }
+              ]
+            },
+            {
+              "tabName": "音、视频编辑",
+              "list": [
+                {
+                  "name": "LosslessCut",
+                  "url": "https://github.com/mifi/lossless-cut",
+                  "desc": "",
+                  "detail": "31k star，无损修剪和剪切"
+                },
+                {
+                  "name": "AutoAudioRecorder/内部万能录音器",
+                  "url": "https://autoclose.net/autoaudiorecorder.html",
+                  "desc": "",
+                  "detail": "将电脑内部所有的声音录制成 mp3/wav ，可根据有无音源自动开启和停止录音"
+                },
+                {
+                  "name": "HandBrake",
+                  "url": "https://github.com/HandBrake/HandBrake",
+                  "desc": "",
+                  "detail": "20K star，音视频格式转换、重编码"
+                },
+                {
+                  "name": "ShanaEncoder",
+                  "url": "https://github.com/1265578519/ShanaEncoder",
+                  "desc": "",
+                  "detail": "最强的视频压制软件"
+                },
+                {
+                  "name": "Video-subtitle-remover",
+                  "url": "https://github.com/YaoFANGUK/video-subtitle-remover",
+                  "desc": "",
+                  "detail": "AI去除视频水印、字幕"
+                },
+                {
+                  "name": "ProPainter",
+                  "url": "https://github.com/sczhou/ProPainter",
+                  "desc": "",
+                  "detail": "去视频的移动水印和移动物体"
+                },
+                {
+                  "name": "ProPainter（2）",
+                  "url": "https://huggingface.co/spaces/sczhou/ProPainter",
+                  "desc": "",
+                  "detail": "HuggingFace在线使用"
+                },
+                {
+                  "name": "UniFab Toolkit",
+                  "url": "https://www.123pan.com/s/h6nrVv-Dxmrv.html",
+                  "desc": "",
+                  "detail": "付费（替换文件），视频工具、音频工具、图片工具、水印工具、字幕工具"
+                },
+                {
+                  "name": "FFmpegFreeUI",
+                  "url": "https://github.com/Lake1059/FFmpegFreeUI/",
+                  "desc": "",
+                  "detail": "FFmpegFreeUI（简称 3FUI）是在 Windows 上的 FFmpeg 的专业交互外壳，纯填参数，没有内置傻瓜方案"
                 }
               ]
             }
