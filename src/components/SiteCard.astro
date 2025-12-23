@@ -19,9 +19,16 @@ const domain = getDomain(url || official_site);
 
 // 定义各级图标源
 const iconSources = {
+    // Level 1: 一为导航
   level1: domain ? `https://api.iowen.cn/favicon/${domain}.png` : '',
-  level2: domain ? `https://api.uomg.com/api/get.fav?url=https://${domain}` : '',
-  level3: domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '',
+  
+  // Level 2: DuckDuckGo
+  level2: domain ? `https://icons.duckduckgo.com/ip3/${domain}.ico` : '',
+  
+  // Level 3: Google (需代理)
+  level3: domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '', 
+    
+  
   fallback: `${base}/favicon.svg`
 };
 
