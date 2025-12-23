@@ -131,14 +131,6 @@
                   "guide_id": ""
                 },
                 {
-                  "name": "方格音乐",
-                  "url": "http://fonger.top/",
-                  "desc": "",
-                  "detail": "安卓（魔音）、Windows，在线播放,B站：不知名非羽；微信公众号：方格MUSIC",
-                  "official_site": "",
-                  "guide_id": ""
-                },
-                {
                   "name": "NSMusicS",
                   "url": "https://github.com/Super-Badmen-Viper/NSMusicS",
                   "desc": "",
@@ -192,10 +184,15 @@
                 },
                 {
                   "name": "music-dl",
-                  "url": "https://www.guanguans.cn/music-dl/",
+                  "url": "https://github.com/guanguans/music-dl",
                   "desc": "",
                   "detail": "音乐搜索下载",
                   "official_site": "",
+                  "badge_list": [
+                    "stars",
+                    "version",
+                    "last_commit"
+                  ],
                   "guide_id": ""
                 },
                 {
@@ -343,9 +340,23 @@
                 },
                 {
                   "name": "Music_Download",
-                  "url": "https://java-syj.feishu.cn/wiki/DBqIwuJ1ji228ike4necim4cnDg",
-                  "desc": "",
-                  "detail": "2021停更，基于python，网易云，QQ音乐，酷狗音乐在线播放和下载"
+                  "url": "https://github.com/Java-S12138/Music_Download",
+                  "desc": "发布即停更",
+                  "detail": "- 基于python\n\n- 网易云，QQ音乐，酷狗音乐在线播放和下载",
+                  "official_site": "https://java-syj.feishu.cn/wiki/DBqIwuJ1ji228ike4necim4cnDg",
+                  "badge_list": [
+                    "stars",
+                    "last_commit"
+                  ],
+                  "guide_id": ""
+                },
+                {
+                  "name": "方格音乐",
+                  "url": "http://fonger.top/",
+                  "desc": "2025上半年因不知名原因关闭官网、软件",
+                  "detail": "安卓（魔音）、Windows，在线播放,B站：不知名非羽；微信公众号：方格MUSIC",
+                  "official_site": "",
+                  "guide_id": ""
                 }
               ]
             },
