@@ -17,22 +17,17 @@ const getDomain = (targetUrl) => {
 
 const domain = getDomain(url || official_site);
 
-// --- 修复 1: 修正图标源定义，实现真正的分级 ---
+// 图标源配置
 const iconSources = {
-  // Level 1: 酷猫 (Kucat) - 速度快，成功率高
   level1: domain ? `https://ico.kucat.cn/get.php?url=${domain}` : '',
-  // Level 2: 暴力直连 (尝试访问网站根目录 favicon.ico)
   level2: domain ? `https://${domain}/favicon.ico` : '',
-  // Level 3: Google (需代理)
   level3: domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '', 
-  // Fallback: 本地默认 SVG
   fallback: `${base}/favicon.svg`
 };
 
-// 默认首选 Level 1
 const defaultIcon = iconSources.level1 || iconSources.fallback;
 
-// --- Badge 逻辑 (保持不变) ---
+// --- Badge 逻辑 ---
 let badges = [];
 if (url && url.includes("github.com") && badge_list && badge_list.length > 0) {
   try {
@@ -58,6 +53,10 @@ if (url && url.includes("github.com") && badge_list && badge_list.length > 0) {
 const rawMarkdown = detail || "";
 const detailContent = marked.parse(rawMarkdown);
 const cardId = `site-${domain ? domain.replace(/[^a-zA-Z0-9]/g, '-') : Math.random().toString(36).substr(2, 9)}`;
+
+// --- 修改点 1: 定义是否显示浮窗的综合条件 ---
+// 只要有 detail 内容，或者有徽章，就应该显示浮窗
+const hasPopup = !!(detail || (badges && badges.length > 0));
 ---
 
 <div class="site-card-wrapper group relative hover:z-[999]" onmouseenter="adjustPopupPosition(this)">
@@ -88,7 +87,8 @@ const cardId = `site-${domain ? domain.replace(/[^a-zA-Z0-9]/g, '-') : Math.rand
       )}
     </div>
 
-    {detail && (
+    {/* --- 修改点 2: 手机端 Info 按钮使用 hasPopup 判断 --- */}
+    {hasPopup && (
       <button onclick="toggleDetail(this, event)" class="info-btn md:hidden absolute top-2 right-2 p-1.5 rounded-full bg-slate-100/50 dark:bg-slate-700/50 text-slate-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-gray-600 z-20 transition-all scale-90" title="详情"><Info size={14} /></button>
     )}
 
@@ -97,15 +97,23 @@ const cardId = `site-${domain ? domain.replace(/[^a-zA-Z0-9]/g, '-') : Math.rand
     )}
   </a>
 
-  {detail && (
+  {/* --- 修改点 3: 浮窗主体使用 hasPopup 判断 --- */}
+  {hasPopup && (
     <div class="detail-popup absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 pointer-events-none z-[1000] opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-200">
       <div class="relative rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-200/60 dark:border-slate-700 p-5" style="background: #ffffff; background-color: white !important; opacity: 1 !important;">
         <div class="absolute inset-0 rounded-2xl -z-10 bg-white dark:bg-[#1e2025]" style="opacity: 1 !important;"></div>
         <div class="popup-arrow absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 border-r border-b border-slate-200 dark:border-slate-700 rotate-45" style="background: inherit; opacity: 1 !important;"></div>
+        
         <div class="relative z-10">
           <div class="text-[11px] font-black text-blue-600 dark:text-blue-400 mb-2.5 flex items-center gap-2 uppercase tracking-widest"><span class="w-2 h-3 bg-blue-500 rounded-sm"></span>详情</div>
+          
+          {/* 徽章区域 */}
           {badges.length > 0 && (<div class="flex flex-wrap gap-2 mb-3 border-b border-slate-100 dark:border-slate-800 pb-3">{badges.map(b => <img src={b.src} alt={b.alt} class="h-5 rounded-sm" />)}</div>)}
-          <div class="detail-markdown text-[13px] text-slate-700 dark:text-slate-300 leading-relaxed font-medium whitespace-normal break-words" set:html={detailContent}></div>
+          
+          {/* Markdown 内容区域，如果没有 detail 则不显示这块，避免空边距 */}
+          {detail && (
+            <div class="detail-markdown text-[13px] text-slate-700 dark:text-slate-300 leading-relaxed font-medium whitespace-normal break-words" set:html={detailContent}></div>
+          )}
         </div>
       </div>
     </div>
@@ -113,12 +121,8 @@ const cardId = `site-${domain ? domain.replace(/[^a-zA-Z0-9]/g, '-') : Math.rand
 </div>
 
 <script is:inline>
-  // --- 修复 2: 优化图标加载与错误处理 ---
-
   function handleIconLoad(img) {
     const domain = img.getAttribute('data-domain');
-    // 只有当加载成功的图片不是 fallback 图标时，才写入缓存
-    // 并且我们加上 sources 检查，防止逻辑错误
     if (domain && !img.src.includes('favicon.svg')) {
        localStorage.setItem('fav-' + domain, img.src);
     }
@@ -127,56 +131,35 @@ const cardId = `site-${domain ? domain.replace(/[^a-zA-Z0-9]/g, '-') : Math.rand
   function handleIconError(img) {
     try {
       const sources = JSON.parse(img.getAttribute('data-sources'));
-      const currentSrc = img.src; // 浏览器会自动补全为绝对路径
+      const currentSrc = img.src; 
       
-      // 使用 includes 进行模糊匹配，比 === 更可靠，
-      // 因为浏览器可能会把 sources.level2 这种相对路径转为绝对路径，导致 === 失败
-      
-      // 1. 如果当前是 Level 1 (Kucat)，失败则去 Level 2
       if (currentSrc.includes('ico.kucat.cn')) {
         img.src = sources.level2;
-      } 
-      // 2. 如果当前是 Level 2 (直连 /favicon.ico)，且不是 Google，失败则去 Level 3
-      // 注意：要确保 currentSrc 不是 Google，防止逻辑死循环
-      else if (currentSrc.includes('/favicon.ico') && !currentSrc.includes('google.com')) {
+      } else if (currentSrc.includes('/favicon.ico') && !currentSrc.includes('google.com')) {
         img.src = sources.level3;
-      } 
-      // 3. 如果当前是 Level 3 (Google)，失败则去 Fallback
-      else if (currentSrc.includes('google.com')) {
+      } else if (currentSrc.includes('google.com')) {
         img.src = sources.fallback;
-        // 如果最终失败到了 fallback，建议清除之前的缓存（如果有的话），
-        // 避免下次刷新直接显示 fallback，而是给它机会重试 Level 1
         const domain = img.getAttribute('data-domain');
         localStorage.removeItem('fav-' + domain);
-      } 
-      else {
-        // 防止无限循环，如果已经到了未知状态，停止 error 处理
+      } else {
         img.onerror = null; 
       }
     } catch (e) {
       console.error("Icon fallback error", e);
-      // 出错时也去 fallback，以防万一
       img.onerror = null;
     }
   }
 
-  // --- 修复 3: 智能读取缓存 (防止“成功后消失”现象) ---
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('img[data-domain]').forEach(img => {
       const domain = img.getAttribute('data-domain');
       const cachedSrc = localStorage.getItem('fav-' + domain);
-      
-      // 关键修改：
-      // 1. 只有当 cachedSrc 存在且不等于当前 src 时才替换
-      // 2. 只有当 cachedSrc 不是 fallback (svg) 时才使用缓存！
-      //    这样可以防止以前缓存的“失败图标”覆盖掉现在正在尝试加载的正确 Level 1 图标
       if (cachedSrc && cachedSrc !== img.src && !cachedSrc.includes('favicon.svg')) {
         img.src = cachedSrc;
       }
     });
   });
 
-  // --- 智能避让与移动端逻辑 (保持不变) ---
   function adjustPopupPosition(wrapper) {
     const popup = wrapper.querySelector('.detail-popup');
     const arrow = wrapper.querySelector('.popup-arrow');
