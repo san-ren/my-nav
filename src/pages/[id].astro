@@ -11,11 +11,9 @@ import ThemePicker from '../components/ThemePicker.astro';
 export async function getStaticPaths() {
   const allNavFiles = import.meta.glob('../data/nav/*.json', { eager: true });
   let navResources = Object.values(allNavFiles);
-
   navResources.sort((a: any, b: any) => {
     return (a.sortOrder || 99) - (b.sortOrder || 99);
   });
-
   return navResources.map((section: any) => ({
     params: { id: section.id },
     props: { section, navResources }, 
@@ -34,14 +32,12 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     
     <Sidebar navResources={navResources} currentId={id} siteConfig={siteConfig} />
 
-    <!-- 移动端侧边栏遮罩层 -->
     <div id="sidebar-overlay" class="fixed inset-0 bg-black/40 z-40 hidden md:hidden backdrop-blur-sm transition-opacity" onclick="toggleSidebar()"></div>
 
     <main class="flex-1 md:ml-[var(--sidebar-width)] bg-gray-50/50 dark:bg-gray-900/50 min-h-screen">
       
       <header id="page-header" class="sticky top-0 z-30 flex items-center justify-between px-4 md:px-8 py-4 bg-white/40 dark:bg-gray-900/40 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50 transition-transform duration-300">
         <div class="flex items-center gap-3">
-          <!-- 移动端汉堡菜单按钮 -->
           <button id="menu-btn" class="md:hidden p-2 text-slate-600 dark:text-slate-300 bg-white/80 dark:bg-gray-800/80 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700" onclick="toggleSidebar()">
             <Menu size={20} />
           </button>
@@ -54,12 +50,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
         
         <div class="flex items-center gap-3">
           <SearchModal client:load />
-          
-          <!-- 新增：主题切换器 -->
           <ThemePicker />
-
-
-          <!-- 原有的：暗色模式按钮 -->
           <button id="theme-toggle" class="p-2.5 bg-slate-100 dark:bg-gray-800 rounded-xl text-slate-500 hover:text-blue-600 transition-all">
             <Sun size={20} className="hidden dark:block" />
             <Moon size={20} className="block dark:hidden" />
@@ -67,7 +58,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
         </div>
       </header>
 
-      <div class="p-6 lg:p-8 space-y-12 max-w-[1600px] mx-auto">
+      <div class="p-6 lg:p-8 space-y-12 max-w-[1440px] mx-auto">
         {(section.groups || []).map((group, groupIdx) => (
           <div class="group-wrapper">
             <div id={`group-${groupIdx}`} class="flex items-center gap-3 mb-8 mt-12 first:mt-0 pb-2 border-b border-slate-100 dark:border-slate-800 scroll-mt-24">
@@ -80,7 +71,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
                 
                 return (
                   <section id={`cat-${uniqueId}`} class="category-group scroll-mt-24">
-                    <div class="flex flex-row items-center justify-start gap-8 mb-8">
+                    <div class="flex flex-wrap items-center justify-start gap-y-4 gap-x-6 mb-8">
                       <h3 class="flex items-center gap-3 text-lg font-bold text-slate-700 dark:text-slate-200 shrink-0">
                         <span class="w-1.5 h-5 bg-blue-500 rounded-full"></span>
                         {category.name}
@@ -110,13 +101,15 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
                             id={`pane-${uniqueId}-${tabIdx}`} 
                             class={`tab-pane animate-fade-in relative z-20 ${tabIdx !== 0 ? 'hidden' : ''}`}
                           >
-                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 pt-1">
+                            {/* 修改点：调整网格列数与间距 */}
+                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-3 md:gap-4 pt-1">
                               {(tab.list || []).map((site) => <SiteCard {...site} />)}
                             </div>
                           </div>
                         ))
                       ) : (
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                        /* 修改点：调整网格列数与间距 */
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-3 md:gap-4 pt-1">
                           {(category.list || []).map((site) => <SiteCard {...site} />)}
                         </div>
                       )}
@@ -137,7 +130,6 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 </Layout>
 
 <script is:inline>
-  // 侧边栏切换逻辑
   window.toggleSidebar = () => {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebar-overlay');
@@ -146,53 +138,36 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
       overlay.classList.toggle('hidden');
     }
   };
-
   function initTabs() {
     const containers = document.querySelectorAll('.tab-nav-container');
-    
     containers.forEach(container => {
       const indicator = container.querySelector('.tab-indicator');
       const btns = container.querySelectorAll('.tab-btn');
-      
       if (!indicator || btns.length === 0) return;
-
       const moveIndicator = (targetBtn) => {
-        // 增加容错：确保元素存在才操作
         if (!targetBtn) return;
         indicator.style.left = `${targetBtn.offsetLeft}px`;
         indicator.style.width = `${targetBtn.offsetWidth}px`;
       };
-
       const activeBtn = container.querySelector('.active-tab') || btns[0];
       if(activeBtn) moveIndicator(activeBtn);
-
       btns.forEach(btn => {
         btn.addEventListener('mouseenter', () => moveIndicator(btn));
-        
         btn.addEventListener('click', (e) => {
           e.preventDefault();
-          
-          // 1. 切换样式
           btns.forEach(b => {
             b.classList.remove('active-tab', 'text-blue-600', 'dark:text-blue-400');
             b.classList.add('text-slate-500');
           });
           btn.classList.add('active-tab', 'text-blue-600', 'dark:text-blue-400');
           btn.classList.remove('text-slate-500');
-
-          // 2. [关键修复] 强制移动滑块到被点击的按钮位置
-          // 这样即使是由侧边栏触发的模拟点击(没有鼠标悬停)，滑块也会跟过去
           moveIndicator(btn);
-
-          // 3. 切换内容面板
           const group = container.closest('.category-group');
           const targetId = btn.getAttribute('data-target');
-          
           group.querySelectorAll('.tab-pane').forEach(p => {
             p.classList.add('hidden');
             p.classList.remove('animate-fade-in');
           });
-          
           const targetPane = document.getElementById(targetId);
           if(targetPane) {
             targetPane.classList.remove('hidden');
@@ -201,29 +176,24 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
           }
         });
       });
-
       container.addEventListener('mouseleave', () => {
         const currentActive = container.querySelector('.active-tab');
         if (currentActive) moveIndicator(currentActive);
       });
     });
   }
-
   function initHeaderScroll() {
     let lastScrollY = window.scrollY;
     const header = document.getElementById('page-header');
     const scrollThreshold = 100;
-
     window.addEventListener('scroll', () => {
       if (!header) return;
       const currentScrollY = window.scrollY;
-
       if (currentScrollY < scrollThreshold) {
         header.style.transform = 'translateY(0)';
         lastScrollY = currentScrollY;
         return;
       }
-
       if (currentScrollY > lastScrollY) {
         header.style.transform = 'translateY(-150%)';
       } else {
@@ -232,10 +202,8 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
       lastScrollY = currentScrollY;
     }, { passive: true });
   }
-
   initTabs();
   initHeaderScroll();
-
   document.addEventListener('astro:after-swap', () => {
     initTabs();
     initHeaderScroll();

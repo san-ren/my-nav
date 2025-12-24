@@ -16,7 +16,6 @@ const getDomain = (targetUrl) => {
 };
 
 const domain = getDomain(url || official_site);
-
 // 图标源配置
 const iconSources = {
   level1: domain ? `https://ico.kucat.cn/get.php?url=${domain}` : '',
@@ -43,6 +42,7 @@ if (url && url.includes("github.com") && badge_list && badge_list.length > 0) {
         license: { src: `https://img.shields.io/github/license/${owner}/${repo}${styleParam}&color=green&label=License`, alt: "License" },
         last_commit: { src: `https://img.shields.io/github/last-commit/${owner}/${repo}${styleParam}&color=slate&label=Updated`, alt: "Last Commit" }
       };
+      
       badge_list.forEach(key => {
         if (badgeConfigs[key]) badges.push(badgeConfigs[key]);
       });
@@ -54,16 +54,16 @@ const rawMarkdown = detail || "";
 const detailContent = marked.parse(rawMarkdown);
 const cardId = `site-${domain ? domain.replace(/[^a-zA-Z0-9]/g, '-') : Math.random().toString(36).substr(2, 9)}`;
 
-// 是否显示浮窗/按钮的综合条件
 const hasPopup = !!(detail || (badges && badges.length > 0));
 ---
 
-<div class="site-card-wrapper group relative hover:z-[999]" onmouseenter="adjustPopupPosition(this)">
+<div class="site-card-wrapper group relative w-full max-w-full hover:z-[999]" onmouseenter="adjustPopupPosition(this)">
   <a href={url} target="_blank" 
-     class="flex items-center justify-between py-3 px-3 min-h-[80px] h-auto bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl border border-white/50 dark:border-gray-700/30 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 hover:border-blue-500/50 relative"
+     class="flex items-center justify-between w-full h-full p-2 md:p-3 bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-xl border border-white/50 dark:border-gray-700/30 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 hover:border-blue-500/50 relative overflow-hidden"
   >
     <div class="flex items-center flex-1 min-w-0 mr-2">
-        <div class="flex-shrink-0 mr-3 w-10 h-10 rounded-xl bg-white dark:bg-gray-700 shadow-sm overflow-hidden flex items-center justify-center border border-gray-100 dark:border-gray-600">
+        {/* 图标容器：移动端缩小至 w-8 h-8 (32px)，桌面端保持 w-10 h-10 (40px) */}
+        <div class="flex-shrink-0 mr-2 md:mr-3 w-8 h-8 md:w-10 md:h-10 rounded-lg bg-white dark:bg-gray-700 shadow-sm overflow-hidden flex items-center justify-center border border-gray-100 dark:border-gray-600">
           <img 
             id={cardId}
             src={defaultIcon} 
@@ -72,47 +72,48 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
             alt={displayTitle} 
             loading="lazy" 
             referrerpolicy="no-referrer"
-            class="w-6 h-6 object-contain" 
+            class="w-5 h-5 md:w-6 md:h-6 object-contain" 
             onload="handleIconLoad(this)"
             onerror="handleIconError(this)"
           />
         </div>
         
         <div class="flex-1 min-w-0 flex flex-col justify-center">
-          <h3 class="font-bold text-[14px] text-slate-800 dark:text-slate-100 group-hover:text-blue-600 transition-colors line-clamp-1 mb-0.5 text-left">{displayTitle}</h3>
+          <h3 class="font-bold text-[14px] text-slate-800 dark:text-slate-100 group-hover:text-blue-600 transition-colors truncate mb-0.5 text-left">{displayTitle}</h3>
+          
           {desc && (
-            <p class="text-[12px] text-slate-400 dark:text-slate-500 leading-4 line-clamp-2 overflow-hidden text-left">
+            <p class="text-[12px] text-slate-400 dark:text-slate-500 leading-tight line-clamp-2 overflow-hidden text-left break-words whitespace-normal">
               {desc}
             </p>
           )}
         </div>
     </div>
 
-    <div class="flex flex-col gap-1.5 shrink-0 pl-2 border-l border-slate-100 dark:border-slate-700/50">
+    <div class="flex flex-col gap-1 shrink-0 pl-1 border-l border-slate-100 dark:border-slate-700/50">
         {hasPopup && (
-          <button onclick="toggleDetail(this, event)" class="info-btn md:hidden p-1.5 rounded-lg bg-slate-100/50 dark:bg-slate-700/50 text-slate-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-gray-600 transition-all" title="详情">
-            <Info size={14} />
+          <button onclick="toggleDetail(this, event)" class="info-btn md:hidden p-2 rounded-md text-slate-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-gray-600 transition-all flex items-center justify-center" title="详情">
+            <Info size={16} />
           </button>
         )}
     
         {guide_id && (
-          <button onclick={`event.preventDefault(); event.stopPropagation(); window.open('${base}/guide/${guide_id}', '_blank');`} class="p-1.5 rounded-lg bg-blue-50 text-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-200" title="教程">
-            <BookOpen size={14} strokeWidth={2.5} />
+          <button onclick={`event.preventDefault(); event.stopPropagation(); window.open('${base}/guide/${guide_id}', '_blank');`} class="p-2 rounded-md text-blue-400 hover:bg-blue-500 hover:text-white transition-all duration-200 flex items-center justify-center" title="教程">
+            <BookOpen size={16} strokeWidth={2.5} />
           </button>
         )}
     </div>
   </a>
 
   {hasPopup && (
-    <div class="detail-popup absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 pointer-events-none z-[1000] opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-200">
-      <div class="relative rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-200/60 dark:border-slate-700 p-5" style="background: #ffffff; background-color: white !important; opacity: 1 !important;">
-        <div class="absolute inset-0 rounded-2xl -z-10 bg-white dark:bg-[#1e2025]" style="opacity: 1 !important;"></div>
+    <div class="detail-popup absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-72 pointer-events-none z-[1000] opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-200">
+      <div class="relative rounded-xl shadow-2xl border border-slate-200/60 dark:border-slate-700 p-4" style="background: #ffffff; background-color: white !important; opacity: 1 !important;">
+        <div class="absolute inset-0 rounded-xl -z-10 bg-white dark:bg-[#1e2025]" style="opacity: 1 !important;"></div>
         <div class="popup-arrow absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 border-r border-b border-slate-200 dark:border-slate-700 rotate-45" style="background: inherit; opacity: 1 !important;"></div>
         
         <div class="relative z-10">
-          <div class="text-[11px] font-black text-blue-600 dark:text-blue-400 mb-2.5 flex items-center gap-2 uppercase tracking-widest"><span class="w-2 h-3 bg-blue-500 rounded-sm"></span>详情</div>
+          <div class="text-[11px] font-black text-blue-600 dark:text-blue-400 mb-2 flex items-center gap-2 uppercase tracking-widest"><span class="w-1.5 h-3 bg-blue-500 rounded-sm"></span>详情</div>
           
-          {badges.length > 0 && (<div class="flex flex-wrap gap-2 mb-3 border-b border-slate-100 dark:border-slate-800 pb-3">{badges.map(b => <img src={b.src} alt={b.alt} class="h-5 rounded-sm" />)}</div>)}
+          {badges.length > 0 && (<div class="flex flex-wrap gap-2 mb-2 border-b border-slate-100 dark:border-slate-800 pb-2">{badges.map(b => <img src={b.src} alt={b.alt} class="h-4 rounded-sm" />)}</div>)}
           
           {detail && (
             <div class="detail-markdown text-[13px] text-slate-700 dark:text-slate-300 leading-relaxed font-medium whitespace-normal break-words" set:html={detailContent}></div>
@@ -145,7 +146,7 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
         const domain = img.getAttribute('data-domain');
         localStorage.removeItem('fav-' + domain);
       } else {
-        img.onerror = null; 
+        img.onerror = null;
       }
     } catch (e) {
       console.error("Icon fallback error", e);
@@ -167,37 +168,57 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
     const popup = wrapper.querySelector('.detail-popup');
     const arrow = wrapper.querySelector('.popup-arrow');
     if (!popup || !arrow) return;
+    // 增加视口边界检测，防止浮窗撑开屏幕宽度
     const rect = wrapper.getBoundingClientRect();
-    const sidebarWidth = 208; 
-    const popupWidth = 288;   
-    const halfPopup = popupWidth / 2;
-    const defaultLeftEdge = rect.left + (rect.width / 2) - halfPopup;
-    if (defaultLeftEdge < sidebarWidth + 20) {
-      popup.style.left = '0';
-      popup.style.transform = 'translateY(0)'; 
-      arrow.style.left = '20%'; 
+    const popupRect = popup.getBoundingClientRect();
+    const screenWidth = window.innerWidth;
+
+    // 如果浮窗右侧超出了屏幕，向左偏移
+    if (rect.left + (popupRect.width / 2) > screenWidth) {
+       popup.style.left = 'auto';
+       popup.style.right = '0';
+       popup.style.transform = 'translateY(0)';
+       arrow.style.left = 'auto';
+       arrow.style.right = '20px';
     } else {
-      popup.style.left = '50%';
-      popup.style.transform = ''; 
-      arrow.style.left = '50%';
+       // 默认逻辑
+       const sidebarWidth = 208;
+       const popupWidth = 288;   
+       const halfPopup = popupWidth / 2;
+       const defaultLeftEdge = rect.left + (rect.width / 2) - halfPopup;
+       
+       if (defaultLeftEdge < sidebarWidth + 20) {
+         popup.style.left = '0';
+         popup.style.transform = 'translateY(0)'; 
+         arrow.style.left = '20%'; 
+       } else {
+         popup.style.left = '50%';
+         popup.style.transform = ''; 
+         arrow.style.left = '50%';
+       }
     }
   }
 
   function toggleDetail(btn, e) {
-    e.preventDefault(); e.stopPropagation(); 
+    e.preventDefault();
+    e.stopPropagation(); 
     const wrapper = btn.closest('.site-card-wrapper');
     const popup = wrapper.querySelector('.detail-popup');
     if(!popup) return;
     const isVisible = popup.classList.contains('mobile-visible');
+
     document.querySelectorAll('.detail-popup').forEach(p => {
       p.classList.remove('mobile-visible');
-      p.style.opacity = ''; p.style.visibility = ''; p.style.transform = ''; p.style.left = '';
+      p.style.opacity = ''; p.style.visibility = ''; p.style.transform = ''; p.style.left = ''; p.style.right = '';
     });
+
     if (!isVisible) {
       popup.classList.add('mobile-visible');
       popup.style.opacity = '1'; popup.style.visibility = 'visible';
+      // 手机端强制居中显示
       popup.style.left = '50%';
-      popup.style.transform = 'translateY(0) translateX(-50%)'; 
+      popup.style.right = 'auto';
+      popup.style.transform = 'translateY(0) translateX(-50%)';
     }
   }
 
@@ -205,7 +226,7 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
     if (!e.target.closest('.info-btn') && !e.target.closest('.detail-popup')) {
       document.querySelectorAll('.detail-popup').forEach(p => {
         p.classList.remove('mobile-visible');
-        p.style.opacity = ''; p.style.visibility = ''; p.style.transform = ''; p.style.left = '';
+        p.style.opacity = ''; p.style.visibility = ''; p.style.transform = ''; p.style.left = ''; p.style.right = '';
       });
     }
   });

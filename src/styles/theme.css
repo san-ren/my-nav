@@ -3,9 +3,9 @@
    ========================================= */
 :root {
   /* 核心品牌色 (Blue-600 / Blue-50 / Blue-100) */
-  --color-primary: 37 99 235;       
-  --color-primary-light: 239 246 255;
-  --color-primary-hover: 219 234 254;
+  --color-primary: 37 99 235;               /* 对应 Tailwind 的 brand-600 (按钮背景、侧边栏选中态) */
+  --color-primary-light: 210, 225, 245;           /* 对应 Tailwind 的 brand-50 (浅色背景) */
+  --color-primary-hover: 219 234 254;          /* 对应 Tailwind 的 brand-100 (侧边栏悬浮背景) */
 
   /* 侧边栏 */
   --sidebar-width: 13rem;
