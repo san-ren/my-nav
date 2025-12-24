@@ -4,9 +4,8 @@ import Sidebar from '../components/Sidebar.astro';
 import SiteCard from '../components/SiteCard.astro';
 import SearchModal from '../components/SearchModal.jsx';
 import siteConfig from '../data/config.json';
-import { LayoutDashboard, Star, Code, Palette, Sun, Moon, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu } from 'lucide-react';
 import ThemePicker from '../components/ThemePicker.astro';
-
+import { LayoutDashboard, Star, Code, Palette, Sun, Moon, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu } from 'lucide-react';
 
 export async function getStaticPaths() {
   const allNavFiles = import.meta.glob('../data/nav/*.json', { eager: true });
@@ -28,62 +27,66 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 ---
 
 <Layout title={`${section.name} - ${siteConfig.title}`}>
-  <div class="flex min-h-screen">
+  <div class="flex min-h-screen w-full">
     
     <Sidebar navResources={navResources} currentId={id} siteConfig={siteConfig} />
 
     <div id="sidebar-overlay" class="fixed inset-0 bg-black/40 z-40 hidden md:hidden backdrop-blur-sm transition-opacity" onclick="toggleSidebar()"></div>
 
-    <main class="flex-1 md:ml-[var(--sidebar-width)] bg-gray-50/50 dark:bg-gray-900/50 min-h-screen">
+    <main class="flex-1 min-w-0 md:ml-[var(--sidebar-width,17rem)] bg-gray-50/50 dark:bg-gray-900/50 min-h-screen flex flex-col">
       
-      <header id="page-header" class="sticky top-0 z-30 flex items-center justify-between px-4 md:px-8 py-4 bg-white/40 dark:bg-gray-900/40 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50 transition-transform duration-300">
-        <div class="flex items-center gap-3">
-          <button id="menu-btn" class="md:hidden p-2 text-slate-600 dark:text-slate-300 bg-white/80 dark:bg-gray-800/80 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700" onclick="toggleSidebar()">
+      <header id="page-header" class="fixed top-0 right-0 z-30 flex items-center justify-between px-4 md:px-8 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50 transition-transform duration-300 w-full md:w-[calc(100%-var(--sidebar-width,17rem))]">
+        <div class="flex items-center gap-3 min-w-0">
+          <button id="menu-btn" class="md:hidden p-2 text-slate-600 dark:text-slate-300 bg-white/80 dark:bg-gray-800/80 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 shrink-0" onclick="toggleSidebar()">
             <Menu size={20} />
           </button>
 
-          <h1 class="text-xl font-black flex items-center gap-3 text-slate-800 dark:text-white">
-            <div class="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-blue-600"><CurrentIcon size={20} /></div>
-            {section.name}
+          <h1 class="text-xl font-black flex items-center gap-3 text-slate-800 dark:text-white truncate">
+            {/* 修改：替换为 brand 类名 */}
+            <div class="p-2 bg-brand-50 dark:bg-brand-600/20 rounded-lg text-brand-600 shrink-0"><CurrentIcon size={20} /></div>
+            <span class="truncate">{section.name}</span>
           </h1>
         </div>
         
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 md:gap-3 shrink-0">
           <SearchModal client:load />
           <ThemePicker />
-          <button id="theme-toggle" class="p-2.5 bg-slate-100 dark:bg-gray-800 rounded-xl text-slate-500 hover:text-blue-600 transition-all">
+          {/* 修改：hover:text-brand-600 */}
+          <button id="theme-toggle" class="p-2.5 bg-slate-100 dark:bg-gray-800 rounded-xl text-slate-500 hover:text-brand-600 transition-all">
             <Sun size={20} className="hidden dark:block" />
             <Moon size={20} className="block dark:hidden" />
           </button>
         </div>
       </header>
 
-      <div class="p-6 lg:p-8 space-y-12 max-w-[1440px] mx-auto">
+      <div class="p-4 pt-24 md:p-8 md:pt-28 space-y-12 w-full max-w-[1440px] mx-auto">
         {(section.groups || []).map((group, groupIdx) => (
-          <div class="group-wrapper">
-            <div id={`group-${groupIdx}`} class="flex items-center gap-3 mb-8 mt-12 first:mt-0 pb-2 border-b border-slate-100 dark:border-slate-800 scroll-mt-24">
+          <div class="group-wrapper w-full">
+            <div id={`group-${groupIdx}`} class="flex items-center gap-3 mb-8 mt-12 first:mt-0 pb-2 border-b border-slate-100 dark:border-slate-800 scroll-mt-28">
               <h2 class="text-xl font-black text-slate-800 dark:text-slate-100">{group.name}</h2>
             </div>
 
-            <div class="space-y-16">
+            <div class="space-y-16 w-full">
               {(group.categories || []).map((category, catIdx) => {
                 const uniqueId = `${groupIdx}-${catIdx}`;
                 
                 return (
-                  <section id={`cat-${uniqueId}`} class="category-group scroll-mt-24">
-                    <div class="flex flex-wrap items-center justify-start gap-y-4 gap-x-6 mb-8">
+                  <section id={`cat-${uniqueId}`} class="category-group scroll-mt-28 w-full">
+                    <div class="flex flex-wrap items-center justify-start gap-x-6 gap-y-4 mb-8">
                       <h3 class="flex items-center gap-3 text-lg font-bold text-slate-700 dark:text-slate-200 shrink-0">
-                        <span class="w-1.5 h-5 bg-blue-500 rounded-full"></span>
+                         {/* 修改：bg-brand-600 */}
+                        <span class="w-1.5 h-5 bg-brand-600 rounded-full"></span>
                         {category.name}
                       </h3>
 
                       {category.tabs && (
-                        <div class="tab-nav-container relative z-0 flex bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-full">
+                        <div class="tab-nav-container relative z-0 flex bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-full overflow-x-auto no-scrollbar max-w-full">
                           <div class="tab-indicator absolute bg-white dark:bg-slate-700 shadow-sm rounded-full h-[calc(100%-8px)] top-1 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1.0)]"></div>
                           {category.tabs.map((tab, tabIdx) => (
+                             /* 修改：text-brand-600 */
                             <button
-                              class={`tab-btn relative z-10 px-4 py-1.5 text-xs font-bold rounded-full transition-colors duration-200
-                              ${tabIdx === 0 ? 'text-blue-600 dark:text-blue-400 active-tab' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}`}
+                              class={`tab-btn relative z-10 px-4 py-1.5 text-xs font-bold rounded-full transition-colors duration-200 whitespace-nowrap
+                              ${tabIdx === 0 ? 'text-brand-600 active-tab' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}`}
                               data-target={`pane-${uniqueId}-${tabIdx}`}
                               data-index={tabIdx}
                             >
@@ -94,22 +97,20 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
                       )}
                     </div>
 
-                    <div class="tab-content-wrapper relative z-10">
+                    <div class="tab-content-wrapper relative z-10 w-full">
                       {category.tabs ? (
                         category.tabs.map((tab, tabIdx) => (
                           <div 
                             id={`pane-${uniqueId}-${tabIdx}`} 
-                            class={`tab-pane animate-fade-in relative z-20 ${tabIdx !== 0 ? 'hidden' : ''}`}
+                            class={`tab-pane animate-fade-in relative z-20 w-full ${tabIdx !== 0 ? 'hidden' : ''}`}
                           >
-                            {/* 修改点：调整网格列数与间距 */}
-                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-3 md:gap-4 pt-1">
+                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-3 md:gap-4 pt-1 w-full">
                               {(tab.list || []).map((site) => <SiteCard {...site} />)}
                             </div>
                           </div>
                         ))
                       ) : (
-                        /* 修改点：调整网格列数与间距 */
-                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-3 md:gap-4 pt-1">
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-3 md:gap-4 pt-1 w-full">
                           {(category.list || []).map((site) => <SiteCard {...site} />)}
                         </div>
                       )}
@@ -136,30 +137,43 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     if (sidebar && overlay) {
       sidebar.classList.toggle('-translate-x-full');
       overlay.classList.toggle('hidden');
+      // 【核心修改】：检查侧边栏状态，动态添加/移除 overflow-hidden
+      // 如果 classList 包含 -translate-x-full，说明是隐藏状态 -> 允许滚动
+      if (sidebar.classList.contains('-translate-x-full')) {
+        document.body.classList.remove('overflow-hidden');
+      } else {
+        // 否则是显示状态 -> 禁止滚动
+        document.body.classList.add('overflow-hidden');
+      }
     }
   };
+
   function initTabs() {
     const containers = document.querySelectorAll('.tab-nav-container');
     containers.forEach(container => {
       const indicator = container.querySelector('.tab-indicator');
       const btns = container.querySelectorAll('.tab-btn');
       if (!indicator || btns.length === 0) return;
+
       const moveIndicator = (targetBtn) => {
         if (!targetBtn) return;
         indicator.style.left = `${targetBtn.offsetLeft}px`;
         indicator.style.width = `${targetBtn.offsetWidth}px`;
       };
+
       const activeBtn = container.querySelector('.active-tab') || btns[0];
       if(activeBtn) moveIndicator(activeBtn);
+
       btns.forEach(btn => {
         btn.addEventListener('mouseenter', () => moveIndicator(btn));
         btn.addEventListener('click', (e) => {
           e.preventDefault();
           btns.forEach(b => {
-            b.classList.remove('active-tab', 'text-blue-600', 'dark:text-blue-400');
+             // 修改：JS 逻辑中也替换为 text-brand-600
+            b.classList.remove('active-tab', 'text-brand-600');
             b.classList.add('text-slate-500');
           });
-          btn.classList.add('active-tab', 'text-blue-600', 'dark:text-blue-400');
+          btn.classList.add('active-tab', 'text-brand-600');
           btn.classList.remove('text-slate-500');
           moveIndicator(btn);
           const group = container.closest('.category-group');
@@ -182,18 +196,25 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
       });
     });
   }
+
   function initHeaderScroll() {
     let lastScrollY = window.scrollY;
     const header = document.getElementById('page-header');
     const scrollThreshold = 100;
+
     window.addEventListener('scroll', () => {
       if (!header) return;
-      const currentScrollY = window.scrollY;
+      
+      const currentScrollY = Math.max(0, window.scrollY);
+      
       if (currentScrollY < scrollThreshold) {
         header.style.transform = 'translateY(0)';
         lastScrollY = currentScrollY;
         return;
       }
+      
+      if (Math.abs(currentScrollY - lastScrollY) < 5) return;
+
       if (currentScrollY > lastScrollY) {
         header.style.transform = 'translateY(-150%)';
       } else {
@@ -202,8 +223,10 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
       lastScrollY = currentScrollY;
     }, { passive: true });
   }
+
   initTabs();
   initHeaderScroll();
+  
   document.addEventListener('astro:after-swap', () => {
     initTabs();
     initHeaderScroll();
@@ -219,4 +242,6 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
   .animate-fade-in {
     animation: fadeInUp 0.4s ease-out forwards;
   }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 </style>

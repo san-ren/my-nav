@@ -7,22 +7,27 @@ const base = '/my-nav';
 const Icons = { Star, Code, Palette, LayoutDashboard };
 ---
 
+<!-- 
+  修复点 1: style 强制指定宽度并提供 fallback (17rem)，防止变量失效导致宽度为 auto。
+  修复点 2: 增加 overflow-x-hidden 防止内部元素撑开。
+-->
 <aside 
   id="sidebar"
-  class="fixed inset-y-0 left-0 z-50 w-[var(--sidebar-width)] bg-white/90 dark:bg-gray-900/90 backdrop-blur-2xl shadow-[10px_0_40px_rgba(0,0,0,0.04)] dark:shadow-none flex flex-col transition-transform duration-300 -translate-x-full md:translate-x-0"
+  style={{ width: 'var(--sidebar-width, 17rem)' }}
+  class="fixed top-0 left-0 z-50 h-[100dvh] bg-white/90 dark:bg-gray-900/90 backdrop-blur-2xl shadow-[10px_0_40px_rgba(0,0,0,0.04)] dark:shadow-none flex flex-col transition-transform duration-300 -translate-x-full md:translate-x-0 border-r border-slate-200/50 dark:border-slate-800/50 overflow-x-hidden"
 >
-  <!-- Logo -->
-  <div class="p-6 flex-shrink-0 flex items-center gap-3 border-b border-slate-100/50 dark:border-slate-800/50">
-    <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/30 text-white">
+  <!-- Logo 区域 -->
+  <div class="h-16 px-6 flex-shrink-0 flex items-center gap-3 border-b border-slate-100/50 dark:border-slate-800/50 overflow-hidden">
+    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/30 text-white flex-shrink-0">
       <img src={`${base}/favicon.svg`} class="w-5 h-5 invert brightness-0" alt="Logo" />
     </div>
-    <span class="text-base font-black tracking-tight text-slate-800 dark:text-slate-100">
+    <span class="text-base font-black tracking-tight text-slate-800 dark:text-slate-100 truncate block">
       {siteConfig.title}
     </span>
   </div>
 
   <!-- 菜单区域 -->
-  <nav class="flex-1 overflow-y-auto p-3 space-y-1 scrollbar-hide">
+  <nav class="flex-1 overflow-y-auto p-3 space-y-1 custom-scrollbar">
     {navResources.map((page) => {
       const isActivePage = page.id === currentId;
       const PageIcon = Icons[page.icon] || LayoutDashboard;
@@ -30,28 +35,27 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
       return (
         <div class="group/page mb-1">
           <a href={`${base}/${page.id}`} 
-             class={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 font-bold
+             class={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 font-bold overflow-hidden
              ${isActivePage 
-               ? 'bg-brand-600 text-white shadow-md shadow-blue-500/20' 
-               : 'text-slate-500 hover:bg-sidebar-hover dark:hover:bg-gray-800 hover:text-slate-900 dark:hover:text-slate-200'
+               ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' 
+               : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-gray-800 hover:text-slate-900 dark:hover:text-slate-200'
              }`}
           >
-            <!-- 图标调大至 18px 适配更大的文字 -->
-            <PageIcon size={18} />
-            <!-- ✅ 使用 text-sidebar-link -->
-            <span class="text-sidebar-link flex-1">{page.name}</span>
+            <PageIcon size={18} class="flex-shrink-0" />
+            <span class="flex-1 truncate">{page.name}</span>
           </a>
 
           {isActivePage && page.groups && (
             <div class="pl-0 mt-2 space-y-3 animate-in slide-in-from-left-2 duration-300">
               {page.groups.map((group, groupIdx) => (
                 <div class="relative pl-3">
+                  <!-- 修复点 3: 分组标题增加 truncate 和 block，防止长文字撑宽容器 -->
                   <button 
                     onclick={`window.scrollToSection('group-${groupIdx}'); window.closeSidebarMobile();`}
-                    class="w-full flex items-center gap-2 px-3 py-1 mb-1 text-sidebar-group font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest hover:text-brand-600 transition-colors text-left"
+                    class="w-full flex items-center gap-2 px-3 py-1 mb-1 font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider hover:text-blue-600 transition-colors text-left text-[11px] overflow-hidden"
+                    title={group.name}
                   >
-                    <!-- ✅ text-sidebar-group 已应用 -->
-                    {group.name}
+                    <span class="truncate block w-full">{group.name}</span>
                   </button>
 
                   <div class="absolute left-[18px] top-6 bottom-2 w-[1px] bg-slate-200 dark:bg-slate-800 rounded-full"></div>
@@ -62,18 +66,19 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
                       const uniqueId = `${groupIdx}-${catIdx}`;
                       return (
                         <div class="relative">
+                          <!-- 修复点 4: 分类按钮增加 truncate，限制最大宽度 -->
                           <button 
-                            class="sidebar-cat-btn w-full flex items-center justify-between px-2 py-1.5 rounded-lg text-sidebar-cat font-medium text-slate-600 dark:text-slate-400 hover:text-brand-600 hover:bg-sidebar-sub-hover dark:hover:bg-blue-900/30 transition-colors group z-10 relative"
+                            class="sidebar-cat-btn w-full flex items-center justify-between px-2 py-1.5 rounded-lg font-medium text-[13px] text-slate-600 dark:text-slate-400 hover:text-blue-600 hover:bg-slate-50 dark:hover:bg-blue-900/30 transition-colors group z-10 relative overflow-hidden"
                             data-target={`sidebar-sub-${uniqueId}`}
                             onclick={!hasTabs ? `window.scrollToSection('cat-${uniqueId}'); window.closeSidebarMobile();` : ''}
+                            title={cat.name}
                           >
-                            <!-- ✅ text-sidebar-cat 已应用 -->
-                            <span class="flex items-center gap-2.5 truncate">
-                              <span class="w-1 h-[1px] bg-slate-300 dark:bg-slate-700 group-hover:bg-blue-400 transition-colors"></span>
-                              {cat.name}
+                            <span class="flex items-center gap-2.5 truncate max-w-[85%]">
+                              <span class="w-1 h-[1px] bg-slate-300 dark:bg-slate-700 group-hover:bg-blue-400 transition-colors flex-shrink-0"></span>
+                              <span class="truncate">{cat.name}</span>
                             </span>
                             {hasTabs && (
-                              <ChevronRight size={14} class="arrow-icon text-slate-300 transition-transform duration-300" />
+                              <ChevronRight size={14} class="arrow-icon text-slate-300 transition-transform duration-300 flex-shrink-0" />
                             )}
                           </button>
 
@@ -83,10 +88,10 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
                                 <div class="pl-4 ml-1 border-l border-slate-100 dark:border-slate-800/50 space-y-0.5 pt-0.5 pb-1">
                                   {cat.tabs.map((tab, tabIdx) => (
                                     <button 
-                                      class="w-full text-left px-2 py-1 text-sidebar-tab text-slate-500 hover:text-brand-600 hover:bg-sidebar-sub-hover dark:hover:bg-gray-800 transition-colors rounded-md"
+                                      class="w-full text-left px-2 py-1 text-[12px] text-slate-500 hover:text-blue-600 hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors rounded-md truncate block"
                                       onclick={`window.scrollToTab('${uniqueId}', ${tabIdx}); window.closeSidebarMobile();`}
+                                      title={tab.tabName}
                                     >
-                                      <!-- ✅ text-sidebar-tab 已应用 -->
                                       {tab.tabName}
                                     </button>
                                   ))}
@@ -107,8 +112,9 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
     })}
   </nav>
   
-  <div class="p-4 pb-24 md:pb-4 border-t border-slate-100/50 dark:border-slate-800/50 text-center">
-    <span class="text-[10px] text-slate-400 font-medium">By {siteConfig.author}</span>
+  {/* 底部版权 */}
+  <div class="p-4 mt-auto border-t border-slate-100/50 dark:border-slate-800/50 text-center shrink-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md safe-area-bottom overflow-hidden">
+    <span class="text-[10px] text-slate-400 font-medium truncate block">By {siteConfig.author}</span>
   </div>
 </aside>
 
@@ -148,9 +154,14 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
     }, 300);
   };
   
+  // 【核心修改】添加了 document.body.classList.remove('overflow-hidden')
   window.closeSidebarMobile = () => {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebar-overlay');
+    
+    // 无论如何先尝试恢复滚动 (保险起见)
+    document.body.classList.remove('overflow-hidden');
+
     if (window.innerWidth < 768 && sidebar && overlay) { 
         sidebar.classList.add('-translate-x-full');
         overlay.classList.add('hidden');
@@ -160,3 +171,11 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
   initSidebarInteraction();
   document.addEventListener('astro:after-swap', initSidebarInteraction);
 </script>
+
+<style>
+  .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+  .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+  .custom-scrollbar::-webkit-scrollbar-thumb { background-color: rgba(156, 163, 175, 0.3); border-radius: 20px; }
+  /* 适配部分 iPhone 底部横条 */
+  .safe-area-bottom { padding-bottom: env(safe-area-inset-bottom, 20px); }
+</style>

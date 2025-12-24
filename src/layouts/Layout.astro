@@ -12,7 +12,10 @@ const base = '/my-nav';
 <html lang="zh-CN" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    
+    <!-- ✅ 修改点：优化移动端视口设置，禁止用户缩放和自动缩放，防止布局抖动 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
@@ -56,8 +59,8 @@ const base = '/my-nav';
     </script>
   </head>
   
-  <!-- ✅ 3. 保留原有的 body 样式 -->
-  <body class="bg-slate-50 dark:bg-[#0b0f1a] transition-colors duration-500">
+  <!-- ✅ 3. 修改点：body 添加 overflow-x-hidden 和 w-full 防止横向溢出 -->
+  <body class="bg-slate-50 dark:bg-[#0b0f1a] transition-colors duration-500 overflow-x-hidden w-full">
     
     <!-- ✅ 4. 保留背景光斑装饰 -->
     <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -96,3 +99,14 @@ const base = '/my-nav';
     </script>
   </body>
 </html>
+
+<!-- ✅ 6. 新增全局样式重置：强制禁止横向滚动 -->
+<style is:global>
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+</style>
