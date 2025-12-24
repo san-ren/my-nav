@@ -8,7 +8,7 @@
   --color-primary-hover: 219 234 254;          /* 对应 Tailwind 的 brand-100 (侧边栏悬浮背景) */
 
   /* 侧边栏 */
-  --sidebar-width: 23rem;
+  --sidebar-width: 13rem;
   --sidebar-bg: 255 255 255;
   --sidebar-bg-dark: 17 24 39;
   
