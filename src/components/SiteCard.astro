@@ -6,16 +6,34 @@ const { title, name, url, desc, detail, official_site, badge_list = [], guide_id
 const displayTitle = title || name;
 const base = '/my-nav';
 
-const getFavicon = (mainUrl, secondaryUrl) => {
-  const targetUrl = secondaryUrl || mainUrl;
+// --- 恢复 File 1 的图标逻辑 ---
+const getDomain = (targetUrl) => {
   try {
-    const domain = new URL(targetUrl).hostname;
-    return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+    if (!targetUrl) return null;
+    return new URL(targetUrl).hostname;
   } catch (e) {
-    return `${base}/favicon.svg`;
+    return null;
   }
 };
 
+const domain = getDomain(url || official_site);
+
+// 定义各级图标源 (恢复 File 1 优点)
+const iconSources = {
+  // Level 1: 酷猫 (Kucat)
+  level1: domain ? `https://ico.kucat.cn/get.php?url=${domain}` : '',
+  // Level 2: 暴力直连 (尝试直接访问网站根目录favicon.ico)
+  level2: domain ? `https://ico.kucat.cn/get.php?url=${domain}` : '',
+  // Level 3: Google (需代理)
+  level3: domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '', 
+  // Fallback
+  fallback: `${base}/favicon.svg`
+};
+
+// 默认首选 Level 1
+const defaultIcon = iconSources.level1 || iconSources.fallback;
+
+// --- Badge 逻辑 (通用) ---
 let badges = [];
 if (url && url.includes("github.com") && badge_list && badge_list.length > 0) {
   try {
@@ -31,37 +49,40 @@ if (url && url.includes("github.com") && badge_list && badge_list.length > 0) {
         license: { src: `https://img.shields.io/github/license/${owner}/${repo}${styleParam}&color=green&label=License`, alt: "License" },
         last_commit: { src: `https://img.shields.io/github/last-commit/${owner}/${repo}${styleParam}&color=slate&label=Updated`, alt: "Last Commit" }
       };
-
       badge_list.forEach(key => {
-        if (badgeConfigs[key]) {
-          badges.push(badgeConfigs[key]);
-        }
+        if (badgeConfigs[key]) badges.push(badgeConfigs[key]);
       });
     }
-  } catch(e) {
-    console.error("Badge parsing error", e);
-  }
+  } catch(e) { console.error("Badge error", e); }
 }
 
 const rawMarkdown = detail || "";
 const detailContent = marked.parse(rawMarkdown);
-const logoUrl = getFavicon(url, official_site);
-
-// 【核心修改点 1】：定义一个变量，只要有详情 OR 有徽章，就视为需要显示浮窗
-const hasPopupContent = !!detail || badges.length > 0;
+// 生成唯一ID
+const cardId = `site-${domain ? domain.replace(/[^a-zA-Z0-9]/g, '-') : Math.random().toString(36).substr(2, 9)}`;
 ---
 
 <!-- 
-  修改点：
-  1. 给外层 div 添加 onmouseenter="adjustPopupPosition(this)"
-  2. 这样每次鼠标放上去，都会自动计算是不是太靠边了
+  保留 File 2 的优点：onmouseenter="adjustPopupPosition(this)" 实现智能避让
 -->
 <div class="site-card-wrapper group relative hover:z-[999]" onmouseenter="adjustPopupPosition(this)">
   <a href={url} target="_blank" 
      class="flex items-center py-2 px-3 h-[90px] bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl border border-white/50 dark:border-gray-700/30 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 hover:border-blue-500/50 relative"
   >
+    <!-- 左侧图标：恢复 File 1 的高级 img 标签，带 data-sources 和多级回调 -->
     <div class="flex-shrink-0 mr-3 w-10 h-10 rounded-xl bg-white dark:bg-gray-700 shadow-sm overflow-hidden flex items-center justify-center border border-gray-100 dark:border-gray-600">
-      <img src={logoUrl} alt={displayTitle} loading="lazy" class="w-6 h-6 object-contain" onerror={`this.src='${base}/favicon.svg'`} />
+      <img 
+        id={cardId}
+        src={defaultIcon} 
+        data-domain={domain}
+        data-sources={JSON.stringify(iconSources)}
+        alt={displayTitle} 
+        loading="lazy" 
+        referrerpolicy="no-referrer"
+        class="w-6 h-6 object-contain" 
+        onload="handleIconLoad(this)"
+        onerror="handleIconError(this)"
+      />
     </div>
     
     <div class="flex-1 min-w-0 flex flex-col justify-center text-center px-1">
@@ -73,55 +94,26 @@ const hasPopupContent = !!detail || badges.length > 0;
       )}
     </div>
 
-    <!-- 【核心修改点 2】：移动端的 info 按钮，也改为由 hasPopupContent 控制 -->
-    {hasPopupContent && (
-      <button
-        onclick="toggleDetail(this, event)"
-        class="info-btn md:hidden absolute top-2 right-2 p-1.5 rounded-full bg-slate-100/50 dark:bg-slate-700/50 text-slate-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-gray-600 z-20 transition-all scale-90"
-        title="显示/隐藏详情"
-      >
-        <Info size={14} />
-      </button>
+    {detail && (
+      <button onclick="toggleDetail(this, event)" class="info-btn md:hidden absolute top-2 right-2 p-1.5 rounded-full bg-slate-100/50 dark:bg-slate-700/50 text-slate-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-gray-600 z-20 transition-all scale-90" title="详情"><Info size={14} /></button>
     )}
 
     {guide_id && (
-      <button
-        onclick={`event.preventDefault(); event.stopPropagation(); window.open('${base}/guide/${guide_id}', '_blank');`}
-        class={`absolute top-2 p-1.5 rounded-lg bg-blue-50 text-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-200 z-20 opacity-0 group-hover:opacity-100 scale-90 hover:scale-105 ${hasPopupContent ? 'right-9 md:right-2' : 'right-2'}`}
-        title="查看详细教程"
-      >
-        <BookOpen size={14} strokeWidth={2.5} />
-      </button>
+      <button onclick={`event.preventDefault(); event.stopPropagation(); window.open('${base}/guide/${guide_id}', '_blank');`} class={`absolute top-2 p-1.5 rounded-lg bg-blue-50 text-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-200 z-20 opacity-0 group-hover:opacity-100 scale-90 hover:scale-105 ${detail ? 'right-9 md:right-2' : 'right-2'}`} title="教程"><BookOpen size={14} strokeWidth={2.5} /></button>
     )}
   </a>
 
-  <!-- 【核心修改点 3】：浮窗容器的渲染条件，改为 hasPopupContent -->
-  {hasPopupContent && (
+  {detail && (
     <div class="detail-popup absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 pointer-events-none z-[1000] opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-200">
-      <div 
-        class="relative rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-200/60 dark:border-slate-700 p-5"
-        style="background: #ffffff; background-color: white !important; opacity: 1 !important;"
-      >
+      <div class="relative rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-200/60 dark:border-slate-700 p-5" style="background: #ffffff; background-color: white !important; opacity: 1 !important;">
         <div class="absolute inset-0 rounded-2xl -z-10 bg-white dark:bg-[#1e2025]" style="opacity: 1 !important;"></div>
         
-        <!-- 小三角 -->
+        <!-- 保留 File 2 的 popup-arrow 类，用于 JS 控制 -->
         <div class="popup-arrow absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 border-r border-b border-slate-200 dark:border-slate-700 rotate-45" style="background: inherit; opacity: 1 !important;"></div>
         
         <div class="relative z-10">
-          <div class="text-[11px] font-black text-blue-600 dark:text-blue-400 mb-2.5 flex items-center gap-2 uppercase tracking-widest">
-            <span class="w-2 h-3 bg-blue-500 rounded-sm"></span>
-            详情
-          </div>
-
-          {badges.length > 0 && (
-            <div class="flex flex-wrap gap-2 mb-3 border-b border-slate-100 dark:border-slate-800 pb-3">
-              {badges.map(badge => (
-                <img src={badge.src} alt={badge.alt} class="h-5 rounded-sm" />
-              ))}
-            </div>
-          )}
-
-          <!-- 这里的 set:html 即使内容为空也不会报错，所以是安全的 -->
+          <div class="text-[11px] font-black text-blue-600 dark:text-blue-400 mb-2.5 flex items-center gap-2 uppercase tracking-widest"><span class="w-2 h-3 bg-blue-500 rounded-sm"></span>详情</div>
+          {badges.length > 0 && (<div class="flex flex-wrap gap-2 mb-3 border-b border-slate-100 dark:border-slate-800 pb-3">{badges.map(b => <img src={b.src} alt={b.alt} class="h-5 rounded-sm" />)}</div>)}
           <div class="detail-markdown text-[13px] text-slate-700 dark:text-slate-300 leading-relaxed font-medium whitespace-normal break-words" set:html={detailContent}></div>
         </div>
       </div>
@@ -130,7 +122,48 @@ const hasPopupContent = !!detail || badges.length > 0;
 </div>
 
 <script is:inline>
-  // 1. 智能避让逻辑：鼠标放上去时计算位置
+  // --- 恢复 File 1 的图标缓存与回退逻辑 ---
+
+  function handleIconLoad(img) {
+    const domain = img.getAttribute('data-domain');
+    // 如果图片加载成功，且不是兜底的 svg，就保存这个 url
+    if (domain && !img.src.endsWith('favicon.svg')) {
+      localStorage.setItem('fav-' + domain, img.src);
+    }
+  }
+
+  function handleIconError(img) {
+    try {
+      const sources = JSON.parse(img.getAttribute('data-sources'));
+      const currentSrc = img.src;
+      
+      // 逻辑：Iowen -> Uomg -> Google -> Fallback
+      if (currentSrc === sources.level1) {
+        img.src = sources.level2;
+      } else if (currentSrc === sources.level2) {
+        img.src = sources.level3;
+      } else if (currentSrc === sources.level3) {
+        img.src = sources.fallback;
+      } else {
+        img.onerror = null;
+      }
+    } catch (e) {
+      console.error("Icon fallback error", e);
+    }
+  }
+
+  // 页面加载完成后，优先读取缓存
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('img[data-domain]').forEach(img => {
+      const domain = img.getAttribute('data-domain');
+      const cachedSrc = localStorage.getItem('fav-' + domain);
+      if (cachedSrc && cachedSrc !== img.src) {
+        img.src = cachedSrc;
+      }
+    });
+  });
+
+  // --- File 2 的新功能：智能避让逻辑 ---
   function adjustPopupPosition(wrapper) {
     const popup = wrapper.querySelector('.detail-popup');
     const arrow = wrapper.querySelector('.popup-arrow');
@@ -138,54 +171,43 @@ const hasPopupContent = !!detail || badges.length > 0;
 
     // 获取卡片的位置信息
     const rect = wrapper.getBoundingClientRect();
-    const sidebarWidth = 208; // 侧边栏宽度 13rem = 208px
-    const popupWidth = 288;   // 浮窗宽度 w-72 = 288px
+    const sidebarWidth = 208; // 侧边栏宽度
+    const popupWidth = 288;   // 浮窗宽度
     const halfPopup = popupWidth / 2;
 
-    // 计算浮窗左边缘的屏幕坐标 (默认居中时)
     const defaultLeftEdge = rect.left + (rect.width / 2) - halfPopup;
 
-    // 判断：如果默认左边缘 侵入了 侧边栏区域 (给20px余量)
+    // 判断是否侵入侧边栏
     if (defaultLeftEdge < sidebarWidth + 20) {
-      // 策略：左对齐 (让浮窗左边对齐卡片左边)
+      // 左对齐策略
       popup.style.left = '0';
-      popup.style.transform = 'translateY(0)'; // 去掉 translateX
-      
-      // 调整小三角位置：让它也跑到左边去
-      arrow.style.left = '20%'; // 大概在左侧图标上方
+      popup.style.transform = 'translateY(0)'; 
+      arrow.style.left = '20%'; 
     } else {
       // 恢复默认居中
       popup.style.left = '50%';
-      popup.style.transform = ''; // 恢复 CSS 里的 translate-x-1/2
+      popup.style.transform = ''; 
       arrow.style.left = '50%';
     }
   }
 
-  // 2. 移动端 Info 按钮逻辑 (保持不变)
+  // --- 移动端详情逻辑 ---
   function toggleDetail(btn, e) {
-    e.preventDefault(); 
-    e.stopPropagation(); 
-
+    e.preventDefault(); e.stopPropagation(); 
     const wrapper = btn.closest('.site-card-wrapper');
     const popup = wrapper.querySelector('.detail-popup');
     if(!popup) return;
-
     const isVisible = popup.classList.contains('mobile-visible');
-
+    
     document.querySelectorAll('.detail-popup').forEach(p => {
       p.classList.remove('mobile-visible');
-      p.style.opacity = '';
-      p.style.visibility = '';
-      p.style.transform = '';
-      p.style.left = ''; // 移动端重置位置
+      p.style.opacity = ''; p.style.visibility = ''; p.style.transform = ''; p.style.left = '';
     });
-
+    
     if (!isVisible) {
       popup.classList.add('mobile-visible');
-      popup.style.opacity = '1';
-      popup.style.visibility = 'visible';
-      
-      // 移动端也做一个简单的居中或适配
+      popup.style.opacity = '1'; popup.style.visibility = 'visible';
+      // 移动端简单居中
       popup.style.left = '50%';
       popup.style.transform = 'translateY(0) translateX(-50%)'; 
     }
@@ -195,19 +217,14 @@ const hasPopupContent = !!detail || badges.length > 0;
     if (!e.target.closest('.info-btn') && !e.target.closest('.detail-popup')) {
       document.querySelectorAll('.detail-popup').forEach(p => {
         p.classList.remove('mobile-visible');
-        p.style.opacity = '';
-        p.style.visibility = '';
-        p.style.transform = '';
-        p.style.left = '';
+        p.style.opacity = ''; p.style.visibility = ''; p.style.transform = ''; p.style.left = '';
       });
     }
   });
 </script>
 
 <style is:global>
-  .dark .detail-markdown-parent {
-    background-color: #1e2025 !important;
-  }
+  .dark .detail-markdown-parent { background-color: #1e2025 !important; }
   .detail-markdown p { margin-bottom: 0.5rem; }
   .detail-markdown p:last-child { margin-bottom: 0; }
   .detail-markdown ul { list-style-type: disc; padding-left: 1.2em; margin-bottom: 0.5rem; }
