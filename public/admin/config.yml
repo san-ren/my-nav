@@ -139,14 +139,21 @@ collections:
                 fields: *site_fields
 
 # ============================================================
-  # 4. [视图 B] 分组内容 - 文件夹视图 (移除过滤，显示所有文件)
+  # 4. [视图 B] 分组内容 - 文件夹视图 (Nested 模式)
+  #    文档参考: https://decapcms.org/docs/collection-nested/
   # ============================================================
   - name: "nav_structure"
     label: "📂 内容分组 (文件夹视图)"
     folder: "src/data/nav"
+    
+    # ✅ 启用嵌套集合
     nested:
-      depth: 4
+      depth: 4 # 允许的最大深度，足以覆盖 nav/home/groups/xxx.json
       summary: "{{name}}"
+      
+    # ❌ 必须移除 path 属性，否则 nested 不生效
+    # path: "{{page}}/groups/{{slug}}" <--- 删掉这行
+    
     media_folder: ""
     public_folder: ""
     extension: "json"
@@ -155,14 +162,69 @@ collections:
     identifier_field: "name"
     editor:
       preview: false
-    
-    # 🔴 删除下面这三行 filter 配置
-    # filter:
-    #   field: "page" 
-    #   pattern: ".+" 
-    
-    # 复用字段结构
-    fields: *group_fields
+
+    # 过滤：只显示分组文件 (带有 page 字段的文件)
+    # 这样可以隐藏 meta.json，让视图更干净
+    filter:
+      field: "page"
+      pattern: ".+"
+
+    fields:
+      # ⚠️ 在嵌套模式下，文件夹结构由你点击创建，而不是由这个字段决定
+      # 但为了兼容数据结构，我们依然保留 page 字段，并设为只读或自动关联
+      - { label: "所属页面ID", name: "page", widget: "string", required: false, hint: "该字段在文件夹视图中由文件位置决定" }
+      
+      - { label: "分组名称", name: "name", widget: "string", required: true }
+      - { label: "分组图标", name: "icon", widget: "string", required: false }
+      
+      # --- 内部分类 ---
+      - label: "内部分类"
+        name: "categories"
+        widget: "list"
+        collapsed: false
+        summary: "📑 分类：{{name}}"
+        fields:
+          - { label: "分类名称", name: "name", widget: "string", required: true }
+          - { label: "分类图标", name: "icon", widget: "string", required: false }
+
+          # --- 模式 A：无Tabs ---
+          - label: "🔗 资源列表 (直属)"
+            name: "list"
+            widget: "list"
+            required: false
+            collapsed: true
+            summary: "{{name}}"
+            fields: &site_fields
+              - { label: "名称", name: "name", widget: "string", required: true }
+              - { label: "链接地址", name: "url", widget: "string", required: false }
+              - { label: "简短描述", name: "desc", widget: "string", required: false }
+              - { label: "详细说明", name: "detail", widget: "markdown", required: false, buttons: ["bold", "italic", "link", "code"], editor_components: [] }
+              - { label: "自定义图标 URL", name: "icon", widget: "image", required: false }
+              - { label: "小工具路径", name: "widget_url", widget: "string", required: false }
+              - { label: "官网/项目主页", name: "official_site", widget: "string", required: false }
+              - label: "GitHub 徽章"
+                name: "badge_list"
+                widget: "select"
+                multiple: true
+                required: false
+                options: ["stars", "version", "license", "last_commit"]
+              - { label: "关联教程ID", name: "guide_id", widget: "string", required: false }
+
+          # --- 模式 B：有Tabs ---
+          - label: "🗃️ 标签页 (Tabs模式)"
+            name: "tabs"
+            widget: "list"
+            required: false
+            collapsed: true
+            summary: "Tab：{{tabName}}" 
+            fields:
+              - { label: "页签名称", name: "tabName", widget: "string", required: true } 
+              - label: "资源列表"
+                name: "list"
+                widget: "list"
+                collapsed: true
+                required: false
+                fields: *site_fields
   # ============================================================
   # 5. 教程文章管理
   # ============================================================
