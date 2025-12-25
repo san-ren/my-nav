@@ -68,8 +68,6 @@ collections:
   - name: "nav_groups"
     label: "📦 分组内容管理"
     folder: "src/data/nav"
-    # 核心配置：匹配任意页面下的 groups 文件夹
-    # 结构: src/data/nav/{page}/groups/{slug}.json
     path: "{{page}}/groups/{{slug}}"
     media_folder: "" # 图片相对路径存储
     public_folder: ""
@@ -80,6 +78,13 @@ collections:
     summary: "所属页面: {{page}} | 分组: {{name}}"
     editor:
       preview: false
+
+    # ✅ 新增：添加视图分组配置
+    view_groups:
+      - label: "按所属页面归档"
+        field: "page"
+        pattern: ".*" # 匹配所有值
+
     fields:
       # ⚠️ 关键字段：用于指定文件保存在哪个页面的文件夹下
       - { label: "所属页面ID", name: "page", widget: "string", required: true, default: "home", hint: "必填：填写页面ID (如 home)，决定保存位置" }
