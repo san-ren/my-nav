@@ -52,7 +52,7 @@
           "name": "Files",
           "url": "https://files.community/",
           "desc": "",
-          "detail": "33k star，与微软相似"
+          "detail": "与微软相似"
         },
         {
           "name": "OneCommander",
@@ -136,13 +136,23 @@
           "name": "HelpUploadFiles （星空上传助手）",
           "url": "https://github.com/KrxkGit/HelpUploadFiles",
           "desc": "",
-          "detail": ""
+          "detail": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "悬浮宇宙/FloatingUniverse",
           "url": "https://github.com/iwxyi/FloatingUniverse",
           "desc": "",
-          "detail": "停更了"
+          "detail": "停更了",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         }
       ]
     },
@@ -160,13 +170,23 @@
           "name": "HybridFileXfer/多轨快传",
           "url": "https://github.com/weixiansen574/HybridFileXfer",
           "desc": "",
-          "detail": "同时使用USB和WIFI传输文件到电脑"
+          "detail": "同时使用USB和WIFI传输文件到电脑",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "localsend",
           "url": "https://github.com/localsend/localsend",
           "desc": "",
-          "detail": "32.3k star,局域网传输"
+          "detail": "局域网传输",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "KDE Connect",
@@ -184,19 +204,34 @@
           "name": "百灵快传(B0Pass)",
           "url": "https://github.com/bitepeng/b0pass",
           "desc": "",
-          "detail": "2k star,局域网共享文件,基于Go语言"
+          "detail": "局域网共享文件,基于Go语言",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "alley-transfer/小路速传",
           "url": "https://github.com/alley-rs/alley-transfer",
           "desc": "",
-          "detail": ""
+          "detail": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "FlyingCarpet",
           "url": "https://github.com/spieglt/FlyingCarpet",
           "desc": "",
-          "detail": "3k star,Android、iOS、Linux、macOS 和 Windows 客户端。"
+          "detail": "Android、iOS、Linux、macOS 和 Windows 客户端。",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "爱传送/MFiles",
@@ -214,19 +249,34 @@
           "name": "miniserve",
           "url": "https://github.com/svenstaro/miniserve",
           "desc": "",
-          "detail": "5.5k star,一键生成文件服务器，HTTP传输"
+          "detail": "一键生成文件服务器，HTTP传输",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "LANDrop",
           "url": "https://github.com/LANDrop/LANDrop",
           "desc": "",
-          "detail": "4.6k star,无安卓,2021停更"
+          "detail": "无安卓,2021停更",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "Beaker Browser",
           "url": "https://github.com/beakerbrowser/beaker",
           "desc": "",
-          "detail": "6.7k star,2020归档，p2p浏览器"
+          "detail": "2020归档，p2p浏览器",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         }
       ]
     }

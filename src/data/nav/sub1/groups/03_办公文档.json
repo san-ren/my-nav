@@ -10,43 +10,63 @@
           "name": "LKY Office Tools",
           "url": "https://github.com/OdysseusYuan/LKY_OfficeTools",
           "desc": "",
-          "detail": "7.4k star，一键自动化 下载、安装、激活 Office 的利器"
+          "detail": "一键自动化 下载、安装、激活 Office 的利器",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "OfficeToolPlus",
           "url": "https://otp.landian.vip/zh-cn/",
           "desc": "",
-          "detail": "8.8k star, Office安装、激活、管理"
+          "detail": "Office安装、激活、管理"
         },
         {
           "name": "mocreak",
           "url": "https://www.mocreak.com/",
           "desc": "",
-          "detail": "6.7k star,一键自动化、无人值守下载、安装、部署 Office 的利器"
+          "detail": "一键自动化、无人值守下载、安装、部署 Office 的利器"
         },
         {
           "name": "Microsoft Activation Scripts (MAS)",
           "url": "https://github.com/massgravel/Microsoft-Activation-Scripts",
           "desc": "",
-          "detail": "67.4k star,windows和office激活"
+          "detail": "windows和office激活",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "HEU_KMS_Activator",
           "url": "https://github.com/zbezj/HEU_KMS_Activator",
           "desc": "",
-          "detail": "26.1K star"
+          "detail": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "KMS_VL_ALL_AIO",
           "url": "https://github.com/abbodi1406/KMS_VL_ALL_AIO",
           "desc": "",
-          "detail": "7.6k star,智能激活脚本"
+          "detail": "智能激活脚本",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "云萌 Windows 10 激活工具",
           "url": "https://ac.dopp.top/",
           "desc": "",
-          "detail": "14.3k star，GitHub 上最棒的开源 Win10/Win11 数字权利（数字许可证）激活工具"
+          "detail": "GitHub 上最棒的开源 Win10/Win11 数字权利（数字许可证）激活工具"
         },
         {
           "name": "HelloWindows",
@@ -142,7 +162,12 @@
           "name": "easychart",
           "url": "https://github.com/EasyChart/Excel-Chart-Plugin-EasyCharts",
           "desc": "",
-          "detail": "2023更新readme，插件2018停更"
+          "detail": "2023更新readme，插件2018停更",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "OfficeAI助手",
@@ -172,13 +197,23 @@
           "name": "pdfarranger",
           "url": "https://github.com/pdfarranger/pdfarranger",
           "desc": "",
-          "detail": "3k star,合并或拆分 PDF 文档，并使用交互式和直观的图形界面旋转、裁剪和重新排列页面"
+          "detail": "合并或拆分 PDF 文档，并使用交互式和直观的图形界面旋转、裁剪和重新排列页面",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "pdf-helper",
           "url": "https://github.com/iamlinhui/pdf-helper",
           "desc": "",
-          "detail": "PDF压缩和导出PDF图片工具"
+          "detail": "PDF压缩和导出PDF图片工具",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "PDFsamBasic",
@@ -268,7 +303,12 @@
           "name": "Readest",
           "url": "https://github.com/readest/readest",
           "desc": "",
-          "detail": ""
+          "detail": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "潮汐阅读",
@@ -280,13 +320,23 @@
           "name": "ReadCat",
           "url": "https://github.com/read-cat/read-cat",
           "desc": "",
-          "detail": ""
+          "detail": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "STRapp",
           "url": "https://github.com/cataerogong/STRapp/",
           "desc": "",
-          "detail": ""
+          "detail": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "Koodo Reader",

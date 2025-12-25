@@ -13,7 +13,7 @@
               "name": "Ditto",
               "url": "https://ditto-cp.sourceforge.io/index.php",
               "desc": "",
-              "detail": "3.3k star ，商店版、便携版，保存剪贴板所有记录、文件"
+              "detail": "商店版、便携版，保存剪贴板所有记录、文件"
             },
             {
               "name": "Snatch",
@@ -25,25 +25,40 @@
               "name": "PasteEx",
               "url": "https://github.com/huiyadanli/PasteEx",
               "desc": "",
-              "detail": "将剪切板内容存为文件"
+              "detail": "将剪切板内容存为文件",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "CopyQ",
               "url": "https://hluk.github.io/CopyQ/",
               "desc": "",
-              "detail": "8.1k star, 剪贴板增强，保存所有内容"
+              "detail": "剪贴板增强，保存所有内容"
             },
             {
               "name": "TinyCopyBoard",
               "url": "https://github.com/AlanWanco/TinyCopyBoard",
               "desc": "",
-              "detail": "一个迷你剪贴板实时显示悬浮窗"
+              "detail": "一个迷你剪贴板实时显示悬浮窗",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "EcoPaste",
               "url": "https://github.com/ayangweb/EcoPaste",
               "desc": "",
-              "detail": "剪切板管理"
+              "detail": "剪切板管理",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "柠檬Push",
@@ -132,7 +147,12 @@
               "name": "Sticky Notes | 贴纸便签",
               "url": "https://github.com/imlinhanchao/sticky_notes",
               "desc": "",
-              "detail": "待办列表，置顶、半透明、鼠标穿透"
+              "detail": "待办列表，置顶、半透明、鼠标穿透",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "小孩桌面便签",
@@ -162,7 +182,12 @@
               "name": "StikyNotes",
               "url": "https://github.com/li-zheng-hao/StickyNotes",
               "desc": "",
-              "detail": "一个便捷的Windows桌面便利贴，2023.5归档，有问题极度影响使用"
+              "detail": "一个便捷的Windows桌面便利贴，2023.5归档，有问题极度影响使用",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "hott notes",
@@ -208,7 +233,12 @@
               "name": "AutoHotPie",
               "url": "https://github.com/dumbeau/AutoHotPie",
               "desc": "",
-              "detail": "配置圆盘菜单"
+              "detail": "配置圆盘菜单",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "MousePlus",
@@ -220,13 +250,13 @@
               "name": "Flow Launcher",
               "url": "https://www.flowlauncher.com/",
               "desc": "",
-              "detail": "6k star,"
+              "detail": ""
             },
             {
               "name": "rubick",
               "url": "https://rubickcenter.github.io/docs/guide/",
               "desc": "",
-              "detail": "7.5k star, 基于 electron 的开源工具箱，自由集成丰富插件。"
+              "detail": "基于 electron 的开源工具箱，自由集成丰富插件。"
             },
             {
               "name": "Wox",
@@ -285,7 +315,7 @@
               "name": "Wgestures",
               "url": "http://www.yingdev.com/projects/wgestures",
               "desc": "",
-              "detail": "1.4k star,全局鼠标手势"
+              "detail": "全局鼠标手势"
             },
             {
               "name": "StrokesPlus.net",
@@ -303,7 +333,12 @@
               "name": "Stroke",
               "url": "https://github.com/poerin/Stroke",
               "desc": "",
-              "detail": "鼠标手势，无四角手势，自行编写，配置比较困难"
+              "detail": "鼠标手势，无四角手势，自行编写，配置比较困难",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "MouseInc",
@@ -315,7 +350,12 @@
               "name": "Mouse actions",
               "url": "https://github.com/jersou/mouse-actions",
               "desc": "",
-              "detail": "Linux鼠标手势，添加触发角、磨擦边"
+              "detail": "Linux鼠标手势，添加触发角、磨擦边",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "GestureSign",
@@ -327,13 +367,23 @@
               "name": "Wheel",
               "url": "https://github.com/majorworld/Wheel",
               "desc": "",
-              "detail": "24个屏幕边缘触发器，2020停更"
+              "detail": "24个屏幕边缘触发器，2020停更",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "WinXcorners",
               "url": "https://github.com/vhanla/winxcorne1rs/",
               "desc": "",
-              "detail": "开源，为win10添加触发角，2019停更"
+              "detail": "开源，为win10添加触发角，2019停更",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "OneQuick",
@@ -412,73 +462,133 @@
           "name": "AI_NovelGenerator/自动小说生成工具",
           "url": "https://github.com/YILING0013/AI_NovelGenerator",
           "desc": "",
-          "detail": "使用ai生成多章节的长篇小说，自动衔接上下文、伏笔"
+          "detail": "使用ai生成多章节的长篇小说，自动衔接上下文、伏笔",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "Image/Manga Translator",
           "url": "https://github.com/zyddnys/manga-image-translator",
           "desc": "",
-          "detail": "一键翻译各类图片内文字"
+          "detail": "一键翻译各类图片内文字",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "BallonTranslator",
           "url": "https://github.com/dmMaze/BallonsTranslator",
           "desc": "",
-          "detail": "3.2k star, 深度学习辅助漫画翻译工具, 支持一键机翻和简单的图像/文本编辑"
+          "detail": "深度学习辅助漫画翻译工具, 支持一键机翻和简单的图像/文本编辑",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "PDFMathTranslate",
           "url": "https://github.com/Byaidu/PDFMathTranslate",
           "desc": "",
-          "detail": "1705k star ,基于 AI 完整保留排版的 PDF 文档全文双语翻译，支持 Google/DeepL/Ollama/OpenAI 等服务，提供 CLI/GUI/Docker/Zotero"
+          "detail": "基于 AI 完整保留排版的 PDF 文档全文双语翻译，支持 Google/DeepL/Ollama/OpenAI 等服务，提供 CLI/GUI/Docker/Zotero",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "YuE",
           "url": "https://github.com/multimodal-art-projection/YuE",
           "desc": "",
-          "detail": "4k star, 开启全曲音乐生成基础模型，类似于 Suno.ai 但开源"
+          "detail": "开启全曲音乐生成基础模型，类似于 Suno.ai 但开源",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "DiffRhythm（谛韵）",
           "url": "https://github.com/ASLP-lab/DiffRhythm",
           "desc": "",
-          "detail": "1.2k star，生成歌曲，西北工业大学与香港中文大学（深圳）联合开发"
+          "detail": "生成歌曲，西北工业大学与香港中文大学（深圳）联合开发",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "VideoLingo",
           "url": "https://github.com/Huanshere/VideoLingo",
           "desc": "",
-          "detail": "11.3k star, Netflix级字幕切割、翻译、对齐、甚至加上配音，一键全自动视频搬运AI字幕组"
+          "detail": "Netflix级字幕切割、翻译、对齐、甚至加上配音，一键全自动视频搬运AI字幕组",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "卡卡字幕助手（VideoCaptioner）",
           "url": "https://github.com/WEIFENG2333/VideoCaptioner",
           "desc": "",
-          "detail": "4.7k star"
+          "detail": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "ANTO",
           "url": "https://github.com/speauty/anto",
           "desc": "",
-          "detail": "字幕文件(srt)翻译工具，Windows专用"
+          "detail": "字幕文件(srt)翻译工具，Windows专用",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "v2vt",
           "url": "https://github.com/halfzm/v2vt",
           "desc": "",
-          "detail": "带有语音克隆和口型同步的视频翻译，支持中英互换"
+          "detail": "带有语音克隆和口型同步的视频翻译，支持中英互换",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "screenshot-to-code",
           "url": "https://github.com/abi/screenshot-to-code",
           "desc": "",
-          "detail": "68.5k star, 将截图放入并转换为干净的代码（HTML/Tailwind/React/Vue）"
+          "detail": "将截图放入并转换为干净的代码（HTML/Tailwind/React/Vue）",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "Ai-to-pptx",
           "url": "https://github.com/SmartSchoolAI/ai-to-pptx",
           "desc": "",
-          "detail": "使用AI技术(DeepSeek)制作PPTX的助手，支持在线生成和导出PPTX。"
+          "detail": "使用AI技术(DeepSeek)制作PPTX的助手，支持在线生成和导出PPTX。",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         }
       ]
     }

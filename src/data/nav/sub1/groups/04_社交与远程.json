@@ -10,7 +10,12 @@
           "name": "RevokeMsgPatcher",
           "url": "https://github.com/huiyadanli/RevokeMsgPatcher",
           "desc": "",
-          "detail": "微信/QQ/TIM防撤回补丁"
+          "detail": "微信/QQ/TIM防撤回补丁",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "PC微信遮挡工具",
@@ -22,19 +27,34 @@
           "name": "CleanMyWechat",
           "url": "https://github.com/blackboxo/CleanMyWechat",
           "desc": "",
-          "detail": "4k star，自动删除PC微信缓存数据"
+          "detail": "自动删除PC微信缓存数据",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "WXMoments",
           "url": "https://github.com/tech-shrimp/WechatMoments",
           "desc": "",
-          "detail": "WX 朋友圈导出为 HTML"
+          "detail": "WX 朋友圈导出为 HTML",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "wechatDownload/微信公众号文章批量下载工具",
           "url": "https://github.com/qiye45/wechatDownload",
           "desc": "",
-          "detail": "2.5k star, 微信公众号文章批量下载工具，支持图片、评论下载，支持保存html/md/pdf/docx文件"
+          "detail": "微信公众号文章批量下载工具，支持图片、评论下载，支持保存html/md/pdf/docx文件",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "WeChat2PDF",
@@ -46,31 +66,51 @@
           "name": "WeChatMsg/留痕",
           "url": "https://memotrace.lc044.love/",
           "desc": "",
-          "detail": "27.7k star，提取微信聊天记录，将其导出成HTML、Word、CSV文档永久保存，对聊天记录进行分析生成年度聊天报告"
+          "detail": "提取微信聊天记录，将其导出成HTML、Word、CSV文档永久保存，对聊天记录进行分析生成年度聊天报告"
         },
         {
           "name": "WeClone",
           "url": "https://github.com/xming521/WeClone",
           "desc": "",
-          "detail": "5k star，从聊天记录创造数字分身的一站式解决方案"
+          "detail": "从聊天记录创造数字分身的一站式解决方案",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "WeWe RSS",
           "url": "https://github.com/cooderl/wewe-rss",
           "desc": "",
-          "detail": "6.3k star，更优雅的微信公众号订阅方式，支持私有化部署、微信公众号RSS生成（基于微信读书）"
+          "detail": "更优雅的微信公众号订阅方式，支持私有化部署、微信公众号RSS生成（基于微信读书）",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "serverless-qrcode-hub",
           "url": "https://github.com/xxnuo/serverless-qrcode-hub",
           "desc": "",
-          "detail": "1.3k star，生成永久微信群聊二维码"
+          "detail": "生成永久微信群聊二维码",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "WechatRealFriends",
           "url": "https://github.com/StrayMeteor3337/WechatRealFriends",
           "desc": "",
-          "detail": "4.4k star，微信好友关系一键检测（2025年3月因微信协议变更停更）"
+          "detail": "微信好友关系一键检测（2025年3月因微信协议变更停更）",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "Weibo-archiver",
@@ -82,7 +122,7 @@
           "name": "WePush",
           "url": "https://rememberber.github.io/WePush/",
           "desc": "",
-          "detail": "3.9k star,批量推送，支持：模板消息-公众号、模板消息-小程序、微信客服消息、微信企业号/企业微信消息、阿里云短信、阿里大于模板短信 、腾讯云短信、云片网短信、E-Mail、HTTP请求、钉钉、华为云短信、百度云短信、又拍云短信、七牛云短信"
+          "detail": "批量推送，支持：模板消息-公众号、模板消息-小程序、微信客服消息、微信企业号/企业微信消息、阿里云短信、阿里大于模板短信 、腾讯云短信、云片网短信、E-Mail、HTTP请求、钉钉、华为云短信、百度云短信、又拍云短信、七牛云短信"
         },
         {
           "name": "魔猫订单",
@@ -94,13 +134,23 @@
           "name": "腾讯版本",
           "url": "https://github.com/HdShare/TencentVersion",
           "desc": "",
-          "detail": "基于 VitePress 的 腾讯版本 网站"
+          "detail": "基于 VitePress 的 腾讯版本 网站",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "微信公众号RSS",
           "url": "https://github.com/ttttmr/Wechat2RSS",
           "desc": "",
-          "detail": "微信公众号转RSS"
+          "detail": "微信公众号转RSS",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         }
       ]
     },
@@ -154,7 +204,12 @@
           "name": "scrcpy",
           "url": "https://github.com/Genymobile/scrcpy",
           "desc": "",
-          "detail": "104k star,显示和控制您的 Android 设备"
+          "detail": "显示和控制您的 Android 设备",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "HiPC移动助手",
@@ -172,13 +227,18 @@
           "name": "RemoteControlDesktop",
           "url": "https://github.com/codext-remotecontrol/remotecontrol-desktop",
           "desc": "",
-          "detail": "远程控制"
+          "detail": "远程控制",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "RustDesk",
           "url": "https://rustdesk.com/zh/",
           "desc": "",
-          "detail": "61k star,自建服务器"
+          "detail": "自建服务器"
         }
       ]
     }

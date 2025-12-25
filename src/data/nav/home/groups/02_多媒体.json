@@ -153,7 +153,12 @@
               "desc": "",
               "detail": "网易云第三方，5 public repositories",
               "official_site": "",
-              "guide_id": ""
+              "guide_id": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "NSMusicS",
@@ -226,13 +231,23 @@
               "name": "MusicPlayer2",
               "url": "https://github.com/zhongyang219/MusicPlayer2",
               "desc": "",
-              "detail": "4k star,音乐本地播放，歌词显示、歌词卡拉OK样式显示、歌词在线下载、歌词编辑、歌曲标签识别、专辑封面显示、专辑封面在线下载、频谱分析、音效设置、任务栏缩略图按钮、主题颜色、格式转换等"
+              "detail": "音乐本地播放，歌词显示、歌词卡拉OK样式显示、歌词在线下载、歌词编辑、歌曲标签识别、专辑封面显示、专辑封面在线下载、频谱分析、音效设置、任务栏缩略图按钮、主题颜色、格式转换等",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "Dopamine",
               "url": "https://github.com/digimezzo/dopamine-windows",
               "desc": "",
-              "detail": "1.7k star,简约本地音乐播放器"
+              "detail": "简约本地音乐播放器",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "拟声",
@@ -256,13 +271,23 @@
               "name": "Wora",
               "url": "https://github.com/hiaaryan/wora",
               "desc": "",
-              "detail": ""
+              "detail": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "electron-vue-cloud-music",
               "url": "https://github.com/xiaozhu188/electron-vue-cloud-music",
               "desc": "",
-              "detail": "Electron + Vue 仿网易云音乐windows客户端，2021停更"
+              "detail": "Electron + Vue 仿网易云音乐windows客户端，2021停更",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "Music_Download",
@@ -272,7 +297,8 @@
               "official_site": "https://java-syj.feishu.cn/wiki/DBqIwuJ1ji228ike4necim4cnDg",
               "badge_list": [
                 "stars",
-                "last_commit"
+                "last_commit",
+                "version"
               ],
               "guide_id": ""
             },
@@ -299,7 +325,12 @@
               "name": "LX Music",
               "url": "https://github.com/lyswhut/lx-music-mobile",
               "desc": "",
-              "detail": "一个基于 React native 开发的音乐软件，自行导入音源，同desktop"
+              "detail": "一个基于 React native 开发的音乐软件，自行导入音源，同desktop",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "Listen 1",
@@ -311,7 +342,12 @@
               "name": "MusicFree",
               "url": "https://github.com/maotoumao/MusicFree",
               "desc": "",
-              "detail": "插件化、定制化、无广告的免费音乐播放器"
+              "detail": "插件化、定制化、无广告的免费音乐播放器",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "音乐时刻",
@@ -341,7 +377,12 @@
               "name": "Music Player",
               "url": "https://github.com/FossifyOrg/Music-Player",
               "desc": "",
-              "detail": "音乐播放器"
+              "detail": "音乐播放器",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "音乐搜索",
@@ -353,19 +394,29 @@
               "name": "Spotube",
               "url": "https://spotube.krtirtho.dev/",
               "desc": "",
-              "detail": "24.8k star，开源 Spotify 客户端，支持YouTube、Piped、Jiosaavn音源"
+              "detail": "开源 Spotify 客户端，支持YouTube、Piped、Jiosaavn音源"
             },
             {
               "name": "不倦",
               "url": "https://github.com/2697a/bujuan",
               "desc": "",
-              "detail": "Flutter移动端+桌面端三方网易云播放器"
+              "detail": "Flutter移动端+桌面端三方网易云播放器",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "InnerTune",
               "url": "https://github.com/z-huang/InnerTune",
               "desc": "",
-              "detail": "3.4k star,第三方 YouTube Music"
+              "detail": "第三方 YouTube Music",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "音乐标签",
@@ -389,7 +440,12 @@
               "name": "DialogMusicPlayer",
               "url": "https://github.com/VishnuSanal/DialogMusicPlayer/",
               "desc": "",
-              "detail": "极简，无桌面图标，播放界面类似于悬浮窗"
+              "detail": "极简，无桌面图标，播放界面类似于悬浮窗",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "拟声",
@@ -448,7 +504,12 @@
               "name": "Masonry Image Viewer",
               "url": "https://github.com/wlm3201/Masonry_Image_Viewer",
               "desc": "",
-              "detail": "瀑布流本地图片浏览器"
+              "detail": "瀑布流本地图片浏览器",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "ImageGlass",
@@ -460,13 +521,18 @@
               "name": "PicView",
               "url": "https://github.com/Ruben2776/PicView",
               "desc": "",
-              "detail": "开源，看图"
+              "detail": "开源，看图",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "Imagine",
               "url": "https://www.nyam.pe.kr/dev/imagine/",
               "desc": "",
-              "detail": "3.4k star，看图、动图编辑"
+              "detail": "看图、动图编辑"
             },
             {
               "name": "Image Eye",
@@ -490,13 +556,18 @@
               "name": "qView",
               "url": "https://interversehq.com/qview/",
               "desc": "",
-              "detail": "1.7k star，看图"
+              "detail": "看图"
             },
             {
               "name": "Masonry Image Viewer",
               "url": "https://github.com/wlm3201/Masonry_Image_Viewer",
               "desc": "",
-              "detail": "瀑布流本地图片浏览器"
+              "detail": "瀑布流本地图片浏览器",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "全屏看图",
@@ -508,7 +579,12 @@
               "name": "NeeView",
               "url": "https://github.com/karma-sun/neeview",
               "desc": "",
-              "detail": "图片漫画浏览器"
+              "detail": "图片漫画浏览器",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             }
           ]
         },
@@ -531,13 +607,13 @@
               "name": "ShareX",
               "url": "https://getsharex.com/",
               "desc": "",
-              "detail": "27.1k star,编辑功能强大，适合专业人士，未适配高分屏（2024.3），显示过小"
+              "detail": "编辑功能强大，适合专业人士，未适配高分屏（2024.3），显示过小"
             },
             {
               "name": "Flameshot",
               "url": "https://flameshot.org/",
               "desc": "",
-              "detail": "23.3k star，标注功能强大，全平台"
+              "detail": "标注功能强大，全平台"
             },
             {
               "name": "PicPick",
@@ -549,13 +625,23 @@
               "name": "eSearch",
               "url": "https://github.com/xushengfeng/eSearch",
               "desc": "",
-              "detail": "2.8k star,长截屏、离线OCR、搜索翻译、贴图、录屏"
+              "detail": "长截屏、离线OCR、搜索翻译、贴图、录屏",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "ScreenCapture",
               "url": "https://github.com/xland/ScreenCapture",
               "desc": "",
-              "detail": "截图，标注丰富"
+              "detail": "截图，标注丰富",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "pear-rec",
@@ -567,7 +653,12 @@
               "name": "SETUNA2",
               "url": "https://github.com/tylearymf/SETUNA2",
               "desc": "",
-              "detail": "截图小工具（支持高分屏截图），个人接管"
+              "detail": "截图小工具（支持高分屏截图），个人接管",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "Sniptool",
@@ -585,25 +676,45 @@
               "name": "AutoScreenShot",
               "url": "https://github.com/artem78/AutoScreenshot",
               "desc": "",
-              "detail": "开源自动定时屏幕截图"
+              "detail": "开源自动定时屏幕截图",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "PicGo",
               "url": "https://github.com/Molunerfinn/PicGo",
               "desc": "",
-              "detail": "24.5k star"
+              "detail": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "PicX",
               "url": "https://github.com/XPoet/picx",
               "desc": "",
-              "detail": "4.7k star"
+              "detail": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "EasyImage2.0 简单图床",
               "url": "https://github.com/icret/EasyImages2.0",
               "desc": "",
-              "detail": "3k star"
+              "detail": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             }
           ]
         },
@@ -626,13 +737,18 @@
               "name": "Caesium Image Compressor",
               "url": "https://saerasoft.com/caesium",
               "desc": "",
-              "detail": "3.3k star，图像压缩,"
+              "detail": "图像压缩,"
             },
             {
               "name": "Img Toolbox",
               "url": "https://github.com/LokerL/img-toolbox",
               "desc": "",
-              "detail": "漂白去底，图像旋转，彩色转灰色，文本图片的自动倾斜纠正，透视校正及矩形裁剪，橡皮擦，排版，打印，预设参数等"
+              "detail": "漂白去底，图像旋转，彩色转灰色，文本图片的自动倾斜纠正，透视校正及矩形裁剪，橡皮擦，排版，打印，预设参数等",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "Pretty Snap",
@@ -674,7 +790,12 @@
               "name": "Waifu2x-Extension-GUI",
               "url": "https://github.com/AaronFeng753/Waifu2x-Extension-GUI",
               "desc": "",
-              "detail": "静态图片，gif和视频放大清晰处理"
+              "detail": "静态图片，gif和视频放大清晰处理",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "洋芋田图像工具箱",
@@ -716,7 +837,12 @@
               "name": "upscayl",
               "url": "https://github.com/upscayl/upscayl",
               "desc": "",
-              "detail": "图片无损放大"
+              "detail": "图片无损放大",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             }
           ]
         }
@@ -739,7 +865,7 @@
               "name": "ScreenToGif",
               "url": "https://www.screentogif.com/",
               "desc": "",
-              "detail": "23k star，屏幕、摄像头和画板录像，并有内置编辑器"
+              "detail": "屏幕、摄像头和画板录像，并有内置编辑器"
             },
             {
               "name": "Video to GIF",
@@ -757,7 +883,7 @@
               "name": "Screenity",
               "url": "https://screenity.io/en/",
               "desc": "",
-              "detail": "11k star, Chrome/Edge，屏幕录制和标注工具，捕捉、标注、缩放、模糊、编辑视频等功能 - 无需登录"
+              "detail": "Chrome/Edge，屏幕录制和标注工具，捕捉、标注、缩放、模糊、编辑视频等功能 - 无需登录"
             },
             {
               "name": "水豚鼠标助手",
@@ -793,13 +919,13 @@
               "name": "Cap",
               "url": "https://cap.so/",
               "desc": "",
-              "detail": "3.4k star，录屏，lite版免费"
+              "detail": "录屏，lite版免费"
             },
             {
               "name": "OBS工作室版",
               "url": "https://obsproject.com/zh-cn",
               "desc": "",
-              "detail": "57k star， 视频录制、直播串流"
+              "detail": "视频录制、直播串流"
             },
             {
               "name": "CamStudio",
@@ -817,7 +943,12 @@
               "name": "Captura",
               "url": "https://github.com/MathewSachin/Captura",
               "desc": "",
-              "detail": "9.5k star,2018停更，2023归档，作品被盗取贩卖"
+              "detail": "2018停更，2023归档，作品被盗取贩卖",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             }
           ]
         },
@@ -828,7 +959,12 @@
               "name": "LosslessCut",
               "url": "https://github.com/mifi/lossless-cut",
               "desc": "",
-              "detail": "31k star，无损修剪和剪切"
+              "detail": "无损修剪和剪切",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "AutoAudioRecorder/内部万能录音器",
@@ -840,25 +976,45 @@
               "name": "HandBrake",
               "url": "https://github.com/HandBrake/HandBrake",
               "desc": "",
-              "detail": "20K star，音视频格式转换、重编码"
+              "detail": "音视频格式转换、重编码",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "ShanaEncoder",
               "url": "https://github.com/1265578519/ShanaEncoder",
               "desc": "",
-              "detail": "最强的视频压制软件"
+              "detail": "最强的视频压制软件",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "Video-subtitle-remover",
               "url": "https://github.com/YaoFANGUK/video-subtitle-remover",
               "desc": "",
-              "detail": "AI去除视频水印、字幕"
+              "detail": "AI去除视频水印、字幕",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "ProPainter",
               "url": "https://github.com/sczhou/ProPainter",
               "desc": "",
-              "detail": "去视频的移动水印和移动物体"
+              "detail": "去视频的移动水印和移动物体",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "ProPainter（2）",
@@ -876,7 +1032,12 @@
               "name": "FFmpegFreeUI",
               "url": "https://github.com/Lake1059/FFmpegFreeUI/",
               "desc": "",
-              "detail": "FFmpegFreeUI（简称 3FUI）是在 Windows 上的 FFmpeg 的专业交互外壳，纯填参数，没有内置傻瓜方案"
+              "detail": "FFmpegFreeUI（简称 3FUI）是在 Windows 上的 FFmpeg 的专业交互外壳，纯填参数，没有内置傻瓜方案",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             }
           ]
         }

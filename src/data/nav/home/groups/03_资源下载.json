@@ -16,19 +16,24 @@
           "name": "IDM-Activation-Script",
           "url": "https://github.com/lstprjct/IDM-Activation-Script",
           "desc": "",
-          "detail": "6k star,IDM激活和跟踪重置脚本，一行代码激活IDM"
+          "detail": "IDM激活和跟踪重置脚本，一行代码激活IDM",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "XIU2/TrackersListCollection",
           "url": "https://trackerslist.com/#/zh",
           "desc": "",
-          "detail": "23.4k star, 每天更新！全网热门 BT Tracker 列表！"
+          "detail": "每天更新！全网热门 BT Tracker 列表！"
         },
         {
           "name": "aria2",
           "url": "https://aria2.github.io/",
           "desc": "",
-          "detail": "33.7k star,"
+          "detail": ""
         },
         {
           "name": "Gopeed",
@@ -46,13 +51,18 @@
           "name": "Motrix",
           "url": "https://motrix.app/",
           "desc": "",
-          "detail": "42.5k star,开源，支持下载HTTP、FTP、BT、磁力链接等资源"
+          "detail": "开源，支持下载HTTP、FTP、BT、磁力链接等资源"
         },
         {
           "name": "imFile",
           "url": "https://github.com/imfile-io/imfile-desktop",
           "desc": "",
-          "detail": "1.2k star，基于Motrix"
+          "detail": "基于Motrix",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "Xdown",
@@ -82,7 +92,12 @@
           "name": "qBittorrent-Enhanced-Edition",
           "url": "https://github.com/c0re100/qBittorrent-Enhanced-Edition",
           "desc": "",
-          "detail": "17.2K star,qBittorrent 增强版"
+          "detail": "qBittorrent 增强版",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "LIII BitTorrent",
@@ -112,7 +127,12 @@
           "name": "XDM",
           "url": "https://github.com/subhra74/xdm",
           "desc": "",
-          "detail": "支持浏览器扩展"
+          "detail": "支持浏览器扩展",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "AB Download Manager",
@@ -142,7 +162,12 @@
           "name": "Seal",
           "url": "https://github.com/JunkFood02/Seal",
           "desc": "",
-          "detail": "6.9k star,基于 yt-dlp,下载视频与音频，支持播放列表下载、内嵌字幕于视频文件中、使用 aria2c 进行下载等"
+          "detail": "基于 yt-dlp,下载视频与音频，支持播放列表下载、内嵌字幕于视频文件中、使用 aria2c 进行下载等",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "Lj视频下载器",
@@ -181,31 +206,56 @@
               "name": "wechatDownload/微信公众号文章批量下载工具",
               "url": "https://github.com/qiye45/wechatDownload",
               "desc": "",
-              "detail": "1.7k star, 微信公众号文章批量下载工具，支持图片、评论下载，支持保存html/md/pdf/docx文件"
+              "detail": "微信公众号文章批量下载工具，支持图片、评论下载，支持保存html/md/pdf/docx文件",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "wechatDownload",
               "url": "https://github.com/xiaoguyu/wechatDownload",
               "desc": "",
-              "detail": "单篇、批量，2024年5月19日归档"
+              "detail": "单篇、批量，2024年5月19日归档",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "wechatVideoDownload/微信视频号下载工具",
               "url": "https://github.com/qiye45/wechatVideoDownload",
               "desc": "",
-              "detail": "微信视频号下载工具，支持视频、直播回放下载"
+              "detail": "微信视频号下载工具，支持视频、直播回放下载",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "WeChat_Article",
               "url": "https://github.com/1061700625/WeChat_Article",
               "desc": "",
-              "detail": "2023年6月停更"
+              "detail": "2023年6月停更",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "wechat-spider/微信爬虫",
               "url": "https://github.com/striver-ing/wechat-spider",
               "desc": "",
-              "detail": "2.2k star，爬取公众号所有 文章、阅读量、点赞量和评论内容，2022停更"
+              "detail": "爬取公众号所有 文章、阅读量、点赞量和评论内容，2022停更",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             }
           ]
         },
@@ -234,13 +284,18 @@
               "name": "filestash",
               "url": "https://github.com/mickael-kerjean/filestash",
               "desc": "",
-              "detail": "9.5k star,跨网盘文件管理，支持FTP • FTPS • SFTP • WebDAV • Git • Dropbox • Google Drive"
+              "detail": "跨网盘文件管理，支持FTP • FTPS • SFTP • WebDAV • Git • Dropbox • Google Drive",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "AList",
               "url": "https://alist.nn.ci/zh/",
               "desc": "",
-              "detail": "38k star,  一个支持多存储的文件列表/WebDAV程序"
+              "detail": "一个支持多存储的文件列表/WebDAV程序"
             },
             {
               "name": "就是加速",
@@ -252,7 +307,12 @@
               "name": "小白羊网盘",
               "url": "https://github.com/gaozhangmin/aliyunpan",
               "desc": "",
-              "detail": ""
+              "detail": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "蜗牛云盘",
@@ -264,7 +324,12 @@
               "name": "Raptor",
               "url": "https://github.com/InfpHub/Raptor",
               "desc": "",
-              "detail": "第三方阿里云盘桌面应用客户端"
+              "detail": "第三方阿里云盘桌面应用客户端",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "小白云盘",
@@ -287,31 +352,51 @@
               "name": "Mediago",
               "url": "https://downloader.caorushizi.cn/",
               "desc": "",
-              "detail": "1k  star, m3u8[m3u8-downloader] 视频在线提取工具 流媒体下载 m3u8下载"
+              "detail": "m3u8[m3u8-downloader] 视频在线提取工具 流媒体下载 m3u8下载"
             },
             {
               "name": "N_m3u8DL-RE",
               "url": "https://github.com/nilaoda/N_m3u8DL-RE",
               "desc": "",
-              "detail": "跨平台的DASH/HLS/MSS下载工具。支持点播、直播(DASH/HLS)。N_m3u8DL-CLI的迭代，"
+              "detail": "跨平台的DASH/HLS/MSS下载工具。支持点播、直播(DASH/HLS)。N_m3u8DL-CLI的迭代，",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "M3u8Downloader_H",
               "url": "https://github.com/Harlan-H/M3u8Downloader_H",
               "desc": "",
-              "detail": "m3u8下载器,功能强大,多线程,多任务,支持aes-128-cbc解密,自定义请求头,自定义插件"
+              "detail": "m3u8下载器,功能强大,多线程,多任务,支持aes-128-cbc解密,自定义请求头,自定义插件",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "Fluent-M3U8",
               "url": "https://github.com/zhiyiYo/Fluent-M3U8",
               "desc": "",
-              "detail": ""
+              "detail": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "You-Get",
               "url": "https://github.com/soimort/you-get",
               "desc": "",
-              "detail": "55k star"
+              "detail": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "Arrow Downloader",
@@ -323,13 +408,18 @@
               "name": "Cobalt",
               "url": "https://cobalt.tools/",
               "desc": "",
-              "detail": "4.3k star, YouTube、B站等视频网站解析"
+              "detail": "YouTube、B站等视频网站解析"
             },
             {
               "name": "Hitomi-Downloader",
               "url": "https://github.com/KurtBestor/Hitomi-Downloader",
               "desc": "",
-              "detail": "19.2k star,网页下载"
+              "detail": "网页下载",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "侠客短视频解析去水印",
@@ -347,19 +437,24 @@
               "name": "WebTorrent",
               "url": "https://webtorrent.io/",
               "desc": "",
-              "detail": "28.8k star,适用于 Web 的流式传输 torrent 客户端,边下边播"
+              "detail": "适用于 Web 的流式传输 torrent 客户端,边下边播"
             },
             {
               "name": "tdl",
               "url": "https://docs.iyear.me/tdl/zh/",
               "desc": "",
-              "detail": "3.1k star,Telegram Downloader"
+              "detail": "Telegram Downloader"
             },
             {
               "name": "YoutubeDownloader",
               "url": "https://github.com/Tyrrrz/YoutubeDownloader",
               "desc": "",
-              "detail": "10.4 star, 下载 YouTube 视频和播放列表"
+              "detail": "下载 YouTube 视频和播放列表",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             }
           ]
         },
@@ -370,13 +465,23 @@
               "name": "BBDown（Bilibili Downloader）",
               "url": "https://github.com/nilaoda/BBDown",
               "desc": "",
-              "detail": "10.7k star，命令行式哔哩哔哩下载器"
+              "detail": "命令行式哔哩哔哩下载器",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "哔哩下载姬downkyi",
               "url": "https://github.com/leiurayer/downkyi",
               "desc": "",
-              "detail": "22.2k star， up主合集和列表, 个人收藏夹以及批量下载"
+              "detail": "up主合集和列表, 个人收藏夹以及批量下载",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "Bilidown",

@@ -10,7 +10,12 @@
           "name": "OFGB",
           "url": "https://github.com/xM4ddy/OFGB",
           "desc": "",
-          "detail": "4.4k star，关闭win11系统广告"
+          "detail": "关闭win11系统广告",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "Baidun Armor",
@@ -22,19 +27,34 @@
           "name": "Malware-Patch",
           "url": "https://github.com/the1812/Malware-Patch",
           "desc": "",
-          "detail": "阻止中国流氓软件的管理员授权"
+          "detail": "阻止中国流氓软件的管理员授权",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "ExplorerPatcher",
           "url": "https://github.com/valinet/ExplorerPatcher",
           "desc": "",
-          "detail": "任务栏、开始菜单设置工具"
+          "detail": "任务栏、开始菜单设置工具",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "PowerToys",
           "url": "https://github.com/microsoft/PowerToys",
           "desc": "",
-          "detail": "微软官方出品，丰富系统功能"
+          "detail": "微软官方出品，丰富系统功能",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "微PE工具箱",
@@ -46,7 +66,12 @@
           "name": "Dism++",
           "url": "https://github.com/Chuyu-Team/Dism-Multi-language",
           "desc": "",
-          "detail": "经典强大工具"
+          "detail": "经典强大工具",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "软媒魔方",
@@ -76,13 +101,23 @@
           "name": "Ventoy",
           "url": "https://github.com/ventoy/Ventoy",
           "desc": "",
-          "detail": "开源，U盘启动盘制作，支持多系统，还能当普通U盘保存文件"
+          "detail": "开源，U盘启动盘制作，支持多系统，还能当普通U盘保存文件",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "Rufus",
           "url": "https://github.com/pbatard/rufus",
           "desc": "",
-          "detail": "开源，制作U盘启动盘"
+          "detail": "开源，制作U盘启动盘",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "CnCrypt",
@@ -106,7 +141,12 @@
           "name": "Winpilot",
           "url": "https://github.com/builtbybel/Winpilot",
           "desc": "",
-          "detail": "4.3k star，Win11 优化，不支持中文"
+          "detail": "Win11 优化，不支持中文",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "RyTuneX",
@@ -124,7 +164,12 @@
           "name": "Sophi",
           "url": "https://github.com/Sophia-Community/SophiApp",
           "desc": "",
-          "detail": "微调windows"
+          "detail": "微调windows",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "WPD",
@@ -136,7 +181,12 @@
           "name": "Optimizer",
           "url": "https://github.com/hellzerg/optimizer",
           "desc": "",
-          "detail": "系统优化"
+          "detail": "系统优化",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "TurnedOnTimesView",
@@ -184,7 +234,12 @@
           "name": "WindowTop",
           "url": "https://github.com/WindowTop/WindowTop-App",
           "desc": "",
-          "detail": "免费功能开源，置顶、画中画和裁剪、锚点、透明度，替换主程序https://www.123pan.com/s/6zVRVv-11fmd.html"
+          "detail": "免费功能开源，置顶、画中画和裁剪、锚点、透明度，替换主程序https://www.123pan.com/s/6zVRVv-11fmd.html",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "MemReduct",
@@ -232,7 +287,12 @@
           "name": "Sandboxie",
           "url": "https://github.com/sandboxie-plus/Sandboxie",
           "desc": "",
-          "detail": "开源"
+          "detail": "开源",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
         },
         {
           "name": "千峰办公助手",
@@ -244,7 +304,7 @@
           "name": "GitHub 中文化插件",
           "url": "https://maboloshi.github.io/github-chinese/",
           "desc": "",
-          "detail": "4k star"
+          "detail": ""
         }
       ]
     }

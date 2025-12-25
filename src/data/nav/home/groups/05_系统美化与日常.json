@@ -13,25 +13,45 @@
               "name": "RoundedTB",
               "url": "https://github.com/RoundedTB/RoundedTB",
               "desc": "",
-              "detail": "2.8k star ，将边距、圆角和线段添加到您的任务栏"
+              "detail": "将边距、圆角和线段添加到您的任务栏",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "TranslucentTB",
               "url": "https://github.com/TranslucentTB/TranslucentTB",
               "desc": "",
-              "detail": "任务栏透明、美"
+              "detail": "任务栏透明、美",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "TaskbarTools",
               "url": "https://github.com/Elestriel/TaskbarTools",
               "desc": "",
-              "detail": "任务栏透明、美化"
+              "detail": "任务栏透明、美化",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "TranslucentSM",
               "url": "https://github.com/rounk-ctrl/TranslucentSM",
               "desc": "",
-              "detail": "开始菜单半透明/透明"
+              "detail": "开始菜单半透明/透明",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "极客开始菜单",
@@ -55,25 +75,40 @@
               "name": "Wifinian",
               "url": "https://github.com/emoacht/Wifinian",
               "desc": "",
-              "detail": "开源，WiFi管理"
+              "detail": "开源，WiFi管理",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "ModernFlyouts",
               "url": "https://github.com/ModernFlyouts-Community/ModernFlyouts",
               "desc": "",
-              "detail": "3.3k star，音量浮出控件"
+              "detail": "音量浮出控件",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "EarTrumpet",
               "url": "https://github.com/File-New-Project/EarTrumpet",
               "desc": "",
-              "detail": "8.3k star，声音输出管理"
+              "detail": "声音输出管理",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "Modern​Flyouts",
               "url": "https://modernflyouts-community.github.io/",
               "desc": "",
-              "detail": "3.4k star，基于流畅设计的开源现代控件，可替代 Windows 10 中以 Metro 为主题的旧版飞窗。"
+              "detail": "基于流畅设计的开源现代控件，可替代 Windows 10 中以 Metro 为主题的旧版飞窗。"
             },
             {
               "name": "Alt-Tab Terminator",
@@ -91,7 +126,12 @@
               "name": "TrafficMonitor",
               "url": "https://github.com/zhongyang219/TrafficMonitor",
               "desc": "",
-              "detail": "监控悬浮"
+              "detail": "监控悬浮",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "StartMenuX",
@@ -103,13 +143,18 @@
               "name": "OFGB",
               "url": "https://github.com/zetaloop/OFGB",
               "desc": "",
-              "detail": "广告滚蛋 - 删除 Win11 各处广告的小工具"
+              "detail": "广告滚蛋 - 删除 Win11 各处广告的小工具",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "Cairo Desktop Environment",
               "url": "https://cairodesktop.com/",
               "desc": "",
-              "detail": "2.5k star, win11桌面启动器"
+              "detail": "win11桌面启动器"
             },
             {
               "name": "Windhawk",
@@ -127,13 +172,23 @@
               "name": "WindowTabs",
               "url": "https://github.com/mauricef/WindowTabs",
               "desc": "",
-              "detail": "收费改免费，为任意窗口添加标签，2017停更"
+              "detail": "收费改免费，为任意窗口添加标签，2017停更",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "Multrin",
               "url": "https://github.com/sentialx/multrin/",
               "desc": "",
-              "detail": "2.3k star,将任意窗口组合成多标签页，2021停更"
+              "detail": "将任意窗口组合成多标签页，2021停更",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             }
           ]
         },
@@ -150,31 +205,46 @@
               "name": "ContextMenuManager",
               "url": "https://bluepointlilac.github.io/ContextMenuManager/",
               "desc": "",
-              "detail": "10.1k star,Windows右键菜单管理"
+              "detail": "Windows右键菜单管理"
             },
             {
               "name": "ContextMenuForWindows11",
               "url": "https://github.com/ikas-mc/ContextMenuForWindows11",
               "desc": "",
-              "detail": "1.5k star,为 Windows11 添加自定义上下文菜单,自行配置"
+              "detail": "为 Windows11 添加自定义上下文菜单,自行配置",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "Shell",
               "url": "https://nilesoft.org/",
               "desc": "",
-              "detail": "2.7k star, 右键菜单管理"
+              "detail": "右键菜单管理"
             },
             {
               "name": "Breeze Shell",
               "url": "https://github.com/std-microblock/breeze-shell",
               "desc": "",
-              "detail": "1k star，右键菜单美化加强"
+              "detail": "右键菜单美化加强",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "TranslucentFlyouts V2",
               "url": "https://github.com/ALTaleX531/TranslucentFlyouts",
               "desc": "",
-              "detail": "1k star，右键菜单美化加强"
+              "detail": "右键菜单美化加强",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "SageThumbs",
@@ -215,7 +285,12 @@
               "name": "Wallhaven",
               "url": "https://github.com/leoFitz1024/wallhaven",
               "desc": "",
-              "detail": "1.3k star, 基于wallhaven.cc的一款壁纸管理工具"
+              "detail": "基于wallhaven.cc的一款壁纸管理工具",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "Splashy",
@@ -227,7 +302,12 @@
               "name": "Sucrose",
               "url": "https://github.com/Taiizor/Sucrose",
               "desc": "",
-              "detail": "内置壁纸库，全动态壁纸"
+              "detail": "内置壁纸库，全动态壁纸",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
             },
             {
               "name": "upupoo",
