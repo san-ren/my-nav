@@ -132,19 +132,26 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 </Layout>
 
 <script is:inline>
+  // 侧边栏切换逻辑 (增强版防穿透)
   window.toggleSidebar = () => {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebar-overlay');
+    
     if (sidebar && overlay) {
       sidebar.classList.toggle('-translate-x-full');
       overlay.classList.toggle('hidden');
-      // 【核心修改】：检查侧边栏状态，动态添加/移除 overflow-hidden
-      // 如果 classList 包含 -translate-x-full，说明是隐藏状态 -> 允许滚动
-      if (sidebar.classList.contains('-translate-x-full')) {
-        document.body.classList.remove('overflow-hidden');
-      } else {
-        // 否则是显示状态 -> 禁止滚动
+
+      // 检查当前状态
+      const isOpen = !sidebar.classList.contains('-translate-x-full');
+
+      if (isOpen) {
+        // 打开时：锁定 html 和 body
+        document.documentElement.classList.add('overflow-hidden');
         document.body.classList.add('overflow-hidden');
+      } else {
+        // 关闭时：解锁 html 和 body
+        document.documentElement.classList.remove('overflow-hidden');
+        document.body.classList.remove('overflow-hidden');
       }
     }
   };

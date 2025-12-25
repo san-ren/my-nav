@@ -8,8 +8,10 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
 ---
 
 <!-- 
-  修复点 1: style 强制指定宽度并提供 fallback (17rem)，防止变量失效导致宽度为 auto。
-  修复点 2: 增加 overflow-x-hidden 防止内部元素撑开。
+  修改说明：
+  1. style={{ width: ... }} 强制指定宽度并提供 fallback (17rem)。
+  2. h-[100dvh] 适配移动端视口高度。
+  3. overflow-x-hidden 防止横向溢出。
 -->
 <aside 
   id="sidebar"
@@ -49,7 +51,6 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
             <div class="pl-0 mt-2 space-y-3 animate-in slide-in-from-left-2 duration-300">
               {page.groups.map((group, groupIdx) => (
                 <div class="relative pl-3">
-                  <!-- 修复点 3: 分组标题增加 truncate 和 block，防止长文字撑宽容器 -->
                   <button 
                     onclick={`window.scrollToSection('group-${groupIdx}'); window.closeSidebarMobile();`}
                     class="w-full flex items-center gap-2 px-3 py-1 mb-1 font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider hover:text-blue-600 transition-colors text-left text-[11px] overflow-hidden"
@@ -66,7 +67,6 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
                       const uniqueId = `${groupIdx}-${catIdx}`;
                       return (
                         <div class="relative">
-                          <!-- 修复点 4: 分类按钮增加 truncate，限制最大宽度 -->
                           <button 
                             class="sidebar-cat-btn w-full flex items-center justify-between px-2 py-1.5 rounded-lg font-medium text-[13px] text-slate-600 dark:text-slate-400 hover:text-blue-600 hover:bg-slate-50 dark:hover:bg-blue-900/30 transition-colors group z-10 relative overflow-hidden"
                             data-target={`sidebar-sub-${uniqueId}`}
@@ -112,7 +112,6 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
     })}
   </nav>
   
-  {/* 底部版权 */}
   <div class="p-4 mt-auto border-t border-slate-100/50 dark:border-slate-800/50 text-center shrink-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md safe-area-bottom overflow-hidden">
     <span class="text-[10px] text-slate-400 font-medium truncate block">By {siteConfig.author}</span>
   </div>
@@ -140,6 +139,15 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
         }
       });
     });
+
+    // 【核心修复 1】：给遮罩层添加 touchmove 阻止事件，彻底防止滑动穿透
+    const overlay = document.getElementById('sidebar-overlay');
+    if (overlay) {
+      // 使用 passive: false 才能调用 preventDefault()
+      overlay.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+      }, { passive: false });
+    }
   }
   
   window.scrollToSection = (id) => {
@@ -154,12 +162,13 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
     }, 300);
   };
   
-  // 【核心修改】添加了 document.body.classList.remove('overflow-hidden')
+  // 关闭侧边栏逻辑
   window.closeSidebarMobile = () => {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebar-overlay');
     
-    // 无论如何先尝试恢复滚动 (保险起见)
+    // 恢复滚动：同时移除 html 和 body 的锁定
+    document.documentElement.classList.remove('overflow-hidden');
     document.body.classList.remove('overflow-hidden');
 
     if (window.innerWidth < 768 && sidebar && overlay) { 
@@ -176,6 +185,5 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
   .custom-scrollbar::-webkit-scrollbar { width: 4px; }
   .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
   .custom-scrollbar::-webkit-scrollbar-thumb { background-color: rgba(156, 163, 175, 0.3); border-radius: 20px; }
-  /* 适配部分 iPhone 底部横条 */
   .safe-area-bottom { padding-bottom: env(safe-area-inset-bottom, 20px); }
 </style>

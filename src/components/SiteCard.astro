@@ -2,11 +2,11 @@
 import { marked } from 'marked';
 import { BookOpen, Info } from 'lucide-react';
 
-const { title, name, url, desc, detail, official_site, badge_list = [], guide_id } = Astro.props;
+const { title, name, url, icon, desc, detail, official_site, badge_list = [], guide_id } = Astro.props;
 const displayTitle = title || name;
 const base = '/my-nav';
 
-// --- 域名与图标逻辑 ---
+// --- 域名处理 ---
 const getDomain = (targetUrl) => {
   try {
     if (!targetUrl) return null;
@@ -18,14 +18,16 @@ const getDomain = (targetUrl) => {
 
 const domain = getDomain(url || official_site);
 
+// --- 图标源配置 ---
 const iconSources = {
+  custom: icon,
   level1: domain ? `https://ico.kucat.cn/get.php?url=${domain}` : '',
   level2: domain ? `https://${domain}/favicon.ico` : '',
   level3: domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '', 
   fallback: `${base}/favicon.svg`
 };
 
-const defaultIcon = iconSources.level1 || iconSources.fallback;
+const defaultIcon = iconSources.custom || iconSources.level1 || iconSources.fallback;
 
 // --- 徽章逻辑 ---
 let badges = [];
@@ -54,9 +56,19 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
 ---
 
 <div class="site-card-wrapper group relative w-full">
+  <!-- 
+    【修改重点】：外层容器 Padding 调整
+    原代码: p-2 md:p-3
+    新代码: py-2 pl-2 pr-1 md:py-3 md:pl-3 md:pr-1.5
+    解释: 
+      - pr-1 (4px) 是 p-2 (8px) 的一半
+      - md:pr-1.5 (6px) 是 md:p-3 (12px) 的一半
+      - 上下左保持原样，只减小右侧留白
+  -->
   <a href={url} target="_blank" 
-     class="flex items-center justify-between w-full h-full p-2 md:p-3 bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-xl border border-white/50 dark:border-gray-700/30 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 hover:border-blue-500/50 relative overflow-hidden"
+     class="flex items-center justify-between w-full h-full py-2 pl-2 pr-1 md:py-3 md:pl-3 md:pr-1.5 bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-xl border border-white/50 dark:border-gray-700/30 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 hover:border-blue-500/50 relative overflow-hidden"
   >
+    <!-- 左侧内容区 -->
     <div class="flex items-center flex-1 min-w-0 mr-1">
         <div class="flex-shrink-0 mr-2 md:mr-3 w-8 h-8 md:w-10 md:h-10 rounded-lg bg-white dark:bg-gray-700 shadow-sm overflow-hidden flex items-center justify-center border border-gray-100 dark:border-gray-600">
           <img 
@@ -83,20 +95,22 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
         </div>
     </div>
 
-    <div class="flex flex-col gap-1 shrink-0 pl-1 border-l border-slate-100 dark:border-slate-700/50">
+    <!-- 右侧按钮区 (保持上一轮的紧凑设置) -->
+    <div class="flex flex-col gap-0.5 shrink-0 pl-0.5 border-l border-slate-100 dark:border-slate-700/50">
         {hasPopup && (
-          <button type="button" class="info-btn md:hidden p-1.5 rounded-md text-slate-400 hover:text-blue-500 transition-all flex items-center justify-center" title="详情">
+          <button type="button" class="info-btn md:hidden p-1 rounded-md text-slate-400 hover:text-blue-500 transition-all flex items-center justify-center" title="详情">
             <Info size={14} />
           </button>
         )}
         {guide_id && (
-          <button onclick={`event.preventDefault(); event.stopPropagation(); window.open('${base}/guide/${guide_id}', '_blank');`} class="p-1.5 rounded-md text-blue-400 hover:bg-blue-500 hover:text-white transition-all flex items-center justify-center" title="教程">
+          <button onclick={`event.preventDefault(); event.stopPropagation(); window.open('${base}/guide/${guide_id}', '_blank');`} class="p-1 rounded-md text-blue-400 hover:bg-blue-500 hover:text-white transition-all flex items-center justify-center" title="教程">
             <BookOpen size={14} strokeWidth={2.5} />
           </button>
         )}
     </div>
   </a>
 
+  {/* 隐形数据源 */}
   {hasPopup && (
     <div class="tooltip-source hidden">
       <div class="relative z-10">
@@ -120,12 +134,12 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
 
 <script is:inline>
   // -----------------------------------------------------------
-  // 图标加载逻辑 (保持原有逻辑)
+  // 图标加载逻辑
   // -----------------------------------------------------------
   if (typeof window.handleIconLoad === 'undefined') {
     window.handleIconLoad = function(img) {
       const domain = img.getAttribute('data-domain');
-      if (domain && !img.src.includes('favicon.svg')) {
+      if (domain && domain !== 'null' && !img.src.includes('favicon.svg')) {
          localStorage.setItem('fav-' + domain, img.src);
       }
     };
@@ -136,14 +150,26 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       try {
         const sources = JSON.parse(img.getAttribute('data-sources'));
         const currentSrc = img.src; 
-        if (currentSrc.includes('ico.kucat.cn')) img.src = sources.level2;
-        else if (currentSrc.includes('/favicon.ico') && !currentSrc.includes('google.com')) img.src = sources.level3;
-        else if (currentSrc.includes('google.com')) {
+        
+        if (sources.custom && currentSrc === sources.custom) {
+             img.src = sources.fallback;
+             return;
+        }
+
+        if (currentSrc.includes('ico.kucat.cn')) {
+          img.src = sources.level2;
+        } else if (currentSrc.includes('/favicon.ico') && !currentSrc.includes('google.com')) {
+          img.src = sources.level3;
+        } else if (currentSrc.includes('google.com')) {
           img.src = sources.fallback;
           const domain = img.getAttribute('data-domain');
-          localStorage.removeItem('fav-' + domain);
-        } else img.onerror = null;
-      } catch (e) { img.onerror = null; }
+          if(domain) localStorage.removeItem('fav-' + domain);
+        } else {
+          img.onerror = null;
+        }
+      } catch (e) {
+        img.onerror = null;
+      }
     };
   }
 
@@ -152,16 +178,18 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('img[data-domain]').forEach(img => {
         const domain = img.getAttribute('data-domain');
-        const cachedSrc = localStorage.getItem('fav-' + domain);
-        if (cachedSrc && cachedSrc !== img.src && !cachedSrc.includes('favicon.svg')) {
-          img.src = cachedSrc;
+        if(domain && domain !== 'null') {
+            const cachedSrc = localStorage.getItem('fav-' + domain);
+            if (cachedSrc && cachedSrc !== img.src && !cachedSrc.includes('favicon.svg')) {
+              img.src = cachedSrc;
+            }
         }
       });
     });
   }
 
   // -----------------------------------------------------------
-  // 核心修复：单例模式 + 事件委托 + 更精准的碰撞检测
+  // Portal 浮窗逻辑
   // -----------------------------------------------------------
   (function() {
     if (window.GlobalTooltipInit) return; 
@@ -227,14 +255,13 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       const padding = 12; 
       const arrowSize = 8; 
 
-      // 【核心修复】直接获取侧边栏元素并读取其宽度
       const sidebarEl = document.getElementById('sidebar');
       const sidebarWidth = (sidebarEl && window.innerWidth >= 768) ? sidebarEl.getBoundingClientRect().width : 0;
 
       let top = rect.top - tooltipRect.height - padding;
       let isTop = true;
       
-      if (top < padding) { // 检查上方空间是否足够 (考虑padding)
+      if (top < padding) { 
         top = rect.bottom + padding;
         isTop = false;
       }
