@@ -39,13 +39,11 @@ collections:
           - { label: "页脚作者名", name: "author", widget: "string", required: false }
 
   # ============================================================
-  # 2. 页面元数据管理 (对应每个页面文件夹下的 meta.json)
-  #    用于管理侧边栏的一级菜单、图标和顺序
+  # 2. 页面元数据 (meta.json)
   # ============================================================
   - name: "nav_pages_meta"
-    label: "📄 页面管理 (添加/排序)"
+    label: "📄 页面属性管理"
     folder: "src/data/nav"
-    # 匹配规则: src/data/nav/{id}/meta.json
     path: "{{id}}/meta"
     extension: "json"
     format: "json"
@@ -58,41 +56,40 @@ collections:
     fields:
       - { label: "页面ID (文件夹名)", name: "id", widget: "string", required: true, pattern: ['^[a-zA-Z0-9-_]+$', "只能包含字母、数字、下划线"], hint: "例如 home, sub1" }
       - { label: "侧边栏显示名称", name: "name", widget: "string", required: true }
-      - { label: "侧边栏图标", name: "icon", widget: "string", required: false, hint: "Lucide图标名，如 Star, Hammer" }
+      - { label: "侧边栏图标", name: "icon", widget: "string", required: false, hint: "Lucide图标名" }
       - { label: "排序权重", name: "sortOrder", widget: "number", default: 10, value_type: "int" }
 
   # ============================================================
-  # 3. 分组内容管理 (对应 groups/*.json)
-  #    这是最主要的内容编辑区域
+  # 3. [视图 A] 分组内容 - 归档视图 (默认推荐)
+  #    特点：自动按页面折叠，点击展开，无需层层进入文件夹
   # ============================================================
   - name: "nav_groups"
-    label: "📦 分组内容管理"
+    label: "📦 内容分组 (归档视图)"
     folder: "src/data/nav"
+    # 使用 path 通配符匹配所有子目录下的分组文件
     path: "{{page}}/groups/{{slug}}"
-    media_folder: "" # 图片相对路径存储
+    media_folder: ""
     public_folder: ""
     extension: "json"
     format: "json"
     create: true
     identifier_field: "name"
-    summary: "所属页面: {{page}} | 分组: {{name}}"
-    editor:
-      preview: false
-
-    # ✅ 新增：添加视图分组配置
+    summary: "{{name}}"
+    # ✅ 启用分组视图：按 page 字段自动归档
     view_groups:
       - label: "按所属页面归档"
         field: "page"
-        pattern: ".*" # 匹配所有值
-
-    fields:
-      # ⚠️ 关键字段：用于指定文件保存在哪个页面的文件夹下
-      - { label: "所属页面ID", name: "page", widget: "string", required: true, default: "home", hint: "必填：填写页面ID (如 home)，决定保存位置" }
+        pattern: ".*"
+    editor:
+      preview: false
+    fields: &group_fields  # 【定义锚点】下面的文件夹视图复用这套字段
+      # 这里的 page 字段用于归档视图的分类
+      - { label: "所属页面ID", name: "page", widget: "string", required: true, default: "home", hint: "⚠️ 必填：home 或 sub1，决定归档位置" }
       
       - { label: "分组名称 (锚点)", name: "name", widget: "string", required: true }
       - { label: "分组图标", name: "icon", widget: "string", required: false }
       
-      # --- 内部分类 (Categories) ---
+      # --- 内部分类 ---
       - label: "内部分类"
         name: "categories"
         widget: "list"
@@ -102,8 +99,7 @@ collections:
           - { label: "分类名称", name: "name", widget: "string", required: true }
           - { label: "分类图标", name: "icon", widget: "string", required: false }
 
-          # --- 定义卡片字段模板 (以便复用) ---
-          # 1. 模式 A：无Tabs，直接显示列表
+          # --- 模式 A：无Tabs ---
           - label: "🔗 资源列表 (直属)"
             name: "list"
             widget: "list"
@@ -114,23 +110,19 @@ collections:
               - { label: "名称", name: "name", widget: "string", required: true }
               - { label: "链接地址", name: "url", widget: "string", required: false }
               - { label: "简短描述", name: "desc", widget: "string", required: false }
-              - { label: "详细说明 (Markdown)", name: "detail", widget: "markdown", required: false, buttons: ["bold", "italic", "link", "code"], editor_components: [] }
-              - { label: "自定义图标 URL", name: "icon", widget: "image", required: false, hint: "本地工具建议手动上传图标" }
-              - { label: "小工具文件路径", name: "widget_url", widget: "string", required: false, hint: "例如 /tools/clock.html，填写后卡片将变身为小工具" }
+              - { label: "详细说明", name: "detail", widget: "markdown", required: false, buttons: ["bold", "italic", "link", "code"], editor_components: [] }
+              - { label: "自定义图标 URL", name: "icon", widget: "image", required: false }
+              - { label: "小工具路径", name: "widget_url", widget: "string", required: false }
               - { label: "官网/项目主页", name: "official_site", widget: "string", required: false }
               - label: "GitHub 徽章"
                 name: "badge_list"
                 widget: "select"
                 multiple: true
                 required: false
-                options:
-                  - { label: "Stars 数", value: "stars" }
-                  - { label: "最新版本", value: "version" }
-                  - { label: "开源协议", value: "license" }
-                  - { label: "最近更新", value: "last_commit" }
+                options: ["stars", "version", "license", "last_commit"]
               - { label: "关联教程ID", name: "guide_id", widget: "string", required: false }
 
-          # 2. 模式 B：有Tabs
+          # --- 模式 B：有Tabs ---
           - label: "🗃️ 标签页 (Tabs模式)"
             name: "tabs"
             widget: "list"
@@ -144,10 +136,38 @@ collections:
                 widget: "list"
                 collapsed: true
                 required: false
-                fields: *site_fields # 复用上面的字段结构
+                fields: *site_fields
 
   # ============================================================
-  # 4. 教程文章管理
+  # 4. [视图 B] 分组内容 - 文件夹视图 (资源管理器模式)
+  #    特点：像 Windows 文件夹一样，一层层点击进入
+  # ============================================================
+  - name: "nav_structure"
+    label: "📂 内容分组 (文件夹视图)"
+    folder: "src/data/nav"
+    # ✅ 启用嵌套模式：允许浏览子文件夹
+    nested:
+      depth: 4 # 允许进入 src/data/nav/home/groups/
+      summary: "{{title}}"
+    # ⚠️ 注意：嵌套模式下不能使用 path 通配符
+    media_folder: ""
+    public_folder: ""
+    extension: "json"
+    format: "json"
+    create: true
+    identifier_field: "name"
+    editor:
+      preview: false
+    # 过滤掉 meta.json，只显示分组文件 (尝试过滤，部分版本CMS可能仍显示但不可编辑)
+    filter:
+      field: "id" 
+      pattern: "^(?!.*meta).*$" 
+    
+    # 复用上面的字段定义，保持一致
+    fields: *group_fields
+
+  # ============================================================
+  # 5. 教程文章管理
   # ============================================================
   - name: "guides"
     label: "📚 教程文章管理"
