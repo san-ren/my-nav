@@ -9,7 +9,7 @@
       "icon": "Star",
       "categories": [
         {
-          "name": "看了不吃亏，不看别后悔",
+          "name": "一览",
           "icon": "Star",
           "list": [
             {
@@ -510,7 +510,7 @@
           "icon": "",
           "tabs": [
             {
-              "tabName": "看图、截图",
+              "tabName": "看图",
               "list": [
                 {
                   "name": "Honeyview-蜂蜜浏览器",
@@ -583,7 +583,12 @@
                   "url": "https://github.com/karma-sun/neeview",
                   "desc": "",
                   "detail": "图片漫画浏览器"
-                },
+                }
+              ]
+            },
+            {
+              "tabName": "截图",
+              "list": [
                 {
                   "name": "PixPin",
                   "url": "https://pixpinapp.com/",
@@ -954,11 +959,179 @@
       ]
     },
     {
-      "name": "下载资源",
+      "name": "资源下载",
       "icon": "Download",
       "categories": [
         {
-          "name": "下载",
+          "name": "win下载",
+          "icon": "",
+          "list": [
+            {
+              "name": "IDM",
+              "url": "https://www.internetdownloadmanager.com/",
+              "desc": "",
+              "detail": "地位不言而喻"
+            },
+            {
+              "name": "IDM-Activation-Script",
+              "url": "https://github.com/lstprjct/IDM-Activation-Script",
+              "desc": "",
+              "detail": "6k star,IDM激活和跟踪重置脚本，一行代码激活IDM"
+            },
+            {
+              "name": "XIU2/TrackersListCollection",
+              "url": "https://trackerslist.com/#/zh",
+              "desc": "",
+              "detail": "23.4k star, 每天更新！全网热门 BT Tracker 列表！"
+            },
+            {
+              "name": "aria2",
+              "url": "https://aria2.github.io/",
+              "desc": "",
+              "detail": "33.7k star,"
+            },
+            {
+              "name": "Gopeed",
+              "url": "https://gopeed.com/zh-CN",
+              "desc": "",
+              "detail": "开源、支持HTTP、BitTorrent、Magnet"
+            },
+            {
+              "name": "文件蜈蚣",
+              "url": "https://www.filecxx.com/zh_CN/",
+              "desc": "",
+              "detail": "全能，http、磁力，浏览器扩展，资源嗅探"
+            },
+            {
+              "name": "Motrix",
+              "url": "https://motrix.app/",
+              "desc": "",
+              "detail": "42.5k star,开源，支持下载HTTP、FTP、BT、磁力链接等资源"
+            },
+            {
+              "name": "imFile",
+              "url": "https://github.com/imfile-io/imfile-desktop",
+              "desc": "",
+              "detail": "1.2k star，基于Motrix"
+            },
+            {
+              "name": "Xdown",
+              "url": "https://xdown.org/",
+              "desc": "",
+              "detail": "免费idm / torrent 合成体"
+            },
+            {
+              "name": "Yolx",
+              "url": "https://yolx.yzzi.icu/",
+              "desc": "",
+              "detail": "以「Aria 2」作为核心，支持直链、磁力链接、迅雷链接、快车链接、QQ旋风链接、metalink和种子"
+            },
+            {
+              "name": "BitComet",
+              "url": "https://www.bitcomet.com/cn",
+              "desc": "",
+              "detail": "磁力、种子"
+            },
+            {
+              "name": "qBittorrent",
+              "url": "https://www.qbittorrent.org/",
+              "desc": "",
+              "detail": "开源，轻量级BitTorrent客户端"
+            },
+            {
+              "name": "qBittorrent-Enhanced-Edition",
+              "url": "https://github.com/c0re100/qBittorrent-Enhanced-Edition",
+              "desc": "",
+              "detail": "17.2K star,qBittorrent 增强版"
+            },
+            {
+              "name": "LIII BitTorrent",
+              "url": "https://codecpack.co/download/LIII-BitTorrent-Client.html",
+              "desc": "",
+              "detail": "开源文件共享实用程序，能够下载种子"
+            },
+            {
+              "name": "Qdown",
+              "url": "http://lightzhan.xyz/index.php/qdown/",
+              "desc": "",
+              "detail": "支持迅雷链接、磁力下载、BT、FTP、SFTP、HTTP、HTTPS下载协议，基于Aria2的Windows文件下载器"
+            },
+            {
+              "name": "FDM",
+              "url": "https://www.freedownloadmanager.org/zh/",
+              "desc": "",
+              "detail": "开源"
+            },
+            {
+              "name": "NDM",
+              "url": "http://www.neatdownloadmanager.com/index.php/en/",
+              "desc": "",
+              "detail": "支持浏览器扩展,嗅探（自动合成多个ts文件）"
+            },
+            {
+              "name": "XDM",
+              "url": "https://github.com/subhra74/xdm",
+              "desc": "",
+              "detail": "支持浏览器扩展"
+            },
+            {
+              "name": "AB Download Manager",
+              "url": "https://abdownloadmanager.com/",
+              "desc": "",
+              "detail": ""
+            }
+          ]
+        },
+        {
+          "name": "Android 下载",
+          "icon": "",
+          "list": [
+            {
+              "name": "1DM",
+              "url": "https://play.google.com/store/apps/details?id=idm.internet.download.manager",
+              "desc": "",
+              "detail": "多线程下载"
+            },
+            {
+              "name": "1DM Lite",
+              "url": "https://play.google.com/store/apps/details?id=idm.internet.download.manager.adm.lite",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "Seal",
+              "url": "https://github.com/JunkFood02/Seal",
+              "desc": "",
+              "detail": "6.9k star,基于 yt-dlp,下载视频与音频，支持播放列表下载、内嵌字幕于视频文件中、使用 aria2c 进行下载等"
+            },
+            {
+              "name": "Lj视频下载器",
+              "url": "https://play.google.com/store/apps/details?id=com.leavjenn.m3u8downloader",
+              "desc": "",
+              "detail": "从网页中提取视频，下载m3u8，多线程下载"
+            },
+            {
+              "name": "视频下载器",
+              "url": "https://play.google.com/store/apps/details?id=video.downloader.videodownloader",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "浩克下载",
+              "url": "http://sausage.1foo.com/home/",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "薄荷下载",
+              "url": "https://bgg.lanzout.com/b02fgz2fg",
+              "desc": "",
+              "detail": ""
+            }
+          ]
+        },
+        {
+          "name": "其它下载",
           "icon": "ThumbsUp",
           "tabs": [
             {
@@ -1068,7 +1241,7 @@
               ]
             },
             {
-              "tabName": "媒体下载",
+              "tabName": "视频下载",
               "list": [
                 {
                   "name": "Mediago",
@@ -1179,172 +1352,7 @@
                 }
               ]
             },
-            {
-              "tabName": "一般下载",
-              "list": [
-                {
-                  "name": "IDM",
-                  "url": "https://www.internetdownloadmanager.com/",
-                  "desc": "",
-                  "detail": "地位不言而喻"
-                },
-                {
-                  "name": "IDM-Activation-Script",
-                  "url": "https://github.com/lstprjct/IDM-Activation-Script",
-                  "desc": "",
-                  "detail": "6k star,IDM激活和跟踪重置脚本，一行代码激活IDM"
-                },
-                {
-                  "name": "XIU2/TrackersListCollection",
-                  "url": "https://trackerslist.com/#/zh",
-                  "desc": "",
-                  "detail": "23.4k star, 每天更新！全网热门 BT Tracker 列表！"
-                },
-                {
-                  "name": "aria2",
-                  "url": "https://aria2.github.io/",
-                  "desc": "",
-                  "detail": "33.7k star,"
-                },
-                {
-                  "name": "Gopeed",
-                  "url": "https://gopeed.com/zh-CN",
-                  "desc": "",
-                  "detail": "开源、支持HTTP、BitTorrent、Magnet"
-                },
-                {
-                  "name": "文件蜈蚣",
-                  "url": "https://www.filecxx.com/zh_CN/",
-                  "desc": "",
-                  "detail": "全能，http、磁力，浏览器扩展，资源嗅探"
-                },
-                {
-                  "name": "Motrix",
-                  "url": "https://motrix.app/",
-                  "desc": "",
-                  "detail": "42.5k star,开源，支持下载HTTP、FTP、BT、磁力链接等资源"
-                },
-                {
-                  "name": "imFile",
-                  "url": "https://github.com/imfile-io/imfile-desktop",
-                  "desc": "",
-                  "detail": "1.2k star，基于Motrix"
-                },
-                {
-                  "name": "Xdown",
-                  "url": "https://xdown.org/",
-                  "desc": "",
-                  "detail": "免费idm / torrent 合成体"
-                },
-                {
-                  "name": "Yolx",
-                  "url": "https://yolx.yzzi.icu/",
-                  "desc": "",
-                  "detail": "以「Aria 2」作为核心，支持直链、磁力链接、迅雷链接、快车链接、QQ旋风链接、metalink和种子"
-                },
-                {
-                  "name": "BitComet",
-                  "url": "https://www.bitcomet.com/cn",
-                  "desc": "",
-                  "detail": "磁力、种子"
-                },
-                {
-                  "name": "qBittorrent",
-                  "url": "https://www.qbittorrent.org/",
-                  "desc": "",
-                  "detail": "开源，轻量级BitTorrent客户端"
-                },
-                {
-                  "name": "qBittorrent-Enhanced-Edition",
-                  "url": "https://github.com/c0re100/qBittorrent-Enhanced-Edition",
-                  "desc": "",
-                  "detail": "17.2K star,qBittorrent 增强版"
-                },
-                {
-                  "name": "LIII BitTorrent",
-                  "url": "https://codecpack.co/download/LIII-BitTorrent-Client.html",
-                  "desc": "",
-                  "detail": "开源文件共享实用程序，能够下载种子"
-                },
-                {
-                  "name": "Qdown",
-                  "url": "http://lightzhan.xyz/index.php/qdown/",
-                  "desc": "",
-                  "detail": "支持迅雷链接、磁力下载、BT、FTP、SFTP、HTTP、HTTPS下载协议，基于Aria2的Windows文件下载器"
-                },
-                {
-                  "name": "FDM",
-                  "url": "https://www.freedownloadmanager.org/zh/",
-                  "desc": "",
-                  "detail": "开源"
-                },
-                {
-                  "name": "NDM",
-                  "url": "http://www.neatdownloadmanager.com/index.php/en/",
-                  "desc": "",
-                  "detail": "支持浏览器扩展,嗅探（自动合成多个ts文件）"
-                },
-                {
-                  "name": "XDM",
-                  "url": "https://github.com/subhra74/xdm",
-                  "desc": "",
-                  "detail": "支持浏览器扩展"
-                },
-                {
-                  "name": "AB Download Manager",
-                  "url": "https://abdownloadmanager.com/",
-                  "desc": "",
-                  "detail": ""
-                }
-              ]
-            },
-            {
-              "tabName": "下载-Android",
-              "list": [
-                {
-                  "name": "1DM",
-                  "url": "https://play.google.com/store/apps/details?id=idm.internet.download.manager",
-                  "desc": "",
-                  "detail": "多线程下载"
-                },
-                {
-                  "name": "1DM Lite",
-                  "url": "https://play.google.com/store/apps/details?id=idm.internet.download.manager.adm.lite",
-                  "desc": "",
-                  "detail": ""
-                },
-                {
-                  "name": "Seal",
-                  "url": "https://github.com/JunkFood02/Seal",
-                  "desc": "",
-                  "detail": "6.9k star,基于 yt-dlp,下载视频与音频，支持播放列表下载、内嵌字幕于视频文件中、使用 aria2c 进行下载等"
-                },
-                {
-                  "name": "Lj视频下载器",
-                  "url": "https://play.google.com/store/apps/details?id=com.leavjenn.m3u8downloader",
-                  "desc": "",
-                  "detail": "从网页中提取视频，下载m3u8，多线程下载"
-                },
-                {
-                  "name": "视频下载器",
-                  "url": "https://play.google.com/store/apps/details?id=video.downloader.videodownloader",
-                  "desc": "",
-                  "detail": ""
-                },
-                {
-                  "name": "浩克下载",
-                  "url": "http://sausage.1foo.com/home/",
-                  "desc": "",
-                  "detail": ""
-                },
-                {
-                  "name": "薄荷下载",
-                  "url": "https://bgg.lanzout.com/b02fgz2fg",
-                  "desc": "",
-                  "detail": ""
-                }
-              ]
-            }
+            ""
           ]
         }
       ]
@@ -1840,7 +1848,7 @@
       "icon": "Palette",
       "categories": [
         {
-          "name": "桌面美化",
+          "name": "美化",
           "icon": "UserGroup",
           "tabs": [
             {
