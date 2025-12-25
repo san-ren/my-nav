@@ -516,25 +516,43 @@
                   "name": "Honeyview-蜂蜜浏览器",
                   "url": "http://www.bandisoft.com/honeyview/",
                   "desc": "",
-                  "detail": "与Bandizip同宗，2024发布新版Bandiview v7.0,免费版有广告"
+                  "detail": "与Bandizip同宗，2024发布新版Bandiview v7.0,免费版有广告",
+                  "official_site": "",
+                  "guide_id": ""
                 },
                 {
                   "name": "Masonry Image Viewer",
                   "url": "https://github.com/wlm3201/Masonry_Image_Viewer",
                   "desc": "",
-                  "detail": "瀑布流本地图片浏览器"
+                  "detail": "瀑布流本地图片浏览器",
+                  "official_site": "",
+                  "badge_list": [
+                    "stars",
+                    "version",
+                    "last_commit"
+                  ],
+                  "guide_id": ""
                 },
                 {
                   "name": "ImageGlass",
                   "url": "https://imageglass.org/",
                   "desc": "",
-                  "detail": "看图，提供中文语言包"
+                  "detail": "看图，提供中文语言包",
+                  "official_site": "",
+                  "guide_id": ""
                 },
                 {
                   "name": "PicView",
                   "url": "https://github.com/Ruben2776/PicView",
                   "desc": "",
-                  "detail": "开源，看图"
+                  "detail": "开源，看图",
+                  "official_site": "",
+                  "badge_list": [
+                    "stars",
+                    "version",
+                    "last_commit"
+                  ],
+                  "guide_id": ""
                 },
                 {
                   "name": "Imagine",
