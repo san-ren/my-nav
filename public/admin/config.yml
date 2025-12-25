@@ -20,7 +20,7 @@ slug:
   clean_accents: true
 
 collections:
-  # 1. 网站全局设置
+  # 1. 网站全局设置 (保持不变)
   - name: "site_settings"
     label: "⚙️ 网站基础配置"
     delete: false
@@ -36,90 +36,100 @@ collections:
           - { label: "GitHub 仓库名", name: "githubRepo", widget: "string", required: false }
           - { label: "页脚作者名", name: "author", widget: "string", required: false }
 
-  # 2. 导航页面管理
-  - name: "nav_pages"
-    label: "🗂️ 导航页面内容"
+  # ============================================================
+  # 2. 页面元数据管理 (只修改页面本身的属性)
+  # ============================================================
+  - name: "nav_pages_meta"
+    label: "📄 页面管理 (添加/排序页面)"
+    # 这里使用通配符匹配所有页面的 meta.json
     folder: "src/data/nav"
+    path: "{{slug}}/meta" 
     extension: "json"
     format: "json"
     create: true
     identifier_field: "name"
-    summary: "页面：{{name}}"
+    summary: "页面：{{name}} (ID: {{id}})"
     sortable_fields: ["sortOrder", "name"]
     editor:
       preview: false
     fields:
-      - { label: "排序权重", name: "sortOrder", widget: "number", default: 10, value_type: "int", required: false }
-      - { label: "页面ID (路由)", name: "id", widget: "string", required: true, hint: "对应URL路径，如 home 或 sub1" }
-      - { label: "侧边栏名称", name: "name", widget: "string", required: true }
+      - { label: "页面ID (文件夹名)", name: "id", widget: "string", required: true, pattern: ['^[a-zA-Z0-9-_]+$', "只能包含字母、数字、下划线"] }
+      - { label: "侧边栏显示名称", name: "name", widget: "string", required: true }
       - { label: "侧边栏图标", name: "icon", widget: "string", required: false, hint: "Lucide图标名" }
+      - { label: "排序权重", name: "sortOrder", widget: "number", default: 10, value_type: "int" }
+
+  # ============================================================
+  # 3. 分组内容管理 (核心内容，不再卡顿！)
+  # ============================================================
+  - name: "nav_groups"
+    label: "📦 内容分组管理"
+    # 使用通配符 ** 匹配任意页面下的 groups 文件夹
+    folder: "src/data/nav"
+    path: "{{page}}/groups/{{slug}}"
+    media_folder: "" # 使用相对路径存储图片
+    public_folder: ""
+    extension: "json"
+    format: "json"
+    create: true
+    identifier_field: "name"
+    summary: "所属页面: {{page}} | 分组: {{name}}"
+    editor:
+      preview: false
+    fields:
+      # 这个隐藏字段用于在文件名中体现所属页面，虽然 CMS UI 不一定显示完美，但能工作
+      - { label: "所属页面ID", name: "page", widget: "hidden", default: "home" } 
       
-      # --- 第一层：内容分组 (Section) ---
-      - label: "内容分组 (页内锚点)"
-        name: "groups"
+      - { label: "分组名称 (锚点标题)", name: "name", widget: "string", required: true }
+      - { label: "分组图标", name: "icon", widget: "string", required: false }
+      
+      # --- 下面直接是 categories，不用再套 groups 了 ---
+      - label: "内部分类"
+        name: "categories"
         widget: "list"
-        collapsed: true
-        required: false
-        summary: "📂 分组：{{name}}"
+        collapsed: false
+        summary: "📑 分类：{{name}}"
         fields:
-          - { label: "分组名称", name: "name", widget: "string", required: true }
-          - { label: "分组图标", name: "icon", widget: "string", required: false }
-          
-          # --- 第二层：内部分类 (Category) ---
-          - label: "内部分类"
-            name: "categories"
+          - { label: "分类名称", name: "name", widget: "string", required: true }
+          - { label: "分类图标", name: "icon", widget: "string", required: false }
+
+          # --- 模式 A：无Tabs ---
+          - label: "🔗 资源列表"
+            name: "list"
             widget: "list"
             collapsed: true
             required: false
-            summary: "📑 分类：{{name}}"
-            fields:
-              - { label: "分类名称", name: "name", widget: "string", required: true }
-              - { label: "分类图标", name: "icon", widget: "string", required: false }
+            summary: "{{name}}"
+            fields: &site_fields
+              - { label: "名称", name: "name", widget: "string", required: true }
+              - { label: "链接地址", name: "url", widget: "string", required: false }
+              # ... (这里省略你的原有字段，如 desc, detail, icon, badge_list, guide_id 等，保持不变) ...
+              - { label: "简短描述", name: "desc", widget: "string", required: false }
+              - { label: "详细说明", name: "detail", widget: "markdown", required: false }
+              - { label: "自定义图标", name: "icon", widget: "image", required: false }
+              - { label: "小工具链接", name: "widget_url", widget: "string", required: false }
+              - { label: "教程ID", name: "guide_id", widget: "string", required: false }
+              - label: "徽章"
+                name: "badge_list"
+                widget: "select"
+                multiple: true
+                options: ["stars", "version", "license", "last_commit"]
 
-              # --- 模式 A：无Tabs，直接显示网址列表 ---
-              - label: "🔗 直属资源列表 (无Tab模式)"
+          # --- 模式 B：有Tabs ---
+          - label: "🗃️ 标签页模式"
+            name: "tabs"
+            widget: "list"
+            collapsed: true
+            required: false
+            fields:
+              - { label: "页签名称", name: "tabName", widget: "string", required: true }
+              - label: "资源列表"
                 name: "list"
                 widget: "list"
-                required: false
                 collapsed: true
-                summary: "{{name}}"
-                fields: &site_fields  # 【定义锚点】定义一次，下面Tabs里直接复用
-                  - { label: "名称", name: "name", widget: "string", required: true }
-                  - { label: "链接地址", name: "url", widget: "string", required: false }
-                  - { label: "简短描述", name: "desc", widget: "string", required: false }
-                  - { label: "详细说明 (悬浮窗)", name: "detail", widget: "markdown", required: false, buttons: ["bold", "italic", "link", "bulleted-list", "code"], editor_components: [], hint: "支持 Markdown 语法" }
-                  - { label: "官网/项目主页 (可选)", name: "official_site", widget: "string", required: false }
-                  - label: "GitHub 自动徽章"
-                    name: "badge_list"
-                    widget: "select"
-                    multiple: true
-                    required: false
-                    options:
-                      - { label: "Stars 数", value: "stars" }
-                      - { label: "最新版本", value: "version" }
-                      - { label: "开源协议", value: "license" }
-                      - { label: "最近更新", value: "last_commit" }
-                  # 🚀 新增字段：教程文章ID
-                  - { label: "关联教程文章ID", name: "guide_id", widget: "string", required: false, hint: "填写 src/content/guides/ 下的文章文件名 (不带.md)，例如 'listen1'" }
+                fields: *site_fields
 
-              # --- 模式 B：有Tabs，显示标签页 ---
-              - label: "🗃️ 标签页 (Tabs模式)"
-                name: "tabs"
-                widget: "list"
-                required: false
-                collapsed: true
-                summary: "Tab：{{tabName}}" 
-                fields:
-                  - { label: "页签名称", name: "tabName", widget: "string", required: true } 
-                  
-                  - label: "资源列表"
-                    name: "list"
-                    widget: "list"
-                    collapsed: true
-                    required: false
-                    summary: "{{name}}"
-                    fields: *site_fields # 【引用锚点】复用上面的卡片字段结构
-  
+
+                
   # 🚀 新增集合：管理教程文章
   - name: "guides"
     label: "📚 教程文章管理"

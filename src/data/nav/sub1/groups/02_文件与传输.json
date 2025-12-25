@@ -1,0 +1,234 @@
+{
+  "name": "文件与传输",
+  "icon": "FolderOpen",
+  "categories": [
+    {
+      "name": "文件管理",
+      "icon": "Palette",
+      "list": [
+        {
+          "name": "anytxt",
+          "url": "https://anytxt.net/",
+          "desc": "",
+          "detail": "文件内容搜索，支持文档、图片、pdf等所有常见格式"
+        },
+        {
+          "name": "Everything",
+          "url": "https://www.voidtools.com/zh-cn/",
+          "desc": "",
+          "detail": "便携版"
+        },
+        {
+          "name": "SpaceSniffer",
+          "url": "http://www.uderzo.it/main_products/space_sniffer/",
+          "desc": "",
+          "detail": "空间嗅探"
+        },
+        {
+          "name": "Listary",
+          "url": "https://www.listarypro.com/",
+          "desc": "",
+          "detail": "搜索工具"
+        },
+        {
+          "name": "DropIt",
+          "url": "http://www.dropitproject.com/",
+          "desc": "",
+          "detail": "自定义文件分类"
+        },
+        {
+          "name": "DeskGo（桌面整理）",
+          "url": "https://guanjia.qq.com/product/zmzl/",
+          "desc": "",
+          "detail": "腾讯电脑管家桌面整理"
+        },
+        {
+          "name": "Coodesker（酷呆桌面）",
+          "url": "https://www.coodesker.com",
+          "desc": "",
+          "detail": ""
+        },
+        {
+          "name": "Files",
+          "url": "https://files.community/",
+          "desc": "",
+          "detail": "33k star，与微软相似"
+        },
+        {
+          "name": "OneCommander",
+          "url": "https://www.onecommander.com/",
+          "desc": "",
+          "detail": ""
+        },
+        {
+          "name": "极客多标签文件管理器",
+          "url": "http://www.51buydd.com/ExplorerX/",
+          "desc": "",
+          "detail": ""
+        },
+        {
+          "name": "Tablacus Explorer",
+          "url": "https://tablacus.github.io/explorer_en.html",
+          "desc": "",
+          "detail": ""
+        },
+        {
+          "name": "TablacusExplorer",
+          "url": "https://tablacus.github.io/explorer_en.html",
+          "desc": "",
+          "detail": "文件管理器"
+        },
+        {
+          "name": "Q-dir",
+          "url": "http://q-dir.com/",
+          "desc": "",
+          "detail": "文件管理器，支持简中，默认四个小窗口组成一个大窗口"
+        },
+        {
+          "name": "文件名精灵",
+          "url": "https://www.ecdove.com/",
+          "desc": "",
+          "detail": "批量修改文件、文件夹名称"
+        },
+        {
+          "name": "Advanced Renamer",
+          "url": "https://www.advancedrenamer.com/",
+          "desc": "",
+          "detail": "文件批量重命名"
+        },
+        {
+          "name": "ReNamer",
+          "url": "https://pmzeroskyline.github.io/FreeApps/",
+          "desc": "",
+          "detail": "文件批量重命名"
+        },
+        {
+          "name": "MiniRenamer",
+          "url": "https://abc100.net/106/",
+          "desc": "",
+          "detail": "批量文件重命名工具"
+        },
+        {
+          "name": "文件批量改名工具",
+          "url": "https://www.52pojie.cn/thread-1815735-1-1.html",
+          "desc": "",
+          "detail": "文件批量改名工具-自由度更高 支持撤销改名"
+        },
+        {
+          "name": "文件批量重命名",
+          "url": "https://www.52pojie.cn/thread-1941574-1-3.html",
+          "desc": "",
+          "detail": "今天需要对一个文件夹里的大量文件进行重命名，尤其有时需要替换特定的字符串，手动操作比较麻烦。有了需求就有回应，写的比较比较匆忙，很粗糙，各位凑活着用。"
+        },
+        {
+          "name": "Hummingbird",
+          "url": "https://arayofsunshine.dev/hummingbird",
+          "desc": "",
+          "detail": "常见文件格式压缩"
+        },
+        {
+          "name": "File Converter",
+          "url": "https://file-converter.io/",
+          "desc": "",
+          "detail": "文件格式转换，支持简中，"
+        },
+        {
+          "name": "HelpUploadFiles （星空上传助手）",
+          "url": "https://github.com/KrxkGit/HelpUploadFiles",
+          "desc": "",
+          "detail": ""
+        },
+        {
+          "name": "悬浮宇宙/FloatingUniverse",
+          "url": "https://github.com/iwxyi/FloatingUniverse",
+          "desc": "",
+          "detail": "停更了"
+        }
+      ]
+    },
+    {
+      "name": "局域网传输",
+      "icon": "Palette",
+      "list": [
+        {
+          "name": "闪电藤",
+          "url": "https://lightningvine.zishu.life/",
+          "desc": "",
+          "detail": "基于LocalSend二次开发的一款局域网文件传输工具"
+        },
+        {
+          "name": "HybridFileXfer/多轨快传",
+          "url": "https://github.com/weixiansen574/HybridFileXfer",
+          "desc": "",
+          "detail": "同时使用USB和WIFI传输文件到电脑"
+        },
+        {
+          "name": "localsend",
+          "url": "https://github.com/localsend/localsend",
+          "desc": "",
+          "detail": "32.3k star,局域网传输"
+        },
+        {
+          "name": "KDE Connect",
+          "url": "https://kdeconnect.kde.org/",
+          "desc": "",
+          "detail": "免费无广，支持中文"
+        },
+        {
+          "name": "Photon",
+          "url": "https://photondev.netlify.app/",
+          "desc": "",
+          "detail": ""
+        },
+        {
+          "name": "百灵快传(B0Pass)",
+          "url": "https://github.com/bitepeng/b0pass",
+          "desc": "",
+          "detail": "2k star,局域网共享文件,基于Go语言"
+        },
+        {
+          "name": "alley-transfer/小路速传",
+          "url": "https://github.com/alley-rs/alley-transfer",
+          "desc": "",
+          "detail": ""
+        },
+        {
+          "name": "FlyingCarpet",
+          "url": "https://github.com/spieglt/FlyingCarpet",
+          "desc": "",
+          "detail": "3k star,Android、iOS、Linux、macOS 和 Windows 客户端。"
+        },
+        {
+          "name": "爱传送/MFiles",
+          "url": "https://mfiles.maokebing.com/",
+          "desc": "",
+          "detail": ""
+        },
+        {
+          "name": "CuteHttpFileServer/chfs",
+          "url": "http://iscute.cn/chfs",
+          "desc": "",
+          "detail": "免费的、HTTP协议的文件共享服务器，使用浏览器访问"
+        },
+        {
+          "name": "miniserve",
+          "url": "https://github.com/svenstaro/miniserve",
+          "desc": "",
+          "detail": "5.5k star,一键生成文件服务器，HTTP传输"
+        },
+        {
+          "name": "LANDrop",
+          "url": "https://github.com/LANDrop/LANDrop",
+          "desc": "",
+          "detail": "4.6k star,无安卓,2021停更"
+        },
+        {
+          "name": "Beaker Browser",
+          "url": "https://github.com/beakerbrowser/beaker",
+          "desc": "",
+          "detail": "6.7k star,2020归档，p2p浏览器"
+        }
+      ]
+    }
+  ]
+}

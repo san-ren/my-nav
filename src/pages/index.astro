@@ -3,16 +3,45 @@ import Layout from '../layouts/Layout.astro';
 import Sidebar from '../components/Sidebar.astro';
 import SiteCard from '../components/SiteCard.astro';
 import SearchModal from '../components/SearchModal.jsx';
-import siteConfig from '../data/config.json';
 import ThemePicker from '../components/ThemePicker.astro';
+import siteConfig from '../data/config.json';
 import { LayoutDashboard, Star, Code, Palette, Sun, Moon, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu } from 'lucide-react';
 
-const allNavFiles = import.meta.glob('../data/nav/*.json', { eager: true });
-let navResources = Object.values(allNavFiles);
-navResources.sort((a: any, b: any) => {
-  return (a.sortOrder || 99) - (b.sortOrder || 99);
+// ==========================================
+// 新的数据加载逻辑：合并分散的 JSON 文件
+// ==========================================
+
+// 1. 获取所有页面的 meta 信息 (src/data/nav/*/meta.json)
+const metaFiles = import.meta.glob('../data/nav/*/meta.json', { eager: true });
+
+// 2. 获取所有分组信息 (src/data/nav/*/groups/*.json)
+const groupFiles = import.meta.glob('../data/nav/*/groups/*.json', { eager: true });
+
+// 3. 组装数据
+let navResources = Object.entries(metaFiles).map(([metaPath, metaContent]: [string, any]) => {
+  const meta = metaContent.default || metaContent;
+  // 从路径获取 pageId (例如 ../data/nav/home/meta.json -> home)
+  const pageId = metaPath.split('/').slice(-2, -1)[0]; 
+
+  // 找到属于这个 pageId 的所有 group 文件
+  const groups = Object.entries(groupFiles)
+    .filter(([groupPath]) => groupPath.includes(`/nav/${pageId}/groups/`))
+    .sort(([pathA], [pathB]) => {
+      // 按照文件名排序 (01_xxx.json, 02_xxx.json)
+      const nameA = pathA.split('/').pop();
+      const nameB = pathB.split('/').pop();
+      return nameA.localeCompare(nameB, undefined, { numeric: true });
+    })
+    .map(([_, groupContent]: [string, any]) => groupContent.default || groupContent);
+
+  return {
+    ...meta,
+    groups: groups
+  };
 });
 
+// 4. 页面排序
+navResources.sort((a, b) => (a.sortOrder || 99) - (b.sortOrder || 99));
 const section = navResources[0];
 const id = section.id;
 

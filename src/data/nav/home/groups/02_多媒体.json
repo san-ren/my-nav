@@ -1,0 +1,886 @@
+{
+  "name": "多媒体",
+  "icon": "Clapperboard",
+  "categories": [
+    {
+      "name": "音乐",
+      "icon": "RegularLightbulb",
+      "tabs": [
+        {
+          "tabName": "win",
+          "list": [
+            {
+              "name": "Listen1",
+              "url": "https://github.com/listen1/listen1_desktop",
+              "desc": "一个基于 electron 的音乐软件，",
+              "detail": "- 支持PC、浏览器扩展、安卓、iOS\n- 在线音乐播放",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "guide_id": "listen1"
+            },
+            {
+              "name": "洛雪音乐助手",
+              "url": "https://github.com/lyswhut/lx-music-desktop",
+              "desc": "",
+              "detail": "",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "guide_id": ""
+            },
+            {
+              "name": "六音音源",
+              "url": "https://www.sixyin.com/8498.html",
+              "desc": "",
+              "detail": "",
+              "official_site": "",
+              "guide_id": ""
+            },
+            {
+              "name": "MusicFree",
+              "url": "https://github.com/maotoumao/MusicFreeDesktop",
+              "desc": "",
+              "detail": "安卓、Windows、macos，插件化、定制化、无广告的免费音乐播放器",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "guide_id": ""
+            },
+            {
+              "name": "NSMusicS",
+              "url": "https://github.com/Super-Badmen-Viper/NSMusicS",
+              "desc": "",
+              "detail": "九歌 云原生音乐服务器/ 全平台客户端，支持 Navidrome、Jellyfin、Emby",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ],
+              "guide_id": ""
+            },
+            {
+              "name": "TTKMusicPlayer",
+              "url": "https://github.com/Greedysky/TTKMusicPlayer",
+              "desc": "",
+              "detail": "音乐播放器模仿酷狗，基于Qt和Qmmp库开发，支持Windows和Linux平台.",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ],
+              "guide_id": ""
+            },
+            {
+              "name": "go-musicfox",
+              "url": "https://github.com/go-musicfox/go-musicfox",
+              "desc": "",
+              "detail": "基于Go语言，支持UnblockNeteaseMusic、各种音质级别、lastfm、MPRIS、MacOS交互响应（睡眠暂停、蓝牙耳机连接断开响应、菜单栏控制等）...",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ],
+              "guide_id": ""
+            },
+            {
+              "name": "musicn",
+              "url": "https://github.com/zonemeen/musicn",
+              "desc": "",
+              "detail": "可播放及下载音乐的 Node.js 命令行工具",
+              "official_site": "",
+              "badge_list": [
+                "version",
+                "stars",
+                "last_commit"
+              ],
+              "guide_id": ""
+            },
+            {
+              "name": "music-dl",
+              "url": "https://github.com/guanguans/music-dl",
+              "desc": "",
+              "detail": "音乐搜索下载",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "guide_id": ""
+            },
+            {
+              "name": "YesPlayMusic",
+              "url": "https://github.com/qier222/YesPlayMusic",
+              "desc": "",
+              "detail": "高颜值的第三方网易云播放器，支持 Windows / macOS / Linux",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ],
+              "guide_id": ""
+            },
+            {
+              "name": "SPlayer",
+              "url": "https://github.com/imsyy/SPlayer",
+              "desc": "",
+              "detail": "网易云第三方",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ],
+              "guide_id": ""
+            },
+            {
+              "name": "unblockneteasemusic",
+              "url": "https://github.com/topics/unblockneteasemusic",
+              "desc": "",
+              "detail": "网易云第三方，5 public repositories",
+              "official_site": "",
+              "guide_id": ""
+            },
+            {
+              "name": "NSMusicS",
+              "url": "https://github.com/Super-Badmen-Viper/NSMusicS",
+              "desc": "",
+              "detail": "",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ],
+              "guide_id": ""
+            },
+            {
+              "name": "mp3tag-douban-id3-plugins",
+              "url": "https://github.com/yoyicue/mp3tag-douban-id3-plugins",
+              "desc": "",
+              "detail": "Mp3tag 豆瓣音乐 id3 插件 v2.5 （2020年10月可用）",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ],
+              "guide_id": ""
+            },
+            {
+              "name": "音乐标签",
+              "url": "https://www.cnblogs.com/vinlxc/p/11347744.html",
+              "desc": "",
+              "detail": "编辑歌曲的标题，专辑，艺术家，歌词，封面等信息,支持FLAC, APE, WAV, AIFF, WV, TTA, MP3, MP4, M4A, OGG, MPC, OPUS, WMA, DSF, DFF等",
+              "official_site": "",
+              "guide_id": ""
+            },
+            {
+              "name": "foobar2000",
+              "url": "https://www.foobar2000.org/",
+              "desc": "",
+              "detail": "在音乐界的地位震古烁今",
+              "official_site": "",
+              "guide_id": ""
+            },
+            {
+              "name": "foobox-cn",
+              "url": "https://github.com/dream7180/foobox-cn",
+              "desc": "",
+              "detail": "一个 foobar2000 默认用户界面 (DUI) 的皮肤配置，基于 jsplitter (Spider Monkey Panel 版) 组件",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ],
+              "guide_id": ""
+            },
+            {
+              "name": "foobar2000汉化版",
+              "url": "https://www.cnblogs.com/asionwu",
+              "desc": "",
+              "detail": "一个 foobar2000 爱好者"
+            },
+            {
+              "name": "Mcool",
+              "url": "https://mcool.appinn.me/",
+              "desc": "",
+              "detail": "极简，开源，跨平台，本地音乐播放器"
+            },
+            {
+              "name": "MusicPlayer2",
+              "url": "https://github.com/zhongyang219/MusicPlayer2",
+              "desc": "",
+              "detail": "4k star,音乐本地播放，歌词显示、歌词卡拉OK样式显示、歌词在线下载、歌词编辑、歌曲标签识别、专辑封面显示、专辑封面在线下载、频谱分析、音效设置、任务栏缩略图按钮、主题颜色、格式转换等"
+            },
+            {
+              "name": "Dopamine",
+              "url": "https://github.com/digimezzo/dopamine-windows",
+              "desc": "",
+              "detail": "1.7k star,简约本地音乐播放器"
+            },
+            {
+              "name": "拟声",
+              "url": "https://download.music.mimicry.cool/",
+              "desc": "",
+              "detail": "拟物风音视频播放器，win、Android"
+            },
+            {
+              "name": "AIMP",
+              "url": "http://www.aimp.ru/",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "Winamp",
+              "url": "https://www.winamp.com/",
+              "desc": "",
+              "detail": "老牌播放器"
+            },
+            {
+              "name": "Wora",
+              "url": "https://github.com/hiaaryan/wora",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "electron-vue-cloud-music",
+              "url": "https://github.com/xiaozhu188/electron-vue-cloud-music",
+              "desc": "",
+              "detail": "Electron + Vue 仿网易云音乐windows客户端，2021停更"
+            },
+            {
+              "name": "Music_Download",
+              "url": "https://github.com/Java-S12138/Music_Download",
+              "desc": "发布即停更",
+              "detail": "- 基于python\n\n- 网易云，QQ音乐，酷狗音乐在线播放和下载",
+              "official_site": "https://java-syj.feishu.cn/wiki/DBqIwuJ1ji228ike4necim4cnDg",
+              "badge_list": [
+                "stars",
+                "last_commit"
+              ],
+              "guide_id": ""
+            },
+            {
+              "name": "方格音乐",
+              "url": "http://fonger.top/",
+              "desc": "2025上半年因不知名原因关闭官网、软件",
+              "detail": "安卓（魔音）、Windows，在线播放,B站：不知名非羽；微信公众号：方格MUSIC",
+              "official_site": "",
+              "guide_id": ""
+            }
+          ]
+        },
+        {
+          "tabName": "Android",
+          "list": [
+            {
+              "name": "酷狗概念版",
+              "url": "https://activity.kugou.com/download/v-a23b0cf0/index.html",
+              "desc": "",
+              "detail": "每日领VIP，在线听的不二选择"
+            },
+            {
+              "name": "LX Music",
+              "url": "https://github.com/lyswhut/lx-music-mobile",
+              "desc": "",
+              "detail": "一个基于 React native 开发的音乐软件，自行导入音源，同desktop"
+            },
+            {
+              "name": "Listen 1",
+              "url": "https://listen1.github.io/listen1/",
+              "desc": "",
+              "detail": "搜索和播放来自网易云音乐，QQ音乐，酷狗音乐，酷我音乐，Bilibili，咪咕音乐网站的歌曲"
+            },
+            {
+              "name": "MusicFree",
+              "url": "https://github.com/maotoumao/MusicFree",
+              "desc": "",
+              "detail": "插件化、定制化、无广告的免费音乐播放器"
+            },
+            {
+              "name": "音乐时刻",
+              "url": "https://flowus.cn/share/5bf1a0d1-5f58-4bd9-9cb6-3a4b2f7e4ae4",
+              "desc": "",
+              "detail": "无广，可设置下载路径、命名格式、写入音乐标签、下载歌词文件，与歌词适配相似"
+            },
+            {
+              "name": "KHMD/空痕音乐下载器",
+              "url": "https://www.khkj6.com/archives/19.html",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "极乐",
+              "url": "https://wds.cxoip.com/797.html",
+              "desc": "",
+              "detail": "无广，音乐下载"
+            },
+            {
+              "name": "天天悦听",
+              "url": "https://pan.xunlei.com/s/VNniL144qUd9zSr5Bh9vXJf7A1?pwd=9y8d#",
+              "desc": "",
+              "detail": "无广，公众号“安卓聚玩”，小程序“聚玩工具箱”"
+            },
+            {
+              "name": "Music Player",
+              "url": "https://github.com/FossifyOrg/Music-Player",
+              "desc": "",
+              "detail": "音乐播放器"
+            },
+            {
+              "name": "音乐搜索",
+              "url": "音乐时刻",
+              "desc": "",
+              "detail": "无广，网站套壳"
+            },
+            {
+              "name": "Spotube",
+              "url": "https://spotube.krtirtho.dev/",
+              "desc": "",
+              "detail": "24.8k star，开源 Spotify 客户端，支持YouTube、Piped、Jiosaavn音源"
+            },
+            {
+              "name": "不倦",
+              "url": "https://github.com/2697a/bujuan",
+              "desc": "",
+              "detail": "Flutter移动端+桌面端三方网易云播放器"
+            },
+            {
+              "name": "InnerTune",
+              "url": "https://github.com/z-huang/InnerTune",
+              "desc": "",
+              "detail": "3.4k star,第三方 YouTube Music"
+            },
+            {
+              "name": "音乐标签",
+              "url": "https://www.cnblogs.com/vinlxc/p/11932130.html",
+              "desc": "",
+              "detail": "编辑歌曲的标题，专辑，艺术家，歌词，封面等信息,支持FLAC, APE, WAV, AIFF, WV, TTA, MP3, MP4, M4A, OGG, MPC, OPUS, WMA, DSF, DFF等"
+            },
+            {
+              "name": "Muviz Edge",
+              "url": "https://play.google.com/store/apps/details?id=com.sparkine.muvizedge&ref=appinn",
+              "desc": "",
+              "detail": "在屏幕边缘显示现场音乐可视化"
+            },
+            {
+              "name": "无损音乐",
+              "url": "",
+              "desc": "",
+              "detail": "文件夹播放器"
+            },
+            {
+              "name": "DialogMusicPlayer",
+              "url": "https://github.com/VishnuSanal/DialogMusicPlayer/",
+              "desc": "",
+              "detail": "极简，无桌面图标，播放界面类似于悬浮窗"
+            },
+            {
+              "name": "拟声",
+              "url": "https://download.music.mimicry.cool/",
+              "desc": "",
+              "detail": "拟物风音视频播放器"
+            },
+            {
+              "name": "Musicolet",
+              "url": "https://krosbits.in/musicolet/",
+              "desc": "",
+              "detail": "Android 离线音乐播放器,可编辑音乐标签和内嵌歌词"
+            },
+            {
+              "name": "椒盐音乐",
+              "url": "https://play.google.com/store/apps/details?id=com.salt.music",
+              "desc": "",
+              "detail": "本地音乐播放器，酷安大佬开发"
+            },
+            {
+              "name": "海贝音乐",
+              "url": "https://www.hiby.com/",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "NYX Music Player",
+              "url": "https://nyx-music-player.cn.uptodown.com/android",
+              "desc": "",
+              "detail": "动画精美，本地音乐播放器"
+            },
+            {
+              "name": "Stellio Player",
+              "url": "https://play.google.com/store/apps/details?id=io.stellio.music",
+              "desc": "",
+              "detail": "本地音乐播放器"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "图片",
+      "icon": "",
+      "tabs": [
+        {
+          "tabName": "看图",
+          "list": [
+            {
+              "name": "Honeyview-蜂蜜浏览器",
+              "url": "http://www.bandisoft.com/honeyview/",
+              "desc": "",
+              "detail": "与Bandizip同宗，2024发布新版Bandiview v7.0,免费版有广告"
+            },
+            {
+              "name": "Masonry Image Viewer",
+              "url": "https://github.com/wlm3201/Masonry_Image_Viewer",
+              "desc": "",
+              "detail": "瀑布流本地图片浏览器"
+            },
+            {
+              "name": "ImageGlass",
+              "url": "https://imageglass.org/",
+              "desc": "",
+              "detail": "看图，提供中文语言包"
+            },
+            {
+              "name": "PicView",
+              "url": "https://github.com/Ruben2776/PicView",
+              "desc": "",
+              "detail": "开源，看图"
+            },
+            {
+              "name": "Imagine",
+              "url": "https://www.nyam.pe.kr/dev/imagine/",
+              "desc": "",
+              "detail": "3.4k star，看图、动图编辑"
+            },
+            {
+              "name": "Image Eye",
+              "url": "https://www.fmjsoft.com/imageeye.html#main",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "IrfanView",
+              "url": "https://www.irfanview.com/",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "XnView",
+              "url": "https://www.xnview.com/en/",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "qView",
+              "url": "https://interversehq.com/qview/",
+              "desc": "",
+              "detail": "1.7k star，看图"
+            },
+            {
+              "name": "Masonry Image Viewer",
+              "url": "https://github.com/wlm3201/Masonry_Image_Viewer",
+              "desc": "",
+              "detail": "瀑布流本地图片浏览器"
+            },
+            {
+              "name": "全屏看图",
+              "url": "http://www.o345.com/gengxin-log/632.html",
+              "desc": "",
+              "detail": "流式看图"
+            },
+            {
+              "name": "NeeView",
+              "url": "https://github.com/karma-sun/neeview",
+              "desc": "",
+              "detail": "图片漫画浏览器"
+            }
+          ]
+        },
+        {
+          "tabName": "截图",
+          "list": [
+            {
+              "name": "PixPin",
+              "url": "https://pixpinapp.com/",
+              "desc": "",
+              "detail": "长截图、贴图、OCR、GIF，2023新兴软件，Snipaste专业版平替"
+            },
+            {
+              "name": "Snipaste",
+              "url": "https://zh.snipaste.com/",
+              "desc": "",
+              "detail": "截图+贴图，便携版、商店版，长截图需专业版"
+            },
+            {
+              "name": "ShareX",
+              "url": "https://getsharex.com/",
+              "desc": "",
+              "detail": "27.1k star,编辑功能强大，适合专业人士，未适配高分屏（2024.3），显示过小"
+            },
+            {
+              "name": "Flameshot",
+              "url": "https://flameshot.org/",
+              "desc": "",
+              "detail": "23.3k star，标注功能强大，全平台"
+            },
+            {
+              "name": "PicPick",
+              "url": "https://picpick.app/zh/",
+              "desc": "",
+              "detail": "截图，个人免费使用"
+            },
+            {
+              "name": "eSearch",
+              "url": "https://github.com/xushengfeng/eSearch",
+              "desc": "",
+              "detail": "2.8k star,长截屏、离线OCR、搜索翻译、贴图、录屏"
+            },
+            {
+              "name": "ScreenCapture",
+              "url": "https://github.com/xland/ScreenCapture",
+              "desc": "",
+              "detail": "截图，标注丰富"
+            },
+            {
+              "name": "pear-rec",
+              "url": "https://027xiguapi.github.io/pear-rec/",
+              "desc": "",
+              "detail": "开源，截图、录屏、录音、录像软件"
+            },
+            {
+              "name": "SETUNA2",
+              "url": "https://github.com/tylearymf/SETUNA2",
+              "desc": "",
+              "detail": "截图小工具（支持高分屏截图），个人接管"
+            },
+            {
+              "name": "Sniptool",
+              "url": "https://www.reasyze.com/Sniptool/",
+              "desc": "",
+              "detail": "便携，截图"
+            },
+            {
+              "name": "verycapture",
+              "url": "https://verycapture.com/cn/index.html",
+              "desc": "",
+              "detail": "付费，老牌软件，长截图、OCR、录屏，可去portableapps.com或portablefreeware.com下载便携版"
+            },
+            {
+              "name": "AutoScreenShot",
+              "url": "https://github.com/artem78/AutoScreenshot",
+              "desc": "",
+              "detail": "开源自动定时屏幕截图"
+            },
+            {
+              "name": "PicGo",
+              "url": "https://github.com/Molunerfinn/PicGo",
+              "desc": "",
+              "detail": "24.5k star"
+            },
+            {
+              "name": "PicX",
+              "url": "https://github.com/XPoet/picx",
+              "desc": "",
+              "detail": "4.7k star"
+            },
+            {
+              "name": "EasyImage2.0 简单图床",
+              "url": "https://github.com/icret/EasyImages2.0",
+              "desc": "",
+              "detail": "3k star"
+            }
+          ]
+        },
+        {
+          "tabName": "图片处理",
+          "list": [
+            {
+              "name": "PictureCleaner",
+              "url": "https://www.52pojie.cn/thread-1385732-1-1.html",
+              "desc": "",
+              "detail": "图像去灰度漂白校正工具，图片预处理（七种）、漂白图片（三个算法）、四角透视校正图片（规格化A4、A5输出）、边缘裁切（可保留裁切部分为白边）、单位标尺（像素、毫米）、背景换色（可去除水印）、灰度增强、去除麻点、透明保存等功能"
+            },
+            {
+              "name": "PM lite/图片魔法师",
+              "url": "https://www.52pojie.cn/thread-1880475-1-1.html",
+              "desc": "",
+              "detail": "图像漂白、校正，无损优化图像文件"
+            },
+            {
+              "name": "Caesium Image Compressor",
+              "url": "https://saerasoft.com/caesium",
+              "desc": "",
+              "detail": "3.3k star，图像压缩,"
+            },
+            {
+              "name": "Img Toolbox",
+              "url": "https://github.com/LokerL/img-toolbox",
+              "desc": "",
+              "detail": "漂白去底，图像旋转，彩色转灰色，文本图片的自动倾斜纠正，透视校正及矩形裁剪，橡皮擦，排版，打印，预设参数等"
+            },
+            {
+              "name": "Pretty Snap",
+              "url": "https://pretty-snap.iwhy.dev",
+              "desc": "",
+              "detail": "截图添加纯色背景美化"
+            },
+            {
+              "name": "ShapeCollage",
+              "url": "http://www.shapecollage.com/",
+              "desc": "",
+              "detail": "图片拼接"
+            },
+            {
+              "name": "iPhotoDraw",
+              "url": "http://www.iphotodraw.com/",
+              "desc": "",
+              "detail": "图片标注及元信息编辑，便携版"
+            },
+            {
+              "name": "Inpaint",
+              "url": "https://theinpaint.com/",
+              "desc": "",
+              "detail": "图片细节处理，网页版和PC端"
+            },
+            {
+              "name": "XnConvert",
+              "url": "https://www.xnview.com/en/xnconvert/",
+              "desc": "",
+              "detail": "图片批量处理"
+            },
+            {
+              "name": "万得图片批量处理",
+              "url": "http://xcxzq.com/imagebat/",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "Waifu2x-Extension-GUI",
+              "url": "https://github.com/AaronFeng753/Waifu2x-Extension-GUI",
+              "desc": "",
+              "detail": "静态图片，gif和视频放大清晰处理"
+            },
+            {
+              "name": "洋芋田图像工具箱",
+              "url": "https://imagetoolkit.potatofield.cn/",
+              "desc": "",
+              "detail": "图像工具箱"
+            },
+            {
+              "name": "IOPaint",
+              "url": "https://www.iopaint.com/",
+              "desc": "",
+              "detail": "擦除、修复、放大、无中生有；AI"
+            },
+            {
+              "name": "Lama-Cleaner-lama",
+              "url": "https://huggingface.co/spaces/Sanster/Lama-Cleaner-lama",
+              "desc": "",
+              "detail": "去除图片水印"
+            },
+            {
+              "name": "Topaz Gigapixel AI 7.2.1(人工智能图片无损放大)简体中文汉化版",
+              "url": "https://www.52pojie.cn/thread-1884191-1-1.html",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "Topaz Photo AI 3.1.1（人工智能图片降噪软件）简体中文汉化版",
+              "url": "https://www.52pojie.cn/thread-1888246-1-1.html",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "文字转LOGO图片",
+              "url": "https://www.52pojie.cn/thread-1876568-1-3.html",
+              "desc": "",
+              "detail": "文字转LOGO图片的工具，可以做图标、头像，文字转图片等"
+            },
+            {
+              "name": "upscayl",
+              "url": "https://github.com/upscayl/upscayl",
+              "desc": "",
+              "detail": "图片无损放大"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "多媒体",
+      "icon": "",
+      "tabs": [
+        {
+          "tabName": "GIF、录屏",
+          "list": [
+            {
+              "name": "Gif123",
+              "url": "https://gif123.aardio.com/",
+              "desc": "",
+              "detail": "极简GIF 录屏工具"
+            },
+            {
+              "name": "ScreenToGif",
+              "url": "https://www.screentogif.com/",
+              "desc": "",
+              "detail": "23k star，屏幕、摄像头和画板录像，并有内置编辑器"
+            },
+            {
+              "name": "Video to GIF",
+              "url": "https://lyonbot.github.io/video-to-gif/",
+              "desc": "",
+              "detail": "在线，使用 WebCodec 解码视频"
+            },
+            {
+              "name": "RecordScreen.io",
+              "url": "https://recordscreen.io/",
+              "desc": "",
+              "detail": "传统在线录屏，英文界面，头像画中画，可选屏幕或窗口，直接下载webm文件，大陆可访问"
+            },
+            {
+              "name": "Screenity",
+              "url": "https://screenity.io/en/",
+              "desc": "",
+              "detail": "11k star, Chrome/Edge，屏幕录制和标注工具，捕捉、标注、缩放、模糊、编辑视频等功能 - 无需登录"
+            },
+            {
+              "name": "水豚鼠标助手",
+              "url": "https://shuitunapp.com/",
+              "desc": "",
+              "detail": "鼠标换肤 | 屏幕画笔 | 放大镜 | 聚光灯 | 屏幕放大 | 倒计时，功能强大的屏幕演示工具"
+            },
+            {
+              "name": "智绘教Inkeys/IDT",
+              "url": "https://www.inkeys.top/",
+              "desc": "",
+              "detail": "Windows 屏幕批注工具，拥有高效批注和丰富功能，让屏幕演示变得简单，让教学授课变得高效，适用于触摸设备和PC端。"
+            },
+            {
+              "name": "ZoomIt",
+              "url": "https://learn.microsoft.com/zh-cn/sysinternals/downloads/zoomit",
+              "desc": "",
+              "detail": "微软出品，丰富的屏幕演示、简陋的录屏"
+            },
+            {
+              "name": "土豆录屏",
+              "url": "http://www.tudouluping.com/",
+              "desc": "",
+              "detail": "免费，隐藏桌面图标和任务栏，鼠标光晕，显示键盘，增加水印"
+            },
+            {
+              "name": "EV录屏",
+              "url": "https://www.ieway.cn/evcapture.html",
+              "desc": "",
+              "detail": "免费版只有单纯的录屏功能"
+            },
+            {
+              "name": "Cap",
+              "url": "https://cap.so/",
+              "desc": "",
+              "detail": "3.4k star，录屏，lite版免费"
+            },
+            {
+              "name": "OBS工作室版",
+              "url": "https://obsproject.com/zh-cn",
+              "desc": "",
+              "detail": "57k star， 视频录制、直播串流"
+            },
+            {
+              "name": "CamStudio",
+              "url": "https://camstudio.org/",
+              "desc": "",
+              "detail": "录屏"
+            },
+            {
+              "name": "RecButton",
+              "url": "https://www.recbutton.org/",
+              "desc": "",
+              "detail": "录屏，2019停更，2024.7官网健在"
+            },
+            {
+              "name": "Captura",
+              "url": "https://github.com/MathewSachin/Captura",
+              "desc": "",
+              "detail": "9.5k star,2018停更，2023归档，作品被盗取贩卖"
+            }
+          ]
+        },
+        {
+          "tabName": "音、视频编辑",
+          "list": [
+            {
+              "name": "LosslessCut",
+              "url": "https://github.com/mifi/lossless-cut",
+              "desc": "",
+              "detail": "31k star，无损修剪和剪切"
+            },
+            {
+              "name": "AutoAudioRecorder/内部万能录音器",
+              "url": "https://autoclose.net/autoaudiorecorder.html",
+              "desc": "",
+              "detail": "将电脑内部所有的声音录制成 mp3/wav ，可根据有无音源自动开启和停止录音"
+            },
+            {
+              "name": "HandBrake",
+              "url": "https://github.com/HandBrake/HandBrake",
+              "desc": "",
+              "detail": "20K star，音视频格式转换、重编码"
+            },
+            {
+              "name": "ShanaEncoder",
+              "url": "https://github.com/1265578519/ShanaEncoder",
+              "desc": "",
+              "detail": "最强的视频压制软件"
+            },
+            {
+              "name": "Video-subtitle-remover",
+              "url": "https://github.com/YaoFANGUK/video-subtitle-remover",
+              "desc": "",
+              "detail": "AI去除视频水印、字幕"
+            },
+            {
+              "name": "ProPainter",
+              "url": "https://github.com/sczhou/ProPainter",
+              "desc": "",
+              "detail": "去视频的移动水印和移动物体"
+            },
+            {
+              "name": "ProPainter（2）",
+              "url": "https://huggingface.co/spaces/sczhou/ProPainter",
+              "desc": "",
+              "detail": "HuggingFace在线使用"
+            },
+            {
+              "name": "UniFab Toolkit",
+              "url": "https://www.123pan.com/s/h6nrVv-Dxmrv.html",
+              "desc": "",
+              "detail": "付费（替换文件），视频工具、音频工具、图片工具、水印工具、字幕工具"
+            },
+            {
+              "name": "FFmpegFreeUI",
+              "url": "https://github.com/Lake1059/FFmpegFreeUI/",
+              "desc": "",
+              "detail": "FFmpegFreeUI（简称 3FUI）是在 Windows 上的 FFmpeg 的专业交互外壳，纯填参数，没有内置傻瓜方案"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

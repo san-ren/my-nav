@@ -1,0 +1,486 @@
+{
+  "name": "效率与工具",
+  "icon": "Cpu",
+  "categories": [
+    {
+      "name": "效率",
+      "icon": "UserGroup",
+      "tabs": [
+        {
+          "tabName": "剪贴板",
+          "list": [
+            {
+              "name": "Ditto",
+              "url": "https://ditto-cp.sourceforge.io/index.php",
+              "desc": "",
+              "detail": "3.3k star ，商店版、便携版，保存剪贴板所有记录、文件"
+            },
+            {
+              "name": "Snatch",
+              "url": "https://snatch.kasper.io",
+              "desc": "",
+              "detail": "​剪贴板管理，无其它扩展功能，保留所有的剪贴板历史记录，快速搜索历史记录"
+            },
+            {
+              "name": "PasteEx",
+              "url": "https://github.com/huiyadanli/PasteEx",
+              "desc": "",
+              "detail": "将剪切板内容存为文件"
+            },
+            {
+              "name": "CopyQ",
+              "url": "https://hluk.github.io/CopyQ/",
+              "desc": "",
+              "detail": "8.1k star, 剪贴板增强，保存所有内容"
+            },
+            {
+              "name": "TinyCopyBoard",
+              "url": "https://github.com/AlanWanco/TinyCopyBoard",
+              "desc": "",
+              "detail": "一个迷你剪贴板实时显示悬浮窗"
+            },
+            {
+              "name": "EcoPaste",
+              "url": "https://github.com/ayangweb/EcoPaste",
+              "desc": "",
+              "detail": "剪切板管理"
+            },
+            {
+              "name": "柠檬Push",
+              "url": "https://sibtools.app/lemon_push/",
+              "desc": "",
+              "detail": "剪贴板同步，同网络，手机剪切板同步到电脑，链接自动打开"
+            },
+            {
+              "name": "CC助手",
+              "url": "https://ccyixia.com/",
+              "desc": "",
+              "detail": "复制两次，一键收藏,2024.7发现官网已挂"
+            },
+            {
+              "name": "DropPoint",
+              "url": "https://droppoint.netlify.app/",
+              "desc": "",
+              "detail": "拖拽文件至临时中转悬浮框，再一次性粘贴文件，不用频繁切换窗口[Win/macOS/Linux]"
+            },
+            {
+              "name": "剪切助手",
+              "url": "https://jianqiezhushou.com/",
+              "desc": "",
+              "detail": "剪贴板同步、分享"
+            }
+          ]
+        },
+        {
+          "tabName": "便签、待办",
+          "list": [
+            {
+              "name": "Stickies",
+              "url": "https://www.zhornsoftware.co.uk/stickies/index.html",
+              "desc": "",
+              "detail": "官网下载简中语言包放到安装目录，可选字体、排版，便签设置丰富,功能需右键选择"
+            },
+            {
+              "name": "Note+",
+              "url": "https://www.52pojie.cn/forum.php?mod=viewthread&tid=590457&highlight=%B1%E3%C7%A9",
+              "desc": "",
+              "detail": "无排版，仅有可选几个字体颜色，可全屏，像一个大型剪贴板"
+            },
+            {
+              "name": "vov sticky notes",
+              "url": "https://www.52pojie.cn/thread-1063151-1-1.html",
+              "desc": "",
+              "detail": "名副其实的便签，无置顶、无排版，可设字体，未注册版不能选择主题，不能备份贴纸，不能禁用更新通知，有广告"
+            },
+            {
+              "name": "Simple Sticky Notes",
+              "url": "https://www.simplestickynotes.com/",
+              "desc": "",
+              "detail": "功能需右键选择，自行找汉化版"
+            },
+            {
+              "name": "收集桌面便笺应用",
+              "url": "https://meta.appinn.net/t/topic/33991",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "PNotes",
+              "url": "https://pnotes-1932d.firebaseapp.com/home",
+              "desc": "",
+              "detail": "OSD note"
+            },
+            {
+              "name": "透明桌面文字便签/透明便签2.0",
+              "url": "https://www.52pojie.cn/forum.php?mod=viewthread&tid=1510585&highlight=%B1%E3%C7%A9",
+              "desc": "",
+              "detail": "背景透明，可选字体、字号、颜色，无任务栏图标，适合当桌面背景"
+            },
+            {
+              "name": "桌面添加透明文字v1.1",
+              "url": "https://www.52pojie.cn/forum.php?mod=viewthread&tid=1175930&highlight=%B1%E3%C7%A9",
+              "desc": "",
+              "detail": "背景透明，可显示时间或倒计时，可选字体颜色、大小，简陋"
+            },
+            {
+              "name": "Visual Notes",
+              "url": "https://vovsoft.com/",
+              "desc": "",
+              "detail": "一片画布随意摆放便签，可导出图片，无任何自定义功能"
+            },
+            {
+              "name": "Sticky Notes | 贴纸便签",
+              "url": "https://github.com/imlinhanchao/sticky_notes",
+              "desc": "",
+              "detail": "待办列表，置顶、半透明、鼠标穿透"
+            },
+            {
+              "name": "小孩桌面便签",
+              "url": "http://www.kingsfw.com/",
+              "desc": "",
+              "detail": "待办、便签，官网提供历史版本"
+            },
+            {
+              "name": "便签提醒",
+              "url": "https://www.52pojie.cn/forum.php?mod=viewthread&tid=1609244&highlight=%B1%E3%C7%A9%CC%E1%D0%D1",
+              "desc": "",
+              "detail": "可选皮肤、字体、添加提醒、倒计时，无滚动条，软件链接至方方格子官网"
+            },
+            {
+              "name": "DesktopNoteOK_x64_Portable",
+              "url": "https://www.softwareok.com/?seite=Microsoft%2FDesktopNoteOK",
+              "desc": "",
+              "detail": "简陋的便签，无排版功能"
+            },
+            {
+              "name": "简单记",
+              "url": "https://www.52pojie.cn/home.php?mod=space&uid=870927&do=thread&type=thread&view=me&from=space",
+              "desc": "",
+              "detail": "看帖子截图挺喜欢UI,奈何作者的链接失效，网友转的旧版本也打不开"
+            },
+            {
+              "name": "StikyNotes",
+              "url": "https://github.com/li-zheng-hao/StickyNotes",
+              "desc": "",
+              "detail": "一个便捷的Windows桌面便利贴，2023.5归档，有问题极度影响使用"
+            },
+            {
+              "name": "hott notes",
+              "url": "https://hottnotes.com/",
+              "desc": "",
+              "detail": "不支持win11"
+            },
+            {
+              "name": "易便签v1.1(半透明桌面便签)",
+              "url": "https://www.52pojie.cn/thread-1728186-1-1.html",
+              "desc": "",
+              "detail": "UI挺好，可惜打不开"
+            }
+          ]
+        },
+        {
+          "tabName": "预览",
+          "list": [
+            {
+              "name": "QuickLook",
+              "url": "http://pooi.moe/QuickLook/",
+              "desc": "",
+              "detail": "开源，商店版"
+            },
+            {
+              "name": "火柴",
+              "url": "https://www.huochaipro.com/",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "seer",
+              "url": "https://sourceforge.net/projects/ccseer/",
+              "desc": "",
+              "detail": "预览，微软出品，"
+            }
+          ]
+        },
+        {
+          "tabName": "快捷启动",
+          "list": [
+            {
+              "name": "AutoHotPie",
+              "url": "https://github.com/dumbeau/AutoHotPie",
+              "desc": "",
+              "detail": "配置圆盘菜单"
+            },
+            {
+              "name": "MousePlus",
+              "url": "https://mouseplus.cn/",
+              "desc": "",
+              "detail": "右键唤出轮盘，可执行命令、快捷启动"
+            },
+            {
+              "name": "Flow Launcher",
+              "url": "https://www.flowlauncher.com/",
+              "desc": "",
+              "detail": "6k star,"
+            },
+            {
+              "name": "rubick",
+              "url": "https://rubickcenter.github.io/docs/guide/",
+              "desc": "",
+              "detail": "7.5k star, 基于 electron 的开源工具箱，自由集成丰富插件。"
+            },
+            {
+              "name": "Wox",
+              "url": "http://www.wox.one/",
+              "desc": "",
+              "detail": "开源，快捷启动工具"
+            },
+            {
+              "name": "nTrun",
+              "url": "https://www.ntrun.com/index.html",
+              "desc": "",
+              "detail": "快速启动工具"
+            },
+            {
+              "name": "Maye (Maya)/Maye Lite",
+              "url": "https://t.arae.cc/category/%e4%bd%9c%e5%93%81/",
+              "desc": "",
+              "detail": "快速启动"
+            },
+            {
+              "name": "Lucy",
+              "url": "https://www.52pojie.cn/thread-1624289-1-1.html",
+              "desc": "",
+              "detail": "吾爱破解出品，绿色免安装"
+            },
+            {
+              "name": "Dawn Launcher",
+              "url": "https://dawnlauncher.com/",
+              "desc": "",
+              "detail": "Windows快捷启动工具"
+            },
+            {
+              "name": "​Quicker",
+              "url": "https://getquicker.net/",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "CLaunch",
+              "url": "https://hp.vector.co.jp/authors/VA018351/en/claunch.html",
+              "desc": "",
+              "detail": "日本软件，"
+            },
+            {
+              "name": "Listary",
+              "url": "https://www.listary.com/",
+              "desc": "",
+              "detail": "免费版"
+            }
+          ]
+        },
+        {
+          "tabName": "鼠标手势",
+          "list": [
+            {
+              "name": "Wgestures",
+              "url": "http://www.yingdev.com/projects/wgestures",
+              "desc": "",
+              "detail": "1.4k star,全局鼠标手势"
+            },
+            {
+              "name": "StrokesPlus.net",
+              "url": "https://www.strokesplus.net/",
+              "desc": "",
+              "detail": "2025年1月Final release"
+            },
+            {
+              "name": "MouseGestureL.ahk",
+              "url": "https://www.autohotkey.com/boards/viewtopic.php?f=6&t=31859",
+              "desc": "",
+              "detail": "日本软件"
+            },
+            {
+              "name": "Stroke",
+              "url": "https://github.com/poerin/Stroke",
+              "desc": "",
+              "detail": "鼠标手势，无四角手势，自行编写，配置比较困难"
+            },
+            {
+              "name": "MouseInc",
+              "url": "https://docs.shuax.com/MouseInc/#/",
+              "desc": "",
+              "detail": "2022.10 开发者获刑4年，无修饰键，单纯的手势"
+            },
+            {
+              "name": "Mouse actions",
+              "url": "https://github.com/jersou/mouse-actions",
+              "desc": "",
+              "detail": "Linux鼠标手势，添加触发角、磨擦边"
+            },
+            {
+              "name": "GestureSign",
+              "url": "https://zh.gesturesign.win/",
+              "desc": "",
+              "detail": "2022年停更"
+            },
+            {
+              "name": "Wheel",
+              "url": "https://github.com/majorworld/Wheel",
+              "desc": "",
+              "detail": "24个屏幕边缘触发器，2020停更"
+            },
+            {
+              "name": "WinXcorners",
+              "url": "https://github.com/vhanla/winxcorne1rs/",
+              "desc": "",
+              "detail": "开源，为win10添加触发角，2019停更"
+            },
+            {
+              "name": "OneQuick",
+              "url": "https://onequick.org/",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "strokesplus",
+              "url": "https://onequick.org/",
+              "desc": "",
+              "detail": "快捷键工具，2018停更"
+            }
+          ]
+        },
+        {
+          "tabName": "模拟器、虚拟机",
+          "list": [
+            {
+              "name": "VMware Workstation 17.5.0 Pro",
+              "url": "https://softwareupdate.vmware.com/cds/vmw-desktop/ws/",
+              "desc": "",
+              "detail": "2024年5月起，个人用户免费"
+            },
+            {
+              "name": "VMware Workstation 17.5.0 Pro",
+              "url": "https://www.ypojie.com/6066.html",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "VirtualBox 7.0",
+              "url": "https://www.virtualbox.org/",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "WSA (Windows Subsystem for Android)",
+              "url": "https://blog.csdn.net/mrathena/article/details/140092233",
+              "desc": "",
+              "detail": "微软商店有WSA工具箱"
+            },
+            {
+              "name": "兆懿移动应用运行平台",
+              "url": "https://www.wndroid.com/index",
+              "desc": "",
+              "detail": "安卓12、安卓5"
+            },
+            {
+              "name": "BlueStacks蓝叠模拟器",
+              "url": "https://www.bluestacks.com/bluestacks-5.html",
+              "desc": "",
+              "detail": "安卓模拟器鼻祖"
+            },
+            {
+              "name": "夜神模拟器",
+              "url": "https://www.yeshen.com/",
+              "desc": "",
+              "detail": "安卓9、安卓12"
+            },
+            {
+              "name": "雷神模拟器",
+              "url": "http://www.lsplayer.com",
+              "desc": "",
+              "detail": "安卓模拟器"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "AI工具",
+      "icon": "RegularNewspaper",
+      "list": [
+        {
+          "name": "AI_NovelGenerator/自动小说生成工具",
+          "url": "https://github.com/YILING0013/AI_NovelGenerator",
+          "desc": "",
+          "detail": "使用ai生成多章节的长篇小说，自动衔接上下文、伏笔"
+        },
+        {
+          "name": "Image/Manga Translator",
+          "url": "https://github.com/zyddnys/manga-image-translator",
+          "desc": "",
+          "detail": "一键翻译各类图片内文字"
+        },
+        {
+          "name": "BallonTranslator",
+          "url": "https://github.com/dmMaze/BallonsTranslator",
+          "desc": "",
+          "detail": "3.2k star, 深度学习辅助漫画翻译工具, 支持一键机翻和简单的图像/文本编辑"
+        },
+        {
+          "name": "PDFMathTranslate",
+          "url": "https://github.com/Byaidu/PDFMathTranslate",
+          "desc": "",
+          "detail": "1705k star ,基于 AI 完整保留排版的 PDF 文档全文双语翻译，支持 Google/DeepL/Ollama/OpenAI 等服务，提供 CLI/GUI/Docker/Zotero"
+        },
+        {
+          "name": "YuE",
+          "url": "https://github.com/multimodal-art-projection/YuE",
+          "desc": "",
+          "detail": "4k star, 开启全曲音乐生成基础模型，类似于 Suno.ai 但开源"
+        },
+        {
+          "name": "DiffRhythm（谛韵）",
+          "url": "https://github.com/ASLP-lab/DiffRhythm",
+          "desc": "",
+          "detail": "1.2k star，生成歌曲，西北工业大学与香港中文大学（深圳）联合开发"
+        },
+        {
+          "name": "VideoLingo",
+          "url": "https://github.com/Huanshere/VideoLingo",
+          "desc": "",
+          "detail": "11.3k star, Netflix级字幕切割、翻译、对齐、甚至加上配音，一键全自动视频搬运AI字幕组"
+        },
+        {
+          "name": "卡卡字幕助手（VideoCaptioner）",
+          "url": "https://github.com/WEIFENG2333/VideoCaptioner",
+          "desc": "",
+          "detail": "4.7k star"
+        },
+        {
+          "name": "ANTO",
+          "url": "https://github.com/speauty/anto",
+          "desc": "",
+          "detail": "字幕文件(srt)翻译工具，Windows专用"
+        },
+        {
+          "name": "v2vt",
+          "url": "https://github.com/halfzm/v2vt",
+          "desc": "",
+          "detail": "带有语音克隆和口型同步的视频翻译，支持中英互换"
+        },
+        {
+          "name": "screenshot-to-code",
+          "url": "https://github.com/abi/screenshot-to-code",
+          "desc": "",
+          "detail": "68.5k star, 将截图放入并转换为干净的代码（HTML/Tailwind/React/Vue）"
+        },
+        {
+          "name": "Ai-to-pptx",
+          "url": "https://github.com/SmartSchoolAI/ai-to-pptx",
+          "desc": "",
+          "detail": "使用AI技术(DeepSeek)制作PPTX的助手，支持在线生成和导出PPTX。"
+        }
+      ]
+    }
+  ]
+}

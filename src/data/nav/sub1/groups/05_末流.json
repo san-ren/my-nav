@@ -1,0 +1,156 @@
+{
+  "name": "末流",
+  "icon": "",
+  "categories": [
+    {
+      "name": "输入法",
+      "icon": "Palette",
+      "list": [
+        {
+          "name": "InputTip",
+          "url": "https://github.com/abgox/InputTip",
+          "desc": "",
+          "detail": "输入法状态实时提示工具"
+        },
+        {
+          "name": "ImTip",
+          "url": "https://github.com/aardio/ImTip",
+          "desc": "",
+          "detail": "1.1k star,通用输入法状态跟踪提示"
+        },
+        {
+          "name": "KBLAutoSwitch/AHK中英文输入法自动切换",
+          "url": "https://github.com/flyinclouds/KBLAutoSwitch",
+          "desc": "",
+          "detail": "AHK自动切换中英文输入法，输入法，自动切换 ，2022.9停更"
+        },
+        {
+          "name": "Language Indicator",
+          "url": "https://github.com/yakunins/language-indicator",
+          "desc": "",
+          "detail": "语言指示符"
+        }
+      ]
+    },
+    {
+      "name": "同步",
+      "icon": "Palette",
+      "list": [
+        {
+          "name": "FileGee",
+          "url": "http://cn.filegee.com/download.html",
+          "desc": "",
+          "detail": "免费版，同步软件"
+        },
+        {
+          "name": "FreeFileSync",
+          "url": "https://freefilesync.org/",
+          "desc": "",
+          "detail": "开源，同步软件"
+        },
+        {
+          "name": "GoodSync",
+          "url": "https://www.goodsync.com/cn",
+          "desc": "",
+          "detail": "收费，同步软件"
+        },
+        {
+          "name": "SyncToy",
+          "url": "https://www.microsoft.com/en-us/download/details.aspx?id=15155",
+          "desc": "",
+          "detail": "微软出品，免费，2009年更新，不支持Win10"
+        }
+      ]
+    },
+    {
+      "name": "翻译",
+      "icon": "Palette",
+      "list": [
+        {
+          "name": "Real-time-translation-typing/实时打字翻译",
+          "url": "https://github.com/sxzxs/Real-time-translation-typing",
+          "desc": "",
+          "detail": "1k star, 实时打字翻译软件、语音实时打字、语音实时翻译、LOL 语音打字"
+        },
+        {
+          "name": "CrowTranslate",
+          "url": "https://github.com/crow-translate/crow-translate",
+          "desc": "",
+          "detail": "开源，翻译，可调用Google,YandexandBingtranslateAPI"
+        },
+        {
+          "name": "Pot",
+          "url": "https://pot-app.com/",
+          "desc": "",
+          "detail": "8.8k star, 跨平台划词翻译和OCR"
+        },
+        {
+          "name": "团子翻译器",
+          "url": "https://github.com/PantsuDango/Dango-Translator",
+          "desc": "",
+          "detail": "全局翻译"
+        },
+        {
+          "name": "CopyTranslator",
+          "url": "https://copytranslator.github.io/",
+          "desc": "",
+          "detail": "翻译工具"
+        },
+        {
+          "name": "STranslate",
+          "url": "https://stranslate.zggsong.com/",
+          "desc": "",
+          "detail": "1k star，即开即用、即用即走的翻译(OCR)工具"
+        },
+        {
+          "name": "Image/Manga Translator",
+          "url": "https://github.com/zyddnys/manga-image-translator",
+          "desc": "",
+          "detail": "4.3k star，一键翻译各类图片内文字"
+        },
+        {
+          "name": "TTime",
+          "url": "https://ttime.timerecord.cn/",
+          "desc": "",
+          "detail": "2.3k star, AI翻译、文字识别软件，输入、截图、划词、替换、文字识别翻译AI软件"
+        },
+        {
+          "name": "Translumo",
+          "url": "https://github.com/Danily07/Translumo",
+          "desc": "",
+          "detail": "高级实时游戏屏幕翻译器，视频中的硬编码字幕，静态文本等。"
+        }
+      ]
+    },
+    {
+      "name": "OCR",
+      "icon": "Palette",
+      "list": [
+        {
+          "name": "天若OCR",
+          "url": "http://tianruoocr.cn/",
+          "desc": "",
+          "detail": ""
+        },
+        {
+          "name": "妙手OCR",
+          "url": "https://www.52pojie.cn/thread-1164883-1-1.html",
+          "desc": "",
+          "detail": ""
+        },
+        {
+          "name": "PaddleOCR",
+          "url": "https://github.com/PaddlePaddle/PaddleOCR",
+          "desc": "",
+          "detail": ""
+        },
+        {
+          "name": "Umi-OCR",
+          "url": "https://github.com/hiroi-sora/Umi-OCR",
+          "desc": "",
+          "detail": "23K star，离线OCR软件。支持截屏/批量导入图片，PDF文档识别，排除水印/页眉页脚，扫描/生成二维码。内置多国语言库"
+        }
+      ]
+    }
+  ]
+}

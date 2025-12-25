@@ -1,0 +1,399 @@
+{
+  "name": "资源下载",
+  "icon": "Download",
+  "categories": [
+    {
+      "name": "win下载",
+      "icon": "",
+      "list": [
+        {
+          "name": "IDM",
+          "url": "https://www.internetdownloadmanager.com/",
+          "desc": "",
+          "detail": "地位不言而喻"
+        },
+        {
+          "name": "IDM-Activation-Script",
+          "url": "https://github.com/lstprjct/IDM-Activation-Script",
+          "desc": "",
+          "detail": "6k star,IDM激活和跟踪重置脚本，一行代码激活IDM"
+        },
+        {
+          "name": "XIU2/TrackersListCollection",
+          "url": "https://trackerslist.com/#/zh",
+          "desc": "",
+          "detail": "23.4k star, 每天更新！全网热门 BT Tracker 列表！"
+        },
+        {
+          "name": "aria2",
+          "url": "https://aria2.github.io/",
+          "desc": "",
+          "detail": "33.7k star,"
+        },
+        {
+          "name": "Gopeed",
+          "url": "https://gopeed.com/zh-CN",
+          "desc": "",
+          "detail": "开源、支持HTTP、BitTorrent、Magnet"
+        },
+        {
+          "name": "文件蜈蚣",
+          "url": "https://www.filecxx.com/zh_CN/",
+          "desc": "",
+          "detail": "全能，http、磁力，浏览器扩展，资源嗅探"
+        },
+        {
+          "name": "Motrix",
+          "url": "https://motrix.app/",
+          "desc": "",
+          "detail": "42.5k star,开源，支持下载HTTP、FTP、BT、磁力链接等资源"
+        },
+        {
+          "name": "imFile",
+          "url": "https://github.com/imfile-io/imfile-desktop",
+          "desc": "",
+          "detail": "1.2k star，基于Motrix"
+        },
+        {
+          "name": "Xdown",
+          "url": "https://xdown.org/",
+          "desc": "",
+          "detail": "免费idm / torrent 合成体"
+        },
+        {
+          "name": "Yolx",
+          "url": "https://yolx.yzzi.icu/",
+          "desc": "",
+          "detail": "以「Aria 2」作为核心，支持直链、磁力链接、迅雷链接、快车链接、QQ旋风链接、metalink和种子"
+        },
+        {
+          "name": "BitComet",
+          "url": "https://www.bitcomet.com/cn",
+          "desc": "",
+          "detail": "磁力、种子"
+        },
+        {
+          "name": "qBittorrent",
+          "url": "https://www.qbittorrent.org/",
+          "desc": "",
+          "detail": "开源，轻量级BitTorrent客户端"
+        },
+        {
+          "name": "qBittorrent-Enhanced-Edition",
+          "url": "https://github.com/c0re100/qBittorrent-Enhanced-Edition",
+          "desc": "",
+          "detail": "17.2K star,qBittorrent 增强版"
+        },
+        {
+          "name": "LIII BitTorrent",
+          "url": "https://codecpack.co/download/LIII-BitTorrent-Client.html",
+          "desc": "",
+          "detail": "开源文件共享实用程序，能够下载种子"
+        },
+        {
+          "name": "Qdown",
+          "url": "http://lightzhan.xyz/index.php/qdown/",
+          "desc": "",
+          "detail": "支持迅雷链接、磁力下载、BT、FTP、SFTP、HTTP、HTTPS下载协议，基于Aria2的Windows文件下载器"
+        },
+        {
+          "name": "FDM",
+          "url": "https://www.freedownloadmanager.org/zh/",
+          "desc": "",
+          "detail": "开源"
+        },
+        {
+          "name": "NDM",
+          "url": "http://www.neatdownloadmanager.com/index.php/en/",
+          "desc": "",
+          "detail": "支持浏览器扩展,嗅探（自动合成多个ts文件）"
+        },
+        {
+          "name": "XDM",
+          "url": "https://github.com/subhra74/xdm",
+          "desc": "",
+          "detail": "支持浏览器扩展"
+        },
+        {
+          "name": "AB Download Manager",
+          "url": "https://abdownloadmanager.com/",
+          "desc": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "name": "Android 下载",
+      "icon": "",
+      "list": [
+        {
+          "name": "1DM",
+          "url": "https://play.google.com/store/apps/details?id=idm.internet.download.manager",
+          "desc": "",
+          "detail": "多线程下载"
+        },
+        {
+          "name": "1DM Lite",
+          "url": "https://play.google.com/store/apps/details?id=idm.internet.download.manager.adm.lite",
+          "desc": "",
+          "detail": ""
+        },
+        {
+          "name": "Seal",
+          "url": "https://github.com/JunkFood02/Seal",
+          "desc": "",
+          "detail": "6.9k star,基于 yt-dlp,下载视频与音频，支持播放列表下载、内嵌字幕于视频文件中、使用 aria2c 进行下载等"
+        },
+        {
+          "name": "Lj视频下载器",
+          "url": "https://play.google.com/store/apps/details?id=com.leavjenn.m3u8downloader",
+          "desc": "",
+          "detail": "从网页中提取视频，下载m3u8，多线程下载"
+        },
+        {
+          "name": "视频下载器",
+          "url": "https://play.google.com/store/apps/details?id=video.downloader.videodownloader",
+          "desc": "",
+          "detail": ""
+        },
+        {
+          "name": "浩克下载",
+          "url": "http://sausage.1foo.com/home/",
+          "desc": "",
+          "detail": ""
+        },
+        {
+          "name": "薄荷下载",
+          "url": "https://bgg.lanzout.com/b02fgz2fg",
+          "desc": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "name": "其它下载",
+      "icon": "ThumbsUp",
+      "tabs": [
+        {
+          "tabName": "微信公众号下载",
+          "list": [
+            {
+              "name": "wechatDownload/微信公众号文章批量下载工具",
+              "url": "https://github.com/qiye45/wechatDownload",
+              "desc": "",
+              "detail": "1.7k star, 微信公众号文章批量下载工具，支持图片、评论下载，支持保存html/md/pdf/docx文件"
+            },
+            {
+              "name": "wechatDownload",
+              "url": "https://github.com/xiaoguyu/wechatDownload",
+              "desc": "",
+              "detail": "单篇、批量，2024年5月19日归档"
+            },
+            {
+              "name": "wechatVideoDownload/微信视频号下载工具",
+              "url": "https://github.com/qiye45/wechatVideoDownload",
+              "desc": "",
+              "detail": "微信视频号下载工具，支持视频、直播回放下载"
+            },
+            {
+              "name": "WeChat_Article",
+              "url": "https://github.com/1061700625/WeChat_Article",
+              "desc": "",
+              "detail": "2023年6月停更"
+            },
+            {
+              "name": "wechat-spider/微信爬虫",
+              "url": "https://github.com/striver-ing/wechat-spider",
+              "desc": "",
+              "detail": "2.2k star，爬取公众号所有 文章、阅读量、点赞量和评论内容，2022停更"
+            }
+          ]
+        },
+        {
+          "tabName": "网盘",
+          "list": [
+            {
+              "name": "PikPak",
+              "url": "https://mypikpak.com/zh-CN",
+              "desc": "",
+              "detail": "新加坡网盘，非会员6G空间，可离线、磁力，下载不限速，可刷会员"
+            },
+            {
+              "name": "MultCloud",
+              "url": "https://www.multcloud.com/cn/",
+              "desc": "",
+              "detail": "跨网盘文件传输，支持Google Drive、OneDrive、Dropbox、百度云盘、iCloud等好多网盘（详见官网），还有NAS"
+            },
+            {
+              "name": "夸克网盘批量转存工具",
+              "url": "https://www.52pojie.cn/thread-1897944-1-1.html",
+              "desc": "",
+              "detail": "夸克网盘批量转存"
+            },
+            {
+              "name": "filestash",
+              "url": "https://github.com/mickael-kerjean/filestash",
+              "desc": "",
+              "detail": "9.5k star,跨网盘文件管理，支持FTP • FTPS • SFTP • WebDAV • Git • Dropbox • Google Drive"
+            },
+            {
+              "name": "AList",
+              "url": "https://alist.nn.ci/zh/",
+              "desc": "",
+              "detail": "38k star,  一个支持多存储的文件列表/WebDAV程序"
+            },
+            {
+              "name": "就是加速",
+              "url": "https://api.94speed.com/",
+              "desc": "",
+              "detail": "度盘加速"
+            },
+            {
+              "name": "小白羊网盘",
+              "url": "https://github.com/gaozhangmin/aliyunpan",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "蜗牛云盘",
+              "url": "https://snail8.cn/html/index.html",
+              "desc": "",
+              "detail": "阿里云盘第三方"
+            },
+            {
+              "name": "Raptor",
+              "url": "https://github.com/InfpHub/Raptor",
+              "desc": "",
+              "detail": "第三方阿里云盘桌面应用客户端"
+            },
+            {
+              "name": "小白云盘",
+              "url": "https://crazynoby.github.io/",
+              "desc": "",
+              "detail": "阿里云盘Android、PC端"
+            },
+            {
+              "name": "小白云盘",
+              "url": "http://159.75.208.47/#",
+              "desc": "",
+              "detail": "阿里云盘第三方"
+            }
+          ]
+        },
+        {
+          "tabName": "视频下载",
+          "list": [
+            {
+              "name": "Mediago",
+              "url": "https://downloader.caorushizi.cn/",
+              "desc": "",
+              "detail": "1k  star, m3u8[m3u8-downloader] 视频在线提取工具 流媒体下载 m3u8下载"
+            },
+            {
+              "name": "N_m3u8DL-RE",
+              "url": "https://github.com/nilaoda/N_m3u8DL-RE",
+              "desc": "",
+              "detail": "跨平台的DASH/HLS/MSS下载工具。支持点播、直播(DASH/HLS)。N_m3u8DL-CLI的迭代，"
+            },
+            {
+              "name": "M3u8Downloader_H",
+              "url": "https://github.com/Harlan-H/M3u8Downloader_H",
+              "desc": "",
+              "detail": "m3u8下载器,功能强大,多线程,多任务,支持aes-128-cbc解密,自定义请求头,自定义插件"
+            },
+            {
+              "name": "Fluent-M3U8",
+              "url": "https://github.com/zhiyiYo/Fluent-M3U8",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "You-Get",
+              "url": "https://github.com/soimort/you-get",
+              "desc": "",
+              "detail": "55k star"
+            },
+            {
+              "name": "Arrow Downloader",
+              "url": "https://www.arrow-dl.com/",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "Cobalt",
+              "url": "https://cobalt.tools/",
+              "desc": "",
+              "detail": "4.3k star, YouTube、B站等视频网站解析"
+            },
+            {
+              "name": "Hitomi-Downloader",
+              "url": "https://github.com/KurtBestor/Hitomi-Downloader",
+              "desc": "",
+              "detail": "19.2k star,网页下载"
+            },
+            {
+              "name": "侠客短视频解析去水印",
+              "url": "https://www.52pojie.cn/thread-1933305-1-2.html",
+              "desc": "",
+              "detail": "侠客短视频解析去水印工具-支持国内外众多短视频平台"
+            },
+            {
+              "name": "大圣直播录制工具（DSLiveRec）",
+              "url": "https://www.52pojie.cn/thread-1907429-1-1.html",
+              "desc": "",
+              "detail": "支持抖音和快手的直播录制"
+            },
+            {
+              "name": "WebTorrent",
+              "url": "https://webtorrent.io/",
+              "desc": "",
+              "detail": "28.8k star,适用于 Web 的流式传输 torrent 客户端,边下边播"
+            },
+            {
+              "name": "tdl",
+              "url": "https://docs.iyear.me/tdl/zh/",
+              "desc": "",
+              "detail": "3.1k star,Telegram Downloader"
+            },
+            {
+              "name": "YoutubeDownloader",
+              "url": "https://github.com/Tyrrrz/YoutubeDownloader",
+              "desc": "",
+              "detail": "10.4 star, 下载 YouTube 视频和播放列表"
+            }
+          ]
+        },
+        {
+          "tabName": "B站下载",
+          "list": [
+            {
+              "name": "BBDown（Bilibili Downloader）",
+              "url": "https://github.com/nilaoda/BBDown",
+              "desc": "",
+              "detail": "10.7k star，命令行式哔哩哔哩下载器"
+            },
+            {
+              "name": "哔哩下载姬downkyi",
+              "url": "https://github.com/leiurayer/downkyi",
+              "desc": "",
+              "detail": "22.2k star， up主合集和列表, 个人收藏夹以及批量下载"
+            },
+            {
+              "name": "Bilidown",
+              "url": "https://zhouql.vip/bilidown/pc/",
+              "desc": "",
+              "detail": "2025年1月因被侵权售卖而停止开发。网页，单文件，安装版，批量下载up播放列表"
+            },
+            {
+              "name": "唧唧Down",
+              "url": "http://client.jijidown.com/",
+              "desc": "",
+              "detail": "都能解析，但不太好使"
+            }
+          ]
+        },
+        ""
+      ]
+    }
+  ]
+}
