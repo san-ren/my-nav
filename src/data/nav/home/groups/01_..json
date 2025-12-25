@@ -1,4 +1,5 @@
 {
+  "page": "home",
   "name": ".",
   "icon": "Star",
   "categories": [
@@ -6,6 +7,21 @@
       "name": "一览",
       "icon": "Star",
       "list": [
+        {
+          "name": "NewsNow",
+          "url": "https://github.com/ourongxing/newsnow",
+          "desc": "实时新闻聚合阅读器",
+          "detail": "",
+          "icon": "",
+          "widget_url": "",
+          "official_site": "https://newsnow.busiyi.world/",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ],
+          "guide_id": ""
+        },
         {
           "name": "小田田",
           "url": "https://xydh.fun/xiaotiantian",
@@ -64,6 +80,5 @@
         }
       ]
     }
-  ],
-  "page": "home"
+  ]
 }
