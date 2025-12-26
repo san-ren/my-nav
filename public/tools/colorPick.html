@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>取色器</title>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --bg-body: #f3f4f6;
+            --bg-card: #ffffff;
+            --text-main: #1f2937;
+            --text-sub: #6b7280;
+            --border: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 12px;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* 卡片通用样式 */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            transition: transform 0.2s;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* 顶部预览区 */
+        .preview-section {
+            position: relative;
+        }
+
+        .color-display {
+            height: 120px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            font-family: monospace;
+            cursor: pointer;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
+            position: relative;
+            transition: background-color 0.2s;
+        }
+
+        .color-display:hover::after {
+            content: "点击更换颜色";
+            position: absolute;
+            bottom: 10px;
+            font-size: 0.8rem;
+            font-weight: normal;
+            opacity: 0.8;
+        }
+
+        /* 隐藏的原生取色器 */
+        #nativePicker {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* 控件区域 */
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: monospace;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary);
+        }
+
+        .btn {
+            padding: 0 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-icon {
+            background: #fff;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            font-size: 1.2rem;
+            padding: 0 15px;
+        }
+        
+        .btn-icon:hover { background: #f9fafb; }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+
+        /* 表格样式 */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .info-table tr {
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .info-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .info-table td {
+            padding: 16px 8px;
+        }
+
+        .label-col {
+            color: var(--text-sub);
+            font-weight: 500;
+            width: 100px;
+        }
+
+        .value-col {
+            font-family: monospace;
+            font-size: 1.05rem;
+            color: var(--text-main);
+        }
+
+        .copy-col {
+            text-align: right;
+            width: 60px;
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-sub);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background: var(--bg-body);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* 收藏夹 */
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .color-item {
+            position: relative;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .color-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        .item-preview {
+            height: 70px;
+            width: 100%;
+        }
+
+        .item-info {
+            padding: 8px;
+            text-align: center;
+        }
+
+        .item-hex {
+            font-family: monospace;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .item-name {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            display: block;
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            font-size: 14px;
+            line-height: 18px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .color-item:hover .delete-btn { opacity: 1; }
+
+        /* Toast 提示 */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1f2937;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 50px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 100;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="toast" id="toast">已复制</div>
+
+    <div class="container">
+        
+        <!-- 头部与核心取色区 -->
+        <div class="card preview-section">
+            <div class="color-display" id="colorDisplay">
+                <span id="displayHex">#263238</span>
+                <input type="color" id="nativePicker" value="#263238">
+            </div>
+            
+            <div class="controls">
+                <input type="text" id="hexInput" value="#263238" maxlength="7" placeholder="#HEX值">
+                <button class="btn btn-icon" id="eyeDropperBtn" title="屏幕吸管">✒️</button>
+                <button class="btn btn-primary" id="saveBtn">
+                    <span>❤️ 收藏</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 详细信息表格 -->
+        <div class="card">
+            <table class="info-table">
+                <tr>
+                    <td class="label-col">名称</td>
+                    <td class="value-col" id="val-cn-name">暗岩灰</td>
+                    <td class="copy-col"><button class="copy-btn" onclick="copyText('val-cn-name')">复制</button></td>
+                </tr>
+                <tr>
+                    <td class="label-col">Name</td>
+                    <td class="value-col" id="val-en-name">DarkSlateGray</td>
+                    <td class="copy-col"><button class="copy-btn" onclick="copyText('val-en-name')">复制</button></td>
+                </tr>
+                <tr>
+                    <td class="label-col">HEX</td>
+                    <td class="value-col" id="val-hex">#263238</td>
+                    <td class="copy-col"><button class="copy-btn" onclick="copyText('val-hex')">复制</button></td>
+                </tr>
+                <tr>
+                    <td class="label-col">RGB</td>
+                    <td class="value-col" id="val-rgb">38, 50, 56</td>
+                    <td class="copy-col"><button class="copy-btn" onclick="copyText('val-rgb')">复制</button></td>
+                </tr>
+                <tr>
+                    <td class="label-col">HSL</td>
+                    <td class="value-col" id="val-hsl">200°, 19%, 18%</td>
+                    <td class="copy-col"><button class="copy-btn" onclick="copyText('val-hsl')">复制</button></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 收藏夹 -->
+        <div class="card">
+            <h3 style="margin:0 0 10px 0; font-size:1rem; color:var(--text-sub);">我的收藏</h3>
+            <div class="collection-grid" id="collectionGrid">
+                <!-- 动态内容 -->
+            </div>
+        </div>
+
+    </div>
+
+<script>
+    // --- 颜色数据库 (包含140种标准CSS颜色) ---
+    const COLOR_NAMES = [
+        { hex: "#F0F8FF", en: "AliceBlue", cn: "爱丽丝蓝" },
+        { hex: "#FAEBD7", en: "AntiqueWhite", cn: "古董白" },
+        { hex: "#00FFFF", en: "Aqua", cn: "水色" },
+        { hex: "#7FFFD4", en: "Aquamarine", cn: "碧绿" },
+        { hex: "#F0FFFF", en: "Azure", cn: "天蓝" },
+        { hex: "#F5F5DC", en: "Beige", cn: "米色" },
+        { hex: "#FFE4C4", en: "Bisque", cn: "橘黄" },
+        { hex: "#000000", en: "Black", cn: "黑色" },
+        { hex: "#FFEBCD", en: "BlanchedAlmond", cn: "杏仁白" },
+        { hex: "#0000FF", en: "Blue", cn: "蓝色" },
+        { hex: "#8A2BE2", en: "BlueViolet", cn: "蓝紫" },
+        { hex: "#A52A2A", en: "Brown", cn: "棕色" },
+        { hex: "#DEB887", en: "BurlyWood", cn: "实木色" },
+        { hex: "#5F9EA0", en: "CadetBlue", cn: "军校蓝" },
+        { hex: "#7FFF00", en: "Chartreuse", cn: "查特酒绿" },
+        { hex: "#D2691E", en: "Chocolate", cn: "巧可力色" },
+        { hex: "#FF7F50", en: "Coral", cn: "珊瑚红" },
+        { hex: "#6495ED", en: "CornflowerBlue", cn: "矢车菊蓝" },
+        { hex: "#FFF8DC", en: "Cornsilk", cn: "玉米丝色" },
+        { hex: "#DC143C", en: "Crimson", cn: "深红" },
+        { hex: "#00FFFF", en: "Cyan", cn: "青色" },
+        { hex: "#00008B", en: "DarkBlue", cn: "深蓝" },
+        { hex: "#008B8B", en: "DarkCyan", cn: "深青" },
+        { hex: "#B8860B", en: "DarkGoldenRod", cn: "深金菊" },
+        { hex: "#A9A9A9", en: "DarkGray", cn: "深灰" },
+        { hex: "#006400", en: "DarkGreen", cn: "深绿" },
+        { hex: "#BDB76B", en: "DarkKhaki", cn: "深卡其" },
+        { hex: "#8B008B", en: "DarkMagenta", cn: "深洋红" },
+        { hex: "#556B2F", en: "DarkOliveGreen", cn: "深橄榄绿" },
+        { hex: "#FF8C00", en: "DarkOrange", cn: "深橙" },
+        { hex: "#9932CC", en: "DarkOrchid", cn: "深兰花紫" },
+        { hex: "#8B0000", en: "DarkRed", cn: "深红" },
+        { hex: "#E9967A", en: "DarkSalmon", cn: "深鲑红" },
+        { hex: "#8FBC8F", en: "DarkSeaGreen", cn: "深海绿" },
+        { hex: "#483D8B", en: "DarkSlateBlue", cn: "深岩蓝" },
+        { hex: "#2F4F4F", en: "DarkSlateGray", cn: "深岩灰" },
+        { hex: "#00CED1", en: "DarkTurquoise", cn: "深绿松石" },
+        { hex: "#9400D3", en: "DarkViolet", cn: "深紫" },
+        { hex: "#FF1493", en: "DeepPink", cn: "深粉" },
+        { hex: "#00BFFF", en: "DeepSkyBlue", cn: "深天蓝" },
+        { hex: "#696969", en: "DimGray", cn: "暗灰" },
+        { hex: "#1E90FF", en: "DodgerBlue", cn: "道奇蓝" },
+        { hex: "#B22222", en: "FireBrick", cn: "耐火砖红" },
+        { hex: "#FFFAF0", en: "FloralWhite", cn: "花卉白" },
+        { hex: "#228B22", en: "ForestGreen", cn: "森林绿" },
+        { hex: "#FF00FF", en: "Fuchsia", cn: "紫红" },
+        { hex: "#DCDCDC", en: "Gainsboro", cn: "庚斯博罗灰" },
+        { hex: "#F8F8FF", en: "GhostWhite", cn: "幽灵白" },
+        { hex: "#FFD700", en: "Gold", cn: "金色" },
+        { hex: "#DAA520", en: "GoldenRod", cn: "金菊" },
+        { hex: "#808080", en: "Gray", cn: "灰色" },
+        { hex: "#008000", en: "Green", cn: "绿色" },
+        { hex: "#ADFF2F", en: "GreenYellow", cn: "黄绿" },
+        { hex: "#F0FFF0", en: "HoneyDew", cn: "蜜瓜色" },
+        { hex: "#FF69B4", en: "HotPink", cn: "亮粉" },
+        { hex: "#CD5C5C", en: "IndianRed", cn: "印度红" },
+        { hex: "#4B0082", en: "Indigo", cn: "靛青" },
+        { hex: "#FFFFF0", en: "Ivory", cn: "象牙白" },
+        { hex: "#F0E68C", en: "Khaki", cn: "卡其" },
+        { hex: "#E6E6FA", en: "Lavender", cn: "薰衣草紫" },
+        { hex: "#FFF0F5", en: "LavenderBlush", cn: "淡紫红" },
+        { hex: "#7CFC00", en: "LawnGreen", cn: "草坪绿" },
+        { hex: "#FFFACD", en: "LemonChiffon", cn: "柠檬绸" },
+        { hex: "#ADD8E6", en: "LightBlue", cn: "淡蓝" },
+        { hex: "#F08080", en: "LightCoral", cn: "淡珊瑚色" },
+        { hex: "#E0FFFF", en: "LightCyan", cn: "淡青" },
+        { hex: "#FAFAD2", en: "LightGoldenRodYellow", cn: "淡金菊黄" },
+        { hex: "#D3D3D3", en: "LightGray", cn: "浅灰" },
+        { hex: "#90EE90", en: "LightGreen", cn: "淡绿" },
+        { hex: "#FFB6C1", en: "LightPink", cn: "浅粉" },
+        { hex: "#FFA07A", en: "LightSalmon", cn: "浅鲑红" },
+        { hex: "#20B2AA", en: "LightSeaGreen", cn: "浅海绿" },
+        { hex: "#87CEFA", en: "LightSkyBlue", cn: "浅天蓝" },
+        { hex: "#778899", en: "LightSlateGray", cn: "浅岩灰" },
+        { hex: "#B0C4DE", en: "LightSteelBlue", cn: "浅钢蓝" },
+        { hex: "#FFFFE0", en: "LightYellow", cn: "浅黄" },
+        { hex: "#00FF00", en: "Lime", cn: "酸橙绿" },
+        { hex: "#32CD32", en: "LimeGreen", cn: "酸橙绿" },
+        { hex: "#FAF0E6", en: "Linen", cn: "亚麻色" },
+        { hex: "#FF00FF", en: "Magenta", cn: "洋红" },
+        { hex: "#800000", en: "Maroon", cn: "栗色" },
+        { hex: "#66CDAA", en: "MediumAquaMarine", cn: "间碧绿" },
+        { hex: "#0000CD", en: "MediumBlue", cn: "间蓝" },
+        { hex: "#BA55D3", en: "MediumOrchid", cn: "间兰花紫" },
+        { hex: "#9370DB", en: "MediumPurple", cn: "间紫" },
+        { hex: "#3CB371", en: "MediumSeaGreen", cn: "间海绿" },
+        { hex: "#7B68EE", en: "MediumSlateBlue", cn: "间岩蓝" },
+        { hex: "#00FA9A", en: "MediumSpringGreen", cn: "间春绿" },
+        { hex: "#48D1CC", en: "MediumTurquoise", cn: "间绿松石" },
+        { hex: "#C71585", en: "MediumVioletRed", cn: "间紫红" },
+        { hex: "#191970", en: "MidnightBlue", cn: "午夜蓝" },
+        { hex: "#F5FFFA", en: "MintCream", cn: "薄荷色" },
+        { hex: "#FFE4E1", en: "MistyRose", cn: "雾玫瑰色" },
+        { hex: "#FFE4B5", en: "Moccasin", cn: "鹿皮色" },
+        { hex: "#FFDEAD", en: "NavajoWhite", cn: "纳瓦霍白" },
+        { hex: "#000080", en: "Navy", cn: "藏青" },
+        { hex: "#FDF5E6", en: "OldLace", cn: "旧蕾丝色" },
+        { hex: "#808000", en: "Olive", cn: "橄榄色" },
+        { hex: "#6B8E23", en: "OliveDrab", cn: "草绿色" },
+        { hex: "#FFA500", en: "Orange", cn: "橙色" },
+        { hex: "#FF4500", en: "OrangeRed", cn: "橙红" },
+        { hex: "#DA70D6", en: "Orchid", cn: "兰花紫" },
+        { hex: "#EEE8AA", en: "PaleGoldenRod", cn: "苍麒麟色" },
+        { hex: "#98FB98", en: "PaleGreen", cn: "苍绿" },
+        { hex: "#AFEEEE", en: "PaleTurquoise", cn: "苍绿松石" },
+        { hex: "#DB7093", en: "PaleVioletRed", cn: "苍紫红" },
+        { hex: "#FFEFD5", en: "PapayaWhip", cn: "番木瓜色" },
+        { hex: "#FFDAB9", en: "PeachPuff", cn: "桃色" },
+        { hex: "#CD853F", en: "Peru", cn: "秘鲁色" },
+        { hex: "#FFC0CB", en: "Pink", cn: "粉红" },
+        { hex: "#DDA0DD", en: "Plum", cn: "李子色" },
+        { hex: "#B0E0E6", en: "PowderBlue", cn: "粉末蓝" },
+        { hex: "#800080", en: "Purple", cn: "紫色" },
+        { hex: "#663399", en: "RebeccaPurple", cn: "丽贝卡紫" },
+        { hex: "#FF0000", en: "Red", cn: "红色" },
+        { hex: "#BC8F8F", en: "RosyBrown", cn: "玫瑰褐" },
+        { hex: "#4169E1", en: "RoyalBlue", cn: "皇家蓝" },
+        { hex: "#8B4513", en: "SaddleBrown", cn: "鞍褐" },
+        { hex: "#FA8072", en: "Salmon", cn: "鲑红" },
+        { hex: "#F4A460", en: "SandyBrown", cn: "沙褐" },
+        { hex: "#2E8B57", en: "SeaGreen", cn: "海绿" },
+        { hex: "#FFF5EE", en: "SeaShell", cn: "贝壳白" },
+        { hex: "#A0522D", en: "Sienna", cn: "赭色" },
+        { hex: "#C0C0C0", en: "Silver", cn: "银色" },
+        { hex: "#87CEEB", en: "SkyBlue", cn: "天蓝" },
+        { hex: "#6A5ACD", en: "SlateBlue", cn: "板岩蓝" },
+        { hex: "#708090", en: "SlateGray", cn: "板岩灰" },
+        { hex: "#FFFAFA", en: "Snow", cn: "雪白" },
+        { hex: "#00FF7F", en: "SpringGreen", cn: "春绿" },
+        { hex: "#4682B4", en: "SteelBlue", cn: "钢蓝" },
+        { hex: "#D2B48C", en: "Tan", cn: "茶色" },
+        { hex: "#008080", en: "Teal", cn: "水鸭色" },
+        { hex: "#D8BFD8", en: "Thistle", cn: "蓟色" },
+        { hex: "#FF6347", en: "Tomato", cn: "番茄红" },
+        { hex: "#40E0D0", en: "Turquoise", cn: "绿松石" },
+        { hex: "#EE82EE", en: "Violet", cn: "紫罗兰" },
+        { hex: "#F5DEB3", en: "Wheat", cn: "小麦色" },
+        { hex: "#FFFFFF", en: "White", cn: "白色" },
+        { hex: "#F5F5F5", en: "WhiteSmoke", cn: "烟白" },
+        { hex: "#FFFF00", en: "Yellow", cn: "黄色" },
+        { hex: "#9ACD32", en: "YellowGreen", cn: "黄绿" }
+    ];
+
+    // --- DOM Elements ---
+    const colorDisplay = document.getElementById('colorDisplay');
+    const displayHex = document.getElementById('displayHex');
+    const nativePicker = document.getElementById('nativePicker');
+    const hexInput = document.getElementById('hexInput');
+    const eyeDropperBtn = document.getElementById('eyeDropperBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const collectionGrid = document.getElementById('collectionGrid');
+
+    let currentState = {
+        hex: "#263238",
+        rgb: {r:38, g:50, b:56},
+        name: {cn:"深岩灰", en:"DarkSlateGray"}
+    };
+
+    // --- 初始化 ---
+    updateAll("#263238");
+    renderCollection();
+
+    // --- 事件监听 ---
+    nativePicker.addEventListener('input', e => updateAll(e.target.value));
+    
+    hexInput.addEventListener('input', e => {
+        let val = e.target.value;
+        if(val.length === 7 && val.startsWith('#')) updateAll(val, false);
+    });
+
+    eyeDropperBtn.addEventListener('click', () => {
+        if (!window.EyeDropper) {
+            showToast('您的浏览器不支持吸管功能');
+            return;
+        }
+        new EyeDropper().open().then(res => updateAll(res.sRGBHex)).catch(e => {});
+    });
+
+    saveBtn.addEventListener('click', () => {
+        saveToCollection(currentState);
+    });
+
+    // --- 核心逻辑 ---
+
+    function updateAll(hex, updateInput = true) {
+        // 1. 验证 hex
+        if (!/^#[0-9A-F]{6}$/i.test(hex)) return;
+
+        // 2. 计算数值
+        const rgb = hexToRgb(hex);
+        const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+        const nearest = findNearestColor(rgb);
+
+        currentState = { hex, rgb, name: nearest };
+
+        // 3. 更新 UI
+        colorDisplay.style.backgroundColor = hex;
+        // 自动调整文字颜色 (黑底白字，白底黑字)
+        const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
+        colorDisplay.style.color = luminance > 0.5 ? '#000' : '#fff';
+        
+        displayHex.innerText = hex.toUpperCase();
+        nativePicker.value = hex;
+        if(updateInput) hexInput.value = hex;
+
+        // 4. 更新表格
+        document.getElementById('val-hex').innerText = hex;
+        document.getElementById('val-rgb').innerText = `${rgb.r}, ${rgb.g}, ${rgb.b}`;
+        document.getElementById('val-hsl').innerText = `${hsl.h}°, ${hsl.s}%, ${hsl.l}%`;
+        
+        // 5. 更新名称 (如果有精确匹配则显示，否则显示“接近”)
+        const isExact = nearest.distance === 0;
+        const prefix = isExact ? "" : "≈ ";
+        document.getElementById('val-cn-name').innerText = prefix + nearest.cn;
+        document.getElementById('val-en-name').innerText = prefix + nearest.en;
+    }
+
+    // --- 算法函数 ---
+
+    function findNearestColor(currentRgb) {
+        let minDistance = Infinity;
+        let nearest = COLOR_NAMES[0];
+
+        COLOR_NAMES.forEach(c => {
+            const targetRgb = hexToRgb(c.hex);
+            // 简单的欧几里得距离计算
+            const dist = Math.sqrt(
+                Math.pow(currentRgb.r - targetRgb.r, 2) +
+                Math.pow(currentRgb.g - targetRgb.g, 2) +
+                Math.pow(currentRgb.b - targetRgb.b, 2)
+            );
+
+            if (dist < minDistance) {
+                minDistance = dist;
+                nearest = c;
+            }
+        });
+
+        return { ...nearest, distance: minDistance };
+    }
+
+    function hexToRgb(hex) {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : {r:0,g:0,b:0};
+    }
+
+    function rgbToHsl(r, g, b) {
+        r /= 255, g /= 255, b /= 255;
+        const max = Math.max(r, g, b), min = Math.min(r, g, b);
+        let h, s, l = (max + min) / 2;
+        if (max == min) { h = s = 0; } else {
+            const d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+            switch (max) {
+                case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                case g: h = (b - r) / d + 2; break;
+                case b: h = (r - g) / d + 4; break;
+            }
+            h /= 6;
+        }
+        return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+    }
+
+    // --- 收藏功能 ---
+
+    function getCollection() {
+        return JSON.parse(localStorage.getItem('advColorCollection') || '[]');
+    }
+
+    function saveToCollection(state) {
+        let list = getCollection();
+        if(!list.some(i => i.hex === state.hex)) {
+            list.push({ hex: state.hex, name: state.name.cn });
+            localStorage.setItem('advColorCollection', JSON.stringify(list));
+            renderCollection();
+            showToast("已加入收藏夹");
+        } else {
+            showToast("已经在收藏夹里了");
+        }
+    }
+
+    function removeCollection(hex) {
+        let list = getCollection().filter(i => i.hex !== hex);
+        localStorage.setItem('advColorCollection', JSON.stringify(list));
+        renderCollection();
+    }
+
+    function renderCollection() {
+        const list = getCollection();
+        collectionGrid.innerHTML = '';
+        list.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'color-item';
+            div.innerHTML = `
+                <div class="item-preview" style="background:${item.hex}"></div>
+                <button class="delete-btn" onclick="event.stopPropagation(); removeCollection('${item.hex}')">×</button>
+                <div class="item-info">
+                    <span class="item-hex">${item.hex}</span>
+                    <span class="item-name">${item.name}</span>
+                </div>
+            `;
+            div.onclick = () => updateAll(item.hex);
+            collectionGrid.appendChild(div);
+        });
+    }
+
+    // --- 工具 ---
+    function copyText(id) {
+        const txt = document.getElementById(id).innerText.replace('≈ ', ''); // 复制时不带近似符号
+        navigator.clipboard.writeText(txt).then(() => showToast(`复制成功: ${txt}`));
+    }
+
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.innerText = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+</script>
+</body>
+</html>

@@ -111,8 +111,8 @@
               "widget_url": "",
               "official_site": "",
               "badge_list": [
-                "version",
                 "stars",
+                "version",
                 "last_commit"
               ],
               "guide_id": ""

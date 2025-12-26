@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DevShields - 开发者徽章生成器</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            /* 浅色主题 */
+            --primary-gradient: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            --bg-color: #f4f6f8;
+            --surface-color: #ffffff;
+            --border-color: #dfe3e8;
+            --text-main: #212b36;
+            --text-sub: #637381;
+            --hover-bg: #f9fafb;
+            --option-bg: #ffffff;
+            --skeleton-base: #e0e0e0;
+            --skeleton-highlight: #f5f5f5;
+            --radius-lg: 16px; --radius-md: 10px; --radius-sm: 6px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --active-bg: rgba(76, 175, 80, 0.1);
+            --active-text: #2e7d32;
+        }
+
+        /* 深色模式 */
+        body.dark-mode {
+            --primary-gradient: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
+            --bg-color: #121212; --surface-color: #1e1e1e; --border-color: #333333;
+            --text-main: #e0e0e0; --text-sub: #a0a0a0; --hover-bg: #2c2c2c;
+            --option-bg: #252525; --skeleton-base: #333; --skeleton-highlight: #444;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --active-bg: rgba(102, 187, 106, 0.15);
+            --active-text: #66bb6a;
+        }
+
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 30px 10px; background: var(--bg-color); color: var(--text-main); transition: background 0.3s, color 0.3s; }
+        .container { max-width: 1100px; margin: 0 auto; background: var(--surface-color); padding: 30px; border-radius: var(--radius-lg); box-shadow: var(--shadow); min-height: 800px; transition: background 0.3s, box-shadow 0.3s; }
+        
+        .header { margin-bottom: 25px; border-bottom: 2px solid #4CAF50; padding-bottom: 15px; display: flex; justify-content: space-between; align-items: center;}
+        h1 { margin: 0; font-size: 24px; font-weight: 700; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header-actions { display: flex; gap: 10px; align-items: center; }
+        .icon-btn { background: var(--hover-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 12px; border-radius: 20px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 6px; transition: var(--transition); }
+        .icon-btn:hover { background: var(--border-color); }
+
+        .tabs-header { display: flex; gap: 6px; margin-bottom: 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .tab-btn { padding: 12px 24px; background: transparent; border: 1px solid transparent; border-bottom: none; border-radius: var(--radius-lg) var(--radius-lg) 0 0; cursor: pointer; font-weight: 600; color: var(--text-sub); margin-bottom: -1px; transition: var(--transition); font-size: 14px; }
+        .tab-btn.active { background: var(--surface-color); color: #4CAF50; border-color: var(--border-color); border-bottom-color: var(--surface-color); }
+        .tab-btn:hover:not(.active) { color: var(--text-main); background: var(--hover-bg); }
+
+        .dropdown-wrapper { position: relative; }
+        .dropdown-menu { display: none; position: absolute; top: 100%; right: 0; background: var(--surface-color); border: 1px solid var(--border-color); box-shadow: var(--shadow); z-index: 100; min-width: 150px; border-radius: 0 0 var(--radius-md) var(--radius-md); overflow: hidden;}
+        .dropdown-wrapper:hover .dropdown-menu { display: block; }
+        .dropdown-item { padding: 10px 15px; cursor: pointer; font-size: 14px; color: var(--text-sub); display: block; }
+        .dropdown-item:hover { background: var(--hover-bg); color: #4CAF50; }
+
+        .tab-content { display: none; padding-top: 25px; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        h3 { margin: 0 0 15px 0; font-size: 16px; color: var(--text-main); border-left: 4px solid #4CAF50; padding-left: 10px; display: flex; align-items: center;}
+        .drag-hint { font-size: 12px; color: var(--text-sub); margin-left: 10px; font-weight: normal; }
+
+        /* --- 徽章容器与自动编号样式 --- */
+        .badge-container { 
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+            padding: 15px; 
+            background: var(--hover-bg); 
+            border: 1px solid var(--border-color); 
+            border-radius: var(--radius-md); 
+            margin-bottom: 25px; 
+            counter-reset: badge-order; 
+        }
+        .badge-option { 
+            position: relative;
+            display: flex; 
+            align-items: center; 
+            padding: 10px 12px 10px 15px; 
+            background: var(--option-bg); 
+            border: 1px solid var(--border-color); 
+            border-radius: var(--radius-sm); 
+            cursor: grab; 
+            user-select: none; 
+            transition: var(--transition); 
+            font-size: 13px; 
+            color: var(--text-main); 
+            counter-increment: badge-order; 
+        }
+        /* 序号显示 */
+        .badge-option::before {
+            content: counter(badge-order);
+            position: absolute;
+            top: -6px; left: -6px;
+            width: 18px; height: 18px;
+            background-color: #6c757d;
+            color: white;
+            border-radius: 50%;
+            font-size: 10px; font-weight: bold;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .badge-option:hover { border-color: #4CAF50; transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0,0,0,0.05); z-index: 2; }
+        .badge-option.dragging { opacity: 0.5; border-style: dashed; background: var(--hover-bg); }
+        .drag-handle { color: var(--text-sub); margin-right: 8px; font-weight: bold; cursor: grab; font-size: 14px; }
+        .badge-option label { cursor: pointer; display: flex; align-items: center; gap: 8px; width: 100%; }
+        .badge-tooltip { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); margin-bottom: 8px; background: var(--surface-color); border: 1px solid var(--border-color); padding: 8px; border-radius: var(--radius-sm); box-shadow: var(--shadow); z-index: 100; display: none; white-space: nowrap; pointer-events: none; }
+        .badge-tooltip img { display: block; max-height: 20px; }
+        .badge-option:hover .badge-tooltip { display: block; animation: fadeIn 0.2s; }
+
+        /* --- 优化后的设置栏样式 --- */
+        .settings-bar { 
+            background: var(--hover-bg); 
+            border: 1px solid var(--border-color); 
+            border-radius: var(--radius-md); 
+            padding: 15px 20px; 
+            margin-bottom: 20px; 
+        }
+
+        .settings-row { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 30px; 
+            align-items: center; 
+            margin-bottom: 15px; 
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color); 
+        }
+        .settings-row:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+        .format-group { display: flex; align-items: center; gap: 15px; }
+
+        .format-option {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            position: relative;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        .format-option:hover { background: rgba(0,0,0,0.03); }
+        
+        /* "生成表头" 子选项样式 - 默认隐藏，选中表格时滑出 */
+        .sub-option {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--active-bg);
+            padding: 2px 8px 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: var(--active-text);
+            margin-left: 5px;
+            opacity: 0;
+            transform: translateX(-10px);
+            pointer-events: none;
+            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid var(--border-color);
+        }
+
+        /* 当父级被激活时显示子选项 */
+        .format-option.active .sub-option {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        .setting-label { font-weight: 700; color: var(--text-main); font-size: 14px; margin-right: 5px; }
+        .radio-label { cursor: pointer; display: flex; align-items: center; gap: 5px; user-select: none; font-size: 14px; color: var(--text-sub); transition: color 0.2s; }
+        .radio-label:hover { color: var(--text-main); }
+        select, input[type="text"], input[type="password"] { padding: 6px 10px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 14px; background: var(--surface-color); color: var(--text-main); }
+
+        .split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+        .split-col { display: flex; flex-direction: column; gap: 15px; }
+        .input-label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: var(--text-main); }
+        textarea { width: 100%; padding: 15px; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-family: Consolas, "Courier New", monospace; font-size: 13px; box-sizing: border-box; transition: border-color 0.2s; resize: none; line-height: 1.5; background: var(--surface-color); color: var(--text-main); height: 350px; }
+        textarea:focus { outline: none; border-color: #4CAF50; box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1); }
+        @media (max-width: 768px) { .split-layout { grid-template-columns: 1fr; } textarea { height: 150px; } }
+
+        .skeleton-wrapper { position: relative; height: 100%; width: 100%; }
+        .skeleton-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: var(--surface-color); border-radius: var(--radius-md); z-index: 5; display: none; border: 1px solid var(--border-color); }
+        .skeleton-line { height: 15px; margin: 15px; border-radius: 4px; background: var(--skeleton-base); position: relative; overflow: hidden; }
+        .skeleton-line::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, var(--skeleton-highlight), transparent); animation: shimmer 1.5s infinite; }
+        .skeleton-line:nth-child(1) { width: 40%; margin-top: 25px; }
+        .skeleton-line:nth-child(2) { width: 90%; }
+        .skeleton-line:nth-child(3) { width: 85%; }
+        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+        .btn-main { background: var(--primary-gradient); color: white; border: none; padding: 12px 24px; border-radius: var(--radius-md); font-size: 15px; font-weight: 600; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 10px var(--primary-shadow); width: 100%; }
+        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 6px 15px var(--primary-shadow); }
+        .btn-main:active { transform: translateY(0); }
+        .btn-copy { background: linear-gradient(135deg, #007ACC 0%, #005a9e 100%); --primary-shadow: rgba(0, 122, 204, 0.3); }
+
+        .preview-box { padding: 30px; border: 2px dashed var(--border-color); border-radius: var(--radius-lg); display: flex; justify-content: center; align-items: center; margin-bottom: 20px; background: var(--hover-bg); min-height: 80px; }
+
+        .token-box { display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: rgba(76, 175, 80, 0.1); border: 1px solid rgba(76, 175, 80, 0.3); padding: 12px; border-radius: var(--radius-md); margin-bottom: 25px; }
+        .token-btn { background: #4CAF50; color: white; border: none; padding: 8px 16px; border-radius: var(--radius-sm); cursor: pointer; white-space: nowrap; font-size: 13px; }
+        
+        .mode-switch { display: flex; background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 20px; padding: 2px; overflow: hidden; }
+        .mode-switch label { cursor: pointer; padding: 6px 12px; font-size: 13px; font-weight: 500; border-radius: 18px; transition: var(--transition); color: var(--text-sub); display: flex; align-items: center; gap: 4px; }
+        .mode-switch input { display: none; }
+        .mode-switch input:checked + span { background: #e8f5e9; color: #2e7d32; font-weight: 700; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999; backdrop-filter: blur(4px); align-items: center; justify-content: center; }
+        .modal { background: var(--surface-color); padding: 25px; width: 450px; border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0,0,0,0.4); color: var(--text-main); }
+        .sort-list { max-height: 300px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: var(--radius-md); margin: 15px 0; }
+        .sort-item { padding: 10px 15px; border-bottom: 1px solid var(--border-color); background: var(--surface-color); display: flex; align-items: center; cursor: grab; color: var(--text-main); }
+        .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); padding: 10px 20px; border-radius: 30px; color: white; font-size: 14px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .toast.show { opacity: 1; top: 30px; }
+        .toast-success { background: #2e7d32; }
+        .toast-error { background: #c62828; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>DevShields Pro</h1>
+        <div class="header-actions">
+            <button class="icon-btn" onclick="toggleDarkMode()" id="themeBtn">🌙 暗黑模式</button>
+            <button class="icon-btn" onclick="openSettings()">⚙️ 布局设置</button>
+        </div>
+    </div>
+    <nav class="tabs-header" id="tabsHeader"></nav>
+    <div id="contentContainer"></div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<!-- 模态框 -->
+<div class="modal-overlay" id="settingsModal">
+    <div class="modal">
+        <h3 style="border:none; padding:0;">自定义平台排序</h3>
+        <p style="font-size:13px; color:var(--text-sub); margin-bottom:10px;">拖拽调整顺序，前 <strong id="sliderDisplay">5</strong> 个显示在主栏。</p>
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+            <label style="font-size:13px;">主栏数量:</label>
+            <input type="range" id="tabCountSlider" min="1" max="8" style="flex:1">
+        </div>
+        <div class="sort-list" id="platformSorter"></div>
+        <div style="text-align:right; margin-top:15px;">
+            <button class="btn-main" style="width:auto;" onclick="saveTabSettings()">保存布局</button>
+            <button class="icon-btn" style="display:inline-flex;" onclick="document.getElementById('settingsModal').style.display='none'">取消</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const STORAGE_KEY = 'devshields_config'; 
+
+    const PLATFORMS = {
+        github: { id: 'github', label: 'GitHub', desc: '输入 user/repo', placeholder: 'facebook/react\nmicrosoft/vscode', demo:'facebook/react' },
+        vscode: { id: 'vscode', label: 'VS Code', desc: '输入 Publisher.Name', placeholder: 'eamodio.gitlens', demo:'eamodio.gitlens' },
+        npm: { id: 'npm', label: 'NPM', desc: '输入 Package Name', placeholder: 'react', demo:'react' },
+        pypi: { id: 'pypi', label: 'PyPI', desc: '输入 Python 包名', placeholder: 'requests', demo:'requests' },
+        docker: { id: 'docker', label: 'Docker', desc: '输入 user/repo', placeholder: 'nginx', demo:'nginx' },
+        crates: { id: 'crates', label: 'Rust', desc: '输入 Crate 名', placeholder: 'serde', demo:'serde' },
+        golang: { id: 'golang', label: 'Go', desc: '输入模块路径', placeholder: 'github.com/gin-gonic/gin', demo:'github.com/gin-gonic/gin' },
+        social: { id: 'social', label: 'Social', desc: '输入社交 ID', placeholder: 'TwitterHandle', demo:'Twitter' },
+        website: { id: 'website', label: 'Website', desc: '输入 URL', placeholder: 'https://google.com', demo:'https://google.com' },
+        custom: { id: 'custom', label: '自定义', desc: '完全自定义', placeholder: '', demo:'' }
+    };
+
+    const BADGE_DEFS = {
+        github: [
+            {id:'stars', label:'Stars'}, 
+            {id:'version', label:'Version (Tag)'}, 
+            {id:'date', label:'Date (发布/提交/归档)'}, 
+            {id:'language', label:'Language'},
+            {id:'license', label:'License'}, 
+            {id:'downloads', label:'Downloads'}, 
+            {id:'docker_derive', label:'Docker Pulls (Auto)', desc: '从仓库描述中自动检测 Docker Hub 链接'},
+            {id:'forks', label:'Forks'}, 
+            {id:'issues', label:'Issues'}, 
+            {id:'actions', label:'Build Status'},
+            {id:'size', label:'Repo Size'},
+            {id:'followers', label:'Followers'},
+            {id:'watchers', label:'Watchers'},
+            {id:'pr', label:'PRs'},
+            {id:'contributors', label:'Contributors'}
+        ],
+        vscode: [
+            {id:'v_installs', label:'Installs', tmpl:'https://img.shields.io/visual-studio-marketplace/i/{id}'},
+            {id:'v_downloads', label:'Downloads', tmpl:'https://img.shields.io/visual-studio-marketplace/d/{id}'},
+            {id:'v_rating', label:'Rating', tmpl:'https://img.shields.io/visual-studio-marketplace/r/{id}'},
+            {id:'v_version', label:'Version', tmpl:'https://img.shields.io/visual-studio-marketplace/v/{id}'},
+            {id:'v_updated', label:'Updated', tmpl:'https://img.shields.io/visual-studio-marketplace/last-updated/{id}'},
+            {id:'v_users', label:'Azure Users', tmpl:'https://img.shields.io/visual-studio-marketplace/azure-devops/installs/total/{id}'}
+        ],
+        npm: [
+            {id:'n_ver', label:'Version', tmpl:'https://img.shields.io/npm/v/{id}'},
+            {id:'n_dt', label:'Total Downloads', tmpl:'https://img.shields.io/npm/dt/{id}'},
+            {id:'n_dm', label:'Monthly Downloads', tmpl:'https://img.shields.io/npm/dm/{id}'},
+            {id:'n_dw', label:'Weekly Downloads', tmpl:'https://img.shields.io/npm/dw/{id}'},
+            {id:'n_lic', label:'License', tmpl:'https://img.shields.io/npm/l/{id}'},
+            {id:'n_node', label:'Node Version', tmpl:'https://img.shields.io/npm/node/v/{id}'},
+            {id:'n_types', label:'Types', tmpl:'https://img.shields.io/npm/types/{id}'},
+            {id:'n_size', label:'Bundle Size', tmpl:'https://img.shields.io/bundlephobia/min/{id}'},
+            {id:'n_files', label:'Files', tmpl:'https://img.shields.io/npm/files/{id}'},
+            {id:'n_collab', label:'Collaborators', tmpl:'https://img.shields.io/npm/collaborators/{id}'}
+        ],
+        pypi: [
+            {id:'p_ver', label:'Version', tmpl:'https://img.shields.io/pypi/v/{id}'},
+            {id:'p_dm', label:'Downloads/Month', tmpl:'https://img.shields.io/pypi/dm/{id}'},
+            {id:'p_dd', label:'Downloads/Day', tmpl:'https://img.shields.io/pypi/dd/{id}'},
+            {id:'p_py', label:'Python Versions', tmpl:'https://img.shields.io/pypi/pyversions/{id}'},
+            {id:'p_lic', label:'License', tmpl:'https://img.shields.io/pypi/l/{id}'},
+            {id:'p_status', label:'Status', tmpl:'https://img.shields.io/pypi/status/{id}'},
+            {id:'p_format', label:'Format', tmpl:'https://img.shields.io/pypi/format/{id}'},
+            {id:'p_wheel', label:'Wheel', tmpl:'https://img.shields.io/pypi/wheel/{id}'}
+        ],
+        docker: [
+            {id:'d_pulls', label:'Pulls', tmpl:'https://img.shields.io/docker/pulls/{id}'},
+            {id:'d_stars', label:'Stars', tmpl:'https://img.shields.io/docker/stars/{id}'},
+            {id:'d_size', label:'Image Size', tmpl:'https://img.shields.io/docker/image-size/{id}'},
+            {id:'d_ver', label:'Version', tmpl:'https://img.shields.io/docker/v/{id}'},
+            {id:'d_layers', label:'Layers', tmpl:'https://img.shields.io/microbadger/layers/{id}'},
+            {id:'d_lic', label:'License', tmpl:'https://img.shields.io/github/license/{id}'},
+            {id:'d_arch', label:'Arch', tmpl:'https://img.shields.io/docker/cloud/automated/{id}'}
+        ],
+        crates: [
+            {id:'c_ver', label:'Version', tmpl:'https://img.shields.io/crates/v/{id}'},
+            {id:'c_dl', label:'Downloads', tmpl:'https://img.shields.io/crates/d/{id}'},
+            {id:'c_dr', label:'Recent Downloads', tmpl:'https://img.shields.io/crates/dr/{id}'},
+            {id:'c_lic', label:'License', tmpl:'https://img.shields.io/crates/l/{id}'},
+            {id:'c_size', label:'Size', tmpl:'https://img.shields.io/crates/size/{id}'}
+        ],
+        golang: [
+            {id:'g_rep', label:'Go Report', tmpl:'https://goreportcard.com/badge/{id}'},
+            {id:'g_doc', label:'Go Doc', tmpl:'https://godoc.org/{id}?status.svg'},
+            {id:'g_ver', label:'Go Version', tmpl:'https://img.shields.io/github/go-mod/go-version/{id_strip}'}
+        ],
+        social: [
+            {id:'s_tw', label:'Twitter', tmpl:'https://img.shields.io/twitter/follow/{id}?style=social'},
+            {id:'s_yt', label:'YouTube', tmpl:'https://img.shields.io/youtube/channel/subscribers/{id}?style=social'},
+            {id:'s_dc', label:'Discord', tmpl:'https://img.shields.io/discord/{id}?label=Discord&logo=discord&logoColor=white'},
+            {id:'s_twit', label:'Twitch', tmpl:'https://img.shields.io/twitch/status/{id}?style=social'}
+        ],
+        website: [
+            {id:'w_up', label:'Status', tmpl:'https://img.shields.io/website?url={id}'},
+            {id:'w_res', label:'Response Time', tmpl:'https://img.shields.io/website-response-time?url={id}'}
+        ],
+        custom: []
+    };
+
+    let config = {
+        order: Object.keys(PLATFORMS),
+        visibleCount: 5,
+        token: '',
+        style: 'flat',
+        darkMode: false,
+        ghMode: 'api'
+    };
+
+    function init() {
+        let saved = localStorage.getItem(STORAGE_KEY);
+        if(saved) {
+            try {
+                config = {...config, ...JSON.parse(saved)};
+                Object.keys(PLATFORMS).forEach(k => { if(!config.order.includes(k)) config.order.push(k); });
+            } catch(e) {}
+        }
+        
+        if(config.darkMode) {
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeBtn').innerText = '☀️ 亮色模式';
+        }
+        
+        saveConfig();
+        renderTabs();
+    }
+
+    function toggleDarkMode() {
+        config.darkMode = !config.darkMode;
+        document.body.classList.toggle('dark-mode');
+        document.getElementById('themeBtn').innerText = config.darkMode ? '☀️ 亮色模式' : '🌙 暗黑模式';
+        saveConfig();
+    }
+
+    function saveConfig() { localStorage.setItem(STORAGE_KEY, JSON.stringify(config)); }
+
+    function renderTabs() {
+        const header = document.getElementById('tabsHeader');
+        const container = document.getElementById('contentContainer');
+        header.innerHTML = ''; container.innerHTML = '';
+        const visible = config.order.slice(0, config.visibleCount);
+        const hidden = config.order.slice(config.visibleCount);
+
+        visible.forEach((key, idx) => {
+            const btn = document.createElement('button');
+            btn.className = `tab-btn ${idx===0?'active':''}`;
+            btn.textContent = PLATFORMS[key].label;
+            btn.onclick = () => switchTab(key, btn);
+            header.appendChild(btn);
+            container.appendChild(renderPanel(key, idx===0));
+        });
+
+        if(hidden.length > 0) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'dropdown-wrapper';
+            wrapper.innerHTML = `<button class="tab-btn" id="moreBtn">更多 ▾</button><div class="dropdown-menu">${hidden.map(k => `<div class="dropdown-item" onclick="switchDropdown('${k}')">${PLATFORMS[k].label}</div>`).join('')}</div>`;
+            header.appendChild(wrapper);
+            hidden.forEach(key => container.appendChild(renderPanel(key, false)));
+        }
+    }
+
+    function renderPanel(key, active) {
+        const div = document.createElement('div');
+        div.id = `panel-${key}`;
+        div.className = `tab-content ${active ? 'active' : ''}`;
+        if(key === 'custom') { div.innerHTML = renderCustomPanel(); return div; }
+
+        const p = PLATFORMS[key];
+        const badges = BADGE_DEFS[key] || [];
+
+        let topBar = '';
+        if(key === 'github') {
+            topBar = `
+            <div class="token-box">
+                <span style="font-weight:bold; color:var(--text-main);">GitHub:</span>
+                <div class="mode-switch">
+                    <label><input type="radio" name="ghMode" value="url" ${config.ghMode==='url'?'checked':''} onchange="config.ghMode='url'; saveConfig();"><span>URL 拼接</span></label>
+                    <label><input type="radio" name="ghMode" value="api" ${config.ghMode==='api'?'checked':''} onchange="config.ghMode='api'; saveConfig();"><span>API 查询</span></label>
+                </div>
+                <div style="flex:1; display:flex; gap:5px; align-items:center;">
+                    <input type="password" id="tokenIn" style="width:100%; min-width:120px;" placeholder="ghp_... (API模式推荐)" value="${config.token}">
+                    <button class="token-btn" onclick="saveToken()">保存Token</button>
+                </div>
+            </div>`;
+        }
+
+        let badgeHtml = `<h3>选择显示徽章 <span class="drag-hint">(悬停预览，拖拽排序)</span></h3><div class="badge-container" id="badges-${key}">`;
+        let currentStyle = config.style || 'flat';
+        badges.forEach((b, idx) => {
+            let previewUrl = '', demoId = p.demo || 'example';
+            if (key === 'github') {
+                if(b.id==='stars') previewUrl=`https://img.shields.io/github/stars/${demoId}`;
+                else if(b.id==='date') previewUrl=`https://img.shields.io/github/last-commit/${demoId}`;
+                else if(b.id==='language') previewUrl=`https://img.shields.io/github/languages/top/${demoId}`;
+                else if(b.id==='size') previewUrl=`https://img.shields.io/github/repo-size/${demoId}`;
+                else if(b.id==='docker_derive') previewUrl=`https://img.shields.io/docker/pulls/nginx`; 
+                else previewUrl = `https://img.shields.io/badge/${b.label}-preview-green`;
+            } else if (b.tmpl) {
+                previewUrl = b.tmpl.replace('{id}', demoId).replace('{id_strip}', demoId);
+            }
+            if(previewUrl) previewUrl += (previewUrl.includes('?')?'&':'?') + `style=${currentStyle}`;
+            
+            badgeHtml += `<div class="badge-option" draggable="true"><span class="drag-handle">::</span><label><input type="checkbox" value="${b.id}" ${idx<5?'checked':''}><span>${b.label}</span></label><div class="badge-tooltip"><img src="${previewUrl}" alt="preview" loading="lazy"></div></div>`;
+        });
+        badgeHtml += `</div>`;
+
+        let extraOptions = '';
+        if (key === 'github') {
+            extraOptions = `
+                <label class="radio-label" style="margin-left:15px; border-left:1px solid var(--border-color); padding-left:15px;">
+                    <input type="checkbox" id="showUser-${key}"> 显示完整仓库名 (user/repo)
+                </label>`;
+        }
+
+        let settingsHtml = `
+            <div class="settings-bar">
+                <div class="settings-row">
+                    <span class="setting-label">输出格式:</span>
+                    <div class="format-group">
+                        <label class="format-option" onclick="selectFormat('${key}', 'raw')">
+                            <input type="radio" name="fmt-${key}" value="raw"> 
+                            <span>纯文本</span>
+                        </label>
+                        <label class="format-option" onclick="selectFormat('${key}', 'list')">
+                            <input type="radio" name="fmt-${key}" value="list"> 
+                            <span>无序列表</span>
+                        </label>
+                        <label class="format-option active" id="fmt-opt-table-${key}" onclick="selectFormat('${key}', 'table')">
+                            <input type="radio" name="fmt-${key}" value="table" checked> 
+                            <span>Markdown表格</span>
+                            <div class="sub-option" title="仅在表格模式下有效">
+                                <input type="checkbox" id="header-${key}" checked onclick="event.stopPropagation()">
+                                <span>表头</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="settings-row" style="gap: 20px;">
+                    <span class="setting-label">外观细节:</span>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span class="setting-label" style="font-weight:400; font-size:13px; margin:0;">风格:</span>
+                        <select id="style-${key}" onchange="updatePreviewStyle('${key}')" style="min-width:120px;">
+                            <option value="flat">Flat (扁平)</option>
+                            <option value="flat-square">Flat Square (直角)</option>
+                            <option value="for-the-badge">For-The-Badge (大号)</option>
+                            <option value="plastic">Plastic (立体)</option>
+                            <option value="social">Social (社交)</option>
+                        </select>
+                    </div>
+                    
+                    <label class="radio-label" title="徽章之间换行">
+                        <input type="checkbox" id="stack-${key}" checked> 徽章换行
+                    </label>
+                    ${extraOptions}
+                </div>
+            </div>`;
+
+        let splitHtml = `
+            <div class="split-layout">
+                <div class="split-col">
+                    <label class="input-label">${p.desc} (每行一个):</label>
+                    <textarea id="input-${key}" placeholder="${p.placeholder}"></textarea>
+                    <button class="btn-main" onclick="generate('${key}')">✨ 生成代码</button>
+                </div>
+                <div class="split-col">
+                    <label class="input-label">生成结果:</label>
+                    <div class="skeleton-wrapper">
+                        <div class="skeleton-overlay" id="skeleton-${key}"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>
+                        <textarea id="output-${key}" readonly></textarea>
+                    </div>
+                    <button class="btn-main btn-copy" onclick="copyResult('output-${key}')">复制结果</button>
+                </div>
+            </div>`;
+
+        div.innerHTML = topBar + badgeHtml + settingsHtml + splitHtml;
+        return div;
+    }
+
+    function renderCustomPanel() {
+        return `<div class="preview-box"><img id="customPreview" src="https://img.shields.io/static/v1?label=Label&message=Message&color=blue"></div>
+            <div class="settings-bar" style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                <input type="text" id="cLabel" placeholder="Label" value="Build" oninput="updateCustom()">
+                <input type="text" id="cMsg" placeholder="Message" value="Passing" oninput="updateCustom()">
+                <select id="cColor" onchange="updateCustom()"><option value="brightgreen">Green</option><option value="blue" selected>Blue</option><option value="red">Red</option><option value="orange">Orange</option><option value="blueviolet">Purple</option><option value="lightgrey">Grey</option></select>
+                <select id="cStyle" onchange="updateCustom()"><option value="flat">Flat</option><option value="flat-square">Square</option><option value="for-the-badge">Big</option><option value="social">Social</option></select>
+            </div>
+            <textarea id="output-custom" style="height:120px;" readonly></textarea>
+            <button class="btn-main btn-copy" style="margin-top:15px;" onclick="copyResult('output-custom')">复制结果</button>`;
+    }
+
+    function selectFormat(key, fmt) {
+        const radios = document.getElementsByName(`fmt-${key}`);
+        radios.forEach(r => { if(r.value === fmt) r.checked = true; });
+        const tableOpt = document.getElementById(`fmt-opt-table-${key}`);
+        if (fmt === 'table') tableOpt.classList.add('active');
+        else tableOpt.classList.remove('active');
+    }
+
+    function switchTab(key, btn) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        if(btn) btn.classList.add('active');
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.getElementById(`panel-${key}`).classList.add('active');
+    }
+    function switchDropdown(key) { switchTab(key); document.getElementById('moreBtn').classList.add('active'); }
+    function saveToken() { config.token = document.getElementById('tokenIn').value; saveConfig(); showToast('Token 已保存', 'success'); }
+    function updateCustom() {
+        const l=document.getElementById('cLabel').value, m=document.getElementById('cMsg').value, c=document.getElementById('cColor').value, s=document.getElementById('cStyle').value;
+        const url = `https://img.shields.io/static/v1?label=${encodeURIComponent(l)}&message=${encodeURIComponent(m)}&color=${c}&style=${s}`;
+        document.getElementById('customPreview').src = url; document.getElementById('output-custom').value = `![${l}](${url})`;
+    }
+    function updatePreviewStyle(key) {
+        const s = document.getElementById(`style-${key}`).value;
+        document.querySelectorAll(`#badges-${key} .badge-tooltip img`).forEach(img => {
+            img.src = img.src.includes('style=') ? img.src.replace(/style=[^&]+/, `style=${s}`) : img.src + (img.src.includes('?')?'&':'?')+`style=${s}`;
+        });
+    }
+
+    async function generate(key) {
+        const input = document.getElementById(`input-${key}`).value;
+        if(!input.trim()) { showToast('请输入内容', 'error'); return; }
+        const skeleton = document.getElementById(`skeleton-${key}`);
+        skeleton.style.display = 'block';
+        const output = document.getElementById(`output-${key}`);
+        const fmt = document.querySelector(`input[name="fmt-${key}"]:checked`).value;
+        const style = document.getElementById(`style-${key}`).value;
+        const showHead = document.getElementById(`header-${key}`)?.checked;
+        const stackBadges = document.getElementById(`stack-${key}`)?.checked;
+        const lines = input.split('\n').map(l=>l.trim()).filter(l=>l);
+        const container = document.getElementById(`badges-${key}`);
+        const checked = [...container.querySelectorAll('input:checked')].map(i=>i.value);
+
+        if (key === 'github' && config.ghMode === 'api') {
+            await generateGithubWithAPI(lines, style, fmt, showHead, stackBadges, output, skeleton, checked);
+        } else {
+            await generateSimple(key, lines, style, fmt, showHead, stackBadges, output, skeleton, checked);
+        }
+    }
+
+    async function generateSimple(key, lines, style, fmt, showHead, stackBadges, output, skeleton, checked) {
+        await new Promise(r => setTimeout(r, 600)); 
+        let result = [];
+        if(fmt === 'table' && showHead) result.push('| 项目 | 徽章 | 备注 |', '|---|---|---|');
+
+        lines.forEach(line => {
+            let badges = [];
+            const id_strip = line.replace(/^(https?:\/\/)?(www\.)?github\.com\//, '');
+            const defs = BADGE_DEFS[key];
+            checked.forEach(bid => {
+                let url = '';
+                if (key === 'github') {
+                    if(bid==='stars') url=`https://img.shields.io/github/stars/${line}`;
+                    else if(bid==='forks') url=`https://img.shields.io/github/forks/${line}`;
+                    else if(bid==='issues') url=`https://img.shields.io/github/issues/${line}`;
+                    else if(bid==='license') url=`https://img.shields.io/github/license/${line}`;
+                    else if(bid==='version') url=`https://img.shields.io/github/v/tag/${line}?sort=semver`;
+                    else if(bid==='downloads') url=`https://img.shields.io/github/downloads/${line}/total`;
+                    else if(bid==='size') url=`https://img.shields.io/github/repo-size/${line}`;
+                    else if(bid==='actions') url=`https://img.shields.io/github/actions/workflow/status/${line}/CI`;
+                    else if(bid==='date') url=`https://img.shields.io/github/last-commit/${line}`;
+                    else if(bid==='language') url=`https://img.shields.io/github/languages/top/${line}`;
+                    else if(bid==='followers') url=`https://img.shields.io/github/followers/${line.split('/')[0]}`;
+                    else if(bid==='watchers') url=`https://img.shields.io/github/watchers/${line}`;
+                    else {
+                        const def = defs.find(d => d.id === bid);
+                        if(def && !def.tmpl) url = `https://img.shields.io/badge/${bid}-unknown-lightgrey`;
+                    }
+                } else {
+                    const def = defs.find(d => d.id === bid);
+                    if(def) url = def.tmpl.replace('{id}', line).replace('{id_strip}', id_strip);
+                }
+                if(url) {
+                    url += (url.includes('?')?'&':'?') + `style=${style}`;
+                    if(key==='vscode') url += '&logo=visual-studio-code&logoColor=white';
+                    badges.push(`![${bid}](${url})`);
+                }
+            });
+            const link = getLink(key, line);
+            const separator = stackBadges ? '<br>' : ' ';
+            const badgeStr = badges.join(separator);
+            if(fmt === 'table') result.push(`| ${link} | ${badgeStr} | |`);
+            else if (fmt === 'list') result.push(`- ${link} ${badgeStr}`);
+            else result.push(`${link} ${badgeStr}`);
+        });
+        output.value = result.join('\n');
+        skeleton.style.display = 'none';
+        showToast('生成成功', 'success');
+    }
+
+    async function generateGithubWithAPI(repos, style, fmt, showHead, stackBadges, output, skeleton, checked) {
+        const headers = config.token ? { 'Authorization': `token ${config.token}`, 'Accept': 'application/vnd.github.v3+json' } : {'Accept': 'application/vnd.github.v3+json'};
+        const showUser = document.getElementById('showUser-github')?.checked;
+
+        const processRepo = async (repo) => {
+            let badges = [];
+            let repoData = null, latestRelease = false, buildStatus = '', dockerRepo = '';
+            
+            try {
+                const baseRes = await fetch(`https://api.github.com/repos/${repo}`, { headers });
+                
+                if(baseRes.ok) {
+                    repoData = await baseRes.json();
+                    
+                    if(repoData.description && checked.includes('docker_derive')) {
+                        const m = repoData.description.match(/(?:docker\.io\/|hub\.docker\.com\/r\/)([^\s/]+(?:\/[^\s/]+)?)/i);
+                        if(m) dockerRepo = m[1];
+                    }
+
+                    const extraPromises = [];
+                    if(checked.includes('date')) {
+                        extraPromises.push(
+                            fetch(`https://api.github.com/repos/${repo}/releases/latest`, { headers })
+                                .then(r => { if(r.ok) latestRelease = true; })
+                                .catch(() => {})
+                        );
+                    } else { extraPromises.push(Promise.resolve()); }
+
+                    if(checked.includes('actions')) {
+                        extraPromises.push(
+                            (async () => {
+                                const wfRes = await fetch(`https://api.github.com/repos/${repo}/actions/workflows`, { headers });
+                                if(wfRes.ok) {
+                                    const wfData = await wfRes.json();
+                                    const wf = wfData.workflows.find(w => w.name.toLowerCase().includes('build') || w.path.includes('build')) || wfData.workflows[0];
+                                    if(wf) {
+                                        const runRes = await fetch(`https://api.github.com/repos/${repo}/actions/workflows/${wf.id}/runs?per_page=1`, { headers });
+                                        if(runRes.ok) {
+                                            const runData = await runRes.json();
+                                            if(runData.workflow_runs.length > 0) buildStatus = runData.workflow_runs[0].conclusion || runData.workflow_runs[0].status;
+                                        }
+                                    }
+                                }
+                            })()
+                        );
+                    } else { extraPromises.push(Promise.resolve()); }
+
+                    await Promise.all(extraPromises);
+                }
+            } catch(e) { console.error(e); }
+
+            if (!repoData) {
+                const errStr = `[${repo}] Error: Not Found or API Limit`;
+                return fmt==='table' ? `| ${repo} | Error: Not Found | |` : `- ${errStr}`;
+            }
+
+            checked.forEach(bid => {
+                let code = null;
+                const r = repo; const d = repoData;
+                switch(bid) {
+                    case 'stars': code = `[![Stars](https://img.shields.io/github/stars/${r}?style=${style})](https://github.com/${r}/stargazers)`; break;
+                    case 'forks': code = `[![Forks](https://img.shields.io/github/forks/${r}?style=${style})](https://github.com/${r}/network/members)`; break;
+                    case 'issues': code = `[![Issues](https://img.shields.io/github/issues/${r}?style=${style})](https://github.com/${r}/issues)`; break;
+                    case 'version': code = `[![Version](https://img.shields.io/github/v/tag/${r}?label=Version&sort=semver&style=${style})](https://github.com/${r}/tags)`; break;
+                    case 'license': if(d.license && d.license.spdx_id && d.license.spdx_id !== 'NOASSERTION') code = `[![License](https://img.shields.io/github/license/${r}?style=${style})](https://github.com/${r}/blob/${d.default_branch}/LICENSE)`; break;
+                    case 'downloads': code = `[![Downloads](https://img.shields.io/github/downloads/${r}/total?style=${style})](https://github.com/${r}/releases)`; break;
+                    case 'date': 
+                        if (d.archived) { const date = d.pushed_at ? new Date(d.pushed_at).toISOString().split('T')[0] : 'unknown'; code = `![Archived](https://img.shields.io/badge/Archived-${date}-red?style=${style})`; }
+                        else if (latestRelease) code = `[![Release](https://img.shields.io/github/release-date/${r}?label=Release&style=${style})](https://github.com/${r}/releases)`;
+                        else { const br = d.default_branch || 'main'; code = `[![Commit](https://img.shields.io/github/last-commit/${r}/${br}?label=Commit&style=${style})](https://github.com/${r}/commits/${br})`; }
+                        break;
+                    case 'language': if(d.language) code = `[![Language](https://img.shields.io/github/languages/top/${r}?style=${style})](https://github.com/${r}/search?l=${encodeURIComponent(d.language)})`; break;
+                    case 'size': let sz = d.size; let txt = sz>1048576 ? (sz/1048576).toFixed(2)+' GB' : sz>1024 ? (sz/1024).toFixed(2)+' MB' : sz+' KB'; code = `![Size](https://img.shields.io/badge/Size-${encodeURIComponent(txt)}-blue?style=${style})`; break;
+                    case 'actions': 
+                        if(buildStatus) { 
+                            let c = 'lightgrey', s = buildStatus; 
+                            if(s==='success') {c='brightgreen';s='passing'} 
+                            else if(s==='failure') {c='red';s='failing'} 
+                            else if(['queued','in_progress'].includes(s)) {c='yellow'} 
+                            code = `[![Build](https://img.shields.io/badge/Build-${s}-${c}?style=${style})](https://github.com/${r}/actions)`; 
+                        } 
+                        break;
+                    case 'docker_derive':
+                        if(dockerRepo) {
+                            code = `[![Docker](https://img.shields.io/docker/pulls/${dockerRepo}?style=${style})](https://hub.docker.com/r/${dockerRepo.split('/_')[1]||dockerRepo})`;
+                        }
+                        break;
+                    case 'followers': code = `[![Follow](https://img.shields.io/github/followers/${r.split('/')[0]}?label=Follow&style=${style})](https://github.com/${r.split('/')[0]})`; break;
+                    case 'watchers': code = `[![Watchers](https://img.shields.io/github/watchers/${r}?label=Watch&style=${style})](https://github.com/${r}/watchers)`; break;
+                    default: let url = `https://img.shields.io/github/${bid}/${r}`; code = `![${bid}](${url}?style=${style})`;
+                }
+                if(code) badges.push(code);
+            });
+
+            const nameToUse = showUser ? repo : repoData.name;
+            const link = `[${nameToUse}](https://github.com/${repo})`;
+            const separator = stackBadges ? '<br>' : ' ';
+            const badgeStr = badges.join(separator);
+            
+            if(fmt === 'table') return `| ${link} | ${badgeStr} | |`;
+            else if (fmt === 'list') return `- ${link} ${badgeStr}`;
+            else return `${link} ${badgeStr}`;
+        };
+
+        const promises = repos.map(repo => processRepo(repo));
+        const results = await Promise.all(promises);
+
+        let finalOutput = [];
+        if(fmt === 'table' && showHead) finalOutput.push('| 项目 | 徽章 | 备注 |', '|---|---|---|');
+        finalOutput = finalOutput.concat(results);
+
+        output.value = finalOutput.join('\n');
+        skeleton.style.display = 'none';
+        showToast(config.token ? 'API 调用成功' : 'API 调用完成', 'success');
+    }
+
+    function getLink(key, line) {
+        if(key==='vscode') return `[${line.split('.')[1]||line}](https://marketplace.visualstudio.com/items?itemName=${line})`;
+        if(key==='npm') return `[${line}](https://www.npmjs.com/package/${line})`;
+        if(key==='pypi') return `[${line}](https://pypi.org/project/${line}/)`;
+        if(key==='docker') return `[${line}](https://hub.docker.com/r/${line})`;
+        if(key==='github') return `[${line}](https://github.com/${line})`;
+        return line;
+    }
+
+    function openSettings() {
+        const modal = document.getElementById('settingsModal');
+        const list = document.getElementById('platformSorter');
+        const slider = document.getElementById('tabCountSlider');
+        const display = document.getElementById('sliderDisplay');
+        modal.style.display = 'flex';
+        slider.value = config.visibleCount;
+        display.innerText = config.visibleCount;
+        slider.oninput = () => display.innerText = slider.value;
+        list.innerHTML = '';
+        config.order.forEach(k => {
+            const item = document.createElement('div');
+            item.className = 'sort-item';
+            item.draggable = true;
+            item.innerHTML = `<span style="margin-right:10px; color:#999;">☰</span> ${PLATFORMS[k].label}`;
+            item.dataset.key = k;
+            item.ondragstart = () => item.classList.add('dragging');
+            item.ondragend = () => item.classList.remove('dragging');
+            item.ondragover = e => e.preventDefault();
+            item.ondrop = function() {
+                const dragging = list.querySelector('.dragging');
+                if(dragging && dragging !== this) {
+                    const all = [...list.children];
+                    all.indexOf(dragging) < all.indexOf(this) ? this.after(dragging) : this.before(dragging);
+                }
+            }
+            list.appendChild(item);
+        });
+    }
+
+    function saveTabSettings() {
+        const list = document.getElementById('platformSorter');
+        config.order = [...list.children].map(el => el.dataset.key);
+        config.visibleCount = parseInt(document.getElementById('tabCountSlider').value);
+        saveConfig();
+        renderTabs();
+        document.getElementById('settingsModal').style.display = 'none';
+        switchTab(config.order[0]);
+    }
+
+    document.addEventListener('dragstart', e => { if(e.target.closest('.badge-option')) e.target.closest('.badge-option').classList.add('dragging'); });
+    document.addEventListener('dragend', e => { if(e.target.closest('.badge-option')) e.target.closest('.badge-option').classList.remove('dragging'); });
+    document.addEventListener('dragover', e => e.preventDefault());
+    document.addEventListener('drop', e => {
+        const dragging = document.querySelector('.badge-option.dragging');
+        const target = e.target.closest('.badge-option');
+        if(dragging && target && dragging !== target && dragging.parentNode === target.parentNode) {
+            const container = target.parentNode;
+            const children = [...container.children];
+            children.indexOf(dragging) < children.indexOf(target) ? target.after(dragging) : target.before(dragging);
+        }
+    });
+
+    function copyResult(id) { document.getElementById(id).select(); document.execCommand('copy'); showToast('已复制到剪贴板', 'success'); }
+    function showToast(msg, type) { const t = document.getElementById('toast'); t.innerText = msg; t.className = `toast toast-${type} show`; setTimeout(() => t.classList.remove('show'), 3000); }
+
+    init();
+</script>
+</body>
+</html>

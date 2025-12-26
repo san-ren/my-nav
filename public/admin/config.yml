@@ -113,7 +113,7 @@ collections:
                 widget: "select"
                 multiple: true
                 required: false
-                options: ["stars", "version", "license", "last_commit"]
+                options: ["stars", "version", "last_commit", "license"]
               # -------------------------------------
 
               - { label: "简短描述", name: "desc", widget: "string", required: false }
