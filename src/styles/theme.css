@@ -24,10 +24,10 @@
   /* =========================================
      4. 侧边栏字体大小 (Sidebar Typography)
      ========================================= */
-  --sidebar-font-link: 0.9375rem;  /* 15px (一级菜单) */
-  --sidebar-font-group: 0.75rem;   /* 12px (分组标题) */
-  --sidebar-font-cat: 0.875rem;    /* 14px (二级分类) */
-  --sidebar-font-tab: 0.8125rem;   /* 13px (三级Tab) */
+  --sidebar-font-link: 18px;  /* 15px (一级菜单) */
+  --sidebar-font-group: 14px;   /* 12px (分组标题) */
+  --sidebar-font-cat: 16px;    /* 14px (二级分类) */
+  --sidebar-font-tab: 15px;   /* 13px (三级Tab) */
 
 
 

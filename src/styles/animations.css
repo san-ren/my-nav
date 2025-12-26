@@ -1,0 +1,77 @@
+/* ======================================================
+   全局动画库
+   使用方法：在元素上添加对应的类名，如 class="anim-fade-up"
+   ====================================================== */
+
+/* 1. 基础淡入上浮 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.anim-fade-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* 2. 缩放弹跳效果 (适合图标) */
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  70% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.anim-pop {
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* 3. 悬浮轻微摆动 (适合卡片 Hover) */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.anim-float:hover {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* 延迟工具类 (辅助类) */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+
+
+
+/* ======================================================
+   Portal 浮窗高级增强 (Progressive Enhancement)
+   ====================================================== */
+
+/* 
+   如果没有这个文件，浮窗会使用 SiteCard.astro 里定义的 duration-200 ease-out。
+   如果加载了这个文件，下面的规则会覆盖默认设置，实现“生长”质感。
+*/
+.portal-popup {
+  /* 
+     1. 覆盖时长：让动画稍微慢一点 (300ms)，显得更从容。
+     2. 覆盖曲线：使用 Ease-Out-Quint (启动快，收尾极慢)，产生“生长”的物理感。
+     !important 确保覆盖 Tailwind 的原子类
+  */
+  transition-duration: 300ms !important;
+  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1) !important;
+  
+  /* 
+     如果你想让它弹得更夸张（果冻效果），可以用这个贝塞尔曲线：
+     transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55) !important; 
+  */
+}
+
+/* 
+   如果你想修改初始/结束的缩放比例（比如默认是 scale-95，你想改成 scale-90）
+   可以利用 CSS 选择器特指度来覆盖，或者配合 JS 的类名修改。
+   目前保持 SiteCard 里的 scale-95 (0.95倍) 到 scale-100 (1倍) 已经很优雅了。
+*/

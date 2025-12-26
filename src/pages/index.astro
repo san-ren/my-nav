@@ -7,40 +7,24 @@ import ThemePicker from '../components/ThemePicker.astro';
 import siteConfig from '../data/config.json';
 import { LayoutDashboard, Star, Code, Palette, Sun, Moon, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu } from 'lucide-react';
 
-// ==========================================
-// 新的数据加载逻辑：合并分散的 JSON 文件
-// ==========================================
-
-// 1. 获取所有页面的 meta 信息 (src/data/nav/*/meta.json)
 const metaFiles = import.meta.glob('../data/nav/*/meta.json', { eager: true });
-
-// 2. 获取所有分组信息 (src/data/nav/*/groups/*.json)
 const groupFiles = import.meta.glob('../data/nav/*/groups/*.json', { eager: true });
 
-// 3. 组装数据
 let navResources = Object.entries(metaFiles).map(([metaPath, metaContent]: [string, any]) => {
   const meta = metaContent.default || metaContent;
-  // 从路径获取 pageId (例如 ../data/nav/home/meta.json -> home)
   const pageId = metaPath.split('/').slice(-2, -1)[0]; 
-
-  // 找到属于这个 pageId 的所有 group 文件
   const groups = Object.entries(groupFiles)
     .filter(([groupPath]) => groupPath.includes(`/nav/${pageId}/groups/`))
     .sort(([pathA], [pathB]) => {
-      // 按照文件名排序 (01_xxx.json, 02_xxx.json)
       const nameA = pathA.split('/').pop();
       const nameB = pathB.split('/').pop();
       return nameA.localeCompare(nameB, undefined, { numeric: true });
     })
     .map(([_, groupContent]: [string, any]) => groupContent.default || groupContent);
 
-  return {
-    ...meta,
-    groups: groups
-  };
+  return { ...meta, groups };
 });
 
-// 4. 页面排序
 navResources.sort((a, b) => (a.sortOrder || 99) - (b.sortOrder || 99));
 const section = navResources[0];
 const id = section.id;
@@ -56,17 +40,8 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 
     <div id="sidebar-overlay" class="fixed inset-0 bg-black/40 z-40 hidden md:hidden backdrop-blur-sm transition-opacity" onclick="toggleSidebar()"></div>
 
-    <!-- 
-      修复点 5: md:ml-[var(--sidebar-width,17rem)] 
-      必须与 Sidebar.astro 中的 fallback (17rem) 保持一致。
-      这样即使 CSS 变量失效，侧边栏宽度和右侧内容的 margin 也是同步的，不会遮挡。
-    -->
     <main class="flex-1 min-w-0 md:ml-[var(--sidebar-width,17rem)] bg-gray-50/50 dark:bg-gray-900/50 min-h-screen flex flex-col">
       
-      <!-- 
-        修复点 6: md:w-[calc(100%-var(--sidebar-width,17rem))]
-        Header 宽度计算同样加上 fallback。
-      -->
       <header id="page-header" class="fixed top-0 right-0 z-30 flex items-center justify-between px-4 md:px-8 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50 transition-transform duration-300 w-full md:w-[calc(100%-var(--sidebar-width,17rem))]">
         <div class="flex items-center gap-3 min-w-0">
           <button id="menu-btn" class="md:hidden p-2 text-slate-600 dark:text-slate-300 bg-white/80 dark:bg-gray-800/80 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 shrink-0" onclick="toggleSidebar()">
@@ -74,7 +49,8 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
           </button>
 
           <h1 class="text-xl font-black flex items-center gap-3 text-slate-800 dark:text-white truncate">
-            <div class="p-2 bg-brand-50 dark:bg-brand-600/20 rounded-lg text-brand-600 shrink-0"><CurrentIcon size={20} /></div>
+            <!-- 修改：bg-blue-50 -> bg-brand-50, text-blue-600 -> text-brand-600 -->
+            <div class="p-2 bg-brand-50 dark:bg-brand-900/30 rounded-lg text-brand-600 shrink-0"><CurrentIcon size={20} /></div>
             <span class="truncate">{section.name}</span>
           </h1>
         </div>
@@ -84,6 +60,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
           
           <ThemePicker />
 
+          <!-- 修改：hover:text-blue-600 -> hover:text-brand-600 -->
           <button id="theme-toggle" class="p-2.5 bg-slate-100 dark:bg-gray-800 rounded-xl text-slate-500 hover:text-brand-600 transition-all">
             <Sun size={20} className="hidden dark:block" />
             <Moon size={20} className="block dark:hidden" />
@@ -106,6 +83,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
                   <section id={`cat-${uniqueId}`} class="category-group scroll-mt-28 w-full">
                     <div class="flex flex-wrap items-center justify-start gap-x-6 gap-y-4 mb-8">
                       <h3 class="flex items-center gap-3 text-lg font-bold text-slate-700 dark:text-slate-200 shrink-0">
+                        <!-- 修改：bg-blue-500 -> bg-brand-600 (分类标题竖杠) -->
                         <span class="w-1.5 h-5 bg-brand-600 rounded-full"></span>
                         {category.name}
                       </h3>
@@ -114,6 +92,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
                         <div class="tab-nav-container relative z-0 flex bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-full overflow-x-auto no-scrollbar max-w-full">
                           <div class="tab-indicator absolute bg-white dark:bg-slate-700 shadow-sm rounded-full h-[calc(100%-8px)] top-1 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1.0)]"></div>
                           {category.tabs.map((tab, tabIdx) => (
+                            /* 修改：active-tab 时使用 text-brand-600 */
                             <button
                               class={`tab-btn relative z-10 px-4 py-1.5 text-xs font-bold rounded-full transition-colors duration-200 whitespace-nowrap
                               ${tabIdx === 0 ? 'text-brand-600 active-tab' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}`}
@@ -161,7 +140,6 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 </Layout>
 
 <script is:inline>
-  // 侧边栏切换逻辑 (增强版防穿透)
   window.toggleSidebar = () => {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebar-overlay');
@@ -170,15 +148,12 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
       sidebar.classList.toggle('-translate-x-full');
       overlay.classList.toggle('hidden');
 
-      // 检查当前状态
       const isOpen = !sidebar.classList.contains('-translate-x-full');
 
       if (isOpen) {
-        // 打开时：锁定 html 和 body
         document.documentElement.classList.add('overflow-hidden');
         document.body.classList.add('overflow-hidden');
       } else {
-        // 关闭时：解锁 html 和 body
         document.documentElement.classList.remove('overflow-hidden');
         document.body.classList.remove('overflow-hidden');
       }
@@ -206,9 +181,11 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
         btn.addEventListener('click', (e) => {
           e.preventDefault();
           btns.forEach(b => {
+            /* 修改：移除 text-brand-600 */
             b.classList.remove('active-tab', 'text-brand-600');
             b.classList.add('text-slate-500');
           });
+          /* 修改：添加 text-brand-600 */
           btn.classList.add('active-tab', 'text-brand-600');
           btn.classList.remove('text-slate-500');
           moveIndicator(btn);
@@ -240,13 +217,17 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 
     window.addEventListener('scroll', () => {
       if (!header) return;
+      
       const currentScrollY = Math.max(0, window.scrollY);
+      
       if (currentScrollY < scrollThreshold) {
         header.style.transform = 'translateY(0)';
         lastScrollY = currentScrollY;
         return;
       }
+      
       if (Math.abs(currentScrollY - lastScrollY) < 5) return;
+
       if (currentScrollY > lastScrollY) {
         header.style.transform = 'translateY(-150%)';
       } else {

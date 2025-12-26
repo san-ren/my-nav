@@ -484,6 +484,83 @@
               "detail": "本地音乐播放器"
             }
           ]
+        },
+        {
+          "tabName": "音源",
+          "list": [
+            {
+              "name": "lx-music-source",
+              "url": "https://github.com/pdone/lx-music-source",
+              "desc": "",
+              "detail": "众多洛雪音乐源",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "LX-music-collection",
+              "url": "https://github.com/LuoXiaohei-2025/LX-music-collection",
+              "desc": "",
+              "detail": "",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "lxmusic-",
+              "url": "https://github.com/guoyue2010/lxmusic-",
+              "desc": "",
+              "detail": "2025年10终止分享，转付费服务",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "keep-alive",
+              "url": "https://github.com/Huibq/keep-alive",
+              "desc": "",
+              "detail": "Huibq源：洛雪音乐音源、MusicFree音源",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "New_lxmusic_source",
+              "url": "https://github.com/laosunmaker/New_lxmusic_source",
+              "desc": "",
+              "detail": "",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "music-sources",
+              "url": "https://github.com/OneCodeMonkey/music-sources",
+              "desc": "",
+              "detail": "洛雪音乐源：SixYin、Flower",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            }
+          ]
         }
       ]
     },

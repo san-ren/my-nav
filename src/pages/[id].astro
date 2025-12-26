@@ -8,26 +8,19 @@ import siteConfig from '../data/config.json';
 import { LayoutDashboard, Star, Code, Palette, Sun, Moon, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu } from 'lucide-react';
 
 // ==========================================
-// 核心修复：添加 getStaticPaths 函数
+// 核心修复：添加 getStaticPaths 函数 (保持不变)
 // ==========================================
 export async function getStaticPaths() {
-  // 1. 获取所有页面的 meta 信息 (src/data/nav/*/meta.json)
   const metaFiles = import.meta.glob('../data/nav/*/meta.json', { eager: true });
-
-  // 2. 获取所有分组信息 (src/data/nav/*/groups/*.json)
   const groupFiles = import.meta.glob('../data/nav/*/groups/*.json', { eager: true });
 
-  // 3. 组装数据
   let navResources = Object.entries(metaFiles).map(([metaPath, metaContent]: [string, any]) => {
     const meta = metaContent.default || metaContent;
-    // 从路径获取 pageId (例如 ../data/nav/home/meta.json -> home)
     const pageId = metaPath.split('/').slice(-2, -1)[0]; 
 
-    // 找到属于这个 pageId 的所有 group 文件
     const groups = Object.entries(groupFiles)
       .filter(([groupPath]) => groupPath.includes(`/nav/${pageId}/groups/`))
       .sort(([pathA], [pathB]) => {
-        // 按照文件名排序 (01_xxx.json, 02_xxx.json)
         const nameA = pathA.split('/').pop();
         const nameB = pathB.split('/').pop();
         return nameA.localeCompare(nameB, undefined, { numeric: true });
@@ -40,17 +33,14 @@ export async function getStaticPaths() {
     };
   });
 
-  // 4. 页面排序
   navResources.sort((a: any, b: any) => (a.sortOrder || 99) - (b.sortOrder || 99));
 
-  // 5. 生成路径参数
   return navResources.map((section) => ({
     params: { id: section.id },
     props: { section, navResources }, 
   }));
 }
 
-// 从 getStaticPaths 传递的 props 中获取数据
 const { section, navResources } = Astro.props;
 const { id } = Astro.params;
 
@@ -74,7 +64,8 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
           </button>
 
           <h1 class="text-xl font-black flex items-center gap-3 text-slate-800 dark:text-white truncate">
-            <div class="p-2 bg-brand-50 dark:bg-brand-600/20 rounded-lg text-brand-600 shrink-0"><CurrentIcon size={20} /></div>
+            {/* 【修改点 1】Header 图标背景和文字颜色 */}
+            <div class="p-2 bg-brand-50 dark:bg-brand-900/30 rounded-lg text-brand-600 shrink-0"><CurrentIcon size={20} /></div>
             <span class="truncate">{section.name}</span>
           </h1>
         </div>
@@ -82,6 +73,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
         <div class="flex items-center gap-2 md:gap-3 shrink-0">
           <SearchModal client:load />
           <ThemePicker />
+          {/* 【修改点 2】主题切换按钮悬浮颜色 */}
           <button id="theme-toggle" class="p-2.5 bg-slate-100 dark:bg-gray-800 rounded-xl text-slate-500 hover:text-brand-600 transition-all">
             <Sun size={20} className="hidden dark:block" />
             <Moon size={20} className="block dark:hidden" />
@@ -104,6 +96,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
                   <section id={`cat-${uniqueId}`} class="category-group scroll-mt-28 w-full">
                     <div class="flex flex-wrap items-center justify-start gap-x-6 gap-y-4 mb-8">
                       <h3 class="flex items-center gap-3 text-lg font-bold text-slate-700 dark:text-slate-200 shrink-0">
+                        {/* 【修改点 3】分类标题左侧竖杠颜色 */}
                         <span class="w-1.5 h-5 bg-brand-600 rounded-full"></span>
                         {category.name}
                       </h3>
@@ -112,6 +105,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
                         <div class="tab-nav-container relative z-0 flex bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-full overflow-x-auto no-scrollbar max-w-full">
                           <div class="tab-indicator absolute bg-white dark:bg-slate-700 shadow-sm rounded-full h-[calc(100%-8px)] top-1 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1.0)]"></div>
                           {category.tabs.map((tab, tabIdx) => (
+                            /* 【修改点 4】Tab 激活时的文字颜色 */
                             <button
                               class={`tab-btn relative z-10 px-4 py-1.5 text-xs font-bold rounded-full transition-colors duration-200 whitespace-nowrap
                               ${tabIdx === 0 ? 'text-brand-600 active-tab' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}`}
@@ -204,9 +198,11 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
         btn.addEventListener('click', (e) => {
           e.preventDefault();
           btns.forEach(b => {
+            // 【修改点 5】JS 中 Tab 切换移除 brand 类名
             b.classList.remove('active-tab', 'text-brand-600');
             b.classList.add('text-slate-500');
           });
+          // 【修改点 6】JS 中 Tab 切换添加 brand 类名
           btn.classList.add('active-tab', 'text-brand-600');
           btn.classList.remove('text-slate-500');
           moveIndicator(btn);
