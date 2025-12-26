@@ -33,8 +33,8 @@
                 "version",
                 "last_commit"
               ],
-              "desc": "一个基于 electron 的音乐软件，",
-              "detail": "- 支持PC、浏览器扩展、安卓、iOS\n- 在线音乐播放",
+              "desc": "",
+              "detail": "一个基于 electron 的音乐软件\n\n- 支持PC、浏览器扩展、安卓、iOS\n- 在线音乐播放",
               "guide_id": "listen1",
               "widget_url": ""
             },
@@ -104,20 +104,6 @@
               "widget_url": ""
             },
             {
-              "name": "musicn",
-              "url": "https://github.com/zonemeen/musicn",
-              "official_site": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ],
-              "desc": "",
-              "detail": "可播放及下载音乐的 Node.js 命令行工具",
-              "guide_id": "",
-              "widget_url": ""
-            },
-            {
               "name": "music-dl",
               "url": "https://github.com/guanguans/music-dl",
               "official_site": "https://www.guanguans.cn/music-dl/",
@@ -126,46 +112,8 @@
                 "version",
                 "last_commit"
               ],
-              "desc": "",
-              "detail": "音乐搜索下载",
-              "guide_id": "",
-              "widget_url": ""
-            },
-            {
-              "name": "YesPlayMusic",
-              "url": "https://github.com/qier222/YesPlayMusic",
-              "official_site": "https://music.qier222.com/",
-              "badge_list": [
-                "stars",
-                "last_commit",
-                "version"
-              ],
-              "desc": "",
-              "detail": "高颜值的第三方网易云播放器，支持 Windows / macOS / Linux",
-              "guide_id": "",
-              "widget_url": ""
-            },
-            {
-              "name": "SPlayer",
-              "url": "https://github.com/imsyy/SPlayer",
-              "official_site": "http://splayer.imsyy.top/",
-              "badge_list": [
-                "stars",
-                "last_commit",
-                "version"
-              ],
-              "desc": "",
-              "detail": "网易云第三方",
-              "guide_id": "",
-              "widget_url": ""
-            },
-            {
-              "name": "unblockneteasemusic",
-              "url": "https://github.com/topics/unblockneteasemusic",
-              "official_site": "",
-              "badge_list": [],
-              "desc": "",
-              "detail": "网易云第三方，5 public repositories",
+              "desc": "命令行音乐搜索下载",
+              "detail": "",
               "guide_id": "",
               "widget_url": ""
             },
@@ -184,16 +132,16 @@
               "widget_url": ""
             },
             {
-              "name": "mp3tag-douban-id3-plugins",
-              "url": "https://github.com/yoyicue/mp3tag-douban-id3-plugins",
+              "name": "musicn",
+              "url": "https://github.com/zonemeen/musicn",
               "official_site": "",
               "badge_list": [
                 "stars",
-                "last_commit",
-                "version"
+                "version",
+                "last_commit"
               ],
               "desc": "",
-              "detail": "Mp3tag 豆瓣音乐 id3 插件 v2.5 （2020年10月可用）",
+              "detail": "可播放及下载音乐的 Node.js 命令行工具",
               "guide_id": "",
               "widget_url": ""
             },
@@ -276,29 +224,11 @@
               "widget_url": ""
             },
             {
-              "name": "拟声",
-              "url": "https://download.music.mimicry.cool/",
-              "official_site": "",
-              "desc": "",
-              "detail": "拟物风音视频播放器，win、Android",
-              "guide_id": "",
-              "widget_url": ""
-            },
-            {
               "name": "AIMP",
               "url": "http://www.aimp.ru/",
               "official_site": "",
               "desc": "",
               "detail": "",
-              "guide_id": "",
-              "widget_url": ""
-            },
-            {
-              "name": "Winamp",
-              "url": "https://www.winamp.com/",
-              "official_site": "",
-              "desc": "",
-              "detail": "老牌播放器",
               "guide_id": "",
               "widget_url": ""
             },
@@ -317,6 +247,71 @@
               "widget_url": ""
             },
             {
+              "name": "Winamp",
+              "url": "https://www.winamp.com/",
+              "official_site": "",
+              "desc": "",
+              "detail": "老牌播放器",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "拟声",
+              "url": "https://download.music.mimicry.cool/",
+              "official_site": "",
+              "desc": "界面充斥着大量的空白",
+              "detail": "拟物风音视频播放器，win、Android",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "YesPlayMusic",
+              "url": "https://github.com/qier222/YesPlayMusic",
+              "official_site": "https://music.qier222.com/",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ],
+              "desc": "第三方网易云播放器",
+              "detail": "支持 Windows / macOS / Linux",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "SPlayer",
+              "url": "https://github.com/imsyy/SPlayer",
+              "official_site": "http://splayer.imsyy.top/",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ],
+              "desc": "网易云第三方",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "unblockneteasemusic",
+              "url": "https://github.com/topics/unblockneteasemusic",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "网易云第三方，5 public repositories",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "方格音乐",
+              "url": "http://fonger.top/",
+              "official_site": "",
+              "desc": "2025年因不知名原因关闭官网、软件",
+              "detail": "\\~\\~安卓（魔音）、Windows，在线播放,B站：不知名非羽；微信公众号：方格MUSIC\\~\\~",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
               "name": "electron-vue-cloud-music",
               "url": "https://github.com/xiaozhu188/electron-vue-cloud-music",
               "official_site": "",
@@ -325,8 +320,8 @@
                 "version",
                 "last_commit"
               ],
-              "desc": "",
-              "detail": "Electron + Vue 仿网易云音乐windows客户端，2021停更",
+              "desc": "2021停更",
+              "detail": "Electron + Vue 仿网易云音乐windows客户端",
               "guide_id": "",
               "widget_url": ""
             },
@@ -344,11 +339,16 @@
               "guide_id": ""
             },
             {
-              "name": "方格音乐",
-              "url": "http://fonger.top/",
+              "name": "mp3tag-douban-id3-plugins",
+              "url": "https://github.com/yoyicue/mp3tag-douban-id3-plugins",
               "official_site": "",
-              "desc": "2025年因不知名原因关闭官网、软件",
-              "detail": "\\~\\~安卓（魔音）、Windows，在线播放,B站：不知名非羽；微信公众号：方格MUSIC\\~\\~",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ],
+              "desc": "Mp3tag 豆瓣音乐 id3 插件 v2.5 （2020年10月可用）",
+              "detail": "",
               "guide_id": "",
               "widget_url": ""
             }
@@ -360,8 +360,11 @@
             {
               "name": "酷狗概念版",
               "url": "https://activity.kugou.com/download/v-a23b0cf0/index.html",
-              "desc": "",
-              "detail": "每日领VIP，在线听的不二选择"
+              "official_site": "",
+              "desc": "每日领VIP，在线听的不二选择",
+              "detail": "。。\\*\\*的方式\\*\\*。。的服务费",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "LX Music",
@@ -392,51 +395,100 @@
               "detail": "插件化、定制化、无广告的免费音乐播放器"
             },
             {
-              "name": "音乐时刻",
-              "url": "https://flowus.cn/share/5bf1a0d1-5f58-4bd9-9cb6-3a4b2f7e4ae4",
-              "desc": "",
-              "detail": "无广，可设置下载路径、命名格式、写入音乐标签、下载歌词文件，与歌词适配相似"
-            },
-            {
-              "name": "KHMD/空痕音乐下载器",
-              "url": "https://www.khkj6.com/archives/19.html",
-              "desc": "",
-              "detail": ""
-            },
-            {
-              "name": "极乐",
-              "url": "https://wds.cxoip.com/797.html",
-              "desc": "",
-              "detail": "无广，音乐下载"
-            },
-            {
-              "name": "天天悦听",
-              "url": "https://pan.xunlei.com/s/VNniL144qUd9zSr5Bh9vXJf7A1?pwd=9y8d#",
-              "desc": "",
-              "detail": "无广，公众号“安卓聚玩”，小程序“聚玩工具箱”"
-            },
-            {
               "name": "Music Player",
               "url": "https://github.com/FossifyOrg/Music-Player",
+              "official_site": "https://www.fossify.org/",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
               "desc": "",
-              "detail": "音乐播放器"
+              "detail": "音乐播放器",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "音乐搜索",
               "url": "音乐时刻",
-              "desc": "",
-              "detail": "无广，网站套壳"
+              "desc": "无广，网站套壳",
+              "detail": ""
             },
             {
-              "name": "Spotube",
-              "url": "https://spotube.krtirtho.dev/",
+              "name": "音乐标签",
+              "url": "https://www.cnblogs.com/vinlxc/p/11932130.html",
               "desc": "",
-              "detail": "24.8k star，开源 Spotify 客户端，支持YouTube、Piped、Jiosaavn音源"
+              "detail": "编辑歌曲的标题，专辑，艺术家，歌词，封面等信息,支持FLAC, APE, WAV, AIFF, WV, TTA, MP3, MP4, M4A, OGG, MPC, OPUS, WMA, DSF, DFF等"
+            },
+            {
+              "name": "Musicolet",
+              "url": "https://krosbits.in/musicolet/",
+              "desc": "",
+              "detail": "Android 离线音乐播放器,可编辑音乐标签和内嵌歌词"
+            },
+            {
+              "name": "无损音乐",
+              "url": "",
+              "desc": "",
+              "detail": "文件夹播放器"
+            },
+            {
+              "name": "椒盐音乐",
+              "url": "https://play.google.com/store/apps/details?id=com.salt.music",
+              "desc": "",
+              "detail": "本地音乐播放器，酷安大佬开发"
+            },
+            {
+              "name": "NYX Music Player",
+              "url": "https://nyx-music-player.cn.uptodown.com/android",
+              "official_site": "",
+              "desc": "动画精美，本地音乐播放器",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "Stellio Player",
+              "url": "https://play.google.com/store/apps/details?id=io.stellio.music",
+              "official_site": "",
+              "desc": "",
+              "detail": "本地音乐播放器",
+              "guide_id": ""
+            },
+            {
+              "name": "海贝音乐",
+              "url": "https://www.hiby.com/",
+              "official_site": "",
+              "desc": "常规播放器",
+              "detail": ""
+            },
+            {
+              "name": "DialogMusicPlayer",
+              "url": "https://github.com/VishnuSanal/DialogMusicPlayer/",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "极简，无桌面图标",
+              "detail": "播放界面类似于悬浮窗",
+              "guide_id": ""
+            },
+            {
+              "name": "Muviz Edge",
+              "url": "https://play.google.com/store/apps/details?id=com.sparkine.muvizedge&ref=appinn",
+              "official_site": "",
+              "desc": "在屏幕边缘显示现场音乐可视化",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "拟声",
+              "url": "https://download.music.mimicry.cool/",
+              "desc": "UI充斥着大量空白",
+              "detail": "拟物风音视频播放器"
             },
             {
               "name": "不倦",
@@ -446,8 +498,22 @@
                 "version",
                 "last_commit"
               ],
-              "desc": "",
-              "detail": "Flutter移动端+桌面端三方网易云播放器"
+              "desc": "第三方网易云播放器",
+              "detail": "Flutter移动端+桌面端"
+            },
+            {
+              "name": "Spotube",
+              "url": "https://github.com/KRTirtho/spotube",
+              "official_site": "https://spotube.krtirtho.dev/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "开源 Spotify 客户端",
+              "detail": "支持YouTube、Piped、Jiosaavn音源",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "InnerTune",
@@ -457,73 +523,32 @@
                 "version",
                 "last_commit"
               ],
-              "desc": "",
-              "detail": "3.4k star,第三方 YouTube Music"
-            },
-            {
-              "name": "音乐标签",
-              "url": "https://www.cnblogs.com/vinlxc/p/11932130.html",
-              "desc": "",
-              "detail": "编辑歌曲的标题，专辑，艺术家，歌词，封面等信息,支持FLAC, APE, WAV, AIFF, WV, TTA, MP3, MP4, M4A, OGG, MPC, OPUS, WMA, DSF, DFF等"
-            },
-            {
-              "name": "Muviz Edge",
-              "url": "https://play.google.com/store/apps/details?id=com.sparkine.muvizedge&ref=appinn",
-              "desc": "",
-              "detail": "在屏幕边缘显示现场音乐可视化"
-            },
-            {
-              "name": "无损音乐",
-              "url": "",
-              "desc": "",
-              "detail": "文件夹播放器"
-            },
-            {
-              "name": "DialogMusicPlayer",
-              "url": "https://github.com/VishnuSanal/DialogMusicPlayer/",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ],
-              "desc": "",
-              "detail": "极简，无桌面图标，播放界面类似于悬浮窗"
-            },
-            {
-              "name": "拟声",
-              "url": "https://download.music.mimicry.cool/",
-              "desc": "",
-              "detail": "拟物风音视频播放器"
-            },
-            {
-              "name": "Musicolet",
-              "url": "https://krosbits.in/musicolet/",
-              "desc": "",
-              "detail": "Android 离线音乐播放器,可编辑音乐标签和内嵌歌词"
-            },
-            {
-              "name": "椒盐音乐",
-              "url": "https://play.google.com/store/apps/details?id=com.salt.music",
-              "desc": "",
-              "detail": "本地音乐播放器，酷安大佬开发"
-            },
-            {
-              "name": "海贝音乐",
-              "url": "https://www.hiby.com/",
-              "desc": "",
+              "desc": "第三方 YouTube Music",
               "detail": ""
             },
             {
-              "name": "NYX Music Player",
-              "url": "https://nyx-music-player.cn.uptodown.com/android",
-              "desc": "",
-              "detail": "动画精美，本地音乐播放器"
+              "name": "音乐时刻",
+              "url": "https://flowus.cn/share/5bf1a0d1-5f58-4bd9-9cb6-3a4b2f7e4ae4",
+              "desc": "2025失效",
+              "detail": "无广，可设置下载路径、命名格式、写入音乐标签、下载歌词文件，与歌词适配相似"
             },
             {
-              "name": "Stellio Player",
-              "url": "https://play.google.com/store/apps/details?id=io.stellio.music",
-              "desc": "",
-              "detail": "本地音乐播放器"
+              "name": "KHMD/空痕音乐下载器",
+              "url": "https://www.khkj6.com/archives/19.html",
+              "desc": "2025失效",
+              "detail": ""
+            },
+            {
+              "name": "极乐",
+              "url": "https://wds.cxoip.com/797.html",
+              "desc": "2025失效",
+              "detail": "无广，音乐下载"
+            },
+            {
+              "name": "天天悦听",
+              "url": "https://pan.xunlei.com/s/VNniL144qUd9zSr5Bh9vXJf7A1?pwd=9y8d#",
+              "desc": "2025失效",
+              "detail": "无广，公众号“安卓聚玩”，小程序“聚玩工具箱”"
             }
           ]
         },
@@ -536,11 +561,12 @@
               "official_site": "",
               "badge_list": [
                 "stars",
-                "version",
                 "last_commit"
               ],
               "desc": "",
-              "detail": "众多洛雪音乐源"
+              "detail": "众多洛雪音乐源",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "LX-music-collection",
@@ -552,7 +578,9 @@
                 "last_commit"
               ],
               "desc": "",
-              "detail": ""
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "lxmusic-",
@@ -563,8 +591,10 @@
                 "version",
                 "last_commit"
               ],
-              "desc": "",
-              "detail": "2025年10终止分享，转付费服务"
+              "desc": "2025年10月终止分享，转付费服务",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "keep-alive",
@@ -572,11 +602,12 @@
               "official_site": "",
               "badge_list": [
                 "stars",
-                "version",
                 "last_commit"
               ],
               "desc": "",
-              "detail": "Huibq源：洛雪音乐音源、MusicFree音源"
+              "detail": "Huibq源：洛雪音乐音源、MusicFree音源",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "New_lxmusic_source",
@@ -584,11 +615,12 @@
               "official_site": "",
               "badge_list": [
                 "stars",
-                "version",
                 "last_commit"
               ],
               "desc": "",
-              "detail": ""
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "music-sources",
@@ -596,11 +628,12 @@
               "official_site": "",
               "badge_list": [
                 "stars",
-                "version",
                 "last_commit"
               ],
               "desc": "",
-              "detail": "洛雪音乐源：SixYin、Flower"
+              "detail": "洛雪音乐源：SixYin、Flower",
+              "guide_id": "",
+              "widget_url": ""
             }
           ]
         }
