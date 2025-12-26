@@ -1,4 +1,5 @@
 {
+  "page": "home",
   "name": "多媒体",
   "icon": "Clapperboard",
   "categories": [
@@ -153,12 +154,12 @@
               "desc": "",
               "detail": "网易云第三方，5 public repositories",
               "official_site": "",
-              "guide_id": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "guide_id": ""
             },
             {
               "name": "NSMusicS",
@@ -231,7 +232,7 @@
               "name": "MusicPlayer2",
               "url": "https://github.com/zhongyang219/MusicPlayer2",
               "desc": "",
-              "detail": "音乐本地播放，歌词显示、歌词卡拉OK样式显示、歌词在线下载、歌词编辑、歌曲标签识别、专辑封面显示、专辑封面在线下载、频谱分析、音效设置、任务栏缩略图按钮、主题颜色、格式转换等",
+              "detail": "4k star,音乐本地播放，歌词显示、歌词卡拉OK样式显示、歌词在线下载、歌词编辑、歌曲标签识别、专辑封面显示、专辑封面在线下载、频谱分析、音效设置、任务栏缩略图按钮、主题颜色、格式转换等",
               "badge_list": [
                 "stars",
                 "version",
@@ -242,7 +243,7 @@
               "name": "Dopamine",
               "url": "https://github.com/digimezzo/dopamine-windows",
               "desc": "",
-              "detail": "简约本地音乐播放器",
+              "detail": "1.7k star,简约本地音乐播放器",
               "badge_list": [
                 "stars",
                 "version",
@@ -269,25 +270,31 @@
             },
             {
               "name": "Wora",
-              "url": "https://github.com/hiaaryan/wora",
+              "url": "https://github.com/playwora/wora",
               "desc": "",
               "detail": "",
+              "widget_url": "",
+              "official_site": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "guide_id": ""
             },
             {
               "name": "electron-vue-cloud-music",
               "url": "https://github.com/xiaozhu188/electron-vue-cloud-music",
               "desc": "",
               "detail": "Electron + Vue 仿网易云音乐windows客户端，2021停更",
+              "widget_url": "",
+              "official_site": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "guide_id": ""
             },
             {
               "name": "Music_Download",
@@ -394,7 +401,7 @@
               "name": "Spotube",
               "url": "https://spotube.krtirtho.dev/",
               "desc": "",
-              "detail": "开源 Spotify 客户端，支持YouTube、Piped、Jiosaavn音源"
+              "detail": "24.8k star，开源 Spotify 客户端，支持YouTube、Piped、Jiosaavn音源"
             },
             {
               "name": "不倦",
@@ -411,7 +418,7 @@
               "name": "InnerTune",
               "url": "https://github.com/z-huang/InnerTune",
               "desc": "",
-              "detail": "第三方 YouTube Music",
+              "detail": "3.4k star,第三方 YouTube Music",
               "badge_list": [
                 "stars",
                 "version",
@@ -609,7 +616,7 @@
               "name": "Imagine",
               "url": "https://www.nyam.pe.kr/dev/imagine/",
               "desc": "",
-              "detail": "看图、动图编辑"
+              "detail": "3.4k star，看图、动图编辑"
             },
             {
               "name": "Image Eye",
@@ -633,7 +640,7 @@
               "name": "qView",
               "url": "https://interversehq.com/qview/",
               "desc": "",
-              "detail": "看图"
+              "detail": "1.7k star，看图"
             },
             {
               "name": "Masonry Image Viewer",
@@ -684,13 +691,13 @@
               "name": "ShareX",
               "url": "https://getsharex.com/",
               "desc": "",
-              "detail": "编辑功能强大，适合专业人士，未适配高分屏（2024.3），显示过小"
+              "detail": "27.1k star,编辑功能强大，适合专业人士，未适配高分屏（2024.3），显示过小"
             },
             {
               "name": "Flameshot",
               "url": "https://flameshot.org/",
               "desc": "",
-              "detail": "标注功能强大，全平台"
+              "detail": "23.3k star，标注功能强大，全平台"
             },
             {
               "name": "PicPick",
@@ -702,7 +709,7 @@
               "name": "eSearch",
               "url": "https://github.com/xushengfeng/eSearch",
               "desc": "",
-              "detail": "长截屏、离线OCR、搜索翻译、贴图、录屏",
+              "detail": "2.8k star,长截屏、离线OCR、搜索翻译、贴图、录屏",
               "badge_list": [
                 "stars",
                 "version",
@@ -764,7 +771,7 @@
               "name": "PicGo",
               "url": "https://github.com/Molunerfinn/PicGo",
               "desc": "",
-              "detail": "",
+              "detail": "24.5k star",
               "badge_list": [
                 "stars",
                 "version",
@@ -775,7 +782,7 @@
               "name": "PicX",
               "url": "https://github.com/XPoet/picx",
               "desc": "",
-              "detail": "",
+              "detail": "4.7k star",
               "badge_list": [
                 "stars",
                 "version",
@@ -786,7 +793,7 @@
               "name": "EasyImage2.0 简单图床",
               "url": "https://github.com/icret/EasyImages2.0",
               "desc": "",
-              "detail": "",
+              "detail": "3k star",
               "badge_list": [
                 "stars",
                 "version",
@@ -814,7 +821,7 @@
               "name": "Caesium Image Compressor",
               "url": "https://saerasoft.com/caesium",
               "desc": "",
-              "detail": "图像压缩,"
+              "detail": "3.3k star，图像压缩,"
             },
             {
               "name": "Img Toolbox",
@@ -942,7 +949,7 @@
               "name": "ScreenToGif",
               "url": "https://www.screentogif.com/",
               "desc": "",
-              "detail": "屏幕、摄像头和画板录像，并有内置编辑器"
+              "detail": "23k star，屏幕、摄像头和画板录像，并有内置编辑器"
             },
             {
               "name": "Video to GIF",
@@ -960,7 +967,7 @@
               "name": "Screenity",
               "url": "https://screenity.io/en/",
               "desc": "",
-              "detail": "Chrome/Edge，屏幕录制和标注工具，捕捉、标注、缩放、模糊、编辑视频等功能 - 无需登录"
+              "detail": "11k star, Chrome/Edge，屏幕录制和标注工具，捕捉、标注、缩放、模糊、编辑视频等功能 - 无需登录"
             },
             {
               "name": "水豚鼠标助手",
@@ -996,13 +1003,13 @@
               "name": "Cap",
               "url": "https://cap.so/",
               "desc": "",
-              "detail": "录屏，lite版免费"
+              "detail": "3.4k star，录屏，lite版免费"
             },
             {
               "name": "OBS工作室版",
               "url": "https://obsproject.com/zh-cn",
               "desc": "",
-              "detail": "视频录制、直播串流"
+              "detail": "57k star， 视频录制、直播串流"
             },
             {
               "name": "CamStudio",
@@ -1020,7 +1027,7 @@
               "name": "Captura",
               "url": "https://github.com/MathewSachin/Captura",
               "desc": "",
-              "detail": "2018停更，2023归档，作品被盗取贩卖",
+              "detail": "9.5k star,2018停更，2023归档，作品被盗取贩卖",
               "badge_list": [
                 "stars",
                 "version",
@@ -1036,7 +1043,7 @@
               "name": "LosslessCut",
               "url": "https://github.com/mifi/lossless-cut",
               "desc": "",
-              "detail": "无损修剪和剪切",
+              "detail": "31k star，无损修剪和剪切",
               "badge_list": [
                 "stars",
                 "version",
@@ -1053,7 +1060,7 @@
               "name": "HandBrake",
               "url": "https://github.com/HandBrake/HandBrake",
               "desc": "",
-              "detail": "音视频格式转换、重编码",
+              "detail": "20K star，音视频格式转换、重编码",
               "badge_list": [
                 "stars",
                 "version",
@@ -1120,6 +1127,5 @@
         }
       ]
     }
-  ],
-  "page": "home"
+  ]
 }
