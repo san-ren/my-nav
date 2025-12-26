@@ -2,14 +2,16 @@ backend:
   name: github
   repo: san-ren/my-nav
   branch: main
-  auth_type: token
-  
-  commit_messages:
-    create: '创建 {{collection}} “{{slug}}”'
-    update: '更新 {{collection}} “{{slug}}”'
-    delete: '删除 {{collection}} “{{slug}}”'
-    uploadMedia: '上传资源 “{{path}}”'
-    deleteMedia: '删除资源 “{{path}}”'
+  # 建议：本地开发时开启 local_backend 可以直接修改本地文件，不用每次都提交到 GitHub
+  # 部署上线时 Decap/Sveltia 会自动忽略这个配置
+  local_backend: true 
+
+commit_messages:
+  create: '创建 {{collection}} “{{slug}}”'
+  update: '更新 {{collection}} “{{slug}}”'
+  delete: '删除 {{collection}} “{{slug}}”'
+  uploadMedia: '上传资源 “{{path}}”'
+  deleteMedia: '删除资源 “{{path}}”'
 
 locale: 'zh_Hans'
 media_folder: "public/images"
@@ -81,7 +83,6 @@ collections:
       preview: false
     fields: &group_fields
       - { label: "所属页面ID", name: "page", widget: "string", required: true, default: "home", hint: "⚠️ 必填：home 或 sub1，决定归档位置" }
-      
       - { label: "分组名称 (锚点)", name: "name", widget: "string", required: true }
       - { label: "分组图标", name: "icon", widget: "string", required: false }
       
@@ -94,7 +95,7 @@ collections:
         fields:
           - { label: "分类名称", name: "name", widget: "string", required: true }
           - { label: "分类图标", name: "icon", widget: "string", required: false }
-
+          
           # --- 模式 A：无Tabs ---
           - label: "🔗 资源列表 (直属)"
             name: "list"
@@ -105,8 +106,6 @@ collections:
             fields: &site_fields  # 【定义锚点】
               - { label: "名称", name: "name", widget: "string", required: true }
               - { label: "链接地址", name: "url", widget: "string", required: false }
-              
-              # --- [调整位置] 官网 & 徽章 上移至此 ---
               - { label: "官网/项目主页", name: "official_site", widget: "string", required: false }
               - label: "GitHub 徽章"
                 name: "badge_list"
@@ -114,15 +113,9 @@ collections:
                 multiple: true
                 required: false
                 options: ["stars", "version", "last_commit", "license"]
-              # -------------------------------------
-
               - { label: "简短描述", name: "desc", widget: "string", required: false }
               - { label: "详细说明", name: "detail", widget: "markdown", required: false, buttons: ["bold", "italic", "link", "code"], editor_components: [] }
-              
-              # --- [调整位置] 教程ID 上移至此 ---
               - { label: "关联教程ID", name: "guide_id", widget: "string", required: false }
-              # --------------------------------
-
               - { label: "自定义图标 URL", name: "icon", widget: "image", required: false }
               - { label: "小工具路径", name: "widget_url", widget: "string", required: false }
 
@@ -132,15 +125,15 @@ collections:
             widget: "list"
             required: false
             collapsed: true
-            summary: "Tab：{{tabName}}" 
+            summary: "Tab：{{tabName}}"
             fields:
-              - { label: "页签名称", name: "tabName", widget: "string", required: true } 
+              - { label: "页签名称", name: "tabName", widget: "string", required: true }
               - label: "资源列表"
                 name: "list"
                 widget: "list"
                 collapsed: true
                 required: false
-                fields: *site_fields  # 引用上面的定义，顺序会自动同步
+                fields: *site_fields  # 引用上面的定义
 
   # ============================================================
   # 4. [视图 B] 分组内容 - 文件夹视图 (Nested 模式)
@@ -162,7 +155,7 @@ collections:
     filter:
       field: "page"
       pattern: ".+"
-    fields: *group_fields # 引用上面 nav_groups 的字段定义，无需重复修改
+    fields: *group_fields # 引用上面 nav_groups 的字段定义
 
   # ============================================================
   # 5. 教程文章管理
