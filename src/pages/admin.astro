@@ -1,34 +1,9 @@
 ---
 // src/pages/admin.astro
-// 这个文件的存在是为了覆盖 [id].astro 动态路由，专门处理 /admin 路径
----
-<!doctype html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>导航站管理后台</title>
-    <!-- 引入 Sveltia CMS -->
-    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" is:inline></script>
-  </head>
-  <body>
-    <!-- 手动初始化 CMS 并指定配置文件路径 -->
-    <script is:inline>
-       if (!window.CMS) window.CMS = {};
-       
-       // 强制初始化，明确告诉 CMS 去哪里找 config.yml
-       // 这样可以避免 /admin 和 /admin/ 路径不同导致的配置丢失问题
-       const initCMS = () => {
-         const el = document.createElement('sveltia-cms');
-         el.configPath = '/admin/config.yml'; 
-         document.body.appendChild(el);
-       };
+// 这个文件的作用是：
+// 1. 优先级高于 [id].astro，所以它会拦截 /admin 请求
+// 2. 立即跳转到 index.html 具体文件，避开 Astro 的路由匹配，直接读取静态文件
+// 3. 从而彻底避开 Tailwind 样式污染
 
-       if (document.readyState === 'loading') {
-         document.addEventListener('DOMContentLoaded', initCMS);
-       } else {
-         initCMS();
-       }
-    </script>
-  </body>
-</html>
+return Astro.redirect('/my-nav/admin/index.html');
+---

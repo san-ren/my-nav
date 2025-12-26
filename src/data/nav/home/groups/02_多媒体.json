@@ -13,343 +13,344 @@
             {
               "name": "洛雪音乐助手",
               "url": "https://github.com/lyswhut/lx-music-desktop",
-              "desc": "",
-              "detail": "",
-              "widget_url": "",
               "official_site": "https://lxmusic.toside.cn/",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
-              "guide_id": ""
+              "desc": "",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "Listen1",
               "url": "https://github.com/listen1/listen1_desktop",
-              "desc": "一个基于 electron 的音乐软件，",
-              "detail": "- 支持PC、浏览器扩展、安卓、iOS\n- 在线音乐播放",
-              "widget_url": "",
               "official_site": "https://listen1.github.io/listen1/",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
-              "guide_id": "listen1"
+              "desc": "一个基于 electron 的音乐软件，",
+              "detail": "- 支持PC、浏览器扩展、安卓、iOS\n- 在线音乐播放",
+              "guide_id": "listen1",
+              "widget_url": ""
             },
             {
               "name": "六音音源",
               "url": "https://www.sixyin.com/8498.html",
+              "official_site": "",
               "desc": "",
               "detail": "",
-              "widget_url": "",
-              "official_site": "",
-              "guide_id": ""
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "MusicFree",
               "url": "https://github.com/maotoumao/MusicFreeDesktop",
-              "desc": "",
-              "detail": "安卓、Windows、macos，插件化、定制化、无广告的免费音乐播放器",
-              "widget_url": "",
               "official_site": "https://musicfree.catcat.work/",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
-              "guide_id": ""
+              "desc": "",
+              "detail": "安卓、Windows、macos，插件化、定制化、无广告的免费音乐播放器",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "NSMusicS",
               "url": "https://github.com/Super-Badmen-Viper/NSMusicS",
-              "desc": "",
-              "detail": "九歌 云原生音乐服务器/ 全平台客户端，支持 Navidrome、Jellyfin、Emby",
-              "widget_url": "",
               "official_site": "",
               "badge_list": [
                 "stars",
                 "last_commit",
                 "version"
               ],
-              "guide_id": ""
+              "desc": "",
+              "detail": "九歌 云原生音乐服务器/ 全平台客户端，支持 Navidrome、Jellyfin、Emby",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "TTKMusicPlayer",
               "url": "https://github.com/Greedysky/TTKMusicPlayer",
-              "desc": "",
-              "detail": "音乐播放器模仿酷狗，基于Qt和Qmmp库开发，支持Windows和Linux平台.",
-              "widget_url": "",
               "official_site": "",
               "badge_list": [
                 "stars",
                 "last_commit",
                 "version"
               ],
-              "guide_id": ""
+              "desc": "",
+              "detail": "音乐播放器模仿酷狗，基于Qt和Qmmp库开发，支持Windows和Linux平台.",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "go-musicfox",
               "url": "https://github.com/go-musicfox/go-musicfox",
-              "desc": "",
-              "detail": "基于Go语言，支持UnblockNeteaseMusic、各种音质级别、lastfm、MPRIS、MacOS交互响应（睡眠暂停、蓝牙耳机连接断开响应、菜单栏控制等）...",
-              "widget_url": "",
               "official_site": "",
               "badge_list": [
                 "stars",
                 "last_commit",
                 "version"
               ],
-              "guide_id": ""
+              "desc": "",
+              "detail": "基于Go语言，支持UnblockNeteaseMusic、各种音质级别、lastfm、MPRIS、MacOS交互响应（睡眠暂停、蓝牙耳机连接断开响应、菜单栏控制等）...",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "musicn",
               "url": "https://github.com/zonemeen/musicn",
-              "desc": "",
-              "detail": "可播放及下载音乐的 Node.js 命令行工具",
-              "widget_url": "",
               "official_site": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
-              "guide_id": ""
+              "desc": "",
+              "detail": "可播放及下载音乐的 Node.js 命令行工具",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "music-dl",
               "url": "https://github.com/guanguans/music-dl",
-              "desc": "",
-              "detail": "音乐搜索下载",
-              "widget_url": "",
               "official_site": "https://www.guanguans.cn/music-dl/",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
-              "guide_id": ""
+              "desc": "",
+              "detail": "音乐搜索下载",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "YesPlayMusic",
               "url": "https://github.com/qier222/YesPlayMusic",
-              "desc": "",
-              "detail": "高颜值的第三方网易云播放器，支持 Windows / macOS / Linux",
-              "widget_url": "",
               "official_site": "https://music.qier222.com/",
               "badge_list": [
                 "stars",
                 "last_commit",
                 "version"
               ],
-              "guide_id": ""
+              "desc": "",
+              "detail": "高颜值的第三方网易云播放器，支持 Windows / macOS / Linux",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "SPlayer",
               "url": "https://github.com/imsyy/SPlayer",
-              "desc": "",
-              "detail": "网易云第三方",
-              "widget_url": "",
               "official_site": "http://splayer.imsyy.top/",
               "badge_list": [
                 "stars",
                 "last_commit",
                 "version"
               ],
-              "guide_id": ""
+              "desc": "",
+              "detail": "网易云第三方",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "unblockneteasemusic",
               "url": "https://github.com/topics/unblockneteasemusic",
-              "desc": "",
-              "detail": "网易云第三方，5 public repositories",
-              "widget_url": "",
               "official_site": "",
               "badge_list": [],
-              "guide_id": ""
+              "desc": "",
+              "detail": "网易云第三方，5 public repositories",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "NSMusicS",
               "url": "https://github.com/Super-Badmen-Viper/NSMusicS",
-              "desc": "",
-              "detail": "",
-              "widget_url": "",
               "official_site": "",
               "badge_list": [
                 "stars",
                 "last_commit",
                 "version"
               ],
-              "guide_id": ""
+              "desc": "",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "mp3tag-douban-id3-plugins",
               "url": "https://github.com/yoyicue/mp3tag-douban-id3-plugins",
-              "desc": "",
-              "detail": "Mp3tag 豆瓣音乐 id3 插件 v2.5 （2020年10月可用）",
-              "widget_url": "",
               "official_site": "",
               "badge_list": [
                 "stars",
                 "last_commit",
                 "version"
               ],
-              "guide_id": ""
+              "desc": "",
+              "detail": "Mp3tag 豆瓣音乐 id3 插件 v2.5 （2020年10月可用）",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "音乐标签",
               "url": "https://www.cnblogs.com/vinlxc/p/11347744.html",
+              "official_site": "",
               "desc": "",
               "detail": "编辑歌曲的标题，专辑，艺术家，歌词，封面等信息,支持FLAC, APE, WAV, AIFF, WV, TTA, MP3, MP4, M4A, OGG, MPC, OPUS, WMA, DSF, DFF等",
-              "widget_url": "",
-              "official_site": "",
-              "guide_id": ""
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "foobar2000",
               "url": "https://www.foobar2000.org/",
+              "official_site": "",
               "desc": "",
               "detail": "在音乐界的地位震古烁今",
-              "widget_url": "",
-              "official_site": "",
-              "guide_id": ""
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "foobox-cn",
               "url": "https://github.com/dream7180/foobox-cn",
-              "desc": "",
-              "detail": "一个 foobar2000 默认用户界面 (DUI) 的皮肤配置，基于 jsplitter (Spider Monkey Panel 版) 组件",
-              "widget_url": "",
               "official_site": "",
               "badge_list": [
                 "stars",
                 "last_commit",
                 "version"
               ],
-              "guide_id": ""
+              "desc": "",
+              "detail": "一个 foobar2000 默认用户界面 (DUI) 的皮肤配置，基于 jsplitter (Spider Monkey Panel 版) 组件",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "foobar2000汉化版",
               "url": "https://www.cnblogs.com/asionwu",
+              "official_site": "",
               "desc": "",
               "detail": "一个 foobar2000 爱好者",
-              "widget_url": "",
-              "official_site": "",
-              "guide_id": ""
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "Mcool",
               "url": "https://mcool.appinn.me/",
+              "official_site": "",
               "desc": "",
               "detail": "极简，开源，跨平台，本地音乐播放器",
-              "widget_url": "",
-              "official_site": "",
-              "guide_id": ""
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "MusicPlayer2",
               "url": "https://github.com/zhongyang219/MusicPlayer2",
-              "desc": "",
-              "detail": "音乐本地播放，歌词显示、歌词卡拉OK样式显示、歌词在线下载、歌词编辑、歌曲标签识别、专辑封面显示、专辑封面在线下载、频谱分析、音效设置、任务栏缩略图按钮、主题颜色、格式转换等",
-              "widget_url": "",
               "official_site": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
-              "guide_id": ""
+              "desc": "",
+              "detail": "音乐本地播放，歌词显示、歌词卡拉OK样式显示、歌词在线下载、歌词编辑、歌曲标签识别、专辑封面显示、专辑封面在线下载、频谱分析、音效设置、任务栏缩略图按钮、主题颜色、格式转换等",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "Dopamine",
               "url": "https://github.com/digimezzo/dopamine-windows",
-              "desc": "",
-              "detail": "简约本地音乐播放器",
-              "widget_url": "",
               "official_site": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
-              "guide_id": ""
+              "desc": "",
+              "detail": "简约本地音乐播放器",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "拟声",
               "url": "https://download.music.mimicry.cool/",
+              "official_site": "",
               "desc": "",
               "detail": "拟物风音视频播放器，win、Android",
-              "widget_url": "",
-              "official_site": "",
-              "guide_id": ""
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "AIMP",
               "url": "http://www.aimp.ru/",
+              "official_site": "",
               "desc": "",
               "detail": "",
-              "widget_url": "",
-              "official_site": "",
-              "guide_id": ""
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "Winamp",
               "url": "https://www.winamp.com/",
+              "official_site": "",
               "desc": "",
               "detail": "老牌播放器",
-              "widget_url": "",
-              "official_site": "",
-              "guide_id": ""
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "Wora",
               "url": "https://github.com/playwora/wora",
-              "desc": "",
-              "detail": "",
-              "widget_url": "",
               "official_site": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
-              "guide_id": ""
+              "desc": "",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "electron-vue-cloud-music",
               "url": "https://github.com/xiaozhu188/electron-vue-cloud-music",
-              "desc": "",
-              "detail": "Electron + Vue 仿网易云音乐windows客户端，2021停更",
-              "widget_url": "",
               "official_site": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
-              "guide_id": ""
+              "desc": "",
+              "detail": "Electron + Vue 仿网易云音乐windows客户端，2021停更",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "Music_Download",
               "url": "https://github.com/Java-S12138/Music_Download",
-              "desc": "发布即停更",
-              "detail": "- 基于python\n\n- 网易云，QQ音乐，酷狗音乐在线播放和下载",
               "official_site": "https://java-syj.feishu.cn/wiki/DBqIwuJ1ji228ike4necim4cnDg",
               "badge_list": [
                 "stars",
                 "last_commit",
                 "version"
               ],
+              "desc": "发布即停更",
+              "detail": "- 基于python\n\n- 网易云，QQ音乐，酷狗音乐在线播放和下载",
               "guide_id": ""
             },
             {
               "name": "方格音乐",
               "url": "http://fonger.top/",
-              "desc": "2025上半年因不知名原因关闭官网、软件",
-              "detail": "安卓（魔音）、Windows，在线播放,B站：不知名非羽；微信公众号：方格MUSIC",
               "official_site": "",
-              "guide_id": ""
+              "desc": "2025年因不知名原因关闭官网、软件",
+              "detail": "\\~\\~安卓（魔音）、Windows，在线播放,B站：不知名非羽；微信公众号：方格MUSIC\\~\\~",
+              "guide_id": "",
+              "widget_url": ""
             }
           ]
         },
@@ -365,13 +366,13 @@
             {
               "name": "LX Music",
               "url": "https://github.com/lyswhut/lx-music-mobile",
-              "desc": "",
-              "detail": "一个基于 React native 开发的音乐软件，自行导入音源，同desktop",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "一个基于 React native 开发的音乐软件，自行导入音源，同desktop"
             },
             {
               "name": "Listen 1",
@@ -382,13 +383,13 @@
             {
               "name": "MusicFree",
               "url": "https://github.com/maotoumao/MusicFree",
-              "desc": "",
-              "detail": "插件化、定制化、无广告的免费音乐播放器",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "插件化、定制化、无广告的免费音乐播放器"
             },
             {
               "name": "音乐时刻",
@@ -417,13 +418,13 @@
             {
               "name": "Music Player",
               "url": "https://github.com/FossifyOrg/Music-Player",
-              "desc": "",
-              "detail": "音乐播放器",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "音乐播放器"
             },
             {
               "name": "音乐搜索",
@@ -440,24 +441,24 @@
             {
               "name": "不倦",
               "url": "https://github.com/2697a/bujuan",
-              "desc": "",
-              "detail": "Flutter移动端+桌面端三方网易云播放器",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "Flutter移动端+桌面端三方网易云播放器"
             },
             {
               "name": "InnerTune",
               "url": "https://github.com/z-huang/InnerTune",
-              "desc": "",
-              "detail": "3.4k star,第三方 YouTube Music",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "3.4k star,第三方 YouTube Music"
             },
             {
               "name": "音乐标签",
@@ -480,13 +481,13 @@
             {
               "name": "DialogMusicPlayer",
               "url": "https://github.com/VishnuSanal/DialogMusicPlayer/",
-              "desc": "",
-              "detail": "极简，无桌面图标，播放界面类似于悬浮窗",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "极简，无桌面图标，播放界面类似于悬浮窗"
             },
             {
               "name": "拟声",
@@ -532,74 +533,74 @@
             {
               "name": "lx-music-source",
               "url": "https://github.com/pdone/lx-music-source",
-              "desc": "",
-              "detail": "众多洛雪音乐源",
               "official_site": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "众多洛雪音乐源"
             },
             {
               "name": "LX-music-collection",
               "url": "https://github.com/LuoXiaohei-2025/LX-music-collection",
-              "desc": "",
-              "detail": "",
               "official_site": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": ""
             },
             {
               "name": "lxmusic-",
               "url": "https://github.com/guoyue2010/lxmusic-",
-              "desc": "",
-              "detail": "2025年10终止分享，转付费服务",
               "official_site": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "2025年10终止分享，转付费服务"
             },
             {
               "name": "keep-alive",
               "url": "https://github.com/Huibq/keep-alive",
-              "desc": "",
-              "detail": "Huibq源：洛雪音乐音源、MusicFree音源",
               "official_site": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "Huibq源：洛雪音乐音源、MusicFree音源"
             },
             {
               "name": "New_lxmusic_source",
               "url": "https://github.com/laosunmaker/New_lxmusic_source",
-              "desc": "",
-              "detail": "",
               "official_site": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": ""
             },
             {
               "name": "music-sources",
               "url": "https://github.com/OneCodeMonkey/music-sources",
-              "desc": "",
-              "detail": "洛雪音乐源：SixYin、Flower",
               "official_site": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "洛雪音乐源：SixYin、Flower"
             }
           ]
         }
@@ -621,13 +622,13 @@
             {
               "name": "Masonry Image Viewer",
               "url": "https://github.com/wlm3201/Masonry_Image_Viewer",
-              "desc": "",
-              "detail": "瀑布流本地图片浏览器",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "瀑布流本地图片浏览器"
             },
             {
               "name": "ImageGlass",
@@ -638,13 +639,13 @@
             {
               "name": "PicView",
               "url": "https://github.com/Ruben2776/PicView",
-              "desc": "",
-              "detail": "开源，看图",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "开源，看图"
             },
             {
               "name": "Imagine",
@@ -679,13 +680,13 @@
             {
               "name": "Masonry Image Viewer",
               "url": "https://github.com/wlm3201/Masonry_Image_Viewer",
-              "desc": "",
-              "detail": "瀑布流本地图片浏览器",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "瀑布流本地图片浏览器"
             },
             {
               "name": "全屏看图",
@@ -696,13 +697,13 @@
             {
               "name": "NeeView",
               "url": "https://github.com/karma-sun/neeview",
-              "desc": "",
-              "detail": "图片漫画浏览器",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "图片漫画浏览器"
             }
           ]
         },
@@ -742,24 +743,24 @@
             {
               "name": "eSearch",
               "url": "https://github.com/xushengfeng/eSearch",
-              "desc": "",
-              "detail": "2.8k star,长截屏、离线OCR、搜索翻译、贴图、录屏",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "2.8k star,长截屏、离线OCR、搜索翻译、贴图、录屏"
             },
             {
               "name": "ScreenCapture",
               "url": "https://github.com/xland/ScreenCapture",
-              "desc": "",
-              "detail": "截图，标注丰富",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "截图，标注丰富"
             },
             {
               "name": "pear-rec",
@@ -770,13 +771,13 @@
             {
               "name": "SETUNA2",
               "url": "https://github.com/tylearymf/SETUNA2",
-              "desc": "",
-              "detail": "截图小工具（支持高分屏截图），个人接管",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "截图小工具（支持高分屏截图），个人接管"
             },
             {
               "name": "Sniptool",
@@ -793,46 +794,46 @@
             {
               "name": "AutoScreenShot",
               "url": "https://github.com/artem78/AutoScreenshot",
-              "desc": "",
-              "detail": "开源自动定时屏幕截图",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "开源自动定时屏幕截图"
             },
             {
               "name": "PicGo",
               "url": "https://github.com/Molunerfinn/PicGo",
-              "desc": "",
-              "detail": "24.5k star",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "24.5k star"
             },
             {
               "name": "PicX",
               "url": "https://github.com/XPoet/picx",
-              "desc": "",
-              "detail": "4.7k star",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "4.7k star"
             },
             {
               "name": "EasyImage2.0 简单图床",
               "url": "https://github.com/icret/EasyImages2.0",
-              "desc": "",
-              "detail": "3k star",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "3k star"
             }
           ]
         },
@@ -860,13 +861,13 @@
             {
               "name": "Img Toolbox",
               "url": "https://github.com/LokerL/img-toolbox",
-              "desc": "",
-              "detail": "漂白去底，图像旋转，彩色转灰色，文本图片的自动倾斜纠正，透视校正及矩形裁剪，橡皮擦，排版，打印，预设参数等",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "漂白去底，图像旋转，彩色转灰色，文本图片的自动倾斜纠正，透视校正及矩形裁剪，橡皮擦，排版，打印，预设参数等"
             },
             {
               "name": "Pretty Snap",
@@ -907,13 +908,13 @@
             {
               "name": "Waifu2x-Extension-GUI",
               "url": "https://github.com/AaronFeng753/Waifu2x-Extension-GUI",
-              "desc": "",
-              "detail": "静态图片，gif和视频放大清晰处理",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "静态图片，gif和视频放大清晰处理"
             },
             {
               "name": "洋芋田图像工具箱",
@@ -954,13 +955,13 @@
             {
               "name": "upscayl",
               "url": "https://github.com/upscayl/upscayl",
-              "desc": "",
-              "detail": "图片无损放大",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "图片无损放大"
             }
           ]
         }
@@ -1060,13 +1061,13 @@
             {
               "name": "Captura",
               "url": "https://github.com/MathewSachin/Captura",
-              "desc": "",
-              "detail": "9.5k star,2018停更，2023归档，作品被盗取贩卖",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "9.5k star,2018停更，2023归档，作品被盗取贩卖"
             }
           ]
         },
@@ -1076,13 +1077,13 @@
             {
               "name": "LosslessCut",
               "url": "https://github.com/mifi/lossless-cut",
-              "desc": "",
-              "detail": "31k star，无损修剪和剪切",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "31k star，无损修剪和剪切"
             },
             {
               "name": "AutoAudioRecorder/内部万能录音器",
@@ -1093,46 +1094,46 @@
             {
               "name": "HandBrake",
               "url": "https://github.com/HandBrake/HandBrake",
-              "desc": "",
-              "detail": "20K star，音视频格式转换、重编码",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "20K star，音视频格式转换、重编码"
             },
             {
               "name": "ShanaEncoder",
               "url": "https://github.com/1265578519/ShanaEncoder",
-              "desc": "",
-              "detail": "最强的视频压制软件",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "最强的视频压制软件"
             },
             {
               "name": "Video-subtitle-remover",
               "url": "https://github.com/YaoFANGUK/video-subtitle-remover",
-              "desc": "",
-              "detail": "AI去除视频水印、字幕",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "AI去除视频水印、字幕"
             },
             {
               "name": "ProPainter",
               "url": "https://github.com/sczhou/ProPainter",
-              "desc": "",
-              "detail": "去视频的移动水印和移动物体",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "去视频的移动水印和移动物体"
             },
             {
               "name": "ProPainter（2）",
@@ -1149,13 +1150,13 @@
             {
               "name": "FFmpegFreeUI",
               "url": "https://github.com/Lake1059/FFmpegFreeUI/",
-              "desc": "",
-              "detail": "FFmpegFreeUI（简称 3FUI）是在 Windows 上的 FFmpeg 的专业交互外壳，纯填参数，没有内置傻瓜方案",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "FFmpegFreeUI（简称 3FUI）是在 Windows 上的 FFmpeg 的专业交互外壳，纯填参数，没有内置傻瓜方案"
             }
           ]
         }

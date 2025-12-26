@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>导航站管理后台</title>
+  
+  <!-- 引入 Sveltia CMS -->
+  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+  
+  <!-- 配置脚本 -->
+  <script>
+    // 开启手动初始化
+    window.CMS_MANUAL_INIT = true;
+    
+    // 初始化函数
+    function initCMS() {
+      if (!window.CMS) window.CMS = {};
+      const el = document.createElement('sveltia-cms');
+      
+      // ✅ 关键：这里要写对配置文件的路径
+      // 因为你的网站在 /my-nav 下，所以路径要带上
+      el.configPath = '/my-nav/admin/config.yml';
+      
+      document.body.appendChild(el);
+    }
+
+    // 等待 DOM 加载完成
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initCMS);
+    } else {
+      initCMS();
+    }
+  </script>
+</head>
+<body>
+  <!-- 这里没有任何 Tailwind 的干扰 -->
+</body>
+</html>
