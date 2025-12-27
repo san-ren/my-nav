@@ -131,12 +131,17 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
   )}
 </div>
 
+<!-- ... 上面的 HTML 代码保持不变 ... -->
+
 <script is:inline>
+  // ---------------------------------------------------------
+  // 1. 图标加载错误处理 (保持不变，功能正常)
+  // ---------------------------------------------------------
   if (typeof window.handleIconLoad === 'undefined') {
     window.handleIconLoad = function(img) {
       const domain = img.getAttribute('data-domain');
       if (domain && domain !== 'null' && !img.src.includes('favicon.svg')) {
-         localStorage.setItem('fav-' + domain, img.src);
+         try { localStorage.setItem('fav-' + domain, img.src); } catch(e){}
       }
     };
   }
@@ -155,44 +160,54 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
         else if (currentSrc.includes('google.com')) {
           img.src = sources.fallback;
           const domain = img.getAttribute('data-domain');
-          if(domain) localStorage.removeItem('fav-' + domain);
+          if(domain) try{ localStorage.removeItem('fav-' + domain); } catch(e){}
         } else img.onerror = null;
       } catch (e) { img.onerror = null; }
     };
   }
 
-  if (!window.hasIconLoaderInit) {
-    window.hasIconLoaderInit = true;
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('img[data-domain]').forEach(img => {
-        const domain = img.getAttribute('data-domain');
-        if(domain && domain !== 'null') {
+  // ---------------------------------------------------------
+  // 2. 缓存图标恢复 (优化：改为函数调用，方便生命周期管理)
+  // ---------------------------------------------------------
+  function restoreCachedIcons() {
+    document.querySelectorAll('img[data-domain]').forEach(img => {
+      const domain = img.getAttribute('data-domain');
+      if(domain && domain !== 'null') {
+          try {
             const cachedSrc = localStorage.getItem('fav-' + domain);
             if (cachedSrc && cachedSrc !== img.src && !cachedSrc.includes('favicon.svg')) {
               img.src = cachedSrc;
             }
-        }
-      });
+          } catch(e){}
+      }
     });
   }
 
+  // ---------------------------------------------------------
+  // 3. 全局 Tooltip 核心逻辑 (重构)
+  // ---------------------------------------------------------
   (function() {
-    if (window.GlobalTooltipInit) return; 
-    window.GlobalTooltipInit = true;      
-
+    // 状态变量
     let tooltipEl = null;
     let tooltipArrow = null;
     let activeCard = null;
+    let hideTimer = null; // 新增：用于防抖
 
-    function createGlobalTooltip() {
-      if (document.getElementById('global-detail-tooltip')) {
-        tooltipEl = document.getElementById('global-detail-tooltip');
-        tooltipArrow = tooltipEl.querySelector('.tooltip-arrow-el');
+    // ----------------------------------
+    // A. 创建 DOM 结构
+    // ----------------------------------
+    function createTooltipDOM() {
+      // 如果已存在，直接重新获取引用
+      const existing = document.getElementById('global-detail-tooltip');
+      if (existing) {
+        tooltipEl = existing;
+        tooltipArrow = existing.querySelector('.tooltip-arrow-el');
         return;
       }
 
       tooltipEl = document.createElement('div');
       tooltipEl.id = 'global-detail-tooltip';
+      // 保持你的样式不变
       tooltipEl.className = 'portal-popup fixed z-[9999] hidden w-72 p-4 bg-white dark:bg-[#1e2025] rounded-xl shadow-2xl border border-slate-200/60 dark:border-slate-700 pointer-events-none opacity-0 scale-95 transition-all duration-200 ease-out';
       
       tooltipArrow = document.createElement('div');
@@ -207,32 +222,64 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       document.body.appendChild(tooltipEl);
     }
 
+    // ----------------------------------
+    // B. 显示/隐藏逻辑
+    // ----------------------------------
     function showTooltip(wrapper) {
-      if (!tooltipEl) createGlobalTooltip();
+      if (!tooltipEl) createTooltipDOM(); // 双重保险
       
+      // 清除之前的隐藏定时器
+      if (hideTimer) {
+        clearTimeout(hideTimer);
+        hideTimer = null;
+      }
+
       const source = wrapper.querySelector('.tooltip-source');
       if (!source) return;
 
-      document.getElementById('tooltip-content').innerHTML = source.innerHTML;
+      const contentBox = document.getElementById('tooltip-content');
+      if (contentBox) contentBox.innerHTML = source.innerHTML;
 
+      // 必须先移除 hidden 才能计算位置
       tooltipEl.classList.remove('hidden');
+      
+      // 强制重绘
       void tooltipEl.offsetWidth; 
+      
       updatePosition(wrapper);
-      tooltipEl.classList.remove('opacity-0', 'scale-95');
-      tooltipEl.classList.add('opacity-100', 'scale-100');
+      
+      // 动画进入
+      requestAnimationFrame(() => {
+        tooltipEl.classList.remove('opacity-0', 'scale-95');
+        tooltipEl.classList.add('opacity-100', 'scale-100');
+      });
     }
 
-    function hideTooltip() {
+    function hideTooltip(immediate = false) {
       if (!tooltipEl) return;
+      
+      // 动画退出
       tooltipEl.classList.remove('opacity-100', 'scale-100');
       tooltipEl.classList.add('opacity-0', 'scale-95');
-      setTimeout(() => {
-        if (tooltipEl && tooltipEl.classList.contains('opacity-0')) {
-          tooltipEl.classList.add('hidden');
-        }
-      }, 300); 
+
+      if (immediate) {
+         tooltipEl.classList.add('hidden');
+      } else {
+        // 避免多个 timer
+        if (hideTimer) clearTimeout(hideTimer);
+        
+        hideTimer = setTimeout(() => {
+          if (tooltipEl && tooltipEl.classList.contains('opacity-0')) {
+            tooltipEl.classList.add('hidden');
+          }
+          hideTimer = null;
+        }, 300);
+      }
     }
 
+    // ----------------------------------
+    // C. 位置计算 (保持你的算法)
+    // ----------------------------------
     function updatePosition(wrapper) {
       if (!tooltipEl) return;
 
@@ -266,6 +313,7 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       }
 
       let arrowLeft = rect.left + (rect.width / 2) - left - (arrowSize);
+      // 限制箭头不要超出圆角
       arrowLeft = Math.max(12, Math.min(tooltipRect.width - 28, arrowLeft));
 
       tooltipEl.style.top = `${top}px`;
@@ -283,84 +331,113 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       }
     }
 
-    function initListeners() {
-      createGlobalTooltip();
+    // ----------------------------------
+    // D. 事件处理器 (核心修复)
+    // ----------------------------------
+    
+    // 鼠标移动处理函数 (单独提取，方便解绑)
+    const handleMouseOver = (e) => {
+      if (window.innerWidth < 768) return; 
 
-      document.body.addEventListener('mouseover', (e) => {
-        if (window.innerWidth < 768) return; 
-
-        const wrapper = e.target.closest('.site-card-wrapper');
-        
-        if (wrapper) {
-          if (activeCard !== wrapper && wrapper.querySelector('.tooltip-source')) {
-            activeCard = wrapper;
-            showTooltip(wrapper);
-          }
-        } else {
-          if (activeCard) {
-            const isTooltip = e.target.closest('#global-detail-tooltip');
-            if (!isTooltip) {
-              activeCard = null;
-              hideTooltip();
-            }
-          }
-        }
-      });
+      const wrapper = e.target.closest('.site-card-wrapper');
       
-      document.body.addEventListener('mouseleave', () => {
-          if (window.innerWidth < 768) return;
-          if (activeCard) {
-             activeCard = null;
-             hideTooltip();
-          }
-      });
-
-      document.body.addEventListener('click', (e) => {
-        const btn = e.target.closest('.info-btn');
-        if (btn) {
-          e.preventDefault();
-          e.stopPropagation();
-          const wrapper = btn.closest('.site-card-wrapper');
-          if (wrapper) {
-             if (activeCard === wrapper && !tooltipEl.classList.contains('hidden')) {
-               hideTooltip();
-               activeCard = null;
-             } else {
-               activeCard = wrapper;
-               showTooltip(wrapper);
-             }
-          }
-          return;
+      if (wrapper) {
+        // 如果移入了一个新卡片
+        if (activeCard !== wrapper && wrapper.querySelector('.tooltip-source')) {
+          activeCard = wrapper;
+          showTooltip(wrapper);
         }
-
-        if (tooltipEl && !tooltipEl.classList.contains('hidden')) {
-          if (!e.target.closest('.site-card-wrapper') && !e.target.closest('#global-detail-tooltip')) {
-            hideTooltip();
-            activeCard = null;
-          }
-        }
-      });
-
-      window.addEventListener('scroll', () => {
+      } else {
+        // 如果移到了空白处，且不是浮窗本身
         if (activeCard) {
+          const isTooltip = e.target.closest('#global-detail-tooltip');
+          if (!isTooltip) {
+            activeCard = null;
+            hideTooltip();
+          }
+        }
+      }
+    };
+
+    const handleClick = (e) => {
+      const btn = e.target.closest('.info-btn');
+      // 移动端/小屏点击 Info 按钮
+      if (btn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const wrapper = btn.closest('.site-card-wrapper');
+        if (wrapper) {
+           if (activeCard === wrapper && !tooltipEl.classList.contains('hidden')) {
+             hideTooltip();
+             activeCard = null;
+           } else {
+             activeCard = wrapper;
+             showTooltip(wrapper);
+           }
+        }
+        return;
+      }
+
+      // 点击空白处关闭
+      if (tooltipEl && !tooltipEl.classList.contains('hidden')) {
+        if (!e.target.closest('.site-card-wrapper') && !e.target.closest('#global-detail-tooltip')) {
           hideTooltip();
           activeCard = null;
         }
-      }, { capture: true, passive: true });
+      }
+    };
+    
+    // 滚动时关闭
+    const handleScroll = () => {
+      if (activeCard) {
+        hideTooltip(true); // 立即关闭
+        activeCard = null;
+      }
+    };
+
+    // ----------------------------------
+    // E. 初始化与清理
+    // ----------------------------------
+    function init() {
+      // 1. 恢复图标
+      restoreCachedIcons();
+      
+      // 2. 创建/重置 Tooltip DOM
+      createTooltipDOM();
+      
+      // 3. 移除旧监听器 (防止重复绑定)
+      document.body.removeEventListener('mouseover', handleMouseOver);
+      document.body.removeEventListener('click', handleClick);
+      window.removeEventListener('scroll', handleScroll, { capture: true });
+
+      // 4. 绑定新监听器
+      document.body.addEventListener('mouseover', handleMouseOver);
+      document.body.addEventListener('click', handleClick);
+      window.addEventListener('scroll', handleScroll, { capture: true, passive: true });
     }
 
+    // 立即执行一次
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initListeners);
+      document.addEventListener('DOMContentLoaded', init);
     } else {
-      initListeners();
+      init();
     }
-    
-    document.addEventListener('astro:after-swap', () => {
-       createGlobalTooltip();
-    });
+
+    // Astro 页面切换后重新执行
+    document.addEventListener('astro:after-swap', init);
+    document.addEventListener('astro:page-load', init); // 双重保险
 
   })();
 </script>
+
+<style is:global>
+  /* 你的样式保持不变 */
+  .detail-markdown p { margin-bottom: 0.5rem; }
+  .detail-markdown p:last-child { margin-bottom: 0; }
+  .detail-markdown ul { list-style-type: disc; padding-left: 1.2em; margin-bottom: 0.5rem; }
+  .detail-markdown li { margin-bottom: 0.2rem; }
+  .detail-markdown a { color: #3b82f6; text-decoration: underline; }
+</style>
 
 <style is:global>
   .detail-markdown p { margin-bottom: 0.5rem; }
