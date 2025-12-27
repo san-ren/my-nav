@@ -2,8 +2,9 @@ backend:
   name: github
   repo: san-ren/my-nav
   branch: main
-  auth_type: token
   
+
+
   commit_messages:
     create: '创建 {{collection}} “{{slug}}”'
     update: '更新 {{collection}} “{{slug}}”'
@@ -104,7 +105,6 @@ collections:
               - { label: "名称", name: "name", widget: "string", required: true }
               - { label: "链接地址", name: "url", widget: "string", required: false }
               
-              # --- 调整后的顺序 ---
               - { label: "官网/项目主页", name: "official_site", widget: "string", required: false }
               - label: "GitHub 徽章"
                 name: "badge_list"
@@ -139,7 +139,6 @@ collections:
                   - { label: "名称", name: "name", widget: "string", required: true }
                   - { label: "链接地址", name: "url", widget: "string", required: false }
                   
-                  # --- 调整后的顺序 ---
                   - { label: "官网/项目主页", name: "official_site", widget: "string", required: false }
                   - label: "GitHub 徽章"
                     name: "badge_list"

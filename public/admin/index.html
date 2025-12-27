@@ -3,37 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
   <title>导航站管理后台</title>
   
-  <!-- 引入 Sveltia CMS -->
-  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
-  
-  <!-- 配置脚本 -->
-  <script>
-    // 开启手动初始化
-    window.CMS_MANUAL_INIT = true;
-    
-    // 初始化函数
-    function initCMS() {
-      if (!window.CMS) window.CMS = {};
-      const el = document.createElement('sveltia-cms');
-      
-      // ✅ 关键：这里要写对配置文件的路径
-      // 因为你的网站在 /my-nav 下，所以路径要带上
-      el.configPath = '/my-nav/admin/config.yml';
-      
-      document.body.appendChild(el);
-    }
-
-    // 等待 DOM 加载完成
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initCMS);
-    } else {
-      initCMS();
-    }
-  </script>
+  <!-- 
+     🔥 核心修正点：
+     必须加上 type="module"，因为 Sveltia CMS 是现代 ES 模块。
+     没有这个，浏览器会报错并白屏，之前的代码就是漏了这个。
+  -->
+  <script type="module" src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
 </head>
 <body>
-  <!-- 这里没有任何 Tailwind 的干扰 -->
+  <!-- 
+     ✅ 使用标签直接加载：
+     config-path: 必须写对你的子路径 /my-nav/...
+  -->
+  <sveltia-cms config-path="/my-nav/admin/config.yml"></sveltia-cms>
 </body>
 </html>

@@ -1,9 +1,8 @@
 ---
 // src/pages/admin.astro
-// 这个文件的作用是：
-// 1. 优先级高于 [id].astro，所以它会拦截 /admin 请求
-// 2. 立即跳转到 index.html 具体文件，避开 Astro 的路由匹配，直接读取静态文件
-// 3. 从而彻底避开 Tailwind 样式污染
+// 作用：将 /admin 路由重定向到静态文件 /admin/index.html
+// 使用 import.meta.env.BASE_URL 自动获取 astro.config.mjs 中的 base 配置
 
-return Astro.redirect('/my-nav/admin/index.html');
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, ''); // 去掉末尾斜杠
+return Astro.redirect(`${baseUrl}/admin/index.html`);
 ---
