@@ -11,6 +11,21 @@
           "tabName": "win",
           "list": [
             {
+              "name": "MoeKoe Music",
+              "url": "https://github.com/MoeKoeMusic/MoeKoeMusic",
+              "official_site": "https://music.moekoe.cn/",
+              "badge_list": [
+                "stars",
+                "version",
+                "license"
+              ],
+              "desc": "开源第三方酷狗，登陆就是vip",
+              "detail": "Windows / macOS / Linux / Web",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
               "name": "洛雪音乐助手",
               "url": "https://github.com/lyswhut/lx-music-desktop",
               "official_site": "https://lxmusic.toside.cn/",
@@ -448,6 +463,17 @@
               "widget_url": ""
             },
             {
+              "name": "LeapMusic",
+              "url": "https://apkpure.com/cn/leapmusic/com.leapmusic.leapmusic",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "优雅的播放器",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
               "name": "Stellio Player",
               "url": "https://play.google.com/store/apps/details?id=io.stellio.music",
               "official_site": "",
@@ -633,6 +659,110 @@
               "desc": "",
               "detail": "洛雪音乐源：SixYin、Flower",
               "guide_id": "",
+              "widget_url": ""
+            }
+          ]
+        },
+        {
+          "tabName": "音乐网站",
+          "list": [
+            {
+              "name": "泡椒音乐",
+              "url": "https://pjmp3.de/",
+              "official_site": "https://pjmp3.com/",
+              "badge_list": [],
+              "desc": "",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "XCloud音乐",
+              "url": "https://music.xcloudv.top/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "GD音乐台",
+              "url": "https://music.gdstudio.xyz/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "无损生活",
+              "url": "https://flac.life/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "5sing",
+              "url": "https://5sing.kugou.com/index.html",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "古典音乐赏析 - 国家大剧院",
+              "url": "https://www.ncpa-classic.com/gdyysx/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "OpenYYY 开源云音乐",
+              "url": "https://openyyy.com/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "多种云音乐格式转MP3",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "Songg",
+              "url": "https://son.gg/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "快速在Telegram上分享音乐",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "genius",
+              "url": "https://genius.com/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "歌词百科",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
               "widget_url": ""
             }
           ]

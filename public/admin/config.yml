@@ -2,16 +2,14 @@ backend:
   name: github
   repo: san-ren/my-nav
   branch: main
-  # 建议：本地开发时开启 local_backend 可以直接修改本地文件，不用每次都提交到 GitHub
-  # 部署上线时 Decap/Sveltia 会自动忽略这个配置
-  local_backend: true 
-
-commit_messages:
-  create: '创建 {{collection}} “{{slug}}”'
-  update: '更新 {{collection}} “{{slug}}”'
-  delete: '删除 {{collection}} “{{slug}}”'
-  uploadMedia: '上传资源 “{{path}}”'
-  deleteMedia: '删除资源 “{{path}}”'
+  auth_type: token
+  
+  commit_messages:
+    create: '创建 {{collection}} “{{slug}}”'
+    update: '更新 {{collection}} “{{slug}}”'
+    delete: '删除 {{collection}} “{{slug}}”'
+    uploadMedia: '上传资源 “{{path}}”'
+    deleteMedia: '删除资源 “{{path}}”'
 
 locale: 'zh_Hans'
 media_folder: "public/images"
@@ -41,7 +39,7 @@ collections:
           - { label: "页脚作者名", name: "author", widget: "string", required: false }
 
   # ============================================================
-  # 2. 页面元数据 (meta.json)
+  # 2. 页面元数据管理 (meta.json)
   # ============================================================
   - name: "nav_pages_meta"
     label: "📄 页面属性管理"
@@ -62,7 +60,7 @@ collections:
       - { label: "排序权重", name: "sortOrder", widget: "number", default: 10, value_type: "int" }
 
   # ============================================================
-  # 3. [视图 A] 分组内容 - 归档视图 (默认推荐)
+  # 3. [视图 A] 分组内容 - 归档视图
   # ============================================================
   - name: "nav_groups"
     label: "📦 内容分组 (归档视图)"
@@ -81,12 +79,11 @@ collections:
         pattern: ".*"
     editor:
       preview: false
-    fields: &group_fields
+    fields:
       - { label: "所属页面ID", name: "page", widget: "string", required: true, default: "home", hint: "⚠️ 必填：home 或 sub1，决定归档位置" }
       - { label: "分组名称 (锚点)", name: "name", widget: "string", required: true }
       - { label: "分组图标", name: "icon", widget: "string", required: false }
       
-      # --- 内部分类 ---
       - label: "内部分类"
         name: "categories"
         widget: "list"
@@ -95,27 +92,32 @@ collections:
         fields:
           - { label: "分类名称", name: "name", widget: "string", required: true }
           - { label: "分类图标", name: "icon", widget: "string", required: false }
-          
-          # --- 模式 A：无Tabs ---
+
+          # --- 模式 A：无Tabs (直属列表) ---
           - label: "🔗 资源列表 (直属)"
             name: "list"
             widget: "list"
             required: false
             collapsed: true
             summary: "{{name}}"
-            fields: &site_fields  # 【定义锚点】
+            fields:
               - { label: "名称", name: "name", widget: "string", required: true }
               - { label: "链接地址", name: "url", widget: "string", required: false }
+              
+              # --- 调整后的顺序 ---
               - { label: "官网/项目主页", name: "official_site", widget: "string", required: false }
               - label: "GitHub 徽章"
                 name: "badge_list"
                 widget: "select"
                 multiple: true
                 required: false
-                options: ["stars", "version", "last_commit", "license"]
+                options: ["stars", "version", "last_commit", "license", "forks"]
+              
               - { label: "简短描述", name: "desc", widget: "string", required: false }
               - { label: "详细说明", name: "detail", widget: "markdown", required: false, buttons: ["bold", "italic", "link", "code"], editor_components: [] }
+              
               - { label: "关联教程ID", name: "guide_id", widget: "string", required: false }
+              
               - { label: "自定义图标 URL", name: "icon", widget: "image", required: false }
               - { label: "小工具路径", name: "widget_url", widget: "string", required: false }
 
@@ -125,18 +127,37 @@ collections:
             widget: "list"
             required: false
             collapsed: true
-            summary: "Tab：{{tabName}}"
+            summary: "Tab：{{tabName}}" 
             fields:
-              - { label: "页签名称", name: "tabName", widget: "string", required: true }
+              - { label: "页签名称", name: "tabName", widget: "string", required: true } 
               - label: "资源列表"
                 name: "list"
                 widget: "list"
                 collapsed: true
                 required: false
-                fields: *site_fields  # 引用上面的定义
+                fields:
+                  - { label: "名称", name: "name", widget: "string", required: true }
+                  - { label: "链接地址", name: "url", widget: "string", required: false }
+                  
+                  # --- 调整后的顺序 ---
+                  - { label: "官网/项目主页", name: "official_site", widget: "string", required: false }
+                  - label: "GitHub 徽章"
+                    name: "badge_list"
+                    widget: "select"
+                    multiple: true
+                    required: false
+                    options: ["stars", "version", "last_commit", "license", "forks"]
+                  
+                  - { label: "简短描述", name: "desc", widget: "string", required: false }
+                  - { label: "详细说明", name: "detail", widget: "markdown", required: false, buttons: ["bold", "italic", "link", "code"], editor_components: [] }
+                  
+                  - { label: "关联教程ID", name: "guide_id", widget: "string", required: false }
+                  
+                  - { label: "自定义图标 URL", name: "icon", widget: "image", required: false }
+                  - { label: "小工具路径", name: "widget_url", widget: "string", required: false }
 
   # ============================================================
-  # 4. [视图 B] 分组内容 - 文件夹视图 (Nested 模式)
+  # 4. [视图 B] 分组内容 - 文件夹视图
   # ============================================================
   - name: "nav_structure"
     label: "📂 内容分组 (文件夹视图)"
@@ -155,7 +176,80 @@ collections:
     filter:
       field: "page"
       pattern: ".+"
-    fields: *group_fields # 引用上面 nav_groups 的字段定义
+    fields:
+      - { label: "所属页面ID", name: "page", widget: "string", required: false }
+      - { label: "分组名称", name: "name", widget: "string", required: true }
+      - { label: "分组图标", name: "icon", widget: "string", required: false }
+      
+      - label: "内部分类"
+        name: "categories"
+        widget: "list"
+        collapsed: false
+        summary: "📑 分类：{{name}}"
+        fields:
+          - { label: "分类名称", name: "name", widget: "string", required: true }
+          - { label: "分类图标", name: "icon", widget: "string", required: false }
+
+          # --- 模式 A：无Tabs ---
+          - label: "🔗 资源列表 (直属)"
+            name: "list"
+            widget: "list"
+            required: false
+            collapsed: true
+            summary: "{{name}}"
+            fields:
+              - { label: "名称", name: "name", widget: "string", required: true }
+              - { label: "链接地址", name: "url", widget: "string", required: false }
+              
+              - { label: "官网/项目主页", name: "official_site", widget: "string", required: false }
+              - label: "GitHub 徽章"
+                name: "badge_list"
+                widget: "select"
+                multiple: true
+                required: false
+                options: ["stars", "version", "last_commit", "license", "forks"]
+              
+              - { label: "简短描述", name: "desc", widget: "string", required: false }
+              - { label: "详细说明", name: "detail", widget: "markdown", required: false, buttons: ["bold", "italic", "link", "code"], editor_components: [] }
+              
+              - { label: "关联教程ID", name: "guide_id", widget: "string", required: false }
+              
+              - { label: "自定义图标 URL", name: "icon", widget: "image", required: false }
+              - { label: "小工具路径", name: "widget_url", widget: "string", required: false }
+
+          # --- 模式 B：有Tabs ---
+          - label: "🗃️ 标签页 (Tabs模式)"
+            name: "tabs"
+            widget: "list"
+            required: false
+            collapsed: true
+            summary: "Tab：{{tabName}}" 
+            fields:
+              - { label: "页签名称", name: "tabName", widget: "string", required: true } 
+              - label: "资源列表"
+                name: "list"
+                widget: "list"
+                collapsed: true
+                required: false
+                fields:
+                  - { label: "名称", name: "name", widget: "string", required: true }
+                  - { label: "链接地址", name: "url", widget: "string", required: false }
+                  
+                  - { label: "官网/项目主页", name: "official_site", widget: "string", required: false }
+                  - label: "GitHub 徽章"
+                    name: "badge_list"
+                    widget: "select"
+                    multiple: true
+                    required: false
+                    options: ["stars", "version", "last_commit", "license", "forks"]
+                  
+                  - { label: "简短描述", name: "desc", widget: "string", required: false }
+                  - { label: "详细说明", name: "detail", widget: "markdown", required: false, buttons: ["bold", "italic", "link", "code"], editor_components: [] }
+                  
+                  - { label: "关联教程ID", name: "guide_id", widget: "string", required: false }
+                  
+                  - { label: "自定义图标 URL", name: "icon", widget: "image", required: false }
+                  - { label: "小工具路径", name: "widget_url", widget: "string", required: false }
 
   # ============================================================
   # 5. 教程文章管理
