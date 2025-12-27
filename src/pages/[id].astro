@@ -21,8 +21,8 @@ export async function getStaticPaths() {
     const groups = Object.entries(groupFiles)
       .filter(([groupPath]) => groupPath.includes(`/nav/${pageId}/groups/`))
       .sort(([pathA], [pathB]) => {
-        const nameA = pathA.split('/').pop();
-        const nameB = pathB.split('/').pop();
+        const nameA = pathA.split('/').pop() || ''; // 加保底
+        const nameB = pathB.split('/').pop() || ''; // 加保底
         return nameA.localeCompare(nameB, undefined, { numeric: true });
       })
       .map(([_, groupContent]: [string, any]) => groupContent.default || groupContent);

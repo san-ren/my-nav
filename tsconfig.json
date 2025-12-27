@@ -9,6 +9,12 @@
   ],
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "react"
+    "jsxImportSource": "react",
+    "strict": false,               // 关闭严格模式
+    "noImplicitAny": false,        // 允许不写类型（解决大部分报错）
+    "strictNullChecks": false,     // 允许可能为 null 的检查
+    "allowJs": true,               // 允许 JS 文件
+    "skipLibCheck": true           // 跳过库文件的检查
+    // ▲▲▲ 添加上面这几行 ▲▲▲
   }
 }

@@ -7,36 +7,54 @@ import ThemePicker from '../components/ThemePicker.astro';
 import siteConfig from '../data/config.json';
 import { LayoutDashboard, Star, Code, Palette, Sun, Moon, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu } from 'lucide-react';
 
+// ==========================================
+// 核心修复：index.astro 不使用 getStaticPaths
+// 直接手动加载所有数据，并指定当前页面为 "home" (或其他默认页ID)
+// ==========================================
+
+// 1. 加载所有导航数据（用于侧边栏）
 const metaFiles = import.meta.glob('../data/nav/*/meta.json', { eager: true });
 const groupFiles = import.meta.glob('../data/nav/*/groups/*.json', { eager: true });
 
 let navResources = Object.entries(metaFiles).map(([metaPath, metaContent]: [string, any]) => {
   const meta = metaContent.default || metaContent;
+  // 从路径获取 id，例如 ../data/nav/home/meta.json -> home
   const pageId = metaPath.split('/').slice(-2, -1)[0]; 
+
   const groups = Object.entries(groupFiles)
     .filter(([groupPath]) => groupPath.includes(`/nav/${pageId}/groups/`))
     .sort(([pathA], [pathB]) => {
-      const nameA = pathA.split('/').pop();
-      const nameB = pathB.split('/').pop();
+      const nameA = pathA.split('/').pop() || '';
+      const nameB = pathB.split('/').pop() || '';
       return nameA.localeCompare(nameB, undefined, { numeric: true });
     })
     .map(([_, groupContent]: [string, any]) => groupContent.default || groupContent);
 
-  return { ...meta, groups };
+  return {
+    ...meta,
+    id: pageId, // 确保有 ID
+    groups: groups
+  };
 });
 
-navResources.sort((a, b) => (a.sortOrder || 99) - (b.sortOrder || 99));
-const section = navResources[0];
-const id = section.id;
+// 排序侧边栏
+navResources.sort((a: any, b: any) => (a.sortOrder || 99) - (b.sortOrder || 99));
 
+// 2. 指定首页要显示的数据 (假设首页 ID 是 'home')
+// 如果你的默认文件夹不叫 home，请修改这里的 'home'
+const currentId = 'home'; 
+const section = navResources.find(r => r.id === currentId) || navResources[0]; // 找不到就用第一个
+
+// 图标映射
 const Icons = { Star, Code, Palette, LayoutDashboard, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download };
 const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 ---
 
-<Layout title={`${section.name} - ${siteConfig.title}`}>
+<Layout title={`${siteConfig.title} - ${section.name}`}>
   <div class="flex min-h-screen w-full">
     
-    <Sidebar navResources={navResources} currentId={id} siteConfig={siteConfig} />
+    {/* 侧边栏 */}
+    <Sidebar navResources={navResources} currentId={currentId} siteConfig={siteConfig} />
 
     <div id="sidebar-overlay" class="fixed inset-0 bg-black/40 z-40 hidden md:hidden backdrop-blur-sm transition-opacity" onclick="toggleSidebar()"></div>
 
@@ -49,18 +67,14 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
           </button>
 
           <h1 class="text-xl font-black flex items-center gap-3 text-slate-800 dark:text-white truncate">
-            <!-- 修改：bg-blue-50 -> bg-brand-50, text-blue-600 -> text-brand-600 -->
             <div class="p-2 bg-brand-50 dark:bg-brand-900/30 rounded-lg text-brand-600 shrink-0"><CurrentIcon size={20} /></div>
             <span class="truncate">{section.name}</span>
           </h1>
         </div>
-
+        
         <div class="flex items-center gap-2 md:gap-3 shrink-0">
           <SearchModal client:load />
-          
           <ThemePicker />
-
-          <!-- 修改：hover:text-blue-600 -> hover:text-brand-600 -->
           <button id="theme-toggle" class="p-2.5 bg-slate-100 dark:bg-gray-800 rounded-xl text-slate-500 hover:text-brand-600 transition-all">
             <Sun size={20} className="hidden dark:block" />
             <Moon size={20} className="block dark:hidden" />
@@ -78,24 +92,18 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
             <div class="space-y-16 w-full">
               {(group.categories || []).map((category, catIdx) => {
                 const uniqueId = `${groupIdx}-${catIdx}`;
-                
-                // 核心修复：更严谨的判断，排除空数组 [] 的干扰
                 const hasList = category.list && category.list.length > 0;
                 const hasTabs = category.tabs && category.tabs.length > 0;
 
-                // 如果啥都没有，直接不渲染，防止占位
                 if (!hasList && !hasTabs) return null;
 
                 return (
                   <section id={`cat-${uniqueId}`} class="category-group scroll-mt-28 w-full">
-                    
                     <div class="flex flex-wrap items-center justify-start gap-x-6 gap-y-4 mb-8">
                       <h3 class="flex items-center gap-3 text-lg font-bold text-slate-700 dark:text-slate-200 shrink-0">
                         <span class="w-1.5 h-5 bg-brand-600 rounded-full"></span>
                         {category.name}
                       </h3>
-
-                      {/* 只有当存在 Tabs 时，才渲染 Tab 切换按钮 */}
                       {hasTabs && (
                         <div class="tab-nav-container relative z-0 flex bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-full overflow-x-auto no-scrollbar max-w-full">
                           <div class="tab-indicator absolute bg-white dark:bg-slate-700 shadow-sm rounded-full h-[calc(100%-8px)] top-1 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1.0)]"></div>
@@ -112,17 +120,12 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
                         </div>
                       )}
                     </div>
-
                     <div class="tab-content-wrapper relative z-10 w-full">
-                      
-                      {/* 1. 先尝试渲染直属 List (如果有数据) */}
                       {hasList && (
                         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-3 md:gap-4 pt-1 w-full mb-8">
                           {category.list.map((site) => <SiteCard {...site} />)}
                         </div>
                       )}
-
-                      {/* 2. 再尝试渲染 Tabs (如果有数据) */}
                       {hasTabs && (
                         category.tabs.map((tab, tabIdx) => (
                           <div 
@@ -140,7 +143,8 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
                 );
               })}
             </div>
-        
+          </div>
+        ))}
         <footer class="mt-20 py-10 text-center text-[13px] text-slate-400 border-t border-slate-200/50 dark:border-gray-800/50">
           <p>Made with ❤️ by {siteConfig.author} © {new Date().getFullYear()}</p>
         </footer>
@@ -159,7 +163,6 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
       overlay.classList.toggle('hidden');
 
       const isOpen = !sidebar.classList.contains('-translate-x-full');
-
       if (isOpen) {
         document.documentElement.classList.add('overflow-hidden');
         document.body.classList.add('overflow-hidden');
@@ -191,11 +194,9 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
         btn.addEventListener('click', (e) => {
           e.preventDefault();
           btns.forEach(b => {
-            /* 修改：移除 text-brand-600 */
             b.classList.remove('active-tab', 'text-brand-600');
             b.classList.add('text-slate-500');
           });
-          /* 修改：添加 text-brand-600 */
           btn.classList.add('active-tab', 'text-brand-600');
           btn.classList.remove('text-slate-500');
           moveIndicator(btn);
@@ -224,20 +225,15 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     let lastScrollY = window.scrollY;
     const header = document.getElementById('page-header');
     const scrollThreshold = 100;
-
     window.addEventListener('scroll', () => {
       if (!header) return;
-      
       const currentScrollY = Math.max(0, window.scrollY);
-      
       if (currentScrollY < scrollThreshold) {
         header.style.transform = 'translateY(0)';
         lastScrollY = currentScrollY;
         return;
       }
-      
       if (Math.abs(currentScrollY - lastScrollY) < 5) return;
-
       if (currentScrollY > lastScrollY) {
         header.style.transform = 'translateY(-150%)';
       } else {
@@ -249,7 +245,6 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 
   initTabs();
   initHeaderScroll();
-  
   document.addEventListener('astro:after-swap', () => {
     initTabs();
     initHeaderScroll();
