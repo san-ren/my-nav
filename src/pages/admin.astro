@@ -1,8 +1,0 @@
----
-// src/pages/admin.astro
-// 作用：将 /admin 路由重定向到静态文件 /admin/index.html
-// 使用 import.meta.env.BASE_URL 自动获取 astro.config.mjs 中的 base 配置
-
-const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, ''); // 去掉末尾斜杠
-return Astro.redirect(`${baseUrl}/admin/index.html`);
----
