@@ -67,13 +67,20 @@ collections:
     label: "📦 内容分组 (归档视图)"
     folder: "src/data/nav"
     path: "{{page}}/groups/{{slug}}"
+    
+    # ✅ 修改核心：自定义文件名生成规则 (排序号_名称.json)
+    slug: "{{sort_prefix}}_{{name}}"
+    
     media_folder: ""
     public_folder: ""
     extension: "json"
     format: "json"
     create: true
     identifier_field: "name"
-    summary: "{{name}}"
+    
+    # ✅ 修改摘要：让列表显示排序号，方便管理
+    summary: "{{sort_prefix}} - {{name}}"
+    
     view_groups:
       - label: "按所属页面归档"
         field: "page"
@@ -82,6 +89,18 @@ collections:
       preview: false
     fields:
       - { label: "所属页面ID", name: "page", widget: "string", required: true, default: "home", hint: "⚠️ 必填：home 或 sub1，决定归档位置" }
+      
+      # ✅ 新增字段：排序编号
+      - { 
+          label: "🔢 排序编号 (决定文件名顺序)", 
+          name: "sort_prefix", 
+          widget: "string", 
+          required: true, 
+          default: "10", 
+          pattern: ['^[0-9]+$', "请输入纯数字"],
+          hint: "⚠️ 重要：请输入 01, 02, 10 等数字。网页将根据此编号对分组进行排序。" 
+        }
+      
       - { label: "分组名称 (锚点)", name: "name", widget: "string", required: true }
       - { label: "分组图标", name: "icon", widget: "string", required: false }
       
@@ -154,7 +173,6 @@ collections:
                   
                   - { label: "自定义图标 URL", name: "icon", widget: "image", required: false }
                   - { label: "小工具路径", name: "widget_url", widget: "string", required: false }
-
   # ============================================================
   # 4. [视图 B] 分组内容 - 文件夹视图
   # ============================================================
