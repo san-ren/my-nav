@@ -16,9 +16,28 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
-      - name: Install, build, and upload your site
-        uses: withastro/action@v2
-        # Astro 会自动识别并安装 npm 依赖
+
+        
+      # 1. 配置 Node.js 环境
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      # 2. 安装依赖 (npm ci 比 npm install 更适合服务器)
+      - name: Install dependencies
+        run: npm ci
+
+      # 3. 🔥 关键步骤：运行专门为 GitHub Pages 准备的构建命令
+      - name: Build for GitHub Pages
+        run: npm run build:gh
+
+      # 4. 上传构建好的文件 (dist 文件夹)
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
 
   deploy:
     needs: build

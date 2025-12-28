@@ -2,17 +2,11 @@
 import { LayoutDashboard, Star, Code, Palette, ChevronRight } from 'lucide-react';
 
 const { navResources, currentId, siteConfig } = Astro.props;
-const base = '/my-nav';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const Icons = { Star, Code, Palette, LayoutDashboard };
 ---
 
-<!-- 
-  修改说明：
-  1. style={{ width: ... }} 强制指定宽度并提供 fallback (17rem)。
-  2. h-[100dvh] 适配移动端视口高度。
-  3. overflow-x-hidden 防止横向溢出。
--->
 <aside 
   id="sidebar"
   style={{ width: 'var(--sidebar-width, 17rem)' }}
@@ -29,7 +23,7 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
   </div>
 
   <!-- 菜单区域 -->
-  <nav class="flex-1 overflow-y-auto p-3 space-y-1 custom-scrollbar">
+  <nav class="flex-1 overflow-y-auto p-3 space-y-1 custom-scrollbar scrollbar-stable">
     {navResources.map((page) => {
       const isActivePage = page.id === currentId;
       const PageIcon = Icons[page.icon] || LayoutDashboard;
@@ -43,7 +37,7 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
                : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-gray-800 hover:text-slate-900 dark:hover:text-slate-200'
              }`}
           >
-            <PageIcon size={18} class="flex-shrink-0" />
+            <PageIcon size={18} className="flex-shrink-0" />
             <span class="flex-1 truncate">{page.name}</span>
           </a>
 
@@ -66,21 +60,46 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
                       const hasTabs = cat.tabs && cat.tabs.length > 0;
                       const uniqueId = `${groupIdx}-${catIdx}`;
                       return (
-                        <div class="relative">
+                        /* 
+                           🔥 修复点 1：添加 sidebar-item-container 类
+                           这让 JS 可以精准定位到父级容器，而不是错误地定位到 button 自己
+                        */
+                        <div class="relative group/cat sidebar-item-container">
                           <button 
-                            class="sidebar-cat-btn w-full flex items-center justify-between px-2 py-1.5 rounded-lg font-medium text-sidebar-cat text-slate-600 dark:text-slate-400 hover:text-brand-600 hover:bg-slate-50 dark:hover:bg-brand-900/30 transition-colors group z-10 relative overflow-hidden"
+                            class={`sidebar-cat-btn w-full flex items-center justify-between px-2 py-1.5 rounded-lg font-medium text-sidebar-cat text-slate-600 dark:text-slate-400 hover:text-brand-600 hover:bg-slate-50 dark:hover:bg-brand-900/30 transition-colors z-10 relative overflow-hidden ${hasTabs ? 'has-sub-menu' : ''}`}
                             data-target={`sidebar-sub-${uniqueId}`}
                             onclick={!hasTabs ? `window.scrollToSection('cat-${uniqueId}'); window.closeSidebarMobile();` : ''}
                             title={cat.name}
                           >
                             <span class="flex items-center gap-2.5 truncate max-w-[85%]">
-                              <span class="w-1 h-[1px] bg-slate-300 dark:bg-slate-700 group-hover:bg-brand-400 transition-colors flex-shrink-0"></span>
+                              <span class="w-1 h-[1px] bg-slate-300 dark:bg-slate-700 group-hover/cat:bg-brand-400 transition-colors flex-shrink-0"></span>
                               <span class="truncate">{cat.name}</span>
                             </span>
+                            
                             {hasTabs && (
-                              <ChevronRight size={14} class="arrow-icon text-slate-300 transition-transform duration-300 flex-shrink-0" />
+                              <ChevronRight size={14} className="arrow-icon text-slate-300 transition-transform duration-300 flex-shrink-0" />
                             )}
                           </button>
+                          
+                          {/* 悬浮菜单数据源 */}
+                          {hasTabs && (
+                            <div class="sidebar-tooltip-source hidden">
+                               <div class="flex items-center gap-2 mb-3 px-1 border-b border-slate-100 dark:border-slate-700/50 pb-2">
+                                  <span class="w-1 h-3 bg-brand-600 rounded-full"></span>
+                                  <span class="text-xs font-black text-slate-700 dark:text-slate-200 uppercase tracking-widest">{cat.name}</span>
+                               </div>
+                               <div class="flex flex-wrap gap-2">
+                                 {cat.tabs.map((tab, tabIdx) => (
+                                   <button 
+                                     onclick={`window.scrollToTab('${uniqueId}', ${tabIdx});`}
+                                     class="flex items-center px-3 py-1.5 text-xs font-bold rounded-full transition-all duration-200 whitespace-nowrap bg-slate-100 dark:bg-gray-800 text-slate-500 dark:text-slate-400 hover:text-brand-600 hover:bg-white dark:hover:bg-gray-700 hover:shadow-md hover:scale-105 border border-transparent hover:border-brand-100 dark:hover:border-brand-900/30"
+                                   >
+                                     {tab.tabName}
+                                   </button>
+                                 ))}
+                               </div>
+                            </div>
+                          )}
 
                           {hasTabs && (
                             <div id={`sidebar-sub-${uniqueId}`} class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out">
@@ -118,72 +137,235 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
 </aside>
 
 <script is:inline>
-  function initSidebarInteraction() {
-    const catBtns = document.querySelectorAll('.sidebar-cat-btn');
-    catBtns.forEach(btn => {
-      const newBtn = btn.cloneNode(true);
-      btn.parentNode.replaceChild(newBtn, btn);
-      newBtn.addEventListener('click', (e) => {
-        const targetId = newBtn.getAttribute('data-target');
-        const arrow = newBtn.querySelector('.arrow-icon');
-        if (!targetId) return;
-        const subMenu = document.getElementById(targetId);
-        if (subMenu) {
-          if (subMenu.classList.contains('grid-rows-[0fr]')) {
-            subMenu.classList.remove('grid-rows-[0fr]'); subMenu.classList.add('grid-rows-[1fr]');
-            if(arrow) arrow.style.transform = 'rotate(90deg)';
-          } else {
-            subMenu.classList.remove('grid-rows-[1fr]'); subMenu.classList.add('grid-rows-[0fr]');
-            if(arrow) arrow.style.transform = 'rotate(0deg)';
-          }
-        }
-      });
-    });
+(function() {
+  let tooltipEl = null;
+  let hideTimer = null;
+  let currentBtn = null;
 
-    // 【核心修复 1】：给遮罩层添加 touchmove 阻止事件，彻底防止滑动穿透
-    const overlay = document.getElementById('sidebar-overlay');
-    if (overlay) {
-      // 使用 passive: false 才能调用 preventDefault()
-      overlay.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-      }, { passive: false });
+  function createTooltipDOM() {
+    if (document.getElementById('sidebar-float-menu')) {
+      tooltipEl = document.getElementById('sidebar-float-menu');
+      return;
+    }
+    
+    tooltipEl = document.createElement('div');
+    tooltipEl.id = 'sidebar-float-menu';
+    tooltipEl.style.cssText = `
+      position: fixed;
+      z-index: 9999;
+      display: none;
+      min-width: 180px;
+      max-width: 260px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      box-shadow: 0 10px 40px -10px rgba(0,0,0,0.15);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(16px);
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      pointer-events: auto;
+    `;
+    
+    if (document.documentElement.classList.contains('dark')) {
+      tooltipEl.style.backgroundColor = 'rgba(17, 24, 39, 0.95)';
+      tooltipEl.style.borderColor = 'rgba(51, 65, 85, 0.5)';
+    }
+
+    document.body.appendChild(tooltipEl);
+
+    tooltipEl.addEventListener('mouseenter', () => {
+      if (hideTimer) clearTimeout(hideTimer);
+    });
+    tooltipEl.addEventListener('mouseleave', () => {
+      hideTooltip();
+    });
+  }
+
+  function showTooltip(btn, content) {
+    if (window.innerWidth < 768) return;
+    createTooltipDOM();
+    if (hideTimer) clearTimeout(hideTimer);
+
+    if (currentBtn === btn && tooltipEl.style.display === 'block') return;
+
+    tooltipEl.innerHTML = content;
+
+    const rect = btn.getBoundingClientRect();
+    const top = Math.max(10, rect.top);
+    const left = rect.right + 10;
+
+    tooltipEl.style.top = `${top}px`;
+    tooltipEl.style.left = `${left}px`;
+    tooltipEl.style.display = 'block';
+
+    void tooltipEl.offsetWidth;
+
+    tooltipEl.style.opacity = '1';
+    tooltipEl.style.transform = 'translateX(0)';
+    currentBtn = btn;
+  }
+
+  function hideTooltip() {
+    if (!tooltipEl) return;
+    hideTimer = setTimeout(() => {
+      tooltipEl.style.opacity = '0';
+      tooltipEl.style.transform = 'translateX(-10px)';
+      setTimeout(() => {
+        if (tooltipEl.style.opacity === '0') {
+          tooltipEl.style.display = 'none';
+          currentBtn = null;
+        }
+      }, 200);
+    }, 100);
+  }
+
+  // --------------------------------------------------
+  // 事件绑定
+  // --------------------------------------------------
+  function bindHoverEvents() {
+    const btns = document.querySelectorAll('.has-sub-menu');
+    
+    btns.forEach(btn => {
+      if (btn._hasBindHover) return;
+      btn._hasBindHover = true;
+
+      // 🔥 修复点 2：查找最近的 .sidebar-item-container
+      // 之前用 closest('.relative') 找到了 button 自己，导致找不到 source
+      const wrapper = btn.closest('.sidebar-item-container');
+      const source = wrapper ? wrapper.querySelector('.sidebar-tooltip-source') : null;
+
+      if (source) {
+        btn.addEventListener('mouseenter', () => {
+          showTooltip(btn, source.innerHTML);
+        });
+        btn.addEventListener('mouseleave', () => {
+          hideTooltip();
+        });
+      } else {
+        // 如果还报错，说明 HTML 结构和 JS 不匹配
+        console.warn('[Sidebar] Source not found for btn', btn);
+      }
+    });
+  }
+
+  function handleCollapse(e) {
+    const btn = e.target.closest('.has-sub-menu');
+    if (!btn) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    const targetId = btn.getAttribute('data-target');
+    const subMenu = document.getElementById(targetId);
+    const arrow = btn.querySelector('svg');
+
+    if (subMenu) {
+      if (subMenu.classList.contains('grid-rows-[0fr]')) {
+        subMenu.classList.remove('grid-rows-[0fr]'); subMenu.classList.add('grid-rows-[1fr]');
+        if (arrow) arrow.style.transform = 'rotate(90deg)';
+      } else {
+        subMenu.classList.remove('grid-rows-[1fr]'); subMenu.classList.add('grid-rows-[0fr]');
+        if (arrow) arrow.style.transform = 'rotate(0deg)';
+      }
     }
   }
-  
-  window.scrollToSection = (id) => {
-    const el = document.getElementById(id);
-    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: "smooth" });
-  };
-  window.scrollToTab = (id, idx) => {
-    window.scrollToSection(`cat-${id}`);
-    setTimeout(() => {
-       const g = document.getElementById(`cat-${id}`);
-       if(g) { const b = g.querySelectorAll('.tab-btn')[idx]; if(b) b.click(); }
-    }, 300);
-  };
-  
-  // 关闭侧边栏逻辑
-  window.closeSidebarMobile = () => {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
+
+  function init() {
+    createTooltipDOM();
+    bindHoverEvents();
+
+    document.removeEventListener('click', handleCollapse);
+    document.addEventListener('click', handleCollapse);
     
-    // 恢复滚动：同时移除 html 和 body 的锁定
-    document.documentElement.classList.remove('overflow-hidden');
-    document.body.classList.remove('overflow-hidden');
+    const overlay = document.getElementById('sidebar-overlay');
+    if (overlay) overlay.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+  }
 
-    if (window.innerWidth < 768 && sidebar && overlay) { 
-        sidebar.classList.add('-translate-x-full');
-        overlay.classList.add('hidden');
-    }
-  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  document.addEventListener('astro:after-swap', init);
+  document.addEventListener('astro:page-load', init);
 
-  initSidebarInteraction();
-  document.addEventListener('astro:after-swap', initSidebarInteraction);
+})();
+
+// 辅助函数
+window.scrollToSection = (id) => {
+  const el = document.getElementById(id);
+  if (el) {
+    const offsetTop = el.getBoundingClientRect().top + window.pageYOffset - 80;
+    window.scrollTo({ top: offsetTop, behavior: "smooth" });
+    window.closeSidebarMobile();
+  }
+};
+
+window.scrollToTab = (id, idx) => {
+  const menu = document.getElementById('sidebar-float-menu');
+  if(menu) menu.style.display = 'none';
+
+  window.scrollToSection(`cat-${id}`);
+  setTimeout(() => {
+     const g = document.getElementById(`cat-${id}`);
+     if(g) { 
+       const b = g.querySelectorAll('.tab-btn')[idx]; 
+       if(b) b.click();
+       const catBtn = g.querySelector('.sidebar-cat-btn');
+       if(catBtn && catBtn.classList.contains('has-sub-menu')) {
+          const arrow = catBtn.querySelector('svg');
+          const targetId = catBtn.getAttribute('data-target');
+          const subMenu = document.getElementById(targetId);
+          if (subMenu && subMenu.classList.contains('grid-rows-[0fr]')) {
+            subMenu.classList.remove('grid-rows-[0fr]'); subMenu.classList.add('grid-rows-[1fr]');
+            if(arrow) arrow.style.transform = 'rotate(90deg)';
+          }
+       }
+     }
+  }, 300);
+};
+
+window.closeSidebarMobile = () => {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  document.documentElement.classList.remove('overflow-hidden');
+  document.body.classList.remove('overflow-hidden');
+  if (window.innerWidth < 768 && sidebar && overlay) { 
+      sidebar.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+  }
+};
 </script>
 
 <style>
-  .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-  .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-  .custom-scrollbar::-webkit-scrollbar-thumb { background-color: rgba(156, 163, 175, 0.3); border-radius: 20px; }
+  /* 
+    自定义滚动条：实现“隐形 -> 浮现”效果 
+  */
+  .custom-scrollbar::-webkit-scrollbar { 
+    width: 5px; 
+  }
+  .custom-scrollbar::-webkit-scrollbar-track { 
+    background: transparent; 
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb { 
+    /* 默认全透明，看不见 */
+    background-color: transparent; 
+    border-radius: 20px;
+  }
+  
+  /* 只有鼠标移入侧边栏时，滚动条才变成半透明灰色 */
+  /* 这模拟了“渐显”的效果 */
+  nav:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.4); 
+  }
+
   .safe-area-bottom { padding-bottom: env(safe-area-inset-bottom, 20px); }
+  
+  svg { transition: transform 0.2s ease; }
+  
+  .scrollbar-stable { 
+    scrollbar-gutter: stable; 
+  }
 </style>

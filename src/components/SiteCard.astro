@@ -4,8 +4,7 @@ import { BookOpen, Info } from 'lucide-react';
 
 const { title, name, url, icon, desc, detail, official_site, badge_list = [], guide_id } = Astro.props;
 const displayTitle = title || name;
-const base = '/my-nav';
-
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const getDomain = (targetUrl) => {
   try {
     if (!targetUrl) return null;
