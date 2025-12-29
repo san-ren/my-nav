@@ -1,4 +1,6 @@
 {
+  "page": "home",
+  "sort_prefix": "05",
   "name": "系统美化与日常",
   "icon": "Palette",
   "categories": [
@@ -12,46 +14,46 @@
             {
               "name": "RoundedTB",
               "url": "https://github.com/RoundedTB/RoundedTB",
-              "desc": "",
-              "detail": "将边距、圆角和线段添加到您的任务栏",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "将边距、圆角和线段添加到您的任务栏"
             },
             {
               "name": "TranslucentTB",
               "url": "https://github.com/TranslucentTB/TranslucentTB",
-              "desc": "",
-              "detail": "任务栏透明、美",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "任务栏透明、美"
             },
             {
               "name": "TaskbarTools",
               "url": "https://github.com/Elestriel/TaskbarTools",
-              "desc": "",
-              "detail": "任务栏透明、美化",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "任务栏透明、美化"
             },
             {
               "name": "TranslucentSM",
               "url": "https://github.com/rounk-ctrl/TranslucentSM",
-              "desc": "",
-              "detail": "开始菜单半透明/透明",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "开始菜单半透明/透明"
             },
             {
               "name": "极客开始菜单",
@@ -74,35 +76,35 @@
             {
               "name": "Wifinian",
               "url": "https://github.com/emoacht/Wifinian",
-              "desc": "",
-              "detail": "开源，WiFi管理",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "开源，WiFi管理"
             },
             {
               "name": "ModernFlyouts",
               "url": "https://github.com/ModernFlyouts-Community/ModernFlyouts",
-              "desc": "",
-              "detail": "音量浮出控件",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "音量浮出控件"
             },
             {
               "name": "EarTrumpet",
               "url": "https://github.com/File-New-Project/EarTrumpet",
-              "desc": "",
-              "detail": "声音输出管理",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "声音输出管理"
             },
             {
               "name": "Modern​Flyouts",
@@ -125,13 +127,13 @@
             {
               "name": "TrafficMonitor",
               "url": "https://github.com/zhongyang219/TrafficMonitor",
-              "desc": "",
-              "detail": "监控悬浮",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "监控悬浮"
             },
             {
               "name": "StartMenuX",
@@ -142,13 +144,13 @@
             {
               "name": "OFGB",
               "url": "https://github.com/zetaloop/OFGB",
-              "desc": "",
-              "detail": "广告滚蛋 - 删除 Win11 各处广告的小工具",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "广告滚蛋 - 删除 Win11 各处广告的小工具"
             },
             {
               "name": "Cairo Desktop Environment",
@@ -171,24 +173,24 @@
             {
               "name": "WindowTabs",
               "url": "https://github.com/mauricef/WindowTabs",
-              "desc": "",
-              "detail": "收费改免费，为任意窗口添加标签，2017停更",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "收费改免费，为任意窗口添加标签，2017停更"
             },
             {
               "name": "Multrin",
               "url": "https://github.com/sentialx/multrin/",
-              "desc": "",
-              "detail": "将任意窗口组合成多标签页，2021停更",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "将任意窗口组合成多标签页，2021停更"
             }
           ]
         },
@@ -210,13 +212,13 @@
             {
               "name": "ContextMenuForWindows11",
               "url": "https://github.com/ikas-mc/ContextMenuForWindows11",
-              "desc": "",
-              "detail": "为 Windows11 添加自定义上下文菜单,自行配置",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "为 Windows11 添加自定义上下文菜单,自行配置"
             },
             {
               "name": "Shell",
@@ -227,24 +229,24 @@
             {
               "name": "Breeze Shell",
               "url": "https://github.com/std-microblock/breeze-shell",
-              "desc": "",
-              "detail": "右键菜单美化加强",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "右键菜单美化加强"
             },
             {
               "name": "TranslucentFlyouts V2",
               "url": "https://github.com/ALTaleX531/TranslucentFlyouts",
-              "desc": "",
-              "detail": "右键菜单美化加强",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "右键菜单美化加强"
             },
             {
               "name": "SageThumbs",
@@ -284,13 +286,13 @@
             {
               "name": "Wallhaven",
               "url": "https://github.com/leoFitz1024/wallhaven",
-              "desc": "",
-              "detail": "基于wallhaven.cc的一款壁纸管理工具",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "基于wallhaven.cc的一款壁纸管理工具"
             },
             {
               "name": "Splashy",
@@ -301,13 +303,13 @@
             {
               "name": "Sucrose",
               "url": "https://github.com/Taiizor/Sucrose",
-              "desc": "",
-              "detail": "内置壁纸库，全动态壁纸",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "内置壁纸库，全动态壁纸"
             },
             {
               "name": "upupoo",
@@ -378,28 +380,10 @@
           "detail": "经典压缩软件"
         },
         {
-          "name": "Chrome",
-          "url": "https://www.google.com/intl/zh-CN/chrome/",
+          "name": "Potplayer",
+          "url": "https://potplayer.app/?lang=zh_CN",
           "desc": "",
-          "detail": ""
-        },
-        {
-          "name": "微信",
-          "url": "https://pc.weixin.qq.com/",
-          "desc": "",
-          "detail": ""
-        },
-        {
-          "name": "TIM",
-          "url": "https://office.qq.com/download.html",
-          "desc": "",
-          "detail": ""
-        },
-        {
-          "name": "LiteLoaderQQNT",
-          "url": "https://liteloaderqqnt.github.io/",
-          "desc": "",
-          "detail": "QQNT 插件加载器"
+          "detail": "经典音视频播放器，强大无疑"
         },
         {
           "name": "Telegram",
@@ -408,40 +392,10 @@
           "detail": "电报，tg"
         },
         {
-          "name": "Python",
-          "url": "https://www.python.org/downloads/windows/",
+          "name": "LiteLoaderQQNT",
+          "url": "https://liteloaderqqnt.github.io/",
           "desc": "",
-          "detail": ""
-        },
-        {
-          "name": "Visual Studio Code",
-          "url": "https://code.visualstudio.com/Download",
-          "desc": "",
-          "detail": "微软出品"
-        },
-        {
-          "name": "Git",
-          "url": "https://git-scm.com/download/win",
-          "desc": "",
-          "detail": ""
-        },
-        {
-          "name": "Potplayer",
-          "url": "https://potplayer.app/?lang=zh_CN",
-          "desc": "",
-          "detail": "经典音视频播放器，强大无疑"
-        },
-        {
-          "name": "Honeyview-蜂蜜浏览器",
-          "url": "http://www.bandisoft.com/honeyview/",
-          "desc": "",
-          "detail": "与Bandizip同宗，2024发布新版Bandiview v7.0,免费版有广告"
-        },
-        {
-          "name": "SumatraPDF",
-          "url": "https://www.sumatrapdfreader.org/download-free-pdf-viewer",
-          "desc": "",
-          "detail": ""
+          "detail": "QQNT 插件加载器"
         },
         {
           "name": "Xposed Module Repository",
@@ -451,6 +405,5 @@
         }
       ]
     }
-  ],
-  "page": "home"
+  ]
 }

@@ -1,4 +1,6 @@
 {
+  "page": "home",
+  "sort_prefix": "03",
   "name": "效率与工具",
   "icon": "Cpu",
   "categories": [
@@ -24,13 +26,13 @@
             {
               "name": "PasteEx",
               "url": "https://github.com/huiyadanli/PasteEx",
-              "desc": "",
-              "detail": "将剪切板内容存为文件",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "将剪切板内容存为文件"
             },
             {
               "name": "CopyQ",
@@ -41,24 +43,24 @@
             {
               "name": "TinyCopyBoard",
               "url": "https://github.com/AlanWanco/TinyCopyBoard",
-              "desc": "",
-              "detail": "一个迷你剪贴板实时显示悬浮窗",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "一个迷你剪贴板实时显示悬浮窗"
             },
             {
               "name": "EcoPaste",
               "url": "https://github.com/ayangweb/EcoPaste",
-              "desc": "",
-              "detail": "剪切板管理",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "剪切板管理"
             },
             {
               "name": "柠檬Push",
@@ -146,13 +148,13 @@
             {
               "name": "Sticky Notes | 贴纸便签",
               "url": "https://github.com/imlinhanchao/sticky_notes",
-              "desc": "",
-              "detail": "待办列表，置顶、半透明、鼠标穿透",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "待办列表，置顶、半透明、鼠标穿透"
             },
             {
               "name": "小孩桌面便签",
@@ -181,13 +183,13 @@
             {
               "name": "StikyNotes",
               "url": "https://github.com/li-zheng-hao/StickyNotes",
-              "desc": "",
-              "detail": "一个便捷的Windows桌面便利贴，2023.5归档，有问题极度影响使用",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "一个便捷的Windows桌面便利贴，2023.5归档，有问题极度影响使用"
             },
             {
               "name": "hott notes",
@@ -232,13 +234,13 @@
             {
               "name": "AutoHotPie",
               "url": "https://github.com/dumbeau/AutoHotPie",
-              "desc": "",
-              "detail": "配置圆盘菜单",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "配置圆盘菜单"
             },
             {
               "name": "MousePlus",
@@ -332,13 +334,13 @@
             {
               "name": "Stroke",
               "url": "https://github.com/poerin/Stroke",
-              "desc": "",
-              "detail": "鼠标手势，无四角手势，自行编写，配置比较困难",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "鼠标手势，无四角手势，自行编写，配置比较困难"
             },
             {
               "name": "MouseInc",
@@ -349,13 +351,13 @@
             {
               "name": "Mouse actions",
               "url": "https://github.com/jersou/mouse-actions",
-              "desc": "",
-              "detail": "Linux鼠标手势，添加触发角、磨擦边",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "Linux鼠标手势，添加触发角、磨擦边"
             },
             {
               "name": "GestureSign",
@@ -366,24 +368,24 @@
             {
               "name": "Wheel",
               "url": "https://github.com/majorworld/Wheel",
-              "desc": "",
-              "detail": "24个屏幕边缘触发器，2020停更",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "24个屏幕边缘触发器，2020停更"
             },
             {
               "name": "WinXcorners",
               "url": "https://github.com/vhanla/winxcorne1rs/",
-              "desc": "",
-              "detail": "开源，为win10添加触发角，2019停更",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "开源，为win10添加触发角，2019停更"
             },
             {
               "name": "OneQuick",
@@ -454,6 +456,5 @@
         }
       ]
     }
-  ],
-  "page": "home"
+  ]
 }

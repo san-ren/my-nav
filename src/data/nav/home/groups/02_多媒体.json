@@ -1,5 +1,6 @@
 {
   "page": "home",
+  "sort_prefix": "02",
   "name": "多媒体",
   "icon": "Clapperboard",
   "categories": [
@@ -689,6 +690,17 @@
               "widget_url": ""
             },
             {
+              "name": "米乐迪音乐",
+              "url": "https://imelody.top/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "在线收听和下载无损音乐",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
               "name": "GD音乐台",
               "url": "https://music.gdstudio.xyz/",
               "official_site": "",
@@ -1131,7 +1143,7 @@
       ]
     },
     {
-      "name": "多媒体",
+      "name": "音视频",
       "icon": "",
       "tabs": [
         {

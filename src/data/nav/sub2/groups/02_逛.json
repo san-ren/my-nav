@@ -1,0 +1,212 @@
+{
+  "page": "sub2",
+  "sort_prefix": "01",
+  "name": "逛",
+  "icon": "",
+  "categories": [
+    {
+      "name": "逛",
+      "icon": "",
+      "tabs": [
+          {
+            "tabName": "网站",
+            "list": [
+              {
+                "name": "不死鸟",
+                "url": "https://iao.su/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "HelloGitHub",
+                "url": "https://hellogithub.com/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": [
+                  "stars",
+                  "version",
+                  "last_commit"
+                ]
+              },
+              {
+                "name": "小众软件",
+                "url": "https://www.appinn.com/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "小众软件官方论坛",
+                "url": "https://meta.appinn.net/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "软件之家",
+                "url": "https://soft.ithome.com/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "小刀娱乐网",
+                "url": "https://www.x6d.com/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "奔跑中的奶酪",
+                "url": "https://www.runningcheese.com/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "虹线周刊",
+                "url": "https://weekly.1q43.blog/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "2047论坛",
+                "url": "https://2047.one/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "ChonglangTV",
+                "url": "https://www.chonglangtv.org/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "LINUX DO",
+                "url": "https://linux.do/top?period=daily",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "不可能虫鸣",
+                "url": "https://chengeeker.github.io/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              }
+            ]
+          },
+          {
+            "tabName": "专业网站",
+            "list": [
+              {
+                "name": "存储百科--中存储网",
+                "url": "https://m.chinastor.com/baike/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "文件格式",
+                "url": "https://wenjiangeshi.cn/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "屏库 - 全球液晶屏交易中心",
+                "url": "https://m.panelook.cn/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "GFW Report",
+                "url": "https://gfw.report/zh/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "牛卡网",
+                "url": "http://www.52niuka.com/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "蚊子玩卡",
+                "url": "https://www.wenziwanka.com/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "免流网",
+                "url": "https://www.mianliu.net/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "ByteSIM eSIM",
+                "url": "https://bytesim.com/zh-hans-cn/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "中医百科",
+                "url": "https://zhongyibaike.com/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "脱毛帝",
+                "url": "https://www.tuomaodi.com/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              },
+              {
+                "name": "新况味测评 - 真实的飞机杯评测网站",
+                "url": "https://www.xkwceping.com/",
+                "desc": "",
+                "detail": "",
+                "official_site": "",
+                "badge_list": []
+              }
+            ]
+          }
+      ]
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import { BookOpen, Info } from 'lucide-react';
 const { title, name, url, icon, desc, detail, official_site, badge_list = [], guide_id } = Astro.props;
 const displayTitle = title || name;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const getDomain = (targetUrl) => {
   try {
     if (!targetUrl) return null;
@@ -51,38 +52,75 @@ const cardId = `site-${domain ? domain.replace(/[^a-zA-Z0-9]/g, '-') : Math.rand
 const hasPopup = !!(detail || (badges && badges.length > 0));
 ---
 
-<div class="site-card-wrapper group relative w-full">
+<div class="site-card-wrapper group relative w-full h-full">
   <a href={url} target="_blank" 
-     class={`flex items-center justify-between w-full h-full py-2 pl-2 pr-1 md:py-3 md:pl-3 md:pr-1.5 
-            bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-xl 
-            border border-white/50 dark:border-gray-700/30 shadow-sm 
-            hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden
-            /* 修改：hover:shadow-blue-500 -> hover:shadow-brand-600 (悬浮阴影) */
-            hover:shadow-brand-600/10 
-            /* 修改：hover:border-blue-500 -> hover:border-brand-600 (悬浮边框) */
-            hover:border-brand-600/50`}
+     class={`flex items-center justify-between w-full h-full py-3 pl-3 pr-2
+            bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl rounded-xl 
+            border border-white/60 dark:border-gray-700/50 
+            transition-all duration-300 ease-[cubic-bezier(0.25,0.8,0.25,1)]
+            
+            /* 悬浮态：卡片整体上浮 + 边框光晕 */
+            hover:-translate-y-1.5 
+            hover:bg-white/95 dark:hover:bg-gray-800/95
+            hover:border-brand-500/30 dark:hover:border-brand-400/30
+            hover:shadow-xl hover:shadow-brand-600/10 
+            hover:ring-1 hover:ring-brand-500/20
+            
+            relative overflow-hidden`}
   >
     <!-- 左侧内容区 -->
     <div class="flex items-center flex-1 min-w-0 mr-1">
-        <div class="flex-shrink-0 mr-2 md:mr-3 w-8 h-8 md:w-10 md:h-10 rounded-lg bg-white dark:bg-gray-700 shadow-sm overflow-hidden flex items-center justify-center border border-gray-100 dark:border-gray-600">
-          <img 
-            id={cardId}
-            src={defaultIcon} 
-            data-domain={domain}
-            data-sources={JSON.stringify(iconSources)}
-            alt={displayTitle} 
-            loading="lazy" 
-            referrerpolicy="no-referrer"
-            class="w-5 h-5 md:w-6 md:h-6 object-contain" 
-            onload="handleIconLoad(this)"
-            onerror="handleIconError(this)"
-          />
+        
+        <!-- 
+           ✨ 图标容器 (Icon Container)
+           这里做了相对定位，用来包裹两个图标（一个显示，一个做光影）
+        -->
+        <div class="relative flex-shrink-0 mr-3 w-10 h-10 flex items-center justify-center">
+          
+          <!-- 
+             🌟 1. 动态光影层 (The Glow Layer) 
+             - 绝对定位在底层
+             - blur-lg: 大模糊
+             - opacity-0 -> group-hover:opacity-50: 悬浮时显现
+             - saturate-200: 增加色彩饱和度，让光更鲜艳
+             - scale-125: 比原图大一圈，形成扩散效果
+          -->
+          <div class="absolute inset-0 z-0 transition-all duration-500 ease-out opacity-0 group-hover:opacity-50 group-hover:scale-150 filter blur-lg saturate-150 pointer-events-none">
+             <img 
+                src={defaultIcon}
+                alt=""
+                class="w-full h-full object-contain"
+                aria-hidden="true"
+             />
+          </div>
+
+          <!-- 
+             🖼️ 2. 实体图标层 (The Main Icon)
+             - z-10: 保证在光影上面
+             - bg-white: 给图标加个底座，防止光影透到底部显得脏
+          -->
+          <div class="relative z-10 w-10 h-10 rounded-lg bg-white/80 dark:bg-gray-700/90 shadow-sm flex items-center justify-center border border-gray-100 dark:border-gray-600 group-hover:scale-105 group-hover:shadow-md transition-all duration-300">
+            <img 
+              id={cardId}
+              src={defaultIcon} 
+              data-domain={domain}
+              data-sources={JSON.stringify(iconSources)}
+              alt={displayTitle} 
+              loading="lazy" 
+              referrerpolicy="no-referrer"
+              class="w-6 h-6 object-contain transition-transform duration-300" 
+              onload="handleIconLoad(this)"
+              onerror="handleIconError(this)"
+            />
+          </div>
         </div>
         
-        <div class="flex-1 min-w-0">
-          <h3 class="font-bold text-[13px] md:text-[14px] text-slate-800 dark:text-slate-100 truncate mb-0.5 text-left">{displayTitle}</h3>
+        <div class="flex-1 min-w-0 relative z-20">
+          <h3 class="font-bold text-[14px] text-slate-800 dark:text-slate-100 truncate mb-0.5 text-left group-hover:text-brand-600 transition-colors duration-200">
+            {displayTitle}
+          </h3>
           {desc && (
-            <p class="text-[11px] md:text-[12px] text-slate-400 dark:text-slate-500 leading-tight line-clamp-2 overflow-hidden text-left break-words">
+            <p class="text-[12px] text-slate-400 dark:text-slate-500 leading-tight line-clamp-1 overflow-hidden text-left break-words opacity-80 group-hover:opacity-100 transition-opacity">
               {desc}
             </p>
           )}
@@ -90,15 +128,19 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
     </div>
 
     <!-- 右侧按钮区 -->
-    <div class="flex flex-col gap-0.5 shrink-0 pl-0.5 border-l border-slate-100 dark:border-slate-700/50">
+    <div class={`flex flex-col gap-1 shrink-0 pl-1 border-l border-slate-100 dark:border-slate-700/50 
+                 transition-all duration-200 z-20
+                 opacity-100 translate-x-0
+                 md:opacity-0 md:-translate-x-2 
+                 md:group-hover:opacity-100 md:group-hover:translate-x-0`}>
+        
         {hasPopup && (
-          /* 修改：hover:text-blue-500 -> hover:text-brand-600 (info按钮) */
-          <button type="button" class="info-btn md:hidden p-1 rounded-md text-slate-400 hover:text-brand-600 transition-all flex items-center justify-center" title="详情">
+          <button type="button" class="info-btn md:hidden p-1 rounded-md text-slate-400 hover:text-brand-600 hover:bg-brand-50 dark:hover:bg-gray-700 transition-all flex items-center justify-center" title="详情">
             <Info size={14} />
           </button>
         )}
+        
         {guide_id && (
-          /* 修改：text-blue-400 -> text-brand-400, hover:bg-blue-500 -> hover:bg-brand-600 (教程按钮) */
           <button onclick={`event.preventDefault(); event.stopPropagation(); window.open('${base}/guide/${guide_id}', '_blank');`} class="p-1 rounded-md text-brand-400 hover:bg-brand-600 hover:text-white transition-all flex items-center justify-center" title="教程">
             <BookOpen size={14} strokeWidth={2.5} />
           </button>
@@ -106,13 +148,11 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
     </div>
   </a>
 
-  {/* 隐形数据源 (用于 Portal 浮窗) */}
+  {/* Portal 浮窗数据源 */}
   {hasPopup && (
     <div class="tooltip-source hidden">
       <div class="relative z-10">
-        <!-- 修改：text-blue-600 -> text-brand-600 (浮窗标题) -->
         <div class="text-[11px] font-black text-brand-600 dark:text-brand-400 mb-2 flex items-center gap-2 uppercase tracking-widest">
-          <!-- 修改：bg-blue-500 -> bg-brand-600 (标题左侧竖杠) -->
           <span class="w-1.5 h-3 bg-brand-600 rounded-sm"></span>详情
         </div>
         
@@ -130,12 +170,7 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
   )}
 </div>
 
-<!-- ... 上面的 HTML 代码保持不变 ... -->
-
 <script is:inline>
-  // ---------------------------------------------------------
-  // 1. 图标加载错误处理 (保持不变，功能正常)
-  // ---------------------------------------------------------
   if (typeof window.handleIconLoad === 'undefined') {
     window.handleIconLoad = function(img) {
       const domain = img.getAttribute('data-domain');
@@ -165,9 +200,6 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
     };
   }
 
-  // ---------------------------------------------------------
-  // 2. 缓存图标恢复 (优化：改为函数调用，方便生命周期管理)
-  // ---------------------------------------------------------
   function restoreCachedIcons() {
     document.querySelectorAll('img[data-domain]').forEach(img => {
       const domain = img.getAttribute('data-domain');
@@ -182,21 +214,13 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
     });
   }
 
-  // ---------------------------------------------------------
-  // 3. 全局 Tooltip 核心逻辑 (重构)
-  // ---------------------------------------------------------
   (function() {
-    // 状态变量
     let tooltipEl = null;
     let tooltipArrow = null;
     let activeCard = null;
-    let hideTimer = null; // 新增：用于防抖
+    let hideTimer = null;
 
-    // ----------------------------------
-    // A. 创建 DOM 结构
-    // ----------------------------------
     function createTooltipDOM() {
-      // 如果已存在，直接重新获取引用
       const existing = document.getElementById('global-detail-tooltip');
       if (existing) {
         tooltipEl = existing;
@@ -206,7 +230,6 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
 
       tooltipEl = document.createElement('div');
       tooltipEl.id = 'global-detail-tooltip';
-      // 保持你的样式不变
       tooltipEl.className = 'portal-popup fixed z-[9999] hidden w-72 p-4 bg-white dark:bg-[#1e2025] rounded-xl shadow-2xl border border-slate-200/60 dark:border-slate-700 pointer-events-none opacity-0 scale-95 transition-all duration-200 ease-out';
       
       tooltipArrow = document.createElement('div');
@@ -221,13 +244,9 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       document.body.appendChild(tooltipEl);
     }
 
-    // ----------------------------------
-    // B. 显示/隐藏逻辑
-    // ----------------------------------
     function showTooltip(wrapper) {
-      if (!tooltipEl) createTooltipDOM(); // 双重保险
+      if (!tooltipEl) createTooltipDOM();
       
-      // 清除之前的隐藏定时器
       if (hideTimer) {
         clearTimeout(hideTimer);
         hideTimer = null;
@@ -239,15 +258,11 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       const contentBox = document.getElementById('tooltip-content');
       if (contentBox) contentBox.innerHTML = source.innerHTML;
 
-      // 必须先移除 hidden 才能计算位置
       tooltipEl.classList.remove('hidden');
-      
-      // 强制重绘
       void tooltipEl.offsetWidth; 
       
       updatePosition(wrapper);
       
-      // 动画进入
       requestAnimationFrame(() => {
         tooltipEl.classList.remove('opacity-0', 'scale-95');
         tooltipEl.classList.add('opacity-100', 'scale-100');
@@ -257,16 +272,13 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
     function hideTooltip(immediate = false) {
       if (!tooltipEl) return;
       
-      // 动画退出
       tooltipEl.classList.remove('opacity-100', 'scale-100');
       tooltipEl.classList.add('opacity-0', 'scale-95');
 
       if (immediate) {
          tooltipEl.classList.add('hidden');
       } else {
-        // 避免多个 timer
         if (hideTimer) clearTimeout(hideTimer);
-        
         hideTimer = setTimeout(() => {
           if (tooltipEl && tooltipEl.classList.contains('opacity-0')) {
             tooltipEl.classList.add('hidden');
@@ -276,9 +288,6 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       }
     }
 
-    // ----------------------------------
-    // C. 位置计算 (保持你的算法)
-    // ----------------------------------
     function updatePosition(wrapper) {
       if (!tooltipEl) return;
 
@@ -312,7 +321,6 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       }
 
       let arrowLeft = rect.left + (rect.width / 2) - left - (arrowSize);
-      // 限制箭头不要超出圆角
       arrowLeft = Math.max(12, Math.min(tooltipRect.width - 28, arrowLeft));
 
       tooltipEl.style.top = `${top}px`;
@@ -330,24 +338,17 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       }
     }
 
-    // ----------------------------------
-    // D. 事件处理器 (核心修复)
-    // ----------------------------------
-    
-    // 鼠标移动处理函数 (单独提取，方便解绑)
     const handleMouseOver = (e) => {
       if (window.innerWidth < 768) return; 
 
       const wrapper = e.target.closest('.site-card-wrapper');
       
       if (wrapper) {
-        // 如果移入了一个新卡片
         if (activeCard !== wrapper && wrapper.querySelector('.tooltip-source')) {
           activeCard = wrapper;
           showTooltip(wrapper);
         }
       } else {
-        // 如果移到了空白处，且不是浮窗本身
         if (activeCard) {
           const isTooltip = e.target.closest('#global-detail-tooltip');
           if (!isTooltip) {
@@ -360,7 +361,6 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
 
     const handleClick = (e) => {
       const btn = e.target.closest('.info-btn');
-      // 移动端/小屏点击 Info 按钮
       if (btn) {
         e.preventDefault();
         e.stopPropagation();
@@ -377,7 +377,6 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
         return;
       }
 
-      // 点击空白处关闭
       if (tooltipEl && !tooltipEl.classList.contains('hidden')) {
         if (!e.target.closest('.site-card-wrapper') && !e.target.closest('#global-detail-tooltip')) {
           hideTooltip();
@@ -386,57 +385,37 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       }
     };
     
-    // 滚动时关闭
     const handleScroll = () => {
       if (activeCard) {
-        hideTooltip(true); // 立即关闭
+        hideTooltip(true);
         activeCard = null;
       }
     };
 
-    // ----------------------------------
-    // E. 初始化与清理
-    // ----------------------------------
     function init() {
-      // 1. 恢复图标
       restoreCachedIcons();
-      
-      // 2. 创建/重置 Tooltip DOM
       createTooltipDOM();
       
-      // 3. 移除旧监听器 (防止重复绑定)
       document.body.removeEventListener('mouseover', handleMouseOver);
       document.body.removeEventListener('click', handleClick);
       window.removeEventListener('scroll', handleScroll, { capture: true });
 
-      // 4. 绑定新监听器
       document.body.addEventListener('mouseover', handleMouseOver);
       document.body.addEventListener('click', handleClick);
       window.addEventListener('scroll', handleScroll, { capture: true, passive: true });
     }
 
-    // 立即执行一次
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', init);
     } else {
       init();
     }
 
-    // Astro 页面切换后重新执行
     document.addEventListener('astro:after-swap', init);
-    document.addEventListener('astro:page-load', init); // 双重保险
+    document.addEventListener('astro:page-load', init);
 
   })();
 </script>
-
-<style is:global>
-  /* 你的样式保持不变 */
-  .detail-markdown p { margin-bottom: 0.5rem; }
-  .detail-markdown p:last-child { margin-bottom: 0; }
-  .detail-markdown ul { list-style-type: disc; padding-left: 1.2em; margin-bottom: 0.5rem; }
-  .detail-markdown li { margin-bottom: 0.2rem; }
-  .detail-markdown a { color: #3b82f6; text-decoration: underline; }
-</style>
 
 <style is:global>
   .detail-markdown p { margin-bottom: 0.5rem; }

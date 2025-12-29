@@ -17,8 +17,9 @@ media_folder: "public/images"
 public_folder: "/images"
 
 slug:
-  encoding: "ascii"
-  clean_accents: true
+  encoding: "unicode"     # ✅ 改为 unicode，允许中文
+  clean_accents: false    # ✅ 改为 false，不要清洗字符
+  sanitize_replacement: "-" # (可选) 空格替换符
 
 collections:
   # ============================================================
@@ -77,6 +78,8 @@ collections:
     format: "json"
     create: true
     identifier_field: "name"
+        # 这告诉 CMS：请在排序下拉菜单里，提供 "sort_prefix" 这个选项
+    sortable_fields: ["sort_prefix", "name"]
     
     # ✅ 修改摘要：让列表显示排序号，方便管理
     summary: "{{sort_prefix}} - {{name}}"

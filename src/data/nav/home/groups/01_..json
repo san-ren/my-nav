@@ -1,5 +1,6 @@
 {
   "page": "home",
+  "sort_prefix": "01",
   "name": ".",
   "icon": "Star",
   "categories": [
@@ -10,24 +11,24 @@
         {
           "name": "NewsNow",
           "url": "https://github.com/ourongxing/newsnow",
-          "desc": "实时新闻聚合阅读器",
-          "detail": "",
-          "icon": "",
-          "widget_url": "",
           "official_site": "https://newsnow.busiyi.world/",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
           ],
-          "guide_id": ""
+          "desc": "实时新闻聚合阅读器",
+          "detail": "",
+          "guide_id": "",
+          "icon": "",
+          "widget_url": ""
         },
         {
           "name": "小田田",
           "url": "https://xydh.fun/xiaotiantian",
+          "official_site": "",
           "desc": "",
-          "detail": "汇总导航,你想要的都有",
-          "official_site": ""
+          "detail": "汇总导航,你想要的都有"
         },
         {
           "name": "低调观影",
@@ -44,9 +45,9 @@
         {
           "name": "小众软件",
           "url": "https://www.appinn.com/",
+          "official_site": "",
           "desc": "",
-          "detail": "一个分享、体验、评测电脑软件、手机应用、互联网产品的网站",
-          "official_site": ""
+          "detail": "一个分享、体验、评测电脑软件、手机应用、互联网产品的网站"
         },
         {
           "name": "异次元",

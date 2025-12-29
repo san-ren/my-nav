@@ -1,4 +1,6 @@
 {
+  "page": "sub1",
+  "sort_prefix": "04",
   "name": "社交与远程",
   "icon": "Globe",
   "categories": [
@@ -9,13 +11,13 @@
         {
           "name": "RevokeMsgPatcher",
           "url": "https://github.com/huiyadanli/RevokeMsgPatcher",
-          "desc": "",
-          "detail": "微信/QQ/TIM防撤回补丁",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
-          ]
+          ],
+          "desc": "",
+          "detail": "微信/QQ/TIM防撤回补丁"
         },
         {
           "name": "PC微信遮挡工具",
@@ -26,35 +28,35 @@
         {
           "name": "CleanMyWechat",
           "url": "https://github.com/blackboxo/CleanMyWechat",
-          "desc": "",
-          "detail": "自动删除PC微信缓存数据",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
-          ]
+          ],
+          "desc": "",
+          "detail": "自动删除PC微信缓存数据"
         },
         {
           "name": "WXMoments",
           "url": "https://github.com/tech-shrimp/WechatMoments",
-          "desc": "",
-          "detail": "WX 朋友圈导出为 HTML",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
-          ]
+          ],
+          "desc": "",
+          "detail": "WX 朋友圈导出为 HTML"
         },
         {
           "name": "wechatDownload/微信公众号文章批量下载工具",
           "url": "https://github.com/qiye45/wechatDownload",
-          "desc": "",
-          "detail": "微信公众号文章批量下载工具，支持图片、评论下载，支持保存html/md/pdf/docx文件",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
-          ]
+          ],
+          "desc": "",
+          "detail": "微信公众号文章批量下载工具，支持图片、评论下载，支持保存html/md/pdf/docx文件"
         },
         {
           "name": "WeChat2PDF",
@@ -71,46 +73,46 @@
         {
           "name": "WeClone",
           "url": "https://github.com/xming521/WeClone",
-          "desc": "",
-          "detail": "从聊天记录创造数字分身的一站式解决方案",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
-          ]
+          ],
+          "desc": "",
+          "detail": "从聊天记录创造数字分身的一站式解决方案"
         },
         {
           "name": "WeWe RSS",
           "url": "https://github.com/cooderl/wewe-rss",
-          "desc": "",
-          "detail": "更优雅的微信公众号订阅方式，支持私有化部署、微信公众号RSS生成（基于微信读书）",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
-          ]
+          ],
+          "desc": "",
+          "detail": "更优雅的微信公众号订阅方式，支持私有化部署、微信公众号RSS生成（基于微信读书）"
         },
         {
           "name": "serverless-qrcode-hub",
           "url": "https://github.com/xxnuo/serverless-qrcode-hub",
-          "desc": "",
-          "detail": "生成永久微信群聊二维码",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
-          ]
+          ],
+          "desc": "",
+          "detail": "生成永久微信群聊二维码"
         },
         {
           "name": "WechatRealFriends",
           "url": "https://github.com/StrayMeteor3337/WechatRealFriends",
-          "desc": "",
-          "detail": "微信好友关系一键检测（2025年3月因微信协议变更停更）",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
-          ]
+          ],
+          "desc": "",
+          "detail": "微信好友关系一键检测（2025年3月因微信协议变更停更）"
         },
         {
           "name": "Weibo-archiver",
@@ -133,24 +135,24 @@
         {
           "name": "腾讯版本",
           "url": "https://github.com/HdShare/TencentVersion",
-          "desc": "",
-          "detail": "基于 VitePress 的 腾讯版本 网站",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
-          ]
+          ],
+          "desc": "",
+          "detail": "基于 VitePress 的 腾讯版本 网站"
         },
         {
           "name": "微信公众号RSS",
           "url": "https://github.com/ttttmr/Wechat2RSS",
-          "desc": "",
-          "detail": "微信公众号转RSS",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
-          ]
+          ],
+          "desc": "",
+          "detail": "微信公众号转RSS"
         }
       ]
     },
@@ -203,13 +205,13 @@
         {
           "name": "scrcpy",
           "url": "https://github.com/Genymobile/scrcpy",
-          "desc": "",
-          "detail": "显示和控制您的 Android 设备",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
-          ]
+          ],
+          "desc": "",
+          "detail": "显示和控制您的 Android 设备"
         },
         {
           "name": "HiPC移动助手",
@@ -226,13 +228,13 @@
         {
           "name": "RemoteControlDesktop",
           "url": "https://github.com/codext-remotecontrol/remotecontrol-desktop",
-          "desc": "",
-          "detail": "远程控制",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
-          ]
+          ],
+          "desc": "",
+          "detail": "远程控制"
         },
         {
           "name": "RustDesk",
@@ -242,6 +244,5 @@
         }
       ]
     }
-  ],
-  "page": "sub1"
+  ]
 }

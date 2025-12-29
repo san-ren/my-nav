@@ -1,4 +1,6 @@
 {
+  "page": "home",
+  "sort_prefix": "04",
   "name": "资源下载",
   "icon": "Download",
   "categories": [
@@ -15,13 +17,13 @@
         {
           "name": "IDM-Activation-Script",
           "url": "https://github.com/lstprjct/IDM-Activation-Script",
-          "desc": "",
-          "detail": "IDM激活和跟踪重置脚本，一行代码激活IDM",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
-          ]
+          ],
+          "desc": "",
+          "detail": "IDM激活和跟踪重置脚本，一行代码激活IDM"
         },
         {
           "name": "XIU2/TrackersListCollection",
@@ -56,13 +58,13 @@
         {
           "name": "imFile",
           "url": "https://github.com/imfile-io/imfile-desktop",
-          "desc": "",
-          "detail": "基于Motrix",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
-          ]
+          ],
+          "desc": "",
+          "detail": "基于Motrix"
         },
         {
           "name": "Xdown",
@@ -91,13 +93,13 @@
         {
           "name": "qBittorrent-Enhanced-Edition",
           "url": "https://github.com/c0re100/qBittorrent-Enhanced-Edition",
-          "desc": "",
-          "detail": "qBittorrent 增强版",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
-          ]
+          ],
+          "desc": "",
+          "detail": "qBittorrent 增强版"
         },
         {
           "name": "LIII BitTorrent",
@@ -126,13 +128,13 @@
         {
           "name": "XDM",
           "url": "https://github.com/subhra74/xdm",
-          "desc": "",
-          "detail": "支持浏览器扩展",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
-          ]
+          ],
+          "desc": "",
+          "detail": "支持浏览器扩展"
         },
         {
           "name": "AB Download Manager",
@@ -161,13 +163,13 @@
         {
           "name": "Seal",
           "url": "https://github.com/JunkFood02/Seal",
-          "desc": "",
-          "detail": "基于 yt-dlp,下载视频与音频，支持播放列表下载、内嵌字幕于视频文件中、使用 aria2c 进行下载等",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
-          ]
+          ],
+          "desc": "",
+          "detail": "基于 yt-dlp,下载视频与音频，支持播放列表下载、内嵌字幕于视频文件中、使用 aria2c 进行下载等"
         },
         {
           "name": "Lj视频下载器",
@@ -205,57 +207,57 @@
             {
               "name": "wechatDownload/微信公众号文章批量下载工具",
               "url": "https://github.com/qiye45/wechatDownload",
-              "desc": "",
-              "detail": "微信公众号文章批量下载工具，支持图片、评论下载，支持保存html/md/pdf/docx文件",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "微信公众号文章批量下载工具，支持图片、评论下载，支持保存html/md/pdf/docx文件"
             },
             {
               "name": "wechatDownload",
               "url": "https://github.com/xiaoguyu/wechatDownload",
-              "desc": "",
-              "detail": "单篇、批量，2024年5月19日归档",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "单篇、批量，2024年5月19日归档"
             },
             {
               "name": "wechatVideoDownload/微信视频号下载工具",
               "url": "https://github.com/qiye45/wechatVideoDownload",
-              "desc": "",
-              "detail": "微信视频号下载工具，支持视频、直播回放下载",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "微信视频号下载工具，支持视频、直播回放下载"
             },
             {
               "name": "WeChat_Article",
               "url": "https://github.com/1061700625/WeChat_Article",
-              "desc": "",
-              "detail": "2023年6月停更",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "2023年6月停更"
             },
             {
               "name": "wechat-spider/微信爬虫",
               "url": "https://github.com/striver-ing/wechat-spider",
-              "desc": "",
-              "detail": "爬取公众号所有 文章、阅读量、点赞量和评论内容，2022停更",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "爬取公众号所有 文章、阅读量、点赞量和评论内容，2022停更"
             }
           ]
         },
@@ -283,13 +285,13 @@
             {
               "name": "filestash",
               "url": "https://github.com/mickael-kerjean/filestash",
-              "desc": "",
-              "detail": "跨网盘文件管理，支持FTP • FTPS • SFTP • WebDAV • Git • Dropbox • Google Drive",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "跨网盘文件管理，支持FTP • FTPS • SFTP • WebDAV • Git • Dropbox • Google Drive"
             },
             {
               "name": "AList",
@@ -306,13 +308,13 @@
             {
               "name": "小白羊网盘",
               "url": "https://github.com/gaozhangmin/aliyunpan",
-              "desc": "",
-              "detail": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": ""
             },
             {
               "name": "蜗牛云盘",
@@ -323,13 +325,13 @@
             {
               "name": "Raptor",
               "url": "https://github.com/InfpHub/Raptor",
-              "desc": "",
-              "detail": "第三方阿里云盘桌面应用客户端",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "第三方阿里云盘桌面应用客户端"
             },
             {
               "name": "小白云盘",
@@ -357,46 +359,46 @@
             {
               "name": "N_m3u8DL-RE",
               "url": "https://github.com/nilaoda/N_m3u8DL-RE",
-              "desc": "",
-              "detail": "跨平台的DASH/HLS/MSS下载工具。支持点播、直播(DASH/HLS)。N_m3u8DL-CLI的迭代，",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "跨平台的DASH/HLS/MSS下载工具。支持点播、直播(DASH/HLS)。N_m3u8DL-CLI的迭代，"
             },
             {
               "name": "M3u8Downloader_H",
               "url": "https://github.com/Harlan-H/M3u8Downloader_H",
-              "desc": "",
-              "detail": "m3u8下载器,功能强大,多线程,多任务,支持aes-128-cbc解密,自定义请求头,自定义插件",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "m3u8下载器,功能强大,多线程,多任务,支持aes-128-cbc解密,自定义请求头,自定义插件"
             },
             {
               "name": "Fluent-M3U8",
               "url": "https://github.com/zhiyiYo/Fluent-M3U8",
-              "desc": "",
-              "detail": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": ""
             },
             {
               "name": "You-Get",
               "url": "https://github.com/soimort/you-get",
-              "desc": "",
-              "detail": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": ""
             },
             {
               "name": "Arrow Downloader",
@@ -413,13 +415,13 @@
             {
               "name": "Hitomi-Downloader",
               "url": "https://github.com/KurtBestor/Hitomi-Downloader",
-              "desc": "",
-              "detail": "网页下载",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "网页下载"
             },
             {
               "name": "侠客短视频解析去水印",
@@ -448,13 +450,13 @@
             {
               "name": "YoutubeDownloader",
               "url": "https://github.com/Tyrrrz/YoutubeDownloader",
-              "desc": "",
-              "detail": "下载 YouTube 视频和播放列表",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "下载 YouTube 视频和播放列表"
             }
           ]
         },
@@ -464,24 +466,24 @@
             {
               "name": "BBDown（Bilibili Downloader）",
               "url": "https://github.com/nilaoda/BBDown",
-              "desc": "",
-              "detail": "命令行式哔哩哔哩下载器",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "命令行式哔哩哔哩下载器"
             },
             {
               "name": "哔哩下载姬downkyi",
               "url": "https://github.com/leiurayer/downkyi",
-              "desc": "",
-              "detail": "up主合集和列表, 个人收藏夹以及批量下载",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
-              ]
+              ],
+              "desc": "",
+              "detail": "up主合集和列表, 个人收藏夹以及批量下载"
             },
             {
               "name": "Bilidown",
@@ -500,6 +502,5 @@
         ""
       ]
     }
-  ],
-  "page": "home"
+  ]
 }

@@ -1,0 +1,221 @@
+{
+  "page": "sub2",
+  "sort_prefix": "01",
+  "name": "娱乐",
+  "icon": "",
+  "categories": [
+    {
+      "name": "影视",
+      "icon": "",
+      "tabs": [
+        {
+          "tabName": "在线看",
+          "list": [
+            {
+              "name": "低调观影",
+              "url": "https://shouku123.com/tiantian",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "观影",
+              "url": "https://www.gying.page/",
+              "official_site": "https://www.gying.net/",
+              "badge_list": [],
+              "desc": "曾经的片库",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "耐看点播",
+              "url": "https://www.nkvod.com/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "屏蔽国外ip",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            }
+          ]
+        },
+        {
+          "tabName": "影视磁力站",
+          "list": [
+            {
+              "name": "电影天堂",
+              "url": "https://www.dygod.net/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "游戏",
+      "list": [
+        {
+          "name": "SteamDB",
+          "url": "https://steamdb.info/",
+          "desc": "",
+          "detail": "",
+          "official_site": "",
+          "badge_list": []
+        },
+        {
+          "name": "114game",
+          "url": "https://www.114game.net/",
+          "desc": "",
+          "detail": "",
+          "official_site": "",
+          "badge_list": []
+        },
+        {
+          "name": "GBTGame官方网盘",
+          "url": "https://pan.gbtgame.me/",
+          "desc": "",
+          "detail": "",
+          "official_site": "",
+          "badge_list": []
+        },
+        {
+          "name": "乐赏游戏空间",
+          "url": "http://qhgame.ysepan.com/",
+          "desc": "",
+          "detail": "",
+          "official_site": "",
+          "badge_list": []
+        },
+        {
+          "name": "小妖怪分享",
+          "url": "https://www.zzzzz688.com/",
+          "desc": "",
+          "detail": "",
+          "official_site": "",
+          "badge_list": []
+        },
+        {
+          "name": "123资源库",
+          "url": "https://www.123zyk.com/",
+          "desc": "",
+          "detail": "",
+          "official_site": "",
+          "badge_list": []
+        },
+        {
+          "name": "NS游戏仓库",
+          "url": "https://www.wolai.com/nxyxck/t3ou1DRW2dtgHcZCfP2Nh7",
+          "desc": "",
+          "detail": "",
+          "official_site": "",
+          "badge_list": []
+        },
+        {
+          "name": "梓澪の妙妙屋",
+          "url": "https://zi0.cc/",
+          "desc": "",
+          "detail": "",
+          "official_site": "",
+          "badge_list": []
+        },
+        {
+          "name": "浅夏的NS(switch)游戏清单",
+          "url": "https://lcnacj6svcnr.feishu.cn/share/base/query/shrcnrDf1C1ytsCL7EHBV1ixUnq",
+          "desc": "",
+          "detail": "",
+          "official_site": "",
+          "badge_list": []
+        },
+        {
+          "name": "gdgame免费单机游戏下载",
+          "url": "https://gdgame.org/",
+          "desc": "",
+          "detail": "",
+          "official_site": "",
+          "badge_list": []
+        },
+        {
+          "name": "WZGuides",
+          "url": "https://wzguides.cn/wz2/gunsmith",
+          "desc": "",
+          "detail": "",
+          "official_site": "",
+          "badge_list": []
+        },
+        {
+          "name": "三角洲行动一图流",
+          "url": "https://www.kkrb.net/?viewpage=view%2Foverview",
+          "desc": "",
+          "detail": "",
+          "official_site": "",
+          "badge_list": []
+        },
+        {
+          "name": "三角洲行动玩家营地",
+          "url": "https://www.dpcamp.cn/",
+          "desc": "",
+          "detail": "",
+          "official_site": "",
+          "badge_list": []
+        },
+        {
+          "name": "准星代售",
+          "url": "https://www.zxfps.com/",
+          "desc": "",
+          "detail": "",
+          "official_site": "",
+          "badge_list": []
+        },
+        {
+          "name": "cod系列地图",
+          "url": "https://wzhub.gg/map",
+          "desc": "",
+          "detail": "",
+          "official_site": "",
+          "badge_list": []
+        },
+        {
+          "name": "三角洲行动数据接口",
+          "url": "https://df-api.apifox.cn/",
+          "desc": "",
+          "detail": "",
+          "official_site": "",
+          "badge_list": []
+        },
+        {
+          "name": "三角洲小涛查",
+          "url": "https://sanjiaozhou.apifox.cn/",
+          "desc": "",
+          "detail": "",
+          "official_site": "",
+          "badge_list": []
+        },
+        {
+          "name": "三角洲行动API",
+          "url": "https://github.com/coolxitech/deltaforce",
+          "desc": "",
+          "detail": "",
+          "official_site": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
+        }
+      ]
+    }
+  ]
+}

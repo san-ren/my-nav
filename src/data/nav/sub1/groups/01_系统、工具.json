@@ -1,213 +1,310 @@
 {
   "page": "sub1",
+  "sort_prefix": "01",
   "name": "系统、工具",
   "icon": "Settings",
   "categories": [
     {
-      "name": "Windows",
-      "icon": "Palette",
-      "list": [
+      "name": "windows",
+      "icon": "",
+      "tabs": [
         {
-          "name": "OFGB",
-          "url": "https://github.com/xM4ddy/OFGB",
-          "official_site": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "关闭win11系统广告",
-          "detail": "",
-          "guide_id": ""
+          "tabName": "系统管理",
+          "list": [
+            {
+              "name": "OFGB",
+              "url": "https://github.com/xM4ddy/OFGB",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "关闭win11系统广告",
+              "detail": "",
+              "guide_id": ""
+            },
+            {
+              "name": "Baidun Armor",
+              "url": "https://www.bds007.cc/",
+              "desc": "",
+              "detail": "永远免费的流氓软件免疫小工具，一键屏蔽和免疫各种流氓软件，弹窗广告，告别电脑卡顿，还你一个纯净的Windows！"
+            },
+            {
+              "name": "Malware-Patch",
+              "url": "https://github.com/the1812/Malware-Patch",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "阻止中国流氓软件的管理员授权"
+            },
+            {
+              "name": "ExplorerPatcher",
+              "url": "https://github.com/valinet/ExplorerPatcher",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "任务栏、开始菜单设置工具"
+            },
+            {
+              "name": "PowerToys",
+              "url": "https://github.com/microsoft/PowerToys",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "微软官方出品，丰富系统功能"
+            },
+            {
+              "name": "微PE工具箱",
+              "url": "http://www.wepe.com.cn/",
+              "desc": "",
+              "detail": "WinPE装机维护工具"
+            },
+            {
+              "name": "Dism++",
+              "url": "https://github.com/Chuyu-Team/Dism-Multi-language",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "经典强大工具"
+            },
+            {
+              "name": "软媒魔方",
+              "url": "https://mofang.ruanmei.com/",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "云图工具箱",
+              "url": "https://wintool.cc/",
+              "desc": "",
+              "detail": "系统工具箱"
+            },
+            {
+              "name": "图吧工具箱",
+              "url": "http://www.tbtool.cn/",
+              "desc": "",
+              "detail": "电脑系统检测工具"
+            },
+            {
+              "name": "硬件狗狗（HDDog）",
+              "url": "http://yjgg.mydrivers.com/",
+              "desc": "",
+              "detail": "电脑硬件检测"
+            },
+            {
+              "name": "Ventoy",
+              "url": "https://github.com/ventoy/Ventoy",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "开源，U盘启动盘制作，支持多系统，还能当普通U盘保存文件"
+            },
+            {
+              "name": "Rufus",
+              "url": "https://github.com/pbatard/rufus",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "开源，制作U盘启动盘"
+            },
+            {
+              "name": "CnCrypt",
+              "url": "http://cncrypt.com/",
+              "desc": "",
+              "detail": "磁盘加密"
+            },
+            {
+              "name": "CrystalDiskInfo",
+              "url": "https://crystalmark.info/en/",
+              "desc": "",
+              "detail": "专业硬盘检测"
+            },
+            {
+              "name": "DiskGenius",
+              "url": "https://www.diskgenius.cn/",
+              "desc": "",
+              "detail": "硬盘管理"
+            },
+            {
+              "name": "Winpilot",
+              "url": "https://github.com/builtbybel/Winpilot",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "Win11 优化，不支持中文"
+            },
+            {
+              "name": "RyTuneX",
+              "url": "https://rayenghanmi.github.io/rytunex/index.html",
+              "desc": "",
+              "detail": "开源，系统轻度优化"
+            },
+            {
+              "name": "Windows超级管理器",
+              "url": "https://www.colithel.com/supermanager.html",
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "Sophi",
+              "url": "https://github.com/Sophia-Community/SophiApp",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "微调windows"
+            },
+            {
+              "name": "WPD",
+              "url": "https://wpd.app/",
+              "desc": "",
+              "detail": "Win10隐私设置工具"
+            },
+            {
+              "name": "Optimizer",
+              "url": "https://github.com/hellzerg/optimizer",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "系统优化"
+            },
+            {
+              "name": "TurnedOnTimesView",
+              "url": "http://www.nirsoft.net/utils/computer_turned_on_times.html",
+              "desc": "",
+              "detail": "开关机时间、电脑持续使用时间、关机或重启的原因"
+            },
+            {
+              "name": "FixWin",
+              "url": "http://www.dayanzai.me/fixwin-11.html",
+              "desc": "",
+              "detail": "win11/10修复"
+            },
+            {
+              "name": "Glary Utilities",
+              "url": "https://www.glarysoft.com/",
+              "desc": "",
+              "detail": "管家类软件"
+            }
+          ]
         },
         {
-          "name": "Baidun Armor",
-          "url": "https://www.bds007.cc/",
-          "desc": "",
-          "detail": "永远免费的流氓软件免疫小工具，一键屏蔽和免疫各种流氓软件，弹窗广告，告别电脑卡顿，还你一个纯净的Windows！"
-        },
-        {
-          "name": "Malware-Patch",
-          "url": "https://github.com/the1812/Malware-Patch",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "",
-          "detail": "阻止中国流氓软件的管理员授权"
-        },
-        {
-          "name": "ExplorerPatcher",
-          "url": "https://github.com/valinet/ExplorerPatcher",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "",
-          "detail": "任务栏、开始菜单设置工具"
-        },
-        {
-          "name": "PowerToys",
-          "url": "https://github.com/microsoft/PowerToys",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "",
-          "detail": "微软官方出品，丰富系统功能"
-        },
-        {
-          "name": "微PE工具箱",
-          "url": "http://www.wepe.com.cn/",
-          "desc": "",
-          "detail": "WinPE装机维护工具"
-        },
-        {
-          "name": "Dism++",
-          "url": "https://github.com/Chuyu-Team/Dism-Multi-language",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "",
-          "detail": "经典强大工具"
-        },
-        {
-          "name": "软媒魔方",
-          "url": "https://mofang.ruanmei.com/",
-          "desc": "",
-          "detail": ""
-        },
-        {
-          "name": "云图工具箱",
-          "url": "https://wintool.cc/",
-          "desc": "",
-          "detail": "系统工具箱"
-        },
-        {
-          "name": "图吧工具箱",
-          "url": "http://www.tbtool.cn/",
-          "desc": "",
-          "detail": "电脑系统检测工具"
-        },
-        {
-          "name": "硬件狗狗（HDDog）",
-          "url": "http://yjgg.mydrivers.com/",
-          "desc": "",
-          "detail": "电脑硬件检测"
-        },
-        {
-          "name": "Ventoy",
-          "url": "https://github.com/ventoy/Ventoy",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "",
-          "detail": "开源，U盘启动盘制作，支持多系统，还能当普通U盘保存文件"
-        },
-        {
-          "name": "Rufus",
-          "url": "https://github.com/pbatard/rufus",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "",
-          "detail": "开源，制作U盘启动盘"
-        },
-        {
-          "name": "CnCrypt",
-          "url": "http://cncrypt.com/",
-          "desc": "",
-          "detail": "磁盘加密"
-        },
-        {
-          "name": "CrystalDiskInfo",
-          "url": "https://crystalmark.info/en/",
-          "desc": "",
-          "detail": "专业硬盘检测"
-        },
-        {
-          "name": "DiskGenius",
-          "url": "https://www.diskgenius.cn/",
-          "desc": "",
-          "detail": "硬盘管理"
-        },
-        {
-          "name": "Winpilot",
-          "url": "https://github.com/builtbybel/Winpilot",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "",
-          "detail": "Win11 优化，不支持中文"
-        },
-        {
-          "name": "RyTuneX",
-          "url": "https://rayenghanmi.github.io/rytunex/index.html",
-          "desc": "",
-          "detail": "开源，系统轻度优化"
-        },
-        {
-          "name": "Windows超级管理器",
-          "url": "https://www.colithel.com/supermanager.html",
-          "desc": "",
-          "detail": ""
-        },
-        {
-          "name": "Sophi",
-          "url": "https://github.com/Sophia-Community/SophiApp",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "",
-          "detail": "微调windows"
-        },
-        {
-          "name": "WPD",
-          "url": "https://wpd.app/",
-          "desc": "",
-          "detail": "Win10隐私设置工具"
-        },
-        {
-          "name": "Optimizer",
-          "url": "https://github.com/hellzerg/optimizer",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "",
-          "detail": "系统优化"
-        },
-        {
-          "name": "TurnedOnTimesView",
-          "url": "http://www.nirsoft.net/utils/computer_turned_on_times.html",
-          "desc": "",
-          "detail": "开关机时间、电脑持续使用时间、关机或重启的原因"
-        },
-        {
-          "name": "FixWin",
-          "url": "http://www.dayanzai.me/fixwin-11.html",
-          "desc": "",
-          "detail": "win11/10修复"
-        },
-        {
-          "name": "Glary Utilities",
-          "url": "https://www.glarysoft.com/",
-          "desc": "",
-          "detail": "管家类软件"
+          "tabName": "下载与激活",
+          "list": [
+            {
+              "name": "软件下载",
+              "url": "https://www.microsoft.com/zh-cn/software-download/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "微软官网下载中心",
+              "detail": ""
+            },
+            {
+              "name": "下载 Windows 10",
+              "url": "https://www.microsoft.com/zh-cn/software-download/windows10",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "微软官网win10下载"
+            },
+            {
+              "name": "ITELLYOU",
+              "url": "https://next.itellyou.cn/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "前网站 https://msdn.itellyou.cn/"
+            },
+            {
+              "name": "iwin11",
+              "url": "https://iwin11.cn/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "前网站 https://iwin10.net/"
+            },
+            {
+              "name": "HelloWindows",
+              "url": "https://hellowindows.cn/",
+              "desc": "",
+              "detail": "Office/WPS、Windows镜像，精校 完整 极致 Windows系统下载仓储站"
+            },
+            {
+              "name": "Microsoft Activation Scripts (MAS)",
+              "url": "https://github.com/massgravel/Microsoft-Activation-Scripts",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "windows激活之神",
+              "detail": "windows和office激活"
+            },
+            {
+              "name": "HEU_KMS_Activator",
+              "url": "https://github.com/zbezj/HEU_KMS_Activator",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "云萌 Windows 激活（CMWTAT_Digital_Edition）",
+              "url": "https://github.com/TGSAN/CMWTAT_Digital_Edition",
+              "official_site": "https://cmwtat.cloudmoe.com/cn.html",
+              "desc": "",
+              "detail": "GitHub 上最棒的开源 Win10/Win11 数字权利（数字许可证）激活工具"
+            },
+            {
+              "name": "Microsoft Edge",
+              "url": "https://www.microsoft.com/zh-cn/edge/download/insider?cc=1&ch=1&cs=839917877&form=MA13FJ",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "微软官网 edge 浏览器下载",
+              "detail": ""
+            },
+            {
+              "name": "KMS_VL_ALL_AIO",
+              "url": "https://github.com/abbodi1406/KMS_VL_ALL_AIO",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "2025.12发现删库",
+              "detail": "智能激活脚本"
+            }
+          ]
         }
       ]
     },
