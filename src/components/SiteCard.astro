@@ -47,7 +47,10 @@ if (url && url.includes("github.com") && badge_list && badge_list.length > 0) {
 }
 
 const rawMarkdown = detail || "";
-const detailContent = marked.parse(rawMarkdown);
+const detailContent = marked.parse(rawMarkdown, {
+  gfm: true,   // 开启删除线、表格等支持
+  breaks: true // 让回车键直接换行，不用打两个空格
+});
 const cardId = `site-${domain ? domain.replace(/[^a-zA-Z0-9]/g, '-') : Math.random().toString(36).substr(2, 9)}`;
 const hasPopup = !!(detail || (badges && badges.length > 0));
 ---
@@ -59,7 +62,6 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
             border border-white/60 dark:border-gray-700/50 
             transition-all duration-300 ease-[cubic-bezier(0.25,0.8,0.25,1)]
             
-            /* 悬浮态：卡片整体上浮 + 边框光晕 */
             hover:-translate-y-1.5 
             hover:bg-white/95 dark:hover:bg-gray-800/95
             hover:border-brand-500/30 dark:hover:border-brand-400/30
@@ -68,37 +70,11 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
             
             relative overflow-hidden`}
   >
-    <!-- 左侧内容区 -->
     <div class="flex items-center flex-1 min-w-0 mr-1">
-        
-        <!-- 
-           ✨ 图标容器 (Icon Container)
-           这里做了相对定位，用来包裹两个图标（一个显示，一个做光影）
-        -->
         <div class="relative flex-shrink-0 mr-3 w-10 h-10 flex items-center justify-center">
-          
-          <!-- 
-             🌟 1. 动态光影层 (The Glow Layer) 
-             - 绝对定位在底层
-             - blur-lg: 大模糊
-             - opacity-0 -> group-hover:opacity-50: 悬浮时显现
-             - saturate-200: 增加色彩饱和度，让光更鲜艳
-             - scale-125: 比原图大一圈，形成扩散效果
-          -->
           <div class="absolute inset-0 z-0 transition-all duration-500 ease-out opacity-0 group-hover:opacity-50 group-hover:scale-150 filter blur-lg saturate-150 pointer-events-none">
-             <img 
-                src={defaultIcon}
-                alt=""
-                class="w-full h-full object-contain"
-                aria-hidden="true"
-             />
+             <img src={defaultIcon} alt="" class="w-full h-full object-contain" aria-hidden="true" />
           </div>
-
-          <!-- 
-             🖼️ 2. 实体图标层 (The Main Icon)
-             - z-10: 保证在光影上面
-             - bg-white: 给图标加个底座，防止光影透到底部显得脏
-          -->
           <div class="relative z-10 w-10 h-10 rounded-lg bg-white/80 dark:bg-gray-700/90 shadow-sm flex items-center justify-center border border-gray-100 dark:border-gray-600 group-hover:scale-105 group-hover:shadow-md transition-all duration-300">
             <img 
               id={cardId}
@@ -127,19 +103,16 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
         </div>
     </div>
 
-    <!-- 右侧按钮区 -->
     <div class={`flex flex-col gap-1 shrink-0 pl-1 border-l border-slate-100 dark:border-slate-700/50 
                  transition-all duration-200 z-20
                  opacity-100 translate-x-0
                  md:opacity-0 md:-translate-x-2 
                  md:group-hover:opacity-100 md:group-hover:translate-x-0`}>
-        
         {hasPopup && (
           <button type="button" class="info-btn md:hidden p-1 rounded-md text-slate-400 hover:text-brand-600 hover:bg-brand-50 dark:hover:bg-gray-700 transition-all flex items-center justify-center" title="详情">
             <Info size={14} />
           </button>
         )}
-        
         {guide_id && (
           <button onclick={`event.preventDefault(); event.stopPropagation(); window.open('${base}/guide/${guide_id}', '_blank');`} class="p-1 rounded-md text-brand-400 hover:bg-brand-600 hover:text-white transition-all flex items-center justify-center" title="教程">
             <BookOpen size={14} strokeWidth={2.5} />
@@ -148,20 +121,17 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
     </div>
   </a>
 
-  {/* Portal 浮窗数据源 */}
   {hasPopup && (
     <div class="tooltip-source hidden">
       <div class="relative z-10">
         <div class="text-[11px] font-black text-brand-600 dark:text-brand-400 mb-2 flex items-center gap-2 uppercase tracking-widest">
           <span class="w-1.5 h-3 bg-brand-600 rounded-sm"></span>详情
         </div>
-        
         {badges.length > 0 && (
           <div class="flex flex-wrap gap-2 mb-2 border-b border-slate-100 dark:border-slate-800 pb-2">
             {badges.map(b => <img src={b.src} alt={b.alt} class="h-4 rounded-sm" />)}
           </div>
         )}
-        
         {detail && (
           <div class="detail-markdown text-[13px] text-slate-700 dark:text-slate-300 leading-relaxed break-words" set:html={detailContent}></div>
         )}
@@ -171,6 +141,7 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
 </div>
 
 <script is:inline>
+  // 1. 图标加载与错误处理 (保持不变)
   if (typeof window.handleIconLoad === 'undefined') {
     window.handleIconLoad = function(img) {
       const domain = img.getAttribute('data-domain');
@@ -185,11 +156,8 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       try {
         const sources = JSON.parse(img.getAttribute('data-sources'));
         const currentSrc = img.src; 
-        if (sources.custom && currentSrc === sources.custom) {
-             img.src = sources.fallback;
-             return;
-        }
-        if (currentSrc.includes('ico.kucat.cn')) img.src = sources.level2;
+        if (sources.custom && currentSrc === sources.custom) img.src = sources.fallback;
+        else if (currentSrc.includes('ico.kucat.cn')) img.src = sources.level2;
         else if (currentSrc.includes('/favicon.ico') && !currentSrc.includes('google.com')) img.src = sources.level3;
         else if (currentSrc.includes('google.com')) {
           img.src = sources.fallback;
@@ -206,14 +174,13 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       if(domain && domain !== 'null') {
           try {
             const cachedSrc = localStorage.getItem('fav-' + domain);
-            if (cachedSrc && cachedSrc !== img.src && !cachedSrc.includes('favicon.svg')) {
-              img.src = cachedSrc;
-            }
+            if (cachedSrc && cachedSrc !== img.src && !cachedSrc.includes('favicon.svg')) img.src = cachedSrc;
           } catch(e){}
       }
     });
   }
 
+  // 2. 浮窗核心逻辑 (重大修复)
   (function() {
     let tooltipEl = null;
     let tooltipArrow = null;
@@ -230,7 +197,8 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
 
       tooltipEl = document.createElement('div');
       tooltipEl.id = 'global-detail-tooltip';
-      tooltipEl.className = 'portal-popup fixed z-[9999] hidden w-72 p-4 bg-white dark:bg-[#1e2025] rounded-xl shadow-2xl border border-slate-200/60 dark:border-slate-700 pointer-events-none opacity-0 scale-95 transition-all duration-200 ease-out';
+      // 默认样式：包含 scale-75 和 opacity-0，用于动画起始状态
+      tooltipEl.className = 'portal-popup fixed z-[9999] hidden w-72 p-4 bg-white dark:bg-[#1e2025] rounded-xl shadow-2xl border border-slate-200/60 dark:border-slate-700 pointer-events-none opacity-0 scale-75 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]';
       
       tooltipArrow = document.createElement('div');
       tooltipArrow.className = 'tooltip-arrow-el absolute w-4 h-4 border-r border-b border-slate-200 dark:border-slate-700 rotate-45 bg-white dark:bg-[#1e2025] z-0';
@@ -247,10 +215,7 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
     function showTooltip(wrapper) {
       if (!tooltipEl) createTooltipDOM();
       
-      if (hideTimer) {
-        clearTimeout(hideTimer);
-        hideTimer = null;
-      }
+      if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
 
       const source = wrapper.querySelector('.tooltip-source');
       if (!source) return;
@@ -258,13 +223,30 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       const contentBox = document.getElementById('tooltip-content');
       if (contentBox) contentBox.innerHTML = source.innerHTML;
 
-      tooltipEl.classList.remove('hidden');
-      void tooltipEl.offsetWidth; 
+      // 🔥【关键修复步骤】🔥
+      // 1. 临时移除 transition，防止“归位”时产生动画延迟
+      tooltipEl.style.transition = 'none';
       
+      // 2. 强制恢复到“完整尺寸 (Scale 100%)”和“不可见”状态
+      // 这样 calculatePosition 才能测出元素的【真实最大高度】，避免计算误差
+      tooltipEl.classList.remove('hidden', 'scale-75', 'opacity-0');
+      tooltipEl.classList.add('scale-100', 'opacity-0'); 
+      
+      // 3. 计算位置 (此时元素是全尺寸的，所以计算一定准确)
       updatePosition(wrapper);
+
+      // 4. 计算完后，立即设置回“初始动画状态 (Scale 75%)”
+      tooltipEl.classList.remove('scale-100');
+      tooltipEl.classList.add('scale-75');
+
+      // 5. 强制浏览器重绘 (Reflow)，应用上述状态
+      void tooltipEl.offsetWidth;
+
+      // 6. 恢复 transition，开始播放“变大”动画
+      tooltipEl.style.transition = ''; // 恢复 CSS 中的 transition 定义
       
       requestAnimationFrame(() => {
-        tooltipEl.classList.remove('opacity-0', 'scale-95');
+        tooltipEl.classList.remove('opacity-0', 'scale-75');
         tooltipEl.classList.add('opacity-100', 'scale-100');
       });
     }
@@ -273,7 +255,7 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       if (!tooltipEl) return;
       
       tooltipEl.classList.remove('opacity-100', 'scale-100');
-      tooltipEl.classList.add('opacity-0', 'scale-95');
+      tooltipEl.classList.add('opacity-0', 'scale-75');
 
       if (immediate) {
          tooltipEl.classList.add('hidden');
@@ -292,17 +274,19 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       if (!tooltipEl) return;
 
       const rect = wrapper.getBoundingClientRect();
-      const tooltipRect = tooltipEl.getBoundingClientRect();
+      const tooltipRect = tooltipEl.getBoundingClientRect(); // 此时获取的是 Scale 100% 的真实高度
       const padding = 12; 
       const arrowSize = 8; 
 
       const sidebarEl = document.getElementById('sidebar');
       const sidebarWidth = (sidebarEl && window.innerWidth >= 768) ? sidebarEl.getBoundingClientRect().width : 0;
 
+      // 默认显示在上方
       let top = rect.top - tooltipRect.height - padding;
       let isTop = true;
       
-      if (top < padding) { 
+      // 如果上方空间不足，且下方空间充足，则显示在下方
+      if (top < padding && (rect.bottom + tooltipRect.height + padding < window.innerHeight)) { 
         top = rect.bottom + padding;
         isTop = false;
       }
@@ -311,15 +295,16 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
 
       let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
 
+      // 边界检查：左边
+      const minLeft = sidebarWidth + padding;
+      if (left < minLeft) left = minLeft;
+
+      // 边界检查：右边
       if (left + tooltipRect.width > window.innerWidth - padding) {
         left = window.innerWidth - tooltipRect.width - padding;
       }
-      
-      const minLeft = sidebarWidth + padding;
-      if (left < minLeft) {
-        left = minLeft;
-      }
 
+      // 箭头位置计算
       let arrowLeft = rect.left + (rect.width / 2) - left - (arrowSize);
       arrowLeft = Math.max(12, Math.min(tooltipRect.width - 28, arrowLeft));
 
@@ -340,9 +325,7 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
 
     const handleMouseOver = (e) => {
       if (window.innerWidth < 768) return; 
-
       const wrapper = e.target.closest('.site-card-wrapper');
-      
       if (wrapper) {
         if (activeCard !== wrapper && wrapper.querySelector('.tooltip-source')) {
           activeCard = wrapper;
@@ -376,7 +359,6 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
         }
         return;
       }
-
       if (tooltipEl && !tooltipEl.classList.contains('hidden')) {
         if (!e.target.closest('.site-card-wrapper') && !e.target.closest('#global-detail-tooltip')) {
           hideTooltip();
@@ -386,20 +368,15 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
     };
     
     const handleScroll = () => {
-      if (activeCard) {
-        hideTooltip(true);
-        activeCard = null;
-      }
+      if (activeCard) { hideTooltip(true); activeCard = null; }
     };
 
     function init() {
       restoreCachedIcons();
       createTooltipDOM();
-      
       document.body.removeEventListener('mouseover', handleMouseOver);
       document.body.removeEventListener('click', handleClick);
       window.removeEventListener('scroll', handleScroll, { capture: true });
-
       document.body.addEventListener('mouseover', handleMouseOver);
       document.body.addEventListener('click', handleClick);
       window.addEventListener('scroll', handleScroll, { capture: true, passive: true });
@@ -410,10 +387,8 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
     } else {
       init();
     }
-
     document.addEventListener('astro:after-swap', init);
     document.addEventListener('astro:page-load', init);
-
   })();
 </script>
 
@@ -423,4 +398,8 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
   .detail-markdown ul { list-style-type: disc; padding-left: 1.2em; margin-bottom: 0.5rem; }
   .detail-markdown li { margin-bottom: 0.2rem; }
   .detail-markdown a { color: #3b82f6; text-decoration: underline; }
+
+    /* 🔥 新增：找回删除线样式 */
+  .detail-markdown del { text-decoration: line-through; opacity: 0.7; }
+
 </style>

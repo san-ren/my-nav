@@ -2,8 +2,6 @@ backend:
   name: github
   repo: san-ren/my-nav
   branch: main
-  
-
 
   commit_messages:
     create: '创建 {{collection}} “{{slug}}”'
@@ -17,9 +15,9 @@ media_folder: "public/images"
 public_folder: "/images"
 
 slug:
-  encoding: "unicode"     # ✅ 改为 unicode，允许中文
-  clean_accents: false    # ✅ 改为 false，不要清洗字符
-  sanitize_replacement: "-" # (可选) 空格替换符
+  encoding: "unicode"     # ✅ 允许中文文件名
+  clean_accents: false    # ✅ 不要清洗字符
+  sanitize_replacement: "-"
 
 collections:
   # ============================================================
@@ -54,7 +52,8 @@ collections:
     summary: "页面：{{name}} (ID: {{id}}) - 权重 {{sortOrder}}"
     sortable_fields: ["sortOrder", "name"]
     editor:
-      preview: false
+      preview: true
+      preview_url: "http://localhost:4321/my-nav/home" 
     fields:
       - { label: "页面ID (文件夹名)", name: "id", widget: "string", required: true, pattern: ['^[a-zA-Z0-9-_]+$', "只能包含字母、数字、下划线"], hint: "例如 home, sub1" }
       - { label: "侧边栏显示名称", name: "name", widget: "string", required: true }
@@ -69,7 +68,7 @@ collections:
     folder: "src/data/nav"
     path: "{{page}}/groups/{{slug}}"
     
-    # ✅ 修改核心：自定义文件名生成规则 (排序号_名称.json)
+    # 文件名规则：01_名称.json
     slug: "{{sort_prefix}}_{{name}}"
     
     media_folder: ""
@@ -78,39 +77,57 @@ collections:
     format: "json"
     create: true
     identifier_field: "name"
-        # 这告诉 CMS：请在排序下拉菜单里，提供 "sort_prefix" 这个选项
+    
+    # ✅ 允许按“排序编号”排序
     sortable_fields: ["sort_prefix", "name"]
     
-    # ✅ 修改摘要：让列表显示排序号，方便管理
+    # ✅ 列表摘要显示编号
     summary: "{{sort_prefix}} - {{name}}"
     
     view_groups:
       - label: "按所属页面归档"
         field: "page"
         pattern: ".*"
+    
     editor:
-      preview: false
+      preview: true
+      preview_url: "http://localhost:4321/my-nav/home"
+
     fields:
-      - { label: "所属页面ID", name: "page", widget: "string", required: true, default: "home", hint: "⚠️ 必填：home 或 sub1，决定归档位置" }
-      
-      # ✅ 新增字段：排序编号
-      - { 
-          label: "🔢 排序编号 (决定文件名顺序)", 
-          name: "sort_prefix", 
-          widget: "string", 
-          required: true, 
-          default: "10", 
-          pattern: ['^[0-9]+$', "请输入纯数字"],
-          hint: "⚠️ 重要：请输入 01, 02, 10 等数字。网页将根据此编号对分组进行排序。" 
-        }
+      # --- 1. 所属页面 (自动关联下拉框) ---
+      # ✅ 1. 所属页面ID
+      - label: "所属页面ID"
+        name: "page"
+        widget: "relation"
+        collection: "nav_pages_meta"
+        search_fields: ["id", "name"]
+        value_field: "id"
+        
+        # 👇 修改这里：去掉 "id"，只保留 "sortOrder" 和 "name"
+        # 列表里显示： "1 基础"
+        # 预览里会自动补全为： "1 基础 (home)" —— 完美！
+        display_fields: ["sortOrder", "name"]
+        
+        required: true
+        hint: "👇 归档位置 (权重 - 名称)"
+
+      # --- 2. 排序编号 (下拉框) ---
+      - label: "🔢 排序编号 (决定文件名顺序)"
+        name: "sort_prefix"
+        widget: "select"
+        options: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "20", "88", "99"]
+        required: true
+        default: "10"
+        hint: "⚠️ 决定分组在网页中的前后顺序 (01排最前，同数字按名称排)"
       
       - { label: "分组名称 (锚点)", name: "name", widget: "string", required: true }
       - { label: "分组图标", name: "icon", widget: "string", required: false }
       
+      # --- 3. 内部分类 (默认折叠) ---
       - label: "内部分类"
         name: "categories"
         widget: "list"
-        collapsed: false
+        collapsed: true  # ✅ 默认折叠，界面更清爽
         summary: "📑 分类：{{name}}"
         fields:
           - { label: "分类名称", name: "name", widget: "string", required: true }
@@ -121,12 +138,11 @@ collections:
             name: "list"
             widget: "list"
             required: false
-            collapsed: true
+            collapsed: true # ✅ 默认折叠
             summary: "{{name}}"
             fields:
               - { label: "名称", name: "name", widget: "string", required: true }
               - { label: "链接地址", name: "url", widget: "string", required: false }
-              
               - { label: "官网/项目主页", name: "official_site", widget: "string", required: false }
               - label: "GitHub 徽章"
                 name: "badge_list"
@@ -136,10 +152,16 @@ collections:
                 options: ["stars", "version", "last_commit", "license", "forks"]
               
               - { label: "简短描述", name: "desc", widget: "string", required: false }
-              - { label: "详细说明", name: "detail", widget: "markdown", required: false, buttons: ["bold", "italic", "link", "code"], editor_components: [] }
+              
+              # ✅ 增强 Markdown 编辑体验
+              - label: "详细说明"
+                name: "detail"
+                widget: "markdown"
+                required: false
+                buttons: ["bold", "italic", "link", "code", "heading", "quote", "bulleted-list", "numbered-list", "image"]
+                editor_components: ["image"]
               
               - { label: "关联教程ID", name: "guide_id", widget: "string", required: false }
-              
               - { label: "自定义图标 URL", name: "icon", widget: "image", required: false }
               - { label: "小工具路径", name: "widget_url", widget: "string", required: false }
 
@@ -148,19 +170,18 @@ collections:
             name: "tabs"
             widget: "list"
             required: false
-            collapsed: true
+            collapsed: true # ✅ 默认折叠
             summary: "Tab：{{tabName}}" 
             fields:
               - { label: "页签名称", name: "tabName", widget: "string", required: true } 
               - label: "资源列表"
                 name: "list"
                 widget: "list"
-                collapsed: true
+                collapsed: true # ✅ 默认折叠
                 required: false
                 fields:
                   - { label: "名称", name: "name", widget: "string", required: true }
                   - { label: "链接地址", name: "url", widget: "string", required: false }
-                  
                   - { label: "官网/项目主页", name: "official_site", widget: "string", required: false }
                   - label: "GitHub 徽章"
                     name: "badge_list"
@@ -170,12 +191,19 @@ collections:
                     options: ["stars", "version", "last_commit", "license", "forks"]
                   
                   - { label: "简短描述", name: "desc", widget: "string", required: false }
-                  - { label: "详细说明", name: "detail", widget: "markdown", required: false, buttons: ["bold", "italic", "link", "code"], editor_components: [] }
                   
+                  # ✅ 增强 Markdown
+                  - label: "详细说明"
+                    name: "detail"
+                    widget: "markdown"
+                    required: false
+                    buttons: ["bold", "italic", "link", "code", "heading", "quote", "bulleted-list", "numbered-list", "image"]
+                    editor_components: ["image"]
+                    
                   - { label: "关联教程ID", name: "guide_id", widget: "string", required: false }
-                  
                   - { label: "自定义图标 URL", name: "icon", widget: "image", required: false }
                   - { label: "小工具路径", name: "widget_url", widget: "string", required: false }
+
   # ============================================================
   # 4. [视图 B] 分组内容 - 文件夹视图
   # ============================================================
@@ -204,7 +232,7 @@ collections:
       - label: "内部分类"
         name: "categories"
         widget: "list"
-        collapsed: false
+        collapsed: true # ✅ 默认折叠
         summary: "📑 分类：{{name}}"
         fields:
           - { label: "分类名称", name: "name", widget: "string", required: true }
@@ -215,12 +243,11 @@ collections:
             name: "list"
             widget: "list"
             required: false
-            collapsed: true
+            collapsed: true # ✅ 默认折叠
             summary: "{{name}}"
             fields:
               - { label: "名称", name: "name", widget: "string", required: true }
               - { label: "链接地址", name: "url", widget: "string", required: false }
-              
               - { label: "官网/项目主页", name: "official_site", widget: "string", required: false }
               - label: "GitHub 徽章"
                 name: "badge_list"
@@ -228,12 +255,17 @@ collections:
                 multiple: true
                 required: false
                 options: ["stars", "version", "last_commit", "license", "forks"]
-              
               - { label: "简短描述", name: "desc", widget: "string", required: false }
-              - { label: "详细说明", name: "detail", widget: "markdown", required: false, buttons: ["bold", "italic", "link", "code"], editor_components: [] }
               
+              # ✅ 增强 Markdown
+              - label: "详细说明"
+                name: "detail"
+                widget: "markdown"
+                required: false
+                buttons: ["bold", "italic", "link", "code", "heading", "quote", "bulleted-list", "numbered-list", "image"]
+                editor_components: ["image"]
+                
               - { label: "关联教程ID", name: "guide_id", widget: "string", required: false }
-              
               - { label: "自定义图标 URL", name: "icon", widget: "image", required: false }
               - { label: "小工具路径", name: "widget_url", widget: "string", required: false }
 
@@ -242,19 +274,18 @@ collections:
             name: "tabs"
             widget: "list"
             required: false
-            collapsed: true
+            collapsed: true # ✅ 默认折叠
             summary: "Tab：{{tabName}}" 
             fields:
               - { label: "页签名称", name: "tabName", widget: "string", required: true } 
               - label: "资源列表"
                 name: "list"
                 widget: "list"
-                collapsed: true
+                collapsed: true # ✅ 默认折叠
                 required: false
                 fields:
                   - { label: "名称", name: "name", widget: "string", required: true }
                   - { label: "链接地址", name: "url", widget: "string", required: false }
-                  
                   - { label: "官网/项目主页", name: "official_site", widget: "string", required: false }
                   - label: "GitHub 徽章"
                     name: "badge_list"
@@ -262,12 +293,17 @@ collections:
                     multiple: true
                     required: false
                     options: ["stars", "version", "last_commit", "license", "forks"]
-                  
                   - { label: "简短描述", name: "desc", widget: "string", required: false }
-                  - { label: "详细说明", name: "detail", widget: "markdown", required: false, buttons: ["bold", "italic", "link", "code"], editor_components: [] }
                   
+                  # ✅ 增强 Markdown
+                  - label: "详细说明"
+                    name: "detail"
+                    widget: "markdown"
+                    required: false
+                    buttons: ["bold", "italic", "link", "code", "heading", "quote", "bulleted-list", "numbered-list", "image"]
+                    editor_components: ["image"]
+                    
                   - { label: "关联教程ID", name: "guide_id", widget: "string", required: false }
-                  
                   - { label: "自定义图标 URL", name: "icon", widget: "image", required: false }
                   - { label: "小工具路径", name: "widget_url", widget: "string", required: false }
 
@@ -282,6 +318,9 @@ collections:
     slug: "{{slug}}"
     identifier_field: "title"
     summary: "{{title}} - {{date | date('YYYY-MM-DD')}}"
+    editor:
+      preview: true
+      preview_url: "http://localhost:4321/my-nav/guide/"
     fields:
       - { label: "文章标题", name: "title", widget: "string", required: true }
       - { label: "发布日期", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false }

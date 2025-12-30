@@ -1,7 +1,7 @@
 {
   "title": "我的终极导航",
-  "description": "基于 Astro 构建的下一代导航站",
-  "author": "San Ren：2025.12.29",
   "githubUser": "san-ren",
-  "githubRepo": "my-nav"
+  "githubRepo": "my-nav",
+  "author": "San Ren：2025.12.30",
+  "description": "基于 Astro 构建的下一代导航站"
 }

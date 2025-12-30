@@ -1,84 +1,51 @@
-/* =========================================
-   1. 默认主题 (蓝色 - Default Blue)
-   ========================================= */
 :root {
-  /* 核心品牌色 (Blue-600 / Blue-50 / Blue-100) */
-  --color-primary: 37 99 235;               /* 对应 Tailwind 的 brand-600 (按钮背景、侧边栏选中态) */
-  --color-primary-light: 210, 225, 245;           /* 对应 Tailwind 的 brand-50 (浅色背景) */
-  --color-primary-hover: 219 234 254;          /* 对应 Tailwind 的 brand-100 (侧边栏悬浮背景) */
+  /* =========================================
+     1. 核心主题色 (RGB格式)
+     默认：Indigo (79 70 229)
+     ThemePicker JS 会修改这个值来实现换肤
+     ========================================= */
+  --color-brand-rgb: 79 70 229;
 
-  /* 侧边栏 */
+  /* =========================================
+     2. 背景设置默认值
+     ========================================= */
+  --bg-image: none;
+  --bg-blur: 0px;
+  --bg-opacity: 1;
+
+  /* =========================================
+     3. 侧边栏尺寸与布局 (保持不变)
+     ========================================= */
   --sidebar-width: 13rem;
   
+  /* 侧边栏背景 (支持透明度) */
   --sidebar-bg: 255 255 255;
-  --sidebar-bg-dark: 17 24 39;
-  
-  --sidebar-hover-bg: 226 232 240; 
-  --sidebar-sub-hover-bg: 219 234 254; 
+  --sidebar-bg-opacity: 0.9;
 
-  /* 卡片 */
+  /* 卡片基础设置 */
   --card-bg: 255 255 255;
-  --card-bg-opacity: 0.6;
+  --card-opacity: 0.7;
   --card-radius: 1rem;
 
   /* =========================================
-     4. 侧边栏字体大小 (Sidebar Typography)
+     4. 字体大小 (保持不变)
      ========================================= */
-  --sidebar-font-link: 18px;  /* 15px (一级菜单) */
-  --sidebar-font-group: 14px;   /* 12px (分组标题) */
-  --sidebar-font-cat: 16px;    /* 14px (二级分类) */
-  --sidebar-font-tab: 15px;   /* 13px (三级Tab) */
-
-
-
+  --sidebar-font-link: 15px;
+  --sidebar-font-group: 12px;
+  --sidebar-font-cat: 14px;
+  --sidebar-font-tab: 13px;
 }
 
 /* =========================================
-   2. 紫色主题 (Elegant Purple)
+   暗色模式覆盖
    ========================================= */
-[data-theme="purple"] {
-  /* Purple-600: 147 51 234 */
-  --color-primary: 147 51 234;
-  /* Purple-50: 250 245 255 */
-  --color-primary-light: 250 245 255;
-  /* Purple-100: 243 232 255 */
-  --color-primary-hover: 243 232 255;
+html.dark {
+  /* 暗色模式下的默认主题色 (稍亮一点: Indigo-500) */
+  --color-brand-rgb: 99 102 241;
+
+  /* 侧边栏背景 */
+  --sidebar-bg: 17 24 39; /* gray-900 */
   
-  --sidebar-sub-hover-bg: 243 232 255; 
-}
-
-/* =========================================
-   3. 绿色主题 (Fresh Green)
-   ========================================= */
-[data-theme="green"] {
-  /* Emerald-600: 5 150 105 */
-  --color-primary: 5 150 105;
-  /* Emerald-50: 236 253 245 */
-  --color-primary-light: 236 253 245;
-  /* Emerald-100: 209 250 229 */
-  --color-primary-hover: 209 250 229;
-
-  --sidebar-sub-hover-bg: 209 250 229;
-}
-
-/* =========================================
-   4. 橙色主题 (Warm Orange)
-   ========================================= */
-[data-theme="orange"] {
-  /* Orange-500: 249 115 22 */
-  --color-primary: 249 115 22;
-  /* Orange-50: 255 247 237 */
-  --color-primary-light: 255 247 237;
-  /* Orange-100: 255 237 213 */
-  --color-primary-hover: 255 237 213;
-
-  --sidebar-sub-hover-bg: 255 237 213;
-}
-
-/* 暗色模式下的通用覆盖 (无需变动) */
-:root.dark {
-  --sidebar-bg: 17 24 39;
-  --sidebar-hover-bg: 31 41 55;
-  --sidebar-sub-hover-bg: 30 58 138; /* 这里可以根据 data-theme 细分，暂时统一 */
-  --card-bg: 31 41 55;
+  /* 卡片背景 */
+  --card-bg: 31 41 55; /* gray-800 */
 }

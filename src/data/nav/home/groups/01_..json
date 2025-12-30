@@ -37,47 +37,10 @@
           "detail": "观影网站导航"
         },
         {
-          "name": "奔跑中的奶酪",
-          "url": "https://www.runningcheese.com/",
-          "desc": "",
-          "detail": "有智，有趣，有爱"
-        },
-        {
-          "name": "小众软件",
-          "url": "https://www.appinn.com/",
-          "official_site": "",
-          "desc": "",
-          "detail": "一个分享、体验、评测电脑软件、手机应用、互联网产品的网站"
-        },
-        {
-          "name": "异次元",
-          "url": "https://www.iplaysoft.com/",
-          "desc": "",
-          "detail": "专注于推荐优秀软件APP应用和互联网资源"
-        },
-        {
-          "name": "IT之家",
-          "url": "https://soft.ithome.com/",
-          "desc": "",
-          "detail": "软件资讯、教程、下载"
-        },
-        {
-          "name": "下一个好软件",
-          "url": "https://x1g.la/",
-          "desc": "",
-          "detail": "公众号“下一个好软件”网站"
-        },
-        {
           "name": "不死鸟",
           "url": "https://iui.su/",
           "desc": "",
           "detail": "专注分享优质资源"
-        },
-        {
-          "name": "423down",
-          "url": "https://www.423down.com/",
-          "desc": "",
-          "detail": "知名软件达人"
         }
       ]
     }

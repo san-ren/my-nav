@@ -5,20 +5,19 @@ import SiteCard from '../components/SiteCard.astro';
 import SearchModal from '../components/SearchModal.jsx';
 import ThemePicker from '../components/ThemePicker.astro';
 import siteConfig from '../data/config.json';
-import { LayoutDashboard, Star, Code, Palette, Sun, Moon, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu } from 'lucide-react';
+import { LayoutDashboard, Star, Code, Palette, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu } from 'lucide-react';
 
 // ==========================================
-// 核心修复：index.astro 不使用 getStaticPaths
-// 直接手动加载所有数据，并指定当前页面为 "home" (或其他默认页ID)
+// 首页逻辑：不使用 getStaticPaths
+// 直接加载所有数据，并找到 home 分组
 // ==========================================
 
-// 1. 加载所有导航数据（用于侧边栏）
+// 1. 加载数据
 const metaFiles = import.meta.glob('../data/nav/*/meta.json', { eager: true });
 const groupFiles = import.meta.glob('../data/nav/*/groups/*.json', { eager: true });
 
 let navResources = Object.entries(metaFiles).map(([metaPath, metaContent]: [string, any]) => {
   const meta = metaContent.default || metaContent;
-  // 从路径获取 id，例如 ../data/nav/home/meta.json -> home
   const pageId = metaPath.split('/').slice(-2, -1)[0]; 
 
   const groups = Object.entries(groupFiles)
@@ -32,20 +31,18 @@ let navResources = Object.entries(metaFiles).map(([metaPath, metaContent]: [stri
 
   return {
     ...meta,
-    id: pageId, // 确保有 ID
+    id: pageId,
     groups: groups
   };
 });
 
-// 排序侧边栏
+// 侧边栏排序
 navResources.sort((a: any, b: any) => (a.sortOrder || 99) - (b.sortOrder || 99));
 
-// 2. 指定首页要显示的数据 (假设首页 ID 是 'home')
-// 如果你的默认文件夹不叫 home，请修改这里的 'home'
+// 2. 指定首页数据 (ID: home)
 const currentId = 'home'; 
-const section = navResources.find(r => r.id === currentId) || navResources[0]; // 找不到就用第一个
+const section = navResources.find(r => r.id === currentId) || navResources[0];
 
-// 图标映射
 const Icons = { Star, Code, Palette, LayoutDashboard, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download };
 const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 ---
@@ -56,13 +53,31 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     {/* 侧边栏 */}
     <Sidebar navResources={navResources} currentId={currentId} siteConfig={siteConfig} />
 
+    {/* 手机端遮罩层 */}
     <div id="sidebar-overlay" class="fixed inset-0 bg-black/40 z-40 hidden md:hidden backdrop-blur-sm transition-opacity" onclick="toggleSidebar()"></div>
 
-    <main class="flex-1 min-w-0 md:ml-[var(--sidebar-width,17rem)] bg-gray-50/50 dark:bg-gray-900/50 min-h-screen flex flex-col">
+    {/* 
+       主内容区域 
+       修改：添加 transition-all duration-300 以支持平滑折叠动画
+    */}
+    <main class="flex-1 min-w-0 md:ml-[var(--sidebar-width,17rem)] min-h-screen flex flex-col transition-all duration-300">
       
-      <header id="page-header" class="fixed top-0 right-0 z-30 flex items-center justify-between px-4 md:px-8 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50 transition-transform duration-300 w-full md:w-[calc(100%-var(--sidebar-width,17rem))]">
+      {/* 
+         顶栏 Header
+         修改：添加 transition-all duration-300
+      */}
+      <header id="page-header" class="fixed top-0 right-0 z-30 flex items-center justify-between px-4 md:px-8 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50 transition-all duration-300 w-full md:w-[calc(100%-var(--sidebar-width,17rem))]">
         <div class="flex items-center gap-3 min-w-0">
-          <button id="menu-btn" class="md:hidden p-2 text-slate-600 dark:text-slate-300 bg-white/80 dark:bg-gray-800/80 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 shrink-0" onclick="toggleSidebar()">
+          {/* 
+             菜单按钮 
+             修改：去掉了 md:hidden，现在 PC 端也显示
+             修改：onclick 增加了 PC 端折叠逻辑
+          */}
+          <button 
+            id="menu-btn" 
+            class="p-2 text-slate-600 dark:text-slate-300 bg-white/80 dark:bg-gray-800/80 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 shrink-0 hover:text-brand-600 transition-colors" 
+            onclick="if(window.innerWidth < 768) toggleSidebar(); else window.toggleSidebarPC();"
+          >
             <Menu size={20} />
           </button>
 
@@ -75,10 +90,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
         <div class="flex items-center gap-2 md:gap-3 shrink-0">
           <SearchModal client:load />
           <ThemePicker />
-          <button id="theme-toggle" class="p-2.5 bg-slate-100 dark:bg-gray-800 rounded-xl text-slate-500 hover:text-brand-600 transition-all">
-            <Sun size={20} className="hidden dark:block" />
-            <Moon size={20} className="block dark:hidden" />
-          </button>
+          {/* ❌ 已删除：旧的 theme-toggle 按钮 */}
         </div>
       </header>
 
@@ -154,6 +166,9 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 </Layout>
 
 <script is:inline>
+  // ==============================================
+  // 1. 手机端遮罩模式切换
+  // ==============================================
   window.toggleSidebar = () => {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebar-overlay');
@@ -173,6 +188,43 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     }
   };
 
+  // ==============================================
+  // 2. PC端推挤模式切换 (补全这部分！)
+  // ==============================================
+  window.toggleSidebarPC = () => {
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.querySelector('main');
+    const header = document.getElementById('page-header');
+    
+    if (sidebar) {
+      // 检查当前是否隐藏
+      // 注意：Tailwind 的 md:translate-x-0 会强制显示，我们必须操作这个类
+      const isHidden = sidebar.classList.contains('-translate-x-full');
+      
+      if (isHidden) {
+        // ▶️ 展开 (Expand)
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('md:translate-x-0'); // 恢复 PC 端显示规则
+        
+        // 恢复内容缩进
+        if(mainContent) mainContent.style.marginLeft = 'var(--sidebar-width)';
+        if(header) header.style.width = 'calc(100% - var(--sidebar-width))';
+        
+      } else {
+        // ◀️ 收起 (Collapse)
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('md:translate-x-0'); // 🔥 关键：移除 PC 强制显示，否则收不回去
+        
+        // 内容铺满
+        if(mainContent) mainContent.style.marginLeft = '0';
+        if(header) header.style.width = '100%';
+      }
+    }
+  };
+
+  // ==============================================
+  // 3. Tab 切换逻辑
+  // ==============================================
   function initTabs() {
     const containers = document.querySelectorAll('.tab-nav-container');
     containers.forEach(container => {
@@ -221,6 +273,9 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     });
   }
 
+  // ==============================================
+  // 4. 顶栏滚动逻辑
+  // ==============================================
   function initHeaderScroll() {
     let lastScrollY = window.scrollY;
     const header = document.getElementById('page-header');
@@ -243,13 +298,22 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     }, { passive: true });
   }
 
+  // ==============================================
+  // 5. 初始化
+  // ==============================================
   initTabs();
   initHeaderScroll();
+  
   document.addEventListener('astro:after-swap', () => {
     initTabs();
     initHeaderScroll();
   });
-  window.addEventListener('resize', initTabs);
+  
+  // 窗口大小改变时，重置状态防止错乱
+  window.addEventListener('resize', () => {
+    // 如果从 PC 变回手机，确保样式没乱
+    initTabs(); 
+  });
 </script>
 
 <style is:global>

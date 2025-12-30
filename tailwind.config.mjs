@@ -4,28 +4,33 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
-      // 1. 颜色配置
+      // 1. 颜色配置：核心修复点
       colors: {
         brand: {
-          50: 'rgb(var(--color-primary-light) / <alpha-value>)',
-          100: 'rgb(var(--color-primary-hover) / <alpha-value>)',
-          600: 'rgb(var(--color-primary) / <alpha-value>)',
+          // 让 Tailwind 使用 CSS 变量，并支持 opacity (<alpha-value>)
+          DEFAULT: 'rgb(var(--color-brand-rgb) / <alpha-value>)',
+          
+          // 自动生成色阶 (不用 hex，全部用透明度模拟深浅，实现“无限制颜色”)
+          50:  'rgb(var(--color-brand-rgb) / 0.05)',
+          100: 'rgb(var(--color-brand-rgb) / 0.1)',
+          200: 'rgb(var(--color-brand-rgb) / 0.2)',
+          300: 'rgb(var(--color-brand-rgb) / 0.3)',
+          400: 'rgb(var(--color-brand-rgb) / 0.6)',
+          500: 'rgb(var(--color-brand-rgb) / 0.8)',
+          600: 'rgb(var(--color-brand-rgb) / 1.0)', // 主色
+          700: 'rgb(var(--color-brand-rgb) / 0.9)', 
+          800: 'rgb(var(--color-brand-rgb) / 0.95)',
+          900: 'rgb(var(--color-brand-rgb) / 1.0)',
         },
-        sidebar: {
-          hover: 'rgb(var(--sidebar-hover-bg) / <alpha-value>)',
-          'sub-hover': 'rgb(var(--sidebar-sub-hover-bg) / <alpha-value>)',
-        }
       },
-      // 2. 间距配置
+      
+      // 2. 布局配置
       spacing: {
-        'sidebar': 'var(--sidebar-width)', 
+        'sidebar': 'var(--sidebar-width)',
       },
-      // 3. 圆角配置
       borderRadius: {
         'card': 'var(--card-radius)',
-      }, // 🔴 修复点：这里原来少了一个 }, 来闭合 borderRadius 对象
-
-      // 4. 字体大小配置 (它必须是 extend 的直接子属性)
+      },
       fontSize: {
         'sidebar-link': 'var(--sidebar-font-link)',
         'sidebar-group': 'var(--sidebar-font-group)',
