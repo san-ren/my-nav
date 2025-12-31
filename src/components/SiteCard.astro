@@ -182,6 +182,8 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
   )}
 </div>
 
+<!-- 前面的 HTML 保持不变 -->
+
 <script is:inline>
   // 1. 图标加载与错误处理 (保持不变)
   if (typeof window.handleIconLoad === 'undefined') {
@@ -222,7 +224,7 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
     });
   }
 
-  // 2. 浮窗核心逻辑 (重大修复)
+  // 2. 浮窗核心逻辑 (增加边界保护)
   (function() {
     let tooltipEl = null;
     let tooltipArrow = null;
@@ -239,7 +241,6 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
 
       tooltipEl = document.createElement('div');
       tooltipEl.id = 'global-detail-tooltip';
-      // 默认样式：包含 scale-75 和 opacity-0，用于动画起始状态
       tooltipEl.className = 'portal-popup fixed z-[9999] hidden w-72 p-4 bg-white dark:bg-[#1e2025] rounded-xl shadow-2xl border border-slate-200/60 dark:border-slate-700 pointer-events-none opacity-0 scale-75 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]';
       
       tooltipArrow = document.createElement('div');
@@ -265,27 +266,14 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       const contentBox = document.getElementById('tooltip-content');
       if (contentBox) contentBox.innerHTML = source.innerHTML;
 
-      // 🔥【关键修复步骤】🔥
-      // 1. 临时移除 transition，防止“归位”时产生动画延迟
       tooltipEl.style.transition = 'none';
-      
-      // 2. 强制恢复到“完整尺寸 (Scale 100%)”和“不可见”状态
-      // 这样 calculatePosition 才能测出元素的【真实最大高度】，避免计算误差
       tooltipEl.classList.remove('hidden', 'scale-75', 'opacity-0');
       tooltipEl.classList.add('scale-100', 'opacity-0'); 
-      
-      // 3. 计算位置 (此时元素是全尺寸的，所以计算一定准确)
       updatePosition(wrapper);
-
-      // 4. 计算完后，立即设置回“初始动画状态 (Scale 75%)”
       tooltipEl.classList.remove('scale-100');
       tooltipEl.classList.add('scale-75');
-
-      // 5. 强制浏览器重绘 (Reflow)，应用上述状态
       void tooltipEl.offsetWidth;
-
-      // 6. 恢复 transition，开始播放“变大”动画
-      tooltipEl.style.transition = ''; // 恢复 CSS 中的 transition 定义
+      tooltipEl.style.transition = '';
       
       requestAnimationFrame(() => {
         tooltipEl.classList.remove('opacity-0', 'scale-75');
@@ -301,11 +289,13 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
 
       if (immediate) {
          tooltipEl.classList.add('hidden');
+         activeCard = null; // 确保状态复位
       } else {
         if (hideTimer) clearTimeout(hideTimer);
         hideTimer = setTimeout(() => {
           if (tooltipEl && tooltipEl.classList.contains('opacity-0')) {
             tooltipEl.classList.add('hidden');
+            activeCard = null; // 确保状态复位
           }
           hideTimer = null;
         }, 300);
@@ -314,39 +304,28 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
 
     function updatePosition(wrapper) {
       if (!tooltipEl) return;
-
       const rect = wrapper.getBoundingClientRect();
-      const tooltipRect = tooltipEl.getBoundingClientRect(); // 此时获取的是 Scale 100% 的真实高度
+      const tooltipRect = tooltipEl.getBoundingClientRect();
       const padding = 12; 
       const arrowSize = 8; 
-
       const sidebarEl = document.getElementById('sidebar');
       const sidebarWidth = (sidebarEl && window.innerWidth >= 768) ? sidebarEl.getBoundingClientRect().width : 0;
 
-      // 默认显示在上方
       let top = rect.top - tooltipRect.height - padding;
       let isTop = true;
-      
-      // 如果上方空间不足，且下方空间充足，则显示在下方
       if (top < padding && (rect.bottom + tooltipRect.height + padding < window.innerHeight)) { 
         top = rect.bottom + padding;
         isTop = false;
       }
 
       tooltipEl.style.transformOrigin = isTop ? 'bottom center' : 'top center';
-
       let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
-
-      // 边界检查：左边
       const minLeft = sidebarWidth + padding;
       if (left < minLeft) left = minLeft;
-
-      // 边界检查：右边
       if (left + tooltipRect.width > window.innerWidth - padding) {
         left = window.innerWidth - tooltipRect.width - padding;
       }
 
-      // 箭头位置计算
       let arrowLeft = rect.left + (rect.width / 2) - left - (arrowSize);
       arrowLeft = Math.max(12, Math.min(tooltipRect.width - 28, arrowLeft));
 
@@ -368,16 +347,27 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
     const handleMouseOver = (e) => {
       if (window.innerWidth < 768) return; 
       const wrapper = e.target.closest('.site-card-wrapper');
+      
       if (wrapper) {
-        if (activeCard !== wrapper && wrapper.querySelector('.tooltip-source')) {
-          activeCard = wrapper;
-          showTooltip(wrapper);
+        // 如果移入的是新卡片，或者当前没有卡片激活
+        if (activeCard !== wrapper) {
+           // 检查是否有内容
+           if (wrapper.querySelector('.tooltip-source')) {
+             activeCard = wrapper;
+             showTooltip(wrapper);
+           } else {
+             // 移入了没有详情的卡片，应该关闭之前的浮窗
+             if (activeCard) {
+               hideTooltip();
+             }
+           }
         }
       } else {
+        // 移到了卡片之外
         if (activeCard) {
           const isTooltip = e.target.closest('#global-detail-tooltip');
+          // 如果也不是移到了浮窗本身，那就关闭
           if (!isTooltip) {
-            activeCard = null;
             hideTooltip();
           }
         }
@@ -393,7 +383,6 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
         if (wrapper) {
            if (activeCard === wrapper && !tooltipEl.classList.contains('hidden')) {
              hideTooltip();
-             activeCard = null;
            } else {
              activeCard = wrapper;
              showTooltip(wrapper);
@@ -404,24 +393,42 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       if (tooltipEl && !tooltipEl.classList.contains('hidden')) {
         if (!e.target.closest('.site-card-wrapper') && !e.target.closest('#global-detail-tooltip')) {
           hideTooltip();
-          activeCard = null;
         }
       }
     };
     
+    // 页面滚动时立即关闭
     const handleScroll = () => {
-      if (activeCard) { hideTooltip(true); activeCard = null; }
+      if (activeCard) hideTooltip(true);
+    };
+
+    // 🔥 核心修复：鼠标离开整个文档区域（比如移出浏览器窗口）时，强制关闭
+    const handleDocMouseLeave = () => {
+      if (activeCard) hideTooltip(true);
+    };
+
+    // 🔥 核心修复：窗口失去焦点（比如 Alt+Tab 切走）时，强制关闭
+    const handleWindowBlur = () => {
+      if (activeCard) hideTooltip(true);
     };
 
     function init() {
       restoreCachedIcons();
       createTooltipDOM();
+      
+      // 清理旧事件
       document.body.removeEventListener('mouseover', handleMouseOver);
       document.body.removeEventListener('click', handleClick);
+      document.removeEventListener('mouseleave', handleDocMouseLeave); // 清理 document 的监听
       window.removeEventListener('scroll', handleScroll, { capture: true });
+      window.removeEventListener('blur', handleWindowBlur);
+
+      // 绑定新事件
       document.body.addEventListener('mouseover', handleMouseOver);
       document.body.addEventListener('click', handleClick);
+      document.addEventListener('mouseleave', handleDocMouseLeave); // 监听移出文档
       window.addEventListener('scroll', handleScroll, { capture: true, passive: true });
+      window.addEventListener('blur', handleWindowBlur); // 监听失焦
     }
 
     if (document.readyState === 'loading') {
@@ -435,13 +442,11 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
 </script>
 
 <style is:global>
+  /* CSS 保持不变 */
   .detail-markdown p { margin-bottom: 0.5rem; }
   .detail-markdown p:last-child { margin-bottom: 0; }
   .detail-markdown ul { list-style-type: disc; padding-left: 1.2em; margin-bottom: 0.5rem; }
   .detail-markdown li { margin-bottom: 0.2rem; }
   .detail-markdown a { color: #3b82f6; text-decoration: underline; }
-
-    /* 🔥 新增：找回删除线样式 */
   .detail-markdown del { text-decoration: line-through; opacity: 0.7; }
-
 </style>

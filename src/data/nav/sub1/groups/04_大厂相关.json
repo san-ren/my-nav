@@ -7,7 +7,6 @@
     {
       "name": "LiteLoaderQQNT",
       "icon": "",
-      "list": [],
       "tabs": [
         {
           "tabName": "全局",
@@ -314,190 +313,255 @@
       ]
     },
     {
-      "name": "微信",
+      "name": "大厂",
       "icon": "Palette",
-      "list": [
+      "tabs": [
         {
-          "name": "RevokeMsgPatcher",
-          "url": "https://github.com/huiyadanli/RevokeMsgPatcher",
-          "official_site": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "微信/QQ/TIM防撤回补丁",
-          "detail": "",
-          "guide_id": ""
+          "tabName": "腾讯",
+          "list": [
+            {
+              "name": "RevokeMsgPatcher",
+              "url": "https://github.com/huiyadanli/RevokeMsgPatcher",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "微信/QQ/TIM防撤回补丁",
+              "detail": "",
+              "guide_id": ""
+            },
+            {
+              "name": "CleanMyWechat",
+              "url": "https://github.com/blackboxo/CleanMyWechat",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "自动删除PC微信缓存数据",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "wechatDownload/微信公众号文章批量下载工具",
+              "url": "https://github.com/qiye45/wechatDownload",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "微信公众号文章批量下载",
+              "detail": "- 支持图片、评论下载\n\n- 支持保存html/md/pdf/docx文件",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "wechatDataBackup",
+              "url": "https://github.com/git-jiadong/wechatDataBackup",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "一键导出PC微信聊天记录工具",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "WeClone",
+              "url": "https://github.com/xming521/WeClone",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "从聊天记录创造数字分身的一站式解决方案",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "WXMoments",
+              "url": "https://github.com/tech-shrimp/WechatMoments",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "WX 朋友圈导出为 HTML",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "WechatRealFriends",
+              "url": "https://github.com/StrayMeteor3337/WechatRealFriends",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "2025年3月因微信协议变更停更",
+              "detail": "微信好友关系一键检测",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "PC微信遮挡工具",
+              "url": "https://www.52pojie.cn/thread-1839526-1-1.html",
+              "official_site": "",
+              "desc": "半透明窗口遮挡微信窗口",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "chat log",
+              "url": "https://github.com/sjzar/chatlog",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "2025.10微信施压删库",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "WeChat2PDF",
+              "url": "https://www.wechat2pdf.com/",
+              "official_site": "",
+              "desc": "微信公众号/订阅号文章在线导出/转换为PDF",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "WeChatMsg/留痕",
+              "url": "https://memotrace.lc044.love/",
+              "official_site": "",
+              "desc": "提取微信聊天记录",
+              "detail": "- 导出成HTML、Word、CSV文档永久保存\n\n- 对聊天记录进行分析生成年度聊天报告",
+              "guide_id": ""
+            },
+            {
+              "name": "serverless-qrcode-hub",
+              "url": "https://github.com/xxnuo/serverless-qrcode-hub",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "生成永久微信群聊二维码",
+              "detail": "",
+              "guide_id": ""
+            },
+            {
+              "name": "腾讯版本",
+              "url": "https://github.com/HdShare/TencentVersion",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "基于 VitePress 的 腾讯版本 网站"
+            },
+            {
+              "name": "QQNT-Version-History",
+              "url": "https://github.com/PRO-2684/qqnt-version-history",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "Stapxs QQ Lite",
+              "url": "https://github.com/Stapxs/Stapxs-QQ-Lite-2.0",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "第三方 QQ 客户端",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "WeWe RSS",
+              "url": "https://github.com/cooderl/wewe-rss",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "微信公众号RSS生成（基于微信读书）",
+              "detail": "更优雅的微信公众号订阅方式，支持私有化部署、微信公众号RSS生成（基于微信读书）",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "微信公众号RSS",
+              "url": "https://github.com/ttttmr/Wechat2RSS",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "微信公众号转RSS",
+              "detail": "",
+              "guide_id": ""
+            }
+          ]
         },
         {
-          "name": "PC微信遮挡工具",
-          "url": "https://www.52pojie.cn/thread-1839526-1-1.html",
-          "official_site": "",
-          "desc": "半透明窗口遮挡微信窗口",
-          "detail": "",
-          "guide_id": "",
-          "widget_url": ""
-        },
-        {
-          "name": "CleanMyWechat",
-          "url": "https://github.com/blackboxo/CleanMyWechat",
-          "official_site": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "自动删除PC微信缓存数据",
-          "detail": "",
-          "guide_id": "",
-          "widget_url": ""
-        },
-        {
-          "name": "WXMoments",
-          "url": "https://github.com/tech-shrimp/WechatMoments",
-          "official_site": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "WX 朋友圈导出为 HTML",
-          "detail": "",
-          "guide_id": "",
-          "widget_url": ""
-        },
-        {
-          "name": "wechatDownload/微信公众号文章批量下载工具",
-          "url": "https://github.com/qiye45/wechatDownload",
-          "official_site": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "微信公众号文章批量下载",
-          "detail": "- 支持图片、评论下载\n\n- 支持保存html/md/pdf/docx文件",
-          "guide_id": "",
-          "widget_url": ""
-        },
-        {
-          "name": "WeChat2PDF",
-          "url": "https://www.wechat2pdf.com/",
-          "official_site": "",
-          "desc": "微信公众号/订阅号文章在线导出/转换为PDF",
-          "detail": "",
-          "guide_id": "",
-          "widget_url": ""
-        },
-        {
-          "name": "WeChatMsg/留痕",
-          "url": "https://memotrace.lc044.love/",
-          "official_site": "",
-          "desc": "提取微信聊天记录",
-          "detail": "- 导出成HTML、Word、CSV文档永久保存\n\n- 对聊天记录进行分析生成年度聊天报告",
-          "guide_id": ""
-        },
-        {
-          "name": "WeClone",
-          "url": "https://github.com/xming521/WeClone",
-          "official_site": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "从聊天记录创造数字分身的一站式解决方案",
-          "detail": "",
-          "guide_id": "",
-          "widget_url": ""
-        },
-        {
-          "name": "WeWe RSS",
-          "url": "https://github.com/cooderl/wewe-rss",
-          "official_site": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "微信公众号RSS生成（基于微信读书）",
-          "detail": "更优雅的微信公众号订阅方式，支持私有化部署、微信公众号RSS生成（基于微信读书）",
-          "guide_id": "",
-          "widget_url": ""
-        },
-        {
-          "name": "serverless-qrcode-hub",
-          "url": "https://github.com/xxnuo/serverless-qrcode-hub",
-          "official_site": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "生成永久微信群聊二维码",
-          "detail": "",
-          "guide_id": ""
-        },
-        {
-          "name": "WechatRealFriends",
-          "url": "https://github.com/StrayMeteor3337/WechatRealFriends",
-          "official_site": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "2025年3月因微信协议变更停更",
-          "detail": "微信好友关系一键检测",
-          "guide_id": "",
-          "widget_url": ""
-        },
-        {
-          "name": "Weibo-archiver",
-          "url": "https://weibo.chilfish.top/post",
-          "official_site": "",
-          "desc": "将微博导出备份的油猴脚本",
-          "detail": "",
-          "guide_id": "",
-          "widget_url": ""
-        },
-        {
-          "name": "WePush",
-          "url": "https://rememberber.github.io/WePush/",
-          "desc": "",
-          "detail": "批量推送，支持：模板消息-公众号、模板消息-小程序、微信客服消息、微信企业号/企业微信消息、阿里云短信、阿里大于模板短信 、腾讯云短信、云片网短信、E-Mail、HTTP请求、钉钉、华为云短信、百度云短信、又拍云短信、七牛云短信"
-        },
-        {
-          "name": "魔猫订单",
-          "url": "https://order.hereserver.com/",
-          "desc": "",
-          "detail": "买家历史订单导出，包含运单号和收货信息与订单备注,淘宝京东拼多多闲鱼订单统计导出"
-        },
-        {
-          "name": "腾讯版本",
-          "url": "https://github.com/HdShare/TencentVersion",
-          "official_site": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "",
-          "detail": "基于 VitePress 的 腾讯版本 网站"
-        },
-        {
-          "name": "微信公众号RSS",
-          "url": "https://github.com/ttttmr/Wechat2RSS",
-          "official_site": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ],
-          "desc": "微信公众号转RSS",
-          "detail": "",
-          "guide_id": ""
+          "tabName": "其它",
+          "list": [
+            {
+              "name": "PayQrcode",
+              "url": "https://github.com/uxiaohan/PayQrcode",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "合并微信、支付宝收款码",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "Weibo-archiver",
+              "url": "https://weibo.chilfish.top/post",
+              "official_site": "",
+              "desc": "将微博导出备份的油猴脚本",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "WePush",
+              "url": "https://rememberber.github.io/WePush/",
+              "desc": "",
+              "detail": "批量推送，支持：模板消息-公众号、模板消息-小程序、微信客服消息、微信企业号/企业微信消息、阿里云短信、阿里大于模板短信 、腾讯云短信、云片网短信、E-Mail、HTTP请求、钉钉、华为云短信、百度云短信、又拍云短信、七牛云短信"
+            },
+            {
+              "name": "魔猫订单",
+              "url": "https://order.hereserver.com/",
+              "desc": "",
+              "detail": "买家历史订单导出，包含运单号和收货信息与订单备注,淘宝京东拼多多闲鱼订单统计导出"
+            }
+          ]
         }
       ]
     },
@@ -508,53 +572,52 @@
         {
           "name": "fonted",
           "url": "https://marketplace.visualstudio.com/items?itemName=degreat.fonted",
-          "desc": "",
-          "detail": "更改 vscode 的界面字体",
           "official_site": "",
-          "badge_list": []
+          "badge_list": [],
+          "desc": "",
+          "detail": "更改 vscode 的界面字体"
         },
         {
           "name": "background",
           "url": "https://marketplace.visualstudio.com/items?itemName=shalldie.background",
-          "desc": "",
-          "detail": "",
           "official_site": "",
-          "badge_list": []
+          "badge_list": [],
+          "desc": "",
+          "detail": ""
         },
         {
           "name": "custom-ui-style",
           "url": "https://marketplace.visualstudio.com/items?itemName=subframe7536.custom-ui-style",
-          "desc": "",
-          "detail": "通过注入自定义 CSS 和 JavaScript 来定制编辑器的外观和行为，统一全局字体、设置背景图片",
           "official_site": "",
-          "badge_list": []
+          "badge_list": [],
+          "desc": "",
+          "detail": "通过注入自定义 CSS 和 JavaScript 来定制编辑器的外观和行为，统一全局字体、设置背景图片"
         },
         {
           "name": "woodfish-theme",
           "url": "https://marketplace.visualstudio.com/items?itemName=zhongjun.woodfish-theme",
-          "desc": "",
-          "detail": "一个具有发光效果、渐变色彩和动画的VSCode彩虹主题扩展",
           "official_site": "",
-          "badge_list": []
+          "badge_list": [],
+          "desc": "",
+          "detail": "一个具有发光效果、渐变色彩和动画的VSCode彩虹主题扩展"
         },
         {
           "name": "vscode-fileutils",
           "url": "https://marketplace.visualstudio.com/items?itemName=sleistner.vscode-fileutils",
-          "desc": "",
-          "detail": "文件树右键菜单增强",
           "official_site": "",
-          "badge_list": []
+          "badge_list": [],
+          "desc": "",
+          "detail": "文件树右键菜单增强"
         },
         {
           "name": "project-manager",
           "url": "https://marketplace.visualstudio.com/items?itemName=alefragnani.project-manager",
-          "desc": "",
-          "detail": "",
           "official_site": "",
-          "badge_list": []
+          "badge_list": [],
+          "desc": "",
+          "detail": ""
         }
       ]
-      
     }
   ]
 }

@@ -5,6 +5,327 @@
   "icon": "",
   "categories": [
     {
+      "name": "markdown",
+      "icon": "",
+      "tabs": [
+        {
+          "tabName": "md编辑器",
+          "list": [
+            {
+              "name": "Yank Note",
+              "url": "https://github.com/purocean/yn",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "在线体验 文件目录、分屏预览、插件拓展"
+            },
+            {
+              "name": "wj-markdown-editor",
+              "url": "https://github.com/nlbwqmz/wj-markdown-editor",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "轻量、强大的 md 编辑器"
+            },
+            {
+              "name": "hedgedoc",
+              "url": "https://github.com/hedgedoc/hedgedoc",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "基于网页、自托管的协作式 markdown 编辑器，支持分屏预览"
+            },
+            {
+              "name": "dillinger",
+              "url": "https://dillinger.io/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "在线 md 编辑器，分屏预览"
+            },
+            {
+              "name": "Arya",
+              "url": "https://markdown.lovejade.cn/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "在线 Markdown 编辑器"
+            },
+            {
+              "name": "md",
+              "url": "https://github.com/doocs/md",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "适配微信的 Markdown 编辑器"
+            },
+            {
+              "name": "微信公众号markdown排版工具",
+              "url": "https://markdown.com.cn/editor/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "mardown 官网网页编辑器",
+              "detail": "适配微信，分屏预览"
+            },
+            {
+              "name": "markdown-online-editor",
+              "url": "https://github.com/nicejade/markdown-online-editor",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "在线 Markdown 编辑器"
+            },
+            {
+              "name": "flymd",
+              "url": "https://github.com/flyhunterl/flymd",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "不怎么好用，未来可期"
+            },
+            {
+              "name": "joplin",
+              "url": "https://github.com/laurent22/joplin",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "笔记应用，全平台同步 资源占用高 文档存储在软件数据内，没有独立文件"
+            },
+            {
+              "name": "ghostwriter",
+              "url": "https://github.com/KDE/ghostwriter",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "不能导出pdf"
+            },
+            {
+              "name": "mdx-notes",
+              "url": "https://github.com/maqi1520/mdx-notes",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "比较简陋，web版"
+            },
+            {
+              "name": "Archive-Markdown-Editor",
+              "url": "https://github.com/ScottSmith666/Archive-Markdown-Editor",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "独创.mdz 格式绑定多媒体文件 还比较简陋"
+            },
+            {
+              "name": "markor",
+              "url": "https://github.com/gsantner/markor",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "Android"
+            }
+          ]
+        },
+        {
+          "tabName": "md格式转换",
+          "list": [
+            {
+              "name": "markitdown",
+              "url": "https://github.com/microsoft/markitdown",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "MinerU",
+              "url": "https://github.com/opendatalab/MinerU",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "marker",
+              "url": "https://github.com/datalab-to/marker",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "pdf-craft",
+              "url": "https://github.com/oomol-lab/pdf-craft",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": ""
+            }
+          ]
+        },
+        {
+          "tabName": "md组件",
+          "list": [
+            {
+              "name": "retext",
+              "url": "https://github.com/retext-project/retext",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "自行打包，发布到PyPi 更新频率低，还有不少问题"
+            },
+            {
+              "name": "tui.editor",
+              "url": "https://github.com/nhn/tui.editor",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "JavaScript Markdown 编辑器组件库"
+            },
+            {
+              "name": "milkdown",
+              "url": "https://github.com/Milkdown/milkdown",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "JavaScript 库"
+            },
+            {
+              "name": "mavonEditor",
+              "url": "https://github.com/hinesboy/mavonEditor",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "Vue.js 组件"
+            },
+            {
+              "name": "react-markplus",
+              "url": "https://github.com/markpluslabs/react-markplus",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "React 组件"
+            },
+            {
+              "name": "react-md-editor",
+              "url": "https://github.com/uiwjs/react-md-editor",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "React 组件"
+            },
+            {
+              "name": "Raneto",
+              "url": "https://github.com/ryanlelek/Raneto",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "Node.js 的 Markdown 驱动知识库维基"
+            },
+            {
+              "name": "cherry-markdown",
+              "url": "https://github.com/Tencent/cherry-markdown",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "腾讯开源的 Javascript Markdown 编辑器 运行在浏览器或服务端(NodeJs)"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "AI工具",
       "icon": "",
       "list": [

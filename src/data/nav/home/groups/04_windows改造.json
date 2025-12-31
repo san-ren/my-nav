@@ -85,6 +85,17 @@
               "url": "https://jianqiezhushou.com/",
               "desc": "",
               "detail": "剪贴板同步、分享"
+            },
+            {
+              "name": "SyncClipboard",
+              "url": "https://github.com/Jeric-X/SyncClipboard",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "剪贴板同步",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
             }
           ]
         },

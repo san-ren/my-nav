@@ -10,7 +10,6 @@
       "tabs": [
         {
           "tabName": "翻译",
-          "icon": "Palette",
           "list": [
             {
               "name": "Real-time-translation-typing/实时打字翻译",
@@ -90,12 +89,23 @@
               ],
               "desc": "",
               "detail": "高级实时游戏屏幕翻译器，视频中的硬编码字幕，静态文本等。"
-            }
-          ]
-        },
+            },
             {
+              "name": "RTranslator",
+              "url": "https://github.com/niedev/RTranslator",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "Android本地实时翻译",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            }
+          ],
+          "icon": "Palette"
+        },
+        {
           "tabName": "OCR",
-          "icon": "Palette",
           "list": [
             {
               "name": "天若OCR",
@@ -131,11 +141,11 @@
               "desc": "",
               "detail": "离线OCR软件。支持截屏/批量导入图片，PDF文档识别，排除水印/页眉页脚，扫描/生成二维码。内置多国语言库"
             }
-          ]
+          ],
+          "icon": "Palette"
         },
         {
           "tabName": "输入法",
-          "icon": "Palette",
           "list": [
             {
               "name": "InputTip",
@@ -181,11 +191,11 @@
               "desc": "",
               "detail": "语言指示符"
             }
-          ]
+          ],
+          "icon": "Palette"
         },
         {
           "tabName": "同步",
-          "icon": "Palette",
           "list": [
             {
               "name": "FileGee",
@@ -211,7 +221,8 @@
               "desc": "",
               "detail": "微软出品，免费，2009年更新，不支持Win10"
             }
-          ]
+          ],
+          "icon": "Palette"
         }
       ]
     }
