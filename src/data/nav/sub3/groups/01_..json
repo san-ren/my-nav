@@ -5,10 +5,735 @@
   "icon": "",
   "categories": [
     {
-      "name": "1",
+      "name": "小说、漫画",
       "icon": "",
       "list": [],
-      "tabs": []
+      "tabs": [
+        {
+          "tabName": "看",
+          "list": [
+            {
+              "name": "legado",
+              "url": "https://github.com/gedoor/legado",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "阅读3.0"
+            },
+            {
+              "name": "legado-with-MD3",
+              "url": "https://github.com/HapeLee/legado-with-MD3",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "使用 Material Design 3 全新设计的阅读 3.0"
+            },
+            {
+              "name": "书源",
+              "url": "https://github.com/liufuyou/read",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "整理各大佬的阅读书源合集",
+              "guide_id": ""
+            },
+            {
+              "name": "全是漫画",
+              "url": "https://github.com/hongchacha/cartoon",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "pastemangax",
+              "url": "https://github.com/crowforkotlin/pastemangax",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "2025.6受打压停更",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "Perfect-Viewer-X",
+              "url": "https://github.com/paladinlin1/Perfect-Viewer-X",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "Perfect Viewer新版，现代UI"
+            },
+            {
+              "name": "anx-reader",
+              "url": "https://github.com/Anxcye/anx-reader",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "只适合用来看小说，EPUB/MOBI/AZW3/FB2/TXT/PDF epub漫画显示为分割开的图片，书架可创建文件夹"
+            },
+            {
+              "name": "KuroReader",
+              "url": "https://github.com/VandersonQk/KuroReaderReleases",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "只适合用来看图片漫画，仅支持zip、rar、tar、7z，CBZ、CBR、CBT 和 CB7 支持文件夹显示"
+            },
+            {
+              "name": "JMComic-APK",
+              "url": "https://github.com/hect0x7/JMComic-APK",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "禁漫APP安卓安装包 基于jmcomic库自动检查禁漫APK更新"
+            },
+            {
+              "name": "JMComic-Crawler-Python",
+              "url": "https://github.com/hect0x7/JMComic-Crawler-Python",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "提供Python API访问禁漫天堂，同时支持网页端和移动端"
+            }
+          ]
+        },
+        {
+          "tabName": "漫画制作",
+          "list": [
+            {
+              "name": "漫画制作教程 - 知乎",
+              "url": "https://zhuanlan.zhihu.com/p/56388355",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "kcc",
+              "url": "https://github.com/ciromattia/kcc",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "ComicPacker",
+              "url": "https://github.com/eesxy/ComicPacker",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "多功能漫画打包器，支持epub和cbz格式，包含分卷、过滤、裁边、去重等多种实用功能"
+            },
+            {
+              "name": "epub-manga-creator",
+              "url": "https://github.com/wing-kai/epub-manga-creator",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "把一堆漫画图片打包成 epub 格式的 web gui"
+            },
+            {
+              "name": "aLittleEpub",
+              "url": "https://github.com/KonohaVio/aLittleEpub",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "轻型epub制作脚本，仅支持图片打包"
+            },
+            {
+              "name": "PDFMaker",
+              "url": "https://github.com/KonohaVio/PDFMaker",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "将图片打包成PDF文件"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "第三方应用",
+      "icon": "",
+      "list": [],
+      "tabs": [
+        {
+          "tabName": "tg 三方",
+          "list": [
+            {
+              "name": "TGwiki",
+              "url": "https://wiki.tgnav.org/thirdparty.html",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "Telegram知识库",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "tg中文语言包",
+              "url": "https://www.zeelis.com/t/446.html",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "Nekogram",
+              "url": "https://github.com/Nekogram/Nekogram",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "原版界面添加功能"
+            },
+            {
+              "name": "Nullgram",
+              "url": "https://github.com/qwq233/Nullgram",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "原版界面添加功能"
+            },
+            {
+              "name": "Nagram",
+              "url": "https://github.com/NextAlone/Nagram",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "原版界面添加功能"
+            },
+            {
+              "name": "Cherrygram",
+              "url": "https://github.com/arsLan4k1390/Cherrygram",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "原版界面添加功能"
+            },
+            {
+              "name": "tdesktop",
+              "url": "https://github.com/TDesktop-x64/tdesktop",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "Nnngram",
+              "url": "",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "Android",
+              "detail": "Telegram Channel"
+            },
+            {
+              "name": "AyuGram",
+              "url": "",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "Android/Windows",
+              "detail": "Telegram Channel 原版界面添加功能"
+            },
+            {
+              "name": "tdesktop",
+              "url": "https://github.com/TDesktop-x64/tdesktop",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": ""
+            },
+            {
+              "name": "Nekogram和Nekogram X的关系和矛盾历史",
+              "url": "https://tech.a-better-planet.com/nekogram%E5%92%8Cnekogram-x%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E7%9F%9B%E7%9B%BE%E5%8E%86%E5%8F%B2.html",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "看乐子",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "nekogram和nekogram X和Nullgram",
+              "url": "https://frienkie.github.io/posts/3037814559/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "乐子",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            }
+          ]
+        },
+        {
+          "tabName": "其它第三方",
+          "list": [
+            {
+              "name": "Hydrogen",
+              "url": "https://github.com/huajiqaq/Hydrogen",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "第三方知乎",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "c001apk",
+              "url": "https://github.com/bggRGjQaUbCoE/c001apk",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "第三方酷安",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            }
+          ]
+        },
+        {
+          "tabName": "reddit三方",
+          "list": [
+            {
+              "name": "RedReader",
+              "url": "https://github.com/QuantumBadger/RedReader",
+              "desc": "开源",
+              "detail": "",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Infinity-For-Reddit",
+              "url": "https://github.com/Docile-Alligator/Infinity-For-Reddit",
+              "desc": "app 支持中文",
+              "detail": "",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Relay for reddit",
+              "url": "https://play.google.com/store/apps/details?id=reddit.news&hl=zh",
+              "desc": "",
+              "detail": "",
+              "official_site": "",
+              "badge_list": []
+            },
+            {
+              "name": "Atom For Reddit",
+              "url": "https://atomreddit.com/",
+              "desc": "",
+              "detail": "",
+              "official_site": "",
+              "badge_list": []
+            },
+            {
+              "name": "Sync for Reddit",
+              "url": "https://todo.syncforreddit.com/",
+              "desc": "貌似2023api收费后就停更",
+              "detail": "",
+              "official_site": "",
+              "badge_list": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "影视元数据",
+      "icon": "",
+      "tabs": [
+        {
+          "tabName": "1",
+          "list": [
+            {
+              "name": "Movie Mania",
+              "url": "https://play.google.com/store/apps/details?id=tv.mycast.moviemania",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "英文界面，在线看",
+              "detail": "号称“终极流媒体应用程序”"
+            },
+            {
+              "name": "Moviebase",
+              "url": "https://play.google.com/store/apps/details?id=com.moviebase&hl=zh",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "Trakt三方 完美支持中文，内购VIP",
+              "detail": "列表导出csv，数据备份 功能详尽（早期支持三个账号体系：Moviebase、Trakt和TMDB）"
+            },
+            {
+              "name": "cinexplore",
+              "url": "https://play.google.com/store/search?q=cinexplore&c=apps",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "trakt.TV 三方，使用trakt.TV 账号数据,内购会员 完美支持中文，列表自由，可备份",
+              "detail": "找到的破解版都不能同步"
+            },
+            {
+              "name": "TMDB - Movies & TV Shows",
+              "url": "https://play.google.com/store/apps/details?id=com.fr0zen.tmdb",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "英文界面、中文元数据（`Mandarin（普通话）`）、列表自由",
+              "detail": "只有小的横幅广告，且可以用Lucky Patcher 去除 **最好的TMDB三方**，使用TMDB账号数据，不能收藏演员"
+            },
+            {
+              "name": "SeriesGuide",
+              "url": "https://github.com/UweTrottmann/SeriesGuide",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "完美支持中文，仅针对云备份服务收费。 电影不能添加到自由列表中，支持导出备份 收藏逻辑繁复（添加到自由列表需要先添加才能加入列表）"
+            },
+            {
+              "name": "imdb",
+              "url": "https://play.google.com/store/apps/details?id=com.imdb.mobile&hl=zh",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "简中界面、中文搜索、英文数据",
+              "detail": "IMDb 官方 app 国内网络加载缓慢"
+            },
+            {
+              "name": "IMDbPro",
+              "url": "https://play.google.com/store/apps/details?id=com.imdb.pro.mobile.android&hl=zh",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "需要订阅 IMDbPro",
+              "detail": "IMDb 官方 app"
+            },
+            {
+              "name": "TMDb",
+              "url": "https://play.google.com/store/apps/details?id=com.irfangujjar.tmdb",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "英文界面，单一列表，有全屏广告 支持中文搜索，但不返回中文数据",
+              "detail": "TMDB官方 app"
+            },
+            {
+              "name": "Rotten Tomatoes",
+              "url": "https://www.rottentomatoes.com/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "Rotten Tomatoes烂番茄官方",
+              "detail": "烂番茄"
+            },
+            {
+              "name": "trakt.TV",
+              "url": "https://play.google.com/store/apps/details?id=tv.trakt.trakt",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "纯英文 VIP享受无限列表",
+              "detail": "记录数据，详细统计 trakt.tv官方 app 开放 API 给三方，适用于所有设备的应用程序 - Trakt"
+            },
+            {
+              "name": "NeoDB",
+              "url": "https://neodb.social/discover/",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "一个涵盖书籍、影视、音乐、游戏、播客的自由开放互联的收藏评论空间"
+            },
+            {
+              "name": "Cinemaniac",
+              "url": "https://play.google.com/store/apps/details?id=it.papalillo.moviestowatch",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "非pro用户不能多列表",
+              "detail": "GUI框架落后， 支持中文界面和中文数据"
+            },
+            {
+              "name": "TMDb - Guía de películas y pro",
+              "url": "https://play.google.com/store/apps/details?id=com.github.midros.tmdb",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "搜索、分类推荐、中文元数据 无列表"
+            },
+            {
+              "name": "Serializd",
+              "url": "https://play.google.com/store/apps/details?id=com.serializdmobile",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "纯英文、多列表",
+              "detail": ""
+            },
+            {
+              "name": "Watchlist",
+              "url": "https://play.google.com/store/apps/details?id=com.application.watchlist",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "纯英文、电影剧集分开的多列表",
+              "detail": "界面优美"
+            },
+            {
+              "name": "Watch List: TV Series & Movies",
+              "url": "https://play.google.com/store/apps/details?id=com.sylv42240.watch_list",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "纯英文、电影剧集分开的列表",
+              "detail": "界面优美"
+            },
+            {
+              "name": "TV Time",
+              "url": "https://play.google.com/store/apps/details?id=com.tozelabs.tvshowtime&hl=zh",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "英文界面、列表自由",
+              "detail": "元数据中英文混杂，真奇葩"
+            },
+            {
+              "name": "My Movies 5 - Movie & TV List",
+              "url": "https://play.google.com/store/apps/details?id=dk.mymovies.mymovies4forandroidfree",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "支持中文 侧重于收藏物理媒体（DVD、碟片）",
+              "detail": "在线搜索层级过深，搜索服务体验较差，怀疑是自建数据库。"
+            },
+            {
+              "name": "TMDb - Movie Database TvShow",
+              "url": "https://play.google.com/store/apps/details?id=com.anch.tmdb_anch_movies_database",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "搜索、分类推荐、单一列表，英文界面",
+              "detail": "TMDB三方"
+            },
+            {
+              "name": "ScenePeek - TMDB & Jellyseerr",
+              "url": "https://play.google.com/store/apps/details?id=com.divinelink.scenepeek",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "获取TMDB账号数据，TMDB三方"
+            }
+          ]
+        },
+        {
+          "tabName": "2",
+          "list": [
+            {
+              "name": "Letterboxd",
+              "url": "https://play.google.com/store/apps/details?id=com.letterboxd.letterboxd",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "搜索、推荐、无列表",
+              "detail": "纯英文，Letterboxd官方app"
+            },
+            {
+              "name": "Movies",
+              "url": "https://play.google.com/store/apps/details?id=com.rafay.moviesflutter",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "搜索、推荐、无列表",
+              "detail": "TMDB三方，获取TMDB账号数据"
+            },
+            {
+              "name": "MyMovie",
+              "url": "https://play.google.com/store/apps/details?id=com.black_eagle.mymovie",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "搜索、推荐、单一列表",
+              "detail": "无中文，界面优美"
+            },
+            {
+              "name": "MovieMania",
+              "url": "https://play.google.com/store/apps/details?id=com.hadyawny.moviemania",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "搜索、推荐、单一列表",
+              "detail": "无中文"
+            },
+            {
+              "name": "MovieMania 2",
+              "url": "https://play.google.com/store/apps/details?id=com.cineapex.cinecast",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "搜索、推荐、单一列表",
+              "detail": "无中文"
+            },
+            {
+              "name": "Movie Collector",
+              "url": "https://play.google.com/store/apps/details?id=com.watchlist.moviecollector",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "英文、搜索、推荐、无列表",
+              "detail": "界面简洁"
+            },
+            {
+              "name": "Movie Match",
+              "url": "https://play.google.com/store/apps/details?id=io.moku.moviematch&hl=zh",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "卡片式推荐、无列表",
+              "detail": "如其名，根据用户选择匹配数据（影视作品和其它用户）"
+            },
+            {
+              "name": "Movies Index",
+              "url": "https://play.google.com/store/apps/details?id=com.sg.moviesindex&hl=zh",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "搜索、推荐、无列表",
+              "detail": "纯英文"
+            },
+            {
+              "name": "TMDB-APP",
+              "url": "https://play.google.com/store/apps/details?id=com.riverpod.go.river",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "搜索、分类推荐、无列表",
+              "detail": "纯英文"
+            },
+            {
+              "name": "seenit",
+              "url": "https://play.google.com/store/apps/details?id=com.appspring.seenit",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "搜索、分类推荐、无列表",
+              "detail": "纯英文"
+            },
+            {
+              "name": "Simkl Lists: TV, Anime, Movies",
+              "url": "https://play.google.com/store/apps/details?id=com.simkl.lists&hl=zh",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "搜索、推荐、有限的列表",
+              "detail": "英文界面，上下翻飞的弹出菜单"
+            },
+            {
+              "name": "MovieMania: The Movie Tracker",
+              "url": "https://play.google.com/store/apps/details?id=sk.dowla.moviemania",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "详尽的分类搜索，无列表",
+              "detail": "无中文，有广告"
+            },
+            {
+              "name": "Movie-Mania (Powered by TMDb)",
+              "url": "https://play.google.com/store/apps/details?id=com.hijack.moviemania",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "详尽的分类搜索，无列表",
+              "detail": "无中文"
+            },
+            {
+              "name": "TMDb - Movie Database TvShow",
+              "url": "https://play.google.com/store/apps/details?id=com.anch.tmdb_anch_movies_database",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "搜索和推荐",
+              "detail": "界面简单"
+            },
+            {
+              "name": "My Movies by Blu-ray.com",
+              "url": "https://play.google.com/store/apps/details?id=com.bluray.android.mymovies",
+              "official_site": "",
+              "badge_list": [],
+              "desc": "",
+              "detail": "Blu-ray官方app"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

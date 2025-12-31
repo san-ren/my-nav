@@ -27,7 +27,12 @@ const iconSources = {
 
 const defaultIcon = iconSources.custom || iconSources.level1 || iconSources.fallback;
 
+// ============================================================
+// 徽章生成逻辑 (Badges Logic)
+// ============================================================
 let badges = [];
+
+// 1. GitHub 徽章逻辑 (保持原有逻辑，依赖 badge_list 配置)
 if (url && url.includes("github.com") && badge_list && badge_list.length > 0) {
   try {
     const pathParts = new URL(url).pathname.split('/').filter(Boolean);
@@ -39,21 +44,58 @@ if (url && url.includes("github.com") && badge_list && badge_list.length > 0) {
         stars: { src: `https://img.shields.io/github/stars/${owner}/${repo}${styleParam}&label=Stars`, alt: "Stars" },
         version: { src: `https://img.shields.io/github/v/release/${owner}/${repo}${styleParam}&color=orange&label=Release`, alt: "Version" },
         license: { src: `https://img.shields.io/github/license/${owner}/${repo}${styleParam}&color=green&label=License`, alt: "License" },
-        last_commit: { src: `https://img.shields.io/github/last-commit/${owner}/${repo}${styleParam}&color=slate&label=Updated`, alt: "Last Commit" }
+        last_commit: { src: `https://img.shields.io/github/last-commit/${owner}/${repo}${styleParam}&color=slate&label=Last%20Commit`, alt: "Last Commit" }
       };
       badge_list.forEach(key => { if (badgeConfigs[key]) badges.push(badgeConfigs[key]); });
     }
-  } catch(e) { console.error("Badge error", e); }
+  } catch(e) { console.error("GitHub Badge error", e); }
 }
+
+// 2. VS Code 插件自动徽章逻辑 (新增)
+// 不需要后台配置，只要链接匹配就自动显示
+if (url && url.includes("marketplace.visualstudio.com")) {
+  try {
+    const urlObj = new URL(url);
+    // 从 URL 参数中获取 itemName (例如: eamodio.gitlens)
+    const itemId = urlObj.searchParams.get('itemName');
+    
+    if (itemId) {
+      const styleParam = "?style=flat"; // 统一风格
+      
+      // 自动添加 Installs, Version, Updated
+      const vsBadges = [
+        { 
+          src: `https://img.shields.io/visual-studio-marketplace/i/${itemId}${styleParam}&color=blue&label=Installs`, 
+          alt: "Installs" 
+        },
+        { 
+          src: `https://img.shields.io/visual-studio-marketplace/v/${itemId}${styleParam}&color=orange&label=Version`, 
+          alt: "Version" 
+        },
+        { 
+          src: `https://img.shields.io/visual-studio-marketplace/last-updated/${itemId}${styleParam}&color=slate&label=Updated`, 
+          alt: "Last Updated" 
+        }
+      ];
+      
+      // 将生成的徽章加入数组
+      vsBadges.forEach(b => badges.push(b));
+    }
+  } catch(e) { console.error("VS Code Badge error", e); }
+}
+
+// ============================================================
 
 const rawMarkdown = detail || "";
 const detailContent = marked.parse(rawMarkdown, {
-  gfm: true,   // 开启删除线、表格等支持
-  breaks: true // 让回车键直接换行，不用打两个空格
+  gfm: true,
+  breaks: true
 });
 const cardId = `site-${domain ? domain.replace(/[^a-zA-Z0-9]/g, '-') : Math.random().toString(36).substr(2, 9)}`;
+// 更新判断：只要有 detail 或者 badges 数组里有东西，就显示浮窗
 const hasPopup = !!(detail || (badges && badges.length > 0));
 ---
+
 
 <div class="site-card-wrapper group relative w-full h-full">
   <a href={url} target="_blank" 
