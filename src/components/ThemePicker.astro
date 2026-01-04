@@ -27,25 +27,21 @@ import { Palette, Sun, Moon, Monitor, Upload, X, Check } from 'lucide-react';
       </div>
     </div>
 
-    <!-- 2. 主题色彩 (自定义输入) -->
+    <!-- 2. 主题色彩 -->
     <div class="mb-4">
       <div class="flex items-center justify-between mb-2">
         <span class="text-sm font-bold text-slate-700 dark:text-slate-200 border-l-4 border-brand-600 pl-2">主题色彩</span>
-        
-        <!-- 颜色选择器 + Hex 输入框 -->
         <div class="flex items-center gap-2 bg-slate-100 dark:bg-gray-800 rounded-lg p-1 pr-2 border border-slate-200 dark:border-gray-700">
            <input type="color" id="custom-color-picker" class="w-6 h-6 rounded cursor-pointer border-0 p-0 bg-transparent" />
            <input type="text" id="hex-input" class="w-16 bg-transparent text-xs font-mono text-slate-600 dark:text-slate-300 outline-none uppercase" placeholder="#HEX" maxlength="7" />
         </div>
       </div>
-      
-      <!-- 预设颜色 -->
       <div class="flex flex-wrap gap-2 mb-2" id="preset-colors"></div>
     </div>
 
     <hr class="border-slate-100 dark:border-gray-700/50 my-3" />
 
-    <!-- 3. 背景设置 (IndexedDB 无大小限制) -->
+    <!-- 3. 背景设置 -->
     <div class="mb-4">
       <div class="flex items-center justify-between mb-2">
         <span class="text-sm font-bold text-slate-700 dark:text-slate-200 border-l-4 border-brand-600 pl-2">背景图片</span>
@@ -55,7 +51,6 @@ import { Palette, Sun, Moon, Monitor, Upload, X, Check } from 'lucide-react';
         <input type="file" id="bg-upload" accept="image/*" class="hidden" />
       </div>
 
-      <!-- 图片预览 -->
       <div id="bg-preview-area" class="hidden relative w-full h-24 rounded-lg overflow-hidden border border-slate-200 dark:border-gray-700 mb-3 group bg-slate-100 dark:bg-gray-800">
         <img id="bg-preview-img" class="w-full h-full object-cover" />
         <button id="bg-remove-btn" class="absolute top-1 right-1 p-1 bg-black/50 text-white rounded-full hover:bg-red-500 transition-colors opacity-0 group-hover:opacity-100" title="移除背景">
@@ -63,7 +58,6 @@ import { Palette, Sun, Moon, Monitor, Upload, X, Check } from 'lucide-react';
         </button>
       </div>
 
-      <!-- 模糊调节 -->
       <div class="flex items-center justify-between gap-3">
         <span class="text-xs font-medium text-slate-500 shrink-0">模糊度</span>
         <input type="range" id="blur-range" min="0" max="50" step="1" class="w-full h-1.5 bg-slate-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-brand-600" />
@@ -73,12 +67,267 @@ import { Palette, Sun, Moon, Monitor, Upload, X, Check } from 'lucide-react';
   </div>
 </div>
 
+<!-- 
+  交互脚本优化版：
+  1. 立即执行：不再等待页面资源加载，DOM 出来就能点。
+  2. 兼容 Astro：保留页面切换后的重置逻辑。
+-->
 <script is:inline>
-  // =======================================================
-  // 1. 全局工具函数 (这些不需要每次页面切换都重置，放在外面)
-  // =======================================================
-  
-  // IndexedDB 工具
+(function() {
+  // === IndexedDB 工具 (保持不变) ===
+  const DB_NAME = 'MyNavDB';
+  const STORE_NAME = 'settings';
+  let dbPromise = null;
+
+  function getDB() {
+    if (!dbPromise) {
+      dbPromise = new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, 1);
+        request.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(STORE_NAME)) db.createObjectStore(STORE_NAME);
+        };
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+      });
+    }
+    return dbPromise;
+  }
+  async function saveImage(blob) { const db = await getDB(); const tx = db.transaction(STORE_NAME, 'readwrite'); tx.objectStore(STORE_NAME).put(blob, 'bg-image'); }
+  async function getImage() { const db = await getDB(); return new Promise(r => { const tx = db.transaction(STORE_NAME, 'readonly'); tx.objectStore(STORE_NAME).get('bg-image').onsuccess = e => r(e.target.result); }); }
+  async function removeImage() { const db = await getDB(); const tx = db.transaction(STORE_NAME, 'readwrite'); tx.objectStore(STORE_NAME).delete('bg-image'); }
+
+  // === 独立执行：异步加载背景图 ===
+  (async function loadBg() {
+    try {
+      const blob = await getImage();
+      if (blob) {
+        const url = URL.createObjectURL(blob);
+        // 这里加个判断，防止覆盖了头部脚本已经设置的样式导致闪烁
+        const current = document.documentElement.style.getPropertyValue('--bg-image');
+        if (!current || current === 'none') {
+            document.documentElement.style.setProperty('--bg-image', `url(${url})`);
+        }
+        
+        // 尝试更新 UI
+        const area = document.getElementById('bg-preview-area');
+        const img = document.getElementById('bg-preview-img');
+        if (area && img) { area.classList.remove('hidden'); img.src = url; }
+      }
+    } catch(e) {}
+  })();
+
+  // === 初始化交互逻辑 (核心函数) ===
+  function initThemePicker() {
+    // console.log('[ThemePicker] Init Interactive...'); 
+    const container = document.getElementById('theme-picker-container');
+    const btn = document.getElementById('theme-btn');
+    const panel = document.getElementById('theme-panel');
+    
+    // 如果还没渲染出来，直接退出 (保护措施)
+    if (!btn || !panel) return;
+
+    // --- 面板开关 ---
+    // 使用 onclick 覆盖绑定，防止重复绑定导致点一下开、马上又关
+    let isPanelOpen = false;
+    function togglePanel(forceState) {
+      isPanelOpen = forceState !== undefined ? forceState : !isPanelOpen;
+      panel.classList.toggle('invisible', !isPanelOpen);
+      panel.classList.toggle('opacity-0', !isPanelOpen);
+      panel.classList.toggle('scale-95', !isPanelOpen);
+      panel.classList.toggle('visible', isPanelOpen);
+      panel.classList.toggle('opacity-100', isPanelOpen);
+      panel.classList.toggle('scale-100', isPanelOpen);
+    }
+    
+    btn.onclick = (e) => { 
+      e.stopPropagation(); 
+      togglePanel(); 
+    };
+
+    const closeHandler = (e) => { 
+      if (isPanelOpen && !container.contains(e.target)) togglePanel(false); 
+    };
+    // 全局事件还是得小心重复，先移除再添加
+    document.removeEventListener('click', closeHandler);
+    document.addEventListener('click', closeHandler);
+
+    // --- 颜色设置 ---
+    const colorPicker = document.getElementById('custom-color-picker');
+    const hexInput = document.getElementById('hex-input');
+    const savedColor = localStorage.getItem('brand-color') || '#4F46E5';
+    
+    // 恢复输入框显示
+    if(colorPicker) colorPicker.value = savedColor;
+    if(hexInput) hexInput.value = savedColor;
+
+    function hexToRgb(hex) { const r = parseInt(hex.slice(1, 3), 16); const g = parseInt(hex.slice(3, 5), 16); const b = parseInt(hex.slice(5, 7), 16); return `${r} ${g} ${b}`; }
+    function setBrandColor(hex) {
+      if (!/^#[0-9A-F]{6}$/i.test(hex)) return;
+      const rgb = hexToRgb(hex);
+      document.documentElement.style.setProperty('--color-brand-rgb', rgb);
+      localStorage.setItem('brand-color', hex);
+      if(colorPicker) colorPicker.value = hex;
+      if(hexInput) hexInput.value = hex;
+      updatePresetUI(hex);
+    }
+    
+    function updatePresetUI(hex) {
+      const presets = document.querySelectorAll('.preset-color-btn');
+      if(presets) {
+          presets.forEach(btn => {
+            btn.innerHTML = btn.dataset.color.toLowerCase() === hex.toLowerCase() ? '✔' : '';
+            btn.style.color = 'white';
+            btn.style.fontWeight = 'bold';
+          });
+      }
+    }
+    
+    if(colorPicker) colorPicker.oninput = e => setBrandColor(e.target.value);
+    if(hexInput) hexInput.oninput = e => { let v=e.target.value; if(!v.startsWith('#')) v='#'+v; if(v.length===7) setBrandColor(v); };
+
+    // 生成预设按钮
+    const presets = ['#4F46E5', '#DB2777', '#7C3AED', '#2563EB', '#059669', '#DC2626', '#D97706', '#000000'];
+    const presetContainer = document.getElementById('preset-colors');
+    // 检查是否已经生成过，防止 Astro 重复执行导致生成两倍按钮
+    if (presetContainer && presetContainer.children.length === 0) {
+        presets.forEach(color => {
+            const b = document.createElement('button');
+            b.className = 'preset-color-btn w-6 h-6 rounded-full flex items-center justify-center transition-transform hover:scale-110 border border-black/10 text-[10px]';
+            b.style.backgroundColor = color;
+            b.dataset.color = color;
+            b.onclick = () => setBrandColor(color);
+            presetContainer.appendChild(b);
+        });
+        updatePresetUI(savedColor);
+    }
+
+    // --- 字体切换逻辑 (你之前需求的) ---
+    const fontBtns = document.querySelectorAll('.font-btn');
+    const fontStacks = {
+      sans: { heading: 'system-ui, -apple-system, sans-serif', body: 'system-ui, -apple-system, sans-serif', article: 'system-ui, -apple-system, sans-serif' },
+      serif: { heading: '"Songti SC", "SimSun", "Times New Roman", serif', body: '"Songti SC", "SimSun", serif', article: '"Songti SC", "SimSun", serif' },
+      mono: { heading: 'ui-monospace, "Cascadia Code", "Fira Code", monospace', body: 'ui-monospace, "Cascadia Code", monospace', article: 'ui-monospace, "Cascadia Code", monospace' },
+      round: { heading: '"Yuanti SC", "YouYuan", "Rounded Mplus 1c", sans-serif', body: '"Yuanti SC", "YouYuan", sans-serif', article: '"Yuanti SC", "YouYuan", sans-serif' }
+    };
+    function setFont(type) {
+      const stack = fontStacks[type];
+      if (!stack) return;
+      const root = document.documentElement;
+      root.style.setProperty('--font-heading', stack.heading);
+      root.style.setProperty('--font-body', stack.body);
+      root.style.setProperty('--font-article', stack.article);
+      localStorage.setItem('site-font', type);
+      fontBtns.forEach(b => {
+        if (b.dataset.font === type) {
+          b.classList.add('border-brand-500', 'bg-brand-50', 'dark:bg-brand-900/20', 'text-brand-600');
+          b.classList.remove('border-slate-200', 'dark:border-gray-700', 'text-slate-600', 'dark:text-slate-300');
+        } else {
+          b.classList.remove('border-brand-500', 'bg-brand-50', 'dark:bg-brand-900/20', 'text-brand-600');
+          b.classList.add('border-slate-200', 'dark:border-gray-700', 'text-slate-600', 'dark:text-slate-300');
+        }
+      });
+    }
+    fontBtns.forEach(b => b.onclick = () => setFont(b.dataset.font));
+    // 恢复字体UI状态
+    setFont(localStorage.getItem('site-font') || 'sans');
+
+
+    // --- 模式切换 ---
+    const modeBtns = document.querySelectorAll('.mode-btn');
+    function updateModeUI(t) {
+        modeBtns.forEach(b => {
+            const active = b.dataset.mode === t;
+            b.classList.toggle('bg-white', active);
+            b.classList.toggle('dark:bg-gray-600', active);
+            b.classList.toggle('text-brand-600', active);
+            b.classList.toggle('text-slate-500', !active);
+        });
+    }
+    const savedTheme = localStorage.getItem('theme') || 'auto';
+    updateModeUI(savedTheme);
+    
+    function setTheme(t) {
+      const root = document.documentElement;
+      if (t === 'auto') {
+          localStorage.removeItem('theme');
+          if (window.matchMedia('(prefers-color-scheme: dark)').matches) root.classList.add('dark'); else root.classList.remove('dark');
+      } else {
+          root.classList.toggle('dark', t === 'dark');
+          localStorage.setItem('theme', t);
+      }
+      updateModeUI(t);
+    }
+    modeBtns.forEach(b => b.onclick = () => setTheme(b.dataset.mode));
+
+    // --- 模糊与背景 ---
+    const blurRange = document.getElementById('blur-range');
+    const blurVal = document.getElementById('blur-val');
+    const savedBlur = localStorage.getItem('bg-blur') || 0;
+    if(blurRange) blurRange.value = savedBlur;
+    if(blurVal) blurVal.textContent = `${savedBlur}px`;
+
+    function setBlur(px) {
+      document.documentElement.style.setProperty('--bg-blur', `${px}px`);
+      if(blurVal) blurVal.textContent = `${px}px`;
+      localStorage.setItem('bg-blur', px);
+    }
+    if(blurRange) blurRange.oninput = (e) => setBlur(e.target.value);
+
+    // 背景上传逻辑
+    const bgUpload = document.getElementById('bg-upload');
+    const bgPreviewArea = document.getElementById('bg-preview-area');
+    const bgPreviewImg = document.getElementById('bg-preview-img');
+    const bgRemoveBtn = document.getElementById('bg-remove-btn');
+
+    // 检查是否有背景图并显示预览 (从 CSS 变量反推)
+    const currentBg = getComputedStyle(document.documentElement).getPropertyValue('--bg-image').trim();
+    if(currentBg && currentBg !== 'none') {
+        const url = currentBg.slice(4, -1).replace(/["']/g, ""); 
+        if(bgPreviewArea) bgPreviewArea.classList.remove('hidden');
+        if(bgPreviewImg) bgPreviewImg.src = url;
+    }
+
+    if(bgUpload) {
+        bgUpload.onchange = async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const url = URL.createObjectURL(file);
+            document.documentElement.style.setProperty('--bg-image', `url(${url})`);
+            if(bgPreviewArea) bgPreviewArea.classList.remove('hidden');
+            if(bgPreviewImg) bgPreviewImg.src = url;
+            try { await saveImage(file); } catch (err) {}
+        };
+    }
+    if(bgRemoveBtn) {
+        bgRemoveBtn.onclick = async () => {
+            document.documentElement.style.setProperty('--bg-image', 'none');
+            if(bgPreviewArea) bgPreviewArea.classList.add('hidden');
+            await removeImage();
+            if(bgUpload) bgUpload.value = '';
+        };
+    }
+  }
+
+  // 🔥 核心修改：立即执行一次！
+  // 此时 Script 标签在 HTML 底部，上面的 DOM 元素已经解析，可以绑定事件了
+  // 即使网络还在转圈加载图片，按钮点击事件已经生效。
+  initThemePicker();
+
+  // 🔥 核心修改：监听页面切换
+  // Astro 切换页面后 (View Transitions)，DOM 变了，必须重新绑定
+  document.addEventListener('astro:after-swap', initThemePicker);
+
+})();
+</script>
+
+<!-- 
+  核心优化 2：交互脚本
+  这里的代码依然等待 astro:page-load，负责绑定按钮事件、读取 IndexedDB 等耗时操作
+-->
+<script is:inline>
+(function() {
+  // === IndexedDB 工具 ===
   const DB_NAME = 'MyNavDB';
   const STORE_NAME = 'settings';
   let dbPromise = null;
@@ -98,166 +347,130 @@ import { Palette, Sun, Moon, Monitor, Upload, X, Check } from 'lucide-react';
     return dbPromise;
   }
 
-  async function saveImage(blob) {
-    const db = await getDB();
-    return new Promise((resolve, reject) => {
-      const tx = db.transaction(STORE_NAME, 'readwrite');
-      tx.objectStore(STORE_NAME).put(blob, 'bg-image');
-      tx.oncomplete = () => resolve();
-      tx.onerror = () => reject(tx.error);
-    });
-  }
+  // ... (IndexedDB 的 save/get/remove 函数保持不变，为了节省篇幅省略，请保留之前的代码) ...
+  async function saveImage(blob) { const db = await getDB(); const tx = db.transaction(STORE_NAME, 'readwrite'); tx.objectStore(STORE_NAME).put(blob, 'bg-image'); }
+  async function getImage() { const db = await getDB(); return new Promise(r => { const tx = db.transaction(STORE_NAME, 'readonly'); tx.objectStore(STORE_NAME).get('bg-image').onsuccess = e => r(e.target.result); }); }
+  async function removeImage() { const db = await getDB(); const tx = db.transaction(STORE_NAME, 'readwrite'); tx.objectStore(STORE_NAME).delete('bg-image'); }
 
-  async function getImage() {
-    const db = await getDB();
-    return new Promise((resolve) => {
-      const tx = db.transaction(STORE_NAME, 'readonly');
-      const req = tx.objectStore(STORE_NAME).get('bg-image');
-      req.onsuccess = () => resolve(req.result);
-      req.onerror = () => resolve(null);
-    });
-  }
+  // === 独立执行：异步加载背景图 (不阻塞页面) ===
+  // 把它放在 initThemePicker 外面，让它尽早开始跑
+  (async function loadBg() {
+    try {
+      const blob = await getImage();
+      if (blob) {
+        const url = URL.createObjectURL(blob);
+        document.documentElement.style.setProperty('--bg-image', `url(${url})`);
+        // 尝试更新 UI (如果 DOM 已经好了)
+        const area = document.getElementById('bg-preview-area');
+        const img = document.getElementById('bg-preview-img');
+        if (area && img) { area.classList.remove('hidden'); img.src = url; }
+      }
+    } catch(e) {}
+  })();
 
-  async function removeImage() {
-    const db = await getDB();
-    const tx = db.transaction(STORE_NAME, 'readwrite');
-    tx.objectStore(STORE_NAME).delete('bg-image');
-  }
-
-  // 辅助函数：Hex 转 RGB
-  function hexToRgb(hex) {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return `${r} ${g} ${b}`;
-  }
-
-  // =======================================================
-  // 2. 初始化逻辑 (核心修复：封装成函数，每次页面加载都跑)
-  // =======================================================
+  // === 初始化交互逻辑 ===
   function initThemePicker() {
-    console.log('[ThemePicker] Initializing...'); // 调试日志
-
     const container = document.getElementById('theme-picker-container');
     const btn = document.getElementById('theme-btn');
     const panel = document.getElementById('theme-panel');
-    
-    // 如果当前页面没有这个组件（虽然理论上都有），直接退出
     if (!btn || !panel) return;
 
-    // --- A. 面板交互 ---
+    // 面板开关
     let isPanelOpen = false;
-
     function togglePanel(forceState) {
       isPanelOpen = forceState !== undefined ? forceState : !isPanelOpen;
-      if (isPanelOpen) {
-        panel.classList.remove('invisible', 'opacity-0', 'scale-95');
-        panel.classList.add('visible', 'opacity-100', 'scale-100');
-      } else {
-        panel.classList.remove('visible', 'opacity-100', 'scale-100');
-        panel.classList.add('invisible', 'opacity-0', 'scale-95');
-      }
+      panel.classList.toggle('invisible', !isPanelOpen);
+      panel.classList.toggle('opacity-0', !isPanelOpen);
+      panel.classList.toggle('scale-95', !isPanelOpen);
+      panel.classList.toggle('visible', isPanelOpen);
+      panel.classList.toggle('opacity-100', isPanelOpen);
+      panel.classList.toggle('scale-100', isPanelOpen);
     }
-
-    // 解绑旧事件（防止多次绑定），虽然 astro:page-load 通常意味着全新 DOM，但为了保险
-    // 更好的方式是直接绑定，因为 DOM 是新的
-    btn.onclick = (e) => {
-      e.stopPropagation();
-      togglePanel();
-    };
-
-    // 全局点击关闭
-    const closeHandler = (e) => {
-      if (isPanelOpen && container && !container.contains(e.target)) {
-        togglePanel(false);
-      }
-    };
-    document.removeEventListener('click', closeHandler); // 先移除旧的
+    btn.onclick = (e) => { e.stopPropagation(); togglePanel(); };
+    const closeHandler = (e) => { if (isPanelOpen && !container.contains(e.target)) togglePanel(false); };
+    document.removeEventListener('click', closeHandler);
     document.addEventListener('click', closeHandler);
 
-
-    // --- B. 颜色逻辑 ---
+    // 颜色设置
     const colorPicker = document.getElementById('custom-color-picker');
     const hexInput = document.getElementById('hex-input');
+    const savedColor = localStorage.getItem('brand-color') || '#4F46E5';
     
+    // 初始化输入框值
+    if(colorPicker) colorPicker.value = savedColor;
+    if(hexInput) hexInput.value = savedColor;
+
+    function hexToRgb(hex) { const r = parseInt(hex.slice(1, 3), 16); const g = parseInt(hex.slice(3, 5), 16); const b = parseInt(hex.slice(5, 7), 16); return `${r} ${g} ${b}`; }
     function setBrandColor(hex) {
       if (!/^#[0-9A-F]{6}$/i.test(hex)) return;
-      
       const rgb = hexToRgb(hex);
       document.documentElement.style.setProperty('--color-brand-rgb', rgb);
       localStorage.setItem('brand-color', hex);
-      
       if(colorPicker) colorPicker.value = hex;
       if(hexInput) hexInput.value = hex;
-      
+      updatePresetUI(hex);
+    }
+    
+    function updatePresetUI(hex) {
       document.querySelectorAll('.preset-color-btn').forEach(btn => {
-        btn.innerHTML = '';
-        if (btn.dataset.color.toLowerCase() === hex.toLowerCase()) {
-          btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-white"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-        }
+        btn.innerHTML = btn.dataset.color.toLowerCase() === hex.toLowerCase() ? '✔' : '';
+        btn.style.color = 'white';
+        btn.style.fontWeight = 'bold';
       });
     }
+    
+    if(colorPicker) colorPicker.oninput = e => setBrandColor(e.target.value);
+    if(hexInput) hexInput.oninput = e => { let v=e.target.value; if(!v.startsWith('#')) v='#'+v; if(v.length===7) setBrandColor(v); };
 
-    if(colorPicker) colorPicker.oninput = (e) => setBrandColor(e.target.value);
-    if(hexInput) hexInput.oninput = (e) => {
-      let val = e.target.value;
-      if (!val.startsWith('#')) val = '#' + val;
-      if (val.length === 7) setBrandColor(val);
-    };
-
-    // 生成预设
+    // 预设颜色按钮
     const presets = ['#4F46E5', '#DB2777', '#7C3AED', '#2563EB', '#059669', '#DC2626', '#D97706', '#000000'];
     const presetContainer = document.getElementById('preset-colors');
     if (presetContainer && presetContainer.children.length === 0) {
         presets.forEach(color => {
             const b = document.createElement('button');
-            b.className = 'preset-color-btn w-6 h-6 rounded-full flex items-center justify-center transition-transform hover:scale-110 border border-black/10';
+            b.className = 'preset-color-btn w-6 h-6 rounded-full flex items-center justify-center transition-transform hover:scale-110 border border-black/10 text-[10px]';
             b.style.backgroundColor = color;
             b.dataset.color = color;
             b.onclick = () => setBrandColor(color);
             presetContainer.appendChild(b);
         });
+        updatePresetUI(savedColor);
     }
 
-    // --- C. 背景图逻辑 ---
-    const bgUpload = document.getElementById('bg-upload');
-    const bgPreviewArea = document.getElementById('bg-preview-area');
-    const bgPreviewImg = document.getElementById('bg-preview-img');
-    const bgRemoveBtn = document.getElementById('bg-remove-btn');
-
-    function applyBackground(url) {
-      if (url) {
-        document.documentElement.style.setProperty('--bg-image', `url(${url})`);
-        if(bgPreviewArea) bgPreviewArea.classList.remove('hidden');
-        if(bgPreviewImg) bgPreviewImg.src = url;
+    // 模式切换 UI 更新
+    const modeBtns = document.querySelectorAll('.mode-btn');
+    const savedTheme = localStorage.getItem('theme') || 'auto';
+    function updateModeUI(t) {
+        modeBtns.forEach(b => {
+            const active = b.dataset.mode === t;
+            b.classList.toggle('bg-white', active);
+            b.classList.toggle('dark:bg-gray-600', active);
+            b.classList.toggle('text-brand-600', active);
+            b.classList.toggle('text-slate-500', !active);
+        });
+    }
+    updateModeUI(savedTheme);
+    
+    function setTheme(t) {
+      const root = document.documentElement;
+      if (t === 'auto') {
+          localStorage.removeItem('theme');
+          if (window.matchMedia('(prefers-color-scheme: dark)').matches) root.classList.add('dark'); else root.classList.remove('dark');
       } else {
-        document.documentElement.style.setProperty('--bg-image', 'none');
-        if(bgPreviewArea) bgPreviewArea.classList.add('hidden');
+          root.classList.toggle('dark', t === 'dark');
+          localStorage.setItem('theme', t);
       }
+      updateModeUI(t);
     }
+    modeBtns.forEach(b => b.onclick = () => setTheme(b.dataset.mode));
 
-    if(bgUpload) {
-        bgUpload.onchange = async (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-            const url = URL.createObjectURL(file);
-            applyBackground(url);
-            try { await saveImage(file); } catch (err) { console.error(err); }
-        };
-    }
-
-    if(bgRemoveBtn) {
-        bgRemoveBtn.onclick = async () => {
-            applyBackground(null);
-            await removeImage();
-            if(bgUpload) bgUpload.value = '';
-        };
-    }
-
-    // --- D. 模糊与主题 ---
+    // 模糊与背景
     const blurRange = document.getElementById('blur-range');
     const blurVal = document.getElementById('blur-val');
-    
+    const savedBlur = localStorage.getItem('bg-blur') || 0;
+    if(blurRange) blurRange.value = savedBlur;
+    if(blurVal) blurVal.textContent = `${savedBlur}px`;
+
     function setBlur(px) {
       document.documentElement.style.setProperty('--bg-blur', `${px}px`);
       if(blurVal) blurVal.textContent = `${px}px`;
@@ -265,53 +478,44 @@ import { Palette, Sun, Moon, Monitor, Upload, X, Check } from 'lucide-react';
     }
     if(blurRange) blurRange.oninput = (e) => setBlur(e.target.value);
 
-    const modeBtns = document.querySelectorAll('.mode-btn');
-    function setTheme(t) {
-      const root = document.documentElement;
-      if (t === 'auto') {
-          localStorage.removeItem('theme');
-          if (window.matchMedia('(prefers-color-scheme: dark)').matches) root.classList.add('dark');
-          else root.classList.remove('dark');
-      } else {
-          root.classList.toggle('dark', t === 'dark');
-          localStorage.setItem('theme', t);
-      }
-      modeBtns.forEach(b => {
-          const active = b.dataset.mode === t;
-          b.classList.toggle('bg-white', active);
-          b.classList.toggle('dark:bg-gray-600', active);
-          b.classList.toggle('text-brand-600', active);
-          b.classList.toggle('text-slate-500', !active);
-      });
+    // 背景上传逻辑
+    const bgUpload = document.getElementById('bg-upload');
+    const bgPreviewArea = document.getElementById('bg-preview-area');
+    const bgPreviewImg = document.getElementById('bg-preview-img');
+    const bgRemoveBtn = document.getElementById('bg-remove-btn');
+
+    // 检查是否有背景图并显示预览
+    const currentBg = getComputedStyle(document.documentElement).getPropertyValue('--bg-image').trim();
+    if(currentBg && currentBg !== 'none') {
+        const url = currentBg.slice(4, -1).replace(/["']/g, ""); // 提取 url(...)
+        if(bgPreviewArea) bgPreviewArea.classList.remove('hidden');
+        if(bgPreviewImg) bgPreviewImg.src = url;
     }
-    modeBtns.forEach(b => b.onclick = () => setTheme(b.dataset.mode));
 
-    // --- E. 恢复状态 ---
-    const savedColor = localStorage.getItem('brand-color') || '#4F46E5';
-    setBrandColor(savedColor);
-
-    const savedTheme = localStorage.getItem('theme') || 'auto';
-    setTheme(savedTheme);
-
-    const savedBlur = localStorage.getItem('bg-blur') || 0;
-    if(blurRange) blurRange.value = savedBlur;
-    setBlur(savedBlur);
-
-    // 每次页面加载都尝试读取背景图
-    getImage().then(blob => {
-      if (blob) applyBackground(URL.createObjectURL(blob));
-    });
+    if(bgUpload) {
+        bgUpload.onchange = async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const url = URL.createObjectURL(file);
+            document.documentElement.style.setProperty('--bg-image', `url(${url})`);
+            if(bgPreviewArea) bgPreviewArea.classList.remove('hidden');
+            if(bgPreviewImg) bgPreviewImg.src = url;
+            try { await saveImage(file); } catch (err) {}
+        };
+    }
+    if(bgRemoveBtn) {
+        bgRemoveBtn.onclick = async () => {
+            document.documentElement.style.setProperty('--bg-image', 'none');
+            if(bgPreviewArea) bgPreviewArea.classList.add('hidden');
+            await removeImage();
+            if(bgUpload) bgUpload.value = '';
+        };
+    }
   }
 
-  // =======================================================
-  // 3. 绑定生命周期 (关键！)
-  // =======================================================
-  
-  // 监听 astro:page-load，它在【首次加载】和【页面切换后】都会触发
   document.addEventListener('astro:page-load', initThemePicker);
-
+})();
 </script>
-
 
 <style>
   input[type=range] { accent-color: rgb(var(--color-brand-rgb)); }

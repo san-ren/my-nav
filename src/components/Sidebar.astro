@@ -10,7 +10,7 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
 <aside 
   id="sidebar"
   style={{ width: 'var(--sidebar-width, 17rem)' }}
-  class="fixed top-0 left-0 z-50 h-[100dvh] bg-white/90 dark:bg-gray-900/90 backdrop-blur-2xl shadow-[10px_0_40px_rgba(0,0,0,0.04)] dark:shadow-none flex flex-col transition-transform duration-300 -translate-x-full md:translate-x-0 border-r border-slate-200/50 dark:border-slate-800/50 overflow-x-hidden"
+  class="layout-transition fixed top-0 left-0 z-50 h-[100dvh] bg-white/90 dark:bg-gray-900/90 backdrop-blur-2xl shadow-[10px_0_40px_rgba(0,0,0,0.04)] dark:shadow-none flex flex-col border-r border-slate-200/50 dark:border-slate-800/50 overflow-x-hidden"
 >
   <!-- Logo 区域 -->
   <div class="h-16 px-6 flex-shrink-0 flex items-center gap-3 border-b border-slate-100/50 dark:border-slate-800/50 overflow-hidden">
@@ -22,7 +22,7 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
     </span>
   </div>
 
-  <!-- 菜单区域 (代码保持不变) -->
+  <!-- 菜单区域 -->
   <nav class="flex-1 overflow-y-auto p-3 space-y-1 custom-scrollbar scrollbar-stable">
     {navResources.map((page) => {
       const isActivePage = page.id === currentId;
@@ -130,13 +130,11 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
   </div>
 </aside>
 
-<!-- 这里是 JS 脚本，不需要改动，之前的已经是最优版 -->
 <script is:inline>
 (function() {
-  // ... 保持你现有的 Sidebar.astro JS 逻辑不变 ...
-  // 为了篇幅，这里省略重复代码，请保留你现有的悬浮菜单和折叠逻辑
-  // 只需要确保 window.closeSidebarMobile 逻辑没有变坏
-  
+  // =======================================================
+  // 1. 悬浮菜单逻辑 (Tooltip)
+  // =======================================================
   let tooltipEl = null;
   let hideTimer = null;
   let currentBtn = null;
@@ -221,6 +219,27 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
     }, 100);
   }
 
+  // =======================================================
+  // 2. 侧边栏折叠逻辑 (手机端)
+  // PC端逻辑由 index.astro 控制
+  // =======================================================
+  
+  window.closeSidebarMobile = () => {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    document.documentElement.classList.remove('overflow-hidden');
+    document.body.classList.remove('overflow-hidden');
+    
+    // 手机端：使用 transform 隐藏
+    if (window.innerWidth < 768 && sidebar && overlay) { 
+        sidebar.style.transform = 'translateX(-100%)'; 
+        overlay.classList.add('hidden');
+    }
+  };
+
+  // =======================================================
+  // 3. 事件绑定
+  // =======================================================
   function bindHoverEvents() {
     const btns = document.querySelectorAll('.has-sub-menu');
     btns.forEach(btn => {
@@ -272,7 +291,7 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
 
 })();
 
-// 辅助函数
+// 辅助函数 (暴露给全局)
 window.scrollToSection = (id) => {
   const el = document.getElementById(id);
   if (el) {
@@ -304,50 +323,9 @@ window.scrollToTab = (id, idx) => {
      }
   }, 300);
 };
-
-window.closeSidebarMobile = () => {
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('sidebar-overlay');
-  const mainContent = document.getElementById('main-content'); // 后面我们在 Layout 里加上这个 ID
-  
-  // 移除锁定
-  document.documentElement.classList.remove('overflow-hidden');
-  document.body.classList.remove('overflow-hidden');
-
-  if (window.innerWidth < 768 && sidebar && overlay) { 
-      sidebar.classList.add('-translate-x-full');
-      overlay.classList.add('hidden');
-  }
-};
-
-// 新增：切换侧边栏 (PC端)
-window.toggleSidebarPC = () => {
-  const sidebar = document.getElementById('sidebar');
-  const mainContent = document.querySelector('main');
-  const header = document.getElementById('page-header');
-  
-  if (sidebar) {
-    const isHidden = sidebar.classList.contains('-translate-x-full');
-    
-    if (isHidden) {
-      // 展开
-      sidebar.classList.remove('-translate-x-full');
-      // 调整主内容 Margin
-      if(mainContent) mainContent.style.marginLeft = 'var(--sidebar-width)';
-      if(header) header.style.width = 'calc(100% - var(--sidebar-width))';
-    } else {
-      // 收起
-      sidebar.classList.add('-translate-x-full');
-      // 调整主内容 Margin
-      if(mainContent) mainContent.style.marginLeft = '0';
-      if(header) header.style.width = '100%';
-    }
-  }
-};
 </script>
 
 <style>
-  /* 你的样式保持不变 */
   .custom-scrollbar::-webkit-scrollbar { width: 5px; }
   .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
   .custom-scrollbar::-webkit-scrollbar-thumb { background-color: transparent; border-radius: 20px; }
