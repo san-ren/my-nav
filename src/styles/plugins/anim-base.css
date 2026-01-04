@@ -1,0 +1,5 @@
+/* 标记哪些元素支持动画 */
+.site-card-wrapper, 
+.category-group h3 {
+  /* 默认无动画，由插件接管 */
+}

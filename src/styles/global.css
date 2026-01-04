@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* 引入主题变量 */
+@import "./theme.css"; 
+
+/* 🔌 引入动画插件 */
+@import "./plugins/anim-base.css";
+@import "./plugins/anim-fade-up.css";
+@import "./plugins/anim-wave.css";
+
 :root {
   /* 1. 主题色 */
   --color-brand-rgb: 79 70 229;

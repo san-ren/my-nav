@@ -1,0 +1,16 @@
+/* 当 data-anim="fade-up" 时生效 */
+[data-anim="fade-up"] .site-card-wrapper {
+  animation: fadeUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 简单的交错延迟 (给前 20 个元素加延迟) */
+[data-anim="fade-up"] .site-card-wrapper:nth-child(1) { animation-delay: 50ms; }
+[data-anim="fade-up"] .site-card-wrapper:nth-child(2) { animation-delay: 100ms; }
+[data-anim="fade-up"] .site-card-wrapper:nth-child(3) { animation-delay: 150ms; }
+[data-anim="fade-up"] .site-card-wrapper:nth-child(4) { animation-delay: 200ms; }
+/* ... 可以多写几个 ... */
