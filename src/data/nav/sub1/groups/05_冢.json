@@ -12,93 +12,156 @@
           "tabName": "翻译",
           "list": [
             {
-              "name": "Real-time-translation-typing/实时打字翻译",
-              "url": "https://github.com/sxzxs/Real-time-translation-typing",
+              "name": "CopyTranslator",
+              "url": "https://github.com/CopyTranslator/CopyTranslator",
+              "official_site": "https://copytranslator.github.io/",
               "badge_list": [
                 "stars",
                 "version",
-                "last_commit"
+                "last_commit",
+                "license"
               ],
               "desc": "",
-              "detail": "实时打字翻译软件、语音实时打字、语音实时翻译、LOL 语音打字"
-            },
-            {
-              "name": "CrowTranslate",
-              "url": "https://github.com/crow-translate/crow-translate",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ],
-              "desc": "",
-              "detail": "开源，翻译，可调用Google,YandexandBingtranslateAPI"
+              "detail": "翻译工具",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "Pot",
-              "url": "https://pot-app.com/",
-              "desc": "",
-              "detail": "跨平台划词翻译和OCR"
+              "url": "https://github.com/pot-app/pot-desktop",
+              "official_site": "https://pot-app.com/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "跨平台划词翻译和OCR",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "Manga/Image Translator",
+              "url": "https://github.com/zyddnys/manga-image-translator",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "翻译各类图片内文字",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "团子翻译器",
               "url": "https://github.com/PantsuDango/Dango-Translator",
+              "official_site": "https://translator.dango.cloud/",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
               "desc": "",
-              "detail": "全局翻译"
-            },
-            {
-              "name": "CopyTranslator",
-              "url": "https://copytranslator.github.io/",
-              "desc": "",
-              "detail": "翻译工具"
+              "detail": "全局翻译",
+              "guide_id": ""
             },
             {
               "name": "STranslate",
-              "url": "https://stranslate.zggsong.com/",
-              "desc": "",
-              "detail": "即开即用、即用即走的翻译(OCR)工具"
-            },
-            {
-              "name": "Image/Manga Translator",
-              "url": "https://github.com/zyddnys/manga-image-translator",
+              "url": "https://github.com/STranslate/STranslate",
+              "official_site": "https://stranslate.zggsong.com/",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
               "desc": "",
-              "detail": "一键翻译各类图片内文字"
-            },
-            {
-              "name": "TTime",
-              "url": "https://ttime.timerecord.cn/",
-              "desc": "",
-              "detail": "AI翻译、文字识别软件，输入、截图、划词、替换、文字识别翻译AI软件"
+              "detail": "即开即用、即用即走的翻译(OCR)工具",
+              "guide_id": ""
             },
             {
               "name": "Translumo",
               "url": "https://github.com/Danily07/Translumo",
+              "official_site": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
               "desc": "",
-              "detail": "高级实时游戏屏幕翻译器，视频中的硬编码字幕，静态文本等。"
+              "detail": "高级实时游戏屏幕翻译器，视频中的硬编码字幕，静态文本等。",
+              "guide_id": ""
+            },
+            {
+              "name": "TTime",
+              "url": "https://github.com/InkTimeRecord/TTime",
+              "official_site": "https://ttime.timerecord.cn/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "AI翻译、文字识别软件，输入、截图、划词、替换、文字识别翻译AI软件",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "CrowTranslate",
+              "url": "https://github.com/crow-translate/crow-translate",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "开源，翻译，可调用Google,YandexandBingtranslateAPI",
+              "guide_id": ""
+            },
+            {
+              "name": "Real-time-translation-typing/实时打字翻译",
+              "url": "https://github.com/sxzxs/Real-time-translation-typing",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "实时打字翻译软件、语音实时打字、语音实时翻译、LOL 语音打字",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "RTranslator",
               "url": "https://github.com/niedev/RTranslator",
               "official_site": "",
-              "badge_list": [],
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
               "desc": "Android本地实时翻译",
               "detail": "",
-              "guide_id": "",
               "icon": "",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "MTranServer",
+              "url": "https://github.com/xxnuo/MTranServer",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "离线翻译模型服务器",
+              "detail": "",
+              "icon": "",
+              "guide_id": "",
               "widget_url": ""
             }
           ],

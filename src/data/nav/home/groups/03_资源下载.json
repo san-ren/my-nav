@@ -11,8 +11,10 @@
         {
           "name": "IDM",
           "url": "https://www.internetdownloadmanager.com/",
+          "official_site": "",
           "desc": "",
-          "detail": "地位不言而喻"
+          "detail": "地位不言而喻",
+          "guide_id": ""
         },
         {
           "name": "IDM-Activation-Script",
@@ -33,15 +35,30 @@
         },
         {
           "name": "aria2",
-          "url": "https://aria2.github.io/",
+          "url": "https://github.com/aria2/aria2",
+          "official_site": "https://aria2.github.io/",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ],
           "desc": "",
-          "detail": ""
+          "detail": "",
+          "guide_id": ""
         },
         {
           "name": "Gopeed",
-          "url": "https://gopeed.com/zh-CN",
+          "url": "https://github.com/GopeedLab/gopeed",
+          "official_site": "https://gopeed.com/zh-CN",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ],
           "desc": "",
-          "detail": "开源、支持HTTP、BitTorrent、Magnet"
+          "detail": "支持HTTP、BitTorrent、Magnet",
+          "guide_id": "",
+          "widget_url": ""
         },
         {
           "name": "文件蜈蚣",
@@ -51,26 +68,38 @@
         },
         {
           "name": "Motrix",
-          "url": "https://motrix.app/",
-          "desc": "",
-          "detail": "开源，支持下载HTTP、FTP、BT、磁力链接等资源"
-        },
-        {
-          "name": "imFile",
-          "url": "https://github.com/imfile-io/imfile-desktop",
+          "url": "https://github.com/agalwood/Motrix",
+          "official_site": "https://motrix.app/",
           "badge_list": [
             "stars",
             "version",
             "last_commit"
           ],
           "desc": "",
-          "detail": "基于Motrix"
+          "detail": "支持下载HTTP、FTP、BT、磁力链接等资源",
+          "guide_id": ""
+        },
+        {
+          "name": "imFile",
+          "url": "https://github.com/imfile-io/imfile-desktop",
+          "official_site": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ],
+          "desc": "",
+          "detail": "基于Motrix",
+          "guide_id": "",
+          "widget_url": ""
         },
         {
           "name": "Xdown",
           "url": "https://xdown.org/",
+          "official_site": "",
           "desc": "",
-          "detail": "免费idm / torrent 合成体"
+          "detail": "免费idm / torrent 合成体",
+          "guide_id": ""
         },
         {
           "name": "Yolx",
@@ -128,6 +157,7 @@
         {
           "name": "XDM",
           "url": "https://github.com/subhra74/xdm",
+          "official_site": "https://xtremedownloadmanager.com/",
           "badge_list": [
             "stars",
             "version",
@@ -138,9 +168,16 @@
         },
         {
           "name": "AB Download Manager",
-          "url": "https://abdownloadmanager.com/",
+          "url": "https://github.com/amir1376/ab-download-manager",
+          "official_site": "https://abdownloadmanager.com/",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ],
           "desc": "",
-          "detail": ""
+          "detail": "",
+          "guide_id": ""
         }
       ]
     },
@@ -202,148 +239,94 @@
       "icon": "ThumbsUp",
       "tabs": [
         {
-          "tabName": "微信公众号下载",
+          "tabName": "B站下载",
           "list": [
             {
-              "name": "wechatDownload/微信公众号文章批量下载工具",
-              "url": "https://github.com/qiye45/wechatDownload",
+              "name": "downkyicore",
+              "url": "https://github.com/yaobiao131/downkyicore",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "downkyi继任者",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "Bili23 Downloader",
+              "url": "https://github.com/ScottSloan/Bili23-Downloader",
+              "official_site": "https://bili23.scott-sloan.cn/",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
               "desc": "",
-              "detail": "微信公众号文章批量下载工具，支持图片、评论下载，支持保存html/md/pdf/docx文件"
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
             },
             {
-              "name": "wechatDownload",
-              "url": "https://github.com/xiaoguyu/wechatDownload",
+              "name": "BiliTools",
+              "url": "https://github.com/btjawa/BiliTools",
+              "official_site": "https://blog.btjawa.top/posts/bilitools",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
-              "desc": "",
-              "detail": "单篇、批量，2024年5月19日归档"
+              "desc": "哔哩哔哩工具箱",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
             },
             {
-              "name": "wechatVideoDownload/微信视频号下载工具",
-              "url": "https://github.com/qiye45/wechatVideoDownload",
+              "name": "BBDown（Bilibili Downloader）",
+              "url": "https://github.com/nilaoda/BBDown",
+              "official_site": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
-              "desc": "",
-              "detail": "微信视频号下载工具，支持视频、直播回放下载"
+              "desc": "命令行下载器",
+              "detail": "",
+              "guide_id": ""
             },
             {
-              "name": "WeChat_Article",
-              "url": "https://github.com/1061700625/WeChat_Article",
+              "name": "唧唧Down",
+              "url": "http://client.jijidown.com/",
+              "desc": "",
+              "detail": "都能解析，但不太好使"
+            },
+            {
+              "name": "哔哩下载姬downkyi",
+              "url": "https://github.com/leiurayer/downkyi",
+              "official_site": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
-              "desc": "",
-              "detail": "2023年6月停更"
+              "desc": "2025年删库",
+              "detail": "- 2025年7月作者删除仓库代码，未作说明\n\n- up主合集和列表, 个人收藏夹以及批量下载",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
-              "name": "wechat-spider/微信爬虫",
-              "url": "https://github.com/striver-ing/wechat-spider",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ],
-              "desc": "",
-              "detail": "爬取公众号所有 文章、阅读量、点赞量和评论内容，2022停更"
-            }
-          ]
-        },
-        {
-          "tabName": "网盘",
-          "list": [
-            {
-              "name": "PikPak",
-              "url": "https://mypikpak.com/zh-CN",
-              "desc": "",
-              "detail": "新加坡网盘，非会员6G空间，可离线、磁力，下载不限速，可刷会员"
-            },
-            {
-              "name": "MultCloud",
-              "url": "https://www.multcloud.com/cn/",
-              "desc": "",
-              "detail": "跨网盘文件传输，支持Google Drive、OneDrive、Dropbox、百度云盘、iCloud等好多网盘（详见官网），还有NAS"
-            },
-            {
-              "name": "夸克网盘批量转存工具",
-              "url": "https://www.52pojie.cn/thread-1897944-1-1.html",
-              "desc": "",
-              "detail": "夸克网盘批量转存"
-            },
-            {
-              "name": "filestash",
-              "url": "https://github.com/mickael-kerjean/filestash",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ],
-              "desc": "",
-              "detail": "跨网盘文件管理，支持FTP • FTPS • SFTP • WebDAV • Git • Dropbox • Google Drive"
-            },
-            {
-              "name": "AList",
-              "url": "https://alist.nn.ci/zh/",
-              "desc": "",
-              "detail": "一个支持多存储的文件列表/WebDAV程序"
-            },
-            {
-              "name": "就是加速",
-              "url": "https://api.94speed.com/",
-              "desc": "",
-              "detail": "度盘加速"
-            },
-            {
-              "name": "小白羊网盘",
-              "url": "https://github.com/gaozhangmin/aliyunpan",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ],
-              "desc": "",
-              "detail": ""
-            },
-            {
-              "name": "蜗牛云盘",
-              "url": "https://snail8.cn/html/index.html",
-              "desc": "",
-              "detail": "阿里云盘第三方"
-            },
-            {
-              "name": "Raptor",
-              "url": "https://github.com/InfpHub/Raptor",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ],
-              "desc": "",
-              "detail": "第三方阿里云盘桌面应用客户端"
-            },
-            {
-              "name": "小白云盘",
-              "url": "https://crazynoby.github.io/",
-              "desc": "",
-              "detail": "阿里云盘Android、PC端"
-            },
-            {
-              "name": "小白云盘",
-              "url": "http://159.75.208.47/#",
-              "desc": "",
-              "detail": "阿里云盘第三方"
+              "name": "Bilidown",
+              "url": "https://zhouql.vip/bilidown/pc/",
+              "official_site": "",
+              "desc": "2025年1月停用",
+              "detail": "- 2025年1月因被侵权售卖而停止开发。\n\n- 网页，单文件，安装版，批量下载up播放列表",
+              "guide_id": "",
+              "widget_url": ""
             }
           ]
         },
@@ -461,45 +444,151 @@
           ]
         },
         {
-          "tabName": "B站下载",
+          "tabName": "网盘",
           "list": [
             {
-              "name": "BBDown（Bilibili Downloader）",
-              "url": "https://github.com/nilaoda/BBDown",
+              "name": "PikPak",
+              "url": "https://mypikpak.com/zh-CN",
+              "desc": "",
+              "detail": "新加坡网盘，非会员6G空间，可离线、磁力，下载不限速，可刷会员"
+            },
+            {
+              "name": "MultCloud",
+              "url": "https://www.multcloud.com/cn/",
+              "desc": "",
+              "detail": "跨网盘文件传输，支持Google Drive、OneDrive、Dropbox、百度云盘、iCloud等好多网盘（详见官网），还有NAS"
+            },
+            {
+              "name": "夸克网盘批量转存工具",
+              "url": "https://www.52pojie.cn/thread-1897944-1-1.html",
+              "desc": "",
+              "detail": "夸克网盘批量转存"
+            },
+            {
+              "name": "filestash",
+              "url": "https://github.com/mickael-kerjean/filestash",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
               "desc": "",
-              "detail": "命令行式哔哩哔哩下载器"
+              "detail": "跨网盘文件管理，支持FTP • FTPS • SFTP • WebDAV • Git • Dropbox • Google Drive"
             },
             {
-              "name": "哔哩下载姬downkyi",
-              "url": "https://github.com/leiurayer/downkyi",
+              "name": "AList",
+              "url": "https://alist.nn.ci/zh/",
+              "desc": "",
+              "detail": "一个支持多存储的文件列表/WebDAV程序"
+            },
+            {
+              "name": "就是加速",
+              "url": "https://api.94speed.com/",
+              "desc": "",
+              "detail": "度盘加速"
+            },
+            {
+              "name": "小白羊网盘",
+              "url": "https://github.com/gaozhangmin/aliyunpan",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
               "desc": "",
-              "detail": "up主合集和列表, 个人收藏夹以及批量下载"
+              "detail": ""
             },
             {
-              "name": "Bilidown",
-              "url": "https://zhouql.vip/bilidown/pc/",
+              "name": "蜗牛云盘",
+              "url": "https://snail8.cn/html/index.html",
               "desc": "",
-              "detail": "2025年1月因被侵权售卖而停止开发。网页，单文件，安装版，批量下载up播放列表"
+              "detail": "阿里云盘第三方"
             },
             {
-              "name": "唧唧Down",
-              "url": "http://client.jijidown.com/",
+              "name": "Raptor",
+              "url": "https://github.com/InfpHub/Raptor",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
               "desc": "",
-              "detail": "都能解析，但不太好使"
+              "detail": "第三方阿里云盘桌面应用客户端"
+            },
+            {
+              "name": "小白云盘",
+              "url": "https://crazynoby.github.io/",
+              "desc": "",
+              "detail": "阿里云盘Android、PC端"
+            },
+            {
+              "name": "小白云盘",
+              "url": "http://159.75.208.47/#",
+              "desc": "",
+              "detail": "阿里云盘第三方"
             }
           ]
         },
-        ""
+        {
+          "tabName": "微信公众号下载",
+          "list": [
+            {
+              "name": "wechatDownload/微信公众号文章批量下载工具",
+              "url": "https://github.com/qiye45/wechatDownload",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "微信公众号文章批量下载工具，支持图片、评论下载，支持保存html/md/pdf/docx文件"
+            },
+            {
+              "name": "wechatDownload",
+              "url": "https://github.com/xiaoguyu/wechatDownload",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "单篇、批量，2024年5月19日归档"
+            },
+            {
+              "name": "wechatVideoDownload/微信视频号下载工具",
+              "url": "https://github.com/qiye45/wechatVideoDownload",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "微信视频号下载工具，支持视频、直播回放下载"
+            },
+            {
+              "name": "WeChat_Article",
+              "url": "https://github.com/1061700625/WeChat_Article",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "2023年6月停更"
+            },
+            {
+              "name": "wechat-spider/微信爬虫",
+              "url": "https://github.com/striver-ing/wechat-spider",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "爬取公众号所有 文章、阅读量、点赞量和评论内容，2022停更"
+            }
+          ]
+        }
       ]
     }
   ]

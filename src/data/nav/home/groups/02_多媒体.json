@@ -18,7 +18,7 @@
               "badge_list": [
                 "stars",
                 "version",
-                "license"
+                "last_commit"
               ],
               "desc": "开源第三方酷狗，登陆就是vip",
               "detail": "Windows / macOS / Linux / Web",
@@ -789,68 +789,97 @@
           "tabName": "看图",
           "list": [
             {
-              "name": "Honeyview-蜂蜜浏览器",
+              "name": "Honeyview",
               "url": "http://www.bandisoft.com/honeyview/",
-              "desc": "",
-              "detail": "与Bandizip同宗，2024发布新版Bandiview v7.0,免费版有广告"
+              "official_site": "",
+              "desc": "与Bandizip同宗",
+              "detail": "- 2024发布新版Bandiview v7.0\n\n- 免费版有广告",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
-              "name": "Masonry Image Viewer",
-              "url": "https://github.com/wlm3201/Masonry_Image_Viewer",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ],
-              "desc": "",
-              "detail": "瀑布流本地图片浏览器"
+              "name": "MagicView",
+              "url": "",
+              "official_site": "https://pic.ghxi.com/",
+              "badge_list": [],
+              "desc": "果核剥壳团队开发",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
             },
             {
               "name": "ImageGlass",
               "url": "https://imageglass.org/",
+              "official_site": "",
               "desc": "",
-              "detail": "看图，提供中文语言包"
+              "detail": "提供中文语言包",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "PicView",
               "url": "https://github.com/Ruben2776/PicView",
+              "official_site": "https://picview.org/",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
               "desc": "",
-              "detail": "开源，看图"
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "Imagine",
               "url": "https://www.nyam.pe.kr/dev/imagine/",
-              "desc": "",
-              "detail": "3.4k star，看图、动图编辑"
+              "official_site": "",
+              "desc": "看图、动图编辑",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "Image Eye",
               "url": "https://www.fmjsoft.com/imageeye.html#main",
-              "desc": "",
-              "detail": ""
+              "official_site": "",
+              "desc": "支持中文",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "IrfanView",
               "url": "https://www.irfanview.com/",
+              "official_site": "",
               "desc": "",
-              "detail": ""
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "XnView",
               "url": "https://www.xnview.com/en/",
+              "official_site": "XnSoft软件系列",
               "desc": "",
-              "detail": ""
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "qView",
-              "url": "https://interversehq.com/qview/",
-              "desc": "",
-              "detail": "1.7k star，看图"
+              "url": "https://github.com/jurplel/qView",
+              "official_site": "https://interversehq.com/qview/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "极简界面",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "Masonry Image Viewer",
@@ -870,15 +899,46 @@
               "detail": "流式看图"
             },
             {
-              "name": "NeeView",
-              "url": "https://github.com/karma-sun/neeview",
+              "name": "PicGo",
+              "url": "https://github.com/Molunerfinn/PicGo",
+              "official_site": "https://picx.xpoet.cn/",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
-              "desc": "",
-              "detail": "图片漫画浏览器"
+              "desc": "支持主流图床平台",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "PicX",
+              "url": "https://github.com/XPoet/picx",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "GitHub 图床",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "EasyImage2.0",
+              "url": "https://github.com/icret/EasyImages2.0",
+              "official_site": "https://png.cm/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "简单图床",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
             }
           ]
         },
@@ -892,123 +952,146 @@
               "detail": "长截图、贴图、OCR、GIF，2023新兴软件，Snipaste专业版平替"
             },
             {
+              "name": "ShareX",
+              "url": "https://github.com/ShareX/ShareX",
+              "official_site": "https://getsharex.com/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "功能太强大",
+              "detail": "- 仅支持win\n\n- 提供setup和portable",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "Flameshot",
+              "url": "https://github.com/flameshot-org/flameshot",
+              "official_site": "https://flameshot.org/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "标注功能强大",
+              "detail": "支持全平台",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "PicPick",
+              "url": "https://picpick.app/zh/",
+              "official_site": "",
+              "desc": "个人免费使用",
+              "detail": "",
+              "guide_id": ""
+            },
+            {
+              "name": "eSearch",
+              "url": "https://github.com/xushengfeng/eSearch",
+              "official_site": "https://esearch-app.netlify.app/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "截屏+OCR+搜索+翻译+贴图+屏幕翻译+以图搜图+滚动截屏+录屏",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "Snow Shot",
+              "url": "https://github.com/mg-chao/snow-shot",
+              "official_site": "https://snowshot.top/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "",
+              "guide_id": "",
+              "icon": "",
+              "widget_url": ""
+            },
+            {
+              "name": "ScreenCapture",
+              "url": "https://github.com/xland/ScreenCapture",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "",
+              "detail": "滚动截图，标注丰富",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "pear-rec",
+              "url": "https://github.com/027xiguapi/pear-rec",
+              "official_site": "https://027xiguapi.github.io/pear-rec/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "截图、录屏、录音、录像",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
+              "name": "AutoScreenShot",
+              "url": "https://github.com/artem78/AutoScreenshot",
+              "official_site": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ],
+              "desc": "定时自动截图",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
+            },
+            {
               "name": "Snipaste",
               "url": "https://zh.snipaste.com/",
               "desc": "",
               "detail": "截图+贴图，便携版、商店版，长截图需专业版"
             },
             {
-              "name": "ShareX",
-              "url": "https://getsharex.com/",
-              "desc": "",
-              "detail": "27.1k star,编辑功能强大，适合专业人士，未适配高分屏（2024.3），显示过小"
-            },
-            {
-              "name": "Flameshot",
-              "url": "https://flameshot.org/",
-              "desc": "",
-              "detail": "23.3k star，标注功能强大，全平台"
-            },
-            {
-              "name": "PicPick",
-              "url": "https://picpick.app/zh/",
-              "desc": "",
-              "detail": "截图，个人免费使用"
-            },
-            {
-              "name": "eSearch",
-              "url": "https://github.com/xushengfeng/eSearch",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ],
-              "desc": "",
-              "detail": "2.8k star,长截屏、离线OCR、搜索翻译、贴图、录屏"
-            },
-            {
-              "name": "ScreenCapture",
-              "url": "https://github.com/xland/ScreenCapture",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ],
-              "desc": "",
-              "detail": "截图，标注丰富"
-            },
-            {
-              "name": "pear-rec",
-              "url": "https://027xiguapi.github.io/pear-rec/",
-              "desc": "",
-              "detail": "开源，截图、录屏、录音、录像软件"
-            },
-            {
               "name": "SETUNA2",
               "url": "https://github.com/tylearymf/SETUNA2",
+              "official_site": "",
               "badge_list": [
                 "stars",
                 "version",
                 "last_commit"
               ],
-              "desc": "",
-              "detail": "截图小工具（支持高分屏截图），个人接管"
+              "desc": "2024年归档",
+              "detail": "",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "Sniptool",
               "url": "https://www.reasyze.com/Sniptool/",
-              "desc": "",
-              "detail": "便携，截图"
+              "official_site": "",
+              "desc": "2023年更新",
+              "detail": "便携，截图",
+              "guide_id": "",
+              "widget_url": ""
             },
             {
               "name": "verycapture",
               "url": "https://verycapture.com/cn/index.html",
               "desc": "",
               "detail": "付费，老牌软件，长截图、OCR、录屏，可去portableapps.com或portablefreeware.com下载便携版"
-            },
-            {
-              "name": "AutoScreenShot",
-              "url": "https://github.com/artem78/AutoScreenshot",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ],
-              "desc": "",
-              "detail": "开源自动定时屏幕截图"
-            },
-            {
-              "name": "PicGo",
-              "url": "https://github.com/Molunerfinn/PicGo",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ],
-              "desc": "",
-              "detail": "24.5k star"
-            },
-            {
-              "name": "PicX",
-              "url": "https://github.com/XPoet/picx",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ],
-              "desc": "",
-              "detail": "4.7k star"
-            },
-            {
-              "name": "EasyImage2.0 简单图床",
-              "url": "https://github.com/icret/EasyImages2.0",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ],
-              "desc": "",
-              "detail": "3k star"
             }
           ]
         },
