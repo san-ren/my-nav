@@ -3,16 +3,20 @@ import { LayoutDashboard, Star, Code, Palette, ChevronRight } from 'lucide-react
 
 const { navResources, currentId, siteConfig } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-
 const Icons = { Star, Code, Palette, LayoutDashboard };
 ---
 
+<!-- 
+  🔥 核心修改 1：CSS 类名
+  将 transition-transform 改为 transition-all
+  这样 PC 端修改 margin-left 时也会有丝滑的动画，与右侧内容区完全同步。
+-->
 <aside 
   id="sidebar"
   style={{ width: 'var(--sidebar-width, 17rem)' }}
-  class="layout-transition fixed top-0 left-0 z-50 h-[100dvh] bg-white/90 dark:bg-gray-900/90 backdrop-blur-2xl shadow-[10px_0_40px_rgba(0,0,0,0.04)] dark:shadow-none flex flex-col border-r border-slate-200/50 dark:border-slate-800/50 overflow-x-hidden"
+  class="fixed top-0 left-0 z-50 h-[100dvh] bg-white/90 dark:bg-gray-900/90 backdrop-blur-2xl shadow-2xl md:shadow-none flex flex-col border-r border-slate-200/50 dark:border-slate-800/50 overflow-x-hidden will-change-transform transform -translate-x-full md:translate-x-0 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
 >
-  <!-- Logo 区域 -->
+  {/* Logo 区域 */}
   <div class="h-16 px-6 flex-shrink-0 flex items-center gap-3 border-b border-slate-100/50 dark:border-slate-800/50 overflow-hidden">
     <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center shadow-lg shadow-brand-500/30 text-white flex-shrink-0">
       <img src={`${base}/favicon.svg`} class="w-5 h-5 invert brightness-0" alt="Logo" />
@@ -22,8 +26,8 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
     </span>
   </div>
 
-  <!-- 菜单区域 -->
-  <nav class="flex-1 overflow-y-auto p-3 space-y-1 custom-scrollbar scrollbar-stable">
+  {/* 菜单区域 */}
+  <nav id="sidebar-nav" class="flex-1 overflow-y-auto p-3 space-y-1 custom-scrollbar scrollbar-stable">
     {navResources.map((page) => {
       const isActivePage = page.id === currentId;
       const PageIcon = Icons[page.icon] || LayoutDashboard;
@@ -76,6 +80,7 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
                             )}
                           </button>
                           
+                          {/* 浮窗 Tooltip 内容 */}
                           {hasTabs && (
                             <div class="sidebar-tooltip-source hidden">
                                <div class="flex items-center gap-2 mb-3 px-1 border-b border-slate-100 dark:border-slate-700/50 pb-2">
@@ -84,10 +89,7 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
                                </div>
                                <div class="flex flex-wrap gap-2">
                                  {cat.tabs.map((tab, tabIdx) => (
-                                   <button 
-                                     onclick={`window.scrollToTab('${uniqueId}', ${tabIdx});`}
-                                     class="flex items-center px-3 py-1.5 text-xs font-bold rounded-full transition-all duration-200 whitespace-nowrap bg-slate-100 dark:bg-gray-800 text-slate-500 dark:text-slate-400 hover:text-brand-600 hover:bg-white dark:hover:bg-gray-700 hover:shadow-md hover:scale-105 border border-transparent hover:border-brand-100 dark:hover:border-brand-900/30"
-                                   >
+                                   <button onclick={`window.scrollToTab('${uniqueId}', ${tabIdx});`} class="flex items-center px-3 py-1.5 text-xs font-bold rounded-full transition-all duration-200 whitespace-nowrap bg-slate-100 dark:bg-gray-800 text-slate-500 dark:text-slate-400 hover:text-brand-600 hover:bg-white dark:hover:bg-gray-700 hover:shadow-md hover:scale-105 border border-transparent hover:border-brand-100 dark:hover:border-brand-900/30">
                                      {tab.tabName}
                                    </button>
                                  ))}
@@ -95,18 +97,13 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
                             </div>
                           )}
 
+                          {/* 折叠手风琴 */}
                           {hasTabs && (
                             <div id={`sidebar-sub-${uniqueId}`} class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out">
                               <div class="overflow-hidden">
                                 <div class="pl-4 ml-1 border-l border-slate-100 dark:border-slate-800/50 space-y-0.5 pt-0.5 pb-1">
                                   {cat.tabs.map((tab, tabIdx) => (
-                                    <button 
-                                      class="w-full text-left px-2 py-1 text-sidebar-tab text-slate-500 hover:text-brand-600 hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors rounded-md truncate block"
-                                      onclick={`window.scrollToTab('${uniqueId}', ${tabIdx}); window.closeSidebarMobile();`}
-                                      title={tab.tabName}
-                                    >
-                                      {tab.tabName}
-                                    </button>
+                                    <button class="w-full text-left px-2 py-1 text-sidebar-tab text-slate-500 hover:text-brand-600 hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors rounded-md truncate block" onclick={`window.scrollToTab('${uniqueId}', ${tabIdx}); window.closeSidebarMobile();`} title={tab.tabName}>{tab.tabName}</button>
                                   ))}
                                 </div>
                               </div>
@@ -130,115 +127,126 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
   </div>
 </aside>
 
+<style is:global>
+  /* 
+    🔥 核心修改 2：遮罩层极致优化 
+    利用 transition-delay 解决"未加载完点击卡死"和"慢一步"的问题。
+  */
+  #sidebar-overlay {
+    position: fixed; inset: 0; z-index: 40;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    
+    /* 默认状态：隐藏 */
+    opacity: 0;
+    visibility: hidden;
+    
+    /* 
+       关键技巧：
+       opacity 变 0 时，visibility 延迟 0.3s 再变 hidden。
+       这样保证淡出动画能完整播放，不会瞬间消失。
+    */
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+    
+    touch-action: none; 
+  }
+
+  /* 激活状态 */
+  #sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    
+    /* 
+       显示时：立即显示 visibility，然后 opacity 开始淡入。
+       不需要 delay。
+    */
+    transition: opacity 0.3s ease, visibility 0s linear 0s;
+  }
+</style>
+
 <script is:inline>
 (function() {
   // =======================================================
-  // 1. 悬浮菜单逻辑 (Tooltip)
+  // 1. 侧边栏 & 遮罩控制逻辑
   // =======================================================
-  let tooltipEl = null;
-  let hideTimer = null;
-  let currentBtn = null;
+  
+  // 手机端开关 (原子化操作，绝不卡死)
+  window.toggleSidebarMobile = () => {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    if (!sidebar) return;
+
+    // 根据 CSS 类名判断当前状态
+    const isOpen = sidebar.classList.contains('translate-x-0');
+
+    if (isOpen) {
+      // 关
+      sidebar.classList.remove('translate-x-0');
+      sidebar.classList.add('-translate-x-full');
+      if (overlay) overlay.classList.remove('active'); // CSS 会自动处理动画
+      document.body.style.overflow = '';
+    } else {
+      // 开
+      sidebar.style.marginLeft = ''; // 确保没有 PC 端遗留的样式
+      sidebar.classList.remove('-translate-x-full');
+      sidebar.classList.add('translate-x-0');
+      if (overlay) overlay.classList.add('active'); // 立即触发 CSS 动画
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  // 强制关闭 (供跳转链接使用)
+  window.closeSidebarMobile = () => {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    
+    if (sidebar) {
+      sidebar.style.marginLeft = '';
+      sidebar.classList.remove('translate-x-0');
+      sidebar.classList.add('-translate-x-full');
+    }
+    if (overlay) overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  // =======================================================
+  // 2. 悬浮菜单逻辑 (Tooltip) - Fixed
+  // =======================================================
+  let tooltipEl = null; let hideTimer = null; let currentBtn = null;
 
   function createTooltipDOM() {
-    if (document.getElementById('sidebar-float-menu')) {
-      tooltipEl = document.getElementById('sidebar-float-menu');
-      return;
-    }
-    
+    if (document.getElementById('sidebar-float-menu')) { tooltipEl = document.getElementById('sidebar-float-menu'); return; }
     tooltipEl = document.createElement('div');
     tooltipEl.id = 'sidebar-float-menu';
-    tooltipEl.style.cssText = `
-      position: fixed;
-      z-index: 9999;
-      display: none;
-      min-width: 180px;
-      max-width: 260px;
-      padding: 16px;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 16px;
-      box-shadow: 0 10px 40px -10px rgba(0,0,0,0.15);
-      border: 1px solid rgba(255,255,255,0.2);
-      backdrop-filter: blur(16px);
-      opacity: 0;
-      transform: translateX(-10px);
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      pointer-events: auto;
-    `;
-    
-    if (document.documentElement.classList.contains('dark')) {
-      tooltipEl.style.backgroundColor = 'rgba(17, 24, 39, 0.95)';
-      tooltipEl.style.borderColor = 'rgba(51, 65, 85, 0.5)';
-    }
-
+    tooltipEl.style.cssText = `position: fixed; z-index: 9999; display: none; min-width: 180px; max-width: 260px; padding: 16px; background: rgba(255, 255, 255, 0.95); border-radius: 16px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(16px); opacity: 0; transform: translateX(-10px); transition: opacity 0.2s ease, transform 0.2s ease; pointer-events: auto;`;
+    if (document.documentElement.classList.contains('dark')) { tooltipEl.style.backgroundColor = 'rgba(17, 24, 39, 0.95)'; tooltipEl.style.borderColor = 'rgba(51, 65, 85, 0.5)'; }
     document.body.appendChild(tooltipEl);
-
-    tooltipEl.addEventListener('mouseenter', () => {
-      if (hideTimer) clearTimeout(hideTimer);
-    });
-    tooltipEl.addEventListener('mouseleave', () => {
-      hideTooltip();
-    });
+    tooltipEl.addEventListener('mouseenter', () => { if (hideTimer) clearTimeout(hideTimer); });
+    tooltipEl.addEventListener('mouseleave', () => { hideTooltip(); });
   }
 
   function showTooltip(btn, content) {
     if (window.innerWidth < 768) return;
     createTooltipDOM();
     if (hideTimer) clearTimeout(hideTimer);
-
     if (currentBtn === btn && tooltipEl.style.display === 'block') return;
-
     tooltipEl.innerHTML = content;
-
     const rect = btn.getBoundingClientRect();
-    const top = Math.max(10, rect.top);
+    const top = Math.max(10, Math.min(window.innerHeight - 200, rect.top));
     const left = rect.right + 10;
-
     tooltipEl.style.top = `${top}px`;
     tooltipEl.style.left = `${left}px`;
     tooltipEl.style.display = 'block';
-
     void tooltipEl.offsetWidth;
-
     tooltipEl.style.opacity = '1';
     tooltipEl.style.transform = 'translateX(0)';
     currentBtn = btn;
   }
-
-  function hideTooltip() {
-    if (!tooltipEl) return;
-    
-    hideTimer = setTimeout(() => {
-      tooltipEl.style.opacity = '0';
-      tooltipEl.style.transform = 'translateX(-10px)';
-      setTimeout(() => {
-        if (tooltipEl.style.opacity === '0') {
-          tooltipEl.style.display = 'none';
-          currentBtn = null;
-        }
-      }, 200);
-    }, 100);
-  }
+  function hideTooltipImmediate() { if (!tooltipEl) return; if (hideTimer) clearTimeout(hideTimer); tooltipEl.style.display = 'none'; tooltipEl.style.opacity = '0'; currentBtn = null; }
+  function hideTooltip() { if (!tooltipEl) return; hideTimer = setTimeout(() => { tooltipEl.style.opacity = '0'; tooltipEl.style.transform = 'translateX(-10px)'; setTimeout(() => { if (tooltipEl.style.opacity === '0') { tooltipEl.style.display = 'none'; currentBtn = null; } }, 200); }, 100); }
 
   // =======================================================
-  // 2. 侧边栏折叠逻辑 (手机端)
-  // PC端逻辑由 index.astro 控制
-  // =======================================================
-  
-  window.closeSidebarMobile = () => {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    document.documentElement.classList.remove('overflow-hidden');
-    document.body.classList.remove('overflow-hidden');
-    
-    // 手机端：使用 transform 隐藏
-    if (window.innerWidth < 768 && sidebar && overlay) { 
-        sidebar.style.transform = 'translateX(-100%)'; 
-        overlay.classList.add('hidden');
-    }
-  };
-
-  // =======================================================
-  // 3. 事件绑定
+  // 3. 事件绑定 & 初始化
   // =======================================================
   function bindHoverEvents() {
     const btns = document.querySelectorAll('.has-sub-menu');
@@ -275,23 +283,40 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
   function init() {
     createTooltipDOM();
     bindHoverEvents();
+    
+    // 绑定遮罩点击 (确保 DOM 存在后再绑定)
+    const overlay = document.getElementById('sidebar-overlay');
+    if (overlay) {
+        overlay.onclick = window.closeSidebarMobile;
+    }
+    
     document.removeEventListener('click', handleCollapse);
     document.addEventListener('click', handleCollapse);
-    const overlay = document.getElementById('sidebar-overlay');
-    if (overlay) overlay.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
-  }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
+    const sidebarNav = document.getElementById('sidebar-nav');
+    if (sidebarNav) sidebarNav.addEventListener('scroll', () => hideTooltipImmediate(), { passive: true });
+    
+    // 自检：手机端强制修正状态，防止样式残留
+    if (window.innerWidth < 768) {
+       const sb = document.getElementById('sidebar');
+       if (sb) {
+           sb.style.marginLeft = '';
+           // 确保默认隐藏
+           if (!sb.classList.contains('translate-x-0')) {
+               sb.classList.add('-translate-x-full');
+           }
+       }
+    }
   }
+  
+  // 立即执行，不等待 Load
+  init();
   document.addEventListener('astro:after-swap', init);
   document.addEventListener('astro:page-load', init);
 
 })();
 
-// 辅助函数 (暴露给全局)
+// 辅助函数
 window.scrollToSection = (id) => {
   const el = document.getElementById(id);
   if (el) {
@@ -300,7 +325,6 @@ window.scrollToSection = (id) => {
     window.closeSidebarMobile();
   }
 };
-
 window.scrollToTab = (id, idx) => {
   const menu = document.getElementById('sidebar-float-menu');
   if(menu) menu.style.display = 'none';
@@ -324,13 +348,3 @@ window.scrollToTab = (id, idx) => {
   }, 300);
 };
 </script>
-
-<style>
-  .custom-scrollbar::-webkit-scrollbar { width: 5px; }
-  .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-  .custom-scrollbar::-webkit-scrollbar-thumb { background-color: transparent; border-radius: 20px; }
-  nav:hover::-webkit-scrollbar-thumb { background-color: rgba(156, 163, 175, 0.4); }
-  .safe-area-bottom { padding-bottom: env(safe-area-inset-bottom, 20px); }
-  svg { transition: transform 0.2s ease; }
-  .scrollbar-stable { scrollbar-gutter: stable; }
-</style>

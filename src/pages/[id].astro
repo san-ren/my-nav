@@ -46,21 +46,24 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
   <div class="flex min-h-screen w-full">
     
     <Sidebar navResources={navResources} currentId={id} siteConfig={siteConfig} />
-    <div id="sidebar-overlay" class="fixed inset-0 bg-black/40 z-40 hidden md:hidden backdrop-blur-sm transition-opacity" onclick="toggleSidebar()"></div>
+    
+    {/* 
+      ✅ 修正：移除旧的 onclick 和 class。
+      遮罩层的样式和逻辑现在完全由 Sidebar.astro 全局控制。
+    */}
+    <div id="sidebar-overlay"></div>
 
     <main class="layout-transition flex-1 min-w-0 md:ml-[var(--sidebar-width,17rem)] min-h-screen flex flex-col">
       
-      {/* 
-         🔥 Header 回归 Fixed + 手动宽度计算模式 
-      */}
       <header id="page-header" class="layout-transition fixed top-0 right-0 z-30 flex items-center justify-between px-4 md:px-8 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50 w-full md:w-[calc(100%-var(--sidebar-width,17rem))] transition-all duration-300">
        
         <div class="flex items-center gap-3 min-w-0">
           <button 
             id="menu-btn" 
             class="p-2 text-slate-600 dark:text-slate-300 bg-white/80 dark:bg-gray-800/80 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 shrink-0 hover:text-brand-600 transition-colors" 
-            onclick="if(window.innerWidth < 768) toggleSidebar(); else window.toggleSidebarPC();"
+            onclick="if(window.innerWidth < 768) window.toggleSidebarMobile(); else window.toggleSidebarPC();"
           >
+            {/* 👆 确保手机端调用的是 window.toggleSidebarMobile() */}
             <Menu size={20} />
           </button>
 
@@ -142,25 +145,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 </Layout>
 
 <script is:inline>
-  // 1. 手机端逻辑
-  window.toggleSidebar = () => {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    if (sidebar && overlay) {
-      sidebar.classList.toggle('-translate-x-full');
-      overlay.classList.toggle('hidden');
-      const isOpen = !sidebar.classList.contains('-translate-x-full');
-      if (isOpen) {
-        document.documentElement.classList.add('overflow-hidden');
-        document.body.classList.add('overflow-hidden');
-      } else {
-        document.documentElement.classList.remove('overflow-hidden');
-        document.body.classList.remove('overflow-hidden');
-      }
-    }
-  };
-
-  // 2. PC 端折叠逻辑
+  // 1. PC 端折叠逻辑
   window.isPCOpen = true;
 
   window.toggleSidebarPC = () => {
@@ -175,12 +160,12 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
         // ▶️ 展开
         sidebar.style.marginLeft = '0px';
         mainContent.style.marginLeft = 'var(--sidebar-width)';
-        header.style.width = 'calc(100% - var(--sidebar-width))'; // 恢复宽度
+        header.style.width = 'calc(100% - var(--sidebar-width))'; 
       } else {
         // ◀️ 折叠
         sidebar.style.marginLeft = 'calc(var(--sidebar-width) * -1)';
         mainContent.style.marginLeft = '0px';
-        header.style.width = '100%'; // 宽度铺满
+        header.style.width = '100%';
       }
     }
   };
@@ -230,7 +215,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     });
   }
 
-  // 3. 顶栏智能显隐
+  // 2. 顶栏智能显隐
   function initHeaderScroll() {
     let lastScrollY = window.scrollY;
     const header = document.getElementById('page-header');
@@ -259,6 +244,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     }, { passive: true });
   }
 
+  // 🔥 核心修正：初始化函数
   function initAll() {
     initTabs();
     initHeaderScroll();
@@ -269,16 +255,25 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     
     if(sidebar && mainContent && header) {
         if (window.innerWidth >= 768) {
-          // PC 默认展开
+          // PC 默认状态：恢复 PC 端布局
           sidebar.style.marginLeft = '0px';
           mainContent.style.marginLeft = 'var(--sidebar-width)';
-          header.style.width = 'calc(100% - var(--sidebar-width))';
+          header.style.width = 'calc(100% - var(--sidebar-width))'; 
+          
+          // 确保 Sidebar.astro 的 CSS 类名切换到显示状态
+          sidebar.classList.remove('-translate-x-full');
+          sidebar.classList.add('translate-x-0');
         } else {
-          // Mobile 默认隐藏
-          sidebar.style.transform = 'translateX(-100%)'; 
-          sidebar.style.marginLeft = '0px';
+          // 🔥 Mobile 强制状态：清除 margin，让内容铺满
+          sidebar.style.marginLeft = '';
           mainContent.style.marginLeft = '0px';
           header.style.width = '100%';
+          
+          // 确保侧边栏 CSS 类名处于隐藏状态 (-translate-x-full)
+          if (sidebar.classList.contains('translate-x-0')) {
+             sidebar.classList.remove('translate-x-0');
+             sidebar.classList.add('-translate-x-full');
+          }
         }
     }
     window.isPCOpen = true; 
@@ -287,6 +282,12 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
   initAll();
   document.addEventListener('astro:after-swap', initAll);
   window.addEventListener('resize', initTabs);
+  
+  // 监听窗口大小改变，防抖重置布局
+  window.addEventListener('resize', () => {
+    if (window.resizeTimer) clearTimeout(window.resizeTimer);
+    window.resizeTimer = setTimeout(initAll, 200);
+  });
 </script>
 
 <style is:global>

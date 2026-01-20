@@ -87,7 +87,7 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
   >
     <div class="flex items-center flex-1 min-w-0 mr-1">
         <div class="relative flex-shrink-0 mr-3 w-10 h-10 flex items-center justify-center">
-          <!-- 光影层：也使用 lazy-icon 机制，防止它抢占资源 -->
+          <!-- 光影层 -->
           <div class="absolute inset-0 z-0 transition-all duration-500 ease-out opacity-0 group-hover:opacity-50 group-hover:scale-150 filter blur-lg saturate-150 pointer-events-none transform-gpu">
              <img src={localFallback} data-lazy-src={targetIcon} alt="" class="lazy-icon w-full h-full object-contain" aria-hidden="true" />
           </div>
@@ -159,28 +159,17 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
 <script is:inline>
   (function() {
     // -------------------------------------------------------------
-    // 🔥 核心优化：智能优先级加载 (Smart Priority Loading)
+    // 图片加载逻辑 (保持不变，省略以节省空间，请保留原有的)
     // -------------------------------------------------------------
-    
-    // 加载单张图片的函数
-    function loadOneImage(img) {
-      if (img.dataset.loaded === 'true') return; // 防止重复加载
-      
+    function loadOneImage(img) { /* ...保留你原有的代码... */ 
+      if (img.dataset.loaded === 'true') return;
       const realSrc = img.dataset.lazySrc;
       const sources = img.dataset.sources ? JSON.parse(img.dataset.sources) : null;
       const domain = img.dataset.domain;
-
-      // 1. 先查缓存 (最快)
       if (domain) {
          const cached = localStorage.getItem('fav-' + domain);
-         if (cached) {
-           img.src = cached;
-           img.dataset.loaded = 'true';
-           return;
-         }
+         if (cached) { img.src = cached; img.dataset.loaded = 'true'; return; }
       }
-
-      // 2. 开始网络请求
       const tempImage = new Image();
       tempImage.onload = () => {
         img.src = realSrc;
@@ -190,81 +179,50 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
         }
       };
       tempImage.onerror = () => {
-        // 失败备用方案
         if (sources) {
            if (realSrc.includes('ico.kucat.cn')) img.src = sources.level2;
            else if (realSrc.includes('/favicon.ico')) img.src = sources.level3;
            else img.dataset.loaded = 'true'; 
         }
       };
-      
       if (realSrc) tempImage.src = realSrc;
     }
 
-    // -------------------------------------------------------------
-    // 优先级 1 & 2: 可视区优先 (IntersectionObserver)
-    // -------------------------------------------------------------
-    function initObserver() {
+    function initObserver() { /* ...保留你原有的代码... */
       const imgs = document.querySelectorAll('img.lazy-icon:not([data-loaded="true"])');
-      
       if ('IntersectionObserver' in window) {
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
-              // 进入屏幕：立即加载
               loadOneImage(entry.target);
               observer.unobserve(entry.target);
             }
           });
-        }, {
-          rootMargin: '200px 0px', // 提前 200px 加载 (预加载即将滚动到的)
-          threshold: 0.01
-        });
-
+        }, { rootMargin: '200px 0px', threshold: 0.01 });
         imgs.forEach(img => observer.observe(img));
       } else {
-        // 不支持 Observer 的老浏览器：直接全部加载
         imgs.forEach(img => loadOneImage(img));
       }
     }
 
-    // -------------------------------------------------------------
-    // 优先级 3: 闲时加载 (Idle Load)
-    // 加载屏幕外、Tab 隐藏的内容，防止用户点击 Tab 时图标还没出来
-    // -------------------------------------------------------------
-    function loadRestIcons() {
-      // 使用 requestIdleCallback 在浏览器空闲时执行
+    function loadRestIcons() { /* ...保留你原有的代码... */
       const idleCallback = window.requestIdleCallback || ((cb) => setTimeout(cb, 2000));
-      
       idleCallback(() => {
         const allImgs = document.querySelectorAll('img.lazy-icon:not([data-loaded="true"])');
         allImgs.forEach(img => loadOneImage(img));
       }, { timeout: 5000 });
     }
 
-    // -------------------------------------------------------------
-    // 启动逻辑
-    // -------------------------------------------------------------
     function startLoading() {
-      // 1. 立即启动可视区观察器 (保证首屏图标最快显示)
       initObserver();
-      
-      // 2. 等页面完全加载完后，再从容地加载剩下的 (保证转圈圈先停下)
-      if (document.readyState === 'complete') {
-        loadRestIcons();
-      } else {
-        window.addEventListener('load', loadRestIcons);
-      }
+      if (document.readyState === 'complete') { loadRestIcons(); } 
+      else { window.addEventListener('load', loadRestIcons); }
     }
-
-    // 绑定 Astro 路由事件
     document.addEventListener('astro:page-load', startLoading);
-    
-    // 首次执行 (如果不是由 Astro 路由触发)
     startLoading();
 
     // -------------------------------------------------------------
-    // 浮窗逻辑 (保持不变)
+    // 浮窗逻辑 (🔥 针对移动端滚动优化)
     // -------------------------------------------------------------
     let tooltipEl = null;
     let hideTimer = null;
@@ -277,6 +235,7 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       }
       tooltipEl = document.createElement('div');
       tooltipEl.id = 'global-detail-tooltip';
+      // 注意：这里保留了 transition，但在滚动隐藏时我们会临时关掉它
       tooltipEl.className = 'portal-popup fixed z-[9999] hidden w-72 p-4 bg-white dark:bg-[#1e2025] rounded-xl shadow-2xl border border-slate-200/60 dark:border-slate-700 pointer-events-none opacity-0 scale-75 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]';
       
       const arrow = document.createElement('div');
@@ -294,20 +253,25 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       if (!tooltipEl) createTooltipDOM();
       if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
 
+      // 激活流光边框
+      wrapper.classList.add('flow-active');
+
       const source = wrapper.querySelector('.tooltip-source');
       if (!source) return;
 
       const contentBox = document.getElementById('tooltip-content');
       contentBox.innerHTML = source.innerHTML;
 
-      tooltipEl.style.transition = 'none';
+      // 重置 Transition，确保显示动画流畅
+      tooltipEl.style.transition = ''; 
       tooltipEl.classList.remove('hidden', 'scale-75', 'opacity-0');
       tooltipEl.classList.add('scale-100', 'opacity-0'); 
       updatePosition(wrapper);
+      
+      // 触发动画
       tooltipEl.classList.remove('scale-100');
       tooltipEl.classList.add('scale-75');
       void tooltipEl.offsetWidth;
-      tooltipEl.style.transition = '';
       
       requestAnimationFrame(() => {
         tooltipEl.classList.remove('opacity-0', 'scale-75');
@@ -317,12 +281,25 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
 
     function hideTooltip(immediate = false) {
       if (!tooltipEl) return;
-      tooltipEl.classList.remove('opacity-100', 'scale-100');
-      tooltipEl.classList.add('opacity-0', 'scale-75');
+      
+      // 移除流光边框
+      if (activeCard) {
+        activeCard.classList.remove('flow-active');
+      }
+
       if (immediate) {
-         tooltipEl.classList.add('hidden');
+         // 🔥 核心修改：如果是立即关闭（比如滚动时），直接干掉 Transition
+         // 这样可以防止浮窗在原地"淡出" 2秒钟
+         tooltipEl.style.transition = 'none';
+         tooltipEl.classList.add('hidden', 'opacity-0', 'scale-75');
+         tooltipEl.classList.remove('opacity-100', 'scale-100');
          activeCard = null;
       } else {
+        // 正常鼠标移出的关闭，保留淡出动画
+        tooltipEl.style.transition = '';
+        tooltipEl.classList.remove('opacity-100', 'scale-100');
+        tooltipEl.classList.add('opacity-0', 'scale-75');
+        
         if (hideTimer) clearTimeout(hideTimer);
         hideTimer = setTimeout(() => {
           if (tooltipEl && tooltipEl.classList.contains('opacity-0')) {
@@ -379,6 +356,7 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       const wrapper = e.target.closest('.site-card-wrapper');
       if (wrapper) {
         if (activeCard !== wrapper && wrapper.querySelector('.tooltip-source')) {
+          if (activeCard) activeCard.classList.remove('flow-active');
           activeCard = wrapper;
           showTooltip(wrapper);
         }
@@ -399,7 +377,11 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
         const wrapper = btn.closest('.site-card-wrapper');
         if (wrapper) {
            if (activeCard === wrapper && !tooltipEl.classList.contains('hidden')) hideTooltip();
-           else { activeCard = wrapper; showTooltip(wrapper); }
+           else { 
+             if(activeCard) activeCard.classList.remove('flow-active');
+             activeCard = wrapper; 
+             showTooltip(wrapper); 
+           }
         }
         return;
       }
@@ -410,24 +392,32 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
       }
     };
     
+    // 滚动时立即隐藏
     const handleScroll = () => { if (activeCard) hideTooltip(true); };
     const handleDocMouseLeave = () => { if (activeCard) hideTooltip(true); };
     const handleWindowBlur = () => { if (activeCard) hideTooltip(true); };
 
     function init() {
-      // 移除原有的 restoreCachedIcons()，改由 Observer 和 IdleLoad 统一接管
       createTooltipDOM();
       
+      // 清理旧监听器
       document.body.removeEventListener('mouseover', handleMouseOver);
       document.body.removeEventListener('click', handleClick);
       document.removeEventListener('mouseleave', handleDocMouseLeave);
       window.removeEventListener('scroll', handleScroll, { capture: true });
+      window.removeEventListener('touchmove', handleScroll); // 移除旧的触摸监听
       window.removeEventListener('blur', handleWindowBlur);
 
+      // 添加新监听器
       document.body.addEventListener('mouseover', handleMouseOver);
       document.body.addEventListener('click', handleClick);
       document.addEventListener('mouseleave', handleDocMouseLeave);
+      
+      // 🔥 核心：监听 scroll (PC) 和 touchmove (移动端)
+      // touchmove 会在手指滑动屏幕的瞬间触发，比 scroll 更快
       window.addEventListener('scroll', handleScroll, { capture: true, passive: true });
+      window.addEventListener('touchmove', handleScroll, { passive: true }); // 新增这一行
+      
       window.addEventListener('blur', handleWindowBlur);
     }
 
@@ -442,10 +432,78 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
 </script>
 
 <style is:global>
+  /* 基础 Markdown 样式 (保持不变) */
   .detail-markdown p { margin-bottom: 0.5rem; }
   .detail-markdown p:last-child { margin-bottom: 0; }
   .detail-markdown ul { list-style-type: disc; padding-left: 1.2em; margin-bottom: 0.5rem; }
   .detail-markdown li { margin-bottom: 0.2rem; }
   .detail-markdown a { color: #3b82f6; text-decoration: underline; }
   .detail-markdown del { text-decoration: line-through; opacity: 0.7; }
+
+  /* 
+    🔥 优化后的流光动画：模拟光束划过
+  */
+  @keyframes beamFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+  }
+
+  /* 
+     使用 ::after 伪元素创建流光层
+  */
+  .site-card-wrapper a::after {
+      content: "";
+      position: absolute;
+      inset: -1.5px; /* 边框稍微细一点，更精致 */
+      z-index: 50; 
+      border-radius: 12px; /* 匹配卡片圆角 */
+      padding: 1.5px;      /* 边框粗细 */
+      
+      /* 
+         ⭐ 核心修改：光束渐变构造
+         逻辑：透明 -> 靛青 -> 紫色高亮 -> 粉色 -> 透明
+         这种"中间亮、两头空"的构造移动起来才像"流动的光"
+      */
+      background: linear-gradient(
+          60deg,
+          transparent 20%,
+          rgba(79, 70, 229, 0) 35%,   /* Indigo 透明端 */
+          rgba(79, 70, 229, 1) 45%,   /* Indigo 实体 */
+          rgba(168, 85, 247, 1) 50%,  /* Purple 高亮核心 */
+          rgba(236, 72, 153, 1) 55%,  /* Pink 实体 */
+          rgba(236, 72, 153, 0) 65%,  /* Pink 透明端 */
+          transparent 80%
+      );
+      
+      /* 拉大背景，让光束只占画面的一小部分，这样移动起来才有位移感 */
+      background-size: 300% 300%; 
+      
+      /* 遮罩魔法：中间镂空 */
+      -webkit-mask: 
+         linear-gradient(#fff 0 0) content-box, 
+         linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      
+      /* 默认隐藏 */
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      
+      /* 增加一点发光晕染，更有质感 */
+      filter: drop-shadow(0 0 2px rgba(168, 85, 247, 0.5));
+  }
+
+  /* 激活状态：显示并快速流动 */
+  .site-card-wrapper.flow-active a::after {
+      opacity: 1;
+      /* 缩短时间到 2s，让流动速度变快，更有动感 */
+      animation: beamFlow 2.5s ease infinite; 
+  }
+  
+  /* 暗色模式下的光束调整 (可选，让光在深色背景更亮) */
+  :global(.dark) .site-card-wrapper a::after {
+      filter: drop-shadow(0 0 3px rgba(168, 85, 247, 0.8));
+  }
 </style>

@@ -35,22 +35,18 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
   <div class="flex min-h-screen w-full">
     
     <Sidebar navResources={navResources} currentId={currentId} siteConfig={siteConfig} />
-    <div id="sidebar-overlay" class="fixed inset-0 bg-black/40 z-40 hidden md:hidden backdrop-blur-sm transition-opacity" onclick="toggleSidebar()"></div>
+    
+    {/* 遮罩层容器，样式由 Sidebar.astro 全局 CSS 控制 */}
+    <div id="sidebar-overlay"></div>
 
     <main class="layout-transition flex-1 min-w-0 md:ml-[var(--sidebar-width,17rem)] min-h-screen flex flex-col">
       
-      {/* 
-         🔥 经典回归：Fixed 右对齐模式
-         1. fixed top-0 right-0: 永远咬住右上角。
-         2. w-full md:w-[calc...]: 电脑端宽度减去侧边栏，防止遮挡。
-         3. transition-all: 保证宽度变化时有动画。
-      */}
       <header id="page-header" class="layout-transition fixed top-0 right-0 z-30 flex items-center justify-between px-4 md:px-8 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50 w-full md:w-[calc(100%-var(--sidebar-width,17rem))] transition-all duration-300">
         <div class="flex items-center gap-3 min-w-0">
           <button 
             id="menu-btn" 
             class="p-2 text-slate-600 dark:text-slate-300 bg-white/80 dark:bg-gray-800/80 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 shrink-0 hover:text-brand-600 transition-colors" 
-            onclick="if(window.innerWidth < 768) toggleSidebar(); else window.toggleSidebarPC();"
+            onclick="if(window.innerWidth < 768) window.toggleSidebarMobile(); else window.toggleSidebarPC();"
           >
             <Menu size={20} />
           </button>
@@ -67,7 +63,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
         </div>
       </header>
 
-      {/* Padding 留出头部空间 */}
+      {/* 内容区域省略，保持原样 */}
       <div class="p-4 pt-24 md:p-8 md:pt-28 space-y-12 w-full max-w-[1440px] mx-auto">
         {(section.groups || []).map((group, groupIdx) => (
           <div class="group-wrapper w-full">
@@ -134,25 +130,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 </Layout>
 
 <script is:inline>
-  // 1. 手机端逻辑 (不变)
-  window.toggleSidebar = () => {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    if (sidebar && overlay) {
-      sidebar.classList.toggle('-translate-x-full');
-      overlay.classList.toggle('hidden');
-      const isOpen = !sidebar.classList.contains('-translate-x-full');
-      if (isOpen) {
-        document.documentElement.classList.add('overflow-hidden');
-        document.body.classList.add('overflow-hidden');
-      } else {
-        document.documentElement.classList.remove('overflow-hidden');
-        document.body.classList.remove('overflow-hidden');
-      }
-    }
-  };
-
-  // 2. PC 端折叠逻辑 (复刻旧版逻辑：手动控制 Header 宽度)
+  // 1. PC 端折叠逻辑
   window.isPCOpen = true;
 
   window.toggleSidebarPC = () => {
@@ -165,24 +143,13 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
       
       if (window.isPCOpen) {
         // ▶️ 展开
-        // 1. 侧边栏：恢复显示
-        // 注意：这里改回使用 style.marginLeft 来控制，确保和 main 同步
         sidebar.style.marginLeft = '0px'; 
-        
-        // 2. 内容区：右推
         mainContent.style.marginLeft = 'var(--sidebar-width)';
-        
-        // 3. 顶栏：宽度减小 (这是旧代码的精髓)
         header.style.width = 'calc(100% - var(--sidebar-width))';
       } else {
         // ◀️ 折叠
-        // 1. 侧边栏：移出
         sidebar.style.marginLeft = 'calc(var(--sidebar-width) * -1)';
-        
-        // 2. 内容区：归零
         mainContent.style.marginLeft = '0px';
-        
-        // 3. 顶栏：宽度铺满 (这是旧代码的精髓)
         header.style.width = '100%';
       }
     }
@@ -233,59 +200,59 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     });
   }
 
-  // 3. 顶栏智能显隐 (Smart Hide)
-  // 这是你喜欢的那个功能，它需要 fixed 定位支持
+  // 2. 顶栏智能显隐
   function initHeaderScroll() {
     let lastScrollY = window.scrollY;
     const header = document.getElementById('page-header');
     const threshold = 50;
-
     window.addEventListener('scroll', () => {
       if (!header) return;
-      
       const currentScrollY = window.scrollY;
-      
       if (currentScrollY <= 0) {
         header.style.transform = 'translateY(0)';
         lastScrollY = currentScrollY;
         return;
       }
-      
       if (Math.abs(currentScrollY - lastScrollY) < 5) return;
-
       if (currentScrollY > lastScrollY && currentScrollY > threshold) {
-        // 下滚隐藏
         header.style.transform = 'translateY(-100%)';
       } else {
-        // 上滚显示
         header.style.transform = 'translateY(0)';
       }
-      
       lastScrollY = currentScrollY;
     }, { passive: true });
   }
 
+  // 🔥 核心修正：初始化函数
   function initAll() {
     initTabs();
     initHeaderScroll();
     
-    // 初始化复位
     const sidebar = document.getElementById('sidebar');
     const mainContent = document.querySelector('main');
     const header = document.getElementById('page-header');
     
     if(sidebar && mainContent && header) {
         if (window.innerWidth >= 768) {
-          // PC 默认展开
+          // PC 默认状态：重置所有 JS 动态 margin，使用 CSS 默认值
           sidebar.style.marginLeft = '0px';
           mainContent.style.marginLeft = 'var(--sidebar-width)';
-          header.style.width = 'calc(100% - var(--sidebar-width))'; // 关键
+          header.style.width = 'calc(100% - var(--sidebar-width))'; 
+          // 确保没有手机端的 class 干扰
+          sidebar.classList.remove('-translate-x-full');
+          sidebar.classList.add('translate-x-0');
         } else {
-          // Mobile 默认隐藏
-          sidebar.style.transform = 'translateX(-100%)'; 
-          sidebar.style.marginLeft = '0px';
+          // 🔥 Mobile 强制状态：清除所有 margin，消除白边
+          sidebar.style.marginLeft = '';
           mainContent.style.marginLeft = '0px';
           header.style.width = '100%';
+          
+          // 手机端默认是隐藏的 (-translate-x-full)
+          // 如果侧边栏卡在 translate-x-0，手动关掉它
+          if (sidebar.classList.contains('translate-x-0')) {
+             sidebar.classList.remove('translate-x-0');
+             sidebar.classList.add('-translate-x-full');
+          }
         }
     }
     window.isPCOpen = true; 
@@ -294,6 +261,13 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
   initAll();
   document.addEventListener('astro:after-swap', initAll);
   window.addEventListener('resize', initTabs);
+  
+  // 监听窗口大小改变，动态切换布局逻辑
+  window.addEventListener('resize', () => {
+    // 简单的防抖，防止频繁触发
+    if (window.resizeTimer) clearTimeout(window.resizeTimer);
+    window.resizeTimer = setTimeout(initAll, 200);
+  });
 </script>
 
 <style is:global>
