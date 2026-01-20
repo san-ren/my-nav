@@ -9,7 +9,7 @@
       "icon": "",
       "tabs": [
         {
-          "tabName": "网站",
+          "tabName": "资源类",
           "list": [
             {
               "name": "不死鸟",
@@ -128,7 +128,7 @@
           ]
         },
         {
-          "tabName": "专业网站",
+          "tabName": "资讯类",
           "list": [
             {
               "name": "存储百科--中存储网",

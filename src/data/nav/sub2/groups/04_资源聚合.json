@@ -1,0 +1,14 @@
+{
+  "page": "sub2",
+  "sort_prefix": "04",
+  "name": "资源聚合",
+  "icon": "",
+  "categories": [
+    {
+      "name": "默认",
+      "icon": "",
+      "list": [],
+      "tabs": []
+    }
+  ]
+}
