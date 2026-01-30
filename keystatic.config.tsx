@@ -126,7 +126,7 @@ const resourceFields = {
 
 export default config({
   storage: isProd
-    ? { kind: 'github', repo: 'sanren/my-nav' }
+    ? { kind: 'cloud' }
     : { kind: 'local' },
 
   cloud: { project: 'astro-nav/my-nav' },
