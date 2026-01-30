@@ -1,16 +1,19 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-
 import Container from '../../components/mdx/Container.astro';
 import '../../styles/mdx.css';
 
+// 🔥 关键修复：显式声明为静态预渲染
+// 加上这行代码，彻底消除 "NoAdapterInstalled" 报错的可能性
+export const prerender = true;
 
 // 1. 生成路径
 export async function getStaticPaths() {
   const guideEntries = await getCollection('guides');
   return guideEntries.map(entry => ({
-    params: { slug: entry.slug }, props: { entry },
+    params: { slug: entry.slug }, 
+    props: { entry },
   }));
 }
 
@@ -32,9 +35,8 @@ const title = entry.data.title || entry.id; // 兜底标题
         发布时间：{entry.data.date?.toISOString().split('T')[0]}
       </div>
       
-      {/* 🔥 注入组件 */}
+      {/* 🔥 注入组件，确保 MDX 中的 <container> 标签能被正确解析 */}
       <Content components={{ container: Container }} />
     </article>
   </div>
 </Layout>
-

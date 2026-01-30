@@ -9,6 +9,8 @@ import siteConfig from '../content/site-settings/config.json';
 import { getCollection } from 'astro:content'; 
 import { LayoutDashboard, Star, Code, Palette, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu } from 'lucide-react';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const rawPages = await getCollection('nav-pages');
   const rawGroups = await getCollection('nav-groups');
