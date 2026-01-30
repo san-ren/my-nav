@@ -1,0 +1,15 @@
+{
+  "name": "资源聚合",
+  "id": "sub2-04-资源聚合",
+  "categories": [
+    {
+      "name": "默认",
+      "resources": [],
+      "tabs": []
+    }
+  ],
+  "pageName": "sub2",
+  "pageConfig": {
+    "sortPrefix": "04"
+  }
+}

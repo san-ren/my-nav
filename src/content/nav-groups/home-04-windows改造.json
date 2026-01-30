@@ -1,0 +1,702 @@
+{
+  "visualTag": "🏠",
+  "name": "windows改造",
+  "categories": [
+    {
+      "name": "效率",
+      "resources": [],
+      "tabs": [
+        {
+          "tabName": "剪贴板",
+          "list": [
+            {
+              "name": "Ditto",
+              "url": "https://ditto-cp.sourceforge.io/index.php",
+              "badge_list": []
+            },
+            {
+              "name": "Snatch",
+              "url": "https://snatch.kasper.io",
+              "badge_list": []
+            },
+            {
+              "name": "PasteEx",
+              "url": "https://github.com/huiyadanli/PasteEx",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "CopyQ",
+              "url": "https://hluk.github.io/CopyQ/",
+              "badge_list": []
+            },
+            {
+              "name": "TinyCopyBoard",
+              "url": "https://github.com/AlanWanco/TinyCopyBoard",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "EcoPaste",
+              "url": "https://github.com/ayangweb/EcoPaste",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "柠檬Push",
+              "url": "https://sibtools.app/lemon_push/",
+              "badge_list": []
+            },
+            {
+              "name": "CC助手",
+              "url": "https://ccyixia.com/",
+              "badge_list": []
+            },
+            {
+              "name": "DropPoint",
+              "url": "https://droppoint.netlify.app/",
+              "badge_list": []
+            },
+            {
+              "name": "剪切助手",
+              "url": "https://jianqiezhushou.com/",
+              "badge_list": []
+            },
+            {
+              "name": "SyncClipboard",
+              "url": "https://github.com/Jeric-X/SyncClipboard",
+              "desc": "剪贴板同步",
+              "badge_list": []
+            }
+          ]
+        },
+        {
+          "tabName": "便签、待办",
+          "list": [
+            {
+              "name": "Stickies",
+              "url": "https://www.zhornsoftware.co.uk/stickies/index.html",
+              "badge_list": []
+            },
+            {
+              "name": "Note+",
+              "url": "https://www.52pojie.cn/forum.php?mod=viewthread&tid=590457&highlight=%B1%E3%C7%A9",
+              "badge_list": []
+            },
+            {
+              "name": "vov sticky notes",
+              "url": "https://www.52pojie.cn/thread-1063151-1-1.html",
+              "badge_list": []
+            },
+            {
+              "name": "Simple Sticky Notes",
+              "url": "https://www.simplestickynotes.com/",
+              "badge_list": []
+            },
+            {
+              "name": "收集桌面便笺应用",
+              "url": "https://meta.appinn.net/t/topic/33991",
+              "badge_list": []
+            },
+            {
+              "name": "PNotes",
+              "url": "https://pnotes-1932d.firebaseapp.com/home",
+              "badge_list": []
+            },
+            {
+              "name": "透明桌面文字便签/透明便签2.0",
+              "url": "https://www.52pojie.cn/forum.php?mod=viewthread&tid=1510585&highlight=%B1%E3%C7%A9",
+              "badge_list": []
+            },
+            {
+              "name": "桌面添加透明文字v1.1",
+              "url": "https://www.52pojie.cn/forum.php?mod=viewthread&tid=1175930&highlight=%B1%E3%C7%A9",
+              "badge_list": []
+            },
+            {
+              "name": "Visual Notes",
+              "url": "https://vovsoft.com/",
+              "badge_list": []
+            },
+            {
+              "name": "Sticky Notes | 贴纸便签",
+              "url": "https://github.com/imlinhanchao/sticky_notes",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "小孩桌面便签",
+              "url": "http://www.kingsfw.com/",
+              "badge_list": []
+            },
+            {
+              "name": "便签提醒",
+              "url": "https://www.52pojie.cn/forum.php?mod=viewthread&tid=1609244&highlight=%B1%E3%C7%A9%CC%E1%D0%D1",
+              "badge_list": []
+            },
+            {
+              "name": "DesktopNoteOK_x64_Portable",
+              "url": "https://www.softwareok.com/?seite=Microsoft%2FDesktopNoteOK",
+              "badge_list": []
+            },
+            {
+              "name": "简单记",
+              "url": "https://www.52pojie.cn/home.php?mod=space&uid=870927&do=thread&type=thread&view=me&from=space",
+              "badge_list": []
+            },
+            {
+              "name": "StikyNotes",
+              "url": "https://github.com/li-zheng-hao/StickyNotes",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "hott notes",
+              "url": "https://hottnotes.com/",
+              "badge_list": []
+            },
+            {
+              "name": "易便签v1.1(半透明桌面便签)",
+              "url": "https://www.52pojie.cn/thread-1728186-1-1.html",
+              "badge_list": []
+            }
+          ]
+        },
+        {
+          "tabName": "预览",
+          "list": [
+            {
+              "name": "QuickLook",
+              "url": "http://pooi.moe/QuickLook/",
+              "badge_list": []
+            },
+            {
+              "name": "火柴",
+              "url": "https://www.huochaipro.com/",
+              "badge_list": []
+            },
+            {
+              "name": "seer",
+              "url": "https://sourceforge.net/projects/ccseer/",
+              "badge_list": []
+            }
+          ]
+        },
+        {
+          "tabName": "快捷启动",
+          "list": [
+            {
+              "name": "AutoHotPie",
+              "url": "https://github.com/dumbeau/AutoHotPie",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "MousePlus",
+              "url": "https://mouseplus.cn/",
+              "badge_list": []
+            },
+            {
+              "name": "Flow Launcher",
+              "url": "https://www.flowlauncher.com/",
+              "badge_list": []
+            },
+            {
+              "name": "rubick",
+              "url": "https://rubickcenter.github.io/docs/guide/",
+              "badge_list": []
+            },
+            {
+              "name": "Wox",
+              "url": "http://www.wox.one/",
+              "badge_list": []
+            },
+            {
+              "name": "nTrun",
+              "url": "https://www.ntrun.com/index.html",
+              "badge_list": []
+            },
+            {
+              "name": "Maye (Maya)/Maye Lite",
+              "url": "https://t.arae.cc/category/%e4%bd%9c%e5%93%81/",
+              "badge_list": []
+            },
+            {
+              "name": "Lucy",
+              "url": "https://www.52pojie.cn/thread-1624289-1-1.html",
+              "badge_list": []
+            },
+            {
+              "name": "Dawn Launcher",
+              "url": "https://dawnlauncher.com/",
+              "badge_list": []
+            },
+            {
+              "name": "​Quicker",
+              "url": "https://getquicker.net/",
+              "badge_list": []
+            },
+            {
+              "name": "CLaunch",
+              "url": "https://hp.vector.co.jp/authors/VA018351/en/claunch.html",
+              "badge_list": []
+            },
+            {
+              "name": "Listary",
+              "url": "https://www.listary.com/",
+              "badge_list": []
+            }
+          ]
+        },
+        {
+          "tabName": "鼠标手势",
+          "list": [
+            {
+              "name": "Wgestures",
+              "url": "http://www.yingdev.com/projects/wgestures",
+              "badge_list": []
+            },
+            {
+              "name": "StrokesPlus.net",
+              "url": "https://www.strokesplus.net/",
+              "badge_list": []
+            },
+            {
+              "name": "MouseGestureL.ahk",
+              "url": "https://www.autohotkey.com/boards/viewtopic.php?f=6&t=31859",
+              "badge_list": []
+            },
+            {
+              "name": "Stroke",
+              "url": "https://github.com/poerin/Stroke",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "MouseInc",
+              "url": "https://docs.shuax.com/MouseInc/#/",
+              "badge_list": []
+            },
+            {
+              "name": "Mouse actions",
+              "url": "https://github.com/jersou/mouse-actions",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "GestureSign",
+              "url": "https://zh.gesturesign.win/",
+              "badge_list": []
+            },
+            {
+              "name": "Wheel",
+              "url": "https://github.com/majorworld/Wheel",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "WinXcorners",
+              "url": "https://github.com/vhanla/winxcorne1rs/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "OneQuick",
+              "url": "https://onequick.org/",
+              "badge_list": []
+            },
+            {
+              "name": "strokesplus",
+              "url": "https://onequick.org/",
+              "badge_list": []
+            }
+          ]
+        },
+        {
+          "tabName": "模拟器、虚拟机",
+          "list": [
+            {
+              "name": "VMware Workstation 17.5.0 Pro",
+              "url": "https://softwareupdate.vmware.com/cds/vmw-desktop/ws/",
+              "badge_list": []
+            },
+            {
+              "name": "VMware Workstation 17.5.0 Pro",
+              "url": "https://www.ypojie.com/6066.html",
+              "badge_list": []
+            },
+            {
+              "name": "VirtualBox 7.0",
+              "url": "https://www.virtualbox.org/",
+              "badge_list": []
+            },
+            {
+              "name": "WSA (Windows Subsystem for Android)",
+              "url": "https://blog.csdn.net/mrathena/article/details/140092233",
+              "badge_list": []
+            },
+            {
+              "name": "兆懿移动应用运行平台",
+              "url": "https://www.wndroid.com/index",
+              "badge_list": []
+            },
+            {
+              "name": "BlueStacks蓝叠模拟器",
+              "url": "https://www.bluestacks.com/bluestacks-5.html",
+              "badge_list": []
+            },
+            {
+              "name": "夜神模拟器",
+              "url": "https://www.yeshen.com/",
+              "badge_list": []
+            },
+            {
+              "name": "雷神模拟器",
+              "url": "http://www.lsplayer.com",
+              "badge_list": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "美化",
+      "resources": [],
+      "tabs": [
+        {
+          "tabName": "细节",
+          "list": [
+            {
+              "name": "RoundedTB",
+              "url": "https://github.com/RoundedTB/RoundedTB",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "TranslucentTB",
+              "url": "https://github.com/TranslucentTB/TranslucentTB",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "TaskbarTools",
+              "url": "https://github.com/Elestriel/TaskbarTools",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "TranslucentSM",
+              "url": "https://github.com/rounk-ctrl/TranslucentSM",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "极客开始菜单",
+              "url": "http://www.51buydd.com/StartMenuX/",
+              "badge_list": []
+            },
+            {
+              "name": "极客桌面",
+              "url": "http://www.51buydd.com/DesktopX/",
+              "badge_list": []
+            },
+            {
+              "name": "Perfmonbar",
+              "url": "https://xhmikosr.github.io/perfmonbar/",
+              "badge_list": []
+            },
+            {
+              "name": "Wifinian",
+              "url": "https://github.com/emoacht/Wifinian",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "ModernFlyouts",
+              "url": "https://github.com/ModernFlyouts-Community/ModernFlyouts",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "EarTrumpet",
+              "url": "https://github.com/File-New-Project/EarTrumpet",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Modern​Flyouts",
+              "url": "https://modernflyouts-community.github.io/",
+              "badge_list": []
+            },
+            {
+              "name": "Alt-Tab Terminator",
+              "url": "https://www.ntwind.com/software/alttabter.html",
+              "badge_list": []
+            },
+            {
+              "name": "CapsCursor",
+              "url": "http://xxyx.ysepan.com/",
+              "badge_list": []
+            },
+            {
+              "name": "TrafficMonitor",
+              "url": "https://github.com/zhongyang219/TrafficMonitor",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "StartMenuX",
+              "url": "https://www.startmenux.com/zh-cn/",
+              "badge_list": []
+            },
+            {
+              "name": "OFGB",
+              "url": "https://github.com/zetaloop/OFGB",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Cairo Desktop Environment",
+              "url": "https://cairodesktop.com/",
+              "badge_list": []
+            },
+            {
+              "name": "Windhawk",
+              "url": "https://windhawk.net/",
+              "badge_list": []
+            },
+            {
+              "name": "枫の主题社 ★ 二次元技术研究社区~",
+              "url": "https://winmoes.com/",
+              "badge_list": []
+            },
+            {
+              "name": "WindowTabs",
+              "url": "https://github.com/mauricef/WindowTabs",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Multrin",
+              "url": "https://github.com/sentialx/multrin/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            }
+          ]
+        },
+        {
+          "tabName": "右键管理",
+          "list": [
+            {
+              "name": "Windows 11 Classic Context Menu v1.2",
+              "url": "https://www.sordum.org/14479/windows-11-classic-context-menu-v1-2/",
+              "badge_list": []
+            },
+            {
+              "name": "ContextMenuManager",
+              "url": "https://bluepointlilac.github.io/ContextMenuManager/",
+              "badge_list": []
+            },
+            {
+              "name": "ContextMenuForWindows11",
+              "url": "https://github.com/ikas-mc/ContextMenuForWindows11",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Shell",
+              "url": "https://nilesoft.org/",
+              "badge_list": []
+            },
+            {
+              "name": "Breeze Shell",
+              "url": "https://github.com/std-microblock/breeze-shell",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "TranslucentFlyouts V2",
+              "url": "https://github.com/ALTaleX531/TranslucentFlyouts",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "SageThumbs",
+              "url": "https://www.cherubicsoft.com/en/projects/sagethumbs/",
+              "badge_list": []
+            },
+            {
+              "name": "FileMenu Tools",
+              "url": "https://www.lopesoft.com/index.php/en/download/filemenu-tools",
+              "badge_list": []
+            },
+            {
+              "name": "Right Click Enhancer",
+              "url": "https://rbsoft.org/downloads/right-click-enhancer/",
+              "badge_list": []
+            },
+            {
+              "name": "Easy Context Menu",
+              "url": "https://www.sordum.org/7615/easy-context-menu-v1-6/",
+              "badge_list": []
+            },
+            {
+              "name": "ShellExView",
+              "url": "https://www.nirsoft.net/utils/shexview.html",
+              "badge_list": []
+            }
+          ]
+        },
+        {
+          "tabName": "壁纸",
+          "list": [
+            {
+              "name": "Wallhaven",
+              "url": "https://github.com/leoFitz1024/wallhaven",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Splashy",
+              "url": "https://splashy.art/",
+              "badge_list": []
+            },
+            {
+              "name": "Sucrose",
+              "url": "https://github.com/Taiizor/Sucrose",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "upupoo",
+              "url": "http://www.upupoo.com",
+              "badge_list": []
+            },
+            {
+              "name": "火萤",
+              "url": "http://www.huoying666.com/",
+              "badge_list": []
+            },
+            {
+              "name": "火雨壁纸",
+              "url": "https://huoyu.kfsafe.cn/",
+              "badge_list": []
+            },
+            {
+              "name": "Lively Wallpaper",
+              "url": "https://www.rocksdanister.com/lively/",
+              "badge_list": []
+            },
+            {
+              "name": "元气桌面",
+              "url": "http://yqbz.xnayw.cn/",
+              "badge_list": []
+            },
+            {
+              "name": "FliqloScreenSaver",
+              "url": "https://fliqlo.com/",
+              "badge_list": []
+            },
+            {
+              "name": "ScreensaversPlanes",
+              "url": "https://www.screensaversplanet.com/screensavers/",
+              "badge_list": []
+            },
+            {
+              "name": "WallpaperEngine",
+              "url": "https://www.wallpaperengine.io/",
+              "badge_list": []
+            },
+            {
+              "name": "Rainmete（雨滴桌面）",
+              "url": "https://www.rainmeter.net/",
+              "badge_list": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "pageName": "home",
+  "pageConfig": {
+    "sortPrefix": "04"
+  }
+}

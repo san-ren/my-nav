@@ -1,81 +1,114 @@
 ---
+// src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
 import Sidebar from '../components/Sidebar.astro';
 import SiteCard from '../components/SiteCard.astro';
 import SearchModal from '../components/SearchModal.jsx';
 import ThemePicker from '../components/ThemePicker.astro';
-import siteConfig from '../data/config.json';
+import siteConfig from '../content/site-settings/config.json';
+import { getCollection } from 'astro:content'; 
 import { LayoutDashboard, Star, Code, Palette, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu } from 'lucide-react';
 
-const metaFiles = import.meta.glob('../data/nav/*/meta.json', { eager: true });
-const groupFiles = import.meta.glob('../data/nav/*/groups/*.json', { eager: true });
+// 1. 获取数据
+const rawPages = await getCollection('nav-pages');
+const rawGroups = await getCollection('nav-groups');
 
-let navResources = Object.entries(metaFiles).map(([metaPath, metaContent]: [string, any]) => {
-  const meta = metaContent.default || metaContent;
-  const pageId = metaPath.split('/').slice(-2, -1)[0]; 
-  const groups = Object.entries(groupFiles)
-    .filter(([groupPath]) => groupPath.includes(`/nav/${pageId}/groups/`))
-    .sort(([pathA], [pathB]) => {
-      const nameA = pathA.split('/').pop() || '';
-      const nameB = pathB.split('/').pop() || '';
-      return nameA.localeCompare(nameB, undefined, { numeric: true });
-    })
-    .map(([_, groupContent]: [string, any]) => groupContent.default || groupContent);
-  return { ...meta, id: pageId, groups: groups };
-});
+// 2. 核心逻辑：关联与排序
+const navResources = rawPages.map(page => {
+  // 筛选：找到归属于当前页面的分组
+  const currentGroups = rawGroups.filter(g => {
+    // 🔥 核心修复：兼容处理 Reference 类型
+    // 在某些 Astro 版本中，reference 字段可能是对象 { id: '...', collection: '...' }，也可能是纯字符串
+    const groupPageId = typeof g.data.pageName === 'object' 
+        ? g.data.pageName.id 
+        : g.data.pageName;
+        
+    return groupPageId === page.id; 
+  });
+  
+  // 排序：根据 config 里的权重排序
+  currentGroups.sort((a, b) => {
+    // 🔥 核心修复：安全访问 pageConfig (防止数据迁移不完全导致报错)
+    const sortA = Number(a.data.pageConfig?.sortPrefix || 10);
+    const sortB = Number(b.data.pageConfig?.sortPrefix || 10);
+    return sortA - sortB;
+  });
+  
+  return {
+    ...page.data,
+    id: page.id,
+    groups: currentGroups.map(g => g.data) 
+  };
+}).sort((a, b) => (a.sortOrder || 99) - (b.sortOrder || 99));
 
-navResources.sort((a: any, b: any) => (a.sortOrder || 99) - (b.sortOrder || 99));
+// 3. 确定当前页面 (首页固定为 'home')
 const currentId = 'home'; 
-const section = navResources.find(r => r.id === currentId) || navResources[0];
+// 防御性查找：如果找不到 home，则默认显示第一个页面，防止白屏
+const section = navResources.find(r => r.id === currentId) || navResources[0] || { name: 'Loading...', groups: [] };
+
+// 4. 图标映射
 const Icons = { Star, Code, Palette, LayoutDashboard, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download };
-const CurrentIcon = Icons[section.icon] || LayoutDashboard;
+const CurrentIcon = section.icon ? (Icons[section.icon] || LayoutDashboard) : LayoutDashboard;
 ---
 
 <Layout title={`${siteConfig.title} - ${section.name}`}>
   <div class="flex min-h-screen w-full">
     
+    {/* 传递计算好的 navResources */}
     <Sidebar navResources={navResources} currentId={currentId} siteConfig={siteConfig} />
     
-    {/* 遮罩层容器，样式由 Sidebar.astro 全局 CSS 控制 */}
     <div id="sidebar-overlay"></div>
 
     <main class="layout-transition flex-1 min-w-0 md:ml-[var(--sidebar-width,17rem)] min-h-screen flex flex-col">
-      
+      {/* 顶部 Header */}
       <header id="page-header" class="layout-transition fixed top-0 right-0 z-30 flex items-center justify-between px-4 md:px-8 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50 w-full md:w-[calc(100%-var(--sidebar-width,17rem))] transition-all duration-300">
         <div class="flex items-center gap-3 min-w-0">
-          <button 
-            id="menu-btn" 
-            class="p-2 text-slate-600 dark:text-slate-300 bg-white/80 dark:bg-gray-800/80 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 shrink-0 hover:text-brand-600 transition-colors" 
-            onclick="if(window.innerWidth < 768) window.toggleSidebarMobile(); else window.toggleSidebarPC();"
-          >
+          <button id="menu-btn" class="p-2 text-slate-600 dark:text-slate-300 bg-white/80 dark:bg-gray-800/80 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 shrink-0 hover:text-brand-600 transition-colors" onclick="if(window.innerWidth < 768) window.toggleSidebarMobile(); else window.toggleSidebarPC();">
             <Menu size={20} />
           </button>
-
           <h1 class="text-xl font-black flex items-center gap-3 text-slate-800 dark:text-white truncate">
             <div class="p-2 bg-brand-50 dark:bg-brand-900/30 rounded-lg text-brand-600 shrink-0"><CurrentIcon size={20} /></div>
             <span class="truncate">{section.name}</span>
           </h1>
         </div>
-        
         <div class="flex items-center gap-2 md:gap-3 shrink-0">
           <SearchModal client:load />
           <ThemePicker />
         </div>
       </header>
 
-      {/* 内容区域省略，保持原样 */}
+      {/* 内容区域 */}
       <div class="p-4 pt-24 md:p-8 md:pt-28 space-y-12 w-full max-w-[1440px] mx-auto">
+        {(section.groups || []).length === 0 && (
+           <div class="text-center text-slate-400 mt-20">暂无内容，请在后台配置分组并关联到此页面。</div>
+        )}
+
         {(section.groups || []).map((group, groupIdx) => (
           <div class="group-wrapper w-full">
             <div id={`group-${groupIdx}`} class="flex items-center gap-3 mb-8 mt-12 first:mt-0 pb-2 border-b border-slate-100 dark:border-slate-800 scroll-mt-28">
-              <h2 class="text-xl font-black text-slate-800 dark:text-slate-100">{group.name}</h2>
+              <h2 class="text-xl font-black text-slate-800 dark:text-slate-100">
+                 {group.visualTag && <span class="mr-2">{group.visualTag}</span>}
+                 {group.name}
+              </h2>
             </div>
+            
             <div class="space-y-16 w-full">
+              {/* 分组直属资源 */}
+              {group.resources && group.resources.length > 0 && (
+                <section class="group-resources mb-8 w-full">
+                  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-3 md:gap-4 pt-1 w-full">
+                    {group.resources.map((site) => <SiteCard {...site} />)}
+                  </div>
+                </section>
+              )}
+
+              {/* Categories */}
               {(group.categories || []).map((category, catIdx) => {
                 const uniqueId = `${groupIdx}-${catIdx}`;
-                const hasList = category.list && category.list.length > 0;
+                const hasList = category.resources && category.resources.length > 0;
                 const hasTabs = category.tabs && category.tabs.length > 0;
                 if (!hasList && !hasTabs) return null;
+
                 return (
                   <section id={`cat-${uniqueId}`} class="category-group scroll-mt-28 w-full">
                     <div class="flex flex-wrap items-center justify-start gap-x-6 gap-y-4 mb-8">
@@ -83,9 +116,12 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
                         <span class="w-1.5 h-5 bg-brand-600 rounded-full"></span>
                         {category.name}
                       </h3>
+
+                      {/* Tab 按钮 */}
                       {hasTabs && (
                         <div class="tab-nav-container relative z-0 flex bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-full overflow-x-auto no-scrollbar max-w-full isolate">
-                          <div class="tab-indicator absolute bg-white dark:bg-slate-700 shadow-sm rounded-full h-[calc(100%-8px)] top-1 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] transform-gpu"></div>
+                          <div class="tab-indicator absolute bg-white dark:bg-slate-700 shadow-sm rounded-full h-[calc(100%-8px)] top-1 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] transform-gpu pointer-events-none"></div>
+
                           {category.tabs.map((tab, tabIdx) => (
                             <button
                               class={`tab-btn relative z-10 px-4 py-1.5 text-xs font-bold rounded-full transition-colors duration-200 whitespace-nowrap focus:outline-none focus:ring-0
@@ -99,15 +135,22 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
                         </div>
                       )}
                     </div>
+
                     <div class="tab-content-wrapper relative z-10 w-full">
+                      {/* 直属资源 */}
                       {hasList && (
                         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-3 md:gap-4 pt-1 w-full mb-8">
-                          {category.list.map((site) => <SiteCard {...site} />)}
+                          {category.resources.map((site) => <SiteCard {...site} />)}
                         </div>
                       )}
+
+                      {/* Tab 内容 */}
                       {hasTabs && (
                         category.tabs.map((tab, tabIdx) => (
-                          <div id={`pane-${uniqueId}-${tabIdx}`} class={`tab-pane animate-fade-in relative z-20 w-full ${tabIdx !== 0 ? 'hidden' : ''}`}>
+                          <div 
+                            id={`pane-${uniqueId}-${tabIdx}`} 
+                            class={`tab-pane animate-fade-in relative z-20 w-full ${tabIdx !== 0 ? 'hidden' : ''}`}
+                          >
                             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-3 md:gap-4 pt-1 w-full">
                               {(tab.list || []).map((site) => <SiteCard {...site} />)}
                             </div>
@@ -130,9 +173,8 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
 </Layout>
 
 <script is:inline>
-  // 1. PC 端折叠逻辑
+  // PC 侧边栏
   window.isPCOpen = true;
-
   window.toggleSidebarPC = () => {
     const sidebar = document.getElementById('sidebar');
     const mainContent = document.querySelector('main');
@@ -140,14 +182,11 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     
     if (sidebar && mainContent && header) {
       window.isPCOpen = !window.isPCOpen;
-      
       if (window.isPCOpen) {
-        // ▶️ 展开
         sidebar.style.marginLeft = '0px'; 
         mainContent.style.marginLeft = 'var(--sidebar-width)';
         header.style.width = 'calc(100% - var(--sidebar-width))';
       } else {
-        // ◀️ 折叠
         sidebar.style.marginLeft = 'calc(var(--sidebar-width) * -1)';
         mainContent.style.marginLeft = '0px';
         header.style.width = '100%';
@@ -155,6 +194,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     }
   };
 
+  // Tab 逻辑
   function initTabs() {
     const containers = document.querySelectorAll('.tab-nav-container');
     containers.forEach(container => {
@@ -165,30 +205,32 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
         if (!targetBtn) return;
         indicator.style.left = `${targetBtn.offsetLeft}px`;
         indicator.style.width = `${targetBtn.offsetWidth}px`;
+        indicator.style.opacity = '1'; 
       };
       const activeBtn = container.querySelector('.active-tab') || btns[0];
-      if(activeBtn) moveIndicator(activeBtn);
+      setTimeout(() => { if(activeBtn) moveIndicator(activeBtn); }, 50);
+
       btns.forEach(btn => {
         btn.addEventListener('mouseenter', () => moveIndicator(btn));
         btn.addEventListener('click', (e) => {
           e.preventDefault();
           btns.forEach(b => {
-            b.classList.remove('active-tab', 'text-brand-600');
+            b.classList.remove('active-tab', 'text-brand-600', 'bg-white', 'dark:bg-gray-700', 'shadow-sm');
             b.classList.add('text-slate-500');
           });
-          btn.classList.add('active-tab', 'text-brand-600');
+          btn.classList.add('active-tab', 'text-brand-600'); 
           btn.classList.remove('text-slate-500');
           moveIndicator(btn);
           const group = container.closest('.category-group');
           const targetId = btn.getAttribute('data-target');
           group.querySelectorAll('.tab-pane').forEach(p => {
             p.classList.add('hidden');
-            p.classList.remove('animate-fade-in');
+            p.classList.remove('animate-fade-in'); 
           });
           const targetPane = document.getElementById(targetId);
           if(targetPane) {
             targetPane.classList.remove('hidden');
-            void targetPane.offsetWidth;
+            void targetPane.offsetWidth; 
             targetPane.classList.add('animate-fade-in');
           }
         });
@@ -200,7 +242,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     });
   }
 
-  // 2. 顶栏智能显隐
+  // 顶栏滚动
   function initHeaderScroll() {
     let lastScrollY = window.scrollY;
     const header = document.getElementById('page-header');
@@ -223,36 +265,30 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
     }, { passive: true });
   }
 
-  // 🔥 核心修正：初始化函数
   function initAll() {
     initTabs();
     initHeaderScroll();
-    
     const sidebar = document.getElementById('sidebar');
     const mainContent = document.querySelector('main');
     const header = document.getElementById('page-header');
-    
+    const overlay = document.getElementById('sidebar-overlay');
     if(sidebar && mainContent && header) {
         if (window.innerWidth >= 768) {
-          // PC 默认状态：重置所有 JS 动态 margin，使用 CSS 默认值
           sidebar.style.marginLeft = '0px';
           mainContent.style.marginLeft = 'var(--sidebar-width)';
           header.style.width = 'calc(100% - var(--sidebar-width))'; 
-          // 确保没有手机端的 class 干扰
           sidebar.classList.remove('-translate-x-full');
           sidebar.classList.add('translate-x-0');
+          if (overlay) overlay.classList.remove('active');
         } else {
-          // 🔥 Mobile 强制状态：清除所有 margin，消除白边
           sidebar.style.marginLeft = '';
           mainContent.style.marginLeft = '0px';
           header.style.width = '100%';
-          
-          // 手机端默认是隐藏的 (-translate-x-full)
-          // 如果侧边栏卡在 translate-x-0，手动关掉它
           if (sidebar.classList.contains('translate-x-0')) {
              sidebar.classList.remove('translate-x-0');
              sidebar.classList.add('-translate-x-full');
           }
+          if (overlay) overlay.classList.remove('active');
         }
     }
     window.isPCOpen = true; 
@@ -261,10 +297,7 @@ const CurrentIcon = Icons[section.icon] || LayoutDashboard;
   initAll();
   document.addEventListener('astro:after-swap', initAll);
   window.addEventListener('resize', initTabs);
-  
-  // 监听窗口大小改变，动态切换布局逻辑
   window.addEventListener('resize', () => {
-    // 简单的防抖，防止频繁触发
     if (window.resizeTimer) clearTimeout(window.resizeTimer);
     window.resizeTimer = setTimeout(initAll, 200);
   });

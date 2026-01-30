@@ -1,0 +1,10 @@
+---
+type: function
+date: 2025-12-26
+---
+* 移动端呼出侧边栏后禁止滚动主界面，防止侧边栏闪烁、穿透
+* 重构数据结构，优化后台体验
+* 修bug
+* **sveltia-cms 功能限制：**
+  * **序号-页面名称-id 之间粘连**：Sveltia CMS 的 `relation` 组件的 `display_fields` **必须是一个数组** `[...]`，**不支持** 自定义字符串模板。 **无法在配置里强行插入“ - ”、“.” 或者 “|” 这种符号。** CMS 只会呆板地用**空格**把字段拼起来。
+  * **后台文件夹视图：**&#x7B49;待 [sveltia-cms](https://github.com/sveltia/sveltia-cms?tab=readme-ov-file) 支持 [Nested collections（嵌套视图）](https://github.com/sveltia/sveltia-cms?tab=readme-ov-file#:~:text=Nested%20collections%20\(beta\))

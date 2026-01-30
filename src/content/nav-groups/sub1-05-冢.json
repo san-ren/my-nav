@@ -1,0 +1,312 @@
+{
+  "name": "冢",
+  "id": "sub1-05-冢",
+  "categories": [
+    {
+      "name": "末流",
+      "resources": [],
+      "tabs": [
+        {
+          "tabName": "翻译",
+          "list": [
+            {
+              "name": "CopyTranslator",
+              "url": "https://github.com/CopyTranslator/CopyTranslator",
+              "official_site": "https://copytranslator.github.io/",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit",
+                "license"
+              ]
+            },
+            {
+              "name": "Pot",
+              "url": "https://github.com/pot-app/pot-desktop",
+              "official_site": "https://pot-app.com/",
+              "desc": "跨平台划词翻译和OCR",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Manga/Image Translator",
+              "url": "https://github.com/zyddnys/manga-image-translator",
+              "official_site": "",
+              "desc": "翻译各类图片内文字",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "团子翻译器",
+              "url": "https://github.com/PantsuDango/Dango-Translator",
+              "official_site": "https://translator.dango.cloud/",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "STranslate",
+              "url": "https://github.com/STranslate/STranslate",
+              "official_site": "https://stranslate.zggsong.com/",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Translumo",
+              "url": "https://github.com/Danily07/Translumo",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "TTime",
+              "url": "https://github.com/InkTimeRecord/TTime",
+              "official_site": "https://ttime.timerecord.cn/",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "CrowTranslate",
+              "url": "https://github.com/crow-translate/crow-translate",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Real-time-translation-typing/实时打字翻译",
+              "url": "https://github.com/sxzxs/Real-time-translation-typing",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "RTranslator",
+              "url": "https://github.com/niedev/RTranslator",
+              "official_site": "",
+              "desc": "Android本地实时翻译",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "MTranServer",
+              "url": "https://github.com/xxnuo/MTranServer",
+              "official_site": "",
+              "desc": "离线翻译模型服务器",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            }
+          ]
+        },
+        {
+          "tabName": "OCR",
+          "list": [
+            {
+              "name": "天若OCR",
+              "url": "http://tianruoocr.cn/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "妙手OCR",
+              "url": "https://www.52pojie.cn/thread-1164883-1-1.html",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "PaddleOCR",
+              "url": "https://github.com/PaddlePaddle/PaddleOCR",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Umi-OCR",
+              "url": "https://github.com/hiroi-sora/Umi-OCR",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            }
+          ]
+        },
+        {
+          "tabName": "输入法",
+          "list": [
+            {
+              "name": "InputTip",
+              "url": "https://github.com/abgox/InputTip",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "ImTip",
+              "url": "https://github.com/aardio/ImTip",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "KBLAutoSwitch/AHK中英文输入法自动切换",
+              "url": "https://github.com/flyinclouds/KBLAutoSwitch",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Language Indicator",
+              "url": "https://github.com/yakunins/language-indicator",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            }
+          ]
+        },
+        {
+          "tabName": "同步",
+          "list": [
+            {
+              "name": "FileGee",
+              "url": "http://cn.filegee.com/download.html",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "FreeFileSync",
+              "url": "https://freefilesync.org/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "GoodSync",
+              "url": "https://www.goodsync.com/cn",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "SyncToy",
+              "url": "https://www.microsoft.com/en-us/download/details.aspx?id=15155",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "pageName": "sub1",
+  "pageConfig": {
+    "sortPrefix": "05"
+  }
+}

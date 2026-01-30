@@ -1,0 +1,1049 @@
+{
+  "visualTag": "🏠",
+  "name": "多媒体",
+  "categories": [
+    {
+      "name": "音乐",
+      "resources": [],
+      "tabs": [
+        {
+          "tabName": "win",
+          "list": [
+            {
+              "name": "MoeKoe Music",
+              "url": "https://github.com/MoeKoeMusic/MoeKoeMusic",
+              "official_site": "https://music.moekoe.cn/",
+              "desc": "开源第三方酷狗，登陆就是vip",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "洛雪音乐助手",
+              "url": "https://github.com/lyswhut/lx-music-desktop",
+              "official_site": "https://lxmusic.toside.cn/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Listen1",
+              "url": "https://github.com/listen1/listen1_desktop",
+              "official_site": "https://listen1.github.io/listen1/",
+              "guide_id": "listen1",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "六音音源",
+              "url": "https://www.sixyin.com/8498.html",
+              "badge_list": []
+            },
+            {
+              "name": "MusicFree",
+              "url": "https://github.com/maotoumao/MusicFreeDesktop",
+              "official_site": "https://musicfree.catcat.work/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "NSMusicS",
+              "url": "https://github.com/Super-Badmen-Viper/NSMusicS",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ]
+            },
+            {
+              "name": "TTKMusicPlayer",
+              "url": "https://github.com/Greedysky/TTKMusicPlayer",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ]
+            },
+            {
+              "name": "go-musicfox",
+              "url": "https://github.com/go-musicfox/go-musicfox",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ]
+            },
+            {
+              "name": "music-dl",
+              "url": "https://github.com/guanguans/music-dl",
+              "official_site": "https://www.guanguans.cn/music-dl/",
+              "desc": "命令行音乐搜索下载",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "NSMusicS",
+              "url": "https://github.com/Super-Badmen-Viper/NSMusicS",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ]
+            },
+            {
+              "name": "musicn",
+              "url": "https://github.com/zonemeen/musicn",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "音乐标签",
+              "url": "https://www.cnblogs.com/vinlxc/p/11347744.html",
+              "badge_list": []
+            },
+            {
+              "name": "foobar2000",
+              "url": "https://www.foobar2000.org/",
+              "badge_list": []
+            },
+            {
+              "name": "foobox-cn",
+              "url": "https://github.com/dream7180/foobox-cn",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ]
+            },
+            {
+              "name": "foobar2000汉化版",
+              "url": "https://www.cnblogs.com/asionwu",
+              "badge_list": []
+            },
+            {
+              "name": "Mcool",
+              "url": "https://mcool.appinn.me/",
+              "badge_list": []
+            },
+            {
+              "name": "MusicPlayer2",
+              "url": "https://github.com/zhongyang219/MusicPlayer2",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Dopamine",
+              "url": "https://github.com/digimezzo/dopamine-windows",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "AIMP",
+              "url": "http://www.aimp.ru/",
+              "badge_list": []
+            },
+            {
+              "name": "Wora",
+              "url": "https://github.com/playwora/wora",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Winamp",
+              "url": "https://www.winamp.com/",
+              "badge_list": []
+            },
+            {
+              "name": "拟声",
+              "url": "https://download.music.mimicry.cool/",
+              "desc": "界面充斥着大量的空白",
+              "badge_list": []
+            },
+            {
+              "name": "YesPlayMusic",
+              "url": "https://github.com/qier222/YesPlayMusic",
+              "official_site": "https://music.qier222.com/",
+              "desc": "第三方网易云播放器",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ]
+            },
+            {
+              "name": "SPlayer",
+              "url": "https://github.com/imsyy/SPlayer",
+              "official_site": "http://splayer.imsyy.top/",
+              "desc": "网易云第三方",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ]
+            },
+            {
+              "name": "unblockneteasemusic",
+              "url": "https://github.com/topics/unblockneteasemusic",
+              "desc": "网易云第三方，5 public repositories",
+              "badge_list": []
+            },
+            {
+              "name": "方格音乐",
+              "url": "http://fonger.top/",
+              "desc": "2025年因不知名原因关闭官网、软件",
+              "badge_list": []
+            },
+            {
+              "name": "electron-vue-cloud-music",
+              "url": "https://github.com/xiaozhu188/electron-vue-cloud-music",
+              "desc": "2021停更",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Music_Download",
+              "url": "https://github.com/Java-S12138/Music_Download",
+              "official_site": "https://java-syj.feishu.cn/wiki/DBqIwuJ1ji228ike4necim4cnDg",
+              "desc": "发布即停更",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ]
+            },
+            {
+              "name": "mp3tag-douban-id3-plugins",
+              "url": "https://github.com/yoyicue/mp3tag-douban-id3-plugins",
+              "desc": "Mp3tag 豆瓣音乐 id3 插件 v2.5 （2020年10月可用）",
+              "badge_list": [
+                "stars",
+                "last_commit",
+                "version"
+              ]
+            }
+          ]
+        },
+        {
+          "tabName": "Android",
+          "list": [
+            {
+              "name": "酷狗概念版",
+              "url": "https://activity.kugou.com/download/v-a23b0cf0/index.html",
+              "desc": "每日领VIP，在线听的不二选择",
+              "badge_list": []
+            },
+            {
+              "name": "LX Music",
+              "url": "https://github.com/lyswhut/lx-music-mobile",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Listen 1",
+              "url": "https://listen1.github.io/listen1/",
+              "badge_list": []
+            },
+            {
+              "name": "MusicFree",
+              "url": "https://github.com/maotoumao/MusicFree",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Music Player",
+              "url": "https://github.com/FossifyOrg/Music-Player",
+              "official_site": "https://www.fossify.org/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "音乐搜索",
+              "url": "音乐时刻",
+              "desc": "无广，网站套壳",
+              "badge_list": []
+            },
+            {
+              "name": "音乐标签",
+              "url": "https://www.cnblogs.com/vinlxc/p/11932130.html",
+              "badge_list": []
+            },
+            {
+              "name": "Musicolet",
+              "url": "https://krosbits.in/musicolet/",
+              "badge_list": []
+            },
+            {
+              "name": "无损音乐",
+              "badge_list": []
+            },
+            {
+              "name": "椒盐音乐",
+              "url": "https://play.google.com/store/apps/details?id=com.salt.music",
+              "badge_list": []
+            },
+            {
+              "name": "NYX Music Player",
+              "url": "https://nyx-music-player.cn.uptodown.com/android",
+              "desc": "动画精美，本地音乐播放器",
+              "badge_list": []
+            },
+            {
+              "name": "LeapMusic",
+              "url": "https://apkpure.com/cn/leapmusic/com.leapmusic.leapmusic",
+              "desc": "优雅的播放器",
+              "badge_list": []
+            },
+            {
+              "name": "Stellio Player",
+              "url": "https://play.google.com/store/apps/details?id=io.stellio.music",
+              "badge_list": []
+            },
+            {
+              "name": "海贝音乐",
+              "url": "https://www.hiby.com/",
+              "desc": "常规播放器",
+              "badge_list": []
+            },
+            {
+              "name": "DialogMusicPlayer",
+              "url": "https://github.com/VishnuSanal/DialogMusicPlayer/",
+              "desc": "极简，无桌面图标",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Muviz Edge",
+              "url": "https://play.google.com/store/apps/details?id=com.sparkine.muvizedge&ref=appinn",
+              "desc": "在屏幕边缘显示现场音乐可视化",
+              "badge_list": []
+            },
+            {
+              "name": "拟声",
+              "url": "https://download.music.mimicry.cool/",
+              "desc": "UI充斥着大量空白",
+              "badge_list": []
+            },
+            {
+              "name": "不倦",
+              "url": "https://github.com/2697a/bujuan",
+              "desc": "第三方网易云播放器",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Spotube",
+              "url": "https://github.com/KRTirtho/spotube",
+              "official_site": "https://spotube.krtirtho.dev/",
+              "desc": "开源 Spotify 客户端",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "InnerTune",
+              "url": "https://github.com/z-huang/InnerTune",
+              "desc": "第三方 YouTube Music",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "音乐时刻",
+              "url": "https://flowus.cn/share/5bf1a0d1-5f58-4bd9-9cb6-3a4b2f7e4ae4",
+              "desc": "2025失效",
+              "badge_list": []
+            },
+            {
+              "name": "KHMD/空痕音乐下载器",
+              "url": "https://www.khkj6.com/archives/19.html",
+              "desc": "2025失效",
+              "badge_list": []
+            },
+            {
+              "name": "极乐",
+              "url": "https://wds.cxoip.com/797.html",
+              "desc": "2025失效",
+              "badge_list": []
+            },
+            {
+              "name": "天天悦听",
+              "url": "https://pan.xunlei.com/s/VNniL144qUd9zSr5Bh9vXJf7A1?pwd=9y8d#",
+              "desc": "2025失效",
+              "badge_list": []
+            }
+          ]
+        },
+        {
+          "tabName": "音源",
+          "list": [
+            {
+              "name": "lx-music-source",
+              "url": "https://github.com/pdone/lx-music-source",
+              "badge_list": [
+                "stars",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "LX-music-collection",
+              "url": "https://github.com/LuoXiaohei-2025/LX-music-collection",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "lxmusic-",
+              "url": "https://github.com/guoyue2010/lxmusic-",
+              "desc": "2025年10月终止分享，转付费服务",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "keep-alive",
+              "url": "https://github.com/Huibq/keep-alive",
+              "badge_list": [
+                "stars",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "New_lxmusic_source",
+              "url": "https://github.com/laosunmaker/New_lxmusic_source",
+              "badge_list": [
+                "stars",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "music-sources",
+              "url": "https://github.com/OneCodeMonkey/music-sources",
+              "badge_list": [
+                "stars",
+                "last_commit"
+              ]
+            }
+          ]
+        },
+        {
+          "tabName": "音乐网站",
+          "list": [
+            {
+              "name": "泡椒音乐",
+              "url": "https://pjmp3.de/",
+              "official_site": "https://pjmp3.com/",
+              "badge_list": []
+            },
+            {
+              "name": "XCloud音乐",
+              "url": "https://music.xcloudv.top/",
+              "badge_list": []
+            },
+            {
+              "name": "米乐迪音乐",
+              "url": "https://imelody.top/",
+              "desc": "在线收听和下载无损音乐",
+              "badge_list": []
+            },
+            {
+              "name": "GD音乐台",
+              "url": "https://music.gdstudio.xyz/",
+              "badge_list": []
+            },
+            {
+              "name": "无损生活",
+              "url": "https://flac.life/",
+              "badge_list": []
+            },
+            {
+              "name": "5sing",
+              "url": "https://5sing.kugou.com/index.html",
+              "badge_list": []
+            },
+            {
+              "name": "古典音乐赏析 - 国家大剧院",
+              "url": "https://www.ncpa-classic.com/gdyysx/",
+              "badge_list": []
+            },
+            {
+              "name": "OpenYYY 开源云音乐",
+              "url": "https://openyyy.com/",
+              "desc": "多种云音乐格式转MP3",
+              "badge_list": []
+            },
+            {
+              "name": "Songg",
+              "url": "https://son.gg/",
+              "desc": "快速在Telegram上分享音乐",
+              "badge_list": []
+            },
+            {
+              "name": "genius",
+              "url": "https://genius.com/",
+              "desc": "歌词百科",
+              "badge_list": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "图片",
+      "resources": [],
+      "tabs": [
+        {
+          "tabName": "看图",
+          "list": [
+            {
+              "name": "Honeyview",
+              "url": "http://www.bandisoft.com/honeyview/",
+              "desc": "与Bandizip同宗",
+              "badge_list": []
+            },
+            {
+              "name": "MagicView",
+              "official_site": "https://pic.ghxi.com/",
+              "desc": "果核剥壳团队开发",
+              "badge_list": []
+            },
+            {
+              "name": "ImageGlass",
+              "url": "https://imageglass.org/",
+              "badge_list": []
+            },
+            {
+              "name": "PicView",
+              "url": "https://github.com/Ruben2776/PicView",
+              "official_site": "https://picview.org/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Imagine",
+              "url": "https://www.nyam.pe.kr/dev/imagine/",
+              "desc": "看图、动图编辑",
+              "badge_list": []
+            },
+            {
+              "name": "Image Eye",
+              "url": "https://www.fmjsoft.com/imageeye.html#main",
+              "desc": "支持中文",
+              "badge_list": []
+            },
+            {
+              "name": "IrfanView",
+              "url": "https://www.irfanview.com/",
+              "badge_list": []
+            },
+            {
+              "name": "XnView",
+              "url": "https://www.xnview.com/en/",
+              "official_site": "XnSoft软件系列",
+              "badge_list": []
+            },
+            {
+              "name": "qView",
+              "url": "https://github.com/jurplel/qView",
+              "official_site": "https://interversehq.com/qview/",
+              "desc": "极简界面",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Masonry Image Viewer",
+              "url": "https://github.com/wlm3201/Masonry_Image_Viewer",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "全屏看图",
+              "url": "http://www.o345.com/gengxin-log/632.html",
+              "badge_list": []
+            },
+            {
+              "name": "PicGo",
+              "url": "https://github.com/Molunerfinn/PicGo",
+              "official_site": "https://picx.xpoet.cn/",
+              "desc": "支持主流图床平台",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "PicX",
+              "url": "https://github.com/XPoet/picx",
+              "desc": "GitHub 图床",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "EasyImage2.0",
+              "url": "https://github.com/icret/EasyImages2.0",
+              "official_site": "https://png.cm/",
+              "desc": "简单图床",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            }
+          ]
+        },
+        {
+          "tabName": "截图",
+          "list": [
+            {
+              "name": "PixPin",
+              "url": "https://pixpinapp.com/",
+              "badge_list": []
+            },
+            {
+              "name": "ShareX",
+              "url": "https://github.com/ShareX/ShareX",
+              "official_site": "https://getsharex.com/",
+              "desc": "功能太强大",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Flameshot",
+              "url": "https://github.com/flameshot-org/flameshot",
+              "official_site": "https://flameshot.org/",
+              "desc": "标注功能强大",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "PicPick",
+              "url": "https://picpick.app/zh/",
+              "desc": "个人免费使用",
+              "badge_list": []
+            },
+            {
+              "name": "eSearch",
+              "url": "https://github.com/xushengfeng/eSearch",
+              "official_site": "https://esearch-app.netlify.app/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Snow Shot",
+              "url": "https://github.com/mg-chao/snow-shot",
+              "official_site": "https://snowshot.top/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "ScreenCapture",
+              "url": "https://github.com/xland/ScreenCapture",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "pear-rec",
+              "url": "https://github.com/027xiguapi/pear-rec",
+              "official_site": "https://027xiguapi.github.io/pear-rec/",
+              "desc": "截图、录屏、录音、录像",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "AutoScreenShot",
+              "url": "https://github.com/artem78/AutoScreenshot",
+              "desc": "定时自动截图",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Snipaste",
+              "url": "https://zh.snipaste.com/",
+              "badge_list": []
+            },
+            {
+              "name": "SETUNA2",
+              "url": "https://github.com/tylearymf/SETUNA2",
+              "desc": "2024年归档",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Sniptool",
+              "url": "https://www.reasyze.com/Sniptool/",
+              "desc": "2023年更新",
+              "badge_list": []
+            },
+            {
+              "name": "verycapture",
+              "url": "https://verycapture.com/cn/index.html",
+              "badge_list": []
+            }
+          ]
+        },
+        {
+          "tabName": "图片处理",
+          "list": [
+            {
+              "name": "PictureCleaner",
+              "url": "https://www.52pojie.cn/thread-1385732-1-1.html",
+              "badge_list": []
+            },
+            {
+              "name": "PM lite/图片魔法师",
+              "url": "https://www.52pojie.cn/thread-1880475-1-1.html",
+              "badge_list": []
+            },
+            {
+              "name": "Caesium Image Compressor",
+              "url": "https://saerasoft.com/caesium",
+              "badge_list": []
+            },
+            {
+              "name": "Img Toolbox",
+              "url": "https://github.com/LokerL/img-toolbox",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Pretty Snap",
+              "url": "https://pretty-snap.iwhy.dev",
+              "badge_list": []
+            },
+            {
+              "name": "ShapeCollage",
+              "url": "http://www.shapecollage.com/",
+              "badge_list": []
+            },
+            {
+              "name": "iPhotoDraw",
+              "url": "http://www.iphotodraw.com/",
+              "badge_list": []
+            },
+            {
+              "name": "Inpaint",
+              "url": "https://theinpaint.com/",
+              "badge_list": []
+            },
+            {
+              "name": "XnConvert",
+              "url": "https://www.xnview.com/en/xnconvert/",
+              "badge_list": []
+            },
+            {
+              "name": "万得图片批量处理",
+              "url": "http://xcxzq.com/imagebat/",
+              "badge_list": []
+            },
+            {
+              "name": "Waifu2x-Extension-GUI",
+              "url": "https://github.com/AaronFeng753/Waifu2x-Extension-GUI",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "洋芋田图像工具箱",
+              "url": "https://imagetoolkit.potatofield.cn/",
+              "badge_list": []
+            },
+            {
+              "name": "IOPaint",
+              "url": "https://www.iopaint.com/",
+              "badge_list": []
+            },
+            {
+              "name": "Lama-Cleaner-lama",
+              "url": "https://huggingface.co/spaces/Sanster/Lama-Cleaner-lama",
+              "badge_list": []
+            },
+            {
+              "name": "Topaz Gigapixel AI 7.2.1(人工智能图片无损放大)简体中文汉化版",
+              "url": "https://www.52pojie.cn/thread-1884191-1-1.html",
+              "badge_list": []
+            },
+            {
+              "name": "Topaz Photo AI 3.1.1（人工智能图片降噪软件）简体中文汉化版",
+              "url": "https://www.52pojie.cn/thread-1888246-1-1.html",
+              "badge_list": []
+            },
+            {
+              "name": "文字转LOGO图片",
+              "url": "https://www.52pojie.cn/thread-1876568-1-3.html",
+              "badge_list": []
+            },
+            {
+              "name": "upscayl",
+              "url": "https://github.com/upscayl/upscayl",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "音视频",
+      "resources": [],
+      "tabs": [
+        {
+          "tabName": "GIF、录屏",
+          "list": [
+            {
+              "name": "Gif123",
+              "url": "https://gif123.aardio.com/",
+              "badge_list": []
+            },
+            {
+              "name": "ScreenToGif",
+              "url": "https://www.screentogif.com/",
+              "badge_list": []
+            },
+            {
+              "name": "Video to GIF",
+              "url": "https://lyonbot.github.io/video-to-gif/",
+              "badge_list": []
+            },
+            {
+              "name": "RecordScreen.io",
+              "url": "https://recordscreen.io/",
+              "badge_list": []
+            },
+            {
+              "name": "Screenity",
+              "url": "https://screenity.io/en/",
+              "badge_list": []
+            },
+            {
+              "name": "水豚鼠标助手",
+              "url": "https://shuitunapp.com/",
+              "badge_list": []
+            },
+            {
+              "name": "智绘教Inkeys/IDT",
+              "url": "https://www.inkeys.top/",
+              "badge_list": []
+            },
+            {
+              "name": "ZoomIt",
+              "url": "https://learn.microsoft.com/zh-cn/sysinternals/downloads/zoomit",
+              "badge_list": []
+            },
+            {
+              "name": "土豆录屏",
+              "url": "http://www.tudouluping.com/",
+              "badge_list": []
+            },
+            {
+              "name": "EV录屏",
+              "url": "https://www.ieway.cn/evcapture.html",
+              "badge_list": []
+            },
+            {
+              "name": "Cap",
+              "url": "https://cap.so/",
+              "badge_list": []
+            },
+            {
+              "name": "OBS工作室版",
+              "url": "https://obsproject.com/zh-cn",
+              "badge_list": []
+            },
+            {
+              "name": "CamStudio",
+              "url": "https://camstudio.org/",
+              "badge_list": []
+            },
+            {
+              "name": "RecButton",
+              "url": "https://www.recbutton.org/",
+              "badge_list": []
+            },
+            {
+              "name": "Captura",
+              "url": "https://github.com/MathewSachin/Captura",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            }
+          ]
+        },
+        {
+          "tabName": "音、视频编辑",
+          "list": [
+            {
+              "name": "LosslessCut",
+              "url": "https://github.com/mifi/lossless-cut",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "AutoAudioRecorder/内部万能录音器",
+              "url": "https://autoclose.net/autoaudiorecorder.html",
+              "badge_list": []
+            },
+            {
+              "name": "HandBrake",
+              "url": "https://github.com/HandBrake/HandBrake",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "ShanaEncoder",
+              "url": "https://github.com/1265578519/ShanaEncoder",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Video-subtitle-remover",
+              "url": "https://github.com/YaoFANGUK/video-subtitle-remover",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "ProPainter",
+              "url": "https://github.com/sczhou/ProPainter",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "ProPainter（2）",
+              "url": "https://huggingface.co/spaces/sczhou/ProPainter",
+              "badge_list": []
+            },
+            {
+              "name": "UniFab Toolkit",
+              "url": "https://www.123pan.com/s/h6nrVv-Dxmrv.html",
+              "badge_list": []
+            },
+            {
+              "name": "FFmpegFreeUI",
+              "url": "https://github.com/Lake1059/FFmpegFreeUI/",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "pageName": "home",
+  "pageConfig": {
+    "sortPrefix": "02"
+  }
+}

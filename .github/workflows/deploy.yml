@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+# 允许 GITHUB_TOKEN 进行部署
 permissions:
   contents: read
   pages: write
@@ -17,23 +18,33 @@ jobs:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
 
-        
       # 1. 配置 Node.js 环境
+      # Keystatic 和 Astro 5 推荐使用 Node 20+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
 
-      # 2. 安装依赖 (npm ci 比 npm install 更适合服务器)
+      # 2. 安装依赖
       - name: Install dependencies
         run: npm ci
 
-      # 3. 🔥 关键步骤：运行专门为 GitHub Pages 准备的构建命令
+      # 3. 构建命令
+      # ⚠️ 确保你的 package.json 中有 "build:gh" 这个命令
+      # 通常它应该是: "astro build --site https://<用户名>.github.io --base /<仓库名>"
       - name: Build for GitHub Pages
         run: npm run build:gh
+        env:
+          # 如果你的 keystatic.config.ts 里用到了 process.env 变量，需要在这里配置
+          # 比如: PUBLIC_KEYSTATIC_MODE: 'github' (如果在生产环境用 GitHub 模式)
+          # 但对于纯本地编辑模式，通常不需要额外的 env
+          CI: true
 
-      # 4. 上传构建好的文件 (dist 文件夹)
+      # 4. 上传构建产物
+      # Astro 默认输出目录是 ./dist
+      # 如果你的 astro.config.mjs 配置了 output: 'hybrid'，Astro 可能会生成 dist/client 和 dist/server
+      # 对于 GitHub Pages，我们只需要静态部分 (dist 或 dist/client)
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

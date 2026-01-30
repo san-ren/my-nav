@@ -1,0 +1,243 @@
+{
+  "name": "娱乐",
+  "id": "sub2-02-娱乐",
+  "categories": [
+    {
+      "name": "影视",
+      "resources": [],
+      "tabs": [
+        {
+          "tabName": "在线看",
+          "list": [
+            {
+              "name": "低调观影",
+              "url": "https://shouku123.com/tiantian",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "甲方导航",
+              "url": "https://jiafangbb.com/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "观影",
+              "url": "https://www.gying.page/",
+              "official_site": "https://www.gying.net/",
+              "desc": "曾经的片库",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "耐看点播",
+              "url": "https://www.nkvod.com/",
+              "official_site": "",
+              "desc": "屏蔽国外ip",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            }
+          ]
+        },
+        {
+          "tabName": "影视磁力站",
+          "list": [
+            {
+              "name": "电影天堂",
+              "url": "https://www.dygod.net/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "游戏",
+      "resources": [
+        {
+          "name": "SteamDB",
+          "url": "https://steamdb.info/",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        },
+        {
+          "name": "114game",
+          "url": "https://www.114game.net/",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        },
+        {
+          "name": "GBTGame官方网盘",
+          "url": "https://pan.gbtgame.me/",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        },
+        {
+          "name": "乐赏游戏空间",
+          "url": "http://qhgame.ysepan.com/",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        },
+        {
+          "name": "小妖怪分享",
+          "url": "https://www.zzzzz688.com/",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        },
+        {
+          "name": "123资源库",
+          "url": "https://www.123zyk.com/",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        },
+        {
+          "name": "NS游戏仓库",
+          "url": "https://www.wolai.com/nxyxck/t3ou1DRW2dtgHcZCfP2Nh7",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        },
+        {
+          "name": "梓澪の妙妙屋",
+          "url": "https://zi0.cc/",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        },
+        {
+          "name": "浅夏的NS(switch)游戏清单",
+          "url": "https://lcnacj6svcnr.feishu.cn/share/base/query/shrcnrDf1C1ytsCL7EHBV1ixUnq",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        },
+        {
+          "name": "gdgame免费单机游戏下载",
+          "url": "https://gdgame.org/",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        },
+        {
+          "name": "WZGuides",
+          "url": "https://wzguides.cn/wz2/gunsmith",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        },
+        {
+          "name": "三角洲行动一图流",
+          "url": "https://www.kkrb.net/?viewpage=view%2Foverview",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        },
+        {
+          "name": "三角洲行动玩家营地",
+          "url": "https://www.dpcamp.cn/",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        },
+        {
+          "name": "准星代售",
+          "url": "https://www.zxfps.com/",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        },
+        {
+          "name": "cod系列地图",
+          "url": "https://wzhub.gg/map",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        },
+        {
+          "name": "三角洲行动数据接口",
+          "url": "https://df-api.apifox.cn/",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        },
+        {
+          "name": "三角洲小涛查",
+          "url": "https://sanjiaozhou.apifox.cn/",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        },
+        {
+          "name": "三角洲行动API",
+          "url": "https://github.com/coolxitech/deltaforce",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
+        }
+      ],
+      "tabs": []
+    }
+  ],
+  "pageName": "sub2",
+  "pageConfig": {
+    "sortPrefix": "02"
+  }
+}

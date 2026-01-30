@@ -1,0 +1,24 @@
+/* 文件路径: src/styles/mdx.css */
+
+/* 1. 行内代码美化 (配合 Tailwind Typography) */
+.prose :not(pre) > code {
+  background-color: rgba(0, 0, 0, 0.06);
+  color: #eb5757; 
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  font-size: 0.875em;
+  word-break: break-word;
+}
+
+html.dark .prose :not(pre) > code {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ff8f8f;
+}
+
+/* 去掉默认的反引号 */
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: "" !important;
+  display: none;
+}

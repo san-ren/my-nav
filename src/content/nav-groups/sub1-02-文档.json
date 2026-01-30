@@ -1,0 +1,616 @@
+{
+  "name": "文档",
+  "id": "sub1-02-文档",
+  "categories": [
+    {
+      "name": "Office",
+      "resources": [],
+      "tabs": [
+        {
+          "tabName": "office插件",
+          "list": [
+            {
+              "name": "Office Tab",
+              "url": "https://zh-cn.extendoffice.com/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "不坑盒子",
+              "url": "https://www.44886.com/thread-95066.htm",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "OneKeyTools",
+              "url": "http://oktools.xyz/index.html",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "小恐龙公文排版助手",
+              "url": "https://gw.xkonglong.com/#/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "方方格子",
+              "url": "http://www.ffcell.com/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "excel易用宝",
+              "url": "https://yyb.excelhome.net/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "Excel必备工具箱（免费版）",
+              "url": "http://www.ahzll.top/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "Excel精灵",
+              "url": "http://www.excelbbx.net/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "英豪工具箱",
+              "url": "http://addins.cn/yhtools/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "easychart",
+              "url": "https://github.com/EasyChart/Excel-Chart-Plugin-EasyCharts",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "OfficeAI助手",
+              "url": "https://office-ai.cn/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            }
+          ]
+        },
+        {
+          "tabName": "下载与激活",
+          "list": [
+            {
+              "name": "LKY Office Tools",
+              "url": "https://github.com/OdysseusYuan/LKY_OfficeTools",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "OfficeToolPlus",
+              "url": "https://otp.landian.vip/zh-cn/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "mocreak",
+              "url": "https://www.mocreak.com/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "Office2013-2019C2RInstall",
+              "url": "https://www.nsaneforums.com/topic/332794-office-2013-2019-c2r-install-install-lite-654/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "FreeOffice",
+              "url": "https://www.freeoffice.com/zh/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "PDF",
+      "resources": [],
+      "tabs": [
+        {
+          "tabName": "PDF软件",
+          "list": [
+            {
+              "name": "SumatraPDF",
+              "url": "https://www.sumatrapdfreader.org",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "PDFgear",
+              "url": "https://www.pdfgear.com/zh/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "pdfarranger",
+              "url": "https://github.com/pdfarranger/pdfarranger",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "pdf-helper",
+              "url": "https://github.com/iamlinhui/pdf-helper",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "PDFsamBasic",
+              "url": "https://pdfsam.org/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "uPDF",
+              "url": "https://www.52pojie.cn/forum.php?mod=viewthread&tid=1082693",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "PDF24",
+              "url": "https://zh.pdf24.org/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "PDFShaperFree",
+              "url": "https://www.pdfshaper.com/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "PDFPatcher",
+              "url": "https://www.cnblogs.com/pdfpatcher/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "飞扬PDF",
+              "url": "https://www.viyoung.net/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "XoDoPDFReader",
+              "url": "https://www.xodo.com/#",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "doPDF",
+              "url": "http://www.dopdf.com/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "iSkysoftPDFEditor",
+              "url": "付费，界面友好",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "SolidConverterPDF",
+              "url": "https://www.soliddocuments.com/zh/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "悦书PDF阅读器",
+              "url": "http://www.yueshupdf.com/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "福昕PDF编辑器个人版",
+              "url": "http://editor.foxitsoftware.cn/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "Okular",
+              "url": "https://okular.kde.org/zh-cn/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            }
+          ]
+        },
+        {
+          "tabName": "PDF网站",
+          "list": [
+            {
+              "name": "Stirling PDF",
+              "url": "https://stirlingpdf.io/?lang=zh_CN",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "PDF Candy",
+              "url": "https://pdfcandy.com/cn/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "PDF24 Tools",
+              "url": "https://tools.pdf24.org/zh/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "加加PDF官网 - 文电通",
+              "url": "https://www.addpdf.cn/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "LightPDF",
+              "url": "https://lightpdf.com/zh/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "PDF.io",
+              "url": "https://pdf.io/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "Smallpdf",
+              "url": "https://smallpdf.com/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "iLovePDF",
+              "url": "https://www.ilovepdf.com/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "福昕云编辑",
+              "url": "http://edit.foxitcloud.cn/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "完全匿名 PDF 轉換器",
+              "url": "https://easypdf.com/cn",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "PDF派",
+              "url": "https://www.pdfpai.com/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "nbpdf",
+              "url": "https://nbpdf.com/zh-CN/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "PDF.to",
+              "url": "https://pdf.to/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "Web to PDF Converter",
+              "url": "https://www.web2pdfconvert.com/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "Convert any URL or Web Page to PDF",
+              "url": "http://pdfmyurl.com/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "PDF提取图像，文本和字体",
+              "url": "https://www.extractpdf.com/zh.html",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "PDF Converter",
+              "url": "https://www.pdfyeah.com/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "超级PDF",
+              "url": "https://xpdf.net/pdf-to-word",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "chromePDF",
+              "url": "https://cn.chromepdf.com/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "CleverPDF",
+              "url": "https://www.cleverpdf.com/cn",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "PDFescape",
+              "url": "https://www.pdfescape.com/open/?expired",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "Knower - 你的知识助手",
+              "url": "https://knower.info/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "阅读器",
+      "resources": [
+        {
+          "name": "Readest",
+          "url": "https://github.com/readest/readest",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
+        },
+        {
+          "name": "潮汐阅读",
+          "url": "https://tidereader.com/",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        },
+        {
+          "name": "ReadCat",
+          "url": "https://github.com/read-cat/read-cat",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
+        },
+        {
+          "name": "STRapp",
+          "url": "https://github.com/cataerogong/STRapp/",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
+        },
+        {
+          "name": "Koodo Reader",
+          "url": "https://www.koodoreader.com/zh",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": []
+        }
+      ],
+      "tabs": []
+    }
+  ],
+  "pageName": "sub1",
+  "pageConfig": {
+    "sortPrefix": "02"
+  }
+}

@@ -1,0 +1,117 @@
+---
+status: published
+---
+这里写正文内容...
+
+::: Info
+
+
+:::
+
+> \[!Note]
+
+# 5.关于 gitignore
+
+### `.gitignore` 文件规则
+
+* 一行一项
+* 文件写完整文件名
+* 文件夹写 `文件夹名/`
+
+## 忽略上传的几种方式：
+
+* 项目通用忽略 (Standard .gitignore)
+  * 项目根目录添加 `.gitignore` 文件
+  * `.gitignore` 文件会被上传
+* 文件夹级忽略 (Nested .gitignore)
+  * 文件夹内添加 `.gitignore` 文件，内容为 `*`
+  * 此文件夹会被忽略，vscode 文件树中显示为灰色
+  * `uv enve` 自动采取这种方式
+* 个人/本地忽略 (Local Exclude)
+  * 编辑项目下的 `.git/info/exclude` 文件，写法和 `.gitignore` 一样
+  * `.git` 文件夹被强制忽略，所以此方式只在当前电脑生效
+* 全局忽略 (Global Ignore)
+  * 任意位置创建 `~/.gitignore\_global`
+  * 使其生效：`git config --global core.excludesfile ~/.gitignore_global`
+
+> \[!note]
+>
+> * `git check-ignore -v 文件路径` ：哪个文件、第几行规则导致了这个文件被忽略
+> * 添加了忽略规则，但文件被上传了
+>   * 该文件 **已经被 Git 追踪（Tracked）** 过了，.gitignore 只能忽略 **未被追踪（Untracked）** 的文件。如果文件以前提交过，Git 会继续追踪它的变化，忽略规则无效。
+>   * **解决办法**（清理缓存）：
+>     * 1. 从 Git 记录中移除（保留本地文件） `git rm -r --cached .venv/  `
+>     * 2. 重新提交（这次忽略规则就会生效了） `git commit -m "Stop tracking .venv"`
+
+---
+
+* **!!! note (MkDocs)**：**靠缩进结束**。一旦顶格写字，框就断了。
+* **::: note / /// note**：**靠闭合符号结束**。就像写代码块一样，要有始有终。
+* **> \[!NOTE] (GitHub)**：**靠 > 符号结束**。一旦哪一行前面没有 >，引用块就断了。
+* [Python 包和项目管理器：uv](https://github.com/astral-sh/uv)
+  !\[stars]\([https://img.shields.io/github/stars/astral-sh/uv](https://img.shields.io/github/stars/astral-sh/uv))
+* [中文文档：uv-zh-cn](https://hellowac.github.io/uv-zh-cn/)
+
+## 使用步骤
+
+* 将项目git到本地
+* `uv venv`新建虚拟环境，无需激活，直接安装依赖：`uv pip install -r requirements.txt`
+  * uv默认将依赖安装到虚拟环境，若无虚拟环境则报错，或添加`--system`安装到全局
+  * 安装后可通过`uv pip show <package>`查看依赖位置（此时虚拟环境未激活，`pip show <package>`识别不到包）
+*
+* `.venv\Scripts\activate`：激活venv
+
+### **查看当前环境的安装路径**
+
+#### ​**方法 1：通过 Python 命令**
+
+运行以下命令查看所有包路径：
+
+```bash
+python -m site
+```
+
+输出示例：
+
+```text
+sys.path = [
+    '/usr/local/lib/python3.11/site-packages',  # 全局路径
+    '/home/user/.local/lib/python3.11/site-packages',  # 用户路径
+]
+```
+
+#### ​**方法 2：使用 `sysconfig` 模块**
+
+```bash
+python -c "import sysconfig; print(sysconfig.get_path('purelib'))"
+```
+
+这会直接打印全局包的安装路径（如 `/usr/local/lib/python3.11/site-packages`）。
+
+## 基础使用
+
+| ​**命令**​ | ​**层级**​ | ​**核心用途**​       |
+| -------- | -------- | ---------------- |
+| `uvx`    | 全局工具     | 运行独立应用，隔离环境      |
+| `uv add` | 项目依赖     | 自动化管理本地依赖和配置文件   |
+| `uv pip` | 底层包操作    | 直接执行 `pip` 风格的命令 |
+
+## 安装和管理 Python 版本
+
+* `uv python install 3.11`：安装 Python 3.11版本。
+* `uv python list`：查看可用的 Python 版本。
+* `uv python find`：查找已安装的 Python 版本。
+* `uv python pin`：为当前项目指定使用的 Python 版本。
+* `uv python uninstall`：卸载 Python 版本。
+
+## 项目
+
+创建并管理包含 `pyproject.toml` 的 Python 项目。
+
+* `uv init`：创建一个新项目。
+* `uv add`：向项目添加依赖。
+* `uv remove`：从项目中移除依赖。
+* `uv run`：在项目环境中运行命令。
+* `uv tree`：查看项目的依赖树。
+
+/

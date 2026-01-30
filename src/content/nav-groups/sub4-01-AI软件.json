@@ -1,0 +1,519 @@
+{
+  "name": "AI软件",
+  "id": "sub4-01-AI软件",
+  "categories": [
+    {
+      "name": "markdown",
+      "resources": [],
+      "tabs": [
+        {
+          "tabName": "md编辑器",
+          "list": [
+            {
+              "name": "Yank Note",
+              "url": "https://github.com/purocean/yn",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "wj-markdown-editor",
+              "url": "https://github.com/nlbwqmz/wj-markdown-editor",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "hedgedoc",
+              "url": "https://github.com/hedgedoc/hedgedoc",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "dillinger",
+              "url": "https://dillinger.io/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "Arya",
+              "url": "https://markdown.lovejade.cn/",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "md",
+              "url": "https://github.com/doocs/md",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "微信公众号markdown排版工具",
+              "url": "https://markdown.com.cn/editor/",
+              "official_site": "",
+              "desc": "mardown 官网网页编辑器",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": []
+            },
+            {
+              "name": "markdown-online-editor",
+              "url": "https://github.com/nicejade/markdown-online-editor",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "flymd",
+              "url": "https://github.com/flyhunterl/flymd",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "joplin",
+              "url": "https://github.com/laurent22/joplin",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "ghostwriter",
+              "url": "https://github.com/KDE/ghostwriter",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "mdx-notes",
+              "url": "https://github.com/maqi1520/mdx-notes",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Archive-Markdown-Editor",
+              "url": "https://github.com/ScottSmith666/Archive-Markdown-Editor",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "markor",
+              "url": "https://github.com/gsantner/markor",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            }
+          ]
+        },
+        {
+          "tabName": "md格式转换",
+          "list": [
+            {
+              "name": "markitdown",
+              "url": "https://github.com/microsoft/markitdown",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "MinerU",
+              "url": "https://github.com/opendatalab/MinerU",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "marker",
+              "url": "https://github.com/datalab-to/marker",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "pdf-craft",
+              "url": "https://github.com/oomol-lab/pdf-craft",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            }
+          ]
+        },
+        {
+          "tabName": "md组件",
+          "list": [
+            {
+              "name": "retext",
+              "url": "https://github.com/retext-project/retext",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "tui.editor",
+              "url": "https://github.com/nhn/tui.editor",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "milkdown",
+              "url": "https://github.com/Milkdown/milkdown",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "mavonEditor",
+              "url": "https://github.com/hinesboy/mavonEditor",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "react-markplus",
+              "url": "https://github.com/markpluslabs/react-markplus",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "react-md-editor",
+              "url": "https://github.com/uiwjs/react-md-editor",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "Raneto",
+              "url": "https://github.com/ryanlelek/Raneto",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            },
+            {
+              "name": "cherry-markdown",
+              "url": "https://github.com/Tencent/cherry-markdown",
+              "official_site": "",
+              "desc": "",
+              "guide_id": "",
+              "icon": "",
+              "badge_list": [
+                "stars",
+                "version",
+                "last_commit"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "AI工具",
+      "resources": [
+        {
+          "name": "AI_NovelGenerator/自动小说生成工具",
+          "url": "https://github.com/YILING0013/AI_NovelGenerator",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
+        },
+        {
+          "name": "Image/Manga Translator",
+          "url": "https://github.com/zyddnys/manga-image-translator",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
+        },
+        {
+          "name": "BallonTranslator",
+          "url": "https://github.com/dmMaze/BallonsTranslator",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
+        },
+        {
+          "name": "PDFMathTranslate",
+          "url": "https://github.com/Byaidu/PDFMathTranslate",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
+        },
+        {
+          "name": "YuE",
+          "url": "https://github.com/multimodal-art-projection/YuE",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
+        },
+        {
+          "name": "DiffRhythm（谛韵）",
+          "url": "https://github.com/ASLP-lab/DiffRhythm",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
+        },
+        {
+          "name": "VideoLingo",
+          "url": "https://github.com/Huanshere/VideoLingo",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
+        },
+        {
+          "name": "卡卡字幕助手（VideoCaptioner）",
+          "url": "https://github.com/WEIFENG2333/VideoCaptioner",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
+        },
+        {
+          "name": "ANTO",
+          "url": "https://github.com/speauty/anto",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
+        },
+        {
+          "name": "v2vt",
+          "url": "https://github.com/halfzm/v2vt",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
+        },
+        {
+          "name": "screenshot-to-code",
+          "url": "https://github.com/abi/screenshot-to-code",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
+        },
+        {
+          "name": "Ai-to-pptx",
+          "url": "https://github.com/SmartSchoolAI/ai-to-pptx",
+          "official_site": "",
+          "desc": "",
+          "guide_id": "",
+          "icon": "",
+          "badge_list": [
+            "stars",
+            "version",
+            "last_commit"
+          ]
+        }
+      ],
+      "tabs": []
+    }
+  ],
+  "pageName": "sub4",
+  "pageConfig": {
+    "sortPrefix": "01"
+  }
+}
