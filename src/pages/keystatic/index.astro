@@ -1,10 +1,9 @@
 ---
-// 1. 恢复官方标准导入
-import { Keystatic } from '@keystatic/astro/ui';
+import KeystaticAdmin from '../../components/KeystaticAdmin';
 
-// 2. 依然保持预渲染，生成 index.html
+// 1. 强制预渲染，生成静态 index.html
 export const prerender = true;
 ---
 
-<!-- 3. 直接渲染，无需任何参数 -->
-<Keystatic />
+<!-- 2. 使用 client:only="react"，完全在客户端运行 -->
+<KeystaticAdmin client:only="react" />

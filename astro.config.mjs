@@ -10,22 +10,16 @@ import sitemap from '@astrojs/sitemap';
 import astroExpressiveCode from 'astro-expressive-code';
 import basicSsl from '@vitejs/plugin-basic-ssl';
 
-// 1. 判断是否是 GitHub Pages 环境
+// 1. 环境判断
 const isGitHubPages = process.env.DEPLOY_TARGET === 'github';
-// 2. 设置 base 路径
 const myBase = isGitHubPages ? '/my-nav' : '/';
-// 3. 设置 site
 const mySite = 'https://san-ren.github.io';
 
 export default defineConfig({
   site: mySite,
   base: myBase,
-  
-  // 保持 output 为 static
   output: 'static',
 
-  // ✅ 核心修复：始终启用 Node 适配器
-  // 这会解决 Keystatic 的 "NoAdapterInstalled" 报错
   adapter: node({
     mode: 'standalone',
   }),
@@ -74,15 +68,6 @@ export default defineConfig({
 
   vite: {
     plugins: [basicSsl()],
-
-    // ✅ 新增：强制打包 Keystatic，解决 "Keystatic is not exported" 报错
-    ssr: {
-      noExternal: ['@keystatic/astro', '@keystatic/core', '@keystatic/astro/ui'],
-    },
-    optimizeDeps: {
-      exclude: ['@keystatic/astro', '@keystatic/core'],
-    },
-
     server: {
       watch: {
         usePolling: true,
