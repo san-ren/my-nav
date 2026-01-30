@@ -1,8 +1,9 @@
 import { defineConfig } from 'astro/config';
-import keystatic from '@keystatic/astro';
+
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
-import node from "@astrojs/node"; 
+// ❌ 移除 Node Adapter，因为 GitHub Pages 是纯静态托管，不能运行 Node 服务
+// import node from "@astrojs/node"; 
 import markdoc from "@astrojs/markdoc";
 import mdx from '@astrojs/mdx';
 import remarkGfm from 'remark-gfm';
@@ -18,11 +19,12 @@ const mySite = 'https://san-ren.github.io';
 export default defineConfig({
   site: mySite,
   base: myBase,
+  
+  // ✅ 强制静态输出，适配 GitHub Pages
   output: 'static',
 
-  adapter: node({
-    mode: 'standalone',
-  }),
+  // ❌ 移除 adapter，让 Astro 默认生成纯 HTML/CSS/JS 文件
+  // adapter: node({ mode: 'standalone' }),
 
   integrations: [
     astroExpressiveCode({
@@ -48,7 +50,7 @@ export default defineConfig({
     }),
     tailwind(), 
     react(), 
-    keystatic(), 
+
     markdoc(), 
     mdx({ remarkPlugins: [remarkGfm] }), 
     sitemap()
@@ -67,6 +69,7 @@ export default defineConfig({
   devToolbar: { enabled: false },
 
   vite: {
+    // ✅ 保持 basicSsl 用于本地模拟 GitHub 模式的 HTTPS 环境
     plugins: [basicSsl()],
     server: {
       watch: {

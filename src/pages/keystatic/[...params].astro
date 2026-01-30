@@ -1,0 +1,16 @@
+---
+// src/pages/keystatic/[...params].astro
+import { Keystatic } from '@keystatic/astro/ui';
+import config from '../../../keystatic.config';
+
+// 这一步是为了欺骗 Astro 的静态构建。
+// 我们只生成 /keystatic 这个入口，具体的子路由（如 /keystatic/collection/...）
+// 由 React 在浏览器端通过 Hash 或 Path 接管。
+export function getStaticPaths() {
+  return [
+    { params: { params: undefined } }, 
+  ];
+}
+---
+
+<Keystatic client:only="react" config={config} />

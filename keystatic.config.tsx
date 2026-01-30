@@ -15,6 +15,7 @@ const VISUAL_TAGS = [
   { label: '⚪ 无标签', value: ' ' }
 ];
 
+// --- Block Components ---
 const containerSchema = {
   type: fields.select({
     label: '容器类型',
@@ -94,6 +95,7 @@ const commonMdxOptions = {
   heading: [2, 3, 4, 5, 6] as const,
 };
 
+// --- Reusable Fields ---
 const resourceFields = {
   name: fields.text({ label: '名称' }),
   url: fields.url({ label: '项目链接', validation: { isRequired: false } }),
@@ -125,10 +127,18 @@ const resourceFields = {
 };
 
 export default config({
-  storage: isProd
-    ? { kind: 'cloud' }
-    : { kind: 'local' },
+  // 🔴 核心修改：生产环境必须使用 'github' 模式
+  // 这样 Keystatic 就会变成一个纯前端 App，直接通过 API 操作你的仓库
+  storage: import.meta.env.PROD
+    ? {
+        kind: 'github',
+        repo: 'san-ren/my-nav', // 👈 替换为你的 "用户名/仓库名" (请确认是否正确!)
+      }
+    : {
+        kind: 'local',
+      },
 
+  // 如果不用 Keystatic Cloud，可以注释掉这行，或者保留也不影响
   cloud: { project: 'astro-nav/my-nav' },
 
   ui: {
@@ -138,7 +148,6 @@ export default config({
       '内容创作': ['guides', 'changelog'],
       '全局设置': ['siteSettings'],
     },
-    
   },
   
   singletons: {
@@ -191,11 +200,7 @@ export default config({
           validation: { isRequired: true }
         }),
         
-        
-        
-        // ✅ 2. 顶层关联字段：pageName
-        // 虽然它在代码里存的是 ID，但在后台它就是"页面名称选择器"。
-        // 必须放在顶层，否则 columns 无法读取它。
+        // 2. 顶层关联字段：pageName
         pageName: fields.relationship({ 
           label: '📄 所属页面', 
           collection: 'pages', 
@@ -203,9 +208,7 @@ export default config({
           description: '选择该分组归属于哪个页面'
         }),
 
-        // ✅ 3. 配置对象：pageConfig
-        // ID 已经在上面了，这里只放排序。
-        // 这样保持了你想要的"配置收纳"结构。
+        // 3. 配置对象：pageConfig
         pageConfig: fields.object(
           {
             sortPrefix: fields.select({
@@ -217,10 +220,9 @@ export default config({
           },
           { 
             label: '⚙️ 分组配置',
-            description: '设置分组在页面内的排序顺序' // 可以在这里补充说明
+            description: '设置分组在页面内的排序顺序' 
           }
         ),
-
         
         resources: fields.array(
           fields.object(resourceFields),
@@ -233,7 +235,6 @@ export default config({
         categories: fields.array(
           fields.object({
             name: fields.text({ label: '分类名称' }),
-            // 🔥 已删除：icon: fields.text({ label: '分类图标' }),
             resources: fields.array(
               fields.object(resourceFields),
               { label: '📚 直属资源列表', itemLabel: (props) => props.fields.name.value || '未命名资源' }
@@ -256,8 +257,6 @@ export default config({
           label: '🆔 系统ID', 
           validation: { length: { min: 1 } }
         }),
-
-
       },
     }),
 
@@ -275,6 +274,8 @@ export default config({
                 defaultValue: 'draft'
             }),
             date: fields.date({ label: '日期', defaultValue: { kind: 'today' } }),
+            // 🔥 注意：这里设置了 Public Path，Keystatic 会在 Markdown 中仅存储文件名
+            // 对应的 Astro Content Config 必须使用 z.string() 而非 z.image()
             cover: fields.image({ label: '封面', directory: 'public/images/guides/covers', publicPath: '/images/guides/covers/' }),
             
             body: fields.mdx({
