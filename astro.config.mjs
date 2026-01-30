@@ -27,11 +27,10 @@ export default defineConfig({
   output: 'static',
 
   // 5. ✅ 关键修复：根据环境判断是否启用 Node 适配器
-  // GitHub Pages 需要纯静态输出（直接在 dist 下生成 index.html）。
-  // 启用 node 适配器会导致输出变成 dist/client/index.html，GitHub Pages 找不到入口从而 404。
-  // 所以：如果是 GitHub Pages 构建，设为 undefined（禁用适配器）；否则使用 Node 适配器。
-  adapter: isGitHubPages ? undefined : node({
+  
+  adapter: node({
     mode: 'standalone',
+  }),
   }),
 
   // 6. 集成配置
