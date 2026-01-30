@@ -10,30 +10,26 @@ import sitemap from '@astrojs/sitemap';
 import astroExpressiveCode from 'astro-expressive-code';
 import basicSsl from '@vitejs/plugin-basic-ssl';
 
-// 1. 判断当前构建目标
+// 1. 判断是否是 GitHub Pages 环境
 const isGitHubPages = process.env.DEPLOY_TARGET === 'github';
-
-// 2. 动态设置路径
-// 注意：'/my-nav' 必须与你的 GitHub 仓库名称完全一致
+// 2. 设置 base 路径
 const myBase = isGitHubPages ? '/my-nav' : '/';
-const mySite = 'https://san-ren.github.io'; // 建议一直保留 site 配置，避免 sitemap 生成警告
+// 3. 设置 site
+const mySite = 'https://san-ren.github.io';
 
 export default defineConfig({
-  // 3. 网站基础信息
   site: mySite,
   base: myBase,
-
-  // 4. 构建模式：静态站点生成
+  
+  // 保持 output 为 static
   output: 'static',
 
-  // 5. ✅ 关键修复：根据环境判断是否启用 Node 适配器
-  
+  // ✅ 核心修复：始终启用 Node 适配器
+  // 这会解决 Keystatic 的 "NoAdapterInstalled" 报错
   adapter: node({
     mode: 'standalone',
   }),
-  }),
 
-  // 6. 集成配置
   integrations: [
     astroExpressiveCode({
       themes: ['dracula', 'github-light'],
@@ -44,9 +40,7 @@ export default defineConfig({
         frameStyle: 'box',
       },
       styleOverrides: {
-        ui: {
-            windowControlsDecoration: 'none', 
-        },
+        ui: { windowControlsDecoration: 'none' },
         codeBackground: '#1e293b',
         codeForeground: '#e2e8f0',
         borderColor: '#334155',
@@ -56,22 +50,16 @@ export default defineConfig({
             frameBoxShadowCssValue: 'none',
         }
       },
-      defaultProps: {
-        frame: 'code', 
-      },
+      defaultProps: { frame: 'code' },
     }),
-
     tailwind(), 
     react(), 
     keystatic(), 
     markdoc(), 
-    mdx({
-      remarkPlugins: [remarkGfm],
-    }), 
+    mdx({ remarkPlugins: [remarkGfm] }), 
     sitemap()
   ],
 
-  // 7. 开发服务器配置
   server: {
     host: true,
     port: 4321,
@@ -82,12 +70,8 @@ export default defineConfig({
     }
   },
 
-  // 8. 开发者工具栏
-  devToolbar: {
-    enabled: false
-  },
+  devToolbar: { enabled: false },
 
-  // 9. Vite 配置
   vite: {
     plugins: [basicSsl()],
     server: {
