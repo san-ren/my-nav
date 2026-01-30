@@ -2,6 +2,7 @@
   "name": "my-nav",
   "type": "module",
   "version": "0.0.1",
+  "homepage": "https://san-ren.github.io/my-nav/",
   "scripts": {
     "dev": "astro dev --host 0.0.0.0",
     "start": "astro dev",
