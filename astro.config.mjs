@@ -14,8 +14,9 @@ import basicSsl from '@vitejs/plugin-basic-ssl';
 const isGitHubPages = process.env.DEPLOY_TARGET === 'github';
 
 // 2. 动态设置路径
+// 注意：'/my-nav' 必须与你的 GitHub 仓库名称完全一致
 const myBase = isGitHubPages ? '/my-nav' : '/';
-const mySite = isGitHubPages ? 'https://san-ren.github.io' : undefined;
+const mySite = 'https://san-ren.github.io'; // 建议一直保留 site 配置，避免 sitemap 生成警告
 
 export default defineConfig({
   // 3. 网站基础信息
@@ -25,9 +26,11 @@ export default defineConfig({
   // 4. 构建模式：静态站点生成
   output: 'static',
 
-  // 5. ✅ 关键修复：启用 Node 适配器
-  // 虽然是 static 模式，但挂载适配器可以防止 Keystatic 路由报错 NoAdapterInstalled
-  adapter: node({
+  // 5. ✅ 关键修复：根据环境判断是否启用 Node 适配器
+  // GitHub Pages 需要纯静态输出（直接在 dist 下生成 index.html）。
+  // 启用 node 适配器会导致输出变成 dist/client/index.html，GitHub Pages 找不到入口从而 404。
+  // 所以：如果是 GitHub Pages 构建，设为 undefined（禁用适配器）；否则使用 Node 适配器。
+  adapter: isGitHubPages ? undefined : node({
     mode: 'standalone',
   }),
 
