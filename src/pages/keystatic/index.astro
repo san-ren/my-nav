@@ -1,10 +1,9 @@
 ---
-// 1. 强制静态预渲染
-export const prerender = true;
+import KeystaticAdmin from '../../components/KeystaticAdmin';
 
-// 2. 修复导入：使用默认导入（不要用花括号）
-import Keystatic from '@keystatic/astro/ui';
+// 1. 强制预渲染生成静态 HTML (解决 404 的关键)
+export const prerender = true;
 ---
 
-<!-- 3. 渲染组件 -->
-<Keystatic />
+<!-- 2. 渲染 React 组件，必须加 client:only -->
+<KeystaticAdmin client:only="react" />
