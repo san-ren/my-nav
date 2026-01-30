@@ -74,6 +74,15 @@ export default defineConfig({
 
   vite: {
     plugins: [basicSsl()],
+
+    // ✅ 新增：强制打包 Keystatic，解决 "Keystatic is not exported" 报错
+    ssr: {
+      noExternal: ['@keystatic/astro', '@keystatic/core', '@keystatic/astro/ui'],
+    },
+    optimizeDeps: {
+      exclude: ['@keystatic/astro', '@keystatic/core'],
+    },
+
     server: {
       watch: {
         usePolling: true,
