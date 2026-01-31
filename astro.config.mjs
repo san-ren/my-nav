@@ -55,7 +55,7 @@ export default defineConfig({
   ],
 
   server: {
-    host: true,
+    host: 'localhost',
     port: 4321,
     headers: {
       "Access-Control-Allow-Origin": "*",
@@ -68,7 +68,7 @@ export default defineConfig({
 
   vite: {
     // ✅ 保持 basicSsl 用于本地模拟 GitHub 模式的 HTTPS 环境
-    plugins: [basicSsl()],
+    // plugins: [basicSsl()],
     server: {
       watch: {
         usePolling: true,

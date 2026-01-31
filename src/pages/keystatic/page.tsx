@@ -1,4 +1,7 @@
+import React from 'react';
 import { makePage } from '@keystatic/astro/ui';
-import config from '../../../keystatic.config'; // 👈 确保这里的路径能找到你根目录下的配置文件
+// 请确保 ../../../keystatic.config 指向正确的文件
+import config from '../../../keystatic.config';
 
-export const Keystatic = makePage(config);
+// ✅ 使用默认导出，这是最不容易出错的方式
+export default makePage(config);

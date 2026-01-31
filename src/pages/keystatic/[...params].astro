@@ -1,18 +1,19 @@
 ---
 // src/pages/keystatic/[...params].astro
+// ✅ 引入上面的组件 (默认导入，不带花括号)
+import KeystaticPage from './page';
 
-// 1. 引入我们刚刚创建的 React 组件 (注意路径是 ./page)
-import { Keystatic } from './page';
-
-// 2. 强制静态预渲染 (GitHub Pages 必须)
 export const prerender = true;
 
-// 3. 静态路径生成
 export function getStaticPaths() {
   return [
     { params: { params: undefined } },
+    { params: { params: 'cloud/oauth/callback' } }, // 👈 必须有这个，否则登录回调 404
+    { params: { params: 'branch' } },
+    { params: { params: 'collection' } },
+    { params: { params: 'keystatic' } }
   ];
 }
 ---
 
-<Keystatic client:only="react" />
+<KeystaticPage client:only="react" />
