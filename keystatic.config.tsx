@@ -1,7 +1,8 @@
 import { config, fields, collection, singleton, component } from '@keystatic/core';
 import React from 'react';
 
-const isProd = import.meta.env.PROD; 
+
+ 
 
 const VISUAL_TAGS = [
   { label: '🏠 首页/概览 (Home)', value: '🏠' },
@@ -126,23 +127,22 @@ const resourceFields = {
   }),
 };
 
+
 export default config({
   // 🔴 核心修改：生产环境必须使用 'github' 模式
   // 这样 Keystatic 就会变成一个纯前端 App，直接通过 API 操作你的仓库
-  storage: import.meta.env.PROD
-    ? {
+  storage: 
+      {
         kind: 'github',
-        repo: 'san-ren/my-nav', // 👈 替换为你的 "用户名/仓库名" (请确认是否正确!)
-      }
-    : {
-        kind: 'local',
+        repo: 'san-ren/my-nav',
       },
 
-  // 如果不用 Keystatic Cloud，可以注释掉这行，或者保留也不影响
+  
   cloud: { project: 'astro-nav/my-nav' },
 
   ui: {
     brand: { name: 'MyNav 管理后台' },
+
     navigation: {
       '核心数据': ['groups', 'pages'], 
       '内容创作': ['guides', 'changelog'],
