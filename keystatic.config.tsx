@@ -133,8 +133,8 @@ export default config({
   // 这样 Keystatic 就会变成一个纯前端 App，直接通过 API 操作你的仓库
   storage: 
       {
-        kind: 'github',
-        repo: 'san-ren/my-nav',
+        kind: 'cloud',
+
       },
 
   
