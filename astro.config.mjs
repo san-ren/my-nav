@@ -48,7 +48,7 @@ export default defineConfig({
     }),
     tailwind(), 
     react(), 
-    // keystatic(),  
+    keystatic(),  
     markdoc(), 
     mdx({ remarkPlugins: [remarkGfm] }), 
     sitemap()

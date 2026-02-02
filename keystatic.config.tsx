@@ -128,16 +128,22 @@ const resourceFields = {
 };
 
 
-export default config({
-  // 🔴 核心修改：生产环境必须使用 'github' 模式
-  // 这样 Keystatic 就会变成一个纯前端 App，直接通过 API 操作你的仓库
-  storage: 
-      {
-        kind: 'cloud',
+// 1. 定义环境判断变量
+const isDev = import.meta.env.DEV;
 
+export default config({
+  // 2. 根据环境切换 storage 模式
+  // 本地开发 (Dev) -> 使用 'local' (本地文件系统)
+  // 线上生产 (Prod) -> 使用 'cloud' 或 'github'
+  storage: isDev
+    ? {
+        kind: 'local',
+      }
+    : {
+        kind: 'cloud', 
       },
 
-  
+  // 3. Cloud 配置 (仅在 kind: cloud 时生效，但保留在这里无妨)
   cloud: { project: 'astro-nav/my-nav' },
 
   ui: {

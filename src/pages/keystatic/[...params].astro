@@ -1,17 +1,22 @@
 ---
-// src/pages/keystatic/[...params].astro
-// ✅ 引入上面的组件 (默认导入，不带花括号)
 import KeystaticPage from './page';
 
 export const prerender = true;
 
 export function getStaticPaths() {
   return [
+    // 1. 基础入口 /my-nav/keystatic
     { params: { params: undefined } },
-    { params: { params: 'cloud/oauth/callback' } }, // 👈 必须有这个，否则登录回调 404
+    
+    // 2. 关键：Keystatic 的常用子路径
+    // 注意：GitHub Pages 是纯静态的，无法做到真正的 SPA "Catch-all"。
+    // 我们需要尽可能覆盖 Keystatic 会访问的路径，或者依赖 Hash 路由（Keystatic 默认是 Path 路由）。
+    { params: { params: 'cloud' } },
+    { params: { params: 'cloud/oauth' } },
+    { params: { params: 'cloud/oauth/callback' } }, // 登录回调必须
     { params: { params: 'branch' } },
     { params: { params: 'collection' } },
-    { params: { params: 'keystatic' } }
+    { params: { params: 'singleton' } },
   ];
 }
 ---
