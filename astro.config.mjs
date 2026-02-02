@@ -24,6 +24,7 @@ export default defineConfig({
   site: mySite,
   base: myBase,
   
+  trailingSlash: 'always', 
  
   output: 'static',
 
