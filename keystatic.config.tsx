@@ -140,7 +140,8 @@ export default config({
         kind: 'local',
       }
     : {
-        kind: 'cloud', 
+        kind: 'github', 
+        repo: 'san-ren/my-nav'
       },
 
   // 3. Cloud 配置 (仅在 kind: cloud 时生效，但保留在这里无妨)
