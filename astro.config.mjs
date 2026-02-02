@@ -13,9 +13,12 @@ import node from '@astrojs/node';
 
 
 // 1. 环境判断
-const isGitHubPages = process.env.DEPLOY_TARGET === 'github';
-const myBase = isGitHubPages ? '/my-nav' : '/';
+// const isGitHubPages = process.env.DEPLOY_TARGET === 'github';
+// const myBase = isGitHubPages ? '/my-nav' : '/';
+
+const myBase = '/my-nav'; 
 const mySite = 'https://san-ren.github.io';
+ 
 
 export default defineConfig({
   site: mySite,
