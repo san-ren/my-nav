@@ -1,24 +1,21 @@
 ---
-import KeystaticPage from './page';
+// src/pages/keystatic/[...params].astro
+
+// 1. 修改引入路径，指向 components 目录
+import KeystaticAdmin from '../../components/KeystaticAdmin';
 
 export const prerender = true;
 
 export function getStaticPaths() {
   return [
-    // 1. 基础入口 /my-nav/keystatic
     { params: { params: undefined } },
-    
-    // 2. 关键：Keystatic 的常用子路径
-    // 注意：GitHub Pages 是纯静态的，无法做到真正的 SPA "Catch-all"。
-    // 我们需要尽可能覆盖 Keystatic 会访问的路径，或者依赖 Hash 路由（Keystatic 默认是 Path 路由）。
-    { params: { params: 'cloud' } },
-    { params: { params: 'cloud/oauth' } },
-    { params: { params: 'cloud/oauth/callback' } }, // 登录回调必须
+    { params: { params: 'cloud' } }, // 增加 cloud 路由
+    { params: { params: 'cloud/oauth/callback' } },
     { params: { params: 'branch' } },
     { params: { params: 'collection' } },
-    { params: { params: 'singleton' } },
+    { params: { params: 'keystatic' } }
   ];
 }
 ---
 
-<KeystaticPage client:only="react" />
+<KeystaticAdmin client:only="react" />

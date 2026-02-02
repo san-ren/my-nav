@@ -8,7 +8,9 @@ import mdx from '@astrojs/mdx';
 import remarkGfm from 'remark-gfm';
 import sitemap from '@astrojs/sitemap';
 import astroExpressiveCode from 'astro-expressive-code';
-import basicSsl from '@vitejs/plugin-basic-ssl';
+// import basicSsl from '@vitejs/plugin-basic-ssl';
+import node from '@astrojs/node';
+
 
 // 1. 环境判断
 const isGitHubPages = process.env.DEPLOY_TARGET === 'github';
@@ -22,7 +24,9 @@ export default defineConfig({
  
   output: 'static',
 
- 
+  adapter: node({
+    mode: 'standalone',
+  }),
 
   integrations: [
     astroExpressiveCode({
