@@ -6,13 +6,14 @@
 .detail-markdown a { color: #3b82f6; text-decoration: underline; }
 .detail-markdown del { text-decoration: line-through; opacity: 0.7; }
 
-/* 优化后的流光动画 */
+/* 流光动画 */
 @keyframes beamFlow {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
+/* 使用 ::after 伪元素创建流光层 */
 .site-card-wrapper a::after {
     content: "";
     position: absolute;
@@ -20,31 +21,39 @@
     z-index: 50; 
     border-radius: 12px;
     padding: 1.5px;
+    
     background: linear-gradient(
         60deg,
         transparent 20%,
-        rgba(79, 70, 229, 0) 35%,
+        rgba(79, 70, 229, 0) 35%, 
         rgba(79, 70, 229, 1) 45%,
         rgba(168, 85, 247, 1) 50%,
         rgba(236, 72, 153, 1) 55%,
         rgba(236, 72, 153, 0) 65%,
         transparent 80%
     );
-    background-size: 300% 300%; 
+    background-size: 300% 300%;
+    
+    /* 遮罩魔法：中间镂空 (已修复兼容性警告) */
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    
     -webkit-mask-composite: xor;
     mask-composite: exclude;
+    
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
     filter: drop-shadow(0 0 2px rgba(168, 85, 247, 0.5));
 }
 
+/* 激活状态 */
 .site-card-wrapper.flow-active a::after {
     opacity: 1;
-    animation: beamFlow 2.5s ease infinite; 
+    animation: beamFlow 2.5s ease infinite;
 }
 
+/* 暗色模式优化 */
 :global(.dark) .site-card-wrapper a::after {
     filter: drop-shadow(0 0 3px rgba(168, 85, 247, 0.8));
 }
