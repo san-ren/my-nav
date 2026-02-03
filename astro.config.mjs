@@ -8,12 +8,14 @@ import remarkGfm from 'remark-gfm';
 import sitemap from '@astrojs/sitemap';
 import astroExpressiveCode from 'astro-expressive-code';
 
-// 1. 智能判断当前环境
+// 1. 智能判断逻辑 (最稳健的方式)
+// 只要不是运行 "dev" 命令，我们就默认是在构建生产版本
 const isDevCommand = process.argv.includes('dev');
-const isGitHubPages = process.env.DEPLOY_TARGET === 'github';
 
-// 2. 动态 Base 路径
-const myBase = isGitHubPages ? '/my-nav' : '/';
+// 2. 强制设置 Base 路径
+// 本地开发用 '/'，生产打包强制用 '/my-nav'
+// 这样无论 GitHub Actions 里的环境变量有没有生效，都能保证路径正确
+const myBase = isDevCommand ? '/' : '/my-nav';
 const mySite = 'https://san-ren.github.io';
 
 // 3. 定义集成列表
@@ -46,7 +48,9 @@ const integrations = [
   sitemap()
 ];
 
-// 4. 动态加载 Keystatic (本地开发专用)
+// 4. 动态加载 Keystatic
+// 只在本地开发 (npm run dev) 时加载。
+// 生产环境不加载，强制 Keystatic 使用 GitHub Mode (Client-side)。
 if (isDevCommand) {
   integrations.push(keystatic());
 }
@@ -55,12 +59,13 @@ export default defineConfig({
   site: mySite,
   base: myBase,
   
-  // ✅ 5. 关键修改：trailingSlash 也需要动态判断！
-  // - 线上 (GitHub Pages): 'always' -> 生成 /folder/index.html 结构，必须有斜杠
-  // - 本地 (Dev): 'ignore' -> 不强制加斜杠，防止破坏 Keystatic 的 API 请求
-  trailingSlash: isGitHubPages ? 'always' : 'ignore', 
+  // 生产环境 'always' (生成文件夹结构)，本地 'ignore' (避免 API 冲突)
+  trailingSlash: isDevCommand ? 'ignore' : 'always', 
  
   output: 'static',
+
+  // 彻底移除 adapter，确保是纯静态
+  // adapter: node(...), 
 
   integrations: integrations,
 
