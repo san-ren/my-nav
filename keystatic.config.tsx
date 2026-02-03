@@ -127,26 +127,22 @@ const resourceFields = {
   }),
 };
 
-
-// 1. 定义环境判断变量
-const isDev = import.meta.env.DEV;
+ 
 
 export default config({
   // 2. 根据环境切换 storage 模式
   // 本地开发 (Dev) -> 使用 'local' (本地文件系统)
   // 线上生产 (Prod) -> 使用 'cloud' 或 'github'
-  storage: isDev
-    ? {
-        kind: 'local',
-      }
-    : {
-        kind: 'github', 
-        repo: 'san-ren/my-nav'
-      },
+  // ✅ 强制写死：无论本地还是线上，都先用 GitHub 模式测试
+  // 这样能确保绝对不会去请求 /api 接口，彻底根除 405 错误
+  storage: {
+    kind: 'github',
+    repo: 'san-ren/my-nav', // 你的 GitHub 仓库
+  },
 
-  // 3. Cloud 配置 (仅在 kind: cloud 时生效，但保留在这里无妨)
-  cloud: { project: 'astro-nav/my-nav' },
-
+  cloud: {
+    project: 'astro-nav/my-nav', // 你的 Keystatic Cloud 项目名 (保持截图里的一致)
+  },
   ui: {
     brand: { name: 'MyNav 管理后台' },
 
