@@ -15,13 +15,7 @@
               "official_site": "https://copytranslator.github.io/",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit",
-                "license"
-              ]
+              "icon": ""
             },
             {
               "name": "Pot",
@@ -29,12 +23,7 @@
               "official_site": "https://pot-app.com/",
               "desc": "跨平台划词翻译和OCR",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "Manga/Image Translator",
@@ -42,12 +31,7 @@
               "official_site": "",
               "desc": "翻译各类图片内文字",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "团子翻译器",
@@ -55,12 +39,7 @@
               "official_site": "https://translator.dango.cloud/",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "STranslate",
@@ -68,12 +47,7 @@
               "official_site": "https://stranslate.zggsong.com/",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "Translumo",
@@ -81,12 +55,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "TTime",
@@ -94,12 +63,7 @@
               "official_site": "https://ttime.timerecord.cn/",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "CrowTranslate",
@@ -107,12 +71,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "Real-time-translation-typing/实时打字翻译",
@@ -120,12 +79,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "RTranslator",
@@ -133,12 +87,7 @@
               "official_site": "",
               "desc": "Android本地实时翻译",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "MTranServer",
@@ -146,12 +95,7 @@
               "official_site": "",
               "desc": "离线翻译模型服务器",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             }
           ]
         },
@@ -164,8 +108,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "妙手OCR",
@@ -173,8 +116,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "PaddleOCR",
@@ -182,12 +124,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "Umi-OCR",
@@ -195,12 +132,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             }
           ]
         },
@@ -213,12 +145,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "ImTip",
@@ -226,12 +153,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "KBLAutoSwitch/AHK中英文输入法自动切换",
@@ -239,12 +161,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "Language Indicator",
@@ -252,12 +169,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             }
           ]
         },
@@ -270,8 +182,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "FreeFileSync",
@@ -279,8 +190,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "GoodSync",
@@ -288,8 +198,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "SyncToy",
@@ -297,8 +206,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             }
           ]
         }

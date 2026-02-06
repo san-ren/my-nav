@@ -1,0 +1,26 @@
+/* 遮罩层极致优化 */
+#sidebar-overlay {
+  position: fixed;
+  inset: 0; z-index: 40;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+  
+  /* 默认隐藏，配合 transition-delay 防止误触 */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+  touch-action: none; 
+}
+
+/* 激活状态 */
+#sidebar-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  /* 显示时立即触发 */
+  transition: opacity 0.3s ease, visibility 0s linear 0s;
+}
+
+/* Tooltip 样式 (如果需要的话，也可以放这里，或者动态生成) */
+#sidebar-float-menu {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}

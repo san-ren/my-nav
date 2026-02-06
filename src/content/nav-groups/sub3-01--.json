@@ -12,86 +12,44 @@
           "list": [
             {
               "name": "legado",
-              "url": "https://github.com/gedoor/legado",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/gedoor/legado"
             },
             {
               "name": "legado-with-MD3",
-              "url": "https://github.com/HapeLee/legado-with-MD3",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/HapeLee/legado-with-MD3"
             },
             {
               "name": "书源",
-              "url": "https://github.com/liufuyou/read",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/liufuyou/read"
             },
             {
               "name": "全是漫画",
-              "url": "https://github.com/hongchacha/cartoon",
-              "badge_list": []
+              "url": "https://github.com/hongchacha/cartoon"
             },
             {
               "name": "pastemangax",
               "url": "https://github.com/crowforkotlin/pastemangax",
-              "desc": "2025.6受打压停更",
-              "badge_list": []
+              "desc": "2025.6受打压停更"
             },
             {
               "name": "Perfect-Viewer-X",
-              "url": "https://github.com/paladinlin1/Perfect-Viewer-X",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/paladinlin1/Perfect-Viewer-X"
             },
             {
               "name": "anx-reader",
-              "url": "https://github.com/Anxcye/anx-reader",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/Anxcye/anx-reader"
             },
             {
               "name": "KuroReader",
-              "url": "https://github.com/VandersonQk/KuroReaderReleases",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/VandersonQk/KuroReaderReleases"
             },
             {
               "name": "JMComic-APK",
-              "url": "https://github.com/hect0x7/JMComic-APK",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/hect0x7/JMComic-APK"
             },
             {
               "name": "JMComic-Crawler-Python",
-              "url": "https://github.com/hect0x7/JMComic-Crawler-Python",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/hect0x7/JMComic-Crawler-Python"
             }
           ]
         },
@@ -100,53 +58,27 @@
           "list": [
             {
               "name": "漫画制作教程 - 知乎",
-              "url": "https://zhuanlan.zhihu.com/p/56388355",
-              "badge_list": []
+              "url": "https://zhuanlan.zhihu.com/p/56388355"
             },
             {
               "name": "kcc",
-              "url": "https://github.com/ciromattia/kcc",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/ciromattia/kcc"
             },
             {
               "name": "ComicPacker",
-              "url": "https://github.com/eesxy/ComicPacker",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/eesxy/ComicPacker"
             },
             {
               "name": "epub-manga-creator",
-              "url": "https://github.com/wing-kai/epub-manga-creator",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/wing-kai/epub-manga-creator"
             },
             {
               "name": "aLittleEpub",
-              "url": "https://github.com/KonohaVio/aLittleEpub",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/KonohaVio/aLittleEpub"
             },
             {
               "name": "PDFMaker",
-              "url": "https://github.com/KonohaVio/PDFMaker",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/KonohaVio/PDFMaker"
             }
           ]
         }
@@ -162,71 +94,36 @@
             {
               "name": "PiliPala",
               "url": "https://github.com/guozhigq/pilipala",
-              "official_site": "https://pilipala.life/",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "official_site": "https://pilipala.life/"
             },
             {
               "name": "PiliPlus",
-              "url": "https://github.com/bggRGjQaUbCoE/PiliPlus",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/bggRGjQaUbCoE/PiliPlus"
             },
             {
               "name": "BiliPai",
-              "url": "https://github.com/jay3-yy/BiliPai",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/jay3-yy/BiliPai"
             },
             {
               "name": " bilimiao",
               "url": "https://github.com/10miaomiao/bilimiao2",
               "official_site": "https://10miaomiao.cn/project/bilimiao",
-              "desc": "bilimiao 2.x/哔哩哔哩时光机",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "desc": "bilimiao 2.x/哔哩哔哩时光机"
             },
             {
               "name": "PeekPili",
-              "url": "https://github.com/ingriddaleusag-dotcom/PeekPiliRelease",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/ingriddaleusag-dotcom/PeekPiliRelease"
             },
             {
               "name": "PiliPro",
               "url": "https://github.com/naaammme/pilipro",
-              "desc": "使用Flutter开发的BiliBili第三方客户端",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "desc": "使用Flutter开发的BiliBili第三方客户端"
             },
             {
               "name": "BILIBILIAS",
               "url": "https://github.com/1250422131/bilibilias",
               "official_site": "https://api.misakamoe.com/app/",
-              "desc": "2026.1受B站官方影响停更",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "desc": "2026.1受B站官方影响停更"
             }
           ]
         },
@@ -236,89 +133,53 @@
             {
               "name": "TGwiki",
               "url": "https://wiki.tgnav.org/thirdparty.html",
-              "desc": "Telegram知识库",
-              "badge_list": []
+              "desc": "Telegram知识库"
             },
             {
               "name": "tg中文语言包",
-              "url": "https://www.zeelis.com/t/446.html",
-              "badge_list": []
+              "url": "https://www.zeelis.com/t/446.html"
             },
             {
               "name": "Nekogram",
-              "url": "https://github.com/Nekogram/Nekogram",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/Nekogram/Nekogram"
             },
             {
               "name": "Nullgram",
-              "url": "https://github.com/qwq233/Nullgram",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/qwq233/Nullgram"
             },
             {
               "name": "Nagram",
-              "url": "https://github.com/NextAlone/Nagram",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/NextAlone/Nagram"
             },
             {
               "name": "Cherrygram",
-              "url": "https://github.com/arsLan4k1390/Cherrygram",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/arsLan4k1390/Cherrygram"
             },
             {
               "name": "tdesktop",
-              "url": "https://github.com/TDesktop-x64/tdesktop",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/TDesktop-x64/tdesktop"
             },
             {
               "name": "Nnngram",
-              "desc": "Android",
-              "badge_list": []
+              "desc": "Android"
             },
             {
               "name": "AyuGram",
-              "desc": "Android/Windows",
-              "badge_list": []
+              "desc": "Android/Windows"
             },
             {
               "name": "tdesktop",
-              "url": "https://github.com/TDesktop-x64/tdesktop",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/TDesktop-x64/tdesktop"
             },
             {
               "name": "Nekogram和Nekogram X的关系和矛盾历史",
               "url": "https://tech.a-better-planet.com/nekogram%E5%92%8Cnekogram-x%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E7%9F%9B%E7%9B%BE%E5%8E%86%E5%8F%B2.html",
-              "desc": "看乐子",
-              "badge_list": []
+              "desc": "看乐子"
             },
             {
               "name": "nekogram和nekogram X和Nullgram",
               "url": "https://frienkie.github.io/posts/3037814559/",
-              "desc": "乐子",
-              "badge_list": []
+              "desc": "乐子"
             }
           ]
         },
@@ -328,14 +189,12 @@
             {
               "name": "Hydrogen",
               "url": "https://github.com/huajiqaq/Hydrogen",
-              "desc": "第三方知乎",
-              "badge_list": []
+              "desc": "第三方知乎"
             },
             {
               "name": "c001apk",
               "url": "https://github.com/bggRGjQaUbCoE/c001apk",
-              "desc": "第三方酷安",
-              "badge_list": []
+              "desc": "第三方酷安"
             }
           ]
         },
@@ -345,38 +204,25 @@
             {
               "name": "RedReader",
               "url": "https://github.com/QuantumBadger/RedReader",
-              "desc": "开源",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "desc": "开源"
             },
             {
               "name": "Infinity-For-Reddit",
               "url": "https://github.com/Docile-Alligator/Infinity-For-Reddit",
-              "desc": "app 支持中文",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "desc": "app 支持中文"
             },
             {
               "name": "Relay for reddit",
-              "url": "https://play.google.com/store/apps/details?id=reddit.news&hl=zh",
-              "badge_list": []
+              "url": "https://play.google.com/store/apps/details?id=reddit.news&hl=zh"
             },
             {
               "name": "Atom For Reddit",
-              "url": "https://atomreddit.com/",
-              "badge_list": []
+              "url": "https://atomreddit.com/"
             },
             {
               "name": "Sync for Reddit",
               "url": "https://todo.syncforreddit.com/",
-              "desc": "貌似2023api收费后就停更",
-              "badge_list": []
+              "desc": "貌似2023api收费后就停更"
             }
           ]
         }
@@ -392,122 +238,98 @@
             {
               "name": "Movie Mania",
               "url": "https://play.google.com/store/apps/details?id=tv.mycast.moviemania",
-              "desc": "英文界面，在线看",
-              "badge_list": []
+              "desc": "英文界面，在线看"
             },
             {
               "name": "Moviebase",
               "url": "https://play.google.com/store/apps/details?id=com.moviebase&hl=zh",
-              "desc": "Trakt三方 完美支持中文，内购VIP",
-              "badge_list": []
+              "desc": "Trakt三方 完美支持中文，内购VIP"
             },
             {
               "name": "cinexplore",
               "url": "https://play.google.com/store/search?q=cinexplore&c=apps",
-              "desc": "trakt.TV 三方，使用trakt.TV 账号数据,内购会员 完美支持中文，列表自由，可备份",
-              "badge_list": []
+              "desc": "trakt.TV 三方，使用trakt.TV 账号数据,内购会员 完美支持中文，列表自由，可备份"
             },
             {
               "name": "TMDB - Movies & TV Shows",
               "url": "https://play.google.com/store/apps/details?id=com.fr0zen.tmdb",
-              "desc": "英文界面、中文元数据（`Mandarin（普通话）`）、列表自由",
-              "badge_list": []
+              "desc": "英文界面、中文元数据（`Mandarin（普通话）`）、列表自由"
             },
             {
               "name": "SeriesGuide",
-              "url": "https://github.com/UweTrottmann/SeriesGuide",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "url": "https://github.com/UweTrottmann/SeriesGuide"
             },
             {
               "name": "imdb",
               "url": "https://play.google.com/store/apps/details?id=com.imdb.mobile&hl=zh",
-              "desc": "简中界面、中文搜索、英文数据",
-              "badge_list": []
+              "desc": "简中界面、中文搜索、英文数据"
             },
             {
               "name": "IMDbPro",
               "url": "https://play.google.com/store/apps/details?id=com.imdb.pro.mobile.android&hl=zh",
-              "desc": "需要订阅 IMDbPro",
-              "badge_list": []
+              "desc": "需要订阅 IMDbPro"
             },
             {
               "name": "TMDb",
               "url": "https://play.google.com/store/apps/details?id=com.irfangujjar.tmdb",
-              "desc": "英文界面，单一列表，有全屏广告 支持中文搜索，但不返回中文数据",
-              "badge_list": []
+              "desc": "英文界面，单一列表，有全屏广告 支持中文搜索，但不返回中文数据"
             },
             {
               "name": "Rotten Tomatoes",
               "url": "https://www.rottentomatoes.com/",
-              "desc": "Rotten Tomatoes烂番茄官方",
-              "badge_list": []
+              "desc": "Rotten Tomatoes烂番茄官方"
             },
             {
               "name": "trakt.TV",
               "url": "https://play.google.com/store/apps/details?id=tv.trakt.trakt",
-              "desc": "纯英文 VIP享受无限列表",
-              "badge_list": []
+              "desc": "纯英文 VIP享受无限列表"
             },
             {
               "name": "NeoDB",
-              "url": "https://neodb.social/discover/",
-              "badge_list": []
+              "url": "https://neodb.social/discover/"
             },
             {
               "name": "Cinemaniac",
               "url": "https://play.google.com/store/apps/details?id=it.papalillo.moviestowatch",
-              "desc": "非pro用户不能多列表",
-              "badge_list": []
+              "desc": "非pro用户不能多列表"
             },
             {
               "name": "TMDb - Guía de películas y pro",
-              "url": "https://play.google.com/store/apps/details?id=com.github.midros.tmdb",
-              "badge_list": []
+              "url": "https://play.google.com/store/apps/details?id=com.github.midros.tmdb"
             },
             {
               "name": "Serializd",
               "url": "https://play.google.com/store/apps/details?id=com.serializdmobile",
-              "desc": "纯英文、多列表",
-              "badge_list": []
+              "desc": "纯英文、多列表"
             },
             {
               "name": "Watchlist",
               "url": "https://play.google.com/store/apps/details?id=com.application.watchlist",
-              "desc": "纯英文、电影剧集分开的多列表",
-              "badge_list": []
+              "desc": "纯英文、电影剧集分开的多列表"
             },
             {
               "name": "Watch List: TV Series & Movies",
               "url": "https://play.google.com/store/apps/details?id=com.sylv42240.watch_list",
-              "desc": "纯英文、电影剧集分开的列表",
-              "badge_list": []
+              "desc": "纯英文、电影剧集分开的列表"
             },
             {
               "name": "TV Time",
               "url": "https://play.google.com/store/apps/details?id=com.tozelabs.tvshowtime&hl=zh",
-              "desc": "英文界面、列表自由",
-              "badge_list": []
+              "desc": "英文界面、列表自由"
             },
             {
               "name": "My Movies 5 - Movie & TV List",
               "url": "https://play.google.com/store/apps/details?id=dk.mymovies.mymovies4forandroidfree",
-              "desc": "支持中文 侧重于收藏物理媒体（DVD、碟片）",
-              "badge_list": []
+              "desc": "支持中文 侧重于收藏物理媒体（DVD、碟片）"
             },
             {
               "name": "TMDb - Movie Database TvShow",
               "url": "https://play.google.com/store/apps/details?id=com.anch.tmdb_anch_movies_database",
-              "desc": "搜索、分类推荐、单一列表，英文界面",
-              "badge_list": []
+              "desc": "搜索、分类推荐、单一列表，英文界面"
             },
             {
               "name": "ScenePeek - TMDB & Jellyseerr",
-              "url": "https://play.google.com/store/apps/details?id=com.divinelink.scenepeek",
-              "badge_list": []
+              "url": "https://play.google.com/store/apps/details?id=com.divinelink.scenepeek"
             }
           ]
         },
@@ -517,91 +339,76 @@
             {
               "name": "Letterboxd",
               "url": "https://play.google.com/store/apps/details?id=com.letterboxd.letterboxd",
-              "desc": "搜索、推荐、无列表",
-              "badge_list": []
+              "desc": "搜索、推荐、无列表"
             },
             {
               "name": "Movies",
               "url": "https://play.google.com/store/apps/details?id=com.rafay.moviesflutter",
-              "desc": "搜索、推荐、无列表",
-              "badge_list": []
+              "desc": "搜索、推荐、无列表"
             },
             {
               "name": "MyMovie",
               "url": "https://play.google.com/store/apps/details?id=com.black_eagle.mymovie",
-              "desc": "搜索、推荐、单一列表",
-              "badge_list": []
+              "desc": "搜索、推荐、单一列表"
             },
             {
               "name": "MovieMania",
               "url": "https://play.google.com/store/apps/details?id=com.hadyawny.moviemania",
-              "desc": "搜索、推荐、单一列表",
-              "badge_list": []
+              "desc": "搜索、推荐、单一列表"
             },
             {
               "name": "MovieMania 2",
               "url": "https://play.google.com/store/apps/details?id=com.cineapex.cinecast",
-              "desc": "搜索、推荐、单一列表",
-              "badge_list": []
+              "desc": "搜索、推荐、单一列表"
             },
             {
               "name": "Movie Collector",
               "url": "https://play.google.com/store/apps/details?id=com.watchlist.moviecollector",
-              "desc": "英文、搜索、推荐、无列表",
-              "badge_list": []
+              "desc": "英文、搜索、推荐、无列表"
             },
             {
               "name": "Movie Match",
               "url": "https://play.google.com/store/apps/details?id=io.moku.moviematch&hl=zh",
-              "desc": "卡片式推荐、无列表",
-              "badge_list": []
+              "desc": "卡片式推荐、无列表"
             },
             {
               "name": "Movies Index",
               "url": "https://play.google.com/store/apps/details?id=com.sg.moviesindex&hl=zh",
-              "desc": "搜索、推荐、无列表",
-              "badge_list": []
+              "desc": "搜索、推荐、无列表"
             },
             {
               "name": "TMDB-APP",
               "url": "https://play.google.com/store/apps/details?id=com.riverpod.go.river",
-              "desc": "搜索、分类推荐、无列表",
-              "badge_list": []
+              "desc": "搜索、分类推荐、无列表"
             },
             {
               "name": "seenit",
               "url": "https://play.google.com/store/apps/details?id=com.appspring.seenit",
-              "desc": "搜索、分类推荐、无列表",
-              "badge_list": []
+              "desc": "搜索、分类推荐、无列表"
             },
             {
               "name": "Simkl Lists: TV, Anime, Movies",
               "url": "https://play.google.com/store/apps/details?id=com.simkl.lists&hl=zh",
-              "desc": "搜索、推荐、有限的列表",
-              "badge_list": []
+              "desc": "搜索、推荐、有限的列表"
             },
             {
               "name": "MovieMania: The Movie Tracker",
               "url": "https://play.google.com/store/apps/details?id=sk.dowla.moviemania",
-              "desc": "详尽的分类搜索，无列表",
-              "badge_list": []
+              "desc": "详尽的分类搜索，无列表"
             },
             {
               "name": "Movie-Mania (Powered by TMDb)",
               "url": "https://play.google.com/store/apps/details?id=com.hijack.moviemania",
-              "desc": "详尽的分类搜索，无列表",
-              "badge_list": []
+              "desc": "详尽的分类搜索，无列表"
             },
             {
               "name": "TMDb - Movie Database TvShow",
               "url": "https://play.google.com/store/apps/details?id=com.anch.tmdb_anch_movies_database",
-              "desc": "搜索和推荐",
-              "badge_list": []
+              "desc": "搜索和推荐"
             },
             {
               "name": "My Movies by Blu-ray.com",
-              "url": "https://play.google.com/store/apps/details?id=com.bluray.android.mymovies",
-              "badge_list": []
+              "url": "https://play.google.com/store/apps/details?id=com.bluray.android.mymovies"
             }
           ]
         }

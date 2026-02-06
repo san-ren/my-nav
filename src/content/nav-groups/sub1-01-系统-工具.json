@@ -1,6 +1,11 @@
 {
+  "visualTag": " ",
   "name": "系统、工具",
-  "id": "sub1-01-系统-工具",
+  "pageName": "sub1",
+  "pageConfig": {
+    "sortPrefix": "01"
+  },
+  "resources": [],
   "categories": [
     {
       "name": "windows",
@@ -10,269 +15,155 @@
           "tabName": "系统管理",
           "list": [
             {
+              "toolbox": null,
               "name": "OFGB",
               "url": "https://github.com/xM4ddy/OFGB",
-              "official_site": "",
               "desc": "关闭win11系统广告",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Baidun Armor",
               "url": "https://www.bds007.cc/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Malware-Patch",
               "url": "https://github.com/the1812/Malware-Patch",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "ExplorerPatcher",
               "url": "https://github.com/valinet/ExplorerPatcher",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "PowerToys",
               "url": "https://github.com/microsoft/PowerToys",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "微PE工具箱",
               "url": "http://www.wepe.com.cn/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Dism++",
               "url": "https://github.com/Chuyu-Team/Dism-Multi-language",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "软媒魔方",
               "url": "https://mofang.ruanmei.com/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "云图工具箱",
               "url": "https://wintool.cc/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "图吧工具箱",
               "url": "http://www.tbtool.cn/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "硬件狗狗（HDDog）",
               "url": "http://yjgg.mydrivers.com/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Ventoy",
               "url": "https://github.com/ventoy/Ventoy",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Rufus",
               "url": "https://github.com/pbatard/rufus",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "CnCrypt",
               "url": "http://cncrypt.com/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "CrystalDiskInfo",
               "url": "https://crystalmark.info/en/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "DiskGenius",
               "url": "https://www.diskgenius.cn/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Winpilot",
               "url": "https://github.com/builtbybel/Winpilot",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "RyTuneX",
               "url": "https://rayenghanmi.github.io/rytunex/index.html",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Windows超级管理器",
               "url": "https://www.colithel.com/supermanager.html",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Sophi",
               "url": "https://github.com/Sophia-Community/SophiApp",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "WPD",
               "url": "https://wpd.app/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Optimizer",
               "url": "https://github.com/hellzerg/optimizer",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "TurnedOnTimesView",
               "url": "http://www.nirsoft.net/utils/computer_turned_on_times.html",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "FixWin",
               "url": "http://www.dayanzai.me/fixwin-11.html",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Glary Utilities",
               "url": "https://www.glarysoft.com/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             }
           ]
         },
@@ -280,106 +171,69 @@
           "tabName": "下载与激活",
           "list": [
             {
+              "toolbox": null,
               "name": "软件下载",
               "url": "https://www.microsoft.com/zh-cn/software-download/",
-              "official_site": "",
               "desc": "微软官网下载中心",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "下载 Windows 10",
               "url": "https://www.microsoft.com/zh-cn/software-download/windows10",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "ITELLYOU",
               "url": "https://next.itellyou.cn/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "iwin11",
               "url": "https://iwin11.cn/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "HelloWindows",
               "url": "https://hellowindows.cn/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Microsoft Activation Scripts (MAS)",
               "url": "https://github.com/massgravel/Microsoft-Activation-Scripts",
-              "official_site": "",
               "desc": "windows激活之神",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "HEU_KMS_Activator",
               "url": "https://github.com/zbezj/HEU_KMS_Activator",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "云萌 Windows 激活（CMWTAT_Digital_Edition）",
               "url": "https://github.com/TGSAN/CMWTAT_Digital_Edition",
               "official_site": "https://cmwtat.cloudmoe.com/cn.html",
-              "desc": "",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Microsoft Edge",
               "url": "https://www.microsoft.com/zh-cn/edge/download/insider?cc=1&ch=1&cs=839917877&form=MA13FJ",
-              "official_site": "",
               "desc": "微软官网 edge 浏览器下载",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "KMS_VL_ALL_AIO",
               "url": "https://github.com/abbodi1406/KMS_VL_ALL_AIO",
-              "official_site": "",
               "desc": "2025.12发现删库",
-              "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "hide_badges": []
             }
           ]
         }
@@ -389,219 +243,151 @@
       "name": "文件管理",
       "resources": [
         {
+          "toolbox": null,
+          "name": "FilePulse",
+          "url": "https://github.com/FilePulseSoft/FilePulse",
+          "official_site": "https://www.filepulsesoft.com",
+          "desc": "FilePulse 是一款高效的对象信息搜索工具，对象包括 文件 和 文件夹，支持 中文搜索、拼音搜索、拼音首字母搜索 ，支持文件内容搜索和集群搜索。",
+          "icon": "/images/logos/FilePulseSoft-FilePulse.webp",
+          "hide_badges": []
+        },
+        {
+          "toolbox": null,
           "name": "anytxt",
           "url": "https://anytxt.net/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Everything",
           "url": "https://www.voidtools.com/zh-cn/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "SpaceSniffer",
           "url": "http://www.uderzo.it/main_products/space_sniffer/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Listary",
           "url": "https://www.listarypro.com/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "DropIt",
           "url": "http://www.dropitproject.com/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "DeskGo（桌面整理）",
           "url": "https://guanjia.qq.com/product/zmzl/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Coodesker（酷呆桌面）",
           "url": "https://www.coodesker.com",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Files",
           "url": "https://files.community/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "OneCommander",
           "url": "https://www.onecommander.com/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "极客多标签文件管理器",
           "url": "http://www.51buydd.com/ExplorerX/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Tablacus Explorer",
           "url": "https://tablacus.github.io/explorer_en.html",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "TablacusExplorer",
           "url": "https://tablacus.github.io/explorer_en.html",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Q-dir",
           "url": "http://q-dir.com/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "文件名精灵",
           "url": "https://www.ecdove.com/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Advanced Renamer",
           "url": "https://www.advancedrenamer.com/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "ReNamer",
           "url": "https://pmzeroskyline.github.io/FreeApps/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "MiniRenamer",
           "url": "https://abc100.net/106/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "文件批量改名工具",
           "url": "https://www.52pojie.cn/thread-1815735-1-1.html",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "文件批量重命名",
           "url": "https://www.52pojie.cn/thread-1941574-1-3.html",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Hummingbird",
           "url": "https://arayofsunshine.dev/hummingbird",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "File Converter",
           "url": "https://file-converter.io/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "HelpUploadFiles （星空上传助手）",
           "url": "https://github.com/KrxkGit/HelpUploadFiles",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "悬浮宇宙/FloatingUniverse",
           "url": "https://github.com/iwxyi/FloatingUniverse",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "hide_badges": []
         }
       ],
       "tabs": []
@@ -610,138 +396,88 @@
       "name": "工具箱",
       "resources": [
         {
+          "toolbox": null,
           "name": "Geek",
           "url": "https://geekuninstaller.com/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "HiBit Uninstaller",
           "url": "https://www.hibitsoft.ir/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Uninstalr",
           "url": "https://uninstalr.com/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "WindowTop",
           "url": "https://github.com/WindowTop/WindowTop-App",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "MemReduct",
           "url": "https://www.henrypp.org/product/memreduct",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "dupeGuru",
           "url": "https://dupeguru.voltaicideas.net/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "菲菲更名宝贝",
           "url": "http://www.ffhome.com/works/1406.html",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "zTasker",
           "url": "http://www.everauto.net/cn/index.html",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "ShutterPro",
           "url": "http://www.den4b.com/wiki/Shutter",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "彩虹工具箱",
           "url": "https://rainbowbyte.com/app/rainbowtoolbox.html",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "万彩办公大师OfficeBox",
           "url": "http://www.wofficebox.com/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Sandboxie",
           "url": "https://github.com/sandboxie-plus/Sandboxie",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "千峰办公助手",
           "url": "https://www.52pojie.cn/thread-1900867-1-1.html",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "GitHub 中文化插件",
           "url": "https://maboloshi.github.io/github-chinese/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         }
       ],
       "tabs": []
@@ -750,153 +486,82 @@
       "name": "局域网传输",
       "resources": [
         {
+          "toolbox": null,
           "name": "闪电藤",
           "url": "https://lightningvine.zishu.life/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "HybridFileXfer/多轨快传",
           "url": "https://github.com/weixiansen574/HybridFileXfer",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "localsend",
           "url": "https://github.com/localsend/localsend",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "KDE Connect",
           "url": "https://kdeconnect.kde.org/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Photon",
           "url": "https://photondev.netlify.app/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "百灵快传(B0Pass)",
           "url": "https://github.com/bitepeng/b0pass",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "alley-transfer/小路速传",
           "url": "https://github.com/alley-rs/alley-transfer",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "FlyingCarpet",
           "url": "https://github.com/spieglt/FlyingCarpet",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "爱传送/MFiles",
           "url": "https://mfiles.maokebing.com/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "CuteHttpFileServer/chfs",
           "url": "http://iscute.cn/chfs",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "miniserve",
           "url": "https://github.com/svenstaro/miniserve",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "LANDrop",
           "url": "https://github.com/LANDrop/LANDrop",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Beaker Browser",
           "url": "https://github.com/beakerbrowser/beaker",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "hide_badges": []
         }
       ],
       "tabs": []
@@ -905,127 +570,79 @@
       "name": "远程控制",
       "resources": [
         {
+          "toolbox": null,
           "name": "ToDesk",
           "url": "https://www.todesk.com/download.html",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "爱思远控",
           "url": "https://www.i4.cn/pro_remote.html",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "网易UU远程",
           "url": "https://yc.uu.163.com/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "连连控",
           "url": "https://www.asklink.com/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "UltraViewer",
           "url": "https://www.ultraviewer.net/cn/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "AnyDesk",
           "url": "https://anydesk.com/zhs",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "AirDroid Remote Support",
           "url": "https://www.airdroid.cn/pricing/remote-support/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "scrcpy",
           "url": "https://github.com/Genymobile/scrcpy",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "HiPC移动助手",
           "url": "https://hipc.cn/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "EmailMyPC",
           "url": "https://jackeriss.github.io/email_my_pc",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "RemoteControlDesktop",
           "url": "https://github.com/codext-remotecontrol/remotecontrol-desktop",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "RustDesk",
           "url": "https://rustdesk.com/zh/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "hide_badges": []
         }
       ],
       "tabs": []
     }
-  ],
-  "pageName": "sub1",
-  "pageConfig": {
-    "sortPrefix": "01"
-  }
+  ]
 }

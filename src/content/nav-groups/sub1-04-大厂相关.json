@@ -15,8 +15,7 @@
               "official_site": "https://liteloaderqqnt.github.io/",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "LL-plugin-list-viewer",
@@ -24,12 +23,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "PluginInstaller",
@@ -37,12 +31,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "lite_tools",
@@ -50,12 +39,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "transitio",
@@ -63,12 +47,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "Scriptio",
@@ -76,12 +55,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "Custom-CSS",
@@ -89,12 +63,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "Kill-Update",
@@ -102,12 +71,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "QQCleaner",
@@ -115,12 +79,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             }
           ]
         },
@@ -133,12 +92,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "Stick-Emoji",
@@ -146,12 +100,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "Remove-Custom-Bubbles",
@@ -159,12 +108,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "QR-Decode",
@@ -172,12 +116,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "pURLfy",
@@ -185,12 +124,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "Auto-Format-Message",
@@ -198,12 +132,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "Anti-Recall",
@@ -211,12 +140,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             }
           ]
         },
@@ -229,12 +153,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "AutoSendMessages",
@@ -242,12 +161,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "AutoForward",
@@ -255,12 +169,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "Directly-Jump",
@@ -268,12 +177,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "MergeMessage",
@@ -281,12 +185,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "qqMessageSave",
@@ -294,12 +193,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "Quickly-Remove-Conversations",
@@ -307,12 +201,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "HotkeyChangeWindow",
@@ -320,12 +209,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             }
           ]
         }
@@ -344,12 +228,7 @@
               "official_site": "",
               "desc": "微信/QQ/TIM防撤回补丁",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "CleanMyWechat",
@@ -357,12 +236,7 @@
               "official_site": "",
               "desc": "自动删除PC微信缓存数据",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "wechatDownload/微信公众号文章批量下载工具",
@@ -370,12 +244,7 @@
               "official_site": "",
               "desc": "微信公众号文章批量下载",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "wechatDataBackup",
@@ -383,8 +252,7 @@
               "official_site": "",
               "desc": "一键导出PC微信聊天记录工具",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "WeClone",
@@ -392,12 +260,7 @@
               "official_site": "",
               "desc": "从聊天记录创造数字分身的一站式解决方案",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "WXMoments",
@@ -405,12 +268,7 @@
               "official_site": "",
               "desc": "WX 朋友圈导出为 HTML",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "WechatRealFriends",
@@ -418,12 +276,7 @@
               "official_site": "",
               "desc": "2025年3月因微信协议变更停更",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "PC微信遮挡工具",
@@ -431,8 +284,7 @@
               "official_site": "",
               "desc": "半透明窗口遮挡微信窗口",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "chat log",
@@ -440,8 +292,7 @@
               "official_site": "",
               "desc": "2025.10微信施压删库",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "WeChat2PDF",
@@ -449,8 +300,7 @@
               "official_site": "",
               "desc": "微信公众号/订阅号文章在线导出/转换为PDF",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "WeChatMsg/留痕",
@@ -458,8 +308,7 @@
               "official_site": "",
               "desc": "提取微信聊天记录",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "serverless-qrcode-hub",
@@ -467,12 +316,7 @@
               "official_site": "",
               "desc": "生成永久微信群聊二维码",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "腾讯版本",
@@ -480,12 +324,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "QQNT-Version-History",
@@ -493,8 +332,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "Stapxs QQ Lite",
@@ -502,8 +340,7 @@
               "official_site": "",
               "desc": "第三方 QQ 客户端",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "WeWe RSS",
@@ -511,12 +348,7 @@
               "official_site": "",
               "desc": "微信公众号RSS生成（基于微信读书）",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "微信公众号RSS",
@@ -524,12 +356,7 @@
               "official_site": "",
               "desc": "微信公众号转RSS",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             }
           ]
         },
@@ -542,8 +369,7 @@
               "official_site": "",
               "desc": "合并微信、支付宝收款码",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "Weibo-archiver",
@@ -551,8 +377,7 @@
               "official_site": "",
               "desc": "将微博导出备份的油猴脚本",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "WePush",
@@ -560,8 +385,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "魔猫订单",
@@ -569,8 +393,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             }
           ]
         }
@@ -585,8 +408,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "background",
@@ -594,8 +416,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "custom-ui-style",
@@ -603,8 +424,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "woodfish-theme",
@@ -612,8 +432,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "vscode-fileutils",
@@ -621,8 +440,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "project-manager",
@@ -630,8 +448,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         }
       ],
       "tabs": []

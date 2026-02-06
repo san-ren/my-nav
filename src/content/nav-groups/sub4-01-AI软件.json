@@ -15,12 +15,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "wj-markdown-editor",
@@ -28,12 +23,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "hedgedoc",
@@ -41,12 +31,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "dillinger",
@@ -54,8 +39,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "Arya",
@@ -63,8 +47,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "md",
@@ -72,12 +55,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "微信公众号markdown排版工具",
@@ -85,8 +63,7 @@
               "official_site": "",
               "desc": "mardown 官网网页编辑器",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "markdown-online-editor",
@@ -94,12 +71,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "flymd",
@@ -107,12 +79,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "joplin",
@@ -120,12 +87,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "ghostwriter",
@@ -133,12 +95,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "mdx-notes",
@@ -146,12 +103,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "Archive-Markdown-Editor",
@@ -159,12 +111,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "markor",
@@ -172,12 +119,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             }
           ]
         },
@@ -190,12 +132,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "MinerU",
@@ -203,12 +140,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "marker",
@@ -216,12 +148,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "pdf-craft",
@@ -229,12 +156,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             }
           ]
         },
@@ -247,12 +169,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "tui.editor",
@@ -260,12 +177,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "milkdown",
@@ -273,12 +185,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "mavonEditor",
@@ -286,12 +193,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "react-markplus",
@@ -299,12 +201,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "react-md-editor",
@@ -312,12 +209,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "Raneto",
@@ -325,12 +217,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "cherry-markdown",
@@ -338,12 +225,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             }
           ]
         }
@@ -358,12 +240,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "icon": ""
         },
         {
           "name": "Image/Manga Translator",
@@ -371,12 +248,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "icon": ""
         },
         {
           "name": "BallonTranslator",
@@ -384,12 +256,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "icon": ""
         },
         {
           "name": "PDFMathTranslate",
@@ -397,12 +264,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "icon": ""
         },
         {
           "name": "YuE",
@@ -410,12 +272,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "icon": ""
         },
         {
           "name": "DiffRhythm（谛韵）",
@@ -423,12 +280,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "icon": ""
         },
         {
           "name": "VideoLingo",
@@ -436,12 +288,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "icon": ""
         },
         {
           "name": "卡卡字幕助手（VideoCaptioner）",
@@ -449,12 +296,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "icon": ""
         },
         {
           "name": "ANTO",
@@ -462,12 +304,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "icon": ""
         },
         {
           "name": "v2vt",
@@ -475,12 +312,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "icon": ""
         },
         {
           "name": "screenshot-to-code",
@@ -488,12 +320,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "icon": ""
         },
         {
           "name": "Ai-to-pptx",
@@ -501,12 +328,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "icon": ""
         }
       ],
       "tabs": []

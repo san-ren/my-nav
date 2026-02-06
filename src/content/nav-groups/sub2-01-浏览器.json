@@ -15,8 +15,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "HelloGitHub",
@@ -24,12 +23,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "小众软件",
@@ -37,8 +31,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "小众软件官方论坛",
@@ -46,8 +39,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "异次元",
@@ -55,8 +47,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "下一个好软件",
@@ -64,8 +55,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "小刀娱乐网",
@@ -73,8 +63,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "奔跑中的奶酪",
@@ -82,8 +71,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "虹线周刊",
@@ -91,8 +79,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "2047论坛",
@@ -100,8 +87,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "ChonglangTV",
@@ -109,8 +95,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "LINUX DO",
@@ -118,8 +103,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "不可能虫鸣",
@@ -127,8 +111,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             }
           ]
         },
@@ -141,8 +124,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "文件格式",
@@ -150,8 +132,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "屏库 - 全球液晶屏交易中心",
@@ -159,8 +140,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "GFW Report",
@@ -168,8 +148,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "牛卡网",
@@ -177,8 +156,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "蚊子玩卡",
@@ -186,8 +164,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "免流网",
@@ -195,8 +172,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "ByteSIM eSIM",
@@ -204,8 +180,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "中医百科",
@@ -213,8 +188,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "脱毛帝",
@@ -222,8 +196,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "新况味测评 - 真实的飞机杯评测网站",
@@ -231,8 +204,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             }
           ]
         }
@@ -251,8 +223,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "bilibili-cleaner",
@@ -260,12 +231,7 @@
               "official_site": "",
               "desc": "bilibili 页面净化大师，深度净化 B 站页面，过滤视频，过滤评论",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "hanydd/BilibiliSponsorBlock",
@@ -273,12 +239,7 @@
               "official_site": "",
               "desc": "一款跳过B站视频中恰饭片段的浏览器插件，移植自 SponsorBlock。",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "知乎修改器🤜持续更新🤛努力实现功能最全的知乎配置插件",
@@ -286,8 +247,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "知乎浏览助手",
@@ -295,8 +255,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "EasyCSDN: 这是一款促进CSDN极致简洁和高效的插件。免费共享大量创新功能，如",
@@ -304,12 +263,7 @@
               "official_site": "",
               "desc": "净化页面、展示全屏、显示推荐、复制文本、展开代码等。让我们的学习体验无比简洁、专注、高效、畅快。",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "CSDN/知乎/哔哩哔哩/简书免登录去除弹窗广告 🛡",
@@ -317,8 +271,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "阅读全文、自动展开全文、自动移除万恶弹框",
@@ -326,8 +279,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "自动展开",
@@ -335,8 +287,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             }
           ]
         },
@@ -349,12 +300,7 @@
               "official_site": "",
               "desc": "自动跳转某些网站不希望用户直达的外链",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "自动展开、 \t骚扰拦截",
@@ -362,12 +308,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "1✅双击文本链接转换",
@@ -375,8 +316,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "文本链接自动识别为超链接",
@@ -384,8 +324,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "Open All Links(批量打开网页链接)",
@@ -393,8 +332,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "🔗Link-/链简",
@@ -402,8 +340,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "🔗 链接助手（更新于2023年9月19日）",
@@ -411,8 +348,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "链接助手（更新于2021年11月13日）",
@@ -420,8 +356,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "链接预览（2024.6.28发现，但失效）",
@@ -429,8 +364,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "大声密谋！整治“互不联网”和“超不链接” - 奔跑中的奶酪",
@@ -438,8 +372,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "各种骚操作，中文网最全 Bookmarklet 小书签 - 奔跑中的奶酪",
@@ -447,8 +380,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             }
           ]
         },
@@ -461,8 +393,7 @@
               "official_site": "",
               "desc": "网盘分享链接云解析服务",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "Cloud189Checkin",
@@ -470,8 +401,7 @@
               "official_site": "",
               "desc": "天翼网盘自动签到",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "wps_script",
@@ -479,12 +409,7 @@
               "official_site": "",
               "desc": "WPS签到脚本集合，适用于“金山文档”中AirScript自动化执行。签到列表: ｜爱奇艺｜全民K歌｜有道云笔记｜百度贴吧｜Bilibili｜V2EX｜AcFun｜天翼云盘｜Fa米家｜小米运动｜百度搜索资源平台｜",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "alipan_auto_sign",
@@ -492,12 +417,7 @@
               "official_site": "",
               "desc": "阿里云盘、B站直播、京东领京豆每日自动签到脚本",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "Online-disk-direct-link-download-assistant",
@@ -505,12 +425,7 @@
               "official_site": "",
               "desc": "一个基于 JavaScript 的网盘文件下载地址获取工具。基于【网盘直链下载助手】修改 ，自用，去推广，无需输入“暗号”即可使用，甚至比原版还要好用！",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "天翼云盘自动签到工具",
@@ -518,8 +433,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "netdisk-fast-download",
@@ -527,12 +441,7 @@
               "official_site": "",
               "desc": "各类网盘直链解析, 已支持蓝奏云/奶牛快传/移动云云空间/UC网盘/小飞机盘/亿方云/123云盘等. 预览地址 https://lz.qaiu.top",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "94list",
@@ -540,12 +449,7 @@
               "official_site": "",
               "desc": "百度网盘分享链接分析渲染列表辅助下载开源程序",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "baiduwp-php",
@@ -553,12 +457,7 @@
               "official_site": "",
               "desc": "A tool to get the download link of the Baidu netdisk / 一个获取百度网盘分享链接下载地址的工具",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "github-chinese",
@@ -566,12 +465,7 @@
               "official_site": "",
               "desc": "GitHub 汉化插件，GitHub 中文化界面。 (GitHub Translation To Chinese)",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             }
           ]
         },
@@ -584,12 +478,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "CopyTabTitleUrl",
@@ -597,12 +486,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "copy-as-markdown",
@@ -610,12 +494,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "globalSpeed",
@@ -623,12 +502,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "SingleFile",
@@ -636,12 +510,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "BilibiliSponsorBlock",
@@ -649,12 +518,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "cat-catch",
@@ -662,12 +526,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "BewlyCat",
@@ -675,8 +534,7 @@
               "official_site": "",
               "desc": "Bilibili拓展",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             }
           ]
         },
@@ -689,8 +547,7 @@
               "official_site": "",
               "desc": "只能生成目录，页面尺寸固定",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "阅读模式 - IReader",
@@ -698,8 +555,7 @@
               "official_site": "",
               "desc": "只能调节页面宽度、背景白黑灰",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "眺览",
@@ -707,8 +563,7 @@
               "official_site": "",
               "desc": "字体、字号、内容缩放、背景",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "Clearly Reader",
@@ -716,8 +571,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "maoxian-web-clipper",
@@ -725,12 +579,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "unclutter",
@@ -738,12 +587,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "ReaderMod",
@@ -751,8 +595,7 @@
               "official_site": "",
               "desc": "不支持中文",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "Circle 阅读助手",
@@ -760,8 +603,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "Just-Read",
@@ -769,12 +611,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             },
             {
               "name": "reader-view",
@@ -782,12 +619,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": [
-                "stars",
-                "version",
-                "last_commit"
-              ]
+              "icon": ""
             }
           ]
         }

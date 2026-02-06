@@ -1,19 +1,15 @@
 ---
 import { LayoutDashboard, Star, Code, Palette, ChevronRight } from 'lucide-react';
+// 引入拆分出来的 CSS
+import './sidebar.css';
 
 const { navResources, currentId, siteConfig } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const Icons = { Star, Code, Palette, LayoutDashboard };
 ---
 
-<!-- 
-  🔥 核心修改 1：CSS 类名
-  将 transition-transform 改为 transition-all
-  这样 PC 端修改 margin-left 时也会有丝滑的动画，与右侧内容区完全同步。
--->
 <aside 
   id="sidebar"
-
   style={{ width: 'var(--sidebar-width, 17rem)' }}
   class="fixed top-0 left-0 z-50 h-[100dvh] bg-white/90 dark:bg-gray-900/90 backdrop-blur-2xl shadow-2xl md:shadow-none flex flex-col border-r border-slate-200/50 dark:border-slate-800/50 overflow-x-hidden will-change-transform transform -translate-x-full md:translate-x-0 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
 >
@@ -123,15 +119,11 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
     })}
   </nav>
   
-<!-- 底部页脚：强制横向排列 -->
+  {/* 底部页脚 */}
   <div class="h-10 px-4 mt-auto border-t border-slate-100/50 dark:border-slate-800/50 shrink-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md safe-area-bottom overflow-hidden flex flex-row items-center justify-between gap-2">
-    
-    {/* 左侧：版权信息 (添加 truncate 防止顶飞右边) */}
     <span class="text-[10px] text-slate-400 font-medium truncate">
       © {new Date().getFullYear()} {siteConfig.author}
     </span>
-
-    {/* 右侧：更新日志 (不换行) */}
     <a href="/changelog" class="shrink-0 flex items-center gap-1.5 text-[10px] font-bold text-slate-500 hover:text-brand-600 transition-colors py-1 px-2 rounded-md hover:bg-slate-50 dark:hover:bg-gray-800 group/log">
       <span class="relative flex h-1.5 w-1.5">
         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75 group-hover/log:opacity-100"></span>
@@ -139,83 +131,46 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
       </span>
       <span>更新记录</span>
     </a>
-
   </div>
 </aside>
 
-<style is:global>
-  /* 
-    🔥 核心修改 2：遮罩层极致优化 
-    利用 transition-delay 解决"未加载完点击卡死"和"慢一步"的问题。
-  */
-  #sidebar-overlay {
-    position: fixed; inset: 0; z-index: 40;
-    background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(2px);
-    
-    /* 默认状态：隐藏 */
-    opacity: 0;
-    visibility: hidden;
-    
-    /* 
-       关键技巧：
-       opacity 变 0 时，visibility 延迟 0.3s 再变 hidden。
-       这样保证淡出动画能完整播放，不会瞬间消失。
-    */
-    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
-    
-    touch-action: none; 
-  }
+{/* 遮罩层 */}
+<div id="sidebar-overlay" onclick="window.closeSidebarMobile()"></div>
 
-  /* 激活状态 */
-  #sidebar-overlay.active {
-    opacity: 1;
-    visibility: visible;
-    
-    /* 
-       显示时：立即显示 visibility，然后 opacity 开始淡入。
-       不需要 delay。
-    */
-    transition: opacity 0.3s ease, visibility 0s linear 0s;
-  }
-</style>
-
+{/* 关键脚本 1：内联脚本 (Inline Script)
+  处理最关键的开关逻辑，确保移动端不会闪烁
+*/}
 <script is:inline>
 (function() {
-  // =======================================================
-  // 1. 侧边栏 & 遮罩控制逻辑
-  // =======================================================
-  
-  // 手机端开关 (原子化操作，绝不卡死)
+  // 定义核心开关逻辑
   window.toggleSidebarMobile = () => {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebar-overlay');
     if (!sidebar) return;
-
-    // 根据 CSS 类名判断当前状态
+    
+    // 检查当前是否开启（根据 transform 类名）
+    // 注意：这里需要根据你实际的 CSS 逻辑判断，通常是判断是否有 translate-x-0
     const isOpen = sidebar.classList.contains('translate-x-0');
 
     if (isOpen) {
-      // 关
+      // 关闭
       sidebar.classList.remove('translate-x-0');
       sidebar.classList.add('-translate-x-full');
-      if (overlay) overlay.classList.remove('active'); // CSS 会自动处理动画
+      if (overlay) overlay.classList.remove('active');
       document.body.style.overflow = '';
     } else {
-      // 开
-      sidebar.style.marginLeft = ''; // 确保没有 PC 端遗留的样式
+      // 开启
+      sidebar.style.marginLeft = '';
       sidebar.classList.remove('-translate-x-full');
       sidebar.classList.add('translate-x-0');
-      if (overlay) overlay.classList.add('active'); // 立即触发 CSS 动画
+      if (overlay) overlay.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
   };
 
-  // 强制关闭 (供跳转链接使用)
   window.closeSidebarMobile = () => {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebar-overlay');
-    
     if (sidebar) {
       sidebar.style.marginLeft = '';
       sidebar.classList.remove('translate-x-0');
@@ -225,142 +180,30 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
     document.body.style.overflow = '';
   };
 
-  // =======================================================
-  // 2. 悬浮菜单逻辑 (Tooltip) - Fixed
-  // =======================================================
-  let tooltipEl = null; let hideTimer = null; let currentBtn = null;
-
-  function createTooltipDOM() {
-    if (document.getElementById('sidebar-float-menu')) { tooltipEl = document.getElementById('sidebar-float-menu'); return; }
-    tooltipEl = document.createElement('div');
-    tooltipEl.id = 'sidebar-float-menu';
-    tooltipEl.style.cssText = `position: fixed; z-index: 9999; display: none; min-width: 180px; max-width: 260px; padding: 16px; background: rgba(255, 255, 255, 0.95); border-radius: 16px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(16px); opacity: 0; transform: translateX(-10px); transition: opacity 0.2s ease, transform 0.2s ease; pointer-events: auto;`;
-    if (document.documentElement.classList.contains('dark')) { tooltipEl.style.backgroundColor = 'rgba(17, 24, 39, 0.95)'; tooltipEl.style.borderColor = 'rgba(51, 65, 85, 0.5)'; }
-    document.body.appendChild(tooltipEl);
-    tooltipEl.addEventListener('mouseenter', () => { if (hideTimer) clearTimeout(hideTimer); });
-    tooltipEl.addEventListener('mouseleave', () => { hideTooltip(); });
-  }
-
-  function showTooltip(btn, content) {
-    if (window.innerWidth < 768) return;
-    createTooltipDOM();
-    if (hideTimer) clearTimeout(hideTimer);
-    if (currentBtn === btn && tooltipEl.style.display === 'block') return;
-    tooltipEl.innerHTML = content;
-    const rect = btn.getBoundingClientRect();
-    const top = Math.max(10, Math.min(window.innerHeight - 200, rect.top));
-    const left = rect.right + 10;
-    tooltipEl.style.top = `${top}px`;
-    tooltipEl.style.left = `${left}px`;
-    tooltipEl.style.display = 'block';
-    void tooltipEl.offsetWidth;
-    tooltipEl.style.opacity = '1';
-    tooltipEl.style.transform = 'translateX(0)';
-    currentBtn = btn;
-  }
-  function hideTooltipImmediate() { if (!tooltipEl) return; if (hideTimer) clearTimeout(hideTimer); tooltipEl.style.display = 'none'; tooltipEl.style.opacity = '0'; currentBtn = null; }
-  function hideTooltip() { if (!tooltipEl) return; hideTimer = setTimeout(() => { tooltipEl.style.opacity = '0'; tooltipEl.style.transform = 'translateX(-10px)'; setTimeout(() => { if (tooltipEl.style.opacity === '0') { tooltipEl.style.display = 'none'; currentBtn = null; } }, 200); }, 100); }
-
-  // =======================================================
-  // 3. 事件绑定 & 初始化
-  // =======================================================
-  function bindHoverEvents() {
-    const btns = document.querySelectorAll('.has-sub-menu');
-    btns.forEach(btn => {
-      if (btn._hasBindHover) return;
-      btn._hasBindHover = true;
-      const wrapper = btn.closest('.sidebar-item-container');
-      const source = wrapper ? wrapper.querySelector('.sidebar-tooltip-source') : null;
-      if (source) {
-        btn.addEventListener('mouseenter', () => { showTooltip(btn, source.innerHTML); });
-        btn.addEventListener('mouseleave', () => { hideTooltip(); });
-      }
-    });
-  }
-
-  function handleCollapse(e) {
-    const btn = e.target.closest('.has-sub-menu');
-    if (!btn) return;
-    e.preventDefault(); e.stopPropagation();
-    const targetId = btn.getAttribute('data-target');
-    const subMenu = document.getElementById(targetId);
-    const arrow = btn.querySelector('svg');
-    if (subMenu) {
-      if (subMenu.classList.contains('grid-rows-[0fr]')) {
-        subMenu.classList.remove('grid-rows-[0fr]'); subMenu.classList.add('grid-rows-[1fr]');
-        if (arrow) arrow.style.transform = 'rotate(90deg)';
-      } else {
-        subMenu.classList.remove('grid-rows-[1fr]'); subMenu.classList.add('grid-rows-[0fr]');
-        if (arrow) arrow.style.transform = 'rotate(0deg)';
-      }
-    }
-  }
-
-  function init() {
-    createTooltipDOM();
-    bindHoverEvents();
-    
-    // 绑定遮罩点击 (确保 DOM 存在后再绑定)
-    const overlay = document.getElementById('sidebar-overlay');
-    if (overlay) {
-        overlay.onclick = window.closeSidebarMobile;
-    }
-    
-    document.removeEventListener('click', handleCollapse);
-    document.addEventListener('click', handleCollapse);
-
-    const sidebarNav = document.getElementById('sidebar-nav');
-    if (sidebarNav) sidebarNav.addEventListener('scroll', () => hideTooltipImmediate(), { passive: true });
-    
-    // 自检：手机端强制修正状态，防止样式残留
-    if (window.innerWidth < 768) {
+  // 状态自动修正
+  const initMobileState = () => {
+      if (window.innerWidth < 768) {
        const sb = document.getElementById('sidebar');
        if (sb) {
            sb.style.marginLeft = '';
-           // 确保默认隐藏
            if (!sb.classList.contains('translate-x-0')) {
                sb.classList.add('-translate-x-full');
            }
        }
     }
-  }
+  };
   
-  // 立即执行，不等待 Load
-  init();
-  document.addEventListener('astro:after-swap', init);
-  document.addEventListener('astro:page-load', init);
-
+  initMobileState();
+  document.addEventListener('astro:after-swap', initMobileState);
 })();
+</script>
 
-// 辅助函数
-window.scrollToSection = (id) => {
-  const el = document.getElementById(id);
-  if (el) {
-    const offsetTop = el.getBoundingClientRect().top + window.pageYOffset - 80;
-    window.scrollTo({ top: offsetTop, behavior: "smooth" });
-    window.closeSidebarMobile();
-  }
-};
-window.scrollToTab = (id, idx) => {
-  const menu = document.getElementById('sidebar-float-menu');
-  if(menu) menu.style.display = 'none';
-  window.scrollToSection(`cat-${id}`);
-  setTimeout(() => {
-     const g = document.getElementById(`cat-${id}`);
-     if(g) { 
-       const b = g.querySelectorAll('.tab-btn')[idx]; 
-       if(b) b.click();
-       const catBtn = g.querySelector('.sidebar-cat-btn');
-       if(catBtn && catBtn.classList.contains('has-sub-menu')) {
-          const arrow = catBtn.querySelector('svg');
-          const targetId = catBtn.getAttribute('data-target');
-          const subMenu = document.getElementById(targetId);
-          if (subMenu && subMenu.classList.contains('grid-rows-[0fr]')) {
-            subMenu.classList.remove('grid-rows-[0fr]'); subMenu.classList.add('grid-rows-[1fr]');
-            if(arrow) arrow.style.transform = 'rotate(90deg)';
-          }
-       }
-     }
-  }, 300);
-};
+{/* 关键脚本 2：模块化脚本 (Module Script)
+  加载 Tooltip、滚动等复杂交互
+*/}
+<script>
+  import { initInteractive } from './interactive';
+  
+  initInteractive();
+  document.addEventListener('astro:after-swap', initInteractive);
 </script>

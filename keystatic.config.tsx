@@ -1,7 +1,8 @@
 import { config, fields, collection, singleton, component } from '@keystatic/core';
 import React from 'react';
+import { any } from 'astro:schema';
 
-
+import { toolboxField, iconPickerField } from './src/components/keystatic/ToolboxField'; 
  
 
 const VISUAL_TAGS = [
@@ -96,15 +97,35 @@ const commonMdxOptions = {
   heading: [2, 3, 4, 5, 6] as const,
 };
 
+ 
+
 // --- Reusable Fields ---
 const resourceFields = {
+
+  toolbox: toolboxField as any,
   name: fields.text({ label: '名称' }),
-  url: fields.url({ label: '项目链接', validation: { isRequired: false } }),
-  official_site: fields.url({ label: '官网地址', validation: { isRequired: false } }),
-  desc: fields.text({ label: '描述', multiline: true }),
-  guide_id: fields.text({ label: '关联教程ID' }),
-  badge_list: fields.multiselect({
-    label: '徽章',
+
+  url: fields.url({ 
+    label: '项目链接',
+    description: 'GitHub地址或下载直链',
+    validation: { isRequired: false } 
+  }),
+   
+  official_site: fields.url({ 
+    label: '官网地址',
+    validation: { isRequired: false } 
+  }),
+  
+  desc: fields.text({ 
+    label: '简短描述', 
+    multiline: true 
+  }),
+  
+  icon: iconPickerField ,
+
+  // 对应 JSON 中的 "hide_badges"
+  hide_badges: fields.multiselect({
+    label: '隐藏徽章 (勾选则隐藏)',
     options: [
       { label: 'Stars', value: 'stars' },
       { label: 'Version', value: 'version' },
@@ -112,9 +133,12 @@ const resourceFields = {
       { label: 'License', value: 'license' },
       { label: 'Forks', value: 'forks' },
     ],
+    defaultValue: [], // 默认不勾选，即默认不隐藏（全显示）
   }),
-  icon: fields.text({ label: '图标' }),
+
+  guide_id: fields.text({ label: '关联教程ID' }),
   
+  // 详细介绍 (富文本)
   detail: fields.document({
     label: '详细介绍',
     formatting: true,
@@ -127,22 +151,25 @@ const resourceFields = {
   }),
 };
 
- 
+// 1. 定义环境判断变量
+const isDev = import.meta.env.DEV;
 
 export default config({
   // 2. 根据环境切换 storage 模式
   // 本地开发 (Dev) -> 使用 'local' (本地文件系统)
   // 线上生产 (Prod) -> 使用 'cloud' 或 'github'
-  // ✅ 强制写死：无论本地还是线上，都先用 GitHub 模式测试
-  // 这样能确保绝对不会去请求 /api 接口，彻底根除 405 错误
-  storage: {
-    kind: 'github',
-    repo: 'san-ren/my-nav', // 你的 GitHub 仓库
-  },
+  storage: isDev
+    ? {
+        kind: 'local',
+      }
+    : {
+        kind: 'github', 
+        repo: 'san-ren/my-nav'
+      },
 
-  cloud: {
-    project: 'astro-nav/my-nav', // 你的 Keystatic Cloud 项目名 (保持截图里的一致)
-  },
+  // 3. Cloud 配置 (仅在 kind: cloud 时生效，但保留在这里无妨)
+  cloud: { project: 'astro-nav/my-nav' },
+
   ui: {
     brand: { name: 'MyNav 管理后台' },
 
@@ -227,6 +254,7 @@ export default config({
           }
         ),
         
+        // 1. 替换 resources
         resources: fields.array(
           fields.object(resourceFields),
           { 
@@ -235,18 +263,19 @@ export default config({
           }
         ),
 
+        // 2. 替换 categories (确保里面的 resources 也用的是 fields.object)
         categories: fields.array(
           fields.object({
             name: fields.text({ label: '分类名称' }),
             resources: fields.array(
-              fields.object(resourceFields),
+              fields.object(resourceFields), // ✅ 复用上面的标准定义
               { label: '📚 直属资源列表', itemLabel: (props) => props.fields.name.value || '未命名资源' }
             ),
             tabs: fields.array(
               fields.object({
                 tabName: fields.text({ label: '标签页名称' }),
                 list: fields.array(
-                  fields.object(resourceFields),
+                  fields.object(resourceFields), // ✅ 复用上面的标准定义
                   { label: '资源列表', itemLabel: (props) => props.fields.name.value || '资源' }
                 )
               }),
@@ -254,7 +283,7 @@ export default config({
             )
           }),
           { label: '📑 分类列表 (Categories)', itemLabel: (props) => props.fields.name.value || '未命名分类' }
-        ),
+        ), 
 
         id: fields.text({ 
           label: '🆔 系统ID', 
@@ -312,7 +341,7 @@ export default config({
             { label: '🚀 功能更新', value: 'function' },
             { label: '📚 内容更新', value: 'content' },
           ],
-          defaultValue: 'content', 
+          defaultValue: 'function', 
         }),
         date: fields.date({ 
           label: '发布日期', 

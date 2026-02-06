@@ -15,8 +15,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "甲方导航",
@@ -24,8 +23,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "观影",
@@ -33,8 +31,7 @@
               "official_site": "https://www.gying.net/",
               "desc": "曾经的片库",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             },
             {
               "name": "耐看点播",
@@ -42,8 +39,7 @@
               "official_site": "",
               "desc": "屏蔽国外ip",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             }
           ]
         },
@@ -56,8 +52,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": "",
-              "badge_list": []
+              "icon": ""
             }
           ]
         }
@@ -72,8 +67,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "114game",
@@ -81,8 +75,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "GBTGame官方网盘",
@@ -90,8 +83,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "乐赏游戏空间",
@@ -99,8 +91,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "小妖怪分享",
@@ -108,8 +99,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "123资源库",
@@ -117,8 +107,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "NS游戏仓库",
@@ -126,8 +115,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "梓澪の妙妙屋",
@@ -135,8 +123,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "浅夏的NS(switch)游戏清单",
@@ -144,8 +131,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "gdgame免费单机游戏下载",
@@ -153,8 +139,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "WZGuides",
@@ -162,8 +147,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "三角洲行动一图流",
@@ -171,8 +155,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "三角洲行动玩家营地",
@@ -180,8 +163,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "准星代售",
@@ -189,8 +171,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "cod系列地图",
@@ -198,8 +179,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "三角洲行动数据接口",
@@ -207,8 +187,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "三角洲小涛查",
@@ -216,8 +195,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": []
+          "icon": ""
         },
         {
           "name": "三角洲行动API",
@@ -225,12 +203,7 @@
           "official_site": "",
           "desc": "",
           "guide_id": "",
-          "icon": "",
-          "badge_list": [
-            "stars",
-            "version",
-            "last_commit"
-          ]
+          "icon": ""
         }
       ],
       "tabs": []

@@ -1,32 +1,46 @@
 ---
-import { marked } from 'marked';
+// src/components/SiteCard/index.astro
 import { BookOpen, Info } from 'lucide-react';
+// 引入 Astro 图片组件
+import { Image } from 'astro:assets';
+// 引入 Keystatic 文档渲染器
+import { DocumentRenderer } from '@keystatic/core/renderer';
 import { getIconSources, getBadges } from './utils';
 
 // 引入样式
 import './site-card.css';
 
-const { title, name, url, icon, desc, detail, official_site, badge_list = [], guide_id } = Astro.props;
+// 接收 Props
+const { title, name, url, icon, desc, detail, official_site, hide_badges = [], guide_id } = Astro.props;
+
+const targetUrl = url || official_site || '#';
 
 const displayTitle = title || name;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-// 1. 获取图标数据
+// 1. 图标逻辑
 const { sources: iconSources, domain, localFallback } = getIconSources({ icon, url, official_site, base });
-const targetIcon = iconSources.custom || iconSources.level1 || iconSources.fallback;
+// 策略：如果 icon 属性存在且包含 "/images/"，说明是本地优化过的图，直接用。
+const finalIcon = (icon && icon.includes('/images/')) ? icon : (iconSources.custom || iconSources.level1 || localFallback);
 
-// 2. 获取徽章列表
-const badges = getBadges(url, badge_list);
+// 2. 徽章逻辑
+const badges = getBadges(url, hide_badges);
 
-// 3. 处理 Markdown
-const rawMarkdown = detail || "";
-const detailContent = marked.parse(rawMarkdown, { gfm: true, breaks: true });
+// 3. 详情内容逻辑 (修复点)
+// detail 现在是 JSON 数组 (Keystatic Document)，不再是 Markdown 字符串
+const hasDetailContent = Array.isArray(detail) && detail.length > 0;
+
+// 🔥 计算 hasPopup (只定义这一次)
+const hasPopup = !!(hasDetailContent || (badges && badges.length > 0));
+
 const cardId = `site-${domain ? domain.replace(/[^a-zA-Z0-9]/g, '-') : Math.random().toString(36).substr(2, 9)}`;
-const hasPopup = !!(detail || (badges && badges.length > 0));
+
+// 定义图标尺寸
+const ICON_SIZE = 48;
 ---
 
 <div class="site-card-wrapper group relative w-full h-full">
-  <a href={url} target="_blank" 
+  <a href={targetUrl} target="_blank" 
      class="flex items-center justify-between w-full h-full py-3 pl-3 pr-2
             bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl rounded-xl 
             border border-white/60 dark:border-gray-700/50 
@@ -40,21 +54,31 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
   >
     <div class="flex items-center flex-1 min-w-0 mr-1">
         <div class="relative flex-shrink-0 mr-3 w-10 h-10 flex items-center justify-center">
+          {/* 背景光晕层 */}
           <div class="absolute inset-0 z-0 transition-all duration-500 ease-out opacity-0 group-hover:opacity-50 group-hover:scale-150 filter blur-lg saturate-150 pointer-events-none transform-gpu">
-             <img src={localFallback} data-lazy-src={targetIcon} alt="" class="lazy-icon w-full h-full object-contain" aria-hidden="true" />
+             <Image 
+                src={finalIcon} 
+                alt="" 
+                width={ICON_SIZE} 
+                height={ICON_SIZE} 
+                class="w-full h-full object-contain" 
+             />
           </div>
+          
+          {/* 核心图标层 */}
           <div class="relative z-10 w-10 h-10 rounded-lg bg-white/80 dark:bg-gray-700/90 shadow-sm flex items-center justify-center border 
                border-gray-100 dark:border-gray-600 group-hover:scale-105 group-hover:shadow-md transition-all duration-300">
-            <img 
+            <Image 
               id={cardId}
-              src={localFallback}
-              data-lazy-src={targetIcon}
+              src={finalIcon}
+              alt={displayTitle} 
+              width={ICON_SIZE} 
+              height={ICON_SIZE}
+              loading="lazy" 
+              class="w-6 h-6 object-contain transition-transform duration-300" 
               data-domain={domain}
               data-sources={JSON.stringify(iconSources)}
-              alt={displayTitle} 
-              loading="lazy" 
-              referrerpolicy="no-referrer"
-              class="lazy-icon w-6 h-6 object-contain transition-transform duration-300" 
+              onerror={`this.onerror=null; this.src='${localFallback}';`}
             />
           </div>
         </div>
@@ -71,6 +95,7 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
         </div>
     </div>
 
+    {/* 右侧按钮区域 */}
     <div class="flex flex-col gap-1 shrink-0 pl-1 border-l border-slate-100 dark:border-slate-700/50 
                  transition-all duration-200 z-20
                  opacity-100 translate-x-0
@@ -89,6 +114,7 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
     </div>
   </a>
 
+  {/* 弹窗区域 */}
   {hasPopup && (
     <div class="tooltip-source hidden">
       <div class="relative z-10">
@@ -100,8 +126,12 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
             {badges.map(b => <img src={b.src} alt={b.alt} class="h-4 rounded-sm" />)}
           </div>
         )}
-        {detail && (
-          <div class="detail-markdown font-body text-[13px] text-slate-700 dark:text-slate-300 leading-relaxed break-words" set:html={detailContent}></div>
+        
+        {/* 使用 DocumentRenderer 渲染 JSON 数据 */}
+        {hasDetailContent && (
+          <div class="detail-markdown font-body text-[13px] text-slate-700 dark:text-slate-300 leading-relaxed break-words">
+             <DocumentRenderer document={detail} />
+          </div>
         )}
       </div>
     </div>
@@ -111,9 +141,7 @@ const hasPopup = !!(detail || (badges && badges.length > 0));
 <script>
   import { initSiteCard } from './client';
   
-  // 初始化逻辑：页面加载后和视图转换后都运行
   document.addEventListener('astro:page-load', initSiteCard);
-  // 如果不是使用 View Transitions，通常这一行就够了：
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initSiteCard);
   } else {
