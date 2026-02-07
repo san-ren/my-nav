@@ -104,6 +104,7 @@ const resourceFields = {
 
   toolbox: toolboxField as any,
   name: fields.text({ label: '名称' }),
+  // validation: { isRequired: false },
 
   url: fields.url({ 
     label: '项目链接',
@@ -121,6 +122,18 @@ const resourceFields = {
     multiline: true 
   }),
   
+  // 详细介绍 (富文本)
+  detail: fields.document({
+    label: '详细介绍',
+    formatting: true,
+    dividers: true,
+    links: true,
+    images: true,
+    tables: true,
+    layouts: [[1, 1], [1, 2]],
+    componentBlocks: documentBlocks, 
+  }),
+
   icon: iconPickerField ,
 
   // 对应 JSON 中的 "hide_badges"
@@ -138,17 +151,7 @@ const resourceFields = {
 
   guide_id: fields.text({ label: '关联教程ID' }),
   
-  // 详细介绍 (富文本)
-  detail: fields.document({
-    label: '详细介绍',
-    formatting: true,
-    dividers: true,
-    links: true,
-    images: true,
-    tables: true,
-    layouts: [[1, 1], [1, 2]],
-    componentBlocks: documentBlocks, 
-  }),
+  
 };
 
 // 1. 定义环境判断变量

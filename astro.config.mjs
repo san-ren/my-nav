@@ -1,3 +1,5 @@
+// --- START OF FILE astro.config.mjs ---
+
 import { defineConfig } from 'astro/config';
 import keystatic from '@keystatic/astro';
 import tailwind from "@astrojs/tailwind";
@@ -14,7 +16,6 @@ const isDevCommand = process.argv.includes('dev');
 
 // 2. 强制设置 Base 路径
 // 本地开发用 '/'，生产打包强制用 '/my-nav'
-// 这样无论 GitHub Actions 里的环境变量有没有生效，都能保证路径正确
 const myBase = isDevCommand ? '/' : '/my-nav';
 const mySite = 'https://san-ren.github.io';
 
@@ -48,23 +49,42 @@ const integrations = [
   sitemap()
 ];
 
-// 4. 动态加载 Keystatic
-// 只在本地开发 (npm run dev) 时加载。
-// 生产环境不加载，强制 Keystatic 使用 GitHub Mode (Client-side)。
+// 4. 动态加载开发环境专用功能
 if (isDevCommand) {
+  // 4.1 加载 Keystatic (仅本地)
   integrations.push(keystatic());
+
+  // 4.2 🔥🔥 注入智能解析 API (关键修改) 🔥🔥
+  // 这段逻辑会将 src/components/keystatic/smart-parse.ts 
+  // 临时挂载到 http://localhost:4321/api/smart-parse
+  integrations.push({
+    name: 'dev-smart-parse-api',
+    hooks: {
+      'astro:config:setup': ({ injectRoute }) => {
+        console.log('🚀 [Dev] 正在注入智能解析 API...');
+        injectRoute({
+          // 前端访问的 URL 路径 (保持不变)
+          pattern: '/api/smart-parse',
+          // 实际文件的物理路径 (放在现有的组件目录中)
+          entrypoint: './src/components/keystatic/smart-parse.ts',
+          // 🔥🔥 核心修复：必须显式设置为 false，否则在 static 模式下会出错
+          prerender: false 
+        });
+      },
+    },
+  });
 }
 
 export default defineConfig({
   site: mySite,
   base: myBase,
   
-  // 生产环境 'always' (生成文件夹结构)，本地 'ignore' (避免 API 冲突)
+  // 生产环境 'always'，本地 'ignore'
   trailingSlash: isDevCommand ? 'ignore' : 'always', 
  
   output: 'static',
 
-  // 彻底移除 adapter，确保是纯静态
+  // 确保没有 adapter，保证是纯静态构建
   // adapter: node(...), 
 
   integrations: integrations,

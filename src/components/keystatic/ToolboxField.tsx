@@ -25,19 +25,21 @@ const stopBubble = (e: React.SyntheticEvent) => {
 // 1. 智能填充组件 (AutoFiller)
 // ==========================================
 function AutoFillerComponent(props: any) {
-    // ... (代码保持不变)
     const [url, setUrl] = useState('');
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState('');
+    
+    // 用于防抖的引用
+    const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
   
-    const handleSmartFill = async () => {
-      // ... (代码保持不变)
-      if (!url) return;
+    // 核心填充逻辑
+    const handleSmartFill = async (targetUrl: string) => {
+      if (!targetUrl) return;
       setLoading(true);
-      setStatus('🔍 分析中...');
+      setStatus('🔍 自动分析中...');
   
       try {
-        const res = await fetch(`/api/smart-parse?url=${encodeURIComponent(url)}`);
+        const res = await fetch(`/api/smart-parse?url=${encodeURIComponent(targetUrl)}`);
         if (!res.ok) throw new Error(res.statusText);
         
         const data = await res.json();
@@ -50,12 +52,15 @@ function AutoFillerComponent(props: any) {
           const container = input.closest('div[data-layout-span]') || input.closest('label') || input.parentElement?.parentElement;
           const labelText = (container?.textContent || '').toLowerCase();
           
-          if (!input.value) {
+          const isIconInput = input.getAttribute('data-id') === 'icon-input-field';
+
+          if (!input.value || isIconInput) {
+              
               if (labelText.includes('名称') || labelText.includes('name')) {
                   setNativeValue(input, data.title); filledCount++;
               }
               if ((labelText.includes('链接') || labelText.includes('url')) && !labelText.includes('官网') && !labelText.includes('official')) {
-                  setNativeValue(input, data.originalUrl || url); filledCount++;
+                  setNativeValue(input, data.originalUrl || targetUrl); filledCount++;
               }
               if (labelText.includes('官网') || labelText.includes('official')) {
                    if (data.homepage) { setNativeValue(input, data.homepage); filledCount++; }
@@ -63,9 +68,9 @@ function AutoFillerComponent(props: any) {
               if (labelText.includes('简短') || labelText.includes('desc')) {
                   setNativeValue(input, data.desc || ''); filledCount++;
               }
-              // 强制覆盖图标字段
-              if (labelText.includes('图标') || labelText.includes('icon')) {
-                  if (data.icon && (!input.value || input.value === '')) {
+
+              if (isIconInput || labelText.includes('图标') || labelText.includes('icon')) {
+                  if (data.icon) {
                        setNativeValue(input, data.icon);
                        filledCount++;
                   }
@@ -75,15 +80,36 @@ function AutoFillerComponent(props: any) {
   
         setStatus(`✅ 已填 ${filledCount} 项`);
         setTimeout(() => setStatus(''), 4000);
-        setUrl(''); 
+        // setUrl(''); // 保持 URL 不清空，方便用户确认
   
       } catch (e: any) {
-        setStatus(`❌ 失败`);
+        setStatus(`❌ 解析失败`);
         console.error(e);
       } finally {
         setLoading(false);
       }
     };
+
+    // 监听 URL 变化，实现自动触发 (防抖)
+    useEffect(() => {
+        if (debounceTimerRef.current) {
+            clearTimeout(debounceTimerRef.current);
+        }
+
+        const isLooksLikeUrl = /^https?:\/\/.{3,}/.test(url.trim());
+
+        if (isLooksLikeUrl) {
+            debounceTimerRef.current = setTimeout(() => {
+                handleSmartFill(url.trim());
+            }, 800);
+        } else {
+            setStatus(''); 
+        }
+
+        return () => {
+            if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+        };
+    }, [url]);
   
     return (
       <div 
@@ -98,27 +124,35 @@ function AutoFillerComponent(props: any) {
         <input 
           value={url}
           onChange={e => setUrl(e.target.value)}
-          placeholder="粘贴链接，自动抓取图标和信息..."
+          placeholder="粘贴链接，自动开始解析..."
           style={{ 
             flex: 1, padding: '8px 12px', fontSize: '14px', 
             border: '1px solid #cbd5e1', borderRadius: '4px', outline: 'none' 
           }}
-          onKeyDown={(e) => e.key === 'Enter' && handleSmartFill()}
+          // 🔥 修复点：阻止 Enter 键默认提交表单行为
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // 关键：阻止关闭弹窗
+                e.stopPropagation(); // 关键：阻止冒泡
+                handleSmartFill(url);
+            }
+          }}
         />
         <button 
           type="button"
-          onClick={handleSmartFill}
-          disabled={loading}
+          onClick={() => handleSmartFill(url)}
+          disabled={loading || !url}
           style={{ 
             padding: '8px 16px', fontSize: '14px', color: 'white', 
             background: '#2563eb', borderRadius: '4px', border: 'none', cursor: 'pointer',
-            opacity: loading ? 0.7 : 1
+            opacity: (loading || !url) ? 0.7 : 1,
+            transition: 'opacity 0.2s'
           }}
         >
           {loading ? '⏳' : '填充'}
         </button>
         {status && (
-          <span style={{ position: 'absolute', bottom: '-20px', right: '10px', fontSize: '12px', color: '#64748b', fontWeight: 'bold' }}>
+          <span style={{ position: 'absolute', bottom: '-22px', right: '4px', fontSize: '12px', color: status.includes('❌') ? '#ef4444' : '#64748b', fontWeight: 'bold' }}>
             {status}
           </span>
         )}
@@ -130,7 +164,6 @@ function AutoFillerComponent(props: any) {
 // 2. IconPicker 组件
 // ==========================================
 export function IconPickerInput(props: any) {
-    // ... (代码保持不变)
     const [localIcons, setLocalIcons] = useState<string[]>([]);
     const [showDropdown, setShowDropdown] = useState(false);
     
@@ -164,7 +197,7 @@ export function IconPickerInput(props: any) {
       setShowDropdown(false);
     };
   
-    // 样式定义
+    // --- 样式定义 ---
     const containerStyle: React.CSSProperties = { position: 'relative', marginBottom: '8px' };
     const labelStyle: React.CSSProperties = { display: 'block', fontSize: '14px', fontWeight: 600, color: '#334155', marginBottom: '4px' };
     const descStyle: React.CSSProperties = { display: 'block', fontSize: '12px', color: '#64748b', marginBottom: '8px' };
@@ -189,7 +222,23 @@ export function IconPickerInput(props: any) {
       top: '100%', left: 0, right: 0, marginTop: '4px',
       background: 'white', border: '1px solid #cbd5e1', borderRadius: '6px',
       boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-      maxHeight: '240px', overflowY: 'auto', padding: '8px'
+      maxHeight: '240px', overflowY: 'auto', padding: '8px',
+      
+      opacity: showDropdown ? 1 : 0,
+      transform: showDropdown ? 'translateY(0) scale(1)' : 'translateY(-8px) scale(0.98)',
+      pointerEvents: showDropdown ? 'auto' : 'none', 
+      visibility: showDropdown ? 'visible' : 'hidden',
+      transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+      transformOrigin: 'top center',
+    };
+
+    const arrowStyle: React.CSSProperties = {
+      position: 'absolute', right: '8px', top: '50%', 
+      transform: `translateY(-50%) rotate(${showDropdown ? 180 : 0}deg)`, 
+      background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer',
+      transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      width: '20px', height: '20px'
     };
   
     return (
@@ -198,6 +247,7 @@ export function IconPickerInput(props: any) {
         <span style={descStyle}>输入 URL 或从下拉框选择本地图标</span>
   
         <div style={wrapperStyle}>
+          {/* 预览图 */}
           <div style={previewStyle}>
             {value ? (
               <img 
@@ -211,21 +261,20 @@ export function IconPickerInput(props: any) {
             )}
           </div>
   
+          {/* 输入框区域 */}
           <div style={inputWrapperStyle}>
              <input
               type="text"
+              data-id="icon-input-field" 
               value={value}
               onChange={e => onChange(e.target.value)}
               onFocus={() => setShowDropdown(true)}
               placeholder="/images/logos/xxx.webp"
               style={inputStyle}
-            />
+             />
             <button 
               type="button"
-              style={{ 
-                  position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)',
-                  background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer'
-              }}
+              style={arrowStyle}
               onClick={() => setShowDropdown(!showDropdown)}
             >
               ▼
@@ -233,7 +282,8 @@ export function IconPickerInput(props: any) {
           </div>
         </div>
   
-        {showDropdown && localIcons.length > 0 && (
+        {/* 下拉面板 */}
+        {localIcons.length > 0 && (
           <div style={dropdownStyle}>
             <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '8px', padding: '0 4px' }}>
               本地库 ({localIcons.length})
@@ -248,7 +298,8 @@ export function IconPickerInput(props: any) {
                   style={{
                       border: value === icon ? '2px solid #3b82f6' : '1px solid #e2e8f0',
                       borderRadius: '4px', padding: '4px', background: 'white', cursor: 'pointer',
-                      aspectRatio: '1 / 1', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                      aspectRatio: '1 / 1', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      transition: 'border-color 0.2s, background-color 0.2s'
                   }}
                 >
                   <img src={icon} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} loading="lazy" />
@@ -261,13 +312,9 @@ export function IconPickerInput(props: any) {
     );
 }
 
-// 🔥 2. 定义一个标准 Text 字段的类型，用于“欺骗” TS
-// 我们不需要真正创建它，只需要它的类型
 const _dummyText = fields.text({ label: 'dummy' });
 type TextFieldType = typeof _dummyText;
 
-// 🔥 3. 导出 ToolboxField，并强转类型为 any
-// 这里必须用 as any，因为 AutoFiller 的 UI 结构比较特殊
 export const toolboxField = {
   kind: 'form' as const,
   Input: AutoFillerComponent,
@@ -278,12 +325,9 @@ export const toolboxField = {
   reader: { parse: () => null },
 } as any; 
 
-// 🔥 4. 导出 IconPickerField，并强转为 TextFieldType
-// 这样 keystatic.config.tsx 就会把它当作一个普通的 fields.text 处理，从而消除所有报错
 export const iconPickerField = {
     kind: 'form' as const,
     Input: IconPickerInput,
-    
     defaultValue: () => '',
     validate: (value: unknown) => typeof value === 'string',
     parse: (value: unknown) => (value === undefined || value === null) ? '' : String(value),
@@ -291,4 +335,4 @@ export const iconPickerField = {
     reader: {
         parse: (value: unknown) => (value === undefined || value === null) ? '' : String(value),
     }
-} as unknown as TextFieldType; // 双重断言：先转 unknown 再转 TextFieldType，最稳妥
+} as unknown as TextFieldType;
