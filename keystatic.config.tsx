@@ -1,9 +1,9 @@
 import { config, fields, collection, singleton, component } from '@keystatic/core';
 import React from 'react';
-import { any } from 'astro:schema';
+// import { any } from 'astro:schema';
 
 import { toolboxField, iconPickerField } from './src/components/keystatic/ToolboxField'; 
- 
+import { badgeListField } from './src/components/keystatic/BadgeField';
 
 const VISUAL_TAGS = [
   { label: '🏠 首页/概览 (Home)', value: '🏠' },
@@ -136,18 +136,12 @@ const resourceFields = {
 
   icon: iconPickerField ,
 
-  // 对应 JSON 中的 "hide_badges"
-  hide_badges: fields.multiselect({
-    label: '隐藏徽章 (勾选则隐藏)',
-    options: [
-      { label: 'Stars', value: 'stars' },
-      { label: 'Version', value: 'version' },
-      { label: 'Last Commit', value: 'last_commit' },
-      { label: 'License', value: 'license' },
-      { label: 'Forks', value: 'forks' },
-    ],
-    defaultValue: [], // 默认不勾选，即默认不隐藏（全显示）
-  }),
+ 
+  hide_badges: badgeListField({
+           label: '隐藏徽章 (勾选则隐藏)',
+           description: '根据上方项目地址自动生成可用的徽章选项',
+           defaultValue: []
+        }),
 
   guide_id: fields.text({ label: '关联教程ID' }),
   
@@ -166,8 +160,8 @@ export default config({
         kind: 'local',
       }
     : {
-        kind: 'github', 
-        repo: 'san-ren/my-nav'
+        kind: 'cloud', 
+     
       },
 
   // 3. Cloud 配置 (仅在 kind: cloud 时生效，但保留在这里无妨)
@@ -332,10 +326,10 @@ export default config({
       slugField: 'version',
       path: 'src/content/changelog/*',
       format: { contentField: 'content' },
-      columns: ['version', 'type', 'date'],
+      columns: ['version', 'type','status', 'date'],
       schema: {
         version: fields.text({ 
-          label: '记录名称', 
+          label: '版本号', 
           validation: { length: { min: 1 } } 
         }),
         type: fields.select({
@@ -351,6 +345,16 @@ export default config({
           defaultValue: { kind: 'today' },
           validation: { isRequired: true }
         }),
+        status: fields.select({
+          label: '发布状态',
+          options: [
+            { label: '✅ 已发布', value: 'published' },
+            { label: '📝 草稿 (不显示)', value: 'draft' }
+          ],
+          defaultValue: 'published'
+        }),
+        
+        
         
         content: fields.mdx({
           label: '更新详情 (MDX源码)',

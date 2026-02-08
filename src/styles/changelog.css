@@ -1,0 +1,164 @@
+/* src/styles/changelog.css */
+
+/* 1. 给行内代码添加背景和颜色 */
+.changelog-content :not(pre) > code {
+  background-color: #f1f5f9; /* slate-100 */
+  color: #0f172a;           /* slate-900 */
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-weight: 600;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* 2. 暗色模式适配 */
+:global(.dark) .changelog-content :not(pre) > code {
+  background-color: #334155; /* slate-700 */
+  color: #e2e8f0;           /* slate-200 */
+}
+
+/* 3. 去除 Tailwind Typography 默认添加的反引号 */
+.changelog-content :not(pre) > code::before,
+.changelog-content :not(pre) > code::after {
+  content: none !important;
+}
+
+/* 时间轴容器 */
+.changelog-timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+/* 时间轴竖线 */
+.changelog-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, #e2e8f0 10%, #e2e8f0 90%, transparent);
+}
+
+/* 暗色模式下的竖线 */
+:global(.dark) .changelog-timeline::before {
+  background: linear-gradient(to bottom, transparent, #1e293b 10%, #1e293b 90%, transparent);
+}
+
+/* 单个更新项容器 */
+.changelog-item {
+  position: relative;
+  margin-bottom: 3rem;
+  transition: all 0.3s ease;
+}
+
+/* 时间轴圆点装饰 */
+.changelog-dot {
+  position: absolute;
+  left: -2.35rem; /* 调整位置以对齐竖线 */
+  top: 1.5rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 3px solid white;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+:global(.dark) .changelog-dot {
+  border-color: #0f172a;
+}
+
+.changelog-item:hover .changelog-dot {
+  transform: scale(1.2);
+}
+
+/* 头部区域：版本号与时间 */
+.changelog-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  padding-left: 0.5rem;
+}
+
+.changelog-version {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.changelog-date {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+}
+
+/* 内容卡片 */
+.changelog-card {
+  position: relative;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.changelog-card::before {
+  /* 卡片左侧的小三角箭头 */
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 1.75rem;
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-left: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  transform: rotate(45deg);
+}
+
+.changelog-item:hover .changelog-card {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* 暗色模式适配 */
+:global(.dark) .changelog-card {
+  background-color: #1e293b; /* slate-800 */
+  border-color: #334155;
+}
+
+:global(.dark) .changelog-card::before {
+  background-color: #1e293b;
+  border-color: #334155;
+}
+
+/* MDX 内容微调 */
+.changelog-content h3 {
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.75rem !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+:global(.dark) .changelog-content h3 {
+  color: #94a3b8;
+}
+
+.changelog-content ul {
+  padding-left: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.changelog-content li {
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+}

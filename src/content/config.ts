@@ -94,6 +94,7 @@ const changelog = defineCollection({
   schema: z.object({
     version: z.union([z.string(), z.number()]).optional().transform((v) => v ? String(v) : undefined),
     type: z.enum(['function', 'content']).default('content'),
+    status: z.enum(['published', 'draft']).optional().default('published'),
     date: z.date().or(z.string().transform((str) => new Date(str))),
   }),
 });
