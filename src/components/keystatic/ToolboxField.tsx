@@ -1,8 +1,9 @@
 // src/components/keystatic/ToolboxField.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import { fields } from '@keystatic/core'; 
+import { ChevronRight } from 'lucide-react';
 
-// --- 通用辅助函数 ---
+// --- 通用辅助函数 (保持不变) ---
 
 function setNativeValue(element: HTMLInputElement | HTMLTextAreaElement, value: string) {
   const valueSetter = Object.getOwnPropertyDescriptor(element, 'value')?.set;
@@ -22,17 +23,15 @@ const stopBubble = (e: React.SyntheticEvent) => {
 };
 
 // ==========================================
-// 1. 智能填充组件 (AutoFiller)
+// 1. 智能填充组件 (AutoFiller) - (保持不变)
 // ==========================================
 function AutoFillerComponent(props: any) {
     const [url, setUrl] = useState('');
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState('');
     
-    // 用于防抖的引用
     const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
   
-    // 核心填充逻辑
     const handleSmartFill = async (targetUrl: string) => {
       if (!targetUrl) return;
       setLoading(true);
@@ -80,7 +79,6 @@ function AutoFillerComponent(props: any) {
   
         setStatus(`✅ 已填 ${filledCount} 项`);
         setTimeout(() => setStatus(''), 4000);
-        // setUrl(''); // 保持 URL 不清空，方便用户确认
   
       } catch (e: any) {
         setStatus(`❌ 解析失败`);
@@ -90,7 +88,6 @@ function AutoFillerComponent(props: any) {
       }
     };
 
-    // 监听 URL 变化，实现自动触发 (防抖)
     useEffect(() => {
         if (debounceTimerRef.current) {
             clearTimeout(debounceTimerRef.current);
@@ -129,11 +126,10 @@ function AutoFillerComponent(props: any) {
             flex: 1, padding: '8px 12px', fontSize: '14px', 
             border: '1px solid #cbd5e1', borderRadius: '4px', outline: 'none' 
           }}
-          // 🔥 修复点：阻止 Enter 键默认提交表单行为
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
-                e.preventDefault(); // 关键：阻止关闭弹窗
-                e.stopPropagation(); // 关键：阻止冒泡
+                e.preventDefault();
+                e.stopPropagation();
                 handleSmartFill(url);
             }
           }}
@@ -161,11 +157,13 @@ function AutoFillerComponent(props: any) {
   }
 
 // ==========================================
-// 2. IconPicker 组件
+// 2. IconPicker 组件 (已修改)
 // ==========================================
 export function IconPickerInput(props: any) {
     const [localIcons, setLocalIcons] = useState<string[]>([]);
     const [showDropdown, setShowDropdown] = useState(false);
+    // --- 新增状态：记录当前悬浮的图标索引 ---
+    const [hoveredIconIdx, setHoveredIconIdx] = useState<number | null>(null);
     
     const value = props.value || '';
     const onChange = props.onChange; 
@@ -210,19 +208,20 @@ export function IconPickerInput(props: any) {
       overflow: 'hidden', flexShrink: 0
     };
   
-    const inputWrapperStyle: React.CSSProperties = { flex: 1, position: 'relative' };
+    const inputWrapperStyle: React.CSSProperties = { flex: 1, position: 'relative', display: 'flex', alignItems: 'center' };
+    
     const inputStyle: React.CSSProperties = {
-      width: '100%', padding: '8px 12px', paddingRight: '30px',
-      fontSize: '14px', border: '1px solid #cbd5e1', borderRadius: '4px', outline: 'none',
-      fontFamily: 'monospace'
+      width: '100%', padding: '8px 12px', paddingRight: '40px',
+      fontSize: '14px', border: '1px solid #cbd5e1', borderRadius: '6px', outline: 'none',
+      fontFamily: 'monospace', color: '#334155'
     };
   
     const dropdownStyle: React.CSSProperties = {
       position: 'absolute', zIndex: 9999, 
       top: '100%', left: 0, right: 0, marginTop: '4px',
-      background: 'white', border: '1px solid #cbd5e1', borderRadius: '6px',
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-      maxHeight: '240px', overflowY: 'auto', padding: '8px',
+      background: 'white', border: '1px solid #cbd5e1', borderRadius: '8px',
+      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+      maxHeight: '240px', overflowY: 'auto', padding: '12px',
       
       opacity: showDropdown ? 1 : 0,
       transform: showDropdown ? 'translateY(0) scale(1)' : 'translateY(-8px) scale(0.98)',
@@ -232,14 +231,52 @@ export function IconPickerInput(props: any) {
       transformOrigin: 'top center',
     };
 
-    const arrowStyle: React.CSSProperties = {
-      position: 'absolute', right: '8px', top: '50%', 
-      transform: `translateY(-50%) rotate(${showDropdown ? 180 : 0}deg)`, 
-      background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer',
-      transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    const arrowButtonStyle: React.CSSProperties = {
+      position: 'absolute', right: '6px', top: '50%', marginTop: '-14px',
+      width: '28px', height: '28px',
+      borderRadius: '6px',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      width: '20px', height: '20px'
+      background: showDropdown ? '#eff6ff' : 'transparent',
+      color: showDropdown ? '#2563eb' : '#94a3b8',
+      border: 'none', cursor: 'pointer',
+      transition: 'all 0.2s ease',
     };
+
+    const iconStyle: React.CSSProperties = {
+      transform: `rotate(${showDropdown ? 90 : 0}deg)`,
+      transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    };
+
+    // --- 新增样式：单个图标项的容器 ---
+    const itemWrapperStyle: React.CSSProperties = {
+        position: 'relative', // 作为绝对定位子元素的参考点
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1, // 默认层级
+    };
+
+    // --- 新增样式：放大后的预览层 ---
+    const largePreviewStyle = (isHovered: boolean): React.CSSProperties => ({
+        position: 'absolute',
+        top: '50%', left: '50%',
+        width: '160px', // 放大后的尺寸
+        height: '160px',
+        background: 'white',
+        borderRadius: '12px',
+        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)', // 更深的阴影
+        padding: '12px',
+        zIndex: 10000, // 确保在最上层
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        pointerEvents: 'none', // 让鼠标事件穿透，避免干扰底层按钮点击
+        
+        // 动画相关属性
+        opacity: isHovered ? 1 : 0,
+        visibility: isHovered ? 'visible' : 'hidden',
+        // 结合缩放和位移，实现从中心弹出的效果。使用贝塞尔曲线让动画更有弹性
+        transform: `translate(-50%, -50%) scale(${isHovered ? 1 : 0.5})`,
+        transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)', 
+    });
   
     return (
       <div ref={containerRef} style={containerStyle} onClick={stopBubble}>
@@ -268,16 +305,28 @@ export function IconPickerInput(props: any) {
               data-id="icon-input-field" 
               value={value}
               onChange={e => onChange(e.target.value)}
-              onFocus={() => setShowDropdown(true)}
               placeholder="/images/logos/xxx.webp"
               style={inputStyle}
              />
+             
             <button 
               type="button"
-              style={arrowStyle}
+              style={arrowButtonStyle}
               onClick={() => setShowDropdown(!showDropdown)}
+              onMouseEnter={(e) => {
+                 if(!showDropdown) {
+                    e.currentTarget.style.backgroundColor = '#f1f5f9'; 
+                    e.currentTarget.style.color = '#475569'; 
+                 }
+              }}
+              onMouseLeave={(e) => {
+                 if(!showDropdown) {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.color = '#94a3b8';
+                 }
+              }}
             >
-              ▼
+              <ChevronRight size={18} style={iconStyle} />
             </button>
           </div>
         </div>
@@ -285,26 +334,54 @@ export function IconPickerInput(props: any) {
         {/* 下拉面板 */}
         {localIcons.length > 0 && (
           <div style={dropdownStyle}>
-            <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '8px', padding: '0 4px' }}>
-              本地库 ({localIcons.length})
+            <div style={{ 
+                fontSize: '11px', fontWeight: 700, color: '#94a3b8', 
+                marginBottom: '8px', padding: '0 4px', textTransform: 'uppercase', letterSpacing: '0.05em' 
+            }}>
+              Local Icons ({localIcons.length})
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '8px' }}>
-              {localIcons.map((icon) => (
-                <button
-                  key={icon}
-                  type="button"
-                  onClick={() => handleSelect(icon)}
-                  title={icon.split('/').pop()}
-                  style={{
-                      border: value === icon ? '2px solid #3b82f6' : '1px solid #e2e8f0',
-                      borderRadius: '4px', padding: '4px', background: 'white', cursor: 'pointer',
-                      aspectRatio: '1 / 1', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      transition: 'border-color 0.2s, background-color 0.2s'
-                  }}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(32px, 1fr))', gap: '8px', position: 'relative' }}>
+              {localIcons.map((icon, index) => {
+                const isHovered = hoveredIconIdx === index;
+                return (
+                // --- 修改：包裹一个相对定位的容器，并处理鼠标移入移出 ---
+                <div 
+                    key={icon + index}
+                    style={{...itemWrapperStyle, zIndex: isHovered ? 20 : 1 }}
+                    onMouseEnter={() => setHoveredIconIdx(index)}
+                    onMouseLeave={() => setHoveredIconIdx(null)}
                 >
-                  <img src={icon} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} loading="lazy" />
-                </button>
-              ))}
+                    {/* --- 修改：原有的按钮组件 --- */}
+                    <button
+                    type="button"
+                    onClick={() => handleSelect(icon)}
+                    title={icon.split('/').pop()} // 保留原有的文件名提示
+                    style={{
+                        border: value === icon ? '2px solid #3b82f6' : '1px solid #e2e8f0',
+                        borderRadius: '6px', padding: '4px', background: 'white', cursor: 'pointer',
+                        // 确保按钮占满容器
+                        width: '100%', height: '100%',
+                        aspectRatio: '1 / 1', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        transition: 'all 0.2s',
+                        opacity: isHovered ? 0.5 : 1, // 悬浮时让底层小图标变淡一点
+                    }}
+                    // 移除原来的 transform 动画，避免冲突
+                    onMouseEnter={(e) => { 
+                        e.currentTarget.style.borderColor = '#93c5fd'; 
+                    }}
+                    onMouseLeave={(e) => { 
+                        e.currentTarget.style.borderColor = value === icon ? '#3b82f6' : '#e2e8f0'; 
+                    }}
+                    >
+                        <img src={icon} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} loading="lazy" />
+                    </button>
+
+                    {/* --- 新增：放大后的预览层 (绝对定位) --- */}
+                    <div style={largePreviewStyle(isHovered)}>
+                        <img src={icon} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                    </div>
+                </div>
+              )})}
             </div>
           </div>
         )}

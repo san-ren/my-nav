@@ -1,9 +1,10 @@
 ---
 import { LayoutDashboard, Star, Code, Palette, ChevronRight } from 'lucide-react';
-// 引入拆分出来的 CSS
+
 import './sidebar.css';
 
 const { navResources, currentId, siteConfig } = Astro.props;
+// 获取基础路径 (已去除末尾斜杠，例如 "" 或 "/my-nav")
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const Icons = { Star, Code, Palette, LayoutDashboard };
 ---
@@ -124,7 +125,8 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
     <span class="text-[10px] text-slate-400 font-medium truncate">
       © {new Date().getFullYear()} {siteConfig.author}
     </span>
-    <a href="/my-nav/changelog/" class="shrink-0 flex items-center gap-1.5 text-[10px] font-bold text-slate-500 hover:text-brand-600 transition-colors py-1 px-2 rounded-md hover:bg-slate-50 dark:hover:bg-gray-800 group/log">
+    {/* 修改处：使用动态 base 变量拼接路径 */}
+    <a href={`${base}/changelog/`} class="shrink-0 flex items-center gap-1.5 text-[10px] font-bold text-slate-500 hover:text-brand-600 transition-colors py-1 px-2 rounded-md hover:bg-slate-50 dark:hover:bg-gray-800 group/log">
       <span class="relative flex h-1.5 w-1.5">
         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75 group-hover/log:opacity-100"></span>
         <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-brand-500"></span>
@@ -137,9 +139,7 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
 {/* 遮罩层 */}
 <div id="sidebar-overlay" onclick="window.closeSidebarMobile()"></div>
 
-{/* 关键脚本 1：内联脚本 (Inline Script)
-  处理最关键的开关逻辑，确保移动端不会闪烁
-*/}
+{/* 关键脚本 1：内联脚本 (Inline Script) */}
 <script is:inline>
 (function() {
   // 定义核心开关逻辑
@@ -149,9 +149,7 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
     if (!sidebar) return;
     
     // 检查当前是否开启（根据 transform 类名）
-    // 注意：这里需要根据你实际的 CSS 逻辑判断，通常是判断是否有 translate-x-0
     const isOpen = sidebar.classList.contains('translate-x-0');
-
     if (isOpen) {
       // 关闭
       sidebar.classList.remove('translate-x-0');
@@ -167,7 +165,6 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
       document.body.style.overflow = 'hidden';
     }
   };
-
   window.closeSidebarMobile = () => {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebar-overlay');
@@ -198,9 +195,7 @@ const Icons = { Star, Code, Palette, LayoutDashboard };
 })();
 </script>
 
-{/* 关键脚本 2：模块化脚本 (Module Script)
-  加载 Tooltip、滚动等复杂交互
-*/}
+{/* 关键脚本 2：模块化脚本 (Module Script) */}
 <script>
   import { initInteractive } from './interactive';
   

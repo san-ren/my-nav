@@ -1,0 +1,221 @@
+---
+import { Rocket, BookOpen } from 'lucide-react';
+
+interface Props {
+  type: 'function' | 'content';
+  count: number;
+  hasNewUpdates?: boolean;
+}
+
+const { type, count, hasNewUpdates = false } = Astro.props;
+
+// 配置样式字典
+const styles = {
+  function: {
+    label: '功能更新',
+    icon: Rocket,
+    wrapperClass: 'icon-wrapper-rocket',
+    colors: 'text-blue-600 dark:text-blue-300',
+    bgColors: 'bg-blue-100 dark:bg-blue-900/30',
+    border: 'hover:border-blue-400 dark:hover:border-blue-500',
+    ring: 'ring-blue-200 dark:ring-blue-800',
+    glow: 'shadow-blue-200 dark:shadow-blue-900/50',
+    newBadge: 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900 dark:text-blue-300 dark:border-blue-700'
+  },
+  content: {
+    label: '内容更新',
+    icon: BookOpen,
+    wrapperClass: 'icon-wrapper-book',
+    colors: 'text-green-600 dark:text-green-300',
+    bgColors: 'bg-green-100 dark:bg-green-900/30',
+    border: 'hover:border-green-400 dark:hover:border-green-500',
+    ring: 'ring-green-200 dark:ring-green-800',
+    glow: 'shadow-green-200 dark:shadow-green-900/50',
+    newBadge: 'bg-green-100 text-green-700 border-green-200 dark:bg-green-900 dark:text-green-200 dark:border-green-700'
+  }
+};
+
+const current = styles[type];
+const Icon = current.icon;
+---
+
+<div class:list={[
+  "stats-card group relative flex items-center gap-4 p-4 rounded-xl border transition-all duration-300 overflow-hidden",
+  "bg-white border-slate-200 dark:bg-slate-800 dark:border-slate-700", 
+  current.border,
+  hasNewUpdates ? `shadow-lg ${current.glow} animate-glow ring-1 ring-offset-0 ${current.ring}` : "shadow-sm dark:shadow-none"
+]}>
+  
+  {/* 图标容器 */}
+  <div class:list={[
+    "relative p-3 rounded-lg transition-colors duration-300 z-0 flex justify-center items-center",
+    current.colors,
+    current.bgColors,
+    current.wrapperClass
+  ]}>
+    
+    {/* ================= 火箭动画结构 (已移除火焰) ================= */}
+    {type === 'function' && (
+      <>
+        {/* 仅保留速度线，模拟气流/速度感 */}
+        <div class="speed-lines absolute inset-0 pointer-events-none overflow-hidden opacity-0">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </>
+    )}
+
+    {/* ================= 书本动画结构 (保持完美版) ================= */}
+    {type === 'content' && (
+      <>
+        {/* Layer 1: 静止底座 */}
+        <div class="book-base absolute inset-0 flex justify-center items-center pointer-events-none z-0">
+            <span class="base-page-left"></span>
+            <span class="base-page-right"></span>
+        </div>
+
+        {/* Layer 3: 动态书页 */}
+        <div class="book-pages-animator absolute inset-0 flex justify-center items-center pointer-events-none z-20">
+          <span class="book-page page-1"></span>
+          <span class="book-page page-2"></span>
+          <span class="book-page page-3"></span>
+        </div>
+      </>
+    )}
+    
+    {/* Layer 2: 图标线条 */}
+    <Icon size={24} className={`relative z-10 ${hasNewUpdates && type !== 'content' ? "animate-bounce-gentle" : ""}`} />
+  </div>
+
+  {/* 文字内容 */}
+  <div class="flex flex-col relative z-10">
+    <div class="flex items-center gap-2">
+      <span class="text-lg font-bold text-slate-800 dark:text-slate-100">
+        {current.label}
+      </span>
+      {hasNewUpdates && (
+        <span class:list={["text-[10px] font-bold px-1.5 py-0.5 rounded border animate-pulse", current.newBadge]}>
+          NEW
+        </span>
+      )}
+    </div>
+
+    <span class="text-sm font-medium text-slate-500 dark:text-slate-400 mt-0.5">
+      共 {count} 条记录
+    </span>
+  </div>
+</div>
+
+<style>
+  /* 基础呼吸动画 */
+  @keyframes glow-effect {
+    0%, 100% { box-shadow: 0 0 0px rgba(var(--color-rgb), 0); }
+    50% { box-shadow: 0 0 15px rgba(var(--color-rgb), 0.3); }
+  }
+  .animate-glow { animation: glow-effect 3s infinite ease-in-out; }
+
+  /* =========================================
+     1. 火箭特效 (纯净版：去火焰，留动作+速度线)
+     ========================================= */
+  
+  /* 速度线样式：更细、更锐利，符合 UI 风格 */
+  .speed-lines span {
+    position: absolute; 
+    background: currentColor; /* 跟随图标颜色 */
+    opacity: 0.3; 
+    border-radius: 10px; /* 两端圆润 */
+  }
+  
+  /* 分布在火箭周围的线条 */
+  .speed-lines span:nth-child(1) { width: 1px; height: 12px; left: 15%; top: -10px; }
+  .speed-lines span:nth-child(2) { width: 1.5px; height: 20px; left: 30%; top: -25px; }
+  .speed-lines span:nth-child(3) { width: 1px; height: 15px; left: 50%; top: -15px; }
+  .speed-lines span:nth-child(4) { width: 1.5px; height: 10px; left: 70%; top: -10px; }
+  .speed-lines span:nth-child(5) { width: 1px; height: 25px; left: 85%; top: -30px; }
+
+  /* 速度线下落动画 */
+  @keyframes speed-lines-fall {
+    0% { transform: translateY(-10px); opacity: 0; }
+    30% { opacity: 0.6; }
+    100% { transform: translateY(60px); opacity: 0; }
+  }
+
+  /* 火箭冲天动画 - 调整为更干脆的物理运动 */
+  @keyframes rocket-launch-clean {
+    0% { transform: translate(0, 0) scale(1); }
+    
+    /* 蓄力阶段：轻微下蹲和旋转 */
+    15% { transform: translate(0, 3px) scale(0.95) rotate(-3deg); }
+    30% { transform: translate(0, 5px) scale(0.9) rotate(0deg); } 
+    
+    /* 发射阶段：迅速向上 */
+    45% { transform: translateY(-25px) scale(1.1); opacity: 1; }
+    
+    /* 冲出视野并循环 */
+    60% { transform: translateY(-50px) scale(0.8); opacity: 0; }
+    61% { transform: translateY(40px) scale(0.5); opacity: 0; }
+    80% { transform: translateY(0px) scale(1); opacity: 1; }
+    
+    100% { transform: translate(0, 0) scale(1); }
+  }
+
+  /* 触发火箭动画 */
+  .stats-card:hover .icon-wrapper-rocket :global(svg) {
+    /* 1.4s 循环一次，节奏感更强 */
+    animation: rocket-launch-clean 1.4s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  }
+
+  .stats-card:hover .speed-lines { opacity: 1; }
+  .stats-card:hover .speed-lines span { 
+    /* 线条下落动画 */
+    animation: speed-lines-fall 0.8s linear infinite; 
+  }
+
+
+  /* =========================================
+     2. 完美书本翻页 (保持不变)
+     ========================================= */
+  
+  .icon-wrapper-book {
+    perspective: 800px;
+    transform-style: preserve-3d;
+  }
+
+  .base-page-left, .base-page-right, .book-page {
+    position: absolute;
+    width: 10px; height: 18px; top: 50%; margin-top: -9px;
+    border: 1.5px solid currentColor;
+    @apply bg-white/90 dark:bg-slate-800/90;
+  }
+
+  .base-page-left {
+    right: 50%; border-radius: 3px 0 0 3px; border-right: none;
+  }
+  .base-page-right {
+    left: 50%; border-radius: 0 3px 3px 0; border-left: none;
+  }
+
+  .book-page {
+    left: 50%; border-radius: 0 3px 3px 0; border-left: none;
+    transform-origin: left center; transform: rotateY(0deg);
+    opacity: 0; backface-visibility: hidden;
+  }
+
+  @keyframes flip-3d-seamless {
+    0% { transform: rotateY(0deg); opacity: 1; z-index: 25; }
+    15% { box-shadow: -2px 0 5px rgba(0,0,0,0.1); }
+    100% { transform: rotateY(-180deg); opacity: 0; z-index: 30; }
+  }
+
+  .stats-card:hover .page-1 { animation: flip-3d-seamless 1.5s cubic-bezier(0.5, 0.1, 0.25, 1) infinite; }
+  .stats-card:hover .page-2 { animation: flip-3d-seamless 1.5s cubic-bezier(0.5, 0.1, 0.25, 1) 0.5s infinite; }
+  .stats-card:hover .page-3 { animation: flip-3d-seamless 1.5s cubic-bezier(0.5, 0.1, 0.25, 1) 1s infinite; }
+
+  @keyframes book-icon-nudge {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.98); }
+  }
+  .stats-card:hover .icon-wrapper-book :global(svg) {
+    animation: book-icon-nudge 1.5s ease-in-out infinite;
+  }
+
+</style>

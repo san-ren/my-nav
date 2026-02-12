@@ -71,33 +71,8 @@ const base = '/my-nav';
 
     <slot />
 
-    <!-- ✅ 5. 保留原有暗色模式按钮逻辑 (Sun/Moon Toggle) -->
-    <script is:inline>
-      function setupThemeToggle() {
-        const btn = document.getElementById('theme-toggle');
-        if (!btn) return;
+<script src="../scripts/ui-layout.js"></script>
 
-        // 克隆节点以移除旧监听器 (防止重复绑定)
-        const newBtn = btn.cloneNode(true);
-        btn.parentNode.replaceChild(newBtn, btn);
-
-        newBtn.addEventListener('click', () => {
-          const isDark = document.documentElement.classList.contains('dark');
-          const newTheme = isDark ? 'light' : 'dark';
-          
-          if (newTheme === 'dark') {
-            document.documentElement.classList.add('dark');
-          } else {
-            document.documentElement.classList.remove('dark');
-          }
-          localStorage.setItem('theme', newTheme);
-        });
-      }
-
-      // 初始化 + 页面切换后重新绑定
-      setupThemeToggle();
-      document.addEventListener('astro:after-swap', setupThemeToggle);
-    </script>
   </body>
 </html>
 

@@ -1,32 +1,48 @@
 ---
+// src/pages/changelog.astro
 import Layout from '../layouts/Layout.astro';
 import Sidebar from '../components/Sidebar/index.astro';
 import siteConfig from '../content/site-settings/config.json';
 import { getCollection } from 'astro:content';
-import { History, ArrowLeft, Rocket, BookOpen } from 'lucide-react';
+// 1. 引入 Menu 图标
+import { History, Menu } from 'lucide-react'; 
 import Container from '../components/mdx/Container.astro';
+import UpdateStatsCard from '../components/UpdateStatsCard.astro';
+
 import '../styles/mdx.css';
-// 1. 引入新样式
 import '../styles/changelog.css';
 
-// 获取数据
+// --- 数据获取与处理 ---
 const allLogs = await getCollection('changelog');
 
-// 2. 过滤草稿 (生产环境隐藏草稿，开发环境显示草稿)
+// 1. 过滤草稿
 const visibleLogs = allLogs.filter(log => {
-  if (import.meta.env.DEV) return true; // 开发模式全显示
-  return log.data.status !== 'draft'; // 生产模式只显示非 draft
+  if (import.meta.env.DEV) return true; 
+  return log.data.status !== 'draft';
 });
 
-// 排序
+// 2. 排序 (日期倒序)
 visibleLogs.sort((a, b) => {
   const dateA = new Date(a.data.date).valueOf();
   const dateB = new Date(b.data.date).valueOf();
   return (isNaN(dateB) ? 0 : dateB) - (isNaN(dateA) ? 0 : dateA);
 });
 
+// 3. 分类
 const functionLogs = visibleLogs.filter(log => log.data.type === 'function');
 const contentLogs = visibleLogs.filter(log => log.data.type === 'content');
+
+// --- 新增逻辑: 判断是否有最近更新 ---
+const isRecent = (dateInput: string | Date) => {
+  const now = new Date();
+  const target = new Date(dateInput);
+  const diffTime = Math.abs(now.getTime() - target.getTime());
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+  return diffDays <= 7; 
+};
+
+const hasNewFunction = functionLogs.length > 0 && isRecent(functionLogs[0].data.date);
+const hasNewContent = contentLogs.length > 0 && isRecent(contentLogs[0].data.date);
 
 const allPages = await getCollection('nav-pages');
 const navResources = allPages.map(p => p.data).sort((a, b) => (a.sortOrder || 99) - (b.sortOrder || 99));
@@ -38,34 +54,56 @@ const navResources = allPages.map(p => p.data).sort((a, b) => (a.sortOrder || 99
     <div id="sidebar-overlay"></div>
 
     <main class="layout-transition flex-1 min-w-0 md:ml-[var(--sidebar-width,17rem)] min-h-screen flex flex-col">
-      <header id="page-header" class="fixed top-0 right-0 z-30 flex items-center px-8 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-slate-200/50 w-full md:w-[calc(100%-var(--sidebar-width,17rem))]">
-         <h1 class="text-xl font-black flex items-center gap-2 text-slate-800 dark:text-white">
-            <History className="text-brand-600" /> 更新记录
-         </h1>
+      
+      {/* 2. 改造顶部导航栏 (对齐 index.astro 的样式与结构) */}
+      <header id="page-header" class="layout-transition fixed top-0 right-0 z-30 flex items-center justify-between px-4 md:px-8 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50 w-full md:w-[calc(100%-var(--sidebar-width,17rem))] transition-all duration-300">
+         <div class="flex items-center gap-3 min-w-0">
+            {/* 新增：侧边栏折叠按钮 */}
+            <button 
+              id="menu-btn" 
+              class="p-2 text-slate-600 dark:text-slate-300 bg-white/80 dark:bg-gray-800/80 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 shrink-0 hover:text-brand-600 transition-colors" 
+              onclick="if(window.innerWidth < 768) window.toggleSidebarMobile(); else window.toggleSidebarPC();"
+            >
+              <Menu size={20} />
+            </button>
+            
+            <h1 class="text-xl font-black flex items-center gap-2 text-slate-800 dark:text-white">
+                <History className="text-brand-600" /> 更新记录
+            </h1>
+         </div>
       </header>
 
+      {/* 页面主体内容 */}
       <div class="p-4 pt-24 md:p-8 md:pt-28 w-full max-w-6xl mx-auto">
+        
+        {/* --- 顶部统计仪表盘 --- */}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mb-12">
+            <UpdateStatsCard 
+              type="function" 
+              count={functionLogs.length} 
+              hasNewUpdates={hasNewFunction} 
+            />
+            <UpdateStatsCard 
+              type="content" 
+              count={contentLogs.length} 
+              hasNewUpdates={hasNewContent} 
+            />
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
           
-          {/* 左侧：功能更新 */}
+          {/* 左侧：功能更新列表 */}
           <section>
-            <div class="flex items-center gap-2 mb-8 pb-2 border-b border-slate-200 dark:border-gray-800">
-              <span class="p-1.5 bg-blue-100 text-blue-600 rounded-lg"><Rocket size={20} /></span>
-              <h2 class="text-xl font-bold text-slate-800 dark:text-slate-100">功能更新 ({functionLogs.length})</h2>
-            </div>
-            
-            {/* 3. 应用新的CSS结构 */}
             <div class="changelog-timeline space-y-2">
               {functionLogs.length > 0 ?
                 functionLogs.map(async (log) => {
                 const { Content } = await log.render();
                 const displayVersion = log.data.version || log.id.replace(/\.mdx?$/, '') || log.slug;
-                // 判断是否是草稿，如果是，加个标记 (仅开发环境可见)
                 const isDraft = log.data.status === 'draft';
 
                 return (
                   <div class="changelog-item">
-                    {/* 圆点 (蓝色) */}
+                    {/* 装饰圆点 */}
                     <div class="changelog-dot bg-blue-500"></div>
                     
                     <div class="flex flex-col">
@@ -75,16 +113,19 @@ const navResources = allPages.map(p => p.data).sort((a, b) => (a.sortOrder || 99
                             {isDraft && <span class="text-xs bg-yellow-100 text-yellow-700 px-1.5 py-0.5 rounded border border-yellow-200">草稿</span>}
                         </h3>
                         <time class="changelog-date text-slate-400">
-                          {new Date(log.data.date).toLocaleDateString()}
+                          {(() => {
+                            const d = new Date(log.data.date);
+                            return `${d.getFullYear()}.${d.getMonth() + 1}.${d.getDate()}`;
+                          })()}
                         </time>
                       </div>
         
                       <div class="changelog-card prose prose-sm prose-slate dark:prose-invert max-w-none">
-                        <div class="changelog-content">
+                          <div class="changelog-content">
                             <Content components={{ container: Container }} />
                         </div>
                       </div>
-                    </div>
+                  </div>
                   </div>
                 );
               }) : (
@@ -93,13 +134,8 @@ const navResources = allPages.map(p => p.data).sort((a, b) => (a.sortOrder || 99
             </div>
           </section>
 
-          {/* 右侧：内容更新 */}
+          {/* 右侧：内容更新列表 */}
           <section>
-            <div class="flex items-center gap-2 mb-8 pb-2 border-b border-slate-200 dark:border-gray-800">
-              <span class="p-1.5 bg-green-100 text-green-600 rounded-lg"><BookOpen size={20} /></span>
-              <h2 class="text-xl font-bold text-slate-800 dark:text-slate-100">内容更新 ({contentLogs.length})</h2>
-            </div>
-
             <div class="changelog-timeline space-y-2">
               {contentLogs.length > 0 ?
                 contentLogs.map(async (log) => {
@@ -109,7 +145,7 @@ const navResources = allPages.map(p => p.data).sort((a, b) => (a.sortOrder || 99
 
                 return (
                   <div class="changelog-item">
-                    {/* 圆点 (绿色) */}
+                    {/* 装饰圆点 */}
                     <div class="changelog-dot bg-green-500"></div>
                     
                     <div class="flex flex-col">
@@ -119,16 +155,19 @@ const navResources = allPages.map(p => p.data).sort((a, b) => (a.sortOrder || 99
                             {isDraft && <span class="text-xs bg-yellow-100 text-yellow-700 px-1.5 py-0.5 rounded border border-yellow-200">草稿</span>}
                         </h3>
                         <time class="changelog-date text-slate-400">
-                          {new Date(log.data.date).toLocaleDateString()}
+                          {(() => {
+                            const d = new Date(log.data.date);
+                            return `${d.getFullYear()}.${d.getMonth() + 1}.${d.getDate()}`;
+                          })()}
                         </time>
                       </div>
         
                       <div class="changelog-card prose prose-sm prose-slate dark:prose-invert max-w-none">
-                         <div class="changelog-content">
+                          <div class="changelog-content">
                             <Content components={{ container: Container }} />
                          </div>
                       </div>
-                    </div>
+                  </div>
                   </div>
                 );
               }) : (
@@ -142,3 +181,90 @@ const navResources = allPages.map(p => p.data).sort((a, b) => (a.sortOrder || 99
     </main>
   </div>
 </Layout>
+
+{/* 3. 新增：侧边栏控制脚本 (移植自 index.astro，删除了不需要的 Tab 逻辑) */}
+<script is:inline>
+  // PC 侧边栏逻辑
+  window.isPCOpen = true;
+  window.toggleSidebarPC = () => {
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.querySelector('main');
+    const header = document.getElementById('page-header');
+    if (sidebar && mainContent && header) {
+      window.isPCOpen = !window.isPCOpen;
+      if (window.isPCOpen) {
+        sidebar.style.marginLeft = '0px'; 
+        mainContent.style.marginLeft = 'var(--sidebar-width)';
+        header.style.width = 'calc(100% - var(--sidebar-width))';
+      } else {
+        sidebar.style.marginLeft = 'calc(var(--sidebar-width) * -1)';
+        mainContent.style.marginLeft = '0px';
+        header.style.width = '100%';
+      }
+    }
+  };
+
+  // 顶栏滚动逻辑
+  function initHeaderScroll() {
+    let lastScrollY = window.scrollY;
+    const header = document.getElementById('page-header');
+    const threshold = 50;
+    window.addEventListener('scroll', () => {
+      if (!header) return;
+      const currentScrollY = window.scrollY;
+      if (currentScrollY <= 0) {
+        header.style.transform = 'translateY(0)';
+        lastScrollY = currentScrollY;
+        return;
+      }
+      if (Math.abs(currentScrollY - lastScrollY) < 5) return;
+      if (currentScrollY > lastScrollY && currentScrollY > threshold) {
+         header.style.transform = 'translateY(-100%)';
+      } else {
+        header.style.transform = 'translateY(0)';
+      }
+      lastScrollY = currentScrollY;
+    }, { passive: true });
+  }
+
+  // 初始化布局状态
+  function initAll() {
+    initHeaderScroll();
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.querySelector('main');
+    const header = document.getElementById('page-header');
+    const overlay = document.getElementById('sidebar-overlay');
+    
+    if(sidebar && mainContent && header) {
+        if (window.innerWidth >= 768) {
+          // PC 端初始化
+          sidebar.style.marginLeft = '0px';
+          mainContent.style.marginLeft = 'var(--sidebar-width)';
+          header.style.width = 'calc(100% - var(--sidebar-width))'; 
+          sidebar.classList.remove('-translate-x-full');
+          sidebar.classList.add('translate-x-0');
+          if (overlay) overlay.classList.remove('active');
+        } else {
+          // 移动端初始化
+          sidebar.style.marginLeft = '';
+          mainContent.style.marginLeft = '0px';
+          header.style.width = '100%';
+          if (sidebar.classList.contains('translate-x-0')) {
+             sidebar.classList.remove('translate-x-0');
+             sidebar.classList.add('-translate-x-full');
+          }
+          if (overlay) overlay.classList.remove('active');
+        }
+    }
+    window.isPCOpen = true; 
+  }
+
+  initAll();
+  document.addEventListener('astro:after-swap', initAll);
+  
+  // 响应式调整
+  window.addEventListener('resize', () => {
+    if (window.resizeTimer) clearTimeout(window.resizeTimer);
+    window.resizeTimer = setTimeout(initAll, 200);
+  });
+</script>

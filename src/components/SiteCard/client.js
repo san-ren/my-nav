@@ -101,18 +101,33 @@ function showTooltip(wrapper) {
   const contentBox = document.getElementById('tooltip-content');
   contentBox.innerHTML = source.innerHTML;
 
-  tooltipEl.style.transition = ''; 
+  // --- 修复开始 ---
+  // 1. 暂时禁用过渡动画，防止测量到缩放中的尺寸
+  tooltipEl.style.transition = 'none';
+
+  // 2. 将浮窗设置为完全可见且无缩放状态 (scale-100)
   tooltipEl.classList.remove('hidden', 'scale-75', 'opacity-0');
-  tooltipEl.classList.add('scale-100', 'opacity-0'); 
+  tooltipEl.classList.add('scale-100', 'opacity-0'); // 保持 opacity-0 以防闪烁，但尺寸必须是完全体
+
+  // 3. 在 100% 尺寸下计算准确位置
   updatePosition(wrapper);
 
+  // 4. 准备入场动画：先设置回初始状态 (scale-75)
   tooltipEl.classList.remove('scale-100');
   tooltipEl.classList.add('scale-75');
+
+  // 5. 强制浏览器重绘 (Reflow)，确保上述状态被应用（位置已定，状态为 scale-75）
   void tooltipEl.offsetWidth;
+
+  // 6. 恢复 CSS 过渡效果
+  tooltipEl.style.transition = ''; 
+  
+  // 7. 执行动画到结束状态 (scale-100)
   requestAnimationFrame(() => {
     tooltipEl.classList.remove('opacity-0', 'scale-75');
     tooltipEl.classList.add('opacity-100', 'scale-100');
   });
+  // --- 修复结束 ---
 }
 
 function hideTooltip(immediate = false) {

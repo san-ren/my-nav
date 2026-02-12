@@ -176,39 +176,21 @@ const CurrentIcon = section.icon ? (Icons[section.icon] || LayoutDashboard) : La
 </Layout>
 
 <script is:inline>
-  // PC 侧边栏
-  window.isPCOpen = true;
-  window.toggleSidebarPC = () => {
-    const sidebar = document.getElementById('sidebar');
-    const mainContent = document.querySelector('main');
-    const header = document.getElementById('page-header');
-    if (sidebar && mainContent && header) {
-      window.isPCOpen = !window.isPCOpen;
-      if (window.isPCOpen) {
-        sidebar.style.marginLeft = '0px'; 
-        mainContent.style.marginLeft = 'var(--sidebar-width)';
-        header.style.width = 'calc(100% - var(--sidebar-width))';
-      } else {
-        sidebar.style.marginLeft = 'calc(var(--sidebar-width) * -1)';
-        mainContent.style.marginLeft = '0px';
-        header.style.width = '100%';
-      }
-    }
-  };
-
-  // Tab 逻辑
+  // 1. 保留 Tab 逻辑 (这是页面特有的，ui-layout.js 中没有)
   function initTabs() {
     const containers = document.querySelectorAll('.tab-nav-container');
     containers.forEach(container => {
       const indicator = container.querySelector('.tab-indicator');
       const btns = container.querySelectorAll('.tab-btn');
       if (!indicator || btns.length === 0) return;
+      
       const moveIndicator = (targetBtn) => {
         if (!targetBtn) return;
         indicator.style.left = `${targetBtn.offsetLeft}px`;
         indicator.style.width = `${targetBtn.offsetWidth}px`;
         indicator.style.opacity = '1'; 
       };
+      
       const activeBtn = container.querySelector('.active-tab') || btns[0];
       setTimeout(() => { if(activeBtn) moveIndicator(activeBtn); }, 50);
 
@@ -232,7 +214,7 @@ const CurrentIcon = section.icon ? (Icons[section.icon] || LayoutDashboard) : La
           const targetPane = document.getElementById(targetId);
           if(targetPane) {
             targetPane.classList.remove('hidden');
-            void targetPane.offsetWidth; 
+            void targetPane.offsetWidth;
             targetPane.classList.add('animate-fade-in');
           }
         });
@@ -244,65 +226,16 @@ const CurrentIcon = section.icon ? (Icons[section.icon] || LayoutDashboard) : La
     });
   }
 
-  // 顶栏滚动
-  function initHeaderScroll() {
-    let lastScrollY = window.scrollY;
-    const header = document.getElementById('page-header');
-    const threshold = 50;
-    window.addEventListener('scroll', () => {
-      if (!header) return;
-      const currentScrollY = window.scrollY;
-      if (currentScrollY <= 0) {
-        header.style.transform = 'translateY(0)';
-        lastScrollY = currentScrollY;
-        return;
-      }
-      if (Math.abs(currentScrollY - lastScrollY) < 5) return;
-      if (currentScrollY > lastScrollY && currentScrollY > threshold) {
-        header.style.transform = 'translateY(-100%)';
-      } else {
-        header.style.transform = 'translateY(0)';
-      }
-      lastScrollY = currentScrollY;
-    }, { passive: true });
-  }
+  // 2. 简化的初始化调用
+  // 布局相关的初始化 (Sidebar/Header) 已移至 ui-layout.js，此处仅需关注 Tab
+  initTabs();
 
-  function initAll() {
-    initTabs();
-    initHeaderScroll();
-    const sidebar = document.getElementById('sidebar');
-    const mainContent = document.querySelector('main');
-    const header = document.getElementById('page-header');
-    const overlay = document.getElementById('sidebar-overlay');
-    if(sidebar && mainContent && header) {
-        if (window.innerWidth >= 768) {
-          sidebar.style.marginLeft = '0px';
-          mainContent.style.marginLeft = 'var(--sidebar-width)';
-          header.style.width = 'calc(100% - var(--sidebar-width))'; 
-          sidebar.classList.remove('-translate-x-full');
-          sidebar.classList.add('translate-x-0');
-          if (overlay) overlay.classList.remove('active');
-        } else {
-          sidebar.style.marginLeft = '';
-          mainContent.style.marginLeft = '0px';
-          header.style.width = '100%';
-          if (sidebar.classList.contains('translate-x-0')) {
-             sidebar.classList.remove('translate-x-0');
-             sidebar.classList.add('-translate-x-full');
-          }
-          if (overlay) overlay.classList.remove('active');
-        }
-    }
-    window.isPCOpen = true; 
-  }
+  // Astro 页面切换后重新初始化 Tabs
+  document.addEventListener('astro:after-swap', initTabs);
 
-  initAll();
-  document.addEventListener('astro:after-swap', initAll);
+  // 窗口大小改变时重置 Tabs (主要是指示器位置)
+  // 注意：ui-layout.js 已经处理了布局的 resize，这里只处理 Tabs
   window.addEventListener('resize', initTabs);
-  window.addEventListener('resize', () => {
-    if (window.resizeTimer) clearTimeout(window.resizeTimer);
-    window.resizeTimer = setTimeout(initAll, 200);
-  });
 </script>
 
 <style is:global>

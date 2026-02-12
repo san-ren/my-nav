@@ -24,3 +24,39 @@
 #sidebar-float-menu {
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
+
+/* --- 新增：侧边栏滚动条防抖动优化 --- */
+#sidebar-nav {
+  /* 核心属性：永远在容器右侧预留出滚动条的“坑位” */
+  /* 这样滚动条出现时直接填入坑位，不会挤压内容 */
+  scrollbar-gutter: stable;
+  
+  /* 保证内容过多时才滚动 */
+  overflow-y: auto;
+  
+  /* 优化：当鼠标不悬停在侧边栏时，隐藏滚动条（仅针对 Webkit 内核浏览器如 Chrome/Edge） */
+  /* 这样视觉上更清爽，但空间依然被 scrollbar-gutter 占着 */
+}
+
+/* --- 可选：美化滚动条（让它变细，这样预留的空白区域不会太大） --- */
+#sidebar-nav::-webkit-scrollbar {
+  width: 6px; /* 将滚动条宽度设为 6px (默认是 17px) */
+}
+
+#sidebar-nav::-webkit-scrollbar-track {
+  background: transparent; /* 轨道透明 */
+}
+
+#sidebar-nav::-webkit-scrollbar-thumb {
+  background-color: transparent; /* 默认不可见 */
+  border-radius: 10px;
+}
+
+/* 只有鼠标悬停在侧边栏时，才显示浅灰色的滚动条 */
+#sidebar-nav:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(156, 163, 175, 0.5); /* slate-400 with opacity */
+}
+
+#sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(100, 116, 139, 0.8); /* slate-500 hover */
+}

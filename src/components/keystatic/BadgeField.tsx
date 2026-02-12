@@ -12,10 +12,11 @@ const BADGE_RULES = [
     label: 'GitHub 项目',
     color: 'bg-gray-100 text-gray-800',
     options: [
-      { label: 'Stars (星标)', value: 'stars' },
-      { label: 'Version (版本)', value: 'version' },
-      { label: 'License (协议)', value: 'license' },
-      { label: 'Last Commit (最近提交)', value: 'last_commit' },
+      { label: 'Stars', value: 'stars' },
+      { label: 'Last Commit', value: 'last_commit' },
+      { label: 'Version', value: 'version' },
+      { label: 'License', value: 'license' },
+      
       { label: 'Issues', value: 'issues' },
       { label: 'Forks', value: 'forks' },
     ]
