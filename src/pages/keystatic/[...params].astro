@@ -1,20 +1,12 @@
 ---
-// src/pages/keystatic/[...params].astro
- 
 import KeystaticAdmin from '../../components/KeystaticAdmin';
- 
-
 
 export const prerender = true;
 
 export function getStaticPaths() {
+  // 只需要入口路由，其他路由由 React SPA 处理
   return [
     { params: { params: undefined } },
-    { params: { params: 'cloud' } }, // 增加 cloud 路由
-    { params: { params: 'cloud/oauth/callback' } },
-    { params: { params: 'branch' } },
-    { params: { params: 'collection' } },
-    { params: { params: 'keystatic' } }
   ];
 }
 ---

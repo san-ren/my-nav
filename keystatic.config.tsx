@@ -155,7 +155,11 @@ export default config({
         kind: 'local',
       }
     : {
-        kind: 'cloud', 
+        kind: 'github',
+        repo: {
+          owner: 'san-ren',
+          name: 'my-nav',
+      },
      
       },
 

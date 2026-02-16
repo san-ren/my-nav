@@ -1,0 +1,38 @@
+---
+// SPA Fallback - 处理 keystatic 子路由
+---
+
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>加载中...</title>
+  <style>
+    body { font-family: sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #f8fafc; }
+    .loading { text-align: center; color: #64748b; }
+  </style>
+  <script is:inline>
+    (function() {
+      var path = window.location.pathname;
+      var basePath = '/my-nav';
+      var keystaticPath = basePath + '/keystatic';
+      
+      // 检测是否是 keystatic 子路径
+      if (path.startsWith(keystaticPath) && path !== keystaticPath + '/' && path !== keystaticPath) {
+        // 保存路径，用于 SPA 恢复
+        sessionStorage.setItem('keystatic_spa_path', path);
+        // 重定向到 SPA 入口
+        window.location.replace(keystaticPath + '/');
+        return;
+      }
+      
+      // 非 keystatic 路径，显示 404
+      document.body.innerHTML = '<div class="loading"><h1>404</h1><p>页面未找到</p><p><a href="' + basePath + '/">返回首页</a></p></div>';
+    })();
+  </script>
+</head>
+<body>
+  <div class="loading"><p>加载中...</p></div>
+</body>
+</html>

@@ -1,7 +1,18 @@
 import React from 'react';
 import { makePage } from '@keystatic/astro/ui';
-// 请确保 ../../../keystatic.config 指向正确的文件
 import config from '../../keystatic.config';
 
-// ✅ 使用默认导出，这是最不容易出错的方式
-export default makePage(config);
+const KeystaticPage = makePage(config);
+
+export default function KeystaticAdmin() {
+  React.useEffect(() => {
+    // 恢复重定向前的 URL
+    const savedPath = sessionStorage.getItem('keystatic_spa_path');
+    if (savedPath) {
+      sessionStorage.removeItem('keystatic_spa_path');
+      window.history.replaceState(null, '', savedPath);
+    }
+  }, []);
+
+  return <KeystaticPage />;
+}
