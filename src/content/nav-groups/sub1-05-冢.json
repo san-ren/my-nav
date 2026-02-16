@@ -1,6 +1,11 @@
 {
+  "visualTag": " ",
   "name": "冢",
-  "id": "sub1-05-冢",
+  "pageName": "sub1",
+  "pageConfig": {
+    "sortPrefix": "05"
+  },
+  "resources": [],
   "categories": [
     {
       "name": "末流",
@@ -10,92 +15,99 @@
           "tabName": "翻译",
           "list": [
             {
+              "toolbox": null,
+              "name": "MTranServer",
+              "url": "https://github.com/xxnuo/MTranServer",
+              "desc": "低资源占用速度快可私有部署的离线翻译模型服务器",
+              "icon": "/images/logos/xxnuo-MTranServer.webp",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
               "name": "CopyTranslator",
               "url": "https://github.com/CopyTranslator/CopyTranslator",
               "official_site": "https://copytranslator.github.io/",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Pot",
               "url": "https://github.com/pot-app/pot-desktop",
               "official_site": "https://pot-app.com/",
               "desc": "跨平台划词翻译和OCR",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Manga/Image Translator",
               "url": "https://github.com/zyddnys/manga-image-translator",
-              "official_site": "",
               "desc": "翻译各类图片内文字",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "团子翻译器",
               "url": "https://github.com/PantsuDango/Dango-Translator",
               "official_site": "https://translator.dango.cloud/",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "STranslate",
               "url": "https://github.com/STranslate/STranslate",
               "official_site": "https://stranslate.zggsong.com/",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Translumo",
               "url": "https://github.com/Danily07/Translumo",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "TTime",
               "url": "https://github.com/InkTimeRecord/TTime",
               "official_site": "https://ttime.timerecord.cn/",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "CrowTranslate",
               "url": "https://github.com/crow-translate/crow-translate",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Real-time-translation-typing/实时打字翻译",
               "url": "https://github.com/sxzxs/Real-time-translation-typing",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "RTranslator",
               "url": "https://github.com/niedev/RTranslator",
-              "official_site": "",
               "desc": "Android本地实时翻译",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
-              "name": "MTranServer",
-              "url": "https://github.com/xxnuo/MTranServer",
-              "official_site": "",
-              "desc": "离线翻译模型服务器",
-              "guide_id": "",
-              "icon": ""
+              "toolbox": null,
+              "name": "LunaTranslator",
+              "url": "https://github.com/HIllya51/LunaTranslator",
+              "official_site": "https://lunatranslator.org/",
+              "desc": "视觉小说翻译器 / Visual Novel Translator",
+              "icon": "",
+              "hide_badges": []
             }
           ]
         },
@@ -103,36 +115,32 @@
           "tabName": "OCR",
           "list": [
             {
+              "toolbox": null,
               "name": "天若OCR",
               "url": "http://tianruoocr.cn/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "妙手OCR",
               "url": "https://www.52pojie.cn/thread-1164883-1-1.html",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "PaddleOCR",
               "url": "https://github.com/PaddlePaddle/PaddleOCR",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Umi-OCR",
               "url": "https://github.com/hiroi-sora/Umi-OCR",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             }
           ]
         },
@@ -140,36 +148,32 @@
           "tabName": "输入法",
           "list": [
             {
+              "toolbox": null,
               "name": "InputTip",
               "url": "https://github.com/abgox/InputTip",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "ImTip",
               "url": "https://github.com/aardio/ImTip",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "KBLAutoSwitch/AHK中英文输入法自动切换",
               "url": "https://github.com/flyinclouds/KBLAutoSwitch",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Language Indicator",
               "url": "https://github.com/yakunins/language-indicator",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             }
           ]
         },
@@ -177,44 +181,36 @@
           "tabName": "同步",
           "list": [
             {
+              "toolbox": null,
               "name": "FileGee",
               "url": "http://cn.filegee.com/download.html",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "FreeFileSync",
               "url": "https://freefilesync.org/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "GoodSync",
               "url": "https://www.goodsync.com/cn",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "SyncToy",
               "url": "https://www.microsoft.com/en-us/download/details.aspx?id=15155",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             }
           ]
         }
       ]
     }
-  ],
-  "pageName": "sub1",
-  "pageConfig": {
-    "sortPrefix": "05"
-  }
+  ]
 }

@@ -1,6 +1,11 @@
 {
+  "pageName": "sub1",
+  "visualTag": " ",
   "name": "大厂相关",
-  "id": "sub1-04-大厂相关",
+  "pageConfig": {
+    "sortPrefix": "04"
+  },
+  "resources": [],
   "categories": [
     {
       "name": "LiteLoaderQQNT",
@@ -10,76 +15,68 @@
           "tabName": "全局",
           "list": [
             {
+              "toolbox": null,
               "name": "LiteLoaderQQNT",
               "url": "https://github.com/LiteLoaderQQNT/LiteLoaderQQNT",
               "official_site": "https://liteloaderqqnt.github.io/",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "LL-plugin-list-viewer",
               "url": "https://github.com/ltxhhz/LL-plugin-list-viewer",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "PluginInstaller",
               "url": "https://github.com/xinyihl/LiteLoaderQQNT-PluginInstaller",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "lite_tools",
               "url": "https://github.com/xiyuesaves/LiteLoaderQQNT-lite_tools",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "transitio",
               "url": "https://github.com/PRO-2684/transitio",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Scriptio",
               "url": "https://github.com/PRO-2684/Scriptio",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Custom-CSS",
               "url": "https://github.com/xh321/LiteLoaderQQNT-Custom-CSS",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Kill-Update",
               "url": "https://github.com/xh321/LiteLoaderQQNT-Kill-Update",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "QQCleaner",
               "url": "https://github.com/MisaLiu/LiteLoaderQQNT-QQCleaner",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             }
           ]
         },
@@ -87,60 +84,53 @@
           "tabName": "消息本身",
           "list": [
             {
+              "toolbox": null,
               "name": "qqMessageBlocker",
               "url": "https://github.com/elegantland/qqMessageBlocker",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Stick-Emoji",
               "url": "https://github.com/WJZ-P/LiteLoaderQQNT-Stick-Emoji",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Remove-Custom-Bubbles",
               "url": "https://github.com/pasical/Remove-Custom-Bubbles",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "QR-Decode",
               "url": "https://github.com/xh321/LiteLoaderQQNT-QR-Decode",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "pURLfy",
               "url": "https://github.com/PRO-2684/LiteLoaderQQNT-pURLfy",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Auto-Format-Message",
               "url": "https://github.com/Bdbmzwsc/LiteLoaderQQNT-Auto-Format-Message",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Anti-Recall",
               "url": "https://github.com/xh321/LiteLoaderQQNT-Anti-Recall",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             }
           ]
         },
@@ -148,68 +138,60 @@
           "tabName": "消息外围",
           "list": [
             {
+              "toolbox": null,
               "name": "QuickReply",
               "url": "https://github.com/adproqwq/LiteLoaderQQNT-QuickReply",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "AutoSendMessages",
               "url": "https://github.com/adproqwq/LiteLoaderQQNT-AutoSendMessages",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "AutoForward",
               "url": "https://github.com/WongJingGitt/LiteLoaderQQNT-AutoForward",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Directly-Jump",
               "url": "https://github.com/xh321/LiteLoaderQQNT-Directly-Jump",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "MergeMessage",
               "url": "https://github.com/XiaWuSharve/LiteLoaderQQNT-MergeMessage",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "qqMessageSave",
               "url": "https://github.com/elegantland/qqMessageSave",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Quickly-Remove-Conversations",
               "url": "https://github.com/jiang-taibai/LiteLoaderQQNT-Quickly-Remove-Conversations",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "HotkeyChangeWindow",
               "url": "https://github.com/AliubYiero/LiteLoaderQQNT_HotkeyChangeWindow",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             }
           ]
         }
@@ -223,140 +205,147 @@
           "tabName": "腾讯",
           "list": [
             {
+              "toolbox": null,
               "name": "RevokeMsgPatcher",
               "url": "https://github.com/huiyadanli/RevokeMsgPatcher",
-              "official_site": "",
               "desc": "微信/QQ/TIM防撤回补丁",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "CleanMyWechat",
               "url": "https://github.com/blackboxo/CleanMyWechat",
-              "official_site": "",
               "desc": "自动删除PC微信缓存数据",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "wechatDownload/微信公众号文章批量下载工具",
               "url": "https://github.com/qiye45/wechatDownload",
-              "official_site": "",
               "desc": "微信公众号文章批量下载",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "wechatDataBackup",
               "url": "https://github.com/git-jiadong/wechatDataBackup",
-              "official_site": "",
               "desc": "一键导出PC微信聊天记录工具",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "WeClone",
               "url": "https://github.com/xming521/WeClone",
-              "official_site": "",
               "desc": "从聊天记录创造数字分身的一站式解决方案",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
+              "name": "WeFlow",
+              "url": "https://github.com/hicccc77/WeFlow",
+              "desc": "微信聊天记录导出",
+              "detail": "WeFlow - 一个本地的微信聊天记录导出和年度报告应用",
+              "icon": "/images/logos/hicccc77-WeFlow.webp",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
               "name": "WXMoments",
               "url": "https://github.com/tech-shrimp/WechatMoments",
-              "official_site": "",
               "desc": "WX 朋友圈导出为 HTML",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "WechatRealFriends",
               "url": "https://github.com/StrayMeteor3337/WechatRealFriends",
-              "official_site": "",
               "desc": "2025年3月因微信协议变更停更",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "PC微信遮挡工具",
               "url": "https://www.52pojie.cn/thread-1839526-1-1.html",
-              "official_site": "",
               "desc": "半透明窗口遮挡微信窗口",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "chat log",
               "url": "https://github.com/sjzar/chatlog",
-              "official_site": "",
               "desc": "2025.10微信施压删库",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "WeChat2PDF",
               "url": "https://www.wechat2pdf.com/",
-              "official_site": "",
               "desc": "微信公众号/订阅号文章在线导出/转换为PDF",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "WeChatMsg/留痕",
               "url": "https://memotrace.lc044.love/",
-              "official_site": "",
               "desc": "提取微信聊天记录",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "serverless-qrcode-hub",
               "url": "https://github.com/xxnuo/serverless-qrcode-hub",
-              "official_site": "",
               "desc": "生成永久微信群聊二维码",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "腾讯版本",
               "url": "https://github.com/HdShare/TencentVersion",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "QQNT-Version-History",
               "url": "https://github.com/PRO-2684/qqnt-version-history",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Stapxs QQ Lite",
               "url": "https://github.com/Stapxs/Stapxs-QQ-Lite-2.0",
-              "official_site": "",
               "desc": "第三方 QQ 客户端",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "WeWe RSS",
               "url": "https://github.com/cooderl/wewe-rss",
-              "official_site": "",
               "desc": "微信公众号RSS生成（基于微信读书）",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "微信公众号RSS",
               "url": "https://github.com/ttttmr/Wechat2RSS",
-              "official_site": "",
               "desc": "微信公众号转RSS",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             }
           ]
         },
@@ -364,36 +353,34 @@
           "tabName": "其它",
           "list": [
             {
+              "toolbox": null,
               "name": "PayQrcode",
               "url": "https://github.com/uxiaohan/PayQrcode",
-              "official_site": "",
               "desc": "合并微信、支付宝收款码",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Weibo-archiver",
               "url": "https://weibo.chilfish.top/post",
-              "official_site": "",
               "desc": "将微博导出备份的油猴脚本",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "WePush",
               "url": "https://rememberber.github.io/WePush/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "魔猫订单",
               "url": "https://order.hereserver.com/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             }
           ]
         }
@@ -403,59 +390,49 @@
       "name": "vsCode插件",
       "resources": [
         {
+          "toolbox": null,
           "name": "fonted",
           "url": "https://marketplace.visualstudio.com/items?itemName=degreat.fonted",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "background",
           "url": "https://marketplace.visualstudio.com/items?itemName=shalldie.background",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "custom-ui-style",
           "url": "https://marketplace.visualstudio.com/items?itemName=subframe7536.custom-ui-style",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "woodfish-theme",
           "url": "https://marketplace.visualstudio.com/items?itemName=zhongjun.woodfish-theme",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "vscode-fileutils",
           "url": "https://marketplace.visualstudio.com/items?itemName=sleistner.vscode-fileutils",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "project-manager",
           "url": "https://marketplace.visualstudio.com/items?itemName=alefragnani.project-manager",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         }
       ],
       "tabs": []
     }
-  ],
-  "pageName": "sub1",
-  "pageConfig": {
-    "sortPrefix": "04"
-  }
+  ]
 }

@@ -1,6 +1,11 @@
 {
+  "visualTag": " ",
   "name": "娱乐",
-  "id": "sub2-02-娱乐",
+  "pageName": "sub2",
+  "pageConfig": {
+    "sortPrefix": "02"
+  },
+  "resources": [],
   "categories": [
     {
       "name": "影视",
@@ -10,36 +15,35 @@
           "tabName": "在线看",
           "list": [
             {
+              "toolbox": null,
               "name": "低调观影",
               "url": "https://shouku123.com/tiantian",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "甲方导航",
               "url": "https://jiafangbb.com/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "观影",
               "url": "https://www.gying.page/",
               "official_site": "https://www.gying.net/",
               "desc": "曾经的片库",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "耐看点播",
               "url": "https://www.nkvod.com/",
-              "official_site": "",
               "desc": "屏蔽国外ip",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             }
           ]
         },
@@ -47,12 +51,11 @@
           "tabName": "影视磁力站",
           "list": [
             {
+              "toolbox": null,
               "name": "电影天堂",
               "url": "https://www.dygod.net/",
-              "official_site": "",
-              "desc": "",
-              "guide_id": "",
-              "icon": ""
+              "icon": "",
+              "hide_badges": []
             }
           ]
         }
@@ -62,155 +65,166 @@
       "name": "游戏",
       "resources": [
         {
+          "toolbox": null,
           "name": "SteamDB",
           "url": "https://steamdb.info/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "114game",
           "url": "https://www.114game.net/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "GBTGame官方网盘",
           "url": "https://pan.gbtgame.me/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "乐赏游戏空间",
           "url": "http://qhgame.ysepan.com/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "小妖怪分享",
           "url": "https://www.zzzzz688.com/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "123资源库",
           "url": "https://www.123zyk.com/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "NS游戏仓库",
           "url": "https://www.wolai.com/nxyxck/t3ou1DRW2dtgHcZCfP2Nh7",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "梓澪の妙妙屋",
           "url": "https://zi0.cc/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "浅夏的NS(switch)游戏清单",
           "url": "https://lcnacj6svcnr.feishu.cn/share/base/query/shrcnrDf1C1ytsCL7EHBV1ixUnq",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "gdgame免费单机游戏下载",
           "url": "https://gdgame.org/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "WZGuides",
           "url": "https://wzguides.cn/wz2/gunsmith",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "三角洲行动一图流",
           "url": "https://www.kkrb.net/?viewpage=view%2Foverview",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "三角洲行动玩家营地",
           "url": "https://www.dpcamp.cn/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "准星代售",
           "url": "https://www.zxfps.com/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "cod系列地图",
           "url": "https://wzhub.gg/map",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "三角洲行动数据接口",
           "url": "https://df-api.apifox.cn/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "三角洲小涛查",
           "url": "https://sanjiaozhou.apifox.cn/",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "三角洲行动API",
           "url": "https://github.com/coolxitech/deltaforce",
-          "official_site": "",
-          "desc": "",
-          "guide_id": "",
-          "icon": ""
+          "icon": "",
+          "hide_badges": []
         }
       ],
       "tabs": []
+    },
+    {
+      "name": "图片",
+      "resources": [],
+      "tabs": [
+        {
+          "tabName": "在线图库",
+          "list": []
+        },
+        {
+          "tabName": "图片管理",
+          "list": [
+            {
+              "toolbox": null,
+              "name": "afilmory",
+              "url": "https://github.com/Afilmory/afilmory",
+              "official_site": "https://afilmory.art",
+              "desc": "Modern photo gallery for photographers, with S3/GitHub sync, EXIF details, maps, and a WebGL viewer.",
+              "icon": "/images/logos/Afilmory-afilmory.webp",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "chronoframe",
+              "url": "https://github.com/HoshinoSuzumi/chronoframe",
+              "official_site": "https://chronoframe.bh8.ga/",
+              "desc": "Self-hosted personal gallery application with online photo management and albums, supporting Live/Motion Photos, EXIF parsing, geolocation recognition, and an explore map.",
+              "icon": "/images/logos/HoshinoSuzumi-chronoframe.webp",
+              "hide_badges": []
+            }
+          ]
+        }
+      ]
     }
-  ],
-  "pageName": "sub2",
-  "pageConfig": {
-    "sortPrefix": "02"
-  }
+  ]
 }

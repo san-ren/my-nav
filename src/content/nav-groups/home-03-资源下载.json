@@ -1,90 +1,161 @@
 {
+  "pageName": "home",
   "visualTag": "🏠",
   "name": "资源下载",
+  "pageConfig": {
+    "sortPrefix": "03"
+  },
+  "resources": [],
   "categories": [
     {
       "name": "win下载",
       "resources": [
         {
+          "toolbox": null,
           "name": "IDM",
-          "url": "https://www.internetdownloadmanager.com/"
+          "url": "https://www.internetdownloadmanager.com/",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "IDM-Activation-Script",
-          "url": "https://github.com/lstprjct/IDM-Activation-Script"
+          "url": "https://github.com/lstprjct/IDM-Activation-Script",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "XIU2/TrackersListCollection",
-          "url": "https://trackerslist.com/#/zh"
+          "url": "https://trackerslist.com/#/zh",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "aria2",
           "url": "https://github.com/aria2/aria2",
-          "official_site": "https://aria2.github.io/"
+          "official_site": "https://aria2.github.io/",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Gopeed",
           "url": "https://github.com/GopeedLab/gopeed",
-          "official_site": "https://gopeed.com/zh-CN"
+          "official_site": "https://gopeed.com/zh-CN",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "文件蜈蚣",
-          "url": "https://www.filecxx.com/zh_CN/"
+          "url": "https://www.filecxx.com/zh_CN/",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Motrix",
           "url": "https://github.com/agalwood/Motrix",
-          "official_site": "https://motrix.app/"
+          "official_site": "https://motrix.app/",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "imFile",
-          "url": "https://github.com/imfile-io/imfile-desktop"
+          "url": "https://github.com/imfile-io/imfile-desktop",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Xdown",
-          "url": "https://xdown.org/"
+          "url": "https://xdown.org/",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Yolx",
-          "url": "https://yolx.yzzi.icu/"
+          "url": "https://yolx.yzzi.icu/",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "BitComet",
-          "url": "https://www.bitcomet.com/cn"
+          "url": "https://www.bitcomet.com/cn",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "qBittorrent",
-          "url": "https://www.qbittorrent.org/"
+          "url": "https://www.qbittorrent.org/",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "qBittorrent-Enhanced-Edition",
-          "url": "https://github.com/c0re100/qBittorrent-Enhanced-Edition"
+          "url": "https://github.com/c0re100/qBittorrent-Enhanced-Edition",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "LIII BitTorrent",
-          "url": "https://codecpack.co/download/LIII-BitTorrent-Client.html"
+          "url": "https://codecpack.co/download/LIII-BitTorrent-Client.html",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Qdown",
-          "url": "http://lightzhan.xyz/index.php/qdown/"
+          "url": "http://lightzhan.xyz/index.php/qdown/",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "FDM",
-          "url": "https://www.freedownloadmanager.org/zh/"
+          "url": "https://www.freedownloadmanager.org/zh/",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "NDM",
-          "url": "http://www.neatdownloadmanager.com/index.php/en/"
+          "url": "http://www.neatdownloadmanager.com/index.php/en/",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "XDM",
           "url": "https://github.com/subhra74/xdm",
-          "official_site": "https://xtremedownloadmanager.com/"
+          "official_site": "https://xtremedownloadmanager.com/",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "AB Download Manager",
           "url": "https://github.com/amir1376/ab-download-manager",
-          "official_site": "https://abdownloadmanager.com/"
+          "official_site": "https://abdownloadmanager.com/",
+          "icon": "",
+          "hide_badges": []
+        },
+        {
+          "toolbox": null,
+          "name": "FluxDown ",
+          "official_site": "https://fluxdown.zerx.dev/",
+          "desc": "Rust驱动",
+          "detail": "A blazing fast, multi-protocol download manager with browser extension. Powered by Rust engine with HTTP/HTTPS/FTP support, intelligent segmentation, and speed optimization.",
+          "icon": "/images/logos/fluxdown-zerx-dev.webp",
+          "hide_badges": []
         }
       ],
       "tabs": []
@@ -93,32 +164,53 @@
       "name": "Android 下载",
       "resources": [
         {
+          "toolbox": null,
           "name": "1DM",
-          "url": "https://play.google.com/store/apps/details?id=idm.internet.download.manager"
+          "url": "https://play.google.com/store/apps/details?id=idm.internet.download.manager",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "1DM Lite",
-          "url": "https://play.google.com/store/apps/details?id=idm.internet.download.manager.adm.lite"
+          "url": "https://play.google.com/store/apps/details?id=idm.internet.download.manager.adm.lite",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Seal",
-          "url": "https://github.com/JunkFood02/Seal"
+          "url": "https://github.com/JunkFood02/Seal",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "Lj视频下载器",
-          "url": "https://play.google.com/store/apps/details?id=com.leavjenn.m3u8downloader"
+          "url": "https://play.google.com/store/apps/details?id=com.leavjenn.m3u8downloader",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "视频下载器",
-          "url": "https://play.google.com/store/apps/details?id=video.downloader.videodownloader"
+          "url": "https://play.google.com/store/apps/details?id=video.downloader.videodownloader",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "浩克下载",
-          "url": "http://sausage.1foo.com/home/"
+          "url": "http://sausage.1foo.com/home/",
+          "icon": "",
+          "hide_badges": []
         },
         {
+          "toolbox": null,
           "name": "薄荷下载",
-          "url": "https://bgg.lanzout.com/b02fgz2fg"
+          "url": "https://bgg.lanzout.com/b02fgz2fg",
+          "icon": "",
+          "hide_badges": []
         }
       ],
       "tabs": []
@@ -131,39 +223,67 @@
           "tabName": "B站下载",
           "list": [
             {
+              "toolbox": null,
               "name": "downkyicore",
               "url": "https://github.com/yaobiao131/downkyicore",
-              "desc": "downkyi继任者"
+              "desc": "downkyi继任者",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Bili23 Downloader",
               "url": "https://github.com/ScottSloan/Bili23-Downloader",
-              "official_site": "https://bili23.scott-sloan.cn/"
+              "official_site": "https://bili23.scott-sloan.cn/",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "BiliTools",
               "url": "https://github.com/btjawa/BiliTools",
               "official_site": "https://blog.btjawa.top/posts/bilitools",
-              "desc": "哔哩哔哩工具箱"
+              "desc": "哔哩哔哩工具箱",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "BBDown（Bilibili Downloader）",
               "url": "https://github.com/nilaoda/BBDown",
-              "desc": "命令行下载器"
+              "desc": "命令行下载器",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "唧唧Down",
-              "url": "http://client.jijidown.com/"
+              "url": "http://client.jijidown.com/",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "哔哩下载姬downkyi",
               "url": "https://github.com/leiurayer/downkyi",
-              "desc": "2025年删库"
+              "desc": "2025年删库",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Bilidown",
               "url": "https://zhouql.vip/bilidown/pc/",
-              "desc": "2025年1月停用"
+              "desc": "2025年1月停用",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "biliget 0.6.4 - Docs.rs",
+              "official_site": "https://docs.rs/crate/biliget/latest",
+              "icon": "",
+              "hide_badges": []
             }
           ]
         },
@@ -171,56 +291,95 @@
           "tabName": "视频下载",
           "list": [
             {
+              "toolbox": null,
               "name": "Mediago",
-              "url": "https://downloader.caorushizi.cn/"
+              "url": "https://downloader.caorushizi.cn/",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "N_m3u8DL-RE",
-              "url": "https://github.com/nilaoda/N_m3u8DL-RE"
+              "url": "https://github.com/nilaoda/N_m3u8DL-RE",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "M3u8Downloader_H",
-              "url": "https://github.com/Harlan-H/M3u8Downloader_H"
+              "url": "https://github.com/Harlan-H/M3u8Downloader_H",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Fluent-M3U8",
-              "url": "https://github.com/zhiyiYo/Fluent-M3U8"
+              "url": "https://github.com/zhiyiYo/Fluent-M3U8",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "You-Get",
-              "url": "https://github.com/soimort/you-get"
+              "url": "https://github.com/soimort/you-get",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Arrow Downloader",
-              "url": "https://www.arrow-dl.com/"
+              "url": "https://www.arrow-dl.com/",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Cobalt",
-              "url": "https://cobalt.tools/"
+              "url": "https://cobalt.tools/",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Hitomi-Downloader",
-              "url": "https://github.com/KurtBestor/Hitomi-Downloader"
+              "url": "https://github.com/KurtBestor/Hitomi-Downloader",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "侠客短视频解析去水印",
-              "url": "https://www.52pojie.cn/thread-1933305-1-2.html"
+              "url": "https://www.52pojie.cn/thread-1933305-1-2.html",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "大圣直播录制工具（DSLiveRec）",
-              "url": "https://www.52pojie.cn/thread-1907429-1-1.html"
+              "url": "https://www.52pojie.cn/thread-1907429-1-1.html",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "WebTorrent",
-              "url": "https://webtorrent.io/"
+              "url": "https://webtorrent.io/",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "tdl",
-              "url": "https://docs.iyear.me/tdl/zh/"
+              "url": "https://docs.iyear.me/tdl/zh/",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "YoutubeDownloader",
-              "url": "https://github.com/Tyrrrz/YoutubeDownloader"
+              "url": "https://github.com/Tyrrrz/YoutubeDownloader",
+              "icon": "",
+              "hide_badges": []
             }
           ]
         },
@@ -228,48 +387,81 @@
           "tabName": "网盘",
           "list": [
             {
+              "toolbox": null,
               "name": "PikPak",
-              "url": "https://mypikpak.com/zh-CN"
+              "url": "https://mypikpak.com/zh-CN",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "MultCloud",
-              "url": "https://www.multcloud.com/cn/"
+              "url": "https://www.multcloud.com/cn/",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "夸克网盘批量转存工具",
-              "url": "https://www.52pojie.cn/thread-1897944-1-1.html"
+              "url": "https://www.52pojie.cn/thread-1897944-1-1.html",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "filestash",
-              "url": "https://github.com/mickael-kerjean/filestash"
+              "url": "https://github.com/mickael-kerjean/filestash",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "AList",
-              "url": "https://alist.nn.ci/zh/"
+              "url": "https://alist.nn.ci/zh/",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "就是加速",
-              "url": "https://api.94speed.com/"
+              "url": "https://api.94speed.com/",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "小白羊网盘",
-              "url": "https://github.com/gaozhangmin/aliyunpan"
+              "url": "https://github.com/gaozhangmin/aliyunpan",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "蜗牛云盘",
-              "url": "https://snail8.cn/html/index.html"
+              "url": "https://snail8.cn/html/index.html",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "Raptor",
-              "url": "https://github.com/InfpHub/Raptor"
+              "url": "https://github.com/InfpHub/Raptor",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "小白云盘",
-              "url": "https://crazynoby.github.io/"
+              "url": "https://crazynoby.github.io/",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "小白云盘",
-              "url": "http://159.75.208.47/#"
+              "url": "http://159.75.208.47/#",
+              "icon": "",
+              "hide_badges": []
             }
           ]
         },
@@ -277,32 +469,43 @@
           "tabName": "微信公众号下载",
           "list": [
             {
+              "toolbox": null,
               "name": "wechatDownload/微信公众号文章批量下载工具",
-              "url": "https://github.com/qiye45/wechatDownload"
+              "url": "https://github.com/qiye45/wechatDownload",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "wechatDownload",
-              "url": "https://github.com/xiaoguyu/wechatDownload"
+              "url": "https://github.com/xiaoguyu/wechatDownload",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "wechatVideoDownload/微信视频号下载工具",
-              "url": "https://github.com/qiye45/wechatVideoDownload"
+              "url": "https://github.com/qiye45/wechatVideoDownload",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "WeChat_Article",
-              "url": "https://github.com/1061700625/WeChat_Article"
+              "url": "https://github.com/1061700625/WeChat_Article",
+              "icon": "",
+              "hide_badges": []
             },
             {
+              "toolbox": null,
               "name": "wechat-spider/微信爬虫",
-              "url": "https://github.com/striver-ing/wechat-spider"
+              "url": "https://github.com/striver-ing/wechat-spider",
+              "icon": "",
+              "hide_badges": []
             }
           ]
         }
       ]
     }
-  ],
-  "pageName": "home",
-  "pageConfig": {
-    "sortPrefix": "03"
-  }
+  ]
 }

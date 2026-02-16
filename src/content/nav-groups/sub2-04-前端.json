@@ -1,0 +1,35 @@
+{
+  "pageName": "sub2",
+  "visualTag": " ",
+  "name": "前端",
+  "pageConfig": {
+    "sortPrefix": "04"
+  },
+  "resources": [],
+  "categories": [
+    {
+      "name": "UI库",
+      "resources": [
+        {
+          "toolbox": null,
+          "name": "galaxy",
+          "url": "https://github.com/uiverse-io/galaxy",
+          "official_site": "https://Uiverse.io",
+          "detail": "The largest Open-Source UI Library! Community-made and free to use. Made with either CSS or Tailwind.",
+          "icon": "/images/logos/uiverse-io-galaxy.webp",
+          "hide_badges": []
+        },
+        {
+          "toolbox": null,
+          "name": "art-design-pro",
+          "url": "https://github.com/Daymychen/art-design-pro",
+          "official_site": "https://www.artd.pro",
+          "detail": "A Vue 3 admin dashboard template using Vite + TypeScript + Element Plus | vue3 admin | vue-admin — focused on user experience and visual design.",
+          "icon": "/images/logos/Daymychen-art-design-pro.webp",
+          "hide_badges": []
+        }
+      ],
+      "tabs": []
+    }
+  ]
+}

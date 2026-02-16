@@ -1,0 +1,11 @@
+---
+import { Sun, Moon, Monitor } from 'lucide-react';
+---
+<div class="flex items-center justify-between mb-4">
+  <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">模式</span>
+  <div class="flex bg-slate-100 dark:bg-gray-800 p-1 rounded-lg">
+    <button class="mode-btn p-1.5 rounded-md transition-all text-slate-500 hover:text-brand-600" data-mode="light" title="浅色"><Sun size={14} /></button>
+    <button class="mode-btn p-1.5 rounded-md transition-all text-slate-500 hover:text-brand-600" data-mode="dark" title="深色"><Moon size={14} /></button>
+    <button class="mode-btn p-1.5 rounded-md transition-all text-slate-500 hover:text-brand-600" data-mode="auto" title="跟随系统"><Monitor size={14} /></button>
+  </div>
+</div>

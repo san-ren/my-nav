@@ -122,16 +122,11 @@ const resourceFields = {
     multiline: true 
   }),
   
-  // 详细介绍 (富文本)
-  detail: fields.document({
-    label: '详细介绍',
-    formatting: true,
-    dividers: true,
-    links: true,
-    images: true,
-    tables: true,
-    layouts: [[1, 1], [1, 2]],
-    componentBlocks: documentBlocks, 
+  // 详细介绍
+  detail: fields.text({
+    label: '详细介绍 (Markdown)',
+    multiline: true, // 开启多行文本域，提供较大的编辑框
+    description: '支持标准 Markdown 语法',
   }),
 
   icon: iconPickerField ,
@@ -215,19 +210,8 @@ export default config({
       columns: ['visualTag', 'name', 'pageName'],
       
       schema: {
-        visualTag: fields.select({
-          label: '👀 视觉标记',
-          description: '用于在后台列表中快速区分属于不同大类的分组',
-          options: VISUAL_TAGS,
-          defaultValue: ' ',
-        }),
-        
-        name: fields.text({ 
-          label: '📝 分组名称',
-          validation: { isRequired: true }
-        }),
-        
-        // 2. 顶层关联字段：pageName
+
+        //  顶层关联字段：pageName
         pageName: fields.relationship({ 
           label: '📄 所属页面', 
           collection: 'pages', 
@@ -235,7 +219,21 @@ export default config({
           description: '选择该分组归属于哪个页面'
         }),
 
-        // 3. 配置对象：pageConfig
+        visualTag: fields.select({
+          label: '👀 视觉标记',
+          description: '用于在后台列表中快速区分属于不同大类的分组',
+          options: VISUAL_TAGS,
+          defaultValue: ' ',
+        }),
+
+        
+
+        name: fields.text({ 
+          label: '📝 分组名称',
+          validation: { isRequired: true }
+        }),
+
+        //  配置对象：pageConfig
         pageConfig: fields.object(
           {
             sortPrefix: fields.select({
@@ -250,6 +248,12 @@ export default config({
             description: '设置分组在页面内的排序顺序' 
           }
         ),
+        
+        id: fields.text({ 
+          label: '🆔 系统ID', 
+          validation: { length: { min: 1 } }
+        }),
+        
         
         // 1. 替换 resources
         resources: fields.array(
@@ -282,10 +286,7 @@ export default config({
           { label: '📑 分类列表 (Categories)', itemLabel: (props) => props.fields.name.value || '未命名分类' }
         ), 
 
-        id: fields.text({ 
-          label: '🆔 系统ID', 
-          validation: { length: { min: 1 } }
-        }),
+        
       },
     }),
 

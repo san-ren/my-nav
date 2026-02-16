@@ -66,7 +66,7 @@ if (isDevCommand) {
           // 前端访问的 URL 路径 (保持不变)
           pattern: '/api/smart-parse',
           // 实际文件的物理路径 (放在现有的组件目录中)
-          entrypoint: './src/components/keystatic/smart-parse.ts',
+          entrypoint: './src/components/keystatic/ToolboxField/smart-parse.ts',
           // 🔥🔥 核心修复：必须显式设置为 false，否则在 static 模式下会出错
           prerender: false 
         });

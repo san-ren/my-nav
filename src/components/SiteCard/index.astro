@@ -3,8 +3,8 @@
 import { BookOpen, Info } from 'lucide-react';
 // 引入 Astro 图片组件
 import { Image } from 'astro:assets';
-// 引入 Keystatic 文档渲染器
-import { DocumentRenderer } from '@keystatic/core/renderer';
+// 1. 移除 DocumentRenderer，引入 marked
+import { marked } from 'marked';
 import { getIconSources, getBadges } from './utils';
 
 // 引入样式
@@ -26,12 +26,18 @@ const finalIcon = (icon && icon.includes('/images/')) ? icon : (iconSources.cust
 // 2. 徽章逻辑
 const badges = getBadges(url, hide_badges);
 
-// 3. 详情内容逻辑 (修复点)
-// detail 现在是 JSON 数组 (Keystatic Document)，不再是 Markdown 字符串
-const hasDetailContent = Array.isArray(detail) && detail.length > 0;
+// 3. 详情内容逻辑 (纯 Markdown 模式)
+// 既然确认是字符串，直接 trim 判断是否有内容
+const hasDetailContent = detail && detail.trim().length > 0;
 
-// 🔥 计算 hasPopup (只定义这一次)
+// 计算 hasPopup
 const hasPopup = !!(hasDetailContent || (badges && badges.length > 0));
+
+// 4. 预先解析 Markdown 为 HTML
+let markdownHtml = '';
+if (hasDetailContent) {
+  markdownHtml = marked.parse(detail) as string;
+}
 
 const cardId = `site-${domain ? domain.replace(/[^a-zA-Z0-9]/g, '-') : Math.random().toString(36).substr(2, 9)}`;
 
@@ -68,7 +74,7 @@ const ICON_SIZE = 48;
           {/* 核心图标层 */}
           <div class="relative z-10 w-10 h-10 rounded-lg bg-white/80 dark:bg-gray-700/90 shadow-sm flex items-center justify-center border 
                border-gray-100 dark:border-gray-600 group-hover:scale-105 group-hover:shadow-md transition-all duration-300">
-            <Image 
+             <Image 
               id={cardId}
               src={finalIcon}
               alt={displayTitle} 
@@ -78,7 +84,7 @@ const ICON_SIZE = 48;
               class="w-6 h-6 object-contain transition-transform duration-300" 
               data-domain={domain}
               data-sources={JSON.stringify(iconSources)}
-              onerror={`this.onerror=null; this.src='${localFallback}';`}
+              onerror={`this.onerror=null;this.src='${localFallback}';`}
             />
           </div>
         </div>
@@ -127,10 +133,10 @@ const ICON_SIZE = 48;
           </div>
         )}
         
-        {/* 使用 DocumentRenderer 渲染 JSON 数据 */}
+        {/* 渲染 Markdown HTML */}
         {hasDetailContent && (
           <div class="detail-markdown font-body text-[13px] text-slate-700 dark:text-slate-300 leading-relaxed break-words">
-             <DocumentRenderer document={detail} />
+             <div set:html={markdownHtml} />
           </div>
         )}
       </div>
@@ -140,7 +146,6 @@ const ICON_SIZE = 48;
 
 <script>
   import { initSiteCard } from './client';
-  
   document.addEventListener('astro:page-load', initSiteCard);
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initSiteCard);

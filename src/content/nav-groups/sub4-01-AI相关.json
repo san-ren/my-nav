@@ -1,0 +1,338 @@
+{
+  "visualTag": " ",
+  "name": "AI相关",
+  "pageName": "sub4",
+  "pageConfig": {
+    "sortPrefix": "01"
+  },
+  "resources": [],
+  "categories": [
+    {
+      "name": "markdown",
+      "resources": [],
+      "tabs": [
+        {
+          "tabName": "md编辑器",
+          "list": [
+            {
+              "toolbox": null,
+              "name": "Yank Note",
+              "url": "https://github.com/purocean/yn",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "wj-markdown-editor",
+              "url": "https://github.com/nlbwqmz/wj-markdown-editor",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "hedgedoc",
+              "url": "https://github.com/hedgedoc/hedgedoc",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "dillinger",
+              "url": "https://dillinger.io/",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "Arya",
+              "url": "https://markdown.lovejade.cn/",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "md",
+              "url": "https://github.com/doocs/md",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "微信公众号markdown排版工具",
+              "url": "https://markdown.com.cn/editor/",
+              "desc": "mardown 官网网页编辑器",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "markdown-online-editor",
+              "url": "https://github.com/nicejade/markdown-online-editor",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "flymd",
+              "url": "https://github.com/flyhunterl/flymd",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "joplin",
+              "url": "https://github.com/laurent22/joplin",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "ghostwriter",
+              "url": "https://github.com/KDE/ghostwriter",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "mdx-notes",
+              "url": "https://github.com/maqi1520/mdx-notes",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "Archive-Markdown-Editor",
+              "url": "https://github.com/ScottSmith666/Archive-Markdown-Editor",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "markor",
+              "url": "https://github.com/gsantner/markor",
+              "icon": "",
+              "hide_badges": []
+            }
+          ]
+        },
+        {
+          "tabName": "md格式转换",
+          "list": [
+            {
+              "toolbox": null,
+              "name": "markitdown",
+              "url": "https://github.com/microsoft/markitdown",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "MinerU",
+              "url": "https://github.com/opendatalab/MinerU",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "marker",
+              "url": "https://github.com/datalab-to/marker",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "pdf-craft",
+              "url": "https://github.com/oomol-lab/pdf-craft",
+              "icon": "",
+              "hide_badges": []
+            }
+          ]
+        },
+        {
+          "tabName": "md组件",
+          "list": [
+            {
+              "toolbox": null,
+              "name": "retext",
+              "url": "https://github.com/retext-project/retext",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "tui.editor",
+              "url": "https://github.com/nhn/tui.editor",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "milkdown",
+              "url": "https://github.com/Milkdown/milkdown",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "mavonEditor",
+              "url": "https://github.com/hinesboy/mavonEditor",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "react-markplus",
+              "url": "https://github.com/markpluslabs/react-markplus",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "react-md-editor",
+              "url": "https://github.com/uiwjs/react-md-editor",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "Raneto",
+              "url": "https://github.com/ryanlelek/Raneto",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "cherry-markdown",
+              "url": "https://github.com/Tencent/cherry-markdown",
+              "icon": "",
+              "hide_badges": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "AI工具",
+      "resources": [],
+      "tabs": [
+        {
+          "tabName": "AI处理",
+          "list": [
+            {
+              "toolbox": null,
+              "name": "VideoLingo",
+              "url": "https://github.com/Huanshere/VideoLingo",
+              "official_site": "https://docs.videolingo.io",
+              "desc": "本地视频生成字幕配音",
+              "detail": "Netflix-level subtitle cutting, translation, alignment, and even dubbing - one-click fully automated AI video subtitle team | Netflix级字幕切割、翻译、对齐、甚至加上配音，一键全自动视频搬运AI字幕组",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "ProPainter",
+              "url": "https://github.com/sczhou/ProPainter",
+              "official_site": "https://shangchenzhou.com/projects/ProPainter/",
+              "desc": "改进用于视频修复的传播和Transformer算法",
+              "icon": "",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "PDFMathTranslate",
+              "url": "https://github.com/PDFMathTranslate/PDFMathTranslate",
+              "official_site": "https://pdf2zh.com",
+              "detail": "[EMNLP 2025 Demo] PDF scientific paper translation with preserved formats - 基于 AI 完整保留排版的 PDF 文档全文双语翻译，支持 Google/DeepL/Ollama/OpenAI 等服务，提供 CLI/GUI/MCP/Docker/Zotero",
+              "icon": "",
+              "hide_badges": []
+            }
+          ]
+        },
+        {
+          "tabName": "数据获取",
+          "list": [
+            {
+              "toolbox": null,
+              "name": "moe-copy-ai",
+              "url": "https://github.com/yusixian/moe-copy-ai",
+              "official_site": "https://moe.cosine.ren/docs",
+              "desc": " AI 网页数据提取助手 ✨",
+              "icon": "/images/logos/yusixian-moe-copy-ai.webp",
+              "hide_badges": []
+            }
+          ]
+        },
+        {
+          "tabName": "生成",
+          "list": [
+            {
+              "toolbox": null,
+              "name": "卡卡字幕助手/VideoCaptioner",
+              "url": "https://github.com/WEIFENG2333/VideoCaptioner",
+              "official_site": "https://www.videocaptioner.cn",
+              "desc": "🎬 卡卡字幕助手 | VideoCaptioner - 基于 LLM 的智能字幕助手 - 视频字幕生成、断句、校正、字幕翻译全流程处理！- A powered tool for easy and efficient video subtitling.",
+              "icon": "/images/logos/WEIFENG2333-VideoCaptioner.webp",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "screenshot-to-code",
+              "url": "https://github.com/abi/screenshot-to-code",
+              "official_site": "https://screenshottocode.com",
+              "desc": "Drop in a screenshot and convert it to clean code (HTML/Tailwind/React/Vue)",
+              "icon": "/images/logos/abi-screenshot-to-code.webp",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "ai-to-pptx",
+              "url": "https://github.com/SmartSchoolAI/ai-to-pptx",
+              "official_site": "https://pptx.dandian.net",
+              "desc": "前端后端同时开源。 Ai-to-pptx是一个使用AI技术(DeepSeek)制作PPTX的助手，支持在线生成和导出PPTX。 主要功能: 1 使用DeepSeek等大语言模型来生成大纲 2 生成PPTX的时候可以选择不同的模板 3 支持导出PPTX",
+              "icon": "/images/logos/SmartSchoolAI-ai-to-pptx.webp",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "DiffRhythm",
+              "url": "https://github.com/ASLP-lab/DiffRhythm",
+              "desc": "Di♪♪Rhythm: Blazingly Fast and Embarrassingly Simple End-to-End Full-Length Song Generation with Latent Diffusion",
+              "icon": "/images/logos/ASLP-lab-DiffRhythm.webp",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "AI_NovelGenerator",
+              "url": "https://github.com/YILING0013/AI_NovelGenerator",
+              "desc": "使用ai生成多章节的长篇小说，自动衔接上下文、伏笔",
+              "icon": "/images/logos/YILING0013-AI-NovelGenerator.webp",
+              "hide_badges": []
+            },
+            {
+              "toolbox": null,
+              "name": "YuE",
+              "url": "https://github.com/multimodal-art-projection/YuE",
+              "official_site": "https://map-yue.github.io",
+              "desc": "YuE: Open Full-song Music Generation Foundation Model, something similar to Suno.ai but open",
+              "icon": "",
+              "hide_badges": []
+            }
+          ]
+        },
+        {
+          "tabName": "AI翻译",
+          "list": [
+            {
+              "toolbox": null,
+              "name": "v2vt",
+              "url": "https://github.com/halfzm/v2vt",
+              "desc": "video to video translation with voice clone and lip synchronization|带有语音克隆和口型同步的视频翻译，支持中英互换",
+              "icon": "/images/logos/halfzm-v2vt.webp",
+              "hide_badges": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
