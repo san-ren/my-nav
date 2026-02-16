@@ -57,3 +57,53 @@
 :global(.dark) .site-card-wrapper a::after {
     filter: drop-shadow(0 0 3px rgba(168, 85, 247, 0.8));
 }
+
+/* ============================================
+   资源状态样式 - 视觉降级
+   ============================================ */
+
+/* 长期未更新状态 - 变灰，hover 恢复 */
+.site-card-wrapper.resource-stale {
+    position: relative;
+}
+
+.site-card-wrapper.resource-stale::before {
+    content: "⚠️";
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: 10px;
+    z-index: 100;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.site-card-wrapper.resource-stale:hover::before {
+    opacity: 1;
+}
+
+/* 失效状态 - 彻底变灰，加删除线 */
+.site-card-wrapper.resource-failed {
+    position: relative;
+}
+
+.site-card-wrapper.resource-failed::before {
+    content: "❌";
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: 10px;
+    z-index: 100;
+}
+
+/* 失效卡片标题删除线效果 */
+.site-card-wrapper.resource-failed h3 {
+    text-decoration: line-through;
+    text-decoration-color: rgba(239, 68, 68, 0.5);
+}
+
+/* 暗色模式下的状态样式优化 */
+:global(.dark) .site-card-wrapper.resource-stale::before,
+:global(.dark) .site-card-wrapper.resource-failed::before {
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}

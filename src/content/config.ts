@@ -11,6 +11,8 @@ const resourceItemSchema = z.object({
   badge_list: z.array(z.string()).optional(),
   // Keystatic fields.document 生成的是 JSON 结构，这里使用 z.any() 是安全的
   detail: z.any().optional(),
+  // 资源状态: ok(正常) | stale(长期未更新) | failed(已失效)
+  status: z.enum(['ok', 'stale', 'failed']).default('ok'),
 });
 
 // 1. 页面

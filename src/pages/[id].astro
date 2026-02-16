@@ -5,9 +5,11 @@ import Sidebar from '../components/Sidebar/index.astro';
 import SiteCard from '../components/SiteCard/index.astro';
 import SearchModal from '../components/SearchModal.jsx';
 import ThemePicker from '../components/ThemePicker/index.astro';
+import ResourceFilter from '../components/ResourceFilter.astro';
 import siteConfig from '../content/site-settings/config.json';
 import { getCollection } from 'astro:content'; 
 import { LayoutDashboard, Star, Code, Palette, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu } from 'lucide-react';
+import { sortResourcesByStatus } from '../utils/resourceSort';
 
 export const prerender = true;
 
@@ -16,18 +18,14 @@ export async function getStaticPaths() {
   const rawGroups = await getCollection('nav-groups');
 
   const navResources = rawPages.map(page => {
-    // 筛选
     const currentGroups = rawGroups
        .filter(g => {
-         // 🔥 核心修复：兼容处理 Reference 类型（对象或字符串）
          const groupPageId = typeof g.data.pageName === 'object' 
             ? g.data.pageName.id 
             : g.data.pageName;
-         
          return groupPageId === page.id;
        }) 
        .sort((a, b) => {
-          // 🔥 核心修复：安全访问 pageConfig
           const sortA = Number(a.data.pageConfig?.sortPrefix || 10);
           const sortB = Number(b.data.pageConfig?.sortPrefix || 10);
           return sortA - sortB;
@@ -39,7 +37,6 @@ export async function getStaticPaths() {
       groups: currentGroups.map(g => g.data)
     };
   }).sort((a, b) => (a.sortOrder || 99) - (b.sortOrder || 99));
-
 
   return navResources.map((section) => ({
     params: { id: section.id },
@@ -56,25 +53,28 @@ const CurrentIcon = section.icon ? (Icons[section.icon] || LayoutDashboard) : La
 ---
 
 <Layout title={`${section.name} - ${siteConfig.title}`}>
+  
   <div class="flex min-h-screen w-full">
-    
     <Sidebar navResources={navResources} currentId={id} siteConfig={siteConfig} />
-    
     <div id="sidebar-overlay"></div>
 
     <main class="layout-transition flex-1 min-w-0 md:ml-[var(--sidebar-width,17rem)] min-h-screen flex flex-col">
       {/* 顶部 Header */}
       <header id="page-header" class="layout-transition fixed top-0 right-0 z-30 flex items-center justify-between px-4 md:px-8 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50 w-full md:w-[calc(100%-var(--sidebar-width,17rem))] transition-all duration-300">
+        
         <div class="flex items-center gap-3 min-w-0">
           <button id="menu-btn" class="p-2 text-slate-600 dark:text-slate-300 bg-white/80 dark:bg-gray-800/80 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 shrink-0 hover:text-brand-600 transition-colors" onclick="if(window.innerWidth < 768) window.toggleSidebarMobile(); else window.toggleSidebarPC();">
             <Menu size={20} />
           </button>
+          
           <h1 class="text-xl font-black flex items-center gap-3 text-slate-800 dark:text-white truncate">
             <div class="p-2 bg-brand-50 dark:bg-brand-900/30 rounded-lg text-brand-600 shrink-0"><CurrentIcon size={20} /></div>
             <span class="truncate">{section.name}</span>
           </h1>
         </div>
+        
         <div class="flex items-center gap-2 md:gap-3 shrink-0">
+          <ResourceFilter />
           <SearchModal client:load />
           <ThemePicker />
         </div>
@@ -89,10 +89,10 @@ const CurrentIcon = section.icon ? (Icons[section.icon] || LayoutDashboard) : La
         {(section.groups || []).map((group, groupIdx) => (
           <div class="group-wrapper w-full">
             <div id={`group-${groupIdx}`} class="flex items-center gap-3 mb-8 mt-12 first:mt-0 pb-2 border-b border-slate-100 dark:border-slate-800 scroll-mt-28">
-               <h2 class="text-xl font-black text-slate-800 dark:text-slate-100">
+              <h2 class="text-xl font-black text-slate-800 dark:text-slate-100">
                  {group.visualTag && <span class="mr-2">{group.visualTag}</span>}
                  {group.name}
-               </h2>
+              </h2>
             </div>
             
             <div class="space-y-16 w-full">
@@ -100,7 +100,7 @@ const CurrentIcon = section.icon ? (Icons[section.icon] || LayoutDashboard) : La
               {group.resources && group.resources.length > 0 && (
                 <section class="group-resources mb-8 w-full">
                   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-3 md:gap-4 pt-1 w-full">
-                    {group.resources.map((site) => <SiteCard {...site} />)}
+                    {sortResourcesByStatus(group.resources).map((site) => <SiteCard {...site} />)}
                   </div>
                 </section>
               )}
@@ -142,7 +142,7 @@ const CurrentIcon = section.icon ? (Icons[section.icon] || LayoutDashboard) : La
                         {/* 直属资源 */}
                         {hasList && (
                           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-3 md:gap-4 pt-1 w-full mb-8">
-                            {category.resources.map((site) => <SiteCard {...site} />)}
+                            {sortResourcesByStatus(category.resources).map((site) => <SiteCard {...site} />)}
                           </div>
                         )}
 
@@ -154,7 +154,7 @@ const CurrentIcon = section.icon ? (Icons[section.icon] || LayoutDashboard) : La
                               class={`tab-pane animate-fade-in relative z-20 w-full ${tabIdx !== 0 ? 'hidden' : ''}`}
                             >
                               <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-3 md:gap-4 pt-1 w-full">
-                                {(tab.list || []).map((site) => <SiteCard {...site} />)}
+                                {sortResourcesByStatus(tab.list || []).map((site) => <SiteCard {...site} />)}
                               </div>
                             </div>
                           ))
@@ -170,82 +170,8 @@ const CurrentIcon = section.icon ? (Icons[section.icon] || LayoutDashboard) : La
         <footer class="mt-20 py-10 text-center text-[13px] text-slate-400 border-t border-slate-200/50 dark:border-gray-800/50">
           <p>Made with ❤️ by {siteConfig.author} © {new Date().getFullYear()}</p>
         </footer>
-       </div>
+      </div>
     </main>
   </div>
+
 </Layout>
-
-<script is:inline>
-  // 1. 保留 Tab 逻辑 (这是页面特有的，ui-layout.js 中没有)
-  function initTabs() {
-    const containers = document.querySelectorAll('.tab-nav-container');
-    containers.forEach(container => {
-      const indicator = container.querySelector('.tab-indicator');
-      const btns = container.querySelectorAll('.tab-btn');
-      if (!indicator || btns.length === 0) return;
-      
-      const moveIndicator = (targetBtn) => {
-        if (!targetBtn) return;
-        indicator.style.left = `${targetBtn.offsetLeft}px`;
-        indicator.style.width = `${targetBtn.offsetWidth}px`;
-        indicator.style.opacity = '1'; 
-      };
-      
-      const activeBtn = container.querySelector('.active-tab') || btns[0];
-      setTimeout(() => { if(activeBtn) moveIndicator(activeBtn); }, 50);
-
-      btns.forEach(btn => {
-        btn.addEventListener('mouseenter', () => moveIndicator(btn));
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          btns.forEach(b => {
-            b.classList.remove('active-tab', 'text-brand-600', 'bg-white', 'dark:bg-gray-700', 'shadow-sm');
-            b.classList.add('text-slate-500');
-          });
-          btn.classList.add('active-tab', 'text-brand-600'); 
-          btn.classList.remove('text-slate-500');
-          moveIndicator(btn);
-          const group = container.closest('.category-group');
-          const targetId = btn.getAttribute('data-target');
-          group.querySelectorAll('.tab-pane').forEach(p => {
-            p.classList.add('hidden');
-            p.classList.remove('animate-fade-in'); 
-          });
-          const targetPane = document.getElementById(targetId);
-          if(targetPane) {
-            targetPane.classList.remove('hidden');
-            void targetPane.offsetWidth;
-            targetPane.classList.add('animate-fade-in');
-          }
-        });
-      });
-      container.addEventListener('mouseleave', () => {
-        const currentActive = container.querySelector('.active-tab');
-        if (currentActive) moveIndicator(currentActive);
-      });
-    });
-  }
-
-  // 2. 简化的初始化调用
-  // 布局相关的初始化 (Sidebar/Header) 已移至 ui-layout.js，此处仅需关注 Tab
-  initTabs();
-
-  // Astro 页面切换后重新初始化 Tabs
-  document.addEventListener('astro:after-swap', initTabs);
-
-  // 窗口大小改变时重置 Tabs (主要是指示器位置)
-  // 注意：ui-layout.js 已经处理了布局的 resize，这里只处理 Tabs
-  window.addEventListener('resize', initTabs);
-</script>
-
-<style is:global>
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .animate-fade-in {
-    animation: fadeInUp 0.4s ease-out forwards;
-  }
-  .no-scrollbar::-webkit-scrollbar { display: none; }
-  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-</style>

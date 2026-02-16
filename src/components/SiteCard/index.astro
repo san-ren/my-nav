@@ -6,12 +6,17 @@ import { Image } from 'astro:assets';
 // 1. 移除 DocumentRenderer，引入 marked
 import { marked } from 'marked';
 import { getIconSources, getBadges } from './utils';
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 // 引入样式
 import './site-card.css';
 
+// cn 工具函数
+const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
+
 // 接收 Props
-const { title, name, url, icon, desc, detail, official_site, hide_badges = [], guide_id } = Astro.props;
+const { title, name, url, icon, desc, detail, official_site, hide_badges = [], guide_id, status = 'ok' } = Astro.props;
 
 const targetUrl = url || official_site || '#';
 
@@ -43,24 +48,49 @@ const cardId = `site-${domain ? domain.replace(/[^a-zA-Z0-9]/g, '-') : Math.rand
 
 // 定义图标尺寸
 const ICON_SIZE = 48;
+
+// 根据状态计算样式
+const statusStyles = {
+  ok: '',
+  stale: 'grayscale-[30%] opacity-70 hover:grayscale-0 hover:opacity-100',
+  failed: 'grayscale-[60%] opacity-50 pointer-events-none',
+};
+
+const cardWrapperStyles = cn(
+  'site-card-wrapper group relative w-full h-full',
+  status !== 'ok' && `resource-${status}`
+);
+
+const cardLinkStyles = cn(
+  'flex items-center justify-between w-full h-full py-3 pl-3 pr-2',
+  'bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl rounded-xl',
+  'border border-white/60 dark:border-gray-700/50',
+  'transition-all duration-300 ease-[cubic-bezier(0.25,0.8,0.25,1)]',
+  'hover:-translate-y-1.5',
+  'hover:bg-white/95 dark:hover:bg-gray-800/95',
+  'hover:border-brand-500/30 dark:hover:border-brand-400/30',
+  'hover:shadow-xl hover:shadow-brand-600/10',
+  'hover:ring-1 hover:ring-brand-500/20',
+  'relative overflow-hidden',
+  // 状态样式
+  statusStyles[status as keyof typeof statusStyles] || ''
+);
+
+const titleStyles = cn(
+  'font-heading font-bold text-[14px] text-slate-800 dark:text-slate-100 truncate mb-0.5 text-left group-hover:text-brand-600 transition-colors duration-200',
+  status === 'failed' && 'line-through'
+);
 ---
 
-<div class="site-card-wrapper group relative w-full h-full">
-  <a href={targetUrl} target="_blank" 
-     class="flex items-center justify-between w-full h-full py-3 pl-3 pr-2
-            bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl rounded-xl 
-            border border-white/60 dark:border-gray-700/50 
-            transition-all duration-300 ease-[cubic-bezier(0.25,0.8,0.25,1)]
-            hover:-translate-y-1.5 
-            hover:bg-white/95 dark:hover:bg-gray-800/95
-            hover:border-brand-500/30 dark:hover:border-brand-400/30
-            hover:shadow-xl hover:shadow-brand-600/10 
-            hover:ring-1 hover:ring-brand-500/20
-            relative overflow-hidden"
-  >
+<div class={cardWrapperStyles} data-status={status}>
+  
+  <a href={targetUrl} target="_blank" class={cardLinkStyles}>
+    
     <div class="flex items-center flex-1 min-w-0 mr-1">
+        
         <div class="relative flex-shrink-0 mr-3 w-10 h-10 flex items-center justify-center">
           {/* 背景光晕层 */}
+          
           <div class="absolute inset-0 z-0 transition-all duration-500 ease-out opacity-0 group-hover:opacity-50 group-hover:scale-150 filter blur-lg saturate-150 pointer-events-none transform-gpu">
              <Image 
                 src={finalIcon} 
@@ -72,6 +102,7 @@ const ICON_SIZE = 48;
           </div>
           
           {/* 核心图标层 */}
+          
           <div class="relative z-10 w-10 h-10 rounded-lg bg-white/80 dark:bg-gray-700/90 shadow-sm flex items-center justify-center border 
                border-gray-100 dark:border-gray-600 group-hover:scale-105 group-hover:shadow-md transition-all duration-300">
              <Image 
@@ -87,10 +118,13 @@ const ICON_SIZE = 48;
               onerror={`this.onerror=null;this.src='${localFallback}';`}
             />
           </div>
+        
         </div>
         
+        
         <div class="flex-1 min-w-0 relative z-20">
-          <h3 class="font-heading font-bold text-[14px] text-slate-800 dark:text-slate-100 truncate mb-0.5 text-left group-hover:text-brand-600 transition-colors duration-200">
+          
+          <h3 class={titleStyles}>
             {displayTitle}
           </h3>
           {desc && (
@@ -98,10 +132,13 @@ const ICON_SIZE = 48;
               {desc}
             </p>
           )}
+        
         </div>
+    
     </div>
 
     {/* 右侧按钮区域 */}
+    
     <div class="flex flex-col gap-1 shrink-0 pl-1 border-l border-slate-100 dark:border-slate-700/50 
                  transition-all duration-200 z-20
                  opacity-100 translate-x-0
@@ -117,13 +154,18 @@ const ICON_SIZE = 48;
             <BookOpen size={14} strokeWidth={2.5} />
           </button>
         )}
+    
     </div>
+  
   </a>
 
   {/* 弹窗区域 */}
   {hasPopup && (
+    
     <div class="tooltip-source hidden">
+      
       <div class="relative z-10">
+        
         <div class="text-[11px] font-black text-brand-600 dark:text-brand-400 mb-2 flex items-center gap-2 uppercase tracking-widest font-body">
           <span class="w-1.5 h-3 bg-brand-600 rounded-sm"></span>详情
         </div>
@@ -140,8 +182,10 @@ const ICON_SIZE = 48;
           </div>
         )}
       </div>
+    
     </div>
   )}
+
 </div>
 
 <script>

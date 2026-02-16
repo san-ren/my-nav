@@ -99,6 +99,15 @@ const commonMdxOptions = {
 
  
 
+// 资源状态 Emoji 映射
+const getStatusEmoji = (status: string | undefined): string => {
+  switch (status) {
+    case 'failed': return '❌ ';
+    case 'stale': return '⚠️ ';
+    default: return '';
+  }
+};
+
 // --- Reusable Fields ---
 const resourceFields = {
 
@@ -106,22 +115,22 @@ const resourceFields = {
   name: fields.text({ label: '名称' }),
   // validation: { isRequired: false },
 
-  url: fields.url({ 
+  url: fields.url({
     label: '项目链接',
     description: 'GitHub地址或下载直链',
-    validation: { isRequired: false } 
+    validation: { isRequired: false }
   }),
-   
-  official_site: fields.url({ 
+
+  official_site: fields.url({
     label: '官网地址',
-    validation: { isRequired: false } 
+    validation: { isRequired: false }
   }),
-  
-  desc: fields.text({ 
-    label: '简短描述', 
-    multiline: true 
+
+  desc: fields.text({
+    label: '简短描述',
+    multiline: true
   }),
-  
+
   // 详细介绍
   detail: fields.text({
     label: '详细介绍 (Markdown)',
@@ -131,7 +140,7 @@ const resourceFields = {
 
   icon: iconPickerField ,
 
- 
+
   hide_badges: badgeListField({
            label: '隐藏徽章 (勾选则隐藏)',
            description: '根据上方项目地址自动生成可用的徽章选项',
@@ -139,8 +148,20 @@ const resourceFields = {
         }),
 
   guide_id: fields.text({ label: '关联教程ID' }),
-  
-  
+
+  // 资源状态字段
+  status: fields.select({
+    label: '资源状态',
+    description: '失效资源将自动沉底并显示降级样式',
+    options: [
+      { label: '✅ 正常', value: 'ok' },
+      { label: '⚠️ 长期未更新', value: 'stale' },
+      { label: '❌ 已失效', value: 'failed' },
+    ],
+    defaultValue: 'ok',
+  }),
+
+
 };
 
 // 1. 定义环境判断变量
@@ -148,8 +169,8 @@ const isDev = import.meta.env.DEV;
 
 export default config({
   // 2. 根据环境切换 storage 模式
-  // 本地开发 (Dev) -> 使用 'local' (本地文件系统)
-  // 线上生产 (Prod) -> 使用 'cloud' 或 'github'
+  // 本地开发 -> 使用 'local' (本地文件系统)
+  // 线上生产 -> 使用 'cloud' 或 'github'
   storage: isDev
     ? {
         kind: 'local',
@@ -193,7 +214,7 @@ export default config({
   
   collections: {
     pages: collection({
-      label: '页面元数据 (Pages)',
+      label: '页面元数据',
       slugField: 'id',
       path: 'src/content/nav-pages/*',
       format: { data: 'json' },
@@ -207,7 +228,7 @@ export default config({
     }),
 
     groups: collection({
-      label: '内容分组 (Groups)',
+      label: '内容分组',
       slugField: 'id',
       path: 'src/content/nav-groups/*',
       format: { data: 'json' },
@@ -229,7 +250,6 @@ export default config({
           options: VISUAL_TAGS,
           defaultValue: ' ',
         }),
-
         
 
         name: fields.text({ 
@@ -262,9 +282,9 @@ export default config({
         // 1. 替换 resources
         resources: fields.array(
           fields.object(resourceFields),
-          { 
-            label: '📚 分组直属资源', 
-            itemLabel: (props) => props.fields.name.value || '未命名资源' 
+          {
+            label: '📚 分组直属资源',
+            itemLabel: (props) => getStatusEmoji(props.fields.status.value) + (props.fields.name.value || '未命名资源')
           }
         ),
 
@@ -274,20 +294,20 @@ export default config({
             name: fields.text({ label: '分类名称' }),
             resources: fields.array(
               fields.object(resourceFields), // ✅ 复用上面的标准定义
-              { label: '📚 直属资源列表', itemLabel: (props) => props.fields.name.value || '未命名资源' }
+              { label: '📚 直属资源列表', itemLabel: (props) => getStatusEmoji(props.fields.status.value) + (props.fields.name.value || '未命名资源') }
             ),
             tabs: fields.array(
               fields.object({
                 tabName: fields.text({ label: '标签页名称' }),
                 list: fields.array(
                   fields.object(resourceFields), // ✅ 复用上面的标准定义
-                  { label: '资源列表', itemLabel: (props) => props.fields.name.value || '资源' }
+                  { label: '资源列表', itemLabel: (props) => getStatusEmoji(props.fields.status.value) + (props.fields.name.value || '资源') }
                 )
               }),
-              { label: '🗂️ 标签页 (Tabs)', itemLabel: (props) => props.fields.tabName.value || '标签页' }
+              { label: '🗂️ 标签页', itemLabel: (props) => props.fields.tabName.value || '标签页' }
             )
           }),
-          { label: '📑 分类列表 (Categories)', itemLabel: (props) => props.fields.name.value || '未命名分类' }
+          { label: '📑 分类列表', itemLabel: (props) => props.fields.name.value || '未命名分类' }
         ), 
 
         
