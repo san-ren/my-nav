@@ -11,11 +11,14 @@ if (!isDev) {
 ---
 
 <!DOCTYPE html>
+
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>工具箱 - MyNav 管理后台</title>
+  
   <style>
     * {
       margin: 0;
@@ -90,10 +93,13 @@ if (!isDev) {
       text-decoration: underline;
     }
   </style>
-</head>
-<body>
-  <div id="toolbox-root"></div>
-</body>
-</html>
 
-<ToolboxPage client:only="react" />
+</head>
+
+<body>
+  <div id="toolbox-root">
+    <ToolboxPage client:only="react" />
+  </div>
+</body>
+
+</html>

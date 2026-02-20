@@ -1,8 +1,6 @@
 import { config, fields, collection, singleton, component } from '@keystatic/core';
 import React from 'react';
-// import { any } from 'astro:schema';
-
-import { toolboxField, iconPickerField } from './src/components/keystatic/ToolboxField'; 
+import { toolboxField, iconPickerField, toolboxLinkField } from './src/components/keystatic/ToolboxField'; 
 import { badgeListField } from './src/components/keystatic/BadgeField';
 
 const VISUAL_TAGS = [
@@ -112,6 +110,7 @@ const getStatusEmoji = (status: string | undefined): string => {
 const resourceFields = {
 
   toolbox: toolboxField as any,
+  toolboxLink: toolboxLinkField as any, 
   name: fields.text({ label: '名称' }),
   // validation: { isRequired: false },
 

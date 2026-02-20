@@ -2,6 +2,7 @@
 import { fields } from '@keystatic/core'; 
 import { AutoFillerComponent } from './AutoFiller';
 import { IconPickerInput } from './IconPicker';
+import { ToolboxLink, toolboxLinkField } from '../Toolbox/ToolboxLink';
 
 // 1. Toolbox Field (工具箱：其实就是个自定义的 AutoFiller)
 const _dummyText = fields.text({ label: 'dummy' });
@@ -29,3 +30,6 @@ export const iconPickerField = {
         parse: (value: unknown) => (value === undefined || value === null) ? '' : String(value),
     }
 } as unknown as TextFieldType;
+
+// 3. Toolbox Link Field (跳转到工具箱的链接卡片)
+export { ToolboxLink, toolboxLinkField };

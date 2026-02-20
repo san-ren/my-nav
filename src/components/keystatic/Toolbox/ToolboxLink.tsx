@@ -5,111 +5,110 @@ import { Wrench, Github, Link, Plus } from 'lucide-react';
 export function ToolboxLink() {
   return (
     <div style={{
-      padding: '20px',
+      padding: '12px 16px',
       background: 'linear-gradient(135deg, #eff6ff 0%, #faf5ff 100%)',
-      borderRadius: '12px',
+      borderRadius: '10px',
       border: '1px solid #e2e8f0',
-      marginBottom: '24px',
+      marginBottom: '20px',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '16px',
     }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+      {/* 左侧标题 */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
         <div style={{
-          width: '40px',
-          height: '40px',
-          borderRadius: '10px',
+          width: '32px',
+          height: '32px',
+          borderRadius: '8px',
           background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           color: 'white',
         }}>
-          <Wrench size={22} />
+          <Wrench size={18} />
         </div>
         <div>
-          <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#1e293b', margin: 0 }}>
+          <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#1e293b', margin: 0 }}>
             工具箱
           </h3>
-          <p style={{ fontSize: '12px', color: '#64748b', margin: 0 }}>
-            资源管理工具集
+          <p style={{ fontSize: '11px', color: '#64748b', margin: 0 }}>
+            仅开发环境
           </p>
         </div>
       </div>
-      
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+
+      {/* 分隔线 */}
+      <div style={{ width: '1px', height: '32px', background: '#e2e8f0', flexShrink: 0 }} />
+
+      {/* 右侧功能按钮 */}
+      <div style={{ display: 'flex', gap: '8px', flex: 1 }}>
         <a
           href="/toolbox"
           target="_blank"
           style={{
             display: 'flex',
-            flexDirection: 'column',
             alignItems: 'center',
-            gap: '8px',
-            padding: '16px 12px',
+            gap: '6px',
+            padding: '8px 12px',
             background: 'white',
-            borderRadius: '8px',
+            borderRadius: '6px',
             border: '1px solid #e2e8f0',
             textDecoration: 'none',
             transition: 'all 0.2s',
+            fontSize: '13px',
+            fontWeight: 500,
+            color: '#334155',
           }}
         >
-          <Github size={24} style={{ color: '#1e293b' }} />
-          <span style={{ fontSize: '13px', fontWeight: 500, color: '#334155' }}>GitHub 检测</span>
-          <span style={{ fontSize: '11px', color: '#94a3b8' }}>检测仓库状态</span>
+          <Github size={16} style={{ color: '#1e293b' }} />
+          GitHub 检测
         </a>
-        
+
         <a
           href="/toolbox"
           target="_blank"
           style={{
             display: 'flex',
-            flexDirection: 'column',
             alignItems: 'center',
-            gap: '8px',
-            padding: '16px 12px',
+            gap: '6px',
+            padding: '8px 12px',
             background: 'white',
-            borderRadius: '8px',
+            borderRadius: '6px',
             border: '1px solid #e2e8f0',
             textDecoration: 'none',
             transition: 'all 0.2s',
+            fontSize: '13px',
+            fontWeight: 500,
+            color: '#334155',
           }}
         >
-          <Link size={24} style={{ color: '#1e293b' }} />
-          <span style={{ fontSize: '13px', fontWeight: 500, color: '#334155' }}>链接检测</span>
-          <span style={{ fontSize: '11px', color: '#94a3b8' }}>检测网站有效性</span>
+          <Link size={16} style={{ color: '#1e293b' }} />
+          链接检测
         </a>
-        
+
         <a
           href="/toolbox"
           target="_blank"
           style={{
             display: 'flex',
-            flexDirection: 'column',
             alignItems: 'center',
-            gap: '8px',
-            padding: '16px 12px',
+            gap: '6px',
+            padding: '8px 12px',
             background: 'white',
-            borderRadius: '8px',
+            borderRadius: '6px',
             border: '1px solid #e2e8f0',
             textDecoration: 'none',
             transition: 'all 0.2s',
+            fontSize: '13px',
+            fontWeight: 500,
+            color: '#334155',
           }}
         >
-          <Plus size={24} style={{ color: '#1e293b' }} />
-          <span style={{ fontSize: '13px', fontWeight: 500, color: '#334155' }}>批量添加</span>
-          <span style={{ fontSize: '11px', color: '#94a3b8' }}>批量添加资源</span>
+          <Plus size={16} style={{ color: '#1e293b' }} />
+          批量添加
         </a>
       </div>
-      
-      <p style={{ 
-        marginTop: '16px', 
-        fontSize: '12px', 
-        color: '#64748b', 
-        textAlign: 'center',
-        padding: '8px',
-        background: 'rgba(255,255,255,0.5)',
-        borderRadius: '6px',
-      }}>
-        💡 点击上方卡片打开工具箱页面（仅开发环境可用）
-      </p>
     </div>
   );
 }

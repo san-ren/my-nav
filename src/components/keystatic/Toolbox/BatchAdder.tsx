@@ -206,7 +206,13 @@ const getStatusBadge = (status: string) => {
 };
 
 // --- 主组件 ---
-export function BatchAdder() {
+
+interface BatchAdderProps {
+  onDataStatusChange: (hasData: boolean) => void;
+}
+
+export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
+
   const [inputText, setInputText] = useState('');
   const [pendingItems, setPendingItems] = useState<PendingItem[]>([]);
   const [groups, setGroups] = useState<GroupInfo[]>([]);
@@ -225,6 +231,11 @@ export function BatchAdder() {
       })
       .catch(console.error);
   }, []);
+
+  // 通知父组件数据状态变化
+  useEffect(() => {
+    onDataStatusChange?.(pendingItems.length > 0);
+  }, [pendingItems, onDataStatusChange]);
 
   // 解析 URL 列表
   const parseUrls = (text: string): string[] => {
