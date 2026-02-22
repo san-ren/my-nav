@@ -136,7 +136,8 @@ async function downloadAndOptimizeImage(url: string, filenamePrefix: string): Pr
       .toFile(filePath);
 
     console.log(`[SmartParse] 保存成功: ${filename}`);
-    return `${CONFIG.publicIconPrefix}/${filename}`;
+    const timestamp = Date.now();
+    return `${CONFIG.publicIconPrefix}/${filename}?t=${timestamp}`;
   } catch (e) {
     console.error(`[SmartParse] 图片处理异常: ${url}`, e);
     return null;

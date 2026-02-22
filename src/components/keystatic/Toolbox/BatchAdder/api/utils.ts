@@ -85,7 +85,8 @@ export async function downloadAndOptimizeImage(url: string, filenamePrefix: stri
       .webp({ quality: 80, effort: 4 })
       .toFile(filePath);
     
-    return `${CONFIG.publicIconPrefix}/${filename}`;
+    const timestamp = Date.now();
+    return `${CONFIG.publicIconPrefix}/${filename}?t=${timestamp}`;
   } catch {
     return null;
   }

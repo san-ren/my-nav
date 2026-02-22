@@ -16,6 +16,7 @@
           "list": [
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "MoeKoe Music",
               "url": "https://github.com/MoeKoeMusic/MoeKoeMusic",
               "official_site": "https://music.moekoe.cn/",
@@ -26,6 +27,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "洛雪音乐助手",
               "url": "https://github.com/lyswhut/lx-music-desktop",
               "official_site": "https://lxmusic.toside.cn/",
@@ -35,6 +37,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Listen1",
               "url": "https://github.com/listen1/listen1_desktop",
               "official_site": "https://listen1.github.io/listen1/",
@@ -45,6 +48,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "六音音源",
               "url": "https://www.sixyin.com/8498.html",
               "icon": "",
@@ -53,6 +57,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "MusicFree",
               "url": "https://github.com/maotoumao/MusicFreeDesktop",
               "official_site": "https://musicfree.catcat.work/",
@@ -62,6 +67,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "NSMusicS",
               "url": "https://github.com/Super-Badmen-Viper/NSMusicS",
               "icon": "",
@@ -70,6 +76,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "TTKMusicPlayer",
               "url": "https://github.com/Greedysky/TTKMusicPlayer",
               "icon": "",
@@ -78,6 +85,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "go-musicfox",
               "url": "https://github.com/go-musicfox/go-musicfox",
               "icon": "",
@@ -86,6 +94,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "music-dl",
               "url": "https://github.com/guanguans/music-dl",
               "official_site": "https://www.guanguans.cn/music-dl/",
@@ -96,6 +105,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "NSMusicS",
               "url": "https://github.com/Super-Badmen-Viper/NSMusicS",
               "icon": "",
@@ -104,6 +114,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "musicn",
               "url": "https://github.com/zonemeen/musicn",
               "icon": "",
@@ -112,6 +123,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "音乐标签",
               "url": "https://www.cnblogs.com/vinlxc/p/11347744.html",
               "icon": "",
@@ -120,6 +132,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "foobar2000",
               "url": "https://www.foobar2000.org/",
               "icon": "",
@@ -128,6 +141,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "foobox-cn",
               "url": "https://github.com/dream7180/foobox-cn",
               "icon": "",
@@ -136,6 +150,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "foobar2000汉化版",
               "url": "https://www.cnblogs.com/asionwu",
               "icon": "",
@@ -144,6 +159,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Mcool",
               "url": "https://mcool.appinn.me/",
               "icon": "",
@@ -152,6 +168,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "MusicPlayer2",
               "url": "https://github.com/zhongyang219/MusicPlayer2",
               "icon": "",
@@ -160,6 +177,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Dopamine",
               "url": "https://github.com/digimezzo/dopamine-windows",
               "icon": "",
@@ -168,6 +186,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "AIMP",
               "url": "http://www.aimp.ru/",
               "icon": "",
@@ -176,6 +195,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Wora",
               "url": "https://github.com/playwora/wora",
               "icon": "",
@@ -184,6 +204,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Winamp",
               "url": "https://www.winamp.com/",
               "icon": "",
@@ -192,6 +213,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "拟声",
               "url": "https://download.music.mimicry.cool/",
               "desc": "界面充斥着大量的空白",
@@ -201,6 +223,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "YesPlayMusic",
               "url": "https://github.com/qier222/YesPlayMusic",
               "official_site": "https://music.qier222.com/",
@@ -211,6 +234,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "SPlayer",
               "url": "https://github.com/imsyy/SPlayer",
               "official_site": "http://splayer.imsyy.top/",
@@ -221,6 +245,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "unblockneteasemusic",
               "url": "https://github.com/topics/unblockneteasemusic",
               "desc": "网易云第三方，5 public repositories",
@@ -230,34 +255,38 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "方格音乐",
               "url": "http://fonger.top/",
               "desc": "2025年因不知名原因关闭官网、软件",
               "icon": "",
               "hide_badges": [],
-              "status": "ok"
+              "status": "failed"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "electron-vue-cloud-music",
               "url": "https://github.com/xiaozhu188/electron-vue-cloud-music",
               "desc": "2021停更",
               "icon": "",
               "hide_badges": [],
-              "status": "ok"
+              "status": "failed"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Music_Download",
               "url": "https://github.com/Java-S12138/Music_Download",
               "official_site": "https://java-syj.feishu.cn/wiki/DBqIwuJ1ji228ike4necim4cnDg",
               "desc": "发布即停更",
               "icon": "",
               "hide_badges": [],
-              "status": "stale"
+              "status": "failed"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "mp3tag-douban-id3-plugins",
               "url": "https://github.com/yoyicue/mp3tag-douban-id3-plugins",
               "desc": "Mp3tag 豆瓣音乐 id3 插件 v2.5 （2020年10月可用）",
@@ -267,6 +296,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "EvolveUI",
               "url": "https://github.com/sudoevolve/EvolveUI",
               "detail": "EvolveUI is a modern, highly styled Qt6 QML front-end component library dedicated to providing a consistent, elegant, and responsive UI experience for cross-platform applications. Inspired by Telegram's animations and Material Design specifications, it takes into full consideration the interaction habits of desktop and mobile devices.",
@@ -276,6 +306,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "ParticleMusic",
               "url": "https://github.com/AfalpHy/ParticleMusic",
               "detail": "A cross-platform local music player based on Flutter",
@@ -285,6 +316,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "go-music-dl",
               "url": "https://github.com/guohuiyuan/go-music-dl",
               "official_site": "https://music.kukuqaq.com/",
@@ -301,6 +333,7 @@
           "list": [
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "酷狗概念版",
               "url": "https://activity.kugou.com/download/v-a23b0cf0/index.html",
               "desc": "每日领VIP，在线听的不二选择",
@@ -310,6 +343,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "LX Music",
               "url": "https://github.com/lyswhut/lx-music-mobile",
               "icon": "",
@@ -318,6 +352,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Listen 1",
               "url": "https://listen1.github.io/listen1/",
               "icon": "",
@@ -326,6 +361,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "MusicFree",
               "url": "https://github.com/maotoumao/MusicFree",
               "icon": "",
@@ -334,6 +370,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Music Player",
               "url": "https://github.com/FossifyOrg/Music-Player",
               "official_site": "https://www.fossify.org/",
@@ -343,6 +380,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "音乐搜索",
               "url": "音乐时刻",
               "desc": "无广，网站套壳",
@@ -352,6 +390,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "音乐标签",
               "url": "https://www.cnblogs.com/vinlxc/p/11932130.html",
               "icon": "",
@@ -360,6 +399,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Musicolet",
               "url": "https://krosbits.in/musicolet/",
               "icon": "",
@@ -368,6 +408,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "无损音乐",
               "icon": "",
               "hide_badges": [],
@@ -375,6 +416,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "椒盐音乐",
               "url": "https://play.google.com/store/apps/details?id=com.salt.music",
               "icon": "",
@@ -383,6 +425,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "艾莫音乐 | Aimo Music",
               "official_site": "https://music.amstudios.dpdns.org/",
               "desc": "简约",
@@ -392,6 +435,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "NYX Music Player",
               "url": "https://nyx-music-player.cn.uptodown.com/android",
               "desc": "动画精美，本地音乐播放器",
@@ -401,6 +445,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "LeapMusic",
               "url": "https://apkpure.com/cn/leapmusic/com.leapmusic.leapmusic",
               "desc": "优雅的播放器",
@@ -410,6 +455,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Stellio Player",
               "url": "https://play.google.com/store/apps/details?id=io.stellio.music",
               "icon": "",
@@ -418,6 +464,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "海贝音乐",
               "url": "https://www.hiby.com/",
               "desc": "常规播放器",
@@ -427,6 +474,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "DialogMusicPlayer",
               "url": "https://github.com/VishnuSanal/DialogMusicPlayer/",
               "desc": "极简，无桌面图标",
@@ -436,6 +484,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Muviz Edge",
               "url": "https://play.google.com/store/apps/details?id=com.sparkine.muvizedge&ref=appinn",
               "desc": "在屏幕边缘显示现场音乐可视化",
@@ -445,6 +494,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "拟声",
               "url": "https://download.music.mimicry.cool/",
               "desc": "UI充斥着大量空白",
@@ -454,6 +504,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "不倦",
               "url": "https://github.com/2697a/bujuan",
               "desc": "第三方网易云播放器",
@@ -463,6 +514,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Spotube",
               "url": "https://github.com/KRTirtho/spotube",
               "official_site": "https://spotube.krtirtho.dev/",
@@ -473,6 +525,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "InnerTune",
               "url": "https://github.com/z-huang/InnerTune",
               "desc": "第三方 YouTube Music",
@@ -482,6 +535,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "音乐时刻",
               "url": "https://flowus.cn/share/5bf1a0d1-5f58-4bd9-9cb6-3a4b2f7e4ae4",
               "desc": "2025失效",
@@ -491,6 +545,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "KHMD/空痕音乐下载器",
               "url": "https://www.khkj6.com/archives/19.html",
               "desc": "2025失效",
@@ -500,6 +555,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "极乐",
               "url": "https://wds.cxoip.com/797.html",
               "desc": "2025失效",
@@ -509,6 +565,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "天天悦听",
               "url": "https://pan.xunlei.com/s/VNniL144qUd9zSr5Bh9vXJf7A1?pwd=9y8d#",
               "desc": "2025失效",
@@ -523,6 +580,7 @@
           "list": [
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "lx-music-source",
               "url": "https://github.com/pdone/lx-music-source",
               "icon": "",
@@ -531,6 +589,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "LX-music-collection",
               "url": "https://github.com/LuoXiaohei-2025/LX-music-collection",
               "icon": "",
@@ -539,6 +598,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "lxmusic-",
               "url": "https://github.com/guoyue2010/lxmusic-",
               "desc": "2025年10月终止分享，转付费服务",
@@ -548,6 +608,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "keep-alive",
               "url": "https://github.com/Huibq/keep-alive",
               "icon": "",
@@ -556,6 +617,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "New_lxmusic_source",
               "url": "https://github.com/laosunmaker/New_lxmusic_source",
               "icon": "",
@@ -564,6 +626,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "music-sources",
               "url": "https://github.com/OneCodeMonkey/music-sources",
               "icon": "",
@@ -577,6 +640,7 @@
           "list": [
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "泡椒音乐",
               "url": "https://pjmp3.de/",
               "official_site": "https://pjmp3.com/",
@@ -586,6 +650,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "XCloud音乐",
               "url": "https://music.xcloudv.top/",
               "icon": "",
@@ -594,6 +659,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "米乐迪音乐",
               "url": "https://imelody.top/",
               "desc": "在线收听和下载无损音乐",
@@ -603,6 +669,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "GD音乐台",
               "url": "https://music.gdstudio.xyz/",
               "icon": "",
@@ -611,6 +678,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "无损生活",
               "url": "https://flac.life/",
               "icon": "",
@@ -619,6 +687,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "5sing",
               "url": "https://5sing.kugou.com/index.html",
               "icon": "",
@@ -627,6 +696,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "古典音乐赏析 - 国家大剧院",
               "url": "https://www.ncpa-classic.com/gdyysx/",
               "icon": "",
@@ -635,6 +705,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "OpenYYY 开源云音乐",
               "url": "https://openyyy.com/",
               "desc": "多种云音乐格式转MP3",
@@ -644,6 +715,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Songg",
               "url": "https://son.gg/",
               "desc": "快速在Telegram上分享音乐",
@@ -653,6 +725,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "genius",
               "url": "https://genius.com/",
               "desc": "歌词百科",
@@ -673,6 +746,7 @@
           "list": [
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Honeyview",
               "url": "http://www.bandisoft.com/honeyview/",
               "desc": "与Bandizip同宗",
@@ -682,6 +756,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "MagicView",
               "official_site": "https://pic.ghxi.com/",
               "desc": "果核剥壳团队开发",
@@ -691,6 +766,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "ImageGlass",
               "url": "https://imageglass.org/",
               "icon": "",
@@ -699,6 +775,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "PicView",
               "url": "https://github.com/Ruben2776/PicView",
               "official_site": "https://picview.org/",
@@ -708,6 +785,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Imagine",
               "url": "https://www.nyam.pe.kr/dev/imagine/",
               "desc": "看图、动图编辑",
@@ -717,6 +795,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Image Eye",
               "url": "https://www.fmjsoft.com/imageeye.html#main",
               "desc": "支持中文",
@@ -726,6 +805,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "IrfanView",
               "url": "https://www.irfanview.com/",
               "icon": "",
@@ -734,6 +814,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "XnView",
               "url": "https://www.xnview.com/en/",
               "official_site": "XnSoft软件系列",
@@ -743,6 +824,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "qView",
               "url": "https://github.com/jurplel/qView",
               "official_site": "https://interversehq.com/qview/",
@@ -753,6 +835,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Masonry Image Viewer",
               "url": "https://github.com/wlm3201/Masonry_Image_Viewer",
               "icon": "",
@@ -761,6 +844,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "全屏看图",
               "url": "http://www.o345.com/gengxin-log/632.html",
               "icon": "",
@@ -769,6 +853,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "PicGo",
               "url": "https://github.com/Molunerfinn/PicGo",
               "official_site": "https://picx.xpoet.cn/",
@@ -779,6 +864,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "PicX",
               "url": "https://github.com/XPoet/picx",
               "desc": "GitHub 图床",
@@ -788,6 +874,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "EasyImage2.0",
               "url": "https://github.com/icret/EasyImages2.0",
               "official_site": "https://png.cm/",
@@ -803,6 +890,7 @@
           "list": [
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "PixPin",
               "url": "https://pixpinapp.com/",
               "icon": "",
@@ -811,6 +899,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "ShareX",
               "url": "https://github.com/ShareX/ShareX",
               "official_site": "https://getsharex.com/",
@@ -821,6 +910,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Flameshot",
               "url": "https://github.com/flameshot-org/flameshot",
               "official_site": "https://flameshot.org/",
@@ -831,6 +921,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "PicPick",
               "url": "https://picpick.app/zh/",
               "desc": "个人免费使用",
@@ -840,6 +931,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "eSearch",
               "url": "https://github.com/xushengfeng/eSearch",
               "official_site": "https://esearch-app.netlify.app/",
@@ -849,6 +941,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Snow Shot",
               "url": "https://github.com/mg-chao/snow-shot",
               "official_site": "https://snowshot.top/",
@@ -858,6 +951,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "ScreenCapture",
               "url": "https://github.com/xland/ScreenCapture",
               "icon": "",
@@ -866,6 +960,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "pear-rec",
               "url": "https://github.com/027xiguapi/pear-rec",
               "official_site": "https://027xiguapi.github.io/pear-rec/",
@@ -876,6 +971,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "AutoScreenShot",
               "url": "https://github.com/artem78/AutoScreenshot",
               "desc": "定时自动截图",
@@ -885,6 +981,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Snipaste",
               "url": "https://zh.snipaste.com/",
               "icon": "",
@@ -893,6 +990,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "SETUNA2",
               "url": "https://github.com/tylearymf/SETUNA2",
               "desc": "2024年归档",
@@ -902,6 +1000,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Sniptool",
               "url": "https://www.reasyze.com/Sniptool/",
               "desc": "2023年更新",
@@ -911,6 +1010,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "verycapture",
               "url": "https://verycapture.com/cn/index.html",
               "icon": "",
@@ -924,6 +1024,7 @@
           "list": [
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "PictureCleaner",
               "url": "https://www.52pojie.cn/thread-1385732-1-1.html",
               "icon": "",
@@ -932,6 +1033,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "PM lite/图片魔法师",
               "url": "https://www.52pojie.cn/thread-1880475-1-1.html",
               "icon": "",
@@ -940,6 +1042,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Caesium Image Compressor",
               "url": "https://saerasoft.com/caesium",
               "icon": "",
@@ -948,6 +1051,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Img Toolbox",
               "url": "https://github.com/LokerL/img-toolbox",
               "icon": "",
@@ -956,6 +1060,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Pretty Snap",
               "url": "https://pretty-snap.iwhy.dev",
               "icon": "",
@@ -964,6 +1069,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "ShapeCollage",
               "url": "http://www.shapecollage.com/",
               "icon": "",
@@ -972,6 +1078,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "iPhotoDraw",
               "url": "http://www.iphotodraw.com/",
               "icon": "",
@@ -980,6 +1087,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Inpaint",
               "url": "https://theinpaint.com/",
               "icon": "",
@@ -988,6 +1096,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "XnConvert",
               "url": "https://www.xnview.com/en/xnconvert/",
               "icon": "",
@@ -996,6 +1105,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "万得图片批量处理",
               "url": "http://xcxzq.com/imagebat/",
               "icon": "",
@@ -1004,6 +1114,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Waifu2x-Extension-GUI",
               "url": "https://github.com/AaronFeng753/Waifu2x-Extension-GUI",
               "icon": "",
@@ -1012,6 +1123,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "洋芋田图像工具箱",
               "url": "https://imagetoolkit.potatofield.cn/",
               "icon": "",
@@ -1020,6 +1132,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "IOPaint",
               "url": "https://www.iopaint.com/",
               "icon": "",
@@ -1028,6 +1141,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Lama-Cleaner-lama",
               "url": "https://huggingface.co/spaces/Sanster/Lama-Cleaner-lama",
               "icon": "",
@@ -1036,6 +1150,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Topaz Gigapixel AI 7.2.1(人工智能图片无损放大)简体中文汉化版",
               "url": "https://www.52pojie.cn/thread-1884191-1-1.html",
               "icon": "",
@@ -1044,6 +1159,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Topaz Photo AI 3.1.1（人工智能图片降噪软件）简体中文汉化版",
               "url": "https://www.52pojie.cn/thread-1888246-1-1.html",
               "icon": "",
@@ -1052,6 +1168,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "文字转LOGO图片",
               "url": "https://www.52pojie.cn/thread-1876568-1-3.html",
               "icon": "",
@@ -1060,6 +1177,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "upscayl",
               "url": "https://github.com/upscayl/upscayl",
               "icon": "",
@@ -1068,6 +1186,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Converseen",
               "url": "https://github.com/Faster3ck/Converseen",
               "official_site": "https://converseen.fasterland.net/",
@@ -1089,6 +1208,7 @@
           "list": [
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Gif123",
               "url": "https://gif123.aardio.com/",
               "icon": "",
@@ -1097,6 +1217,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "ScreenToGif",
               "url": "https://www.screentogif.com/",
               "icon": "",
@@ -1105,6 +1226,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Video to GIF",
               "url": "https://lyonbot.github.io/video-to-gif/",
               "icon": "",
@@ -1113,6 +1235,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "RecordScreen.io",
               "url": "https://recordscreen.io/",
               "icon": "",
@@ -1121,6 +1244,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Screenity",
               "url": "https://screenity.io/en/",
               "icon": "",
@@ -1129,6 +1253,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "水豚鼠标助手",
               "url": "https://shuitunapp.com/",
               "icon": "",
@@ -1137,6 +1262,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "智绘教Inkeys/IDT",
               "url": "https://www.inkeys.top/",
               "icon": "",
@@ -1145,6 +1271,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "ZoomIt",
               "url": "https://learn.microsoft.com/zh-cn/sysinternals/downloads/zoomit",
               "icon": "",
@@ -1153,6 +1280,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "土豆录屏",
               "url": "http://www.tudouluping.com/",
               "icon": "",
@@ -1161,6 +1289,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "EV录屏",
               "url": "https://www.ieway.cn/evcapture.html",
               "icon": "",
@@ -1169,6 +1298,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Cap",
               "url": "https://cap.so/",
               "icon": "",
@@ -1177,6 +1307,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "OBS工作室版",
               "url": "https://obsproject.com/zh-cn",
               "icon": "",
@@ -1185,6 +1316,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "CamStudio",
               "url": "https://camstudio.org/",
               "icon": "",
@@ -1193,6 +1325,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "RecButton",
               "url": "https://www.recbutton.org/",
               "icon": "",
@@ -1201,6 +1334,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Captura",
               "url": "https://github.com/MathewSachin/Captura",
               "icon": "",
@@ -1214,6 +1348,7 @@
           "list": [
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "LosslessCut",
               "url": "https://github.com/mifi/lossless-cut",
               "icon": "",
@@ -1222,6 +1357,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "AutoAudioRecorder/内部万能录音器",
               "url": "https://autoclose.net/autoaudiorecorder.html",
               "icon": "",
@@ -1230,6 +1366,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "HandBrake",
               "url": "https://github.com/HandBrake/HandBrake",
               "icon": "",
@@ -1238,6 +1375,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "ShanaEncoder",
               "url": "https://github.com/1265578519/ShanaEncoder",
               "icon": "",
@@ -1246,6 +1384,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Video-subtitle-remover",
               "url": "https://github.com/YaoFANGUK/video-subtitle-remover",
               "icon": "",
@@ -1254,6 +1393,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "UniFab Toolkit",
               "url": "https://www.123pan.com/s/h6nrVv-Dxmrv.html",
               "icon": "",
@@ -1262,6 +1402,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "FFmpegFreeUI",
               "url": "https://github.com/Lake1059/FFmpegFreeUI/",
               "icon": "",
@@ -1270,6 +1411,7 @@
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "anto",
               "url": "https://github.com/speauty/anto",
               "desc": "字幕文件(srt)翻译工具，Windows专用",

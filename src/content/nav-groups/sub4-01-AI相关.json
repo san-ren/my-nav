@@ -331,6 +331,91 @@
               "hide_badges": []
             }
           ]
+        },
+        {
+          "tabName": "AI_agent",
+          "list": [
+            {
+              "toolbox": null,
+              "name": "openclaw",
+              "url": "https://github.com/openclaw/openclaw",
+              "official_site": "https://openclaw.ai",
+              "desc": "Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞 ",
+              "icon": "/images/logos/openclaw-openclaw.webp?t=1771742022133",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "name": "chatgpt-on-wechat",
+              "url": "https://github.com/zhayujie/chatgpt-on-wechat",
+              "official_site": "https://link-ai.tech",
+              "desc": "CowAgent是基于大模型的超级AI助理，能主动思考和任务规划、访问操作系统和外部资源、创造和执行Skills、拥有长期记忆并不断成长。同时支持飞书、钉钉、企业微信应用、微信公众号、网页等接入，可选择OpenAI/Claude/Gemini/DeepSeek/ Qwen/GLM/Kimi/LinkAI，能处理文本、语音、图片和文件，可快速搭建个人AI助手和企业数字员工。",
+              "icon": "/images/logos/zhayujie-chatgpt-on-wechat.webp?t=1771742053339",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "name": "nanobot",
+              "url": "https://github.com/HKUDS/nanobot",
+              "official_site": "",
+              "desc": "\"🐈 nanobot: The Ultra-Lightweight OpenClaw\"",
+              "icon": "/images/logos/HKUDS-nanobot.webp?t=1771742054446",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "name": "awesome-openclaw-skills",
+              "url": "https://github.com/VoltAgent/awesome-openclaw-skills",
+              "official_site": "https://github.com/VoltAgent/voltagent",
+              "desc": "The awesome collection of OpenClaw Skills. Formerly known as Moltbot, originally Clawdbot.",
+              "icon": "/images/logos/VoltAgent-awesome-openclaw-skills.webp?t=1771742055342",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "name": "AstrBot",
+              "url": "https://github.com/AstrBotDevs/AstrBot",
+              "official_site": "https://astrbot.app",
+              "desc": "Agentic IM Chatbot infrastructure that integrates lots of IM platforms, LLMs, plugins and AI feature, and can be your openclaw alternative. ✨",
+              "icon": "/images/logos/AstrBotDevs-AstrBot.webp?t=1771742057174",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "name": "AionUi",
+              "url": "https://github.com/iOfficeAI/AionUi",
+              "official_site": "https://www.aionui.com",
+              "desc": "Free, local, open-source 24/7 Cowork app and OpenClaw for Gemini CLI, Claude Code, Codex, OpenCode, Qwen Code, Goose CLI, Auggie, and more | 🌟 Star if you like it!",
+              "icon": "/images/logos/iOfficeAI-AionUi.webp?t=1771742061690",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "name": "LangBot",
+              "url": "https://github.com/langbot-app/LangBot",
+              "official_site": "https://langbot.app",
+              "desc": "Production-grade platform for building agentic IM bots - 生产级多平台智能机器人开发平台. 提供 Agent、知识库编排、插件系统 / Bots for Discord / Slack / LINE / Telegram / WeChat(企业微信, 企微智能机器人, 公众号) / 飞书 / 钉钉 / QQ e.g. Integrated with ChatGPT(GPT), DeepSeek, Dify, n8n, Langflow, Coze, Claude, Gemini, MiniMax, Ollama, SiliconFlow, Moonshot, GLM, clawdbot / moltbot / openclaw",
+              "icon": "/images/logos/langbot-app-LangBot.webp?t=1771742088386",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "name": "nanoclaw",
+              "url": "https://github.com/qwibitai/nanoclaw",
+              "official_site": "https://nanoclaw.dev",
+              "desc": "A lightweight alternative to Clawdbot / OpenClaw that runs in containers for security. Connects to WhatsApp, has memory, scheduled jobs, and runs directly on Anthropic's Agents SDK",
+              "icon": "/images/logos/qwibitai-nanoclaw.webp?t=1771742089815",
+              "hide_badges": [],
+              "status": "ok"
+            }
+          ]
         }
       ]
     }

@@ -1,5 +1,5 @@
 // src/components/keystatic/Toolbox/LinkChecker.tsx
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { 
   Link, 
   Search, 
@@ -336,9 +336,14 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   // 通知父组件数据状态变化
+  const onDataStatusChangeRef = useRef(onDataStatusChange);
   useEffect(() => {
-    onDataStatusChange?.(scanResult !== null || checkResults.length > 0);
-  }, [scanResult, checkResults, onDataStatusChange]);
+    onDataStatusChangeRef.current = onDataStatusChange;
+  }, [onDataStatusChange]);
+
+  useEffect(() => {
+    onDataStatusChangeRef.current?.(scanResult !== null || checkResults.length > 0);
+  }, [scanResult, checkResults]);
 
   // 加载默认排除域名
   useEffect(() => {

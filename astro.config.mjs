@@ -73,6 +73,38 @@ if (isDevCommand) {
       },
     },
   });
+
+  // 4.3 注入工具箱 API 路由
+integrations.push({
+  name: 'dev-toolbox-api',
+  hooks: {
+    'astro:config:setup': ({ injectRoute }) => {
+      // GitHub 检测 API
+      injectRoute({
+        pattern: '/api/github-check',
+        entrypoint: './src/components/keystatic/Toolbox/GithubChecker/api/index.ts',
+        prerender: false 
+      });
+      // 链接检测 API
+      injectRoute({
+        pattern: '/api/link-check',
+        entrypoint: './src/components/keystatic/Toolbox/LinkChecker/api/index.ts',
+        prerender: false 
+      });
+      // 批量添加 API
+      injectRoute({
+        pattern: '/api/batch-add',
+        entrypoint: './src/components/keystatic/Toolbox/BatchAdder/api/index.ts',
+        prerender: false 
+      });
+    },
+  },
+});
+
+
+
+
+
 }
 
 export default defineConfig({

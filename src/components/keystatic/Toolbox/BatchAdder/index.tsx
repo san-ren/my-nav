@@ -1,5 +1,5 @@
 // BatchAdder 主组件
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Plus, Link, Play, RefreshCw, CheckCircle, XCircle, Trash2,
   ChevronDown, ChevronUp, ExternalLink, Image, FileText,
@@ -49,9 +49,14 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
   }, []);
 
   // 通知父组件数据状态变化
+  const onDataStatusChangeRef = useRef(onDataStatusChange);
   useEffect(() => {
-    onDataStatusChange(pendingItems.length > 0);
-  }, [pendingItems.length, onDataStatusChange]);
+    onDataStatusChangeRef.current = onDataStatusChange;
+  }, [onDataStatusChange]);
+
+  useEffect(() => {
+    onDataStatusChangeRef.current?.(pendingItems.length > 0);
+  }, [pendingItems.length]);
 
   // 解析 URL 列表
   const parseUrls = (text: string): string[] => {

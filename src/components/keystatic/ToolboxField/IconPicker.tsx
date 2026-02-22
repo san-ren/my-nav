@@ -26,7 +26,7 @@ export function IconPickerInput(props: any) {
     }, [props.value]);
 
     // 2. 【核心修复：原生事件监听】(AutoFiller -> Component)
-    // 这是解决“自动填充后预览不显示”的关键。
+    // 这是解决"自动填充后预览不显示"的关键。
     // 我们绕过 React 合成事件，直接监听 DOM 的 'input' 事件。
     useEffect(() => {
         const el = inputRef.current;
@@ -93,7 +93,48 @@ export function IconPickerInput(props: any) {
       width: '40px', height: '40px', 
       border: '1px solid #cbd5e1', borderRadius: '4px', 
       background: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center',
-      overflow: 'hidden', flexShrink: 0
+      overflow: 'hidden', flexShrink: 0,
+      position: 'relative'
+    };
+    
+    // 图片加载状态
+    const [imgLoading, setImgLoading] = useState(false);
+    const [imgError, setImgError] = useState(false);
+    const [retryCount, setRetryCount] = useState(0);
+    const imgRef = useRef<HTMLImageElement>(null);
+    
+    // 当 internalValue 变化时，重置状态并尝试加载
+    useEffect(() => {
+      if (internalValue) {
+        setImgLoading(true);
+        setImgError(false);
+        setRetryCount(0);
+      }
+    }, [internalValue]);
+    
+    // 图片加载失败时的重试逻辑
+    const handleImageError = () => {
+      setImgLoading(false);
+      
+      // 如果路径包含时间戳参数，说明是新下载的图标，尝试重试
+      if (internalValue && internalValue.includes('?t=') && retryCount < 3) {
+        setTimeout(() => {
+          setRetryCount(prev => prev + 1);
+          // 强制刷新图片
+          if (imgRef.current) {
+            const baseUrl = internalValue.split('?t=')[0];
+            const newTimestamp = Date.now();
+            imgRef.current.src = `${baseUrl}?t=${newTimestamp}`;
+          }
+        }, 500 * (retryCount + 1)); // 递增延迟
+      } else {
+        setImgError(true);
+      }
+    };
+    
+    const handleImageLoad = () => {
+      setImgLoading(false);
+      setImgError(false);
     };
   
     const inputWrapperStyle: React.CSSProperties = { flex: 1, position: 'relative', display: 'flex', alignItems: 'center' };
@@ -170,12 +211,27 @@ export function IconPickerInput(props: any) {
           {/* 预览图 */}
           <div style={previewStyle}>
             {internalValue ? (
-              <img 
-                src={internalValue} 
-                alt="icon" 
-                style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
-                onError={(e:any) => { e.target.style.display='none'; }} 
-              />
+              <>
+                {imgLoading && (
+                  <span style={{ color: '#3b82f6', fontSize: '10px' }}>...</span>
+                )}
+                {imgError && !imgLoading && (
+                  <span style={{ color: '#ef4444', fontSize: '10px' }}>✗</span>
+                )}
+                <img 
+                  ref={imgRef}
+                  src={internalValue} 
+                  alt="icon" 
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'contain',
+                    display: imgError ? 'none' : 'block'
+                  }} 
+                  onLoad={handleImageLoad}
+                  onError={handleImageError}
+                />
+              </>
             ) : (
               <span style={{ color: '#cbd5e1', fontSize: '10px' }}>None</span>
             )}
@@ -225,6 +281,7 @@ export function IconPickerInput(props: any) {
             }}>
               Local Icons ({localIcons.length})
             </div>
+            
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(32px, 1fr))', gap: '8px', position: 'relative' }}>
               {localIcons.map((icon, index) => {
                 const isHovered = hoveredIconIdx === index;

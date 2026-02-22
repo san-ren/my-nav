@@ -205,18 +205,33 @@ export function ToolboxPage() {
     setHasUnsavedData(prev => ({ ...prev, [tab]: hasData }));
   }, []);
 
+  // ✅ 修复：使用 useCallback 缓存传递给子组件的回调函数，避免无限渲染循环
+  const handleGithubDataStatusChange = useCallback((hasData: boolean) => {
+    updateDataStatus('github', hasData);
+  }, [updateDataStatus]);
+
+  const handleLinkDataStatusChange = useCallback((hasData: boolean) => {
+    updateDataStatus('link', hasData);
+  }, [updateDataStatus]);
+
+  const handleBatchDataStatusChange = useCallback((hasData: boolean) => {
+    updateDataStatus('batch', hasData);
+  }, [updateDataStatus]);
+
   const renderContent = () => {
     switch (activeTab) {
       case 'github':
-        return <GithubChecker onDataStatusChange={(hasData) => updateDataStatus('github', hasData)} />;
+        // ✅ 现在传递的是稳定的回调函数引用
+        return <GithubChecker onDataStatusChange={handleGithubDataStatusChange} />;
       case 'link':
-        return <LinkChecker onDataStatusChange={(hasData) => updateDataStatus('link', hasData)} />;
+        return <LinkChecker onDataStatusChange={handleLinkDataStatusChange} />;
       case 'batch':
-        return <BatchAdder onDataStatusChange={(hasData) => updateDataStatus('batch', hasData)} />;
+        return <BatchAdder onDataStatusChange={handleBatchDataStatusChange} />;
       default:
         return null;
     }
   };
+
 
   return (
     <div style={STYLES.container}>
