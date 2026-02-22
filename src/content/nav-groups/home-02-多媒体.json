@@ -70,7 +70,8 @@
               "toolboxLink": null,
               "name": "NSMusicS",
               "url": "https://github.com/Super-Badmen-Viper/NSMusicS",
-              "icon": "",
+              "detail": "NSMusicS NineSong Cloud-Native Music Server/ Full platform Client，support navidrome, jellyfin, emby",
+              "icon": "/images/logos/Super-Badmen-Viper-NSMusicS.webp?t=1771736360601",
               "hide_badges": [],
               "status": "ok"
             },

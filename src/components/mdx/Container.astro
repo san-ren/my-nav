@@ -7,8 +7,9 @@ interface Props {
 
 const { type = 'info', title, open = false } = Astro.props;
 
-// 1. 类型标准化
+// 1. 类型标准化 (支持 info -> note 的映射)
 const lowerType = type.toLowerCase();
+const normalizedType = lowerType === 'info' ? 'note' : lowerType;
 
 // 2. 分类逻辑 (根据图片分类)
 // GitHub Alerts: note, caution

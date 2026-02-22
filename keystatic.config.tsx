@@ -1,4 +1,7 @@
-import { config, fields, collection, singleton, component } from '@keystatic/core';
+ 
+import { config, fields, collection, singleton } from '@keystatic/core';
+import { wrapper } from '@keystatic/core/content-components';
+
 import React from 'react';
 import { toolboxField, iconPickerField, toolboxLinkField } from './src/components/keystatic/ToolboxField'; 
 import { badgeListField } from './src/components/keystatic/BadgeField';
@@ -33,6 +36,48 @@ const containerSchema = {
   open: fields.checkbox({ label: '默认展开', defaultValue: false }),
   content: fields.child({ kind: 'block', placeholder: '在此输入内容...' }),
 };
+
+
+// ContentView for Keystatic editor preview
+const ContainerContentView = (props: any) => {
+  const type = props.value?.type || 'note';
+  const title = props.value?.title || (type === 'details' ? 'Details' : type.toUpperCase());
+  const open = props.value?.open || false;
+  
+  const styles: any = {
+    note: { bg: '#eff6ff', border: '#3b82f6', text: '#1e40af', icon: 'ℹ️' },
+    tip: { bg: '#f0fdf4', border: '#22c55e', text: '#166534', icon: '💡' },
+    important: { bg: '#faf5ff', border: '#a855f7', text: '#6b21a8', icon: '💬' },
+    warning: { bg: '#fefce8', border: '#eab308', text: '#854d0e', icon: '⚠️' },
+    danger: { bg: '#fef2f2', border: '#ef4444', text: '#991b1b', icon: '🔥' },
+    details: { bg: '#f8fafc', border: '#cbd5e1', text: '#334155', icon: '▶' },
+  };
+  const style = styles[type] || styles.note;
+
+  if (type === 'details') {
+    return (
+      <div style={{ padding: '10px', background: style.bg, border: `1px solid ${style.border}`, borderRadius: '6px', margin: '1em 0' }}>
+         <div style={{ fontWeight: 'bold', display: 'flex', gap: '8px', color: style.text, alignItems: 'center' }}>
+            <span style={{ transform: open ? 'rotate(90deg)' : 'none', transition: '0.2s' }}>▶</span> 
+            {title}
+         </div>
+         <div style={{ marginTop: '8px', paddingLeft: '18px' }}>{props.children}</div>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ padding: '16px', background: style.bg, borderLeft: `4px solid ${style.border}`, borderRadius: '4px', margin: '1em 0' }}>
+      <div style={{ fontWeight: 'bold', marginBottom: '8px', color: style.text, display: 'flex', gap: '8px', alignItems: 'center' }}>
+        <span>{style.icon}</span>
+        {title}
+      </div>
+      <div>{props.children}</div>
+    </div>
+  );
+};
+
+
 
 const ContainerPreview = (props: any) => {
   const type = props.fields.type.value;
@@ -71,21 +116,24 @@ const ContainerPreview = (props: any) => {
 };
 
 const documentBlocks = {
-  container: component({
+  Container: wrapper({
     label: '🧰 通用容器 / 提示框',
     schema: containerSchema,
-    preview: ContainerPreview,
+    ContentView: ContainerContentView,
   }),
 };
 
+
 const mdxBlocks: any = {
-  container: component({
+  Container: wrapper({
     label: '🧰 通用容器 / 提示框',
     schema: containerSchema,
-    preview: ContainerPreview,
+    ContentView: ContainerContentView,
     icon: <span style={{fontSize: '20px'}}>🧰</span>, 
   } as any),
 };
+
+
 
 const commonMdxOptions = {
   bold: true,
