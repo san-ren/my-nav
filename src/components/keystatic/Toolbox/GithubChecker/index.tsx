@@ -1,5 +1,5 @@
 // src/components/keystatic/Toolbox/GithubChecker.tsx
-import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { 
   Github, 
   Search, 
@@ -24,6 +24,7 @@ import {
   ArrowDown,
   ArrowUpDown
 } from 'lucide-react';
+import { useGithubToken } from '../ToolboxPage';
 
 // --- 类型定义 ---
 interface GitHubRepoInfo {
@@ -267,7 +268,7 @@ interface GithubCheckerProps {
 }
 
 export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
-  const [token, setToken] = useState('');
+  const { githubToken, setGithubToken } = useGithubToken();
   const [staleYears, setStaleYears] = useState(3);
   const [scanResult, setScanResult] = useState<ScanResult | null>(null);
   const [treeData, setTreeData] = useState<TreeNode[]>([]);
@@ -281,9 +282,9 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   
-  // 排序状态
-  const [sortField, setSortField] = useState<SortField>(null);
-  const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
+  // 排序状态 - 默认按状态排序
+  const [sortField, setSortField] = useState<SortField>('status');
+  const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
 
   // 通知父组件数据状态变化
   const onDataStatusChangeRef = useRef(onDataStatusChange);
@@ -298,11 +299,9 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
   // 排序函数
   const handleSort = (field: SortField) => {
     if (sortField === field) {
-      // 切换排序方向
       if (sortDirection === 'asc') {
         setSortDirection('desc');
       } else if (sortDirection === 'desc') {
-        // 取消排序
         setSortField(null);
       }
     } else {
@@ -324,13 +323,11 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
 
   // 筛选和排序后的结果
   const sortedAndFilteredResults = useMemo(() => {
-    // 先筛选
     let results = checkResults.filter(r => {
       if (filter === 'all') return true;
       return r.status === filter;
     });
 
-    // 再排序
     if (sortField) {
       results = [...results].sort((a, b) => {
         let comparison = 0;
@@ -553,7 +550,8 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
       setTreeData(tree);
       setCheckResults([]);
       setSelectedItems(new Set());
-      setSortField(null);
+      setSortField('status');
+      setSortDirection('asc');
     } catch (e: any) {
       setMessage({ type: 'error', text: e.message });
     } finally {
@@ -561,7 +559,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
     }
   };
 
-  // 检测仓库状态
+  // 检测仓库状态 - 并行检测
   const handleCheck = async () => {
     const selectedRepos = getSelectedRepos(treeData);
     if (selectedRepos.length === 0) {
@@ -573,7 +571,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
     setProgress(0);
     setCheckResults([]);
     
-    const batchSize = token ? 10 : 5;
+    const concurrency = githubToken ? 20 : 10;
     const uniqueRepos = new Map<string, { owner: string; repo: string }>();
     
     selectedRepos.forEach(r => {
@@ -582,20 +580,36 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
     
     const uniqueList = Array.from(uniqueRepos.values());
     const results: CheckResult[] = [];
+    let completed = 0;
     
-    for (let i = 0; i < uniqueList.length; i += batchSize) {
-      const batch = uniqueList.slice(i, i + batchSize);
-      
-      const res = await fetch(`/api/github-check?mode=batch&repos=${encodeURIComponent(JSON.stringify(batch))}&token=${encodeURIComponent(token)}`);
+    const checkSingleRepo = async (repoInfo: { owner: string; repo: string }): Promise<CheckResult> => {
+      const res = await fetch(`/api/github-check?mode=check&owner=${repoInfo.owner}&repo=${repoInfo.repo}&token=${encodeURIComponent(githubToken)}`);
       if (res.ok) {
-        const batchResults: CheckResult[] = await res.json();
-        results.push(...batchResults);
+        return await res.json();
       }
+      return {
+        url: `https://github.com/${repoInfo.owner}/${repoInfo.repo}`,
+        owner: repoInfo.owner,
+        repo: repoInfo.repo,
+        exists: false,
+        archived: false,
+        pushedAt: null,
+        staleYears: null,
+        status: 'failed',
+        error: '请求失败',
+      };
+    };
+
+    for (let i = 0; i < uniqueList.length; i += concurrency) {
+      const batch = uniqueList.slice(i, i + concurrency);
+      const batchResults = await Promise.all(batch.map(checkSingleRepo));
+      results.push(...batchResults);
       
-      setProgress(Math.min(100, Math.round(((i + batchSize) / uniqueList.length) * 100)));
+      completed += batch.length;
+      setProgress(Math.min(100, Math.round((completed / uniqueList.length) * 100)));
       
-      if (i + batchSize < uniqueList.length) {
-        await new Promise(resolve => setTimeout(resolve, token ? 500 : 2000));
+      if (i + concurrency < uniqueList.length) {
+        await new Promise(resolve => setTimeout(resolve, githubToken ? 100 : 500));
       }
     }
     
@@ -701,6 +715,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
             <span style={{ width: '16px' }} />
           )}
           
+          
           <input
             type="checkbox"
             checked={node.checked}
@@ -712,6 +727,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
           />
           
           {getNodeIcon(node)}
+          
           
           <span style={{ 
             flex: 1, 
@@ -748,6 +764,8 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
         </h1>
         <p style={{ color: '#64748b', fontSize: '14px' }}>
           批量检测所有 GitHub 仓库的更新状态，标记长期未更新或已失效的资源
+          {githubToken && <span style={{ color: '#22c55e', marginLeft: '8px' }}>✓ 已配置 GitHub Token，并发数: 20</span>}
+          {!githubToken && <span style={{ color: '#f59e0b', marginLeft: '8px' }}>未配置 Token，并发数: 10</span>}
         </p>
       </div>
 
@@ -769,12 +787,12 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '14px', fontWeight: 500, color: '#334155', marginBottom: '8px' }}>
-                  GitHub Token (可选，提高 API 限额)
+                  GitHub Token (全局配置，批量添加也会使用)
                 </label>
                 <input
                   type="password"
-                  value={token}
-                  onChange={e => setToken(e.target.value)}
+                  value={githubToken}
+                  onChange={e => setGithubToken(e.target.value)}
                   placeholder="ghp_xxxx..."
                   style={STYLES.input}
                 />
@@ -782,6 +800,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
                   无 Token: 60次/小时 | 有 Token: 5000次/小时
                 </p>
               </div>
+              
               
               <div>
                 <label style={{ display: 'block', fontSize: '14px', fontWeight: 500, color: '#334155', marginBottom: '8px' }}>
@@ -828,8 +847,9 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
                   style={{ ...STYLES.button.primary, opacity: isChecking || getSelectedCount(treeData) === 0 ? 0.7 : 1 }}
                 >
                   {isChecking ? <RefreshCw size={16} className="animate-spin" /> : <Play size={16} />}
-                  检测选中 ({getSelectedCount(treeData)})
+                  并行检测选中 ({getSelectedCount(treeData)})
                 </button>
+                
                 
                 <span style={{ color: '#64748b', fontSize: '14px' }}>
                   共 <strong>{scanResult.total}</strong> 个仓库，<strong>{scanResult.unique}</strong> 个唯一
@@ -844,7 +864,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
                 <div style={STYLES.progress.bar(progress)} />
               </div>
               <p style={{ fontSize: '12px', color: '#64748b', marginTop: '8px' }}>
-                正在检测... {progress}%
+                正在并行检测... {progress}%
               </p>
             </div>
           )}
@@ -931,6 +951,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
                 全选异常
               </button>
 
+              
               <button
                 onClick={handleApply}
                 disabled={selectedItems.size === 0 || isApplying}

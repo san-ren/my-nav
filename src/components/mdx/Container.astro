@@ -1,206 +1,254 @@
 ---
+/**
+ * Container 组件 - 完整移植自 wj-markdown-editor
+ * 
+ * 支持两种风格：
+ * 1. GitHub Alert 风格 (5种): Note, Tip, Important, Warning, Caution
+ *    - 简洁左边框样式
+ *    - 无背景色
+ * 
+ * 2. 自定义容器风格 (6种): Info, Tip, Important, Warning, Danger, Details
+ *    - 彩色背景样式
+ *    - 圆角边框
+ *    - Details 支持折叠
+ * 
+ * 使用方式：
+ * <Container type="note" title="提示">内容</Container>
+ * <Container type="details" title="详情" open={true}>内容</Container>
+ */
+
 interface Props {
-  type?: 'info' | 'note' | 'tip' | 'important' | 'warning' | 'danger' | 'details' | 'caution';
+  type?: 'note' | 'tip' | 'important' | 'warning' | 'caution' | 'info' | 'danger' | 'details';
   title?: string;
-  open?: boolean; // 仅针对 details 有效
+  open?: boolean;
 }
 
-const { type = 'info', title, open = false } = Astro.props;
+const { type = 'note', title, open = false } = Astro.props;
 
-// 1. 类型标准化 (支持 info -> note 的映射)
+// 类型标准化
 const lowerType = type.toLowerCase();
-const normalizedType = lowerType === 'info' ? 'note' : lowerType;
 
-// 2. 分类逻辑 (根据图片分类)
-// GitHub Alerts: note, caution
-// Custom Containers: info, danger, details
-// Overlap (tip, warning, important): 默认为 Custom 样式，保留原有丰富UI
-const isGitHubStyle = ['note', 'caution'].includes(lowerType);
+// GitHub Alert 类型 (5种): note, tip, important, warning, caution
+const gitHubAlertTypes = ['note', 'tip', 'important', 'warning', 'caution'];
+
+// 自定义容器类型 (6种): info, tip, important, warning, danger, details
+const containerTypes = ['info', 'tip', 'important', 'warning', 'danger', 'details'];
+
+// 判断使用哪种风格
+const isGitHubAlert = gitHubAlertTypes.includes(lowerType);
+const isContainer = containerTypes.includes(lowerType);
 const isDetails = lowerType === 'details';
 
-// 3. 标题处理逻辑
-const displayTitle = title || (lowerType.charAt(0).toUpperCase() + lowerType.slice(1));
+// 标题处理
+const displayTitle = title || (lowerType === 'details' ? 'Details' : lowerType.charAt(0).toUpperCase() + lowerType.slice(1));
 
-// SVG 图标映射 (用于 GitHub Alert 的标题栏图标)
-const iconMap: Record<string, string> = {
-  note: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="currentColor" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>`,
-  caution: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="currentColor" d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>`,
-  // Fallback 图标
-  default: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="currentColor" d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Z"></path></svg>`
+// GitHub Alert SVG 图标 (来自 @mdit/plugin-alert)
+const gitHubIcons: Record<string, string> = {
+  note: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="currentColor" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>`,
+  tip: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="currentColor" d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"/></svg>`,
+  important: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="currentColor" d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>`,
+  warning: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="currentColor" d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>`,
+  caution: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="currentColor" d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>`,
+  danger: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="currentColor" d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>`,
+  info: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-11v6h2v-6h-2zm0-4v2h2V7h-2z"/></svg>`,
 };
 
-const githubIcon = iconMap[lowerType] || iconMap.default;
+const icon: string = gitHubIcons[lowerType] ?? gitHubIcons.note;
 ---
 
-{
-  isDetails ? (
-    /* === 1. Details 折叠容器逻辑 (Custom) === */
-    <div class={`wj-markdown-it-container wj-markdown-it-container-${lowerType}`}>
-      <details open={open}>
-        <summary>{displayTitle}</summary>
-        <div class="wj-markdown-it-container-content">
-          <slot />
-        </div>
-      </details>
-    </div>
-  ) : isGitHubStyle ? (
-    /* === 2. GitHub Alert 样式逻辑 (Note, Caution) === */
-    <div class={`markdown-alert markdown-alert-${lowerType}`}>
-      <p class="markdown-alert-title">
-        <span class="markdown-alert-icon" set:html={githubIcon} />
-        {displayTitle}
-      </p>
-      <div class="markdown-alert-content">
-        <slot />
-      </div>
-    </div>
-  ) : (
-    /* === 3. 常规自定义容器逻辑 (Info, Tip, Warning, Danger, Important) === */
-    <div class={`wj-markdown-it-container wj-markdown-it-container-${lowerType}`}>
-      <div class="wj-markdown-it-container-title">{displayTitle}</div>
+{/* ===== Details 折叠容器 ===== */}
+{isDetails && (
+  <div class={`wj-markdown-it-container wj-markdown-it-container-${lowerType}`}>
+    <details open={open}>
+      <summary>{displayTitle}</summary>
       <div class="wj-markdown-it-container-content">
         <slot />
       </div>
+    </details>
+  </div>
+)}
+
+{/* ===== GitHub Alert 风格 (5种) ===== */}
+{!isDetails && isGitHubAlert && (
+  <div class={`markdown-alert markdown-alert-${lowerType}`}>
+    <p class="markdown-alert-title">
+      <span class="markdown-alert-icon" set:html={icon} />
+      {displayTitle}
+    </p>
+    <div class="markdown-alert-content">
+      <slot />
     </div>
-  )
-}
+  </div>
+)}
+
+{/* ===== 自定义容器风格 (5种: info, tip, important, warning, danger) ===== */}
+{!isDetails && isContainer && !isGitHubAlert && (
+  <div class={`wj-markdown-it-container wj-markdown-it-container-${lowerType}`}>
+    <div class="wj-markdown-it-container-title">
+      <span class="wj-markdown-it-container-icon" set:html={icon} />
+      {displayTitle}
+    </div>
+    <div class="wj-markdown-it-container-content">
+      <slot />
+    </div>
+  </div>
+)}
 
 <style>
-  /* ========================================= */
-  /* GitHub Alert 样式支持            */
-  /* ========================================= */
-  .markdown-alert {
-    margin-bottom: 16px;
-    border-left: 4px solid;
-    border-radius: 6px;
-    padding: 8px 16px;
-    background-color: #f8fafc;
-    color: inherit;
-  }
+  /* =========================================
+   * GitHub Alert 样式 (5种: note, tip, important, warning, caution)
+   * 移植自 wj-markdown-editor GitHub 主题
+   * ========================================= */
   
-  :global(.dark) .markdown-alert { /* 适配 Astro 的 dark 模式类名，通常是 html.dark */
+  .markdown-alert {
+    padding: 8px 16px;
+    margin-bottom: 16px;
+    color: inherit;
+    border-left: 0.25em solid;
+    border-radius: 6px;
+    background-color: #f8fafc;
+  }
+
+  :global(.dark) .markdown-alert {
     background-color: #1e293b;
-    border-color: #30363d; /* Fallback border */
+  }
+
+  .markdown-alert > :global(:first-child) {
+    margin-top: 0;
+  }
+
+  .markdown-alert > :global(:last-child) {
+    margin-bottom: 0;
   }
 
   .markdown-alert-title {
     display: flex;
+    font-weight: 500;
     align-items: center;
+    line-height: 1;
     gap: 8px;
-    font-weight: 600;
-    font-size: 0.9em;
-    margin-bottom: 8px; /* 稍微增加标题和内容的间距 */
-    margin-top: 0;
+    margin-bottom: 8px;
   }
 
-  /* 图标容器微调 */
   .markdown-alert-icon {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
   }
 
   .markdown-alert-content :global(p:last-child) {
     margin-bottom: 0;
   }
 
-  /* 各类型配色 - GitHub Standard */
-  .markdown-alert-note { border-color: #3b82f6; }
-  .markdown-alert-note .markdown-alert-title { color: #3b82f6; }
+  /* GitHub Alert 配色 - Light Mode */
+  .markdown-alert-note { border-left-color: #0969da; }
+  .markdown-alert-note .markdown-alert-title { color: #0969da; }
 
-  .markdown-alert-tip { border-color: #22c55e; }
-  .markdown-alert-tip .markdown-alert-title { color: #22c55e; }
+  .markdown-alert-tip { border-left-color: #1a7f37; }
+  .markdown-alert-tip .markdown-alert-title { color: #1a7f37; }
 
-  .markdown-alert-important { border-color: #a855f7; }
-  .markdown-alert-important .markdown-alert-title { color: #a855f7; }
+  .markdown-alert-important { border-left-color: #8250df; }
+  .markdown-alert-important .markdown-alert-title { color: #8250df; }
 
-  .markdown-alert-warning { border-color: #eab308; }
-  .markdown-alert-warning .markdown-alert-title { color: #eab308; }
+  .markdown-alert-warning { border-left-color: #9a6700; }
+  .markdown-alert-warning .markdown-alert-title { color: #9a6700; }
 
-  .markdown-alert-caution { border-color: #ef4444; }
-  .markdown-alert-caution .markdown-alert-title { color: #ef4444; }
+  .markdown-alert-caution { border-left-color: #cf222e; }
+  .markdown-alert-caution .markdown-alert-title { color: #cf222e; }
 
+  /* GitHub Alert 配色 - Dark Mode */
+  :global(.dark) .markdown-alert-note { border-left-color: #4493f8; }
+  :global(.dark) .markdown-alert-note .markdown-alert-title { color: #4493f8; }
 
-  /* ========================================= */
-  /* 自定义 Container 样式            */
-  /* ========================================= */
+  :global(.dark) .markdown-alert-tip { border-left-color: #3fb950; }
+  :global(.dark) .markdown-alert-tip .markdown-alert-title { color: #3fb950; }
 
-  /* Warning (黄色) */
-  .wj-markdown-it-container.wj-markdown-it-container-warning {
-    --wj-markup-container-bg-color: rgb(252, 244, 220);
-    --wj-markup-container-title-color: #915930;
-    --wj-markup-container-icon: url(data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0iY3VycmVudENvbG9yIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik04LjIyIDEuNzU0YTIuMjUgMi4yNSAwIDAgMCAtNC40NCAwbC0zLjgxNSA5LjUzMmEyLjI1IDIuMjUgMCAwIDAgMi4yMjMgMy4yMThoMTYuMjQ0YTIuMjUgMi4yNSAwIDAgMCAyLjIyMi0zLjIxOEw4LjIyIDEuNzU0em0tMS43NjMgLjcwN2EuNzUuNzUgMCAwIDEgMS4zMDUgMGw1LjUzNCAxMy44MzZhLjc1Ljc1IDAgMCAxIC0uNzQxIDEuMDU3SDIuMTg3YS43NS43NSAwIDAgMSAtLjc0MS0xLjA1N2w1LjUzNC0xMy44MzZ6bS4yNjMgNy4wMzlhLjc1Ljc1IDAgMCAxIDEuNSAwdjIuMjVhLjc1Ljc1IDAgMCAxIC0xLjUgMHYtMi4yNXptLjc1IDYuM2ExIDEgMCAxIDAgMC0yIDEgMSAwIDAgMCAwIDJ6Ii8+PC9zdmc+);
-  }
+  :global(.dark) .markdown-alert-important { border-left-color: #ab7df8; }
+  :global(.dark) .markdown-alert-important .markdown-alert-title { color: #ab7df8; }
 
-  /* Info (灰色/蓝色) */
+  :global(.dark) .markdown-alert-warning { border-left-color: #d29922; }
+  :global(.dark) .markdown-alert-warning .markdown-alert-title { color: #d29922; }
+
+  :global(.dark) .markdown-alert-caution { border-left-color: #f85149; }
+  :global(.dark) .markdown-alert-caution .markdown-alert-title { color: #f85149; }
+
+  /* =========================================
+   * 自定义容器样式 (6种: info, tip, important, warning, danger, details)
+   * 移植自 wj-markdown-editor wj-markdown-it-container.scss
+   * ========================================= */
+
+  /* Info (灰色) */
   .wj-markdown-it-container.wj-markdown-it-container-info {
     --wj-markup-container-bg-color: rgb(239, 240, 243);
     --wj-markup-container-title-color: #656869;
-    --wj-markup-container-icon: url(data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCc+PHBhdGggZD0nTTEyIDIyQzYuNDc3IDIyIDIgMTcuNTIzIDIgMTJTNi40NzcgMiAxMiAyczEwIDQuNDc3IDEwIDEwLTQuNDc3IDEwLTEwIDEwem0tMS0xMXY2aDJ2LTZoLTJ6bTAtNHYyaDJWN2gtMnonLz48L3N2Zz4=);
-  }
-
-  /* Important (紫色) */
-  .wj-markdown-it-container.wj-markdown-it-container-important {
-    --wj-markup-container-bg-color: rgb(241, 236, 252);
-    --wj-markup-container-title-color: #6f42c1;
-    --wj-markup-container-icon: url(data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDI0IDEwMjQnPjxwYXRoIGQ9J001MTIgOTgxLjMzM2E4NC45OTIgODQuOTkyIDAgMCAxLTg0LjkwNy04NC45MDZoMTY5LjgxNEE4NC45OTIgODQuOTkyIDAgMCAxIDUxMiA5ODEuMzMzem0zODQtMTI4SDEyOHYtNDIuNjY2bDg1LjMzMy04NS4zMzR2LTI1NkEyOTguMzI1IDI5OC4zMjUgMCAwIDEgNDQ4IDE3Ny45MlYxMjhhNjQgNjQgMCAwIDEgMTI4IDB2NDkuOTJhMjk4LjMyNSAyOTguMzI1IDAgMCAxIDIzNC42NjcgMjkxLjQxM3YyNTZMODk2IDgxMC42Njd2NDIuNjY2em0tNDI2LjY2Ny0yNTZ2ODUuMzM0aDg1LjMzNHYtODUuMzM0aC04NS4zMzR6bTAtMjU2VjUxMmg4NS4zMzRWMzQxLjMzM2gtODUuMzM0eicvPjwvc3ZnPg==);
-  }
-
-  /* Danger (红色) */
-  .wj-markdown-it-container.wj-markdown-it-container-danger {
-    --wj-markup-container-bg-color: rgb(254, 228, 232);
-    --wj-markup-container-title-color: #b8272c;
-    --wj-markup-container-icon: url(data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0iY3VycmVudENvbG9yIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik05LjUwNC40M2ExLjUxNiAxLjUxNiAwIDAgMSAyLjQzNyAxLjcxM0wxMC40MTUgNS41aDIuMTIzYzEuNTcgMCAyLjM0NiAxLjkwOSAxLjIyIDMuMDA0bC03LjM0IDcuMTQyYTEuMjQ5IDEuMjQ5IDAgMCAxLTIuMzcyLTEuNTlsMS45LTUuNTU3SDMuODIzYy0xLjU3IDAtMi4zNDYtMS45MDktMS4yMi0zLjAwNEw5LjUwMy40Mj16bTEuMDQ3IDEuMDc0TDMuMjg2IDguNTcxQS4yNS4yNSAwIDAgMCAzLjgyMyA5aDMuNjI2YTEuMjUgMS4yNSAwIDAgMSAxLjE3NiAxLjYzOGwtMS4zMyAzLjg5IDYuMjQxLTYuMDczYS4yNS4yNSAwIDAgMC0uMTc5LS40MjloLTMuNjRhMS4yNSAxLjI1IDAgMCAxLTEuMTYzLTEuNjZsMS4zNDYtMy44NDN6Ii8+PC9zdmc+);
   }
 
   /* Tip (绿色) */
   .wj-markdown-it-container.wj-markdown-it-container-tip {
     --wj-markup-container-bg-color: rgb(221, 245, 237);
     --wj-markup-container-title-color: #18794e;
-    --wj-markup-container-icon: url(data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCc+PHBhdGggZD0nTTcuOTQxIDE4Yy0uMjk3LTEuMjczLTEuNjM3LTIuMzE0LTIuMTg3LTNhOCA4IDAgMSAxIDEyLjQ5LjAwMmMtLjU1LjY4NS0xLjg4OCAxLjcyNi0yLjE4NSAyLjk5OEg3Ljk0ek0xNiAyMHYxYTIgMiAwIDAgMS0yIDJoLTRhMiAyIDAgMCAxLTItMnYtMWg4em0tMy05Ljk5NVY2bC00LjUgNi4wMDVIMTF2NGw0LjUtNkgxM3onLz48L3N2Zz4=);
   }
 
-  /* Details (折叠) */
+  /* Important (紫色) */
+  .wj-markdown-it-container.wj-markdown-it-container-important {
+    --wj-markup-container-bg-color: rgb(241, 236, 252);
+    --wj-markup-container-title-color: #6f42c1;
+  }
+
+  /* Warning (黄色) */
+  .wj-markdown-it-container.wj-markdown-it-container-warning {
+    --wj-markup-container-bg-color: rgb(252, 244, 220);
+    --wj-markup-container-title-color: #915930;
+  }
+
+  /* Danger (红色) */
+  .wj-markdown-it-container.wj-markdown-it-container-danger {
+    --wj-markup-container-bg-color: rgb(254, 228, 232);
+    --wj-markup-container-title-color: #b8272c;
+  }
+
+  /* Details (灰色/折叠) */
   .wj-markdown-it-container.wj-markdown-it-container-details {
     --wj-markup-container-bg-color: rgb(239, 240, 243);
     --wj-markup-container-title-color: #656869;
   }
 
-  /* 暗黑模式适配 (Custom Containers) */
-  :root[theme='dark'] .wj-markdown-it-container.wj-markdown-it-container-warning {
-    --wj-markup-container-bg-color: rgba(252, 244, 220, 0.2);
-    --wj-markup-container-title-color: #e3a976;
-  }
-
-  :root[theme='dark'] .wj-markdown-it-container.wj-markdown-it-container-info {
-    --wj-markup-container-bg-color: rgba(239, 240, 243, 0.2);
+  /* 暗黑模式适配 */
+  :global(.dark) .wj-markdown-it-container.wj-markdown-it-container-info {
+    --wj-markup-container-bg-color: rgba(239, 240, 243, 0.15);
     --wj-markup-container-title-color: #a8a8a8;
   }
 
-  :root[theme='dark'] .wj-markdown-it-container.wj-markdown-it-container-important {
-    --wj-markup-container-bg-color: rgba(241, 236, 252, 0.2);
-    --wj-markup-container-title-color: #bc8cff;
-  }
-
-  :root[theme='dark'] .wj-markdown-it-container.wj-markdown-it-container-danger {
-    --wj-markup-container-bg-color: rgba(254, 228, 232, 0.2);
-    --wj-markup-container-title-color: #ff8589;
-  }
-
-  :root[theme='dark'] .wj-markdown-it-container.wj-markdown-it-container-tip {
-    --wj-markup-container-bg-color: rgba(221, 245, 237, 0.2);
+  :global(.dark) .wj-markdown-it-container.wj-markdown-it-container-tip {
+    --wj-markup-container-bg-color: rgba(221, 245, 237, 0.15);
     --wj-markup-container-title-color: #55cba0;
   }
 
-  :root[theme='dark'] .wj-markdown-it-container.wj-markdown-it-container-details {
-    --wj-markup-container-bg-color: rgba(239, 240, 243, 0.2);
+  :global(.dark) .wj-markdown-it-container.wj-markdown-it-container-important {
+    --wj-markup-container-bg-color: rgba(241, 236, 252, 0.15);
+    --wj-markup-container-title-color: #bc8cff;
+  }
+
+  :global(.dark) .wj-markdown-it-container.wj-markdown-it-container-warning {
+    --wj-markup-container-bg-color: rgba(252, 244, 220, 0.15);
+    --wj-markup-container-title-color: #e3a976;
+  }
+
+  :global(.dark) .wj-markdown-it-container.wj-markdown-it-container-danger {
+    --wj-markup-container-bg-color: rgba(254, 228, 232, 0.15);
+    --wj-markup-container-title-color: #ff8589;
+  }
+
+  :global(.dark) .wj-markdown-it-container.wj-markdown-it-container-details {
+    --wj-markup-container-bg-color: rgba(239, 240, 243, 0.15);
     --wj-markup-container-title-color: #a8a8a8;
   }
 
   /* 通用容器样式 */
   .wj-markdown-it-container {
     width: 100%;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     padding: 0.8rem;
     background-color: var(--wj-markup-container-bg-color);
     display: flex;
@@ -210,7 +258,7 @@ const githubIcon = iconMap[lowerType] || iconMap.default;
     color: #595959;
   }
 
-  :root[theme='dark'] .wj-markdown-it-container {
+  :global(.dark) .wj-markdown-it-container {
     color: #cccccc;
   }
 
@@ -218,56 +266,70 @@ const githubIcon = iconMap[lowerType] || iconMap.default;
   .wj-markdown-it-container-title {
     display: flex;
     align-items: center;
-    position: relative;
+    gap: 8px;
     font-weight: 500;
     color: var(--wj-markup-container-title-color);
-    padding-inline-start: 1.5em;
   }
 
-  /* 使用 mask 来渲染图标 */
-  .wj-markdown-it-container-title:before {
-    content: " ";
-    position: absolute;
-    inset-inline-start: 0;
-    width: 1em;
-    height: 1em;
-    font-size: 1em;
-    background-color: currentColor;
-    -webkit-mask-image: var(--wj-markup-container-icon);
-    mask-image: var(--wj-markup-container-icon);
-    -webkit-mask-position: 50%;
-    mask-position: 50%;
-    -webkit-mask-size: 1rem;
-    mask-size: 1rem;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
+  .wj-markdown-it-container-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
   }
 
-  /* Details 的 Summary 样式 (模拟 JS 中的 style 设置) */
-  details summary {
+  /* Details 折叠样式 */
+  .wj-markdown-it-container details {
+    margin: 0;
+  }
+
+  .wj-markdown-it-container summary {
     font-weight: 500;
     user-select: none;
     cursor: pointer;
     color: var(--wj-markup-container-title-color);
     outline: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  /* 内容区域样式修正 */
+  .wj-markdown-it-container summary::before {
+    content: '▶';
+    font-size: 0.8em;
+    transition: transform 0.2s;
+  }
+
+  .wj-markdown-it-container details[open] summary::before {
+    transform: rotate(90deg);
+  }
+
+  .wj-markdown-it-container details[open] summary {
+    margin-bottom: 0.5rem;
+  }
+
+  /* 内容区域样式 */
   .wj-markdown-it-container-content {
-    /* 允许嵌套容器，不限制宽度 */
     max-width: none;
   }
-  
+
   .wj-markdown-it-container-content :global(p) {
     color: inherit;
-    /* 继承父级颜色，适配深色模式 */
+    margin: 0;
   }
 
-  /* 移除首尾多余边距 */
   .wj-markdown-it-container-content :global(*:first-child) {
     margin-top: 0 !important;
   }
+
   .wj-markdown-it-container-content :global(*:last-child) {
     margin-bottom: 0 !important;
+  }
+
+  /* 嵌套容器支持 */
+  .wj-markdown-it-container-content :global(.wj-markdown-it-container),
+  .wj-markdown-it-container-content :global(.markdown-alert) {
+    margin-top: 0.5rem;
   }
 </style>

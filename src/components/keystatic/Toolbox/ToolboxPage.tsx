@@ -5,6 +5,21 @@ import { GithubChecker } from './GithubChecker';
 import { LinkChecker } from './LinkChecker';
 import { BatchAdder } from './BatchAdder';
 
+
+// --- ✅ 新增：全局Token上下文 ---
+interface TokenContextType {
+  githubToken: string;
+  setGithubToken: (token: string) => void;
+}
+
+const TokenContext = createContext<TokenContextType>({
+  githubToken: '',
+  setGithubToken: () => {},
+});
+
+export const useGithubToken = () => useContext(TokenContext);
+
+
 // --- 类型定义 ---
 type TabId = 'github' | 'link' | 'batch';
 
@@ -164,6 +179,9 @@ export function ToolboxPage() {
   const [activeTab, setActiveTab] = useState<TabId>('github');
   const [pendingTab, setPendingTab] = useState<TabId | null>(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  // ✅ 新增：全局GitHub Token状态
+  const [githubToken, setGithubToken] = useState('');
   
   // 子组件数据状态（由子组件通过回调更新）
   const [hasUnsavedData, setHasUnsavedData] = useState({
@@ -233,105 +251,114 @@ export function ToolboxPage() {
   };
 
 
+  // ✅ 新增：Token上下文值
+  const tokenContextValue = {
+    githubToken,
+    setGithubToken,
+  };
+
   return (
-    <div style={STYLES.container}>
-      {/* 顶部导航 */}
-      <div style={STYLES.header}>
-        <div style={STYLES.title}>
-          <div style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '10px',
-            background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-          }}>
-            <Wrench size={22} />
-          </div>
-          <div>
-            <h1 style={{ fontSize: '18px', fontWeight: 700, color: '#1e293b', margin: 0 }}>
-              工具箱
-            </h1>
-            <p style={{ fontSize: '12px', color: '#64748b', margin: 0 }}>
-              导航站资源管理工具集
-            </p>
-          </div>
-        </div>
-        
-        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-          <a 
-            href="/keystatic" 
-            style={STYLES.adminLink}
-          >
-            <ArrowLeft size={16} />
-            返回后台
-          </a>
-        </div>
-      </div>
-
-      {/* 标签页导航 */}
-      <div style={STYLES.tabs}>
-        {TABS.map(tab => (
-          <button
-            key={tab.id}
-            onClick={() => requestTabChange(tab.id)}
-            style={{
-              ...STYLES.tab(activeTab === tab.id),
-              position: 'relative',
-            }}
-            title={tab.description}
-          >
-            {tab.icon}
-            {tab.label}
-            {/* 数据状态指示器 */}
-            {hasUnsavedData[tab.id] && (
-              <span style={{
-                position: 'absolute',
-                top: '8px',
-                right: '8px',
-                width: '8px',
-                height: '8px',
-                borderRadius: '50%',
-                background: '#f59e0b',
-              }} />
-            )}
-          </button>
-        ))}
-      </div>
-
-      {/* 内容区域 */}
-      <div style={STYLES.content}>
-        {renderContent()}
-      </div>
-
-      {/* 确认切换弹窗 */}
-      {showConfirmModal && (
-        <div style={STYLES.modalOverlay} onClick={cancelSwitch}>
-          <div style={STYLES.modal} onClick={e => e.stopPropagation()}>
-            <div style={STYLES.modalTitle}>
-              <AlertTriangle size={24} style={{ color: '#f59e0b' }} />
-              确认切换？
+    // ✅ 修改：用 TokenContext.Provider 包裹整个组件
+    <TokenContext.Provider value={tokenContextValue}>
+      <div style={STYLES.container}>
+        {/* 顶部导航 */}
+        <div style={STYLES.header}>
+          <div style={STYLES.title}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              borderRadius: '10px',
+              background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white',
+            }}>
+              <Wrench size={22} />
             </div>
-            
-            <p style={STYLES.modalText}>
-              当前页面有未保存的扫描数据，切换到其他标签页将导致数据丢失。
-              <br /><br />
-              确定要离开吗？
-            </p>
-            
-            <div style={STYLES.modalButtons}>
-              <button onClick={cancelSwitch} style={STYLES.buttonSecondary}>
-                取消
-              </button>
-              <button onClick={confirmSwitch} style={STYLES.buttonPrimary}>
-                确认离开
-              </button>
+            <div>
+              <h1 style={{ fontSize: '18px', fontWeight: 700, color: '#1e293b', margin: 0 }}>
+                工具箱
+              </h1>
+              <p style={{ fontSize: '12px', color: '#64748b', margin: 0 }}>
+                导航站资源管理工具集
+              </p>
             </div>
           </div>
+          
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <a 
+              href="/keystatic" 
+              style={STYLES.adminLink}
+            >
+              <ArrowLeft size={16} />
+              返回后台
+            </a>
+          </div>
         </div>
-      )}
-    </div>
+
+        {/* 标签页导航 */}
+        <div style={STYLES.tabs}>
+          {TABS.map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => requestTabChange(tab.id)}
+              style={{
+                ...STYLES.tab(activeTab === tab.id),
+                position: 'relative',
+              }}
+              title={tab.description}
+            >
+              {tab.icon}
+              {tab.label}
+              {/* 数据状态指示器 */}
+              {hasUnsavedData[tab.id] && (
+                <span style={{
+                  position: 'absolute',
+                  top: '8px',
+                  right: '8px',
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  background: '#f59e0b',
+                }} />
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* 内容区域 */}
+        <div style={STYLES.content}>
+          {renderContent()}
+        </div>
+
+        {/* 确认切换弹窗 */}
+        {showConfirmModal && (
+          <div style={STYLES.modalOverlay} onClick={cancelSwitch}>
+            <div style={STYLES.modal} onClick={e => e.stopPropagation()}>
+              <div style={STYLES.modalTitle}>
+                <AlertTriangle size={24} style={{ color: '#f59e0b' }} />
+                确认切换？
+              </div>
+              
+              <p style={STYLES.modalText}>
+                当前页面有未保存的扫描数据，切换到其他标签页将导致数据丢失。
+                <br /><br />
+                确定要离开吗？
+              </p>
+              
+              <div style={STYLES.modalButtons}>
+                <button onClick={cancelSwitch} style={STYLES.buttonSecondary}>
+                  取消
+                </button>
+                <button onClick={confirmSwitch} style={STYLES.buttonPrimary}>
+                  确认离开
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </TokenContext.Provider>
   );
 }

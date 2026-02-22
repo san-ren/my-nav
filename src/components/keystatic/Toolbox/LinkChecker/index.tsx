@@ -1,5 +1,5 @@
 // src/components/keystatic/Toolbox/LinkChecker.tsx
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { 
   Link, 
   Search, 
@@ -23,7 +23,10 @@ import {
   Layers,
   Folder,
   FolderOpen,
-  FileText
+  FileText,
+  ArrowUp,
+  ArrowDown,
+  ArrowUpDown
 } from 'lucide-react';
 
 // --- 类型定义 ---
@@ -63,6 +66,8 @@ interface TreeNode {
 }
 
 type FilterType = 'all' | 'ok' | 'failed' | 'timeout' | 'excluded';
+type SortField = 'status' | 'httpCode' | 'domain' | null;
+type SortDirection = 'asc' | 'desc';
 
 // 默认排除域名列表
 const DEFAULT_EXCLUDED_DOMAINS = [
@@ -218,6 +223,20 @@ const STYLES = {
     borderBottom: '1px solid #e2e8f0',
     background: '#f8fafc',
   },
+  thSortable: {
+    padding: '12px 16px',
+    textAlign: 'left' as const,
+    fontSize: '12px',
+    fontWeight: 600,
+    color: '#64748b',
+    textTransform: 'uppercase' as const,
+    letterSpacing: '0.05em',
+    borderBottom: '1px solid #e2e8f0',
+    background: '#f8fafc',
+    cursor: 'pointer',
+    userSelect: 'none' as const,
+    transition: 'background 0.15s',
+  },
   td: {
     padding: '12px 16px',
     fontSize: '14px',
@@ -298,6 +317,17 @@ const getStatusLabel = (status: string): string => {
   }
 };
 
+// 状态排序权重
+const getStatusWeight = (status: string): number => {
+  switch (status) {
+    case 'failed': return 0;
+    case 'timeout': return 1;
+    case 'excluded': return 2;
+    case 'ok': return 3;
+    default: return 4;
+  }
+};
+
 const truncateUrl = (url: string, maxLength: number = 50): string => {
   if (url.length <= maxLength) return url;
   return url.substring(0, maxLength) + '...';
@@ -334,6 +364,10 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   const [showSettings, setShowSettings] = useState(true);
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  
+  // 排序状态 - 默认按状态排序
+  const [sortField, setSortField] = useState<SortField>('status');
+  const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
 
   // 通知父组件数据状态变化
   const onDataStatusChangeRef = useRef(onDataStatusChange);
@@ -356,6 +390,61 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   }, []);
 
   const customDomains = excludedDomains.filter(d => !isDefaultDomain(d));
+
+  // 排序函数
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      if (sortDirection === 'asc') {
+        setSortDirection('desc');
+      } else if (sortDirection === 'desc') {
+        setSortField(null);
+      }
+    } else {
+      setSortField(field);
+      setSortDirection('desc');
+    }
+  };
+
+  // 渲染排序图标
+  const renderSortIcon = (field: SortField) => {
+    if (sortField !== field) {
+      return <ArrowUpDown size={14} style={{ color: '#94a3b8', marginLeft: '4px' }} />;
+    }
+    if (sortDirection === 'asc') {
+      return <ArrowUp size={14} style={{ color: '#2563eb', marginLeft: '4px' }} />;
+    }
+    return <ArrowDown size={14} style={{ color: '#2563eb', marginLeft: '4px' }} />;
+  };
+
+  // 筛选和排序后的结果
+  const sortedAndFilteredResults = useMemo(() => {
+    let results = checkResults.filter(r => {
+      if (filter === 'all') return true;
+      return r.status === filter;
+    });
+
+    if (sortField) {
+      results = [...results].sort((a, b) => {
+        let comparison = 0;
+        
+        switch (sortField) {
+          case 'status':
+            comparison = getStatusWeight(a.status) - getStatusWeight(b.status);
+            break;
+          case 'httpCode':
+            comparison = (a.httpCode || 0) - (b.httpCode || 0);
+            break;
+          case 'domain':
+            comparison = a.domain.localeCompare(b.domain);
+            break;
+        }
+        
+        return sortDirection === 'asc' ? comparison : -comparison;
+      });
+    }
+
+    return results;
+  }, [checkResults, filter, sortField, sortDirection]);
 
   // 将扫描结果转换为树形结构
   const buildTree = (links: LinkInfo[]): TreeNode[] => {
@@ -584,6 +673,8 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
       setTreeData(tree);
       setCheckResults([]);
       setSelectedItems(new Set());
+      setSortField('status');
+      setSortDirection('asc');
     } catch (e: any) {
       setMessage({ type: 'error', text: e.message });
     } finally {
@@ -591,7 +682,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
     }
   };
 
-  // 检测链接
+  // 检测链接 - 并行检测
   const handleCheck = async () => {
     const selectedLinks = getSelectedLinks(treeData);
     if (selectedLinks.length === 0) {
@@ -604,19 +695,30 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
     setCheckResults([]);
     
     const urls = selectedLinks.map(l => l.url);
-    const batchSize = 10;
+    const concurrency = 20;
     const results: CheckResult[] = [];
+    let completed = 0;
     
-    for (let i = 0; i < urls.length; i += batchSize) {
-      const batch = urls.slice(i, i + batchSize);
-      
-      const res = await fetch(`/api/link-check?mode=batch&urls=${encodeURIComponent(JSON.stringify(batch))}&excluded=${encodeURIComponent(excludedDomains.join(','))}`);
+    const checkSingleLink = async (url: string): Promise<CheckResult> => {
+      const res = await fetch(`/api/link-check?mode=check&url=${encodeURIComponent(url)}&excluded=${encodeURIComponent(excludedDomains.join(','))}`);
       if (res.ok) {
-        const batchResults: CheckResult[] = await res.json();
-        results.push(...batchResults);
+        return await res.json();
       }
+      return {
+        url,
+        domain: new URL(url).hostname,
+        status: 'failed',
+        error: '请求失败',
+      };
+    };
+
+    for (let i = 0; i < urls.length; i += concurrency) {
+      const batch = urls.slice(i, i + concurrency);
+      const batchResults = await Promise.all(batch.map(checkSingleLink));
+      results.push(...batchResults);
       
-      setProgress(Math.min(100, Math.round(((i + batchSize) / urls.length) * 100)));
+      completed += batch.length;
+      setProgress(Math.min(100, Math.round((completed / urls.length) * 100)));
     }
     
     const finalResults = results.map((result, index) => ({
@@ -668,12 +770,6 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
     }
   };
 
-  // 筛选结果
-  const filteredResults = checkResults.filter(r => {
-    if (filter === 'all') return true;
-    return r.status === filter;
-  });
-
   // 统计
   const stats = {
     total: checkResults.length,
@@ -708,6 +804,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
             <span style={{ width: '16px' }} />
           )}
           
+          
           <input
             type="checkbox"
             checked={node.checked}
@@ -719,6 +816,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
           />
           
           {getNodeIcon(node)}
+          
           
           <span style={{ 
             flex: 1, 
@@ -755,6 +853,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
         </h1>
         <p style={{ color: '#64748b', fontSize: '14px' }}>
           批量检测所有网站链接的有效性，标记失效资源
+          <span style={{ color: '#22c55e', marginLeft: '8px' }}>并发数: 20</span>
         </p>
       </div>
 
@@ -891,8 +990,9 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
                   style={{ ...STYLES.button.primary, opacity: isChecking || getSelectedCount(treeData) === 0 ? 0.7 : 1 }}
                 >
                   {isChecking ? <RefreshCw size={16} className="animate-spin" /> : <Play size={16} />}
-                  检测选中 ({getSelectedCount(treeData)})
+                  并行检测选中 ({getSelectedCount(treeData)})
                 </button>
+                
                 
                 <span style={{ color: '#64748b', fontSize: '14px' }}>
                   共 <strong>{scanResult.total}</strong> 个链接，<strong>{scanResult.unique}</strong> 个唯一
@@ -907,7 +1007,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
                 <div style={STYLES.progress.bar(progress)} />
               </div>
               <p style={{ fontSize: '12px', color: '#64748b', marginTop: '8px' }}>
-                正在检测... {progress}%
+                正在并行检测... {progress}%
               </p>
             </div>
           )}
@@ -991,7 +1091,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
               
               <button 
                 onClick={() => {
-                  const failedUrls = filteredResults.filter(r => r.status === 'failed').map(r => r.url);
+                  const failedUrls = sortedAndFilteredResults.filter(r => r.status === 'failed').map(r => r.url);
                   setSelectedItems(new Set(failedUrls));
                 }} 
                 style={STYLES.button.secondary}
@@ -999,6 +1099,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
                 全选失效项
               </button>
 
+              
               <button
                 onClick={handleApply}
                 disabled={selectedItems.size === 0 || isApplying}
@@ -1013,7 +1114,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
       )}
 
       {/* 结果列表 */}
-      {filteredResults.length > 0 && (
+      {sortedAndFilteredResults.length > 0 && (
         <div style={STYLES.card}>
           <div style={{ overflowX: 'auto' }}>
             <table style={STYLES.table}>
@@ -1022,22 +1123,42 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
                   <th style={{ ...STYLES.th, width: '40px' }}>
                     <input
                       type="checkbox"
-                      checked={selectedItems.size === filteredResults.filter(r => r.status === 'failed').length && filteredResults.some(r => r.status === 'failed')}
+                      checked={selectedItems.size === sortedAndFilteredResults.filter(r => r.status === 'failed').length && sortedAndFilteredResults.some(r => r.status === 'failed')}
                       onChange={() => {
-                        const failedUrls = filteredResults.filter(r => r.status === 'failed').map(r => r.url);
+                        const failedUrls = sortedAndFilteredResults.filter(r => r.status === 'failed').map(r => r.url);
                         setSelectedItems(selectedItems.size === failedUrls.length ? new Set() : new Set(failedUrls));
                       }}
                     />
                   </th>
                   <th style={STYLES.th}>链接</th>
                   <th style={STYLES.th}>资源名称</th>
-                  <th style={STYLES.th}>状态</th>
-                  <th style={STYLES.th}>HTTP</th>
+                  <th 
+                    style={STYLES.thSortable}
+                    onClick={() => handleSort('status')}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f1f5f9'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = '#f8fafc'}
+                  >
+                    <span style={{ display: 'flex', alignItems: 'center' }}>
+                      状态
+                      {renderSortIcon('status')}
+                    </span>
+                  </th>
+                  <th 
+                    style={STYLES.thSortable}
+                    onClick={() => handleSort('httpCode')}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f1f5f9'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = '#f8fafc'}
+                  >
+                    <span style={{ display: 'flex', alignItems: 'center' }}>
+                      HTTP
+                      {renderSortIcon('httpCode')}
+                    </span>
+                  </th>
                   <th style={STYLES.th}>备注</th>
                 </tr>
               </thead>
               <tbody>
-                {filteredResults.map((result, index) => (
+                {sortedAndFilteredResults.map((result, index) => (
                   <tr key={result.url + index}>
                     <td style={STYLES.td}>
                       <input

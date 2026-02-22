@@ -10,6 +10,7 @@ import type {
   PendingItem, GroupInfo, AddResult, BatchAddMode, 
   DuplicateCheckResult, ParsedResource 
 } from './types';
+import { useGithubToken } from '../ToolboxPage';
 
 // --- 主组件 ---
 
@@ -18,6 +19,7 @@ interface BatchAdderProps {
 }
 
 export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
+  const { githubToken } = useGithubToken();
   const [inputText, setInputText] = useState('');
   const [pendingItems, setPendingItems] = useState<PendingItem[]>([]);
   const [groups, setGroups] = useState<GroupInfo[]>([]);
@@ -75,7 +77,7 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
     return [...new Set(urls)];
   };
 
-  // 开始解析
+  // 开始解析 - 并行解析所有URL
   const handleParse = async () => {
     const urls = parseUrls(inputText);
     if (urls.length === 0) {
@@ -88,24 +90,53 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
     setMessage(null);
     setDuplicateCheckResult(null);
 
+    // 初始化所有项目状态
     const items: PendingItem[] = urls.map((url, index) => ({
       id: `item-${index}`,
       url,
-      status: 'pending',
+      status: 'pending' as const,
     }));
     setPendingItems(items);
 
-    for (let i = 0; i < urls.length; i++) {
-      const url = urls[i];
-      
+    // 并发数量：有token时可以更高并发
+    const concurrency = githubToken ? 10 : 5;
+    let completed = 0;
+
+    // 并行解析函数
+    const parseSingleUrl = async (url: string, index: number): Promise<{ index: number; result: any }> => {
+      // 更新状态为解析中
       setPendingItems(prev => prev.map(item => 
         item.url === url ? { ...item, status: 'parsing' } : item
       ));
 
       try {
-        const res = await fetch(`/api/batch-add?mode=parse&url=${encodeURIComponent(url)}`);
+        // 使用共享的GitHub token
+        const res = await fetch(`/api/batch-add?mode=parse&url=${encodeURIComponent(url)}&token=${encodeURIComponent(githubToken)}`);
         const result = await res.json();
+        
+        completed++;
+        setProgress({ current: completed, total: urls.length });
+        
+        return { index, result };
+      } catch (e: any) {
+        completed++;
+        setProgress({ current: completed, total: urls.length });
+        
+        return { index, result: { success: false, error: e.message } };
+      }
+    };
 
+    // 使用并发控制并行解析
+    const parsePromises = urls.map((url, index) => parseSingleUrl(url, index));
+    
+    // 分批执行，每批concurrency个
+    for (let i = 0; i < parsePromises.length; i += concurrency) {
+      const batch = parsePromises.slice(i, i + concurrency);
+      const results = await Promise.all(batch);
+      
+      // 更新所有完成的项目
+      for (const { index, result } of results) {
+        const url = urls[index];
         setPendingItems(prev => prev.map(item => {
           if (item.url === url) {
             return {
@@ -119,19 +150,6 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
           }
           return item;
         }));
-      } catch (e: any) {
-        setPendingItems(prev => prev.map(item => {
-          if (item.url === url) {
-            return { ...item, status: 'error', error: e.message };
-          }
-          return item;
-        }));
-      }
-
-      setProgress({ current: i + 1, total: urls.length });
-      
-      if (i < urls.length - 1) {
-        await new Promise(resolve => setTimeout(resolve, 300));
       }
     }
 
@@ -339,6 +357,7 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
         </h1>
         <p style={{ color: '#64748b', fontSize: '14px' }}>
           输入多个网址，自动解析并批量添加到指定分组
+          {githubToken && <span style={{ color: '#22c55e', marginLeft: '8px' }}>✓ 已配置 GitHub Token，解析速度更快</span>}
         </p>
       </div>
 
@@ -362,10 +381,12 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
               style={{ ...STYLES.button.primary, opacity: (isParsing || !inputText.trim()) ? 0.7 : 1 }}
             >
               {isParsing ? <RefreshCw size={16} className="animate-spin" /> : <Play size={16} />}
-              {isParsing ? `解析中 (${progress.current}/${progress.total})` : '解析全部'}
+              {isParsing ? `解析中 (${progress.current}/${progress.total})` : '并行解析全部'}
             </button>
             <span style={{ color: '#64748b', fontSize: '14px' }}>
               检测到 {parseUrls(inputText).length} 个 URL
+              {githubToken && <span style={{ color: '#22c55e' }}> · 并发数: 10</span>}
+              {!githubToken && <span style={{ color: '#f59e0b' }}> · 并发数: 5 (配置Token可加速)</span>}
             </span>
           </div>
         </div>
@@ -588,6 +609,8 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
         </div>
         <div style={STYLES.body}>
           <ul style={{ margin: 0, paddingLeft: '20px', color: '#64748b', fontSize: '14px', lineHeight: '1.8' }}>
+            <li><strong>并行解析</strong>：所有URL同时解析，大幅提升速度</li>
+            <li><strong>GitHub Token</strong>：在GitHub检测页配置Token后，批量添加也会使用，提高API限额</li>
             <li>支持 GitHub 仓库链接，自动获取项目名称、描述和图标</li>
             <li>支持普通网站链接，自动抓取页面标题和图标</li>
             <li><strong>单独添加模式</strong>：为每个资源单独选择目标分组和分类位置</li>
