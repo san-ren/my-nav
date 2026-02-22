@@ -299,11 +299,13 @@ export function ToolboxPage() {
               <AlertTriangle size={24} style={{ color: '#f59e0b' }} />
               确认切换？
             </div>
+            
             <p style={STYLES.modalText}>
               当前页面有未保存的扫描数据，切换到其他标签页将导致数据丢失。
               <br /><br />
               确定要离开吗？
             </p>
+            
             <div style={STYLES.modalButtons}>
               <button onClick={cancelSwitch} style={STYLES.buttonSecondary}>
                 取消

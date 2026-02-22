@@ -1,55 +1,11 @@
-// src/api/batch-add.ts
-import type { APIRoute } from 'astro';
+// BatchAdder API 工具函数
 import * as cheerio from 'cheerio';
 import fs from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
+import { CONFIG, type ParsedResource } from '../types';
 
-// 强制动态模式
-export const prerender = false;
-
-// --- 配置 ---
-const CONFIG = {
-  localIconPath: 'public/images/logos',
-  publicIconPrefix: '/images/logos',
-  githubToken: import.meta.env.GITHUB_TOKEN || '',
-  timeout: 10000,
-  maxDownloadSize: 5 * 1024 * 1024,
-  contentDir: 'src/content/nav-groups',
-};
-
-// --- 类型定义 ---
-interface ParsedResource {
-  url: string;
-  title: string;
-  desc: string;
-  icon: string;
-  homepage?: string;
-  isGithub: boolean;
-  originalUrl: string;
-}
-
-interface ParseResult {
-  success: boolean;
-  data?: ParsedResource;
-  error?: string;
-}
-
-interface GroupInfo {
-  id: string;
-  name: string;
-  pageName: string;
-  file: string;
-  categories: { name: string; index: number }[];
-}
-
-interface AddResult {
-  success: boolean;
-  message: string;
-  addedTo?: string;
-}
-
-// --- User-Agent 池 ---
+// User-Agent 池
 const USER_AGENTS = [
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15',
@@ -60,8 +16,8 @@ function getRandomUA() {
   return USER_AGENTS[Math.floor(Math.random() * USER_AGENTS.length)];
 }
 
-// --- 辅助函数 ---
-async function safeFetch(url: string, options: RequestInit = {}): Promise<Response | null> {
+// 安全请求
+export async function safeFetch(url: string, options: RequestInit = {}): Promise<Response | null> {
   try {
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), CONFIG.timeout);
@@ -83,8 +39,8 @@ async function safeFetch(url: string, options: RequestInit = {}): Promise<Respon
   }
 }
 
-// --- 图标下载和优化 ---
-async function downloadAndOptimizeImage(url: string, filenamePrefix: string): Promise<string | null> {
+// 图标下载和优化
+export async function downloadAndOptimizeImage(url: string, filenamePrefix: string): Promise<string | null> {
   if (!url || url.startsWith('data:')) return null;
   
   const res = await safeFetch(url, {
@@ -135,7 +91,7 @@ async function downloadAndOptimizeImage(url: string, filenamePrefix: string): Pr
   }
 }
 
-// --- 获取第三方图标 ---
+// 获取第三方图标
 function getFallbackIconUrls(domain: string): string[] {
   return [
     `https://ico.kucat.cn/get.php?url=${domain}`,
@@ -145,7 +101,7 @@ function getFallbackIconUrls(domain: string): string[] {
   ];
 }
 
-async function tryDownloadFromThirdParty(domain: string, filenamePrefix: string): Promise<string | null> {
+export async function tryDownloadFromThirdParty(domain: string, filenamePrefix: string): Promise<string | null> {
   const apis = getFallbackIconUrls(domain);
   for (const apiUrl of apis) {
     const result = await downloadAndOptimizeImage(apiUrl, filenamePrefix);
@@ -154,8 +110,8 @@ async function tryDownloadFromThirdParty(domain: string, filenamePrefix: string)
   return null;
 }
 
-// --- 抓取页面图标 URL ---
-async function scrapePageIconUrl(urlStr: string): Promise<string | null> {
+// 抓取页面图标 URL
+export async function scrapePageIconUrl(urlStr: string): Promise<string | null> {
   const res = await safeFetch(urlStr);
   if (!res || !res.ok) return null;
   
@@ -183,8 +139,8 @@ async function scrapePageIconUrl(urlStr: string): Promise<string | null> {
   return null;
 }
 
-// --- 处理 GitHub ---
-async function handleGithub(user: string, repo: string): Promise<ParsedResource> {
+// 处理 GitHub
+export async function handleGithub(user: string, repo: string): Promise<ParsedResource> {
   const apiUrl = `https://api.github.com/repos/${user}/${repo}`;
   const headers: Record<string, string> = {};
   
@@ -236,8 +192,8 @@ async function handleGithub(user: string, repo: string): Promise<ParsedResource>
   };
 }
 
-// --- 处理普通网页 ---
-async function handleWebPage(targetUrl: URL): Promise<ParsedResource> {
+// 处理普通网页
+export async function handleWebPage(targetUrl: URL): Promise<ParsedResource> {
   let title = '';
   let desc = '';
   let iconUrl: string | null = null;
@@ -287,8 +243,8 @@ async function handleWebPage(targetUrl: URL): Promise<ParsedResource> {
   };
 }
 
-// --- 解析单个 URL ---
-async function parseUrl(urlStr: string): Promise<ParseResult> {
+// 解析单个 URL
+export async function parseUrl(urlStr: string): Promise<{ success: boolean; data?: ParsedResource; error?: string }> {
   try {
     let targetUrlStr = urlStr.trim();
     if (!/^https?:\/\//i.test(targetUrlStr)) {
@@ -316,176 +272,3 @@ async function parseUrl(urlStr: string): Promise<ParseResult> {
     return { success: false, error: e.message || '解析失败' };
   }
 }
-
-// --- 获取分组列表 ---
-function getGroups(): GroupInfo[] {
-  const contentDir = path.join(process.cwd(), CONFIG.contentDir);
-  const groups: GroupInfo[] = [];
-  
-  if (!fs.existsSync(contentDir)) return groups;
-  
-  const files = fs.readdirSync(contentDir).filter(f => f.endsWith('.json'));
-  
-  for (const file of files) {
-    try {
-      const filePath = path.join(contentDir, file);
-      const content = fs.readFileSync(filePath, 'utf-8');
-      const json = JSON.parse(content);
-      
-      const categories = (json.categories || []).map((cat: any, index: number) => ({
-        name: cat.name,
-        index,
-      }));
-      
-      groups.push({
-        id: json.id || file.replace('.json', ''),
-        name: json.name,
-        pageName: json.pageName,
-        file,
-        categories,
-      });
-    } catch {}
-  }
-  
-  return groups;
-}
-
-// --- 添加资源到分组 ---
-function addResourceToGroup(
-  groupFile: string,
-  resource: ParsedResource,
-  target: { type: 'top' | 'category'; categoryIndex?: number }
-): AddResult {
-  const contentDir = path.join(process.cwd(), CONFIG.contentDir);
-  const filePath = path.join(contentDir, groupFile);
-  
-  try {
-    const content = fs.readFileSync(filePath, 'utf-8');
-    const json = JSON.parse(content);
-    
-    const newResource = {
-      toolbox: null,
-      name: resource.title,
-      url: resource.url,
-      official_site: resource.homepage || '',
-      desc: resource.desc,
-      icon: resource.icon,
-      hide_badges: [],
-      status: 'ok',
-    };
-    
-    if (target.type === 'top') {
-      if (!json.resources) json.resources = [];
-      json.resources.push(newResource);
-    } else if (target.type === 'category' && target.categoryIndex !== undefined) {
-      if (!json.categories) json.categories = [];
-      if (!json.categories[target.categoryIndex]) {
-        return { success: false, message: '分类不存在' };
-      }
-      if (!json.categories[target.categoryIndex].resources) {
-        json.categories[target.categoryIndex].resources = [];
-      }
-      json.categories[target.categoryIndex].resources.push(newResource);
-    }
-    
-    fs.writeFileSync(filePath, JSON.stringify(json, null, 2), 'utf-8');
-    
-    return {
-      success: true,
-      message: '添加成功',
-      addedTo: `${json.name}${target.type === 'category' ? ' / ' + json.categories[target.categoryIndex].name : ''}`,
-    };
-  } catch (e: any) {
-    return { success: false, message: e.message };
-  }
-}
-
-// --- API 入口 ---
-export const GET: APIRoute = async ({ url }) => {
-  const mode = url.searchParams.get('mode');
-  
-  // 模式 1: 获取分组列表
-  if (mode === 'groups') {
-    const groups = getGroups();
-    return new Response(JSON.stringify(groups), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-  
-  // 模式 2: 解析单个 URL
-  if (mode === 'parse') {
-    const targetUrl = url.searchParams.get('url');
-    if (!targetUrl) {
-      return new Response(JSON.stringify({ error: '缺少 url 参数' }), { status: 400 });
-    }
-    
-    const result = await parseUrl(targetUrl);
-    return new Response(JSON.stringify(result), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-  
-  return new Response(JSON.stringify({ error: '未知模式' }), { status: 400 });
-};
-
-// --- POST: 批量解析或添加 ---
-export const POST: APIRoute = async ({ request }) => {
-  try {
-    const body = await request.json();
-    
-    // 批量解析
-    if (body.urls && Array.isArray(body.urls)) {
-      const results: ParseResult[] = [];
-      
-      for (const url of body.urls) {
-        const result = await parseUrl(url);
-        results.push(result);
-        await new Promise(resolve => setTimeout(resolve, 200));
-      }
-      
-      return new Response(JSON.stringify(results), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-    
-    // 添加资源
-    if (body.action === 'add' && body.resource && body.groupFile) {
-      const result = addResourceToGroup(
-        body.groupFile,
-        body.resource,
-        body.target || { type: 'top' }
-      );
-      
-      return new Response(JSON.stringify(result), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-    
-    // 批量添加
-    if (body.action === 'batch-add' && body.items && Array.isArray(body.items)) {
-      const results: AddResult[] = [];
-      
-      for (const item of body.items) {
-        const result = addResourceToGroup(
-          item.groupFile,
-          item.resource,
-          item.target || { type: 'top' }
-        );
-        results.push(result);
-      }
-      
-      return new Response(JSON.stringify(results), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-    
-    return new Response(JSON.stringify({ error: '无效的请求体' }), { status: 400 });
-  } catch (e: any) {
-    return new Response(JSON.stringify({ error: e.message }), { status: 500 });
-  }
-};
