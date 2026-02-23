@@ -22,7 +22,12 @@ import {
   FileText,
   ArrowUp,
   ArrowDown,
-  ArrowUpDown
+  ArrowUpDown,
+  Save,
+  RotateCcw,
+  Eye,
+  EyeOff,
+  Check
 } from 'lucide-react';
 import { useGithubToken } from '../ToolboxPage';
 
@@ -102,6 +107,20 @@ const STYLES = {
     outline: 'none',
     fontFamily: 'monospace',
   },
+  inputWithButton: {
+    display: 'flex',
+    gap: '8px',
+    alignItems: 'center',
+  },
+  inputField: {
+    flex: 1,
+    padding: '12px 16px',
+    fontSize: '14px',
+    border: '1px solid #cbd5e1',
+    borderRadius: '8px',
+    outline: 'none',
+    fontFamily: 'monospace',
+  },
   button: {
     primary: {
       padding: '12px 24px',
@@ -129,6 +148,19 @@ const STYLES = {
       alignItems: 'center',
       gap: '8px',
     },
+    success: {
+      padding: '8px 16px',
+      fontSize: '13px',
+      fontWeight: 500,
+      color: 'white',
+      background: '#22c55e',
+      borderRadius: '6px',
+      border: 'none',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '6px',
+    },
     danger: {
       padding: '10px 20px',
       fontSize: '14px',
@@ -151,6 +183,16 @@ const STYLES = {
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: '4px',
+    },
+    iconButton: {
+      padding: '10px 12px',
+      background: '#f1f5f9',
+      border: '1px solid #e2e8f0',
+      borderRadius: '8px',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
   },
   badge: {
@@ -215,6 +257,23 @@ const STYLES = {
     borderBottom: '1px solid #f1f5f9',
     transition: 'background 0.15s',
   },
+  tokenStatus: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+    padding: '4px 10px',
+    borderRadius: '6px',
+    fontSize: '12px',
+    fontWeight: 500,
+  },
+  tokenSaved: {
+    background: '#dcfce7',
+    color: '#166534',
+  },
+  tokenUnsaved: {
+    background: '#fef3c7',
+    color: '#92400e',
+  },
 };
 
 // --- 辅助函数 ---
@@ -268,7 +327,7 @@ interface GithubCheckerProps {
 }
 
 export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
-  const { githubToken, setGithubToken } = useGithubToken();
+  const { githubToken, setGithubToken, saveToken, resetToken, isTokenSaved } = useGithubToken();
   const [staleYears, setStaleYears] = useState(3);
   const [scanResult, setScanResult] = useState<ScanResult | null>(null);
   const [treeData, setTreeData] = useState<TreeNode[]>([]);
@@ -281,6 +340,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
   const [showSettings, setShowSettings] = useState(true);
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [showToken, setShowToken] = useState(false);
   
   // 排序状态 - 默认按状态排序
   const [sortField, setSortField] = useState<SortField>('status');
@@ -789,15 +849,79 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
                 <label style={{ display: 'block', fontSize: '14px', fontWeight: 500, color: '#334155', marginBottom: '8px' }}>
                   GitHub Token (全局配置，批量添加也会使用)
                 </label>
-                <input
-                  type="password"
-                  value={githubToken}
-                  onChange={e => setGithubToken(e.target.value)}
-                  placeholder="ghp_xxxx..."
-                  style={STYLES.input}
-                />
-                <p style={{ fontSize: '12px', color: '#94a3b8', marginTop: '4px' }}>
+                
+                {/* Token输入框和按钮 */}
+                <div style={STYLES.inputWithButton}>
+                  <input
+                    type={showToken ? 'text' : 'password'}
+                    value={githubToken}
+                    onChange={e => setGithubToken(e.target.value)}
+                    placeholder="ghp_xxxx..."
+                    style={STYLES.inputField}
+                  />
+                  <button
+                    onClick={() => setShowToken(!showToken)}
+                    style={STYLES.button.iconButton}
+                    title={showToken ? '隐藏' : '显示'}
+                  >
+                    {showToken ? <EyeOff size={18} style={{ color: '#64748b' }} /> : <Eye size={18} style={{ color: '#64748b' }} />}
+                  </button>
+                </div>
+                
+                {/* Token状态和操作按钮 */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
+                  {/* 状态指示 */}
+                  <span style={{
+                    ...STYLES.tokenStatus,
+                    ...(isTokenSaved ? STYLES.tokenSaved : STYLES.tokenUnsaved)
+                  }}>
+                    {isTokenSaved ? (
+                      <>
+                        <Check size={12} />
+                        已保存
+                      </>
+                    ) : (
+                      <>
+                        <AlertTriangle size={12} />
+                        未保存
+                      </>
+                    )}
+                  </span>
+                  
+                  {/* 保存按钮 */}
+                  <button
+                    onClick={saveToken}
+                    disabled={isTokenSaved}
+                    style={{
+                      ...STYLES.button.success,
+                      opacity: isTokenSaved ? 0.5 : 1,
+                      cursor: isTokenSaved ? 'not-allowed' : 'pointer',
+                    }}
+                    title="保存到浏览器本地存储"
+                  >
+                    <Save size={14} />
+                    保存
+                  </button>
+                  
+                  {/* 重置按钮 */}
+                  <button
+                    onClick={resetToken}
+                    style={{
+                      ...STYLES.button.secondary,
+                      padding: '8px 16px',
+                      fontSize: '13px',
+                    }}
+                    title="清除Token"
+                  >
+                    <RotateCcw size={14} />
+                    重置
+                  </button>
+                </div>
+                
+                <p style={{ fontSize: '12px', color: '#94a3b8', marginTop: '8px' }}>
                   无 Token: 60次/小时 | 有 Token: 5000次/小时
+                  <br />
+                  💡 Token 将保存在浏览器本地存储中，下次访问自动加载
                 </p>
               </div>
               

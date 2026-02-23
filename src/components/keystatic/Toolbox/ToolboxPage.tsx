@@ -1,24 +1,31 @@
 // src/components/keystatic/Toolbox/ToolboxPage.tsx
-import React, { useState, useCallback } from 'react';
-import { Github, Link, Plus, Wrench, ArrowLeft, AlertTriangle } from 'lucide-react';
+import React, { useState, useCallback, createContext, useContext, useEffect } from 'react';
+import { Github, Link, Plus, Wrench, ArrowLeft, AlertTriangle, Save, RotateCcw, Check, Eye, EyeOff } from 'lucide-react';
 import { GithubChecker } from './GithubChecker';
 import { LinkChecker } from './LinkChecker';
 import { BatchAdder } from './BatchAdder';
 
-
-// --- ✅ 新增：全局Token上下文 ---
+// --- ✅ 全局Token上下文 ---
 interface TokenContextType {
   githubToken: string;
   setGithubToken: (token: string) => void;
+  saveToken: () => void;
+  resetToken: () => void;
+  isTokenSaved: boolean;
 }
 
 const TokenContext = createContext<TokenContextType>({
   githubToken: '',
   setGithubToken: () => {},
+  saveToken: () => {},
+  resetToken: () => {},
+  isTokenSaved: false,
 });
 
 export const useGithubToken = () => useContext(TokenContext);
 
+// localStorage key
+const GITHUB_TOKEN_KEY = 'toolbox_github_token';
 
 // --- 类型定义 ---
 type TabId = 'github' | 'link' | 'batch';
@@ -180,15 +187,47 @@ export function ToolboxPage() {
   const [pendingTab, setPendingTab] = useState<TabId | null>(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-  // ✅ 新增：全局GitHub Token状态
-  const [githubToken, setGithubToken] = useState('');
+  // ✅ 全局GitHub Token状态 - 支持localStorage持久化
+  const [githubToken, setGithubTokenState] = useState(() => {
+    // 初始化时从localStorage读取
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem(GITHUB_TOKEN_KEY) || '';
+    }
+    return '';
+  });
   
+  // 追踪是否有未保存的更改
+  const [isTokenSaved, setIsTokenSaved] = useState(true);
+
   // 子组件数据状态（由子组件通过回调更新）
   const [hasUnsavedData, setHasUnsavedData] = useState({
     github: false,
     link: false,
     batch: false,
   });
+
+  // 设置Token（标记为未保存）
+  const setGithubToken = useCallback((token: string) => {
+    setGithubTokenState(token);
+    setIsTokenSaved(false);
+  }, []);
+
+  // 保存Token到localStorage
+  const saveToken = useCallback(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(GITHUB_TOKEN_KEY, githubToken);
+      setIsTokenSaved(true);
+    }
+  }, [githubToken]);
+
+  // 重置Token
+  const resetToken = useCallback(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(GITHUB_TOKEN_KEY);
+      setGithubTokenState('');
+      setIsTokenSaved(true);
+    }
+  }, []);
 
   // 请求切换标签
   const requestTabChange = useCallback((targetTab: TabId) => {
@@ -223,7 +262,7 @@ export function ToolboxPage() {
     setHasUnsavedData(prev => ({ ...prev, [tab]: hasData }));
   }, []);
 
-  // ✅ 修复：使用 useCallback 缓存传递给子组件的回调函数，避免无限渲染循环
+  // ✅ 使用 useCallback 缓存传递给子组件的回调函数，避免无限渲染循环
   const handleGithubDataStatusChange = useCallback((hasData: boolean) => {
     updateDataStatus('github', hasData);
   }, [updateDataStatus]);
@@ -239,7 +278,6 @@ export function ToolboxPage() {
   const renderContent = () => {
     switch (activeTab) {
       case 'github':
-        // ✅ 现在传递的是稳定的回调函数引用
         return <GithubChecker onDataStatusChange={handleGithubDataStatusChange} />;
       case 'link':
         return <LinkChecker onDataStatusChange={handleLinkDataStatusChange} />;
@@ -251,14 +289,17 @@ export function ToolboxPage() {
   };
 
 
-  // ✅ 新增：Token上下文值
+  // ✅ Token上下文值
   const tokenContextValue = {
     githubToken,
     setGithubToken,
+    saveToken,
+    resetToken,
+    isTokenSaved,
   };
 
   return (
-    // ✅ 修改：用 TokenContext.Provider 包裹整个组件
+    // ✅ 用 TokenContext.Provider 包裹整个组件
     <TokenContext.Provider value={tokenContextValue}>
       <div style={STYLES.container}>
         {/* 顶部导航 */}
@@ -285,6 +326,7 @@ export function ToolboxPage() {
               </p>
             </div>
           </div>
+          
           
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
             <a 

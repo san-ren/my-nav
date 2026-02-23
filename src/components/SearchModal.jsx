@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import Fuse from 'fuse.js';
 import { Search, X, Command, CornerDownLeft } from 'lucide-react';
 
-// 动态获取 nav 文件夹下的所有页面数据
-const navFiles = import.meta.glob('../data/nav/*.json', { eager: true });
-const navResources = Object.values(navFiles);
+// 动态获取 nav-groups 文件夹下的所有分组数据
+const navFiles = import.meta.glob('../content/nav-groups/*.json', { eager: true });
+// 处理可能的 default 导出
+const navResources = Object.values(navFiles).map((file) => file.default || file);
 
 export default function SearchModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,32 +15,68 @@ export default function SearchModal() {
   const inputRef = useRef(null);
   const listRef = useRef(null);
 
-  // --- 核心修复：适配 Groups 结构的扁平化逻辑 ---
-  const allLinks = navResources.flatMap(section =>
-    // 1. 遍历 Groups (如果页面没有 groups，就给个空数组防崩)
-    (section.groups || []).flatMap(group => 
-      // 2. 遍历 Categories
-      (group.categories || []).flatMap(cat => {
-        // 3. 如果有 tabs 结构
-        if (cat.tabs) {
-          return cat.tabs.flatMap(tab => 
-            (tab.list || []).map(item => ({
-              ...item,
-              category: cat.name,
-              tabName: tab.tabName,
-              sectionName: section.name
-            }))
-          );
+  // --- 修复：适配 nav-groups 数据结构的扁平化逻辑 ---
+  // nav-groups 目录下每个 JSON 文件就是一个 group
+  const allLinks = navResources.flatMap(group => {
+    const groupName = group.name || '未命名分组';
+    const links = [];
+    
+    // 1. 处理分组直属资源
+    if (group.resources && group.resources.length > 0) {
+      group.resources.forEach(item => {
+        if (item.name && item.url) {
+          links.push({
+            ...item,
+            sectionName: groupName,
+            category: '',
+            tabName: ''
+          });
         }
-        // 4. 如果是普通 list 结构
-        return (cat.list || []).map(item => ({
-          ...item,
-          category: cat.name,
-          sectionName: section.name
-        }));
-      })
-    )
-  );
+      });
+    }
+    
+    // 2. 处理分类下的资源
+    if (group.categories && group.categories.length > 0) {
+      group.categories.forEach(cat => {
+        const catName = cat.name || '';
+        
+        // 2.1 处理分类直属资源
+        if (cat.resources && cat.resources.length > 0) {
+          cat.resources.forEach(item => {
+            if (item.name && item.url) {
+              links.push({
+                ...item,
+                sectionName: groupName,
+                category: catName,
+                tabName: ''
+              });
+            }
+          });
+        }
+        
+        // 2.2 处理 tabs 结构
+        if (cat.tabs && cat.tabs.length > 0) {
+          cat.tabs.forEach(tab => {
+            const tabName = tab.tabName || '';
+            if (tab.list && tab.list.length > 0) {
+              tab.list.forEach(item => {
+                if (item.name && item.url) {
+                  links.push({
+                    ...item,
+                    sectionName: groupName,
+                    category: catName,
+                    tabName: tabName
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+    
+    return links;
+  });
 
   // 配置模糊搜索
   const fuse = new Fuse(allLinks, {
@@ -128,10 +165,17 @@ export default function SearchModal() {
                         <span className="font-bold text-sm truncate">{result.item.name}</span>
                         <div className="flex items-center gap-2 text-[11px] opacity-70">
                           <span>{result.item.sectionName}</span>
-                          <span>/</span>
-                          <span>{result.item.category}</span>
+                          {result.item.category && (
+                            <>
+                              <span>/</span>
+                              <span>{result.item.category}</span>
+                            </>
+                          )}
                           {result.item.tabName && (
-                            <><span>/</span><span>{result.item.tabName}</span></>
+                            <>
+                              <span>/</span>
+                              <span>{result.item.tabName}</span>
+                            </>
                           )}
                         </div>
                       </div>
