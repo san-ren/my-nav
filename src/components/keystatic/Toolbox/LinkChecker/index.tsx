@@ -26,7 +26,8 @@ import {
   FileText,
   ArrowUp,
   ArrowDown,
-  ArrowUpDown
+  ArrowUpDown,
+  AlertTriangle
 } from 'lucide-react';
 
 // --- 类型定义 ---
@@ -36,6 +37,7 @@ interface LinkInfo {
   source: string;
   path: string[];
   resourceName?: string;
+  resourceStatus?: string;
 }
 
 interface CheckResult {
@@ -45,6 +47,8 @@ interface CheckResult {
   httpCode?: number;
   error?: string;
   resourceName?: string;
+  resourceStatus?: string;
+  excludedReason?: string;
 }
 
 interface ScanResult {
@@ -65,8 +69,8 @@ interface TreeNode {
   link?: LinkInfo;
 }
 
-type FilterType = 'all' | 'ok' | 'failed' | 'timeout' | 'excluded';
-type SortField = 'status' | 'httpCode' | 'domain' | null;
+type FilterType = 'all' | 'ok' | 'failed' | 'timeout' | 'excluded' | 'allFailed';
+type SortField = 'status' | 'httpCode' | 'domain' | 'resourceStatus' | null;
 type SortDirection = 'asc' | 'desc';
 
 // 默认排除域名列表
@@ -192,6 +196,7 @@ const STYLES = {
     failed: { background: '#fee2e2', color: '#991b1b' },
     timeout: { background: '#fef3c7', color: '#92400e' },
     excluded: { background: '#f1f5f9', color: '#64748b' },
+    stale: { background: '#fef3c7', color: '#92400e' },
   },
   progress: {
     container: {
@@ -294,6 +299,29 @@ const STYLES = {
     borderBottom: '1px solid #f1f5f9',
     transition: 'background 0.15s',
   },
+  excludedGroup: {
+    marginBottom: '12px',
+    padding: '12px',
+    background: '#f8fafc',
+    borderRadius: '8px',
+    border: '1px solid #e2e8f0',
+  },
+  excludedGroupHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    marginBottom: '8px',
+    fontWeight: 500,
+    color: '#334155',
+    fontSize: '13px',
+  },
+  excludedGroupCount: {
+    background: '#e2e8f0',
+    padding: '2px 8px',
+    borderRadius: '4px',
+    fontSize: '11px',
+    color: '#64748b',
+  },
 };
 
 // --- 辅助函数 ---
@@ -303,6 +331,7 @@ const getStatusIcon = (status: string) => {
     case 'failed': return <XCircle size={16} style={{ color: '#ef4444' }} />;
     case 'timeout': return <Clock size={16} style={{ color: '#f59e0b' }} />;
     case 'excluded': return <Shield size={16} style={{ color: '#64748b' }} />;
+    case 'stale': return <AlertTriangle size={16} style={{ color: '#f59e0b' }} />;
     default: return null;
   }
 };
@@ -313,7 +342,8 @@ const getStatusLabel = (status: string): string => {
     case 'failed': return '失效';
     case 'timeout': return '超时';
     case 'excluded': return '已排除';
-    default: return status;
+    case 'stale': return '长期未更新';
+    default: return status || '-';
   }
 };
 
@@ -325,6 +355,17 @@ const getStatusWeight = (status: string): number => {
     case 'excluded': return 2;
     case 'ok': return 3;
     default: return 4;
+  }
+};
+
+// 资源状态排序权重
+const getResourceStatusWeight = (status: string | undefined): number => {
+  if (!status) return 3; // 无状态视为正常
+  switch (status) {
+    case 'failed': return 0;
+    case 'stale': return 1;
+    case 'ok': return 2;
+    default: return 3;
   }
 };
 
@@ -364,6 +405,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   const [showSettings, setShowSettings] = useState(true);
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
   
   // 排序状态 - 默认按状态排序
   const [sortField, setSortField] = useState<SortField>('status');
@@ -420,6 +462,11 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   const sortedAndFilteredResults = useMemo(() => {
     let results = checkResults.filter(r => {
       if (filter === 'all') return true;
+      if (filter === 'allFailed') {
+        // 包含检测失效 + 后台状态为failed/stale的资源
+        return r.status === 'failed' || r.status === 'timeout' || 
+               r.resourceStatus === 'failed' || r.resourceStatus === 'stale';
+      }
       return r.status === filter;
     });
 
@@ -437,6 +484,9 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
           case 'domain':
             comparison = a.domain.localeCompare(b.domain);
             break;
+          case 'resourceStatus':
+            comparison = getResourceStatusWeight(a.resourceStatus) - getResourceStatusWeight(b.resourceStatus);
+            break;
         }
         
         return sortDirection === 'asc' ? comparison : -comparison;
@@ -445,6 +495,22 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
 
     return results;
   }, [checkResults, filter, sortField, sortDirection]);
+
+  // 按域名分组的排除结果
+  const excludedByDomain = useMemo(() => {
+    const excluded = checkResults.filter(r => r.status === 'excluded');
+    const grouped = new Map<string, CheckResult[]>();
+    
+    excluded.forEach(result => {
+      const domain = result.excludedReason || result.domain;
+      if (!grouped.has(domain)) {
+        grouped.set(domain, []);
+      }
+      grouped.get(domain)!.push(result);
+    });
+    
+    return grouped;
+  }, [checkResults]);
 
   // 将扫描结果转换为树形结构
   const buildTree = (links: LinkInfo[]): TreeNode[] => {
@@ -724,6 +790,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
     const finalResults = results.map((result, index) => ({
       ...result,
       resourceName: selectedLinks[index]?.resourceName,
+      resourceStatus: selectedLinks[index]?.resourceStatus,
     }));
     
     setCheckResults(finalResults);
@@ -777,6 +844,10 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
     failed: checkResults.filter(r => r.status === 'failed').length,
     timeout: checkResults.filter(r => r.status === 'timeout').length,
     excluded: checkResults.filter(r => r.status === 'excluded').length,
+    allFailed: checkResults.filter(r => 
+      r.status === 'failed' || r.status === 'timeout' || 
+      r.resourceStatus === 'failed' || r.resourceStatus === 'stale'
+    ).length,
   };
 
   // 渲染树节点
@@ -1071,6 +1142,10 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
                 <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#94a3b8' }} />
                 <span style={{ fontSize: '14px', color: '#334155' }}>已排除: {stats.excluded}</span>
               </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#dc2626' }} />
+                <span style={{ fontSize: '14px', color: '#334155' }}>全部异常: {stats.allFailed}</span>
+              </div>
             </div>
             
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
@@ -1086,6 +1161,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
                   <option value="failed">失效 ({stats.failed})</option>
                   <option value="timeout">超时 ({stats.timeout})</option>
                   <option value="excluded">已排除 ({stats.excluded})</option>
+                  <option value="allFailed">全部异常 ({stats.allFailed})</option>
                 </select>
               </div>
               
@@ -1113,8 +1189,46 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
         </div>
       )}
 
+      {/* 已排除链接按域名分组显示 */}
+      {filter === 'excluded' && excludedByDomain.size > 0 && (
+        <div style={STYLES.card}>
+          <div style={STYLES.header}>
+            <Shield size={20} style={{ color: '#64748b' }} />
+            <span style={{ fontWeight: 600, color: '#334155' }}>已排除链接（按域名分组）</span>
+          </div>
+          <div style={STYLES.body}>
+            {Array.from(excludedByDomain.entries()).map(([domain, results]) => (
+              <div key={domain} style={STYLES.excludedGroup}>
+                <div style={STYLES.excludedGroupHeader}>
+                  <Globe size={14} />
+                  {domain}
+                  <span style={STYLES.excludedGroupCount}>{results.length} 个链接</span>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  {results.map((result, idx) => (
+                    <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px' }}>
+                      <a
+                        href={result.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: '#2563eb', textDecoration: 'none', flex: 1 }}
+                      >
+                        {truncateUrl(result.url, 60)}
+                      </a>
+                      <span style={{ color: '#64748b', fontSize: '12px' }}>
+                        {result.resourceName || '-'}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* 结果列表 */}
-      {sortedAndFilteredResults.length > 0 && (
+      {sortedAndFilteredResults.length > 0 && filter !== 'excluded' && (
         <div style={STYLES.card}>
           <div style={{ overflowX: 'auto' }}>
             <table style={STYLES.table}>
@@ -1134,12 +1248,23 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
                   <th style={STYLES.th}>资源名称</th>
                   <th 
                     style={STYLES.thSortable}
+                    onClick={() => handleSort('resourceStatus')}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f1f5f9'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = '#f8fafc'}
+                  >
+                    <span style={{ display: 'flex', alignItems: 'center' }}>
+                      资源状态
+                      {renderSortIcon('resourceStatus')}
+                    </span>
+                  </th>
+                  <th 
+                    style={STYLES.thSortable}
                     onClick={() => handleSort('status')}
                     onMouseEnter={(e) => e.currentTarget.style.background = '#f1f5f9'}
                     onMouseLeave={(e) => e.currentTarget.style.background = '#f8fafc'}
                   >
                     <span style={{ display: 'flex', alignItems: 'center' }}>
-                      状态
+                      检测状态
                       {renderSortIcon('status')}
                     </span>
                   </th>
@@ -1189,6 +1314,25 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
                     </td>
                     <td style={STYLES.td}>
                       <span style={{ color: '#334155' }}>{result.resourceName || '-'}</span>
+                    </td>
+                    <td style={STYLES.td}>
+                      {result.resourceStatus ? (
+                        <span style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                          padding: '4px 8px',
+                          borderRadius: '4px',
+                          fontSize: '12px',
+                          fontWeight: 500,
+                          ...STYLES.badge[result.resourceStatus] || { background: '#f1f5f9', color: '#64748b' },
+                        }}>
+                          {getStatusIcon(result.resourceStatus)}
+                          {getStatusLabel(result.resourceStatus)}
+                        </span>
+                      ) : (
+                        <span style={{ color: '#94a3b8', fontSize: '12px' }}>-</span>
+                      )}
                     </td>
                     <td style={STYLES.td}>
                       <span style={{

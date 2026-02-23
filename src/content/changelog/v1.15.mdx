@@ -19,3 +19,4 @@ status: draft
 * 拆分代码，优化结构，增加资源复用
 
 - 清理遗留代码
+- Tab 状态未持久化：`src/scripts/ui-layout.js` 引入 `sessionStorage` 状态记忆功能，并监听 URL 的锚点 (`hash`) 来自动展开对应的 Tab。

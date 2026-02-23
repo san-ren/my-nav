@@ -48,6 +48,7 @@ function findUrls(obj: any, source: string, path: string[], links: LinkInfo[], s
         source,
         path: [...path, 'url'],
         resourceName: obj.name,
+        resourceStatus: obj.status, // 读取后台资源状态
       });
       
       seen.add(obj.url);
@@ -65,6 +66,7 @@ function findUrls(obj: any, source: string, path: string[], links: LinkInfo[], s
         source,
         path: [...path, 'official_site'],
         resourceName: obj.name ? `${obj.name} (官网)` : undefined,
+        resourceStatus: obj.status, // 读取后台资源状态
       });
       
       seen.add(obj.official_site);
@@ -72,7 +74,7 @@ function findUrls(obj: any, source: string, path: string[], links: LinkInfo[], s
   }
   
   for (const key of Object.keys(obj)) {
-    if (!['url', 'official_site'].includes(key) && obj[key] && typeof obj[key] === 'object') {
+    if (!['url', 'official_site', 'status', 'name'].includes(key) && obj[key] && typeof obj[key] === 'object') {
       findUrls(obj[key], source, [...path, key], links, seen);
     }
   }
@@ -114,8 +116,15 @@ export async function checkLink(url: string, excludedDomains: string[]): Promise
     const urlObj = new URL(url);
     const domain = urlObj.hostname;
     
-    if (excludedDomains.some(d => domain === d || domain.endsWith('.' + d))) {
-      return { url, domain, status: 'excluded' };
+    // 检查是否在排除域名列表中
+    const excludedDomain = excludedDomains.find(d => domain === d || domain.endsWith('.' + d));
+    if (excludedDomain) {
+      return { 
+        url, 
+        domain, 
+        status: 'excluded',
+        excludedReason: excludedDomain, // 记录具体排除的域名
+      };
     }
     
     const result = await safeFetch(url);

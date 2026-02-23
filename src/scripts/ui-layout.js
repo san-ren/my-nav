@@ -108,13 +108,17 @@ function setupThemeToggle() {
 }
 
 // ==========================================
-// 5. Tab 切换逻辑
+// 5. Tab 切换逻辑 (支持状态记忆)
 // ==========================================
 function initTabs() {
   const containers = document.querySelectorAll('.tab-nav-container');
   containers.forEach(container => {
     const indicator = container.querySelector('.tab-indicator');
     const btns = container.querySelectorAll('.tab-btn');
+    const group = container.closest('.category-group');
+    // 获取当前分类区块的唯一 ID（例如 cat-0-1）
+    const groupId = group ? group.id : null; 
+
     if (!indicator || btns.length === 0) return;
     
     const moveIndicator = (targetBtn) => {
@@ -124,22 +128,18 @@ function initTabs() {
       indicator.style.opacity = '1'; 
     };
     
-    const activeBtn = container.querySelector('.active-tab') || btns[0];
-    setTimeout(() => { if(activeBtn) moveIndicator(activeBtn); }, 50);
+    // 抽象激活逻辑
+    const activateTab = (btn) => {
+      btns.forEach(b => {
+        b.classList.remove('active-tab', 'text-brand-600', 'bg-white', 'dark:bg-gray-700', 'shadow-sm');
+        b.classList.add('text-slate-500');
+      });
+      btn.classList.add('active-tab', 'text-brand-600'); 
+      btn.classList.remove('text-slate-500');
+      moveIndicator(btn);
 
-    btns.forEach(btn => {
-      btn.addEventListener('mouseenter', () => moveIndicator(btn));
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        btns.forEach(b => {
-          b.classList.remove('active-tab', 'text-brand-600', 'bg-white', 'dark:bg-gray-700', 'shadow-sm');
-          b.classList.add('text-slate-500');
-        });
-        btn.classList.add('active-tab', 'text-brand-600'); 
-        btn.classList.remove('text-slate-500');
-        moveIndicator(btn);
-        const group = container.closest('.category-group');
-        const targetId = btn.getAttribute('data-target');
+      const targetId = btn.getAttribute('data-target');
+      if (group) {
         group.querySelectorAll('.tab-pane').forEach(p => {
           p.classList.add('hidden');
           p.classList.remove('animate-fade-in'); 
@@ -147,11 +147,39 @@ function initTabs() {
         const targetPane = document.getElementById(targetId);
         if(targetPane) {
           targetPane.classList.remove('hidden');
-          void targetPane.offsetWidth;
+          void targetPane.offsetWidth; // 触发重绘
           targetPane.classList.add('animate-fade-in');
         }
+        
+        // 【关键】将当前选中的 Tab 存入 sessionStorage 记录
+        if (groupId) {
+          sessionStorage.setItem(`activeTab-${groupId}`, targetId);
+        }
+      }
+    };
+
+    // 决定初始状态下激活哪一个 Tab
+    let targetBtn = container.querySelector('.active-tab') || btns[0];
+    
+    // 【关键】页面刷新时，优先从 sessionStorage 恢复记忆的 Tab
+    if (groupId) {
+       const savedTargetId = sessionStorage.getItem(`activeTab-${groupId}`);
+       if (savedTargetId) {
+          const savedBtn = container.querySelector(`[data-target="${savedTargetId}"]`);
+          if (savedBtn) targetBtn = savedBtn;
+       }
+    }
+
+    setTimeout(() => { if(targetBtn) activateTab(targetBtn); }, 50);
+
+    btns.forEach(btn => {
+      btn.addEventListener('mouseenter', () => moveIndicator(btn));
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        activateTab(btn);
       });
     });
+
     container.addEventListener('mouseleave', () => {
       const currentActive = container.querySelector('.active-tab');
       if (currentActive) moveIndicator(currentActive);
@@ -225,6 +253,37 @@ function initResourceFilter() {
 }
 
 // ==========================================
+// 6.5 智能 Hash 定位逻辑 (锚点跳转自动展开Tab)
+// ==========================================
+function handleHashJump() {
+  const hash = window.location.hash;
+  if (!hash) return;
+
+  try {
+    const targetEl = document.querySelector(decodeURIComponent(hash));
+    if (!targetEl) return;
+
+    // 检查目标元素是否被隐藏在某个 tab-pane 中
+    const pane = targetEl.closest('.tab-pane');
+    if (pane && pane.classList.contains('hidden')) {
+      const paneId = pane.id;
+      const btn = document.querySelector(`.tab-btn[data-target="${paneId}"]`);
+      if (btn) {
+         // 触发点击事件以展开该 Tab 并保存状态
+         btn.click(); 
+         
+         // 延迟 100ms 等待 display:none 移除并渲染完毕后，再进行精准滚动
+         setTimeout(() => {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+         }, 100);
+      }
+    }
+  } catch (e) {
+    // 忽略无效的 hash 报错
+  }
+}
+
+// ==========================================
 // 7. 全局初始化入口
 // ==========================================
 function initLayout() {
@@ -272,6 +331,9 @@ function initLayout() {
         if (overlay) overlay.classList.remove('active');
       }
   }
+
+  // [新增] 初始化完成后，检查一次是否存在锚点并自动展开
+  setTimeout(handleHashJump, 150);
 }
 
 // 立即执行
@@ -279,6 +341,9 @@ initLayout();
 
 // Astro 页面切换后重新执行
 document.addEventListener('astro:after-swap', initLayout);
+
+// [新增] 监听页面的 Hash 变化（例如点击了站内的某个链接）
+window.addEventListener('hashchange', handleHashJump);
 
 // 窗口大小改变时重置
 let resizeTimer;

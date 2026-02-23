@@ -19,6 +19,7 @@ export interface LinkInfo {
   source: string;
   path: string[];
   resourceName?: string;
+  resourceStatus?: string; // 后台资源状态字段
 }
 
 export interface CheckResult {
@@ -28,6 +29,8 @@ export interface CheckResult {
   httpCode?: number;
   error?: string;
   resourceName?: string;
+  resourceStatus?: string; // 后台资源状态字段
+  excludedReason?: string; // 排除原因（域名）
 }
 
 export interface ScanResult {

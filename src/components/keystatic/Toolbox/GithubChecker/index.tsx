@@ -340,6 +340,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
   const [showSettings, setShowSettings] = useState(true);
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
   const [showToken, setShowToken] = useState(false);
   
   // 排序状态 - 默认按状态排序
@@ -348,13 +349,21 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
 
   // 通知父组件数据状态变化
   const onDataStatusChangeRef = useRef(onDataStatusChange);
+  // 使用 ref 记录上一次的状态，防止重复调用导致父组件频繁重绘丢失焦点
+  const lastDataStatusRef = useRef<boolean>(false);
+
   useEffect(() => {
     onDataStatusChangeRef.current = onDataStatusChange;
   }, [onDataStatusChange]);
 
   useEffect(() => {
-    onDataStatusChangeRef.current?.(scanResult !== null || checkResults.length > 0);
-  }, [scanResult, checkResults]); 
+    const hasData = scanResult !== null || checkResults.length > 0;
+    // 只有当状态真正发生改变时，才通知父组件
+    if (lastDataStatusRef.current !== hasData) {
+      lastDataStatusRef.current = hasData;
+      onDataStatusChangeRef.current?.(hasData);
+    }
+  }, [scanResult, checkResults]);
 
   // 排序函数
   const handleSort = (field: SortField) => {
