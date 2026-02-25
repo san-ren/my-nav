@@ -365,7 +365,7 @@
               "url": "https://github.com/SmartSchoolAI/ai-to-pptx",
               "official_site": "https://pptx.dandian.net",
               "desc": "前端后端同时开源。 Ai-to-pptx是一个使用AI技术(DeepSeek)制作PPTX的助手，支持在线生成和导出PPTX。 主要功能: 1 使用DeepSeek等大语言模型来生成大纲 2 生成PPTX的时候可以选择不同的模板 3 支持导出PPTX",
-              "icon": "/images/logos/SmartSchoolAI-ai-to-pptx.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -481,7 +481,7 @@
               "url": "https://github.com/iOfficeAI/AionUi",
               "official_site": "https://www.aionui.com",
               "desc": "Free, local, open-source 24/7 Cowork app and OpenClaw for Gemini CLI, Claude Code, Codex, OpenCode, Qwen Code, Goose CLI, Auggie, and more | 🌟 Star if you like it!",
-              "icon": "/images/logos/iOfficeAI-AionUi.webp?t=1771742061690",
+              "icon": "/images/logos/github-com.webp?t=1771742061690",
               "hide_badges": [],
               "status": "ok"
             },

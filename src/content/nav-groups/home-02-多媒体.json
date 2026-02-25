@@ -31,7 +31,7 @@
               "name": "洛雪音乐助手",
               "url": "https://github.com/lyswhut/lx-music-desktop",
               "official_site": "https://lxmusic.toside.cn/",
-              "icon": "/images/logos/lyswhut-lx-music-desktop.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -41,7 +41,7 @@
               "name": "Listen1",
               "url": "https://github.com/listen1/listen1_desktop",
               "official_site": "https://listen1.github.io/listen1/",
-              "icon": "/images/logos/listen1-listen1-desktop.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "guide_id": "listen1",
               "status": "ok"
@@ -61,7 +61,7 @@
               "name": "MusicFree",
               "url": "https://github.com/maotoumao/MusicFreeDesktop",
               "official_site": "https://musicfree.catcat.work/",
-              "icon": "/images/logos/maotoumao-MusicFreeDesktop.webp",
+              "icon": "/images/logos/maotoumao-MusicFree.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -100,7 +100,7 @@
               "url": "https://github.com/guanguans/music-dl",
               "official_site": "https://www.guanguans.cn/music-dl/",
               "desc": "命令行音乐搜索下载",
-              "icon": "/images/logos/guanguans-music-dl.webp",
+              "icon": "/images/logos/gjw123-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -181,7 +181,7 @@
               "toolboxLink": null,
               "name": "Dopamine",
               "url": "https://github.com/digimezzo/dopamine-windows",
-              "icon": "/images/logos/digimezzo-dopamine-windows.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -229,7 +229,7 @@
               "url": "https://github.com/qier222/YesPlayMusic",
               "official_site": "https://music.qier222.com/",
               "desc": "第三方网易云播放器",
-              "icon": "/images/logos/qier222-YesPlayMusic.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -347,7 +347,7 @@
               "toolboxLink": null,
               "name": "LX Music",
               "url": "https://github.com/lyswhut/lx-music-mobile",
-              "icon": "/images/logos/lyswhut-lx-music-mobile.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -356,7 +356,7 @@
               "toolboxLink": null,
               "name": "Listen 1",
               "url": "https://listen1.github.io/listen1/",
-              "icon": "/images/logos/listen1-github-io.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -385,7 +385,7 @@
               "name": "音乐搜索",
               "url": "音乐时刻",
               "desc": "无广，网站套壳",
-              "icon": "/images/logos/xn-fjq68g6sxqf1c.webp",
+              "icon": "/images/logos/xiaomark-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -430,7 +430,7 @@
               "name": "艾莫音乐 | Aimo Music",
               "official_site": "https://music.amstudios.dpdns.org/",
               "desc": "简约",
-              "icon": "/images/logos/music-amstudios-dpdns-org.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -479,7 +479,7 @@
               "name": "DialogMusicPlayer",
               "url": "https://github.com/VishnuSanal/DialogMusicPlayer/",
               "desc": "极简，无桌面图标",
-              "icon": "/images/logos/VishnuSanal-DialogMusicPlayer.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -560,7 +560,7 @@
               "name": "极乐",
               "url": "https://wds.cxoip.com/797.html",
               "desc": "2025失效",
-              "icon": "",
+              "icon": "/images/logos/wds-cxoip-com.webp",
               "hide_badges": [],
               "status": "failed"
             },
@@ -645,7 +645,7 @@
               "name": "泡椒音乐",
               "url": "https://pjmp3.de/",
               "official_site": "https://pjmp3.com/",
-              "icon": "/images/logos/pjmp3-de.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -790,7 +790,7 @@
               "name": "Imagine",
               "url": "https://www.nyam.pe.kr/dev/imagine/",
               "desc": "看图、动图编辑",
-              "icon": "/images/logos/nyam-pe-kr.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -839,7 +839,7 @@
               "toolboxLink": null,
               "name": "Masonry Image Viewer",
               "url": "https://github.com/wlm3201/Masonry_Image_Viewer",
-              "icon": "/images/logos/wlm3201-Masonry-Image-Viewer.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -880,7 +880,7 @@
               "url": "https://github.com/icret/EasyImages2.0",
               "official_site": "https://png.cm/",
               "desc": "简单图床",
-              "icon": "/images/logos/icret-EasyImages2-0.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             }
@@ -966,7 +966,7 @@
               "url": "https://github.com/027xiguapi/pear-rec",
               "official_site": "https://027xiguapi.github.io/pear-rec/",
               "desc": "截图、录屏、录音、录像",
-              "icon": "/images/logos/027xiguapi-pear-rec.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -976,7 +976,7 @@
               "name": "AutoScreenShot",
               "url": "https://github.com/artem78/AutoScreenshot",
               "desc": "定时自动截图",
-              "icon": "/images/logos/artem78-AutoScreenshot.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1014,7 +1014,7 @@
               "toolboxLink": null,
               "name": "verycapture",
               "url": "https://verycapture.com/cn/index.html",
-              "icon": "/images/logos/verycapture-com.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             }
@@ -1127,7 +1127,7 @@
               "toolboxLink": null,
               "name": "洋芋田图像工具箱",
               "url": "https://imagetoolkit.potatofield.cn/",
-              "icon": "",
+              "icon": "/images/logos/imagetoolkit-potatofield-cn.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1136,7 +1136,7 @@
               "toolboxLink": null,
               "name": "IOPaint",
               "url": "https://www.iopaint.com/",
-              "icon": "/images/logos/iopaint-com.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1145,7 +1145,7 @@
               "toolboxLink": null,
               "name": "Lama-Cleaner-lama",
               "url": "https://huggingface.co/spaces/Sanster/Lama-Cleaner-lama",
-              "icon": "",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1284,7 +1284,7 @@
               "toolboxLink": null,
               "name": "土豆录屏",
               "url": "http://www.tudouluping.com/",
-              "icon": "/images/logos/tudouluping-com.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1293,7 +1293,7 @@
               "toolboxLink": null,
               "name": "EV录屏",
               "url": "https://www.ieway.cn/evcapture.html",
-              "icon": "/images/logos/ieway-cn.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1320,7 +1320,7 @@
               "toolboxLink": null,
               "name": "CamStudio",
               "url": "https://camstudio.org/",
-              "icon": "/images/logos/camstudio-org.webp",
+              "icon": "/images/logos/happymod-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1329,7 +1329,7 @@
               "toolboxLink": null,
               "name": "RecButton",
               "url": "https://www.recbutton.org/",
-              "icon": "/images/logos/recbutton-org.webp",
+              "icon": "/images/logos/runningcheese-com.webp",
               "hide_badges": [],
               "status": "ok"
             },

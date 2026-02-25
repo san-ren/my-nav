@@ -1,8 +1,9 @@
 // BatchAdder API 入口
+// 职责：批量操作入口，调用 smart-parse API 实现基础解析
 import type { APIRoute } from 'astro';
-import { parseUrl } from './utils';
+import { parseUrl, parseUrls } from './utils';
 import { getGroups, addResourceToGroup, addAsNewTab, addAsNewCategory, checkDuplicates } from './dataOperations';
-import type { ParseResult, AddResult, DuplicateCheckResult, ParsedResource } from '../types';
+import type { ParseResult, AddResult } from '../types';
 
 // 强制动态模式
 export const prerender = false;
@@ -20,7 +21,7 @@ export const GET: APIRoute = async ({ url }) => {
     });
   }
   
-  // 模式 2: 解析单个 URL
+  // 模式 2: 解析单个 URL（转发到 smart-parse）
   if (mode === 'parse') {
     const targetUrl = url.searchParams.get('url');
     if (!targetUrl) {
@@ -42,15 +43,10 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
     
-    // 批量解析
+    // 批量解析（并行调用 smart-parse API）
     if (body.urls && Array.isArray(body.urls)) {
-      const results: ParseResult[] = [];
-      
-      for (const url of body.urls) {
-        const result = await parseUrl(url);
-        results.push(result);
-        await new Promise(resolve => setTimeout(resolve, 200));
-      }
+      const concurrency = body.concurrency || 10;
+      const results = await parseUrls(body.urls, concurrency);
       
       return new Response(JSON.stringify(results), {
         status: 200,

@@ -5,7 +5,10 @@ status: draft
 ---
 ### 新增
 
-* 后台工具箱：github检测、链接检测、批量添加
+* 后台工具箱：
+  * **github检测**：通过gitub API获取仓库信息，标记长期未更新的资源
+  * **链接检测**：检测网站状态码，可配置域名排除项
+  * **批量添加**：在自动填充功能的基础上，扩展为批量添加
 * 引入 `Container` 组件，在教程和更新记录界面支持 GitHub Alert 和 容器
   * 模仿我喜欢的md编辑器 [wj-markdown-editor](https://github.com/nlbwqmz/wj-markdown-editor)&#x20;
   * 下次学习 [md-reader](https://github.com/md-reader/md-reader) ，一个渲染markdown非常优秀的浏览器扩展
@@ -19,4 +22,10 @@ status: draft
 * 拆分代码，优化结构，增加资源复用
 
 - 清理遗留代码
-- Tab 状态未持久化：`src/scripts/ui-layout.js` 引入 `sessionStorage` 状态记忆功能，并监听 URL 的锚点 (`hash`) 来自动展开对应的 Tab。
+- Tab 状态持久化：`src/scripts/ui-layout.js` 引入 `sessionStorage` 状态记忆功能，并监听 URL 的锚点 (`hash`) 来自动展开对应的 Tab
+- batch-add 和 smart-parse 去重，精简代码，提高复用性
+- 图标文件通过哈希值比较，确保相同图标只存一份
+
+### 修改
+
+* 卡片图标本地化，摒弃运行时图标获取逻辑，添加资源时将图标文件存储在本地

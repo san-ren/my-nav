@@ -10,27 +10,6 @@ export const getDomain = (targetUrl) => {
   }
 };
 
-
-/**
- * 生成图标源对象
- */
-export const getIconSources = ({ icon, url, official_site, base }) => {
-  const domain = getDomain(official_site) || getDomain(url);
-  const localFallback = `${base}/favicon.svg`;
-
-  return {
-    sources: {
-      custom: icon,
-      level1: domain ? `https://ico.kucat.cn/get.php?url=${domain}` : '',
-      level2: domain ? `https://${domain}/favicon.ico` : '',
-      level3: domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : '',
-      fallback: localFallback
-    },
-    domain,
-    localFallback
-  };
-};
-
 /**
  * 徽章类型定义（供前端 UI 生成复选框使用）
  * 导出这个常量，可以在你的表单页面引用，用来生成 checkbox

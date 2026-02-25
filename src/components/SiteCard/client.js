@@ -1,70 +1,5 @@
-// 图片加载逻辑
-function loadOneImage(img) {
-  if (img.dataset.loaded === 'true') return;
-  const realSrc = img.dataset.lazySrc;
-  const sources = img.dataset.sources ? JSON.parse(img.dataset.sources) : null;
-  const domain = img.dataset.domain;
-
-  if (domain) {
-    const cached = localStorage.getItem('fav-' + domain);
-    if (cached) {
-      img.src = cached;
-      img.dataset.loaded = 'true';
-      return;
-    }
-  }
-
-  const tempImage = new Image();
-  tempImage.onload = () => {
-    img.src = realSrc;
-    img.dataset.loaded = 'true';
-    if (domain && !realSrc.includes('favicon.svg')) {
-      try { localStorage.setItem('fav-' + domain, realSrc); } catch (e) {}
-    }
-  };
-  tempImage.onerror = () => {
-    if (sources) {
-      if (realSrc.includes('ico.kucat.cn')) img.src = sources.level2;
-      else if (realSrc.includes('/favicon.ico')) img.src = sources.level3;
-      else img.dataset.loaded = 'true';
-    }
-  };
-  if (realSrc) tempImage.src = realSrc;
-}
-
-function initObserver() {
-  const imgs = document.querySelectorAll('img.lazy-icon:not([data-loaded="true"])');
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          loadOneImage(entry.target);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '200px 0px', threshold: 0.01 });
-    imgs.forEach(img => observer.observe(img));
-  } else {
-    imgs.forEach(img => loadOneImage(img));
-  }
-}
-
-function loadRestIcons() {
-  const idleCallback = window.requestIdleCallback || ((cb) => setTimeout(cb, 2000));
-  idleCallback(() => {
-    const allImgs = document.querySelectorAll('img.lazy-icon:not([data-loaded="true"])');
-    allImgs.forEach(img => loadOneImage(img));
-  }, { timeout: 5000 });
-}
-
-function startLoading() {
-  initObserver();
-  if (document.readyState === 'complete') { loadRestIcons(); }
-  else { window.addEventListener('load', loadRestIcons); }
-}
-
 // -------------------------------------------------------------
-// 浮窗逻辑
+// 浮窗逻辑（保留）
 // -------------------------------------------------------------
 let tooltipEl = null;
 let hideTimer = null;
@@ -243,7 +178,6 @@ const handleWindowBlur = () => { if (activeCard) hideTooltip(true); };
 
 export function initSiteCard() {
   createTooltipDOM();
-  startLoading();
 
   // 清理旧监听器
   document.body.removeEventListener('mouseover', handleMouseOver);
