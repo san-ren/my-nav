@@ -75,3 +75,35 @@
    可以利用 CSS 选择器特指度来覆盖，或者配合 JS 的类名修改。
    目前保持 SiteCard 里的 scale-95 (0.95倍) 到 scale-100 (1倍) 已经很优雅了。
 */
+
+
+/* ======================================================
+   页面路由切换动画增强 (View Transitions API)
+   ====================================================== */
+
+/* 1. 取消全局 root 的默认动画。
+   这样侧边栏和背景元素在切换时会瞬间无缝替换，不会闪烁，且能正确更新高亮状态。 */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none !important;
+  mix-blend-mode: normal;
+}
+
+/* 2. 将酷炫的滑动淡入淡出动画，精准应用到我们刚刚命名的主内容区域 */
+::view-transition-old(main-content) {
+  animation: page-fade-out 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+::view-transition-new(main-content) {
+  animation: page-fade-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes page-fade-out {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(-10px) scale(0.98); }
+}
+
+@keyframes page-fade-in {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}

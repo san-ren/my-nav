@@ -110,6 +110,34 @@ function setupThemeToggle() {
 // ==========================================
 // 5. Tab 切换逻辑 (支持状态记忆)
 // ==========================================
+
+// 全局标记：是否需要等待滚动完成后再执行Tab动画
+let pendingTabAnimations = [];
+let isScrolling = false;
+let scrollStopTimer = null;
+
+// 滚动停止检测（全局）
+function initScrollStopDetection() {
+  const onScroll = () => {
+    isScrolling = true;
+    if (scrollStopTimer) clearTimeout(scrollStopTimer);
+    // 滚动停止400ms后执行待处理的Tab动画
+    scrollStopTimer = setTimeout(() => {
+      isScrolling = false;
+      // 执行所有待处理的Tab动画
+      pendingTabAnimations.forEach(fn => fn());
+      pendingTabAnimations = [];
+    }, 400);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+// 初始化滚动检测（只执行一次）
+if (typeof window !== 'undefined' && !window.__scrollStopInitialized) {
+  initScrollStopDetection();
+  window.__scrollStopInitialized = true;
+}
+
 function initTabs() {
   const containers = document.querySelectorAll('.tab-nav-container');
   containers.forEach(container => {
@@ -121,22 +149,31 @@ function initTabs() {
 
     if (!indicator || btns.length === 0) return;
     
-    const moveIndicator = (targetBtn) => {
+    const moveIndicator = (targetBtn, animate = true) => {
       if (!targetBtn) return;
+      if (!animate) {
+        // 禁用动画，直接设置位置
+        indicator.style.transition = 'none';
+      }
       indicator.style.left = `${targetBtn.offsetLeft}px`;
       indicator.style.width = `${targetBtn.offsetWidth}px`;
-      indicator.style.opacity = '1'; 
+      indicator.style.opacity = '1';
+      if (!animate) {
+        // 强制重绘后恢复动画
+        void indicator.offsetWidth;
+        indicator.style.transition = '';
+      }
     };
     
     // 抽象激活逻辑
-    const activateTab = (btn) => {
+    const activateTab = (btn, animate = true) => {
       btns.forEach(b => {
         b.classList.remove('active-tab', 'text-brand-600', 'bg-white', 'dark:bg-gray-700', 'shadow-sm');
         b.classList.add('text-slate-500');
       });
       btn.classList.add('active-tab', 'text-brand-600'); 
       btn.classList.remove('text-slate-500');
-      moveIndicator(btn);
+      moveIndicator(btn, animate);
 
       const targetId = btn.getAttribute('data-target');
       if (group) {
@@ -160,29 +197,79 @@ function initTabs() {
 
     // 决定初始状态下激活哪一个 Tab
     let targetBtn = container.querySelector('.active-tab') || btns[0];
+    let needSlideAnimation = false;
     
     // 【关键】页面刷新时，优先从 sessionStorage 恢复记忆的 Tab
     if (groupId) {
        const savedTargetId = sessionStorage.getItem(`activeTab-${groupId}`);
        if (savedTargetId) {
           const savedBtn = container.querySelector(`[data-target="${savedTargetId}"]`);
-          if (savedBtn) targetBtn = savedBtn;
+          if (savedBtn) {
+            // 如果恢复的不是第一个Tab，需要从第一个Tab滑动过去
+            if (savedBtn !== btns[0]) {
+              needSlideAnimation = true;
+              // 先将indicator放在第一个Tab位置（无动画）
+              moveIndicator(btns[0], false);
+              // 清除第一个Tab的active状态
+              btns.forEach(b => {
+                b.classList.remove('active-tab', 'text-brand-600', 'bg-white', 'dark:bg-gray-700', 'shadow-sm');
+                b.classList.add('text-slate-500');
+              });
+            }
+            targetBtn = savedBtn;
+          }
        }
     }
 
-    setTimeout(() => { if(targetBtn) activateTab(targetBtn); }, 50);
+    // 执行Tab激活的函数
+    const executeTabActivation = (animate) => { 
+      if(targetBtn) {
+        activateTab(targetBtn, animate);
+      }
+    };
+
+    // 【关键】智能检测是否需要等待滚动完成
+    const scheduleTabActivation = () => {
+      // 如果需要滑动动画且页面正在滚动或可能即将滚动
+      if (needSlideAnimation && targetBtn !== btns[0]) {
+        // 检查是否有搜索跳转带来的滚动标记
+        const searchScrollPending = sessionStorage.getItem('searchScrollPending');
+        
+        if (searchScrollPending === 'true' || isScrolling || window.scrollY > 50) {
+          // 有滚动行为，等待滚动停止后再执行动画
+          const animationFn = () => executeTabActivation(true);
+          
+          // 如果当前正在滚动，添加到待处理队列
+          if (isScrolling) {
+            pendingTabAnimations.push(animationFn);
+          } else {
+            // 滚动已经停止或还没开始，延迟一点执行确保能看到动画
+            setTimeout(animationFn, 100);
+          }
+        } else {
+          // 没有滚动，直接执行动画
+          setTimeout(() => executeTabActivation(true), 100);
+        }
+      } else {
+        // 不需要动画，直接执行
+        setTimeout(() => executeTabActivation(false), 50);
+      }
+    };
+
+    // 延迟执行
+    setTimeout(scheduleTabActivation, 50);
 
     btns.forEach(btn => {
-      btn.addEventListener('mouseenter', () => moveIndicator(btn));
+      btn.addEventListener('mouseenter', () => moveIndicator(btn, true));
       btn.addEventListener('click', (e) => {
         e.preventDefault();
-        activateTab(btn);
+        activateTab(btn, true);
       });
     });
 
     container.addEventListener('mouseleave', () => {
       const currentActive = container.querySelector('.active-tab');
-      if (currentActive) moveIndicator(currentActive);
+      if (currentActive) moveIndicator(currentActive, true);
     });
   });
 }

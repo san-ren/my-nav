@@ -9,11 +9,27 @@ const navResources = Object.values(navFiles).map((file) => file.default || file)
 
 export default function SearchModal() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef(null);
   const listRef = useRef(null);
+
+  // 打开/关闭搜索栏的过渡动画
+  const openModal = () => {
+    setIsClosing(false);
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsClosing(true);
+    // 等待动画完成后再真正关闭
+    setTimeout(() => {
+      setIsOpen(false);
+      setIsClosing(false);
+    }, 200);
+  };
 
   // --- 修复：适配 nav-groups 数据结构的扁平化逻辑 ---
   // nav-groups 目录下每个 JSON 文件就是一个 group
@@ -109,9 +125,15 @@ export default function SearchModal() {
     const handleKeyDown = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        setIsOpen(true);
+        if (isOpen) {
+          closeModal();
+        } else {
+          openModal();
+        }
       }
-      if (e.key === 'Escape') setIsOpen(false);
+      if (e.key === 'Escape' && isOpen) {
+        closeModal();
+      }
       
       // 键盘导航
       if (isOpen && results.length > 0) {
@@ -132,19 +154,21 @@ export default function SearchModal() {
   }, [isOpen, results, selectedIndex]);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && !isClosing) {
       setTimeout(() => inputRef.current?.focus(), 100);
       document.body.style.overflow = 'hidden';
-    } else {
+    } else if (!isOpen) {
       document.body.style.overflow = 'auto';
     }
-  }, [isOpen]);
+  }, [isOpen, isClosing]);
 
   // 获取当前页面ID
   const getCurrentPageId = () => {
     const path = window.location.pathname;
-    // 匹配 /home, /sub1, /sub2 等
-    const match = path.match(/\/([^/]+)/);
+    // 匹配 /home, /sub1, /sub2 等，考虑base路径
+    const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+    const pathWithoutBase = path.replace(base, '');
+    const match = pathWithoutBase.match(/\/([^/]+)/);
     return match ? match[1] : 'home';
   };
 
@@ -157,17 +181,21 @@ export default function SearchModal() {
     sessionStorage.setItem('searchQuery', query);
     sessionStorage.setItem('searchResults', JSON.stringify(results.map(r => r.item)));
     sessionStorage.setItem('scrollToResource', JSON.stringify(item));
+    // 标记即将有搜索跳转带来的滚动
+    sessionStorage.setItem('searchScrollPending', 'true');
     
     if (currentPageId === targetPageId) {
       // 同一页面，直接滚动
-      setIsOpen(false);
+      closeModal();
       setTimeout(() => {
         scrollToResource(item);
-      }, 100);
+        sessionStorage.removeItem('searchScrollPending');
+      }, 300);
     } else {
       // 不同页面，跳转并保留状态
-      setIsOpen(false);
-      window.location.href = `/${targetPageId}`;
+      const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+      closeModal();
+      window.location.href = `${base}/${targetPageId}`;
     }
   };
 
@@ -187,7 +215,7 @@ export default function SearchModal() {
         setTimeout(() => {
           card.classList.remove('ring-2', 'ring-blue-500', 'ring-offset-2');
         }, 2000);
-        return;
+        return true;
       }
     }
     
@@ -201,35 +229,90 @@ export default function SearchModal() {
         setTimeout(() => {
           card.classList.remove('ring-2', 'ring-blue-500', 'ring-offset-2');
         }, 2000);
+        return true;
       }
     }
+    return false;
   };
 
-  // 恢复搜索状态
+  // 恢复搜索状态 - 改进：等待页面完全加载后再滚动
   useEffect(() => {
-    const savedQuery = sessionStorage.getItem('searchQuery');
     const scrollToItem = sessionStorage.getItem('scrollToResource');
-    
-    // 如果有保存的搜索状态，恢复搜索框
-    if (savedQuery) {
-      setQuery(savedQuery);
-      sessionStorage.removeItem('searchQuery');
-    }
     
     if (scrollToItem) {
       const item = JSON.parse(scrollToItem);
-      // 等待页面加载完成后滚动
-      setTimeout(() => {
-        scrollToResource(item);
-      }, 800);
-      sessionStorage.removeItem('scrollToResource');
+      
+      // 恢复搜索词
+      const savedQuery = sessionStorage.getItem('searchQuery');
+      if (savedQuery) {
+        setQuery(savedQuery);
+        sessionStorage.removeItem('searchQuery');
+      }
+      
+      // 使用多种方式确保页面加载完成
+      const attemptScroll = (attempts = 0) => {
+        const maxAttempts = 10;
+        const delay = 500;
+        
+        if (attempts >= maxAttempts) {
+          // 最终尝试：直接滚动
+          scrollToResource(item);
+          sessionStorage.removeItem('scrollToResource');
+          sessionStorage.removeItem('searchScrollPending');
+          return;
+        }
+        
+        // 检查目标元素是否存在
+        const cards = document.querySelectorAll('.site-card-wrapper');
+        let found = false;
+        
+        for (const card of cards) {
+          const nameEl = card.querySelector('h3');
+          const cardName = nameEl ? nameEl.textContent.trim() : '';
+          if (cardName === item.name) {
+            found = true;
+            break;
+          }
+        }
+        
+        if (found) {
+          // 元素已存在，执行滚动
+          scrollToResource(item);
+          // 滚动完成后清除标记（延迟一点确保滚动动画开始）
+          setTimeout(() => {
+            sessionStorage.removeItem('scrollToResource');
+            sessionStorage.removeItem('searchScrollPending');
+          }, 500);
+        } else {
+          // 元素还未加载，延迟重试
+          setTimeout(() => attemptScroll(attempts + 1), delay);
+        }
+      };
+      
+      // 等待DOM完全加载后开始尝试
+      if (document.readyState === 'complete') {
+        setTimeout(() => attemptScroll(0), 300);
+      } else {
+        window.addEventListener('load', () => {
+          setTimeout(() => attemptScroll(0), 300);
+        });
+      }
     }
   }, []);
+
+  // 动画样式类
+  const overlayClass = `fixed inset-0 z-[25] bg-slate-900/60 backdrop-blur-sm transition-opacity duration-200 ${
+    isClosing ? 'opacity-0' : 'opacity-100'
+  }`;
+  
+  const modalClass = `fixed inset-0 z-[50] flex items-start justify-center pt-[120px] px-4 pointer-events-none transition-all duration-200 ${
+    isClosing ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+  }`;
 
   return (
     <>
       <button
-        onClick={() => setIsOpen(true)}
+        onClick={openModal}
         className="flex items-center gap-2 px-3 py-1.5 text-sm text-slate-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:ring-2 hover:ring-blue-500/20 transition-all border border-slate-200 dark:border-slate-700"
       >
         <Search size={16} />
@@ -243,15 +326,15 @@ export default function SearchModal() {
         <>
           {/* 背景遮罩 - 只覆盖内容区域，不覆盖顶栏 */}
           <div 
-            className="fixed inset-0 z-[25] bg-slate-900/60 backdrop-blur-sm"
-            onClick={() => setIsOpen(false)}
-            style={{ top: '72px' }} // 顶栏高度约 72px
+            className={overlayClass}
+            onClick={closeModal}
+            style={{ top: '72px' }}
           />
           
           {/* 弹窗容器 */}
           <div 
-            className="fixed inset-0 z-[50] flex items-start justify-center pt-[120px] px-4 pointer-events-none"
-            onClick={() => setIsOpen(false)}
+            className={modalClass}
+            onClick={closeModal}
           >
             <div 
               className="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden max-h-[70vh] flex flex-col pointer-events-auto"
@@ -268,7 +351,7 @@ export default function SearchModal() {
                   className="flex-1 bg-transparent border-none outline-none text-slate-800 dark:text-slate-100 placeholder-slate-400"
                 />
                 <button 
-                  onClick={() => setIsOpen(false)} 
+                  onClick={() => setQuery('')} 
                   className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-slate-400"
                 >
                   <X size={20} />

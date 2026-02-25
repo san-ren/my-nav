@@ -81,7 +81,7 @@ const CurrentIcon = section.icon ? (Icons[section.icon] || LayoutDashboard) : La
       </header>
 
       {/* 内容区域 */}
-      <div class="p-4 pt-24 md:p-8 md:pt-28 space-y-12 w-full max-w-[1440px] mx-auto">
+      <div transition:name="main-content" class="p-4 pt-24 md:p-8 md:pt-28 space-y-12 w-full max-w-[1440px] mx-auto">
         {(section.groups || []).length === 0 && (
            <div class="text-center text-slate-400 mt-20">暂无内容，请在后台配置分组并关联到此页面。</div>
         )}

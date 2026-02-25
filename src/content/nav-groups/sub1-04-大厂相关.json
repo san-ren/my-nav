@@ -16,67 +16,85 @@
           "list": [
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "LiteLoaderQQNT",
               "url": "https://github.com/LiteLoaderQQNT/LiteLoaderQQNT",
               "official_site": "https://liteloaderqqnt.github.io/",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "LL-plugin-list-viewer",
               "url": "https://github.com/ltxhhz/LL-plugin-list-viewer",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "PluginInstaller",
               "url": "https://github.com/xinyihl/LiteLoaderQQNT-PluginInstaller",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "lite_tools",
               "url": "https://github.com/xiyuesaves/LiteLoaderQQNT-lite_tools",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "transitio",
               "url": "https://github.com/PRO-2684/transitio",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Scriptio",
               "url": "https://github.com/PRO-2684/Scriptio",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Custom-CSS",
               "url": "https://github.com/xh321/LiteLoaderQQNT-Custom-CSS",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Kill-Update",
               "url": "https://github.com/xh321/LiteLoaderQQNT-Kill-Update",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "QQCleaner",
               "url": "https://github.com/MisaLiu/LiteLoaderQQNT-QQCleaner",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             }
           ]
         },
@@ -85,52 +103,66 @@
           "list": [
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "qqMessageBlocker",
               "url": "https://github.com/elegantland/qqMessageBlocker",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Stick-Emoji",
               "url": "https://github.com/WJZ-P/LiteLoaderQQNT-Stick-Emoji",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Remove-Custom-Bubbles",
               "url": "https://github.com/pasical/Remove-Custom-Bubbles",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "QR-Decode",
               "url": "https://github.com/xh321/LiteLoaderQQNT-QR-Decode",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "pURLfy",
               "url": "https://github.com/PRO-2684/LiteLoaderQQNT-pURLfy",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Auto-Format-Message",
               "url": "https://github.com/Bdbmzwsc/LiteLoaderQQNT-Auto-Format-Message",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Anti-Recall",
               "url": "https://github.com/xh321/LiteLoaderQQNT-Anti-Recall",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             }
           ]
         },
@@ -139,59 +171,75 @@
           "list": [
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "QuickReply",
               "url": "https://github.com/adproqwq/LiteLoaderQQNT-QuickReply",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "AutoSendMessages",
               "url": "https://github.com/adproqwq/LiteLoaderQQNT-AutoSendMessages",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "AutoForward",
               "url": "https://github.com/WongJingGitt/LiteLoaderQQNT-AutoForward",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Directly-Jump",
               "url": "https://github.com/xh321/LiteLoaderQQNT-Directly-Jump",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "MergeMessage",
               "url": "https://github.com/XiaWuSharve/LiteLoaderQQNT-MergeMessage",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "qqMessageSave",
               "url": "https://github.com/elegantland/qqMessageSave",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Quickly-Remove-Conversations",
               "url": "https://github.com/jiang-taibai/LiteLoaderQQNT-Quickly-Remove-Conversations",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "HotkeyChangeWindow",
               "url": "https://github.com/AliubYiero/LiteLoaderQQNT_HotkeyChangeWindow",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             }
           ]
         }
@@ -206,146 +254,193 @@
           "list": [
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "RevokeMsgPatcher",
               "url": "https://github.com/huiyadanli/RevokeMsgPatcher",
               "desc": "微信/QQ/TIM防撤回补丁",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "CleanMyWechat",
               "url": "https://github.com/blackboxo/CleanMyWechat",
               "desc": "自动删除PC微信缓存数据",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "wechatDownload/微信公众号文章批量下载工具",
               "url": "https://github.com/qiye45/wechatDownload",
               "desc": "微信公众号文章批量下载",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "wechatDataBackup",
               "url": "https://github.com/git-jiadong/wechatDataBackup",
               "desc": "一键导出PC微信聊天记录工具",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "WeClone",
               "url": "https://github.com/xming521/WeClone",
               "desc": "从聊天记录创造数字分身的一站式解决方案",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "WeFlow",
               "url": "https://github.com/hicccc77/WeFlow",
               "desc": "微信聊天记录导出",
               "detail": "WeFlow - 一个本地的微信聊天记录导出和年度报告应用",
               "icon": "/images/logos/hicccc77-WeFlow.webp",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "WXMoments",
               "url": "https://github.com/tech-shrimp/WechatMoments",
               "desc": "WX 朋友圈导出为 HTML",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "WechatRealFriends",
               "url": "https://github.com/StrayMeteor3337/WechatRealFriends",
               "desc": "2025年3月因微信协议变更停更",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "PC微信遮挡工具",
               "url": "https://www.52pojie.cn/thread-1839526-1-1.html",
               "desc": "半透明窗口遮挡微信窗口",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
+              "name": "wetrace",
+              "url": "https://github.com/afumu/wetrace",
+              "official_site": "提取微信聊天记录",
+              "detail": "Wetrace 是一款专为 PC 端微信设计的聊天记录取证、备份与可视化分析工具。它能够自动提取微信数据库密钥，解密并解析本地数据库，提供流畅的 Web 交互界面进行浏览、搜索、导出以及深度的聊天行为分析。",
+              "icon": "/images/logos/afumu-wetrace.webp?t=1771939159086",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
               "name": "chat log",
               "url": "https://github.com/sjzar/chatlog",
               "desc": "2025.10微信施压删库",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "WeChat2PDF",
               "url": "https://www.wechat2pdf.com/",
               "desc": "微信公众号/订阅号文章在线导出/转换为PDF",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "WeChatMsg/留痕",
               "url": "https://memotrace.lc044.love/",
               "desc": "提取微信聊天记录",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "serverless-qrcode-hub",
               "url": "https://github.com/xxnuo/serverless-qrcode-hub",
               "desc": "生成永久微信群聊二维码",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "腾讯版本",
               "url": "https://github.com/HdShare/TencentVersion",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "QQNT-Version-History",
               "url": "https://github.com/PRO-2684/qqnt-version-history",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Stapxs QQ Lite",
               "url": "https://github.com/Stapxs/Stapxs-QQ-Lite-2.0",
               "desc": "第三方 QQ 客户端",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "WeWe RSS",
               "url": "https://github.com/cooderl/wewe-rss",
               "desc": "微信公众号RSS生成（基于微信读书）",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "微信公众号RSS",
               "url": "https://github.com/ttttmr/Wechat2RSS",
               "desc": "微信公众号转RSS",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             }
           ]
         },
@@ -354,33 +449,41 @@
           "list": [
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "PayQrcode",
               "url": "https://github.com/uxiaohan/PayQrcode",
               "desc": "合并微信、支付宝收款码",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "Weibo-archiver",
               "url": "https://weibo.chilfish.top/post",
               "desc": "将微博导出备份的油猴脚本",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "WePush",
               "url": "https://rememberber.github.io/WePush/",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             },
             {
               "toolbox": null,
+              "toolboxLink": null,
               "name": "魔猫订单",
               "url": "https://order.hereserver.com/",
               "icon": "",
-              "hide_badges": []
+              "hide_badges": [],
+              "status": "ok"
             }
           ]
         }
@@ -391,45 +494,57 @@
       "resources": [
         {
           "toolbox": null,
+          "toolboxLink": null,
           "name": "fonted",
           "url": "https://marketplace.visualstudio.com/items?itemName=degreat.fonted",
           "icon": "",
-          "hide_badges": []
+          "hide_badges": [],
+          "status": "ok"
         },
         {
           "toolbox": null,
+          "toolboxLink": null,
           "name": "background",
           "url": "https://marketplace.visualstudio.com/items?itemName=shalldie.background",
           "icon": "",
-          "hide_badges": []
+          "hide_badges": [],
+          "status": "ok"
         },
         {
           "toolbox": null,
+          "toolboxLink": null,
           "name": "custom-ui-style",
           "url": "https://marketplace.visualstudio.com/items?itemName=subframe7536.custom-ui-style",
           "icon": "",
-          "hide_badges": []
+          "hide_badges": [],
+          "status": "ok"
         },
         {
           "toolbox": null,
+          "toolboxLink": null,
           "name": "woodfish-theme",
           "url": "https://marketplace.visualstudio.com/items?itemName=zhongjun.woodfish-theme",
           "icon": "",
-          "hide_badges": []
+          "hide_badges": [],
+          "status": "ok"
         },
         {
           "toolbox": null,
+          "toolboxLink": null,
           "name": "vscode-fileutils",
           "url": "https://marketplace.visualstudio.com/items?itemName=sleistner.vscode-fileutils",
           "icon": "",
-          "hide_badges": []
+          "hide_badges": [],
+          "status": "ok"
         },
         {
           "toolbox": null,
+          "toolboxLink": null,
           "name": "project-manager",
           "url": "https://marketplace.visualstudio.com/items?itemName=alefragnani.project-manager",
           "icon": "",
-          "hide_badges": []
+          "hide_badges": [],
+          "status": "ok"
         }
       ],
       "tabs": []
