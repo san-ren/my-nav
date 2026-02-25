@@ -18,14 +18,14 @@
               "toolbox": null,
               "name": "低调观影",
               "url": "https://shouku123.com/tiantian",
-              "icon": "",
+              "icon": "/images/logos/shouku123-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "甲方导航",
               "url": "https://jiafangbb.com/",
-              "icon": "",
+              "icon": "/images/logos/jiafangbb-com.webp",
               "hide_badges": []
             },
             {
@@ -34,7 +34,7 @@
               "url": "https://www.gying.page/",
               "official_site": "https://www.gying.net/",
               "desc": "曾经的片库",
-              "icon": "",
+              "icon": "/images/logos/gying-page.webp",
               "hide_badges": []
             },
             {
@@ -42,7 +42,7 @@
               "name": "耐看点播",
               "url": "https://www.nkvod.com/",
               "desc": "屏蔽国外ip",
-              "icon": "",
+              "icon": "/images/logos/nkvod-com.webp",
               "hide_badges": []
             }
           ]
@@ -68,21 +68,21 @@
           "toolbox": null,
           "name": "SteamDB",
           "url": "https://steamdb.info/",
-          "icon": "",
+          "icon": "/images/logos/steamdb-info.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "114game",
           "url": "https://www.114game.net/",
-          "icon": "",
+          "icon": "/images/logos/114game-net.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "GBTGame官方网盘",
           "url": "https://pan.gbtgame.me/",
-          "icon": "",
+          "icon": "/images/logos/pan-gbtgame-me.webp",
           "hide_badges": []
         },
         {
@@ -96,98 +96,98 @@
           "toolbox": null,
           "name": "小妖怪分享",
           "url": "https://www.zzzzz688.com/",
-          "icon": "",
+          "icon": "/images/logos/zzzzz688-com.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "123资源库",
           "url": "https://www.123zyk.com/",
-          "icon": "",
+          "icon": "/images/logos/123zyk-com.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "NS游戏仓库",
           "url": "https://www.wolai.com/nxyxck/t3ou1DRW2dtgHcZCfP2Nh7",
-          "icon": "",
+          "icon": "/images/logos/wolai-com.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "梓澪の妙妙屋",
           "url": "https://zi0.cc/",
-          "icon": "",
+          "icon": "/images/logos/zi0-cc.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "浅夏的NS(switch)游戏清单",
           "url": "https://lcnacj6svcnr.feishu.cn/share/base/query/shrcnrDf1C1ytsCL7EHBV1ixUnq",
-          "icon": "",
+          "icon": "/images/logos/lcnacj6svcnr-feishu-cn.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "gdgame免费单机游戏下载",
           "url": "https://gdgame.org/",
-          "icon": "",
+          "icon": "/images/logos/gdgame-org.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "WZGuides",
           "url": "https://wzguides.cn/wz2/gunsmith",
-          "icon": "",
+          "icon": "/images/logos/wzguides-cn.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "三角洲行动一图流",
           "url": "https://www.kkrb.net/?viewpage=view%2Foverview",
-          "icon": "",
+          "icon": "/images/logos/kkrb-net.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "三角洲行动玩家营地",
           "url": "https://www.dpcamp.cn/",
-          "icon": "",
+          "icon": "/images/logos/dpcamp-cn.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "准星代售",
           "url": "https://www.zxfps.com/",
-          "icon": "",
+          "icon": "/images/logos/zxfps-com.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "cod系列地图",
           "url": "https://wzhub.gg/map",
-          "icon": "",
+          "icon": "/images/logos/wzhub-gg.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "三角洲行动数据接口",
           "url": "https://df-api.apifox.cn/",
-          "icon": "",
+          "icon": "/images/logos/df-api-apifox-cn.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "三角洲小涛查",
           "url": "https://sanjiaozhou.apifox.cn/",
-          "icon": "",
+          "icon": "/images/logos/sanjiaozhou-apifox-cn.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "三角洲行动API",
           "url": "https://github.com/coolxitech/deltaforce",
-          "icon": "",
+          "icon": "/images/logos/github-com.webp",
           "hide_badges": []
         }
       ],

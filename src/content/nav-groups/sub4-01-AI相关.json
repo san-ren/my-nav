@@ -19,7 +19,7 @@
               "toolboxLink": null,
               "name": "Yank Note",
               "url": "https://github.com/purocean/yn",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -28,7 +28,7 @@
               "toolboxLink": null,
               "name": "wj-markdown-editor",
               "url": "https://github.com/nlbwqmz/wj-markdown-editor",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -48,7 +48,7 @@
               "toolboxLink": null,
               "name": "hedgedoc",
               "url": "https://github.com/hedgedoc/hedgedoc",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -57,7 +57,7 @@
               "toolboxLink": null,
               "name": "dillinger",
               "url": "https://dillinger.io/",
-              "icon": "",
+              "icon": "/images/logos/dillinger-io.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -66,7 +66,7 @@
               "toolboxLink": null,
               "name": "Arya",
               "url": "https://markdown.lovejade.cn/",
-              "icon": "",
+              "icon": "/images/logos/markdown-lovejade-cn.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -75,7 +75,7 @@
               "toolboxLink": null,
               "name": "md",
               "url": "https://github.com/doocs/md",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -94,7 +94,7 @@
               "toolboxLink": null,
               "name": "markdown-online-editor",
               "url": "https://github.com/nicejade/markdown-online-editor",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -103,7 +103,7 @@
               "toolboxLink": null,
               "name": "flymd",
               "url": "https://github.com/flyhunterl/flymd",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -112,7 +112,7 @@
               "toolboxLink": null,
               "name": "joplin",
               "url": "https://github.com/laurent22/joplin",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -121,7 +121,7 @@
               "toolboxLink": null,
               "name": "ghostwriter",
               "url": "https://github.com/KDE/ghostwriter",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -130,7 +130,7 @@
               "toolboxLink": null,
               "name": "mdx-notes",
               "url": "https://github.com/maqi1520/mdx-notes",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -139,7 +139,7 @@
               "toolboxLink": null,
               "name": "Archive-Markdown-Editor",
               "url": "https://github.com/ScottSmith666/Archive-Markdown-Editor",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -148,7 +148,7 @@
               "toolboxLink": null,
               "name": "markor",
               "url": "https://github.com/gsantner/markor",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             }
@@ -162,7 +162,7 @@
               "toolboxLink": null,
               "name": "markitdown",
               "url": "https://github.com/microsoft/markitdown",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -171,7 +171,7 @@
               "toolboxLink": null,
               "name": "MinerU",
               "url": "https://github.com/opendatalab/MinerU",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -180,7 +180,7 @@
               "toolboxLink": null,
               "name": "marker",
               "url": "https://github.com/datalab-to/marker",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -189,7 +189,7 @@
               "toolboxLink": null,
               "name": "pdf-craft",
               "url": "https://github.com/oomol-lab/pdf-craft",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             }
@@ -203,7 +203,7 @@
               "toolboxLink": null,
               "name": "retext",
               "url": "https://github.com/retext-project/retext",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -212,7 +212,7 @@
               "toolboxLink": null,
               "name": "tui.editor",
               "url": "https://github.com/nhn/tui.editor",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -221,7 +221,7 @@
               "toolboxLink": null,
               "name": "milkdown",
               "url": "https://github.com/Milkdown/milkdown",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -230,7 +230,7 @@
               "toolboxLink": null,
               "name": "mavonEditor",
               "url": "https://github.com/hinesboy/mavonEditor",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -239,7 +239,7 @@
               "toolboxLink": null,
               "name": "react-markplus",
               "url": "https://github.com/markpluslabs/react-markplus",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -248,7 +248,7 @@
               "toolboxLink": null,
               "name": "react-md-editor",
               "url": "https://github.com/uiwjs/react-md-editor",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -257,7 +257,7 @@
               "toolboxLink": null,
               "name": "Raneto",
               "url": "https://github.com/ryanlelek/Raneto",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -266,7 +266,7 @@
               "toolboxLink": null,
               "name": "cherry-markdown",
               "url": "https://github.com/Tencent/cherry-markdown",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             }
@@ -289,7 +289,7 @@
               "official_site": "https://docs.videolingo.io",
               "desc": "本地视频生成字幕配音",
               "detail": "Netflix-level subtitle cutting, translation, alignment, and even dubbing - one-click fully automated AI video subtitle team | Netflix级字幕切割、翻译、对齐、甚至加上配音，一键全自动视频搬运AI字幕组",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -300,7 +300,7 @@
               "url": "https://github.com/sczhou/ProPainter",
               "official_site": "https://shangchenzhou.com/projects/ProPainter/",
               "desc": "改进用于视频修复的传播和Transformer算法",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -311,7 +311,7 @@
               "url": "https://github.com/PDFMathTranslate/PDFMathTranslate",
               "official_site": "https://pdf2zh.com",
               "detail": "[EMNLP 2025 Demo] PDF scientific paper translation with preserved formats - 基于 AI 完整保留排版的 PDF 文档全文双语翻译，支持 Google/DeepL/Ollama/OpenAI 等服务，提供 CLI/GUI/MCP/Docker/Zotero",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             }
@@ -396,7 +396,7 @@
               "url": "https://github.com/multimodal-art-projection/YuE",
               "official_site": "https://map-yue.github.io",
               "desc": "YuE: Open Full-song Music Generation Foundation Model, something similar to Suno.ai but open",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             }

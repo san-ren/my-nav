@@ -27,7 +27,7 @@
               "name": "CopyTranslator",
               "url": "https://github.com/CopyTranslator/CopyTranslator",
               "official_site": "https://copytranslator.github.io/",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
@@ -36,7 +36,7 @@
               "url": "https://github.com/pot-app/pot-desktop",
               "official_site": "https://pot-app.com/",
               "desc": "跨平台划词翻译和OCR",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
@@ -44,7 +44,7 @@
               "name": "Manga/Image Translator",
               "url": "https://github.com/zyddnys/manga-image-translator",
               "desc": "翻译各类图片内文字",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
@@ -52,7 +52,7 @@
               "name": "团子翻译器",
               "url": "https://github.com/PantsuDango/Dango-Translator",
               "official_site": "https://translator.dango.cloud/",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
@@ -60,14 +60,14 @@
               "name": "STranslate",
               "url": "https://github.com/STranslate/STranslate",
               "official_site": "https://stranslate.zggsong.com/",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "Translumo",
               "url": "https://github.com/Danily07/Translumo",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
@@ -75,21 +75,21 @@
               "name": "TTime",
               "url": "https://github.com/InkTimeRecord/TTime",
               "official_site": "https://ttime.timerecord.cn/",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "CrowTranslate",
               "url": "https://github.com/crow-translate/crow-translate",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "Real-time-translation-typing/实时打字翻译",
               "url": "https://github.com/sxzxs/Real-time-translation-typing",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
@@ -97,7 +97,7 @@
               "name": "RTranslator",
               "url": "https://github.com/niedev/RTranslator",
               "desc": "Android本地实时翻译",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
@@ -106,7 +106,7 @@
               "url": "https://github.com/HIllya51/LunaTranslator",
               "official_site": "https://lunatranslator.org/",
               "desc": "视觉小说翻译器 / Visual Novel Translator",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             }
           ]
@@ -118,28 +118,28 @@
               "toolbox": null,
               "name": "天若OCR",
               "url": "http://tianruoocr.cn/",
-              "icon": "",
+              "icon": "/images/logos/tianruoocr-cn.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "妙手OCR",
               "url": "https://www.52pojie.cn/thread-1164883-1-1.html",
-              "icon": "",
+              "icon": "/images/logos/52pojie-cn.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "PaddleOCR",
               "url": "https://github.com/PaddlePaddle/PaddleOCR",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "Umi-OCR",
               "url": "https://github.com/hiroi-sora/Umi-OCR",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             }
           ]
@@ -151,28 +151,28 @@
               "toolbox": null,
               "name": "InputTip",
               "url": "https://github.com/abgox/InputTip",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "ImTip",
               "url": "https://github.com/aardio/ImTip",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "KBLAutoSwitch/AHK中英文输入法自动切换",
               "url": "https://github.com/flyinclouds/KBLAutoSwitch",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "Language Indicator",
               "url": "https://github.com/yakunins/language-indicator",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             }
           ]
@@ -184,7 +184,7 @@
               "toolbox": null,
               "name": "FileGee",
               "url": "http://cn.filegee.com/download.html",
-              "icon": "",
+              "icon": "/images/logos/cn-filegee-com.webp",
               "hide_badges": []
             },
             {
@@ -198,7 +198,7 @@
               "toolbox": null,
               "name": "GoodSync",
               "url": "https://www.goodsync.com/cn",
-              "icon": "",
+              "icon": "/images/logos/goodsync-com.webp",
               "hide_badges": []
             },
             {

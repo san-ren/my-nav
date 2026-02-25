@@ -21,7 +21,7 @@
               "url": "https://github.com/MoeKoeMusic/MoeKoeMusic",
               "official_site": "https://music.moekoe.cn/",
               "desc": "开源第三方酷狗，登陆就是vip",
-              "icon": "",
+              "icon": "/images/logos/MoeKoeMusic-MoeKoeMusic.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -31,7 +31,7 @@
               "name": "洛雪音乐助手",
               "url": "https://github.com/lyswhut/lx-music-desktop",
               "official_site": "https://lxmusic.toside.cn/",
-              "icon": "",
+              "icon": "/images/logos/lyswhut-lx-music-desktop.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -41,7 +41,7 @@
               "name": "Listen1",
               "url": "https://github.com/listen1/listen1_desktop",
               "official_site": "https://listen1.github.io/listen1/",
-              "icon": "",
+              "icon": "/images/logos/listen1-listen1-desktop.webp",
               "hide_badges": [],
               "guide_id": "listen1",
               "status": "ok"
@@ -51,7 +51,7 @@
               "toolboxLink": null,
               "name": "六音音源",
               "url": "https://www.sixyin.com/8498.html",
-              "icon": "",
+              "icon": "/images/logos/sixyin-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -61,7 +61,7 @@
               "name": "MusicFree",
               "url": "https://github.com/maotoumao/MusicFreeDesktop",
               "official_site": "https://musicfree.catcat.work/",
-              "icon": "",
+              "icon": "/images/logos/maotoumao-MusicFreeDesktop.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -80,7 +80,7 @@
               "toolboxLink": null,
               "name": "TTKMusicPlayer",
               "url": "https://github.com/Greedysky/TTKMusicPlayer",
-              "icon": "",
+              "icon": "/images/logos/Greedysky-TTKMusicPlayer.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -89,7 +89,7 @@
               "toolboxLink": null,
               "name": "go-musicfox",
               "url": "https://github.com/go-musicfox/go-musicfox",
-              "icon": "",
+              "icon": "/images/logos/go-musicfox-go-musicfox.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -100,7 +100,7 @@
               "url": "https://github.com/guanguans/music-dl",
               "official_site": "https://www.guanguans.cn/music-dl/",
               "desc": "命令行音乐搜索下载",
-              "icon": "",
+              "icon": "/images/logos/guanguans-music-dl.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -109,7 +109,7 @@
               "toolboxLink": null,
               "name": "NSMusicS",
               "url": "https://github.com/Super-Badmen-Viper/NSMusicS",
-              "icon": "",
+              "icon": "/images/logos/Super-Badmen-Viper-NSMusicS.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -118,7 +118,7 @@
               "toolboxLink": null,
               "name": "musicn",
               "url": "https://github.com/zonemeen/musicn",
-              "icon": "",
+              "icon": "/images/logos/zonemeen-musicn.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -127,7 +127,7 @@
               "toolboxLink": null,
               "name": "音乐标签",
               "url": "https://www.cnblogs.com/vinlxc/p/11347744.html",
-              "icon": "",
+              "icon": "/images/logos/cnblogs-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -145,7 +145,7 @@
               "toolboxLink": null,
               "name": "foobox-cn",
               "url": "https://github.com/dream7180/foobox-cn",
-              "icon": "",
+              "icon": "/images/logos/dream7180-foobox-cn.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -154,7 +154,7 @@
               "toolboxLink": null,
               "name": "foobar2000汉化版",
               "url": "https://www.cnblogs.com/asionwu",
-              "icon": "",
+              "icon": "/images/logos/cnblogs-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -172,7 +172,7 @@
               "toolboxLink": null,
               "name": "MusicPlayer2",
               "url": "https://github.com/zhongyang219/MusicPlayer2",
-              "icon": "",
+              "icon": "/images/logos/zhongyang219-MusicPlayer2.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -181,7 +181,7 @@
               "toolboxLink": null,
               "name": "Dopamine",
               "url": "https://github.com/digimezzo/dopamine-windows",
-              "icon": "",
+              "icon": "/images/logos/digimezzo-dopamine-windows.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -190,7 +190,7 @@
               "toolboxLink": null,
               "name": "AIMP",
               "url": "http://www.aimp.ru/",
-              "icon": "",
+              "icon": "/images/logos/aimp-ru.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -199,7 +199,7 @@
               "toolboxLink": null,
               "name": "Wora",
               "url": "https://github.com/playwora/wora",
-              "icon": "",
+              "icon": "/images/logos/playwora-wora.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -208,7 +208,7 @@
               "toolboxLink": null,
               "name": "Winamp",
               "url": "https://www.winamp.com/",
-              "icon": "",
+              "icon": "/images/logos/winamp-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -218,7 +218,7 @@
               "name": "拟声",
               "url": "https://download.music.mimicry.cool/",
               "desc": "界面充斥着大量的空白",
-              "icon": "",
+              "icon": "/images/logos/download-music-mimicry-cool.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -229,7 +229,7 @@
               "url": "https://github.com/qier222/YesPlayMusic",
               "official_site": "https://music.qier222.com/",
               "desc": "第三方网易云播放器",
-              "icon": "",
+              "icon": "/images/logos/qier222-YesPlayMusic.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -240,7 +240,7 @@
               "url": "https://github.com/imsyy/SPlayer",
               "official_site": "http://splayer.imsyy.top/",
               "desc": "网易云第三方",
-              "icon": "",
+              "icon": "/images/logos/imsyy-SPlayer.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -260,7 +260,7 @@
               "name": "方格音乐",
               "url": "http://fonger.top/",
               "desc": "2025年因不知名原因关闭官网、软件",
-              "icon": "",
+              "icon": "/images/logos/fonger-top.webp",
               "hide_badges": [],
               "status": "failed"
             },
@@ -270,7 +270,7 @@
               "name": "electron-vue-cloud-music",
               "url": "https://github.com/xiaozhu188/electron-vue-cloud-music",
               "desc": "2021停更",
-              "icon": "",
+              "icon": "/images/logos/xiaozhu188-electron-vue-cloud-music.webp",
               "hide_badges": [],
               "status": "failed"
             },
@@ -281,7 +281,7 @@
               "url": "https://github.com/Java-S12138/Music_Download",
               "official_site": "https://java-syj.feishu.cn/wiki/DBqIwuJ1ji228ike4necim4cnDg",
               "desc": "发布即停更",
-              "icon": "",
+              "icon": "/images/logos/Java-S12138-Music-Download.webp",
               "hide_badges": [],
               "status": "failed"
             },
@@ -291,7 +291,7 @@
               "name": "mp3tag-douban-id3-plugins",
               "url": "https://github.com/yoyicue/mp3tag-douban-id3-plugins",
               "desc": "Mp3tag 豆瓣音乐 id3 插件 v2.5 （2020年10月可用）",
-              "icon": "",
+              "icon": "/images/logos/yoyicue-mp3tag-douban-id3-plugins.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -347,7 +347,7 @@
               "toolboxLink": null,
               "name": "LX Music",
               "url": "https://github.com/lyswhut/lx-music-mobile",
-              "icon": "",
+              "icon": "/images/logos/lyswhut-lx-music-mobile.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -356,7 +356,7 @@
               "toolboxLink": null,
               "name": "Listen 1",
               "url": "https://listen1.github.io/listen1/",
-              "icon": "",
+              "icon": "/images/logos/listen1-github-io.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -365,7 +365,7 @@
               "toolboxLink": null,
               "name": "MusicFree",
               "url": "https://github.com/maotoumao/MusicFree",
-              "icon": "",
+              "icon": "/images/logos/maotoumao-MusicFree.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -375,7 +375,7 @@
               "name": "Music Player",
               "url": "https://github.com/FossifyOrg/Music-Player",
               "official_site": "https://www.fossify.org/",
-              "icon": "",
+              "icon": "/images/logos/FossifyOrg-Music-Player.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -385,7 +385,7 @@
               "name": "音乐搜索",
               "url": "音乐时刻",
               "desc": "无广，网站套壳",
-              "icon": "",
+              "icon": "/images/logos/xn-fjq68g6sxqf1c.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -394,7 +394,7 @@
               "toolboxLink": null,
               "name": "音乐标签",
               "url": "https://www.cnblogs.com/vinlxc/p/11932130.html",
-              "icon": "",
+              "icon": "/images/logos/cnblogs-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -403,7 +403,7 @@
               "toolboxLink": null,
               "name": "Musicolet",
               "url": "https://krosbits.in/musicolet/",
-              "icon": "",
+              "icon": "/images/logos/krosbits-in.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -440,7 +440,7 @@
               "name": "NYX Music Player",
               "url": "https://nyx-music-player.cn.uptodown.com/android",
               "desc": "动画精美，本地音乐播放器",
-              "icon": "",
+              "icon": "/images/logos/nyx-music-player-cn-uptodown-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -450,7 +450,7 @@
               "name": "LeapMusic",
               "url": "https://apkpure.com/cn/leapmusic/com.leapmusic.leapmusic",
               "desc": "优雅的播放器",
-              "icon": "",
+              "icon": "/images/logos/apkpure-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -469,7 +469,7 @@
               "name": "海贝音乐",
               "url": "https://www.hiby.com/",
               "desc": "常规播放器",
-              "icon": "",
+              "icon": "/images/logos/hiby-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -479,7 +479,7 @@
               "name": "DialogMusicPlayer",
               "url": "https://github.com/VishnuSanal/DialogMusicPlayer/",
               "desc": "极简，无桌面图标",
-              "icon": "",
+              "icon": "/images/logos/VishnuSanal-DialogMusicPlayer.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -499,7 +499,7 @@
               "name": "拟声",
               "url": "https://download.music.mimicry.cool/",
               "desc": "UI充斥着大量空白",
-              "icon": "",
+              "icon": "/images/logos/download-music-mimicry-cool.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -509,7 +509,7 @@
               "name": "不倦",
               "url": "https://github.com/2697a/bujuan",
               "desc": "第三方网易云播放器",
-              "icon": "",
+              "icon": "/images/logos/2697a-bujuan.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -520,7 +520,7 @@
               "url": "https://github.com/KRTirtho/spotube",
               "official_site": "https://spotube.krtirtho.dev/",
               "desc": "开源 Spotify 客户端",
-              "icon": "",
+              "icon": "/images/logos/KRTirtho-spotube.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -530,7 +530,7 @@
               "name": "InnerTune",
               "url": "https://github.com/z-huang/InnerTune",
               "desc": "第三方 YouTube Music",
-              "icon": "",
+              "icon": "/images/logos/z-huang-InnerTune.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -540,7 +540,7 @@
               "name": "音乐时刻",
               "url": "https://flowus.cn/share/5bf1a0d1-5f58-4bd9-9cb6-3a4b2f7e4ae4",
               "desc": "2025失效",
-              "icon": "",
+              "icon": "/images/logos/flowus-cn.webp",
               "hide_badges": [],
               "status": "failed"
             },
@@ -550,7 +550,7 @@
               "name": "KHMD/空痕音乐下载器",
               "url": "https://www.khkj6.com/archives/19.html",
               "desc": "2025失效",
-              "icon": "",
+              "icon": "/images/logos/khkj6-com.webp",
               "hide_badges": [],
               "status": "failed"
             },
@@ -570,7 +570,7 @@
               "name": "天天悦听",
               "url": "https://pan.xunlei.com/s/VNniL144qUd9zSr5Bh9vXJf7A1?pwd=9y8d#",
               "desc": "2025失效",
-              "icon": "",
+              "icon": "/images/logos/pan-xunlei-com.webp",
               "hide_badges": [],
               "status": "failed"
             }
@@ -584,7 +584,7 @@
               "toolboxLink": null,
               "name": "lx-music-source",
               "url": "https://github.com/pdone/lx-music-source",
-              "icon": "",
+              "icon": "/images/logos/pdone-lx-music-source.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -593,7 +593,7 @@
               "toolboxLink": null,
               "name": "LX-music-collection",
               "url": "https://github.com/LuoXiaohei-2025/LX-music-collection",
-              "icon": "",
+              "icon": "/images/logos/LuoXiaohei-2025-LX-music-collection.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -603,7 +603,7 @@
               "name": "lxmusic-",
               "url": "https://github.com/guoyue2010/lxmusic-",
               "desc": "2025年10月终止分享，转付费服务",
-              "icon": "",
+              "icon": "/images/logos/guoyue2010-lxmusic.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -612,7 +612,7 @@
               "toolboxLink": null,
               "name": "keep-alive",
               "url": "https://github.com/Huibq/keep-alive",
-              "icon": "",
+              "icon": "/images/logos/Huibq-keep-alive.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -621,7 +621,7 @@
               "toolboxLink": null,
               "name": "New_lxmusic_source",
               "url": "https://github.com/laosunmaker/New_lxmusic_source",
-              "icon": "",
+              "icon": "/images/logos/laosunmaker-New-lxmusic-source.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -630,7 +630,7 @@
               "toolboxLink": null,
               "name": "music-sources",
               "url": "https://github.com/OneCodeMonkey/music-sources",
-              "icon": "",
+              "icon": "/images/logos/OneCodeMonkey-music-sources.webp",
               "hide_badges": [],
               "status": "ok"
             }
@@ -645,7 +645,7 @@
               "name": "泡椒音乐",
               "url": "https://pjmp3.de/",
               "official_site": "https://pjmp3.com/",
-              "icon": "",
+              "icon": "/images/logos/pjmp3-de.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -654,7 +654,7 @@
               "toolboxLink": null,
               "name": "XCloud音乐",
               "url": "https://music.xcloudv.top/",
-              "icon": "",
+              "icon": "/images/logos/music-xcloudv-top.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -673,7 +673,7 @@
               "toolboxLink": null,
               "name": "GD音乐台",
               "url": "https://music.gdstudio.xyz/",
-              "icon": "",
+              "icon": "/images/logos/music-gdstudio-xyz.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -682,7 +682,7 @@
               "toolboxLink": null,
               "name": "无损生活",
               "url": "https://flac.life/",
-              "icon": "",
+              "icon": "/images/logos/flac-life.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -691,7 +691,7 @@
               "toolboxLink": null,
               "name": "5sing",
               "url": "https://5sing.kugou.com/index.html",
-              "icon": "",
+              "icon": "/images/logos/5sing-kugou-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -720,7 +720,7 @@
               "name": "Songg",
               "url": "https://son.gg/",
               "desc": "快速在Telegram上分享音乐",
-              "icon": "",
+              "icon": "/images/logos/son-gg.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -730,7 +730,7 @@
               "name": "genius",
               "url": "https://genius.com/",
               "desc": "歌词百科",
-              "icon": "",
+              "icon": "/images/logos/genius-com.webp",
               "hide_badges": [],
               "status": "ok"
             }
@@ -761,7 +761,7 @@
               "name": "MagicView",
               "official_site": "https://pic.ghxi.com/",
               "desc": "果核剥壳团队开发",
-              "icon": "",
+              "icon": "/images/logos/pic-ghxi-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -770,7 +770,7 @@
               "toolboxLink": null,
               "name": "ImageGlass",
               "url": "https://imageglass.org/",
-              "icon": "",
+              "icon": "/images/logos/imageglass-org.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -780,7 +780,7 @@
               "name": "PicView",
               "url": "https://github.com/Ruben2776/PicView",
               "official_site": "https://picview.org/",
-              "icon": "",
+              "icon": "/images/logos/Ruben2776-PicView.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -790,7 +790,7 @@
               "name": "Imagine",
               "url": "https://www.nyam.pe.kr/dev/imagine/",
               "desc": "看图、动图编辑",
-              "icon": "",
+              "icon": "/images/logos/nyam-pe-kr.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -800,7 +800,7 @@
               "name": "Image Eye",
               "url": "https://www.fmjsoft.com/imageeye.html#main",
               "desc": "支持中文",
-              "icon": "",
+              "icon": "/images/logos/fmjsoft-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -809,7 +809,7 @@
               "toolboxLink": null,
               "name": "IrfanView",
               "url": "https://www.irfanview.com/",
-              "icon": "",
+              "icon": "/images/logos/irfanview-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -830,7 +830,7 @@
               "url": "https://github.com/jurplel/qView",
               "official_site": "https://interversehq.com/qview/",
               "desc": "极简界面",
-              "icon": "",
+              "icon": "/images/logos/jurplel-qView.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -839,7 +839,7 @@
               "toolboxLink": null,
               "name": "Masonry Image Viewer",
               "url": "https://github.com/wlm3201/Masonry_Image_Viewer",
-              "icon": "",
+              "icon": "/images/logos/wlm3201-Masonry-Image-Viewer.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -848,7 +848,7 @@
               "toolboxLink": null,
               "name": "全屏看图",
               "url": "http://www.o345.com/gengxin-log/632.html",
-              "icon": "",
+              "icon": "/images/logos/o345-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -859,7 +859,7 @@
               "url": "https://github.com/Molunerfinn/PicGo",
               "official_site": "https://picx.xpoet.cn/",
               "desc": "支持主流图床平台",
-              "icon": "",
+              "icon": "/images/logos/Molunerfinn-PicGo.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -869,7 +869,7 @@
               "name": "PicX",
               "url": "https://github.com/XPoet/picx",
               "desc": "GitHub 图床",
-              "icon": "",
+              "icon": "/images/logos/XPoet-picx.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -880,7 +880,7 @@
               "url": "https://github.com/icret/EasyImages2.0",
               "official_site": "https://png.cm/",
               "desc": "简单图床",
-              "icon": "",
+              "icon": "/images/logos/icret-EasyImages2-0.webp",
               "hide_badges": [],
               "status": "ok"
             }
@@ -905,7 +905,7 @@
               "url": "https://github.com/ShareX/ShareX",
               "official_site": "https://getsharex.com/",
               "desc": "功能太强大",
-              "icon": "",
+              "icon": "/images/logos/ShareX-ShareX.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -916,7 +916,7 @@
               "url": "https://github.com/flameshot-org/flameshot",
               "official_site": "https://flameshot.org/",
               "desc": "标注功能强大",
-              "icon": "",
+              "icon": "/images/logos/flameshot-org-flameshot.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -926,7 +926,7 @@
               "name": "PicPick",
               "url": "https://picpick.app/zh/",
               "desc": "个人免费使用",
-              "icon": "",
+              "icon": "/images/logos/picpick-app.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -936,7 +936,7 @@
               "name": "eSearch",
               "url": "https://github.com/xushengfeng/eSearch",
               "official_site": "https://esearch-app.netlify.app/",
-              "icon": "",
+              "icon": "/images/logos/xushengfeng-eSearch.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -946,7 +946,7 @@
               "name": "Snow Shot",
               "url": "https://github.com/mg-chao/snow-shot",
               "official_site": "https://snowshot.top/",
-              "icon": "",
+              "icon": "/images/logos/mg-chao-snow-shot.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -955,7 +955,7 @@
               "toolboxLink": null,
               "name": "ScreenCapture",
               "url": "https://github.com/xland/ScreenCapture",
-              "icon": "",
+              "icon": "/images/logos/xland-ScreenCapture.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -966,7 +966,7 @@
               "url": "https://github.com/027xiguapi/pear-rec",
               "official_site": "https://027xiguapi.github.io/pear-rec/",
               "desc": "截图、录屏、录音、录像",
-              "icon": "",
+              "icon": "/images/logos/027xiguapi-pear-rec.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -976,7 +976,7 @@
               "name": "AutoScreenShot",
               "url": "https://github.com/artem78/AutoScreenshot",
               "desc": "定时自动截图",
-              "icon": "",
+              "icon": "/images/logos/artem78-AutoScreenshot.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -995,7 +995,7 @@
               "name": "SETUNA2",
               "url": "https://github.com/tylearymf/SETUNA2",
               "desc": "2024年归档",
-              "icon": "",
+              "icon": "/images/logos/tylearymf-SETUNA2.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1005,7 +1005,7 @@
               "name": "Sniptool",
               "url": "https://www.reasyze.com/Sniptool/",
               "desc": "2023年更新",
-              "icon": "",
+              "icon": "/images/logos/reasyze-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1014,7 +1014,7 @@
               "toolboxLink": null,
               "name": "verycapture",
               "url": "https://verycapture.com/cn/index.html",
-              "icon": "",
+              "icon": "/images/logos/verycapture-com.webp",
               "hide_badges": [],
               "status": "ok"
             }
@@ -1028,7 +1028,7 @@
               "toolboxLink": null,
               "name": "PictureCleaner",
               "url": "https://www.52pojie.cn/thread-1385732-1-1.html",
-              "icon": "",
+              "icon": "/images/logos/52pojie-cn.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1037,7 +1037,7 @@
               "toolboxLink": null,
               "name": "PM lite/图片魔法师",
               "url": "https://www.52pojie.cn/thread-1880475-1-1.html",
-              "icon": "",
+              "icon": "/images/logos/52pojie-cn.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1046,7 +1046,7 @@
               "toolboxLink": null,
               "name": "Caesium Image Compressor",
               "url": "https://saerasoft.com/caesium",
-              "icon": "",
+              "icon": "/images/logos/saerasoft-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1055,7 +1055,7 @@
               "toolboxLink": null,
               "name": "Img Toolbox",
               "url": "https://github.com/LokerL/img-toolbox",
-              "icon": "",
+              "icon": "/images/logos/LokerL-img-toolbox.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1109,7 +1109,7 @@
               "toolboxLink": null,
               "name": "万得图片批量处理",
               "url": "http://xcxzq.com/imagebat/",
-              "icon": "",
+              "icon": "/images/logos/xcxzq-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1118,7 +1118,7 @@
               "toolboxLink": null,
               "name": "Waifu2x-Extension-GUI",
               "url": "https://github.com/AaronFeng753/Waifu2x-Extension-GUI",
-              "icon": "",
+              "icon": "/images/logos/AaronFeng753-Waifu2x-Extension-GUI.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1136,7 +1136,7 @@
               "toolboxLink": null,
               "name": "IOPaint",
               "url": "https://www.iopaint.com/",
-              "icon": "",
+              "icon": "/images/logos/iopaint-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1154,7 +1154,7 @@
               "toolboxLink": null,
               "name": "Topaz Gigapixel AI 7.2.1(人工智能图片无损放大)简体中文汉化版",
               "url": "https://www.52pojie.cn/thread-1884191-1-1.html",
-              "icon": "",
+              "icon": "/images/logos/52pojie-cn.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1163,7 +1163,7 @@
               "toolboxLink": null,
               "name": "Topaz Photo AI 3.1.1（人工智能图片降噪软件）简体中文汉化版",
               "url": "https://www.52pojie.cn/thread-1888246-1-1.html",
-              "icon": "",
+              "icon": "/images/logos/52pojie-cn.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1172,7 +1172,7 @@
               "toolboxLink": null,
               "name": "文字转LOGO图片",
               "url": "https://www.52pojie.cn/thread-1876568-1-3.html",
-              "icon": "",
+              "icon": "/images/logos/52pojie-cn.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1181,7 +1181,7 @@
               "toolboxLink": null,
               "name": "upscayl",
               "url": "https://github.com/upscayl/upscayl",
-              "icon": "",
+              "icon": "/images/logos/upscayl-upscayl.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1221,7 +1221,7 @@
               "toolboxLink": null,
               "name": "ScreenToGif",
               "url": "https://www.screentogif.com/",
-              "icon": "",
+              "icon": "/images/logos/screentogif-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1230,7 +1230,7 @@
               "toolboxLink": null,
               "name": "Video to GIF",
               "url": "https://lyonbot.github.io/video-to-gif/",
-              "icon": "",
+              "icon": "/images/logos/lyonbot-github-io.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1239,7 +1239,7 @@
               "toolboxLink": null,
               "name": "RecordScreen.io",
               "url": "https://recordscreen.io/",
-              "icon": "",
+              "icon": "/images/logos/recordscreen-io.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1266,7 +1266,7 @@
               "toolboxLink": null,
               "name": "智绘教Inkeys/IDT",
               "url": "https://www.inkeys.top/",
-              "icon": "",
+              "icon": "/images/logos/inkeys-top.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1284,7 +1284,7 @@
               "toolboxLink": null,
               "name": "土豆录屏",
               "url": "http://www.tudouluping.com/",
-              "icon": "",
+              "icon": "/images/logos/tudouluping-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1293,7 +1293,7 @@
               "toolboxLink": null,
               "name": "EV录屏",
               "url": "https://www.ieway.cn/evcapture.html",
-              "icon": "",
+              "icon": "/images/logos/ieway-cn.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1302,7 +1302,7 @@
               "toolboxLink": null,
               "name": "Cap",
               "url": "https://cap.so/",
-              "icon": "",
+              "icon": "/images/logos/cap-so.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1311,7 +1311,7 @@
               "toolboxLink": null,
               "name": "OBS工作室版",
               "url": "https://obsproject.com/zh-cn",
-              "icon": "",
+              "icon": "/images/logos/obsproject-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1320,7 +1320,7 @@
               "toolboxLink": null,
               "name": "CamStudio",
               "url": "https://camstudio.org/",
-              "icon": "",
+              "icon": "/images/logos/camstudio-org.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1329,7 +1329,7 @@
               "toolboxLink": null,
               "name": "RecButton",
               "url": "https://www.recbutton.org/",
-              "icon": "",
+              "icon": "/images/logos/recbutton-org.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1338,7 +1338,7 @@
               "toolboxLink": null,
               "name": "Captura",
               "url": "https://github.com/MathewSachin/Captura",
-              "icon": "",
+              "icon": "/images/logos/MathewSachin-Captura.webp",
               "hide_badges": [],
               "status": "ok"
             }
@@ -1352,7 +1352,7 @@
               "toolboxLink": null,
               "name": "LosslessCut",
               "url": "https://github.com/mifi/lossless-cut",
-              "icon": "",
+              "icon": "/images/logos/mifi-lossless-cut.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1361,7 +1361,7 @@
               "toolboxLink": null,
               "name": "AutoAudioRecorder/内部万能录音器",
               "url": "https://autoclose.net/autoaudiorecorder.html",
-              "icon": "",
+              "icon": "/images/logos/autoclose-net.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1370,7 +1370,7 @@
               "toolboxLink": null,
               "name": "HandBrake",
               "url": "https://github.com/HandBrake/HandBrake",
-              "icon": "",
+              "icon": "/images/logos/HandBrake-HandBrake.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1379,7 +1379,7 @@
               "toolboxLink": null,
               "name": "ShanaEncoder",
               "url": "https://github.com/1265578519/ShanaEncoder",
-              "icon": "",
+              "icon": "/images/logos/1265578519-ShanaEncoder.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1388,7 +1388,7 @@
               "toolboxLink": null,
               "name": "Video-subtitle-remover",
               "url": "https://github.com/YaoFANGUK/video-subtitle-remover",
-              "icon": "",
+              "icon": "/images/logos/YaoFANGUK-video-subtitle-remover.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1397,7 +1397,7 @@
               "toolboxLink": null,
               "name": "UniFab Toolkit",
               "url": "https://www.123pan.com/s/h6nrVv-Dxmrv.html",
-              "icon": "",
+              "icon": "/images/logos/123pan-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1406,7 +1406,7 @@
               "toolboxLink": null,
               "name": "FFmpegFreeUI",
               "url": "https://github.com/Lake1059/FFmpegFreeUI/",
-              "icon": "",
+              "icon": "/images/logos/Lake1059-FFmpegFreeUI.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1416,7 +1416,7 @@
               "name": "anto",
               "url": "https://github.com/speauty/anto",
               "desc": "字幕文件(srt)翻译工具，Windows专用",
-              "icon": "",
+              "icon": "/images/logos/speauty-anto.webp",
               "hide_badges": [],
               "status": "ok"
             }

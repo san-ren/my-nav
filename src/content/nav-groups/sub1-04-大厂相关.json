@@ -20,7 +20,7 @@
               "name": "LiteLoaderQQNT",
               "url": "https://github.com/LiteLoaderQQNT/LiteLoaderQQNT",
               "official_site": "https://liteloaderqqnt.github.io/",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -29,7 +29,7 @@
               "toolboxLink": null,
               "name": "LL-plugin-list-viewer",
               "url": "https://github.com/ltxhhz/LL-plugin-list-viewer",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -38,7 +38,7 @@
               "toolboxLink": null,
               "name": "PluginInstaller",
               "url": "https://github.com/xinyihl/LiteLoaderQQNT-PluginInstaller",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -47,7 +47,7 @@
               "toolboxLink": null,
               "name": "lite_tools",
               "url": "https://github.com/xiyuesaves/LiteLoaderQQNT-lite_tools",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -56,7 +56,7 @@
               "toolboxLink": null,
               "name": "transitio",
               "url": "https://github.com/PRO-2684/transitio",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -65,7 +65,7 @@
               "toolboxLink": null,
               "name": "Scriptio",
               "url": "https://github.com/PRO-2684/Scriptio",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -74,7 +74,7 @@
               "toolboxLink": null,
               "name": "Custom-CSS",
               "url": "https://github.com/xh321/LiteLoaderQQNT-Custom-CSS",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -83,7 +83,7 @@
               "toolboxLink": null,
               "name": "Kill-Update",
               "url": "https://github.com/xh321/LiteLoaderQQNT-Kill-Update",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -92,7 +92,7 @@
               "toolboxLink": null,
               "name": "QQCleaner",
               "url": "https://github.com/MisaLiu/LiteLoaderQQNT-QQCleaner",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             }
@@ -106,7 +106,7 @@
               "toolboxLink": null,
               "name": "qqMessageBlocker",
               "url": "https://github.com/elegantland/qqMessageBlocker",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -115,7 +115,7 @@
               "toolboxLink": null,
               "name": "Stick-Emoji",
               "url": "https://github.com/WJZ-P/LiteLoaderQQNT-Stick-Emoji",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -124,7 +124,7 @@
               "toolboxLink": null,
               "name": "Remove-Custom-Bubbles",
               "url": "https://github.com/pasical/Remove-Custom-Bubbles",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -133,7 +133,7 @@
               "toolboxLink": null,
               "name": "QR-Decode",
               "url": "https://github.com/xh321/LiteLoaderQQNT-QR-Decode",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -142,7 +142,7 @@
               "toolboxLink": null,
               "name": "pURLfy",
               "url": "https://github.com/PRO-2684/LiteLoaderQQNT-pURLfy",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -151,7 +151,7 @@
               "toolboxLink": null,
               "name": "Auto-Format-Message",
               "url": "https://github.com/Bdbmzwsc/LiteLoaderQQNT-Auto-Format-Message",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -160,7 +160,7 @@
               "toolboxLink": null,
               "name": "Anti-Recall",
               "url": "https://github.com/xh321/LiteLoaderQQNT-Anti-Recall",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             }
@@ -174,7 +174,7 @@
               "toolboxLink": null,
               "name": "QuickReply",
               "url": "https://github.com/adproqwq/LiteLoaderQQNT-QuickReply",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -183,7 +183,7 @@
               "toolboxLink": null,
               "name": "AutoSendMessages",
               "url": "https://github.com/adproqwq/LiteLoaderQQNT-AutoSendMessages",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -192,7 +192,7 @@
               "toolboxLink": null,
               "name": "AutoForward",
               "url": "https://github.com/WongJingGitt/LiteLoaderQQNT-AutoForward",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -201,7 +201,7 @@
               "toolboxLink": null,
               "name": "Directly-Jump",
               "url": "https://github.com/xh321/LiteLoaderQQNT-Directly-Jump",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -210,7 +210,7 @@
               "toolboxLink": null,
               "name": "MergeMessage",
               "url": "https://github.com/XiaWuSharve/LiteLoaderQQNT-MergeMessage",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -219,7 +219,7 @@
               "toolboxLink": null,
               "name": "qqMessageSave",
               "url": "https://github.com/elegantland/qqMessageSave",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -228,7 +228,7 @@
               "toolboxLink": null,
               "name": "Quickly-Remove-Conversations",
               "url": "https://github.com/jiang-taibai/LiteLoaderQQNT-Quickly-Remove-Conversations",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -237,7 +237,7 @@
               "toolboxLink": null,
               "name": "HotkeyChangeWindow",
               "url": "https://github.com/AliubYiero/LiteLoaderQQNT_HotkeyChangeWindow",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             }
@@ -258,7 +258,7 @@
               "name": "RevokeMsgPatcher",
               "url": "https://github.com/huiyadanli/RevokeMsgPatcher",
               "desc": "微信/QQ/TIM防撤回补丁",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -268,7 +268,7 @@
               "name": "CleanMyWechat",
               "url": "https://github.com/blackboxo/CleanMyWechat",
               "desc": "自动删除PC微信缓存数据",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -278,7 +278,7 @@
               "name": "wechatDownload/微信公众号文章批量下载工具",
               "url": "https://github.com/qiye45/wechatDownload",
               "desc": "微信公众号文章批量下载",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -288,7 +288,7 @@
               "name": "wechatDataBackup",
               "url": "https://github.com/git-jiadong/wechatDataBackup",
               "desc": "一键导出PC微信聊天记录工具",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -298,7 +298,7 @@
               "name": "WeClone",
               "url": "https://github.com/xming521/WeClone",
               "desc": "从聊天记录创造数字分身的一站式解决方案",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -319,7 +319,7 @@
               "name": "WXMoments",
               "url": "https://github.com/tech-shrimp/WechatMoments",
               "desc": "WX 朋友圈导出为 HTML",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -329,7 +329,7 @@
               "name": "WechatRealFriends",
               "url": "https://github.com/StrayMeteor3337/WechatRealFriends",
               "desc": "2025年3月因微信协议变更停更",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -339,7 +339,7 @@
               "name": "PC微信遮挡工具",
               "url": "https://www.52pojie.cn/thread-1839526-1-1.html",
               "desc": "半透明窗口遮挡微信窗口",
-              "icon": "",
+              "icon": "/images/logos/52pojie-cn.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -360,7 +360,7 @@
               "name": "chat log",
               "url": "https://github.com/sjzar/chatlog",
               "desc": "2025.10微信施压删库",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -370,7 +370,7 @@
               "name": "WeChat2PDF",
               "url": "https://www.wechat2pdf.com/",
               "desc": "微信公众号/订阅号文章在线导出/转换为PDF",
-              "icon": "",
+              "icon": "/images/logos/wechat2pdf-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -380,7 +380,7 @@
               "name": "WeChatMsg/留痕",
               "url": "https://memotrace.lc044.love/",
               "desc": "提取微信聊天记录",
-              "icon": "",
+              "icon": "/images/logos/memotrace-lc044-love.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -390,7 +390,7 @@
               "name": "serverless-qrcode-hub",
               "url": "https://github.com/xxnuo/serverless-qrcode-hub",
               "desc": "生成永久微信群聊二维码",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -399,7 +399,7 @@
               "toolboxLink": null,
               "name": "腾讯版本",
               "url": "https://github.com/HdShare/TencentVersion",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -408,7 +408,7 @@
               "toolboxLink": null,
               "name": "QQNT-Version-History",
               "url": "https://github.com/PRO-2684/qqnt-version-history",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -418,7 +418,7 @@
               "name": "Stapxs QQ Lite",
               "url": "https://github.com/Stapxs/Stapxs-QQ-Lite-2.0",
               "desc": "第三方 QQ 客户端",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -428,7 +428,7 @@
               "name": "WeWe RSS",
               "url": "https://github.com/cooderl/wewe-rss",
               "desc": "微信公众号RSS生成（基于微信读书）",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -438,7 +438,7 @@
               "name": "微信公众号RSS",
               "url": "https://github.com/ttttmr/Wechat2RSS",
               "desc": "微信公众号转RSS",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             }
@@ -453,7 +453,7 @@
               "name": "PayQrcode",
               "url": "https://github.com/uxiaohan/PayQrcode",
               "desc": "合并微信、支付宝收款码",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -463,7 +463,7 @@
               "name": "Weibo-archiver",
               "url": "https://weibo.chilfish.top/post",
               "desc": "将微博导出备份的油猴脚本",
-              "icon": "",
+              "icon": "/images/logos/weibo-chilfish-top.webp",
               "hide_badges": [],
               "status": "ok"
             },
@@ -472,7 +472,7 @@
               "toolboxLink": null,
               "name": "WePush",
               "url": "https://rememberber.github.io/WePush/",
-              "icon": "",
+              "icon": "/images/logos/rememberber-github-io.webp",
               "hide_badges": [],
               "status": "ok"
             },

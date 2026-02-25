@@ -15,7 +15,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "LSPatch",
@@ -23,7 +23,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "SPatch-Update（元萝卜）",
@@ -31,7 +31,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "NPatch",
@@ -39,7 +39,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "Xposed Modules Repository",
@@ -47,7 +47,7 @@
               "official_site": "https://modules.lsposed.org/",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/github-com.webp"
             }
           ]
         },
@@ -60,7 +60,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "HSSkyBoy/NPatch",
@@ -68,7 +68,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "8MiYile/LSPatch-OP",
@@ -76,7 +76,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/github-com.webp"
             }
           ]
         }
@@ -95,7 +95,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "模了个块",
@@ -103,7 +103,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "Miko",
@@ -111,7 +111,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "QStory",
@@ -119,7 +119,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "XAutoDaily签到模块",
@@ -127,7 +127,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "Tim小助手(TimTool)",
@@ -135,7 +135,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "I'm Pad",
@@ -143,7 +143,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "FunBox",
@@ -151,7 +151,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "NbHook(微信模块)",
@@ -159,7 +159,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "1个神引 / GodHook",
@@ -167,7 +167,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "XChat",
@@ -175,7 +175,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "糊脸WeChat",
@@ -183,7 +183,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "VAvatar自动更换微信头像",
@@ -191,7 +191,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             }
           ]
         },
@@ -204,7 +204,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "Make Bilibili Great Again!MBGA",
@@ -212,7 +212,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "BiliRoamingX/BiliRoamingX",
@@ -220,7 +220,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "哔哩漫游/BiliRoaming",
@@ -228,7 +228,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "哔哩哔哩直播隐身观看",
@@ -236,7 +236,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "YouTube去广告，锁屏播放 | NoAdsBackgroundPlaybackYT",
@@ -244,7 +244,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺 𝗦𝗽𝗲𝗲𝗱 𝗛𝗼𝗼𝗸",
@@ -252,7 +252,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "FuckCainiao",
@@ -260,7 +260,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             }
           ]
         },
@@ -273,7 +273,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "AdClose",
@@ -281,7 +281,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "冰社 IceCore",
@@ -289,7 +289,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "NewHookVip",
@@ -297,7 +297,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "Fuck for Game",
@@ -305,7 +305,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "Fuck AD",
@@ -313,7 +313,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "要妳命三千Xposed模組",
@@ -321,7 +321,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "Bili调速 biliSpeed",
@@ -329,7 +329,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "HookVip",
@@ -337,7 +337,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/modules-lsposed-org.webp"
             },
             {
               "name": "Close-Plus",
@@ -345,7 +345,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/github-com.webp"
             }
           ]
         }
@@ -372,7 +372,7 @@
               "official_site": "",
               "desc": "Android\\iPad\\iPhone\\Windows 电子书、有声书",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/forum-mobilism-org.webp"
             },
             {
               "name": "APKMODY",
@@ -380,7 +380,7 @@
               "official_site": "",
               "desc": "Android破解应用商店",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/apkmody-com.webp"
             },
             {
               "name": "HappyMod",
@@ -388,7 +388,7 @@
               "official_site": "",
               "desc": "Android破解应用商店",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/happymod-com.webp"
             },
             {
               "name": "REXDL",
@@ -396,7 +396,7 @@
               "official_site": "",
               "desc": "Android破解应用商店",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/rexdl-com.webp"
             },
             {
               "name": "HappyMod",
@@ -404,7 +404,7 @@
               "official_site": "",
               "desc": "官网和app都有内容",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/happymod-com.webp"
             },
             {
               "name": "ACMarket",
@@ -412,7 +412,7 @@
               "official_site": "",
               "desc": "官网仅发布官方app",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/acmarket-net.webp"
             },
             {
               "name": "BlackMod.Net",
@@ -420,7 +420,7 @@
               "official_site": "",
               "desc": "Android MOD 游戏的社区",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/blackmod-net.webp"
             },
             {
               "name": "Mod Download Fast",
@@ -428,7 +428,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/moddownloadfast-com.webp"
             },
             {
               "name": "forum.sbenny",
@@ -436,7 +436,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/zh-cn-forum-sbenny-com.webp"
             },
             {
               "name": "Androeed.ru",
@@ -444,7 +444,7 @@
               "official_site": "",
               "desc": "俄罗斯社区",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/androeed-store.webp"
             },
             {
               "name": "An1",
@@ -452,7 +452,7 @@
               "official_site": "",
               "desc": "俄罗斯社区",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/an1-com.webp"
             }
           ]
         },
@@ -465,7 +465,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/luckypatchers-com.webp"
             },
             {
               "name": "ReVanced/revanced-manager",
@@ -473,7 +473,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "revanced-patches",
@@ -481,7 +481,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "revanced-patches",
@@ -489,7 +489,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "YouTube ReVanced",
@@ -497,7 +497,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/revanced-to.webp"
             },
             {
               "name": "Infinity-For-Reddit",
@@ -505,7 +505,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "piko",
@@ -513,7 +513,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "twitter-apk",
@@ -521,7 +521,7 @@
               "official_site": "",
               "desc": "",
               "guide_id": "",
-              "icon": ""
+              "icon": "/images/logos/github-com.webp"
             }
           ]
         }

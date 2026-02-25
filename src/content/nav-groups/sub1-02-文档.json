@@ -18,7 +18,7 @@
               "toolbox": null,
               "name": "Office Tab",
               "url": "https://zh-cn.extendoffice.com/",
-              "icon": "",
+              "icon": "/images/logos/zh-cn-extendoffice-com.webp",
               "hide_badges": []
             },
             {
@@ -32,63 +32,63 @@
               "toolbox": null,
               "name": "OneKeyTools",
               "url": "http://oktools.xyz/index.html",
-              "icon": "",
+              "icon": "/images/logos/oktools-xyz.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "小恐龙公文排版助手",
               "url": "https://gw.xkonglong.com/#/",
-              "icon": "",
+              "icon": "/images/logos/gw-xkonglong-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "方方格子",
               "url": "http://www.ffcell.com/",
-              "icon": "",
+              "icon": "/images/logos/ffcell-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "excel易用宝",
               "url": "https://yyb.excelhome.net/",
-              "icon": "",
+              "icon": "/images/logos/yyb-excelhome-net.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "Excel必备工具箱（免费版）",
               "url": "http://www.ahzll.top/",
-              "icon": "",
+              "icon": "/images/logos/ahzll-top.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "Excel精灵",
               "url": "http://www.excelbbx.net/",
-              "icon": "",
+              "icon": "/images/logos/excelbbx-net.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "英豪工具箱",
               "url": "http://addins.cn/yhtools/",
-              "icon": "",
+              "icon": "/images/logos/addins-cn.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "easychart",
               "url": "https://github.com/EasyChart/Excel-Chart-Plugin-EasyCharts",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "OfficeAI助手",
               "url": "https://office-ai.cn/",
-              "icon": "",
+              "icon": "/images/logos/office-ai-cn.webp",
               "hide_badges": []
             }
           ]
@@ -100,7 +100,7 @@
               "toolbox": null,
               "name": "LKY Office Tools",
               "url": "https://github.com/OdysseusYuan/LKY_OfficeTools",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
@@ -121,14 +121,14 @@
               "toolbox": null,
               "name": "Office2013-2019C2RInstall",
               "url": "https://www.nsaneforums.com/topic/332794-office-2013-2019-c2r-install-install-lite-654/",
-              "icon": "",
+              "icon": "/images/logos/nsaneforums-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "FreeOffice",
               "url": "https://www.freeoffice.com/zh/",
-              "icon": "",
+              "icon": "/images/logos/freeoffice-com.webp",
               "hide_badges": []
             }
           ]
@@ -146,77 +146,77 @@
               "toolbox": null,
               "name": "SumatraPDF",
               "url": "https://www.sumatrapdfreader.org",
-              "icon": "",
+              "icon": "/images/logos/sumatrapdfreader-org.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "PDFgear",
               "url": "https://www.pdfgear.com/zh/",
-              "icon": "",
+              "icon": "/images/logos/pdfgear-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "pdfarranger",
               "url": "https://github.com/pdfarranger/pdfarranger",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "pdf-helper",
               "url": "https://github.com/iamlinhui/pdf-helper",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "PDFsamBasic",
               "url": "https://pdfsam.org/",
-              "icon": "",
+              "icon": "/images/logos/pdfsam-org.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "uPDF",
               "url": "https://www.52pojie.cn/forum.php?mod=viewthread&tid=1082693",
-              "icon": "",
+              "icon": "/images/logos/52pojie-cn.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "PDF24",
               "url": "https://zh.pdf24.org/",
-              "icon": "",
+              "icon": "/images/logos/zh-pdf24-org.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "PDFShaperFree",
               "url": "https://www.pdfshaper.com/",
-              "icon": "",
+              "icon": "/images/logos/pdfshaper-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "PDFPatcher",
               "url": "https://www.cnblogs.com/pdfpatcher/",
-              "icon": "",
+              "icon": "/images/logos/cnblogs-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "飞扬PDF",
               "url": "https://www.viyoung.net/",
-              "icon": "",
+              "icon": "/images/logos/viyoung-net.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "XoDoPDFReader",
               "url": "https://www.xodo.com/#",
-              "icon": "",
+              "icon": "/images/logos/xodo-com.webp",
               "hide_badges": []
             },
             {
@@ -230,14 +230,14 @@
               "toolbox": null,
               "name": "iSkysoftPDFEditor",
               "url": "付费，界面友好",
-              "icon": "",
+              "icon": "/images/logos/xn-c06a81nw2g722b783aj4o.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "SolidConverterPDF",
               "url": "https://www.soliddocuments.com/zh/",
-              "icon": "",
+              "icon": "/images/logos/soliddocuments-com.webp",
               "hide_badges": []
             },
             {
@@ -258,7 +258,7 @@
               "toolbox": null,
               "name": "Okular",
               "url": "https://okular.kde.org/zh-cn/",
-              "icon": "",
+              "icon": "/images/logos/okular-kde-org.webp",
               "hide_badges": []
             }
           ]
@@ -270,7 +270,7 @@
               "toolbox": null,
               "name": "Stirling PDF",
               "url": "https://stirlingpdf.io/?lang=zh_CN",
-              "icon": "",
+              "icon": "/images/logos/stirlingpdf-io.webp",
               "hide_badges": []
             },
             {
@@ -284,42 +284,42 @@
               "toolbox": null,
               "name": "PDF24 Tools",
               "url": "https://tools.pdf24.org/zh/",
-              "icon": "",
+              "icon": "/images/logos/tools-pdf24-org.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "加加PDF官网 - 文电通",
               "url": "https://www.addpdf.cn/",
-              "icon": "",
+              "icon": "/images/logos/addpdf-cn.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "LightPDF",
               "url": "https://lightpdf.com/zh/",
-              "icon": "",
+              "icon": "/images/logos/lightpdf-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "PDF.io",
               "url": "https://pdf.io/",
-              "icon": "",
+              "icon": "/images/logos/pdf-io.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "Smallpdf",
               "url": "https://smallpdf.com/",
-              "icon": "",
+              "icon": "/images/logos/smallpdf-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "iLovePDF",
               "url": "https://www.ilovepdf.com/",
-              "icon": "",
+              "icon": "/images/logos/ilovepdf-com.webp",
               "hide_badges": []
             },
             {
@@ -333,7 +333,7 @@
               "toolbox": null,
               "name": "完全匿名 PDF 轉換器",
               "url": "https://easypdf.com/cn",
-              "icon": "",
+              "icon": "/images/logos/easypdf-com.webp",
               "hide_badges": []
             },
             {
@@ -347,35 +347,35 @@
               "toolbox": null,
               "name": "nbpdf",
               "url": "https://nbpdf.com/zh-CN/",
-              "icon": "",
+              "icon": "/images/logos/nbpdf-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "PDF.to",
               "url": "https://pdf.to/",
-              "icon": "",
+              "icon": "/images/logos/pdf-to.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "Web to PDF Converter",
               "url": "https://www.web2pdfconvert.com/",
-              "icon": "",
+              "icon": "/images/logos/web2pdfconvert-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "Convert any URL or Web Page to PDF",
               "url": "http://pdfmyurl.com/",
-              "icon": "",
+              "icon": "/images/logos/pdfmyurl-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "PDF提取图像，文本和字体",
               "url": "https://www.extractpdf.com/zh.html",
-              "icon": "",
+              "icon": "/images/logos/extractpdf-com.webp",
               "hide_badges": []
             },
             {
@@ -389,21 +389,21 @@
               "toolbox": null,
               "name": "超级PDF",
               "url": "https://xpdf.net/pdf-to-word",
-              "icon": "",
+              "icon": "/images/logos/xpdf-net.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "chromePDF",
               "url": "https://cn.chromepdf.com/",
-              "icon": "",
+              "icon": "/images/logos/cn-chromepdf-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "CleverPDF",
               "url": "https://www.cleverpdf.com/cn",
-              "icon": "",
+              "icon": "/images/logos/cleverpdf-com.webp",
               "hide_badges": []
             },
             {
@@ -417,7 +417,7 @@
               "toolbox": null,
               "name": "Knower - 你的知识助手",
               "url": "https://knower.info/",
-              "icon": "",
+              "icon": "/images/logos/knower-info.webp",
               "hide_badges": []
             },
             {
@@ -441,28 +441,28 @@
           "toolbox": null,
           "name": "Readest",
           "url": "https://github.com/readest/readest",
-          "icon": "",
+          "icon": "/images/logos/github-com.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "潮汐阅读",
           "url": "https://tidereader.com/",
-          "icon": "",
+          "icon": "/images/logos/tidereader-com.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "ReadCat",
           "url": "https://github.com/read-cat/read-cat",
-          "icon": "",
+          "icon": "/images/logos/github-com.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "STRapp",
           "url": "https://github.com/cataerogong/STRapp/",
-          "icon": "",
+          "icon": "/images/logos/github-com.webp",
           "hide_badges": []
         },
         {

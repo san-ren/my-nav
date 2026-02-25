@@ -12,44 +12,54 @@
           "list": [
             {
               "name": "legado",
-              "url": "https://github.com/gedoor/legado"
+              "url": "https://github.com/gedoor/legado",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "legado-with-MD3",
-              "url": "https://github.com/HapeLee/legado-with-MD3"
+              "url": "https://github.com/HapeLee/legado-with-MD3",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "书源",
-              "url": "https://github.com/liufuyou/read"
+              "url": "https://github.com/liufuyou/read",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "全是漫画",
-              "url": "https://github.com/hongchacha/cartoon"
+              "url": "https://github.com/hongchacha/cartoon",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "pastemangax",
               "url": "https://github.com/crowforkotlin/pastemangax",
-              "desc": "2025.6受打压停更"
+              "desc": "2025.6受打压停更",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "Perfect-Viewer-X",
-              "url": "https://github.com/paladinlin1/Perfect-Viewer-X"
+              "url": "https://github.com/paladinlin1/Perfect-Viewer-X",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "anx-reader",
-              "url": "https://github.com/Anxcye/anx-reader"
+              "url": "https://github.com/Anxcye/anx-reader",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "KuroReader",
-              "url": "https://github.com/VandersonQk/KuroReaderReleases"
+              "url": "https://github.com/VandersonQk/KuroReaderReleases",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "JMComic-APK",
-              "url": "https://github.com/hect0x7/JMComic-APK"
+              "url": "https://github.com/hect0x7/JMComic-APK",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "JMComic-Crawler-Python",
-              "url": "https://github.com/hect0x7/JMComic-Crawler-Python"
+              "url": "https://github.com/hect0x7/JMComic-Crawler-Python",
+              "icon": "/images/logos/github-com.webp"
             }
           ]
         },
@@ -58,27 +68,33 @@
           "list": [
             {
               "name": "漫画制作教程 - 知乎",
-              "url": "https://zhuanlan.zhihu.com/p/56388355"
+              "url": "https://zhuanlan.zhihu.com/p/56388355",
+              "icon": "/images/logos/zhuanlan-zhihu-com.webp"
             },
             {
               "name": "kcc",
-              "url": "https://github.com/ciromattia/kcc"
+              "url": "https://github.com/ciromattia/kcc",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "ComicPacker",
-              "url": "https://github.com/eesxy/ComicPacker"
+              "url": "https://github.com/eesxy/ComicPacker",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "epub-manga-creator",
-              "url": "https://github.com/wing-kai/epub-manga-creator"
+              "url": "https://github.com/wing-kai/epub-manga-creator",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "aLittleEpub",
-              "url": "https://github.com/KonohaVio/aLittleEpub"
+              "url": "https://github.com/KonohaVio/aLittleEpub",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "PDFMaker",
-              "url": "https://github.com/KonohaVio/PDFMaker"
+              "url": "https://github.com/KonohaVio/PDFMaker",
+              "icon": "/images/logos/github-com.webp"
             }
           ]
         }
@@ -94,36 +110,43 @@
             {
               "name": "PiliPala",
               "url": "https://github.com/guozhigq/pilipala",
-              "official_site": "https://pilipala.life/"
+              "official_site": "https://pilipala.life/",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "PiliPlus",
-              "url": "https://github.com/bggRGjQaUbCoE/PiliPlus"
+              "url": "https://github.com/bggRGjQaUbCoE/PiliPlus",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "BiliPai",
-              "url": "https://github.com/jay3-yy/BiliPai"
+              "url": "https://github.com/jay3-yy/BiliPai",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": " bilimiao",
               "url": "https://github.com/10miaomiao/bilimiao2",
               "official_site": "https://10miaomiao.cn/project/bilimiao",
-              "desc": "bilimiao 2.x/哔哩哔哩时光机"
+              "desc": "bilimiao 2.x/哔哩哔哩时光机",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "PeekPili",
-              "url": "https://github.com/ingriddaleusag-dotcom/PeekPiliRelease"
+              "url": "https://github.com/ingriddaleusag-dotcom/PeekPiliRelease",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "PiliPro",
               "url": "https://github.com/naaammme/pilipro",
-              "desc": "使用Flutter开发的BiliBili第三方客户端"
+              "desc": "使用Flutter开发的BiliBili第三方客户端",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "BILIBILIAS",
               "url": "https://github.com/1250422131/bilibilias",
               "official_site": "https://api.misakamoe.com/app/",
-              "desc": "2026.1受B站官方影响停更"
+              "desc": "2026.1受B站官方影响停更",
+              "icon": "/images/logos/github-com.webp"
             }
           ]
         },
@@ -133,7 +156,8 @@
             {
               "name": "TGwiki",
               "url": "https://wiki.tgnav.org/thirdparty.html",
-              "desc": "Telegram知识库"
+              "desc": "Telegram知识库",
+              "icon": "/images/logos/wiki-tgnav-org.webp"
             },
             {
               "name": "tg中文语言包",
@@ -141,23 +165,28 @@
             },
             {
               "name": "Nekogram",
-              "url": "https://github.com/Nekogram/Nekogram"
+              "url": "https://github.com/Nekogram/Nekogram",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "Nullgram",
-              "url": "https://github.com/qwq233/Nullgram"
+              "url": "https://github.com/qwq233/Nullgram",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "Nagram",
-              "url": "https://github.com/NextAlone/Nagram"
+              "url": "https://github.com/NextAlone/Nagram",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "Cherrygram",
-              "url": "https://github.com/arsLan4k1390/Cherrygram"
+              "url": "https://github.com/arsLan4k1390/Cherrygram",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "tdesktop",
-              "url": "https://github.com/TDesktop-x64/tdesktop"
+              "url": "https://github.com/TDesktop-x64/tdesktop",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "Nnngram",
@@ -169,17 +198,20 @@
             },
             {
               "name": "tdesktop",
-              "url": "https://github.com/TDesktop-x64/tdesktop"
+              "url": "https://github.com/TDesktop-x64/tdesktop",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "Nekogram和Nekogram X的关系和矛盾历史",
               "url": "https://tech.a-better-planet.com/nekogram%E5%92%8Cnekogram-x%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E7%9F%9B%E7%9B%BE%E5%8E%86%E5%8F%B2.html",
-              "desc": "看乐子"
+              "desc": "看乐子",
+              "icon": "/images/logos/tech-a-better-planet-com.webp"
             },
             {
               "name": "nekogram和nekogram X和Nullgram",
               "url": "https://frienkie.github.io/posts/3037814559/",
-              "desc": "乐子"
+              "desc": "乐子",
+              "icon": "/images/logos/frienkie-github-io.webp"
             }
           ]
         },
@@ -189,12 +221,14 @@
             {
               "name": "Hydrogen",
               "url": "https://github.com/huajiqaq/Hydrogen",
-              "desc": "第三方知乎"
+              "desc": "第三方知乎",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "c001apk",
               "url": "https://github.com/bggRGjQaUbCoE/c001apk",
-              "desc": "第三方酷安"
+              "desc": "第三方酷安",
+              "icon": "/images/logos/github-com.webp"
             }
           ]
         },
@@ -204,12 +238,14 @@
             {
               "name": "RedReader",
               "url": "https://github.com/QuantumBadger/RedReader",
-              "desc": "开源"
+              "desc": "开源",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "Infinity-For-Reddit",
               "url": "https://github.com/Docile-Alligator/Infinity-For-Reddit",
-              "desc": "app 支持中文"
+              "desc": "app 支持中文",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "Relay for reddit",
@@ -222,7 +258,8 @@
             {
               "name": "Sync for Reddit",
               "url": "https://todo.syncforreddit.com/",
-              "desc": "貌似2023api收费后就停更"
+              "desc": "貌似2023api收费后就停更",
+              "icon": "/images/logos/todo-syncforreddit-com.webp"
             }
           ]
         }
@@ -257,7 +294,8 @@
             },
             {
               "name": "SeriesGuide",
-              "url": "https://github.com/UweTrottmann/SeriesGuide"
+              "url": "https://github.com/UweTrottmann/SeriesGuide",
+              "icon": "/images/logos/github-com.webp"
             },
             {
               "name": "imdb",
@@ -277,7 +315,8 @@
             {
               "name": "Rotten Tomatoes",
               "url": "https://www.rottentomatoes.com/",
-              "desc": "Rotten Tomatoes烂番茄官方"
+              "desc": "Rotten Tomatoes烂番茄官方",
+              "icon": "/images/logos/rottentomatoes-com.webp"
             },
             {
               "name": "trakt.TV",
@@ -286,7 +325,8 @@
             },
             {
               "name": "NeoDB",
-              "url": "https://neodb.social/discover/"
+              "url": "https://neodb.social/discover/",
+              "icon": "/images/logos/neodb-social.webp"
             },
             {
               "name": "Cinemaniac",

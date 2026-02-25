@@ -16,26 +16,30 @@
           "url": "https://github.com/ourongxing/newsnow",
           "official_site": "https://newsnow.busiyi.world/",
           "desc": "实时新闻聚合阅读器",
-          "hide_badges": []
+          "hide_badges": [],
+          "icon": "/images/logos/ourongxing-newsnow.webp"
         },
         {
           "toolbox": null,
           "name": "小田田",
           "url": "https://xydh.fun/xiaotiantian/",
           "desc": "dg",
-          "hide_badges": []
+          "hide_badges": [],
+          "icon": "/images/logos/xydh-fun.webp"
         },
         {
           "toolbox": null,
           "name": "低调观影",
           "url": "https://shouku123.com/tiantian/",
-          "hide_badges": []
+          "hide_badges": [],
+          "icon": "/images/logos/shouku123-com.webp"
         },
         {
           "toolbox": null,
           "name": "不死鸟",
           "url": "https://iui.su/",
-          "hide_badges": []
+          "hide_badges": [],
+          "icon": "/images/logos/iui-su.webp"
         }
       ],
       "tabs": []

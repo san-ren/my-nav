@@ -28,7 +28,7 @@
           "toolbox": null,
           "name": "XIU2/TrackersListCollection",
           "url": "https://trackerslist.com/#/zh",
-          "icon": "",
+          "icon": "/images/logos/trackerslist-com.webp",
           "hide_badges": []
         },
         {
@@ -36,7 +36,7 @@
           "name": "aria2",
           "url": "https://github.com/aria2/aria2",
           "official_site": "https://aria2.github.io/",
-          "icon": "",
+          "icon": "/images/logos/aria2-aria2.webp",
           "hide_badges": []
         },
         {
@@ -44,7 +44,7 @@
           "name": "Gopeed",
           "url": "https://github.com/GopeedLab/gopeed",
           "official_site": "https://gopeed.com/zh-CN",
-          "icon": "",
+          "icon": "/images/logos/GopeedLab-gopeed.webp",
           "hide_badges": []
         },
         {
@@ -59,49 +59,49 @@
           "name": "Motrix",
           "url": "https://github.com/agalwood/Motrix",
           "official_site": "https://motrix.app/",
-          "icon": "",
+          "icon": "/images/logos/github-com.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "imFile",
           "url": "https://github.com/imfile-io/imfile-desktop",
-          "icon": "",
+          "icon": "/images/logos/github-com.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "Xdown",
           "url": "https://xdown.org/",
-          "icon": "",
+          "icon": "/images/logos/xdown-org.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "Yolx",
           "url": "https://yolx.yzzi.icu/",
-          "icon": "",
+          "icon": "/images/logos/yolx-yzzi-icu.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "BitComet",
           "url": "https://www.bitcomet.com/cn",
-          "icon": "",
+          "icon": "/images/logos/bitcomet-com.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "qBittorrent",
           "url": "https://www.qbittorrent.org/",
-          "icon": "",
+          "icon": "/images/logos/qbittorrent-org.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "qBittorrent-Enhanced-Edition",
           "url": "https://github.com/c0re100/qBittorrent-Enhanced-Edition",
-          "icon": "",
+          "icon": "/images/logos/github-com.webp",
           "hide_badges": []
         },
         {
@@ -115,14 +115,14 @@
           "toolbox": null,
           "name": "Qdown",
           "url": "http://lightzhan.xyz/index.php/qdown/",
-          "icon": "",
+          "icon": "/images/logos/lightzhan-xyz.webp",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "FDM",
           "url": "https://www.freedownloadmanager.org/zh/",
-          "icon": "",
+          "icon": "/images/logos/freedownloadmanager-org.webp",
           "hide_badges": []
         },
         {
@@ -137,7 +137,7 @@
           "name": "XDM",
           "url": "https://github.com/subhra74/xdm",
           "official_site": "https://xtremedownloadmanager.com/",
-          "icon": "",
+          "icon": "/images/logos/github-com.webp",
           "hide_badges": []
         },
         {
@@ -145,7 +145,7 @@
           "name": "AB Download Manager",
           "url": "https://github.com/amir1376/ab-download-manager",
           "official_site": "https://abdownloadmanager.com/",
-          "icon": "",
+          "icon": "/images/logos/github-com.webp",
           "hide_badges": []
         },
         {
@@ -181,7 +181,7 @@
           "toolbox": null,
           "name": "Seal",
           "url": "https://github.com/JunkFood02/Seal",
-          "icon": "",
+          "icon": "/images/logos/github-com.webp",
           "hide_badges": []
         },
         {
@@ -202,7 +202,7 @@
           "toolbox": null,
           "name": "浩克下载",
           "url": "http://sausage.1foo.com/home/",
-          "icon": "",
+          "icon": "/images/logos/sausage-1foo-com.webp",
           "hide_badges": []
         },
         {
@@ -227,7 +227,7 @@
               "name": "downkyicore",
               "url": "https://github.com/yaobiao131/downkyicore",
               "desc": "downkyi继任者",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
@@ -235,7 +235,7 @@
               "name": "Bili23 Downloader",
               "url": "https://github.com/ScottSloan/Bili23-Downloader",
               "official_site": "https://bili23.scott-sloan.cn/",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
@@ -244,7 +244,7 @@
               "url": "https://github.com/btjawa/BiliTools",
               "official_site": "https://blog.btjawa.top/posts/bilitools",
               "desc": "哔哩哔哩工具箱",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
@@ -252,7 +252,7 @@
               "name": "BBDown（Bilibili Downloader）",
               "url": "https://github.com/nilaoda/BBDown",
               "desc": "命令行下载器",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
@@ -267,7 +267,7 @@
               "name": "哔哩下载姬downkyi",
               "url": "https://github.com/leiurayer/downkyi",
               "desc": "2025年删库",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
@@ -275,7 +275,7 @@
               "name": "Bilidown",
               "url": "https://zhouql.vip/bilidown/pc/",
               "desc": "2025年1月停用",
-              "icon": "",
+              "icon": "/images/logos/zhouql-vip.webp",
               "hide_badges": []
             },
             {
@@ -294,91 +294,91 @@
               "toolbox": null,
               "name": "Mediago",
               "url": "https://downloader.caorushizi.cn/",
-              "icon": "",
+              "icon": "/images/logos/downloader-caorushizi-cn.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "N_m3u8DL-RE",
               "url": "https://github.com/nilaoda/N_m3u8DL-RE",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "M3u8Downloader_H",
               "url": "https://github.com/Harlan-H/M3u8Downloader_H",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "Fluent-M3U8",
               "url": "https://github.com/zhiyiYo/Fluent-M3U8",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "You-Get",
               "url": "https://github.com/soimort/you-get",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "Arrow Downloader",
               "url": "https://www.arrow-dl.com/",
-              "icon": "",
+              "icon": "/images/logos/arrow-dl-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "Cobalt",
               "url": "https://cobalt.tools/",
-              "icon": "",
+              "icon": "/images/logos/cobalt-tools.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "Hitomi-Downloader",
               "url": "https://github.com/KurtBestor/Hitomi-Downloader",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "侠客短视频解析去水印",
               "url": "https://www.52pojie.cn/thread-1933305-1-2.html",
-              "icon": "",
+              "icon": "/images/logos/52pojie-cn.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "大圣直播录制工具（DSLiveRec）",
               "url": "https://www.52pojie.cn/thread-1907429-1-1.html",
-              "icon": "",
+              "icon": "/images/logos/52pojie-cn.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "WebTorrent",
               "url": "https://webtorrent.io/",
-              "icon": "",
+              "icon": "/images/logos/webtorrent-io.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "tdl",
               "url": "https://docs.iyear.me/tdl/zh/",
-              "icon": "",
+              "icon": "/images/logos/docs-iyear-me.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "YoutubeDownloader",
               "url": "https://github.com/Tyrrrz/YoutubeDownloader",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             }
           ]
@@ -390,7 +390,7 @@
               "toolbox": null,
               "name": "PikPak",
               "url": "https://mypikpak.com/zh-CN",
-              "icon": "",
+              "icon": "/images/logos/mypikpak-com.webp",
               "hide_badges": []
             },
             {
@@ -404,14 +404,14 @@
               "toolbox": null,
               "name": "夸克网盘批量转存工具",
               "url": "https://www.52pojie.cn/thread-1897944-1-1.html",
-              "icon": "",
+              "icon": "/images/logos/52pojie-cn.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "filestash",
               "url": "https://github.com/mickael-kerjean/filestash",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
@@ -425,28 +425,28 @@
               "toolbox": null,
               "name": "就是加速",
               "url": "https://api.94speed.com/",
-              "icon": "",
+              "icon": "/images/logos/api-94speed-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "小白羊网盘",
               "url": "https://github.com/gaozhangmin/aliyunpan",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "蜗牛云盘",
               "url": "https://snail8.cn/html/index.html",
-              "icon": "",
+              "icon": "/images/logos/snail8-cn.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "Raptor",
               "url": "https://github.com/InfpHub/Raptor",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
@@ -472,35 +472,35 @@
               "toolbox": null,
               "name": "wechatDownload/微信公众号文章批量下载工具",
               "url": "https://github.com/qiye45/wechatDownload",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "wechatDownload",
               "url": "https://github.com/xiaoguyu/wechatDownload",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "wechatVideoDownload/微信视频号下载工具",
               "url": "https://github.com/qiye45/wechatVideoDownload",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "WeChat_Article",
               "url": "https://github.com/1061700625/WeChat_Article",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "wechat-spider/微信爬虫",
               "url": "https://github.com/striver-ing/wechat-spider",
-              "icon": "",
+              "icon": "/images/logos/github-com.webp",
               "hide_badges": []
             }
           ]
