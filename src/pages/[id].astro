@@ -75,7 +75,7 @@ const CurrentIcon = section.icon ? (Icons[section.icon] || LayoutDashboard) : La
         
         <div class="flex items-center gap-2 md:gap-3 shrink-0">
           <ResourceFilter />
-          <SearchModal client:load />
+          <SearchModal client:idle />
           <ThemePicker />
         </div>
       </header>

@@ -10,12 +10,10 @@ import remarkGfm from 'remark-gfm';
 import sitemap from '@astrojs/sitemap';
 import astroExpressiveCode from 'astro-expressive-code';
 
-// 1. 智能判断逻辑 (最稳健的方式)
-// 只要不是运行 "dev" 命令，我们就默认是在构建生产版本
+// 1. 智能判断逻辑
 const isDevCommand = process.argv.includes('dev');
 
 // 2. 强制设置 Base 路径
-// 本地开发用 '/'，生产打包强制用 '/my-nav'
 const myBase = isDevCommand ? '/' : '/my-nav';
 const mySite = 'https://san-ren.github.io';
 
@@ -54,73 +52,81 @@ if (isDevCommand) {
   // 4.1 加载 Keystatic (仅本地)
   integrations.push(keystatic());
 
-  // 4.2 🔥🔥 注入智能解析 API (关键修改) 🔥🔥
-  // 这段逻辑会将 src/components/keystatic/smart-parse.ts 
-  // 临时挂载到 http://localhost:4321/api/smart-parse
+  // 4.2 注入智能解析 API (仅开发环境)
   integrations.push({
     name: 'dev-smart-parse-api',
     hooks: {
       'astro:config:setup': ({ injectRoute }) => {
         console.log('🚀 [Dev] 正在注入智能解析 API...');
         injectRoute({
-          // 前端访问的 URL 路径 (保持不变)
           pattern: '/api/smart-parse',
-          // 实际文件的物理路径 (放在现有的组件目录中)
           entrypoint: './src/components/keystatic/ToolboxField/smart-parse.ts',
-          // 🔥🔥 核心修复：必须显式设置为 false，否则在 static 模式下会出错
           prerender: false 
         });
       },
     },
   });
 
-  // 4.3 注入工具箱 API 路由
-integrations.push({
-  name: 'dev-toolbox-api',
-  hooks: {
-    'astro:config:setup': ({ injectRoute }) => {
-      // GitHub 检测 API
-      injectRoute({
-        pattern: '/api/github-check',
-        entrypoint: './src/components/keystatic/Toolbox/GithubChecker/api/index.ts',
-        prerender: false 
-      });
-      // 链接检测 API
-      injectRoute({
-        pattern: '/api/link-check',
-        entrypoint: './src/components/keystatic/Toolbox/LinkChecker/api/index.ts',
-        prerender: false 
-      });
-      // 批量添加 API
-      injectRoute({
-        pattern: '/api/batch-add',
-        entrypoint: './src/components/keystatic/Toolbox/BatchAdder/api/index.ts',
-        prerender: false 
-      });
+  // 4.3 注入工具箱 API 路由 (仅开发环境)
+  integrations.push({
+    name: 'dev-toolbox-api',
+    hooks: {
+      'astro:config:setup': ({ injectRoute }) => {
+        injectRoute({
+          pattern: '/api/github-check',
+          entrypoint: './src/components/keystatic/Toolbox/GithubChecker/api/index.ts',
+          prerender: false 
+        });
+        injectRoute({
+          pattern: '/api/link-check',
+          entrypoint: './src/components/keystatic/Toolbox/LinkChecker/api/index.ts',
+          prerender: false 
+        });
+        injectRoute({
+          pattern: '/api/batch-add',
+          entrypoint: './src/components/keystatic/Toolbox/BatchAdder/api/index.ts',
+          prerender: false 
+        });
+      },
+    },
+  });
+}
+
+// 5. Vite 构建优化配置
+const viteConfig = {
+  server: {
+    watch: {
+      usePolling: true,
+      interval: 1000,
     },
   },
-});
-
-
-
-
-
-}
+  build: {
+    rollupOptions: {
+      output: {
+        // 手动分割代码块，优化加载性能
+        manualChunks: (id) => {
+          if (id.includes('react') || id.includes('react-dom')) {
+            return 'react-vendor';
+          }
+          if (id.includes('lucide-react')) {
+            return 'lucide-icons';
+          }
+          if (id.includes('fuse.js')) {
+            return 'fuse-search';
+          }
+        },
+      },
+    },
+    chunkSizeWarningLimit: 600,
+  },
+};
 
 export default defineConfig({
   site: mySite,
   base: myBase,
-  
-  // 生产环境 'always'，本地 'ignore'
   trailingSlash: isDevCommand ? 'ignore' : 'always', 
- 
   output: 'static',
-
-  // 确保没有 adapter，保证是纯静态构建
-  // adapter: node(...), 
-
   integrations: integrations,
-
   server: {
     host: true,
     port: 4321,
@@ -130,15 +136,7 @@ export default defineConfig({
       "Access-Control-Allow-Headers": "Content-Type, Authorization",
     }
   },
-
   devToolbar: { enabled: false },
-
-  vite: {
-    server: {
-      watch: {
-        usePolling: true,
-        interval: 1000,
-      },
-    }
-  }
+  compressHTML: true,
+  vite: viteConfig
 });

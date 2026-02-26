@@ -1,0 +1,15 @@
+{
+  // 禁用 CSS 验证（避免 Tailwind 指令警告）
+  "css.validate": false,
+  "css.lint.unknownAtRules": "ignore",
+  
+  // Tailwind CSS 设置
+  "tailwindCSS.includeLanguages": {
+    "astro": "html"
+  },
+  
+  // Astro 文件关联
+  "files.associations": {
+    "*.astro": "astro"
+  }
+}
