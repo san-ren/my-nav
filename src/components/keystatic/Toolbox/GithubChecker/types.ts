@@ -22,7 +22,7 @@ export interface CheckResult {
   archived: boolean;
   pushedAt: string | null;
   staleYears: number | null;
-  status: 'ok' | 'stale' | 'failed';
+  status: 'ok' | 'stale' | 'archived' | 'failed';
   error?: string;
 }
 

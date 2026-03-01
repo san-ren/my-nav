@@ -1,9 +1,10 @@
 // src/components/keystatic/Toolbox/ToolboxPage.tsx
 import React, { useState, useCallback, createContext, useContext, useEffect } from 'react';
-import { Github, Link, Plus, Wrench, ArrowLeft, AlertTriangle, Save, RotateCcw, Check, Eye, EyeOff } from 'lucide-react';
+import { Github, Link, Plus, Wrench, ArrowLeft, AlertTriangle, Save, RotateCcw, Check, Eye, EyeOff, ArrowRightLeft } from 'lucide-react';
 import { GithubChecker } from './GithubChecker';
 import { LinkChecker } from './LinkChecker';
 import { BatchAdder } from './BatchAdder';
+import { ResourceMover } from './ResourceMover';
 
 // --- ✅ 全局Token上下文 ---
 interface TokenContextType {
@@ -28,7 +29,7 @@ export const useGithubToken = () => useContext(TokenContext);
 const GITHUB_TOKEN_KEY = 'toolbox_github_token';
 
 // --- 类型定义 ---
-type TabId = 'github' | 'link' | 'batch';
+type TabId = 'github' | 'link' | 'batch' | 'mover';
 
 interface Tab {
   id: TabId;
@@ -179,6 +180,12 @@ const TABS: Tab[] = [
     icon: <Plus size={18} />,
     description: '批量添加资源',
   },
+  {
+    id: 'mover',
+    label: '资源转移',
+    icon: <ArrowRightLeft size={18} />,
+    description: '移动资源到其他位置',
+  },
 ];
 
 // --- 主组件 ---
@@ -201,9 +208,11 @@ export function ToolboxPage() {
 
   // 子组件数据状态（由子组件通过回调更新）
   const [hasUnsavedData, setHasUnsavedData] = useState({
+
     github: false,
     link: false,
     batch: false,
+    mover: false,
   });
 
   // 设置Token（标记为未保存）
@@ -275,6 +284,10 @@ export function ToolboxPage() {
     updateDataStatus('batch', hasData);
   }, [updateDataStatus]);
 
+  const handleMoverDataStatusChange = useCallback((hasData: boolean) => {
+    updateDataStatus('mover', hasData);
+  }, [updateDataStatus]);
+
   const renderContent = () => {
     switch (activeTab) {
       case 'github':
@@ -283,6 +296,8 @@ export function ToolboxPage() {
         return <LinkChecker onDataStatusChange={handleLinkDataStatusChange} />;
       case 'batch':
         return <BatchAdder onDataStatusChange={handleBatchDataStatusChange} />;
+      case 'mover':
+        return <ResourceMover onDataStatusChange={handleMoverDataStatusChange} />;
       default:
         return null;
     }

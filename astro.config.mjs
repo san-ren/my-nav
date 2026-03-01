@@ -87,6 +87,11 @@ if (isDevCommand) {
           entrypoint: './src/components/keystatic/Toolbox/BatchAdder/api/index.ts',
           prerender: false 
         });
+        injectRoute({
+        pattern: '/api/resource-mover',
+        entrypoint: './src/components/keystatic/Toolbox/ResourceMover/api/index.ts',
+        prerender: false 
+        });
       },
     },
   });

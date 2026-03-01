@@ -167,7 +167,7 @@ export async function checkRepo(owner: string, repo: string, token?: string): Pr
     const archived = data.archived === true;
     
     let staleYears: number | null = null;
-    let status: 'ok' | 'stale' | 'failed' = 'ok';
+    let status: 'ok' | 'stale' | 'failed' | 'archived' = 'ok';
     
     if (pushedAt) {
       const pushDate = new Date(pushedAt);
@@ -176,7 +176,7 @@ export async function checkRepo(owner: string, repo: string, token?: string): Pr
     }
     
     if (archived) {
-      status = 'failed';
+      status = 'archived';
     } else if (staleYears !== null && staleYears >= 3) {
       status = 'stale';
     }

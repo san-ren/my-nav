@@ -48,8 +48,14 @@ interface CheckResult {
   archived: boolean;
   pushedAt: string | null;
   staleYears: number | null;
-  status: 'ok' | 'stale' | 'failed';
+  status: 'ok' | 'stale' | 'archived' | 'failed';
   error?: string;
+}
+
+// 检测选项类型
+interface CheckOptions {
+  checkArchived: boolean;  // 是否检测归档
+  checkStale: boolean;     // 是否检测长期未更新
 }
 
 interface ScanResult {
@@ -70,7 +76,7 @@ interface TreeNode {
   repo?: GitHubRepoInfo;
 }
 
-type FilterType = 'all' | 'ok' | 'stale' | 'failed';
+type FilterType = 'all' | 'ok' | 'stale' | 'archived' | 'failed';
 type SortField = 'status' | 'pushedAt' | 'staleYears' | null;
 type SortDirection = 'asc' | 'desc';
 
@@ -198,6 +204,7 @@ const STYLES = {
   badge: {
     ok: { background: '#dcfce7', color: '#166534' },
     stale: { background: '#fef3c7', color: '#92400e' },
+    archived: { background: '#ede9fe', color: '#5b21b6' },
     failed: { background: '#fee2e2', color: '#991b1b' },
   },
   progress: {
@@ -287,6 +294,7 @@ const getStatusIcon = (status: string) => {
   switch (status) {
     case 'ok': return <CheckCircle size={16} style={{ color: '#22c55e' }} />;
     case 'stale': return <AlertTriangle size={16} style={{ color: '#f59e0b' }} />;
+    case 'archived': return <Archive size={16} style={{ color: '#8b5cf6' }} />;
     case 'failed': return <XCircle size={16} style={{ color: '#ef4444' }} />;
     default: return null;
   }
@@ -296,6 +304,7 @@ const getStatusLabel = (status: string): string => {
   switch (status) {
     case 'ok': return '正常';
     case 'stale': return '长期未更新';
+    case 'archived': return '已归档';
     case 'failed': return '已失效';
     default: return status;
   }
@@ -305,9 +314,10 @@ const getStatusLabel = (status: string): string => {
 const getStatusWeight = (status: string): number => {
   switch (status) {
     case 'failed': return 0;
-    case 'stale': return 1;
-    case 'ok': return 2;
-    default: return 3;
+    case 'archived': return 1;
+    case 'stale': return 2;
+    case 'ok': return 3;
+    default: return 4;
   }
 };
 
@@ -342,6 +352,12 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   const [showToken, setShowToken] = useState(false);
+  
+  // 检测选项 - 默认都开启
+  const [checkOptions, setCheckOptions] = useState<CheckOptions>({
+    checkArchived: true,
+    checkStale: true,
+  });
   
   // 排序状态 - 默认按状态排序
   const [sortField, setSortField] = useState<SortField>('status');
@@ -689,10 +705,23 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
       const key = `${r.owner}/${r.repo}`;
       const result = resultMap.get(key);
       if (result) {
-        if (result.status === 'ok' && result.staleYears !== null && result.staleYears >= staleYears) {
-          return { ...result, status: 'stale' };
+        // 根据检测选项决定状态
+        let finalStatus = result.status;
+        
+        // 如果开启了归档检测，且仓库已归档，标记为archived
+        if (checkOptions.checkArchived && result.archived) {
+          finalStatus = 'archived';
         }
-        return result;
+        // 如果仓库未归档（或未开启归档检测），且开启了长期未更新检测
+        else if (checkOptions.checkStale && result.staleYears !== null && result.staleYears >= staleYears) {
+          finalStatus = 'stale';
+        }
+        // 如果两个检测都关闭，只检测仓库是否存在
+        else if (!checkOptions.checkArchived && !checkOptions.checkStale) {
+          finalStatus = result.exists ? 'ok' : 'failed';
+        }
+        
+        return { ...result, status: finalStatus };
       }
       return {
         url: r.url,
@@ -756,6 +785,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
     total: checkResults.length,
     ok: checkResults.filter(r => r.status === 'ok').length,
     stale: checkResults.filter(r => r.status === 'stale').length,
+    archived: checkResults.filter(r => r.status === 'archived').length,
     failed: checkResults.filter(r => r.status === 'failed').length,
   };
 
@@ -955,6 +985,38 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
                 </p>
               </div>
             </div>
+            
+            {/* 检测选项 */}
+            <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid #e2e8f0' }}>
+              <label style={{ display: 'block', fontSize: '14px', fontWeight: 500, color: '#334155', marginBottom: '12px' }}>
+                检测选项
+              </label>
+              <div style={{ display: 'flex', gap: '24px' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={checkOptions.checkArchived}
+                    onChange={e => setCheckOptions(prev => ({ ...prev, checkArchived: e.target.checked }))}
+                    style={{ width: '16px', height: '16px', cursor: 'pointer' }}
+                  />
+                  <Archive size={16} style={{ color: '#8b5cf6' }} />
+                  <span style={{ fontSize: '14px', color: '#334155' }}>检测归档仓库</span>
+                </label>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={checkOptions.checkStale}
+                    onChange={e => setCheckOptions(prev => ({ ...prev, checkStale: e.target.checked }))}
+                    style={{ width: '16px', height: '16px', cursor: 'pointer' }}
+                  />
+                  <Clock size={16} style={{ color: '#f59e0b' }} />
+                  <span style={{ fontSize: '14px', color: '#334155' }}>检测长期未更新</span>
+                </label>
+              </div>
+              <p style={{ fontSize: '12px', color: '#94a3b8', marginTop: '8px' }}>
+                💡 若仓库已归档，将不再检查更新时间；若未开启任何检测，仅检测仓库是否存在
+              </p>
+            </div>
           </div>
         )}
       </div>
@@ -1044,10 +1106,14 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
       {checkResults.length > 0 && (
         <div style={STYLES.card}>
           <div style={STYLES.body}>
-            <div style={{ display: 'flex', gap: '24px', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', gap: '24px', marginBottom: '16px', flexWrap: 'wrap' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#22c55e' }} />
                 <span style={{ fontSize: '14px', color: '#334155' }}>正常: {stats.ok}</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#8b5cf6' }} />
+                <span style={{ fontSize: '14px', color: '#334155' }}>已归档: {stats.archived}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#f59e0b' }} />
@@ -1069,6 +1135,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
                 >
                   <option value="all">全部 ({stats.total})</option>
                   <option value="ok">正常 ({stats.ok})</option>
+                  <option value="archived">已归档 ({stats.archived})</option>
                   <option value="stale">长期未更新 ({stats.stale})</option>
                   <option value="failed">已失效 ({stats.failed})</option>
                 </select>
