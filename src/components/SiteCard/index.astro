@@ -22,7 +22,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // 1. 图标逻辑 - 简化：直接使用本地图标或回退到默认图标
 const localFallback = `${base}/favicon.svg`;
-const finalIcon = (icon && icon.includes('/images/')) ? icon : localFallback;
+const finalIcon = (icon && icon.includes('/images/')) ? `${base}${icon}` : localFallback;
+
 
 // 2. 徽章逻辑
 const badges = getBadges(url, hide_badges);

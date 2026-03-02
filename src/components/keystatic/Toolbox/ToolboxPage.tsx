@@ -1,10 +1,9 @@
 // src/components/keystatic/Toolbox/ToolboxPage.tsx
 import React, { useState, useCallback, createContext, useContext, useEffect } from 'react';
-import { Github, Link, Plus, Wrench, ArrowLeft, AlertTriangle, Save, RotateCcw, Check, Eye, EyeOff, ArrowRightLeft } from 'lucide-react';
-import { GithubChecker } from './GithubChecker';
+import { Link, Wrench, ArrowLeft, AlertTriangle, Edit3 } from 'lucide-react';
 import { LinkChecker } from './LinkChecker';
-import { BatchAdder } from './BatchAdder';
-import { ResourceMover } from './ResourceMover';
+import { ResourceEditor } from './ResourceEditor';
+import { TABS as TAB_STYLES, MODAL, BUTTON } from './toolbox-shared';
 
 // --- ✅ 全局Token上下文 ---
 interface TokenContextType {
@@ -29,7 +28,7 @@ export const useGithubToken = () => useContext(TokenContext);
 const GITHUB_TOKEN_KEY = 'toolbox_github_token';
 
 // --- 类型定义 ---
-type TabId = 'github' | 'link' | 'batch' | 'mover';
+type TabId = 'link' | 'editor';
 
 interface Tab {
   id: TabId;
@@ -47,7 +46,7 @@ const STYLES = {
   header: {
     background: 'white',
     borderBottom: '1px solid #e2e8f0',
-    padding: '16px 24px',
+    padding: '8px 20px',    // 👈 标题区域内边距：上下16px，左右24px
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -58,31 +57,7 @@ const STYLES = {
   title: {
     display: 'flex',
     alignItems: 'center',
-    gap: '12px',
-  },
-  tabs: {
-    display: 'flex',
-    gap: '4px',
-    padding: '16px 24px',
-    background: 'white',
-    borderBottom: '1px solid #e2e8f0',
-  },
-  tab: (isActive: boolean) => ({
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-    padding: '12px 20px',
-    fontSize: '14px',
-    fontWeight: 500,
-    color: isActive ? '#2563eb' : '#64748b',
-    background: isActive ? '#eff6ff' : 'transparent',
-    border: 'none',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    transition: 'all 0.2s',
-  }),
-  content: {
-    padding: '0',
+    gap: '12px',           // 👈 图标与文字之间的间距
   },
   adminLink: {
     display: 'flex',
@@ -97,100 +72,27 @@ const STYLES = {
     background: '#eff6ff',
     transition: 'all 0.2s',
   },
-  // 弹窗样式
-  modalOverlay: {
-    position: 'fixed' as const,
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    background: 'rgba(0, 0, 0, 0.5)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 1000,
-  },
-  modal: {
-    background: 'white',
-    borderRadius: '12px',
-    padding: '24px',
-    maxWidth: '400px',
-    width: '90%',
-    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
-  },
-  modalTitle: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    fontSize: '18px',
-    fontWeight: 600,
-    color: '#1e293b',
-    marginBottom: '12px',
-  },
-  modalText: {
-    fontSize: '14px',
-    color: '#64748b',
-    lineHeight: '1.6',
-    marginBottom: '24px',
-  },
-  modalButtons: {
-    display: 'flex',
-    gap: '12px',
-    justifyContent: 'flex-end',
-  },
-  buttonPrimary: {
-    padding: '10px 20px',
-    fontSize: '14px',
-    fontWeight: 600,
-    color: 'white',
-    background: '#ef4444',
-    borderRadius: '8px',
-    border: 'none',
-    cursor: 'pointer',
-  },
-  buttonSecondary: {
-    padding: '10px 20px',
-    fontSize: '14px',
-    fontWeight: 500,
-    color: '#475569',
-    background: '#f1f5f9',
-    borderRadius: '8px',
-    border: '1px solid #e2e8f0',
-    cursor: 'pointer',
-  },
 };
 
 // --- 标签页配置 ---
 const TABS: Tab[] = [
   {
-    id: 'github',
-    label: 'GitHub 检测',
-    icon: <Github size={18} />,
-    description: '检测 GitHub 仓库状态',
-  },
-  {
     id: 'link',
     label: '链接检测',
     icon: <Link size={18} />,
-    description: '检测网站链接有效性',
+    description: '检测GitHub仓库和网站链接有效性',
   },
   {
-    id: 'batch',
-    label: '批量添加',
-    icon: <Plus size={18} />,
-    description: '批量添加资源',
-  },
-  {
-    id: 'mover',
-    label: '资源转移',
-    icon: <ArrowRightLeft size={18} />,
-    description: '移动资源到其他位置',
+    id: 'editor',
+    label: '资源编辑',
+    icon: <Edit3 size={18} />,
+    description: '批量添加和转移资源',
   },
 ];
 
 // --- 主组件 ---
 export function ToolboxPage() {
-  const [activeTab, setActiveTab] = useState<TabId>('github');
+  const [activeTab, setActiveTab] = useState<TabId>('link');
   const [pendingTab, setPendingTab] = useState<TabId | null>(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
@@ -208,11 +110,8 @@ export function ToolboxPage() {
 
   // 子组件数据状态（由子组件通过回调更新）
   const [hasUnsavedData, setHasUnsavedData] = useState({
-
-    github: false,
     link: false,
-    batch: false,
-    mover: false,
+    editor: false,
   });
 
   // 设置Token（标记为未保存）
@@ -272,32 +171,20 @@ export function ToolboxPage() {
   }, []);
 
   // ✅ 使用 useCallback 缓存传递给子组件的回调函数，避免无限渲染循环
-  const handleGithubDataStatusChange = useCallback((hasData: boolean) => {
-    updateDataStatus('github', hasData);
-  }, [updateDataStatus]);
-
   const handleLinkDataStatusChange = useCallback((hasData: boolean) => {
     updateDataStatus('link', hasData);
   }, [updateDataStatus]);
 
-  const handleBatchDataStatusChange = useCallback((hasData: boolean) => {
-    updateDataStatus('batch', hasData);
-  }, [updateDataStatus]);
-
-  const handleMoverDataStatusChange = useCallback((hasData: boolean) => {
-    updateDataStatus('mover', hasData);
+  const handleEditorDataStatusChange = useCallback((hasData: boolean) => {
+    updateDataStatus('editor', hasData);
   }, [updateDataStatus]);
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'github':
-        return <GithubChecker onDataStatusChange={handleGithubDataStatusChange} />;
       case 'link':
         return <LinkChecker onDataStatusChange={handleLinkDataStatusChange} />;
-      case 'batch':
-        return <BatchAdder onDataStatusChange={handleBatchDataStatusChange} />;
-      case 'mover':
-        return <ResourceMover onDataStatusChange={handleMoverDataStatusChange} />;
+      case 'editor':
+        return <ResourceEditor onDataStatusChange={handleEditorDataStatusChange} />;
       default:
         return null;
     }
@@ -355,13 +242,13 @@ export function ToolboxPage() {
         </div>
 
         {/* 标签页导航 */}
-        <div style={STYLES.tabs}>
+        <div style={TAB_STYLES.main}>
           {TABS.map(tab => (
             <button
               key={tab.id}
               onClick={() => requestTabChange(tab.id)}
               style={{
-                ...STYLES.tab(activeTab === tab.id),
+                ...TAB_STYLES.mainTab(activeTab === tab.id),
                 position: 'relative',
               }}
               title={tab.description}
@@ -385,30 +272,30 @@ export function ToolboxPage() {
         </div>
 
         {/* 内容区域 */}
-        <div style={STYLES.content}>
+        <div style={{ padding: '0' }}>
           {renderContent()}
         </div>
 
-        {/* 确认切换弹窗 */}
+        {/* 确认切��弹窗 */}
         {showConfirmModal && (
-          <div style={STYLES.modalOverlay} onClick={cancelSwitch}>
-            <div style={STYLES.modal} onClick={e => e.stopPropagation()}>
-              <div style={STYLES.modalTitle}>
+          <div style={MODAL.overlay} onClick={cancelSwitch}>
+            <div style={MODAL.content} onClick={e => e.stopPropagation()}>
+              <div style={MODAL.title}>
                 <AlertTriangle size={24} style={{ color: '#f59e0b' }} />
                 确认切换？
               </div>
               
-              <p style={STYLES.modalText}>
+              <p style={MODAL.text}>
                 当前页面有未保存的扫描数据，切换到其他标签页将导致数据丢失。
                 <br /><br />
                 确定要离开吗？
               </p>
               
-              <div style={STYLES.modalButtons}>
-                <button onClick={cancelSwitch} style={STYLES.buttonSecondary}>
+              <div style={MODAL.buttons}>
+                <button onClick={cancelSwitch} style={BUTTON.secondary}>
                   取消
                 </button>
-                <button onClick={confirmSwitch} style={STYLES.buttonPrimary}>
+                <button onClick={confirmSwitch} style={BUTTON.danger}>
                   确认离开
                 </button>
               </div>

@@ -1,7 +1,7 @@
 // LinkChecker 类型定义
 
 export const CONFIG = {
-  timeout: 10000,
+  timeout: 15000,
   contentDir: 'src/content/nav-groups',
   defaultExcludedDomains: [
     'github.com',
@@ -19,7 +19,7 @@ export interface LinkInfo {
   source: string;
   path: string[];
   resourceName?: string;
-  resourceStatus?: string; // 后台资源状态字段
+  resourceStatus?: string;
 }
 
 export interface CheckResult {
@@ -28,9 +28,7 @@ export interface CheckResult {
   status: 'ok' | 'failed' | 'timeout' | 'excluded';
   httpCode?: number;
   error?: string;
-  resourceName?: string;
-  resourceStatus?: string; // 后台资源状态字段
-  excludedReason?: string; // 排除原因（域名）
+  excludedReason?: string;
 }
 
 export interface ScanResult {

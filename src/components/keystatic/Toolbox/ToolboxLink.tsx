@@ -9,7 +9,7 @@ export function ToolboxLink() {
       background: 'linear-gradient(135deg, #eff6ff 0%, #faf5ff 100%)',
       borderRadius: '10px',
       border: '1px solid #e2e8f0',
-      marginBottom: '20px',
+      marginBottom: '5px',
       display: 'flex',
       alignItems: 'center',
       gap: '16px',

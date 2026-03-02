@@ -30,6 +30,19 @@ import {
   Check
 } from 'lucide-react';
 import { useGithubToken } from '../ToolboxPage';
+import {
+  LAYOUT,
+  CARD,
+  BUTTON,
+  INPUT,
+  TABLE,
+  TREE,
+  PROGRESS,
+  BADGE,
+  PAGE_TITLE,
+  getStatusBadge,
+  getStatusWeight,
+} from '../toolbox-shared';
 
 // --- 类型定义 ---
 interface GitHubRepoInfo {
@@ -81,189 +94,34 @@ type SortField = 'status' | 'pushedAt' | 'staleYears' | null;
 type SortDirection = 'asc' | 'desc';
 
 // --- 样式常量 ---
+// 合并共享样式与组件特有样式
 const STYLES = {
-  container: {
-    padding: '24px',
-    maxWidth: '1200px',
-    margin: '0 auto',
-  },
+  // 从共享样式导入
+  ...LAYOUT,
   card: {
-    background: 'white',
-    borderRadius: '12px',
-    border: '1px solid #e2e8f0',
-    marginBottom: '16px',
-    overflow: 'hidden',
+    base: CARD.base,
+    header: CARD.header,
+    headerIcon: CARD.headerIcon,
+    headerTitle: CARD.headerTitle,
+    headerExtra: CARD.headerExtra,
+    headerCount: CARD.headerCount,
+    body: CARD.body,
   },
-  header: {
-    padding: '20px',
-    borderBottom: '1px solid #e2e8f0',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-  },
-  body: {
-    padding: '20px',
-  },
-  input: {
-    width: '100%',
-    padding: '12px 16px',
-    fontSize: '14px',
-    border: '1px solid #cbd5e1',
-    borderRadius: '8px',
-    outline: 'none',
-    fontFamily: 'monospace',
-  },
-  inputWithButton: {
-    display: 'flex',
-    gap: '8px',
-    alignItems: 'center',
-  },
-  inputField: {
-    flex: 1,
-    padding: '12px 16px',
-    fontSize: '14px',
-    border: '1px solid #cbd5e1',
-    borderRadius: '8px',
-    outline: 'none',
-    fontFamily: 'monospace',
-  },
-  button: {
-    primary: {
-      padding: '12px 24px',
-      fontSize: '14px',
-      fontWeight: 600,
-      color: 'white',
-      background: '#2563eb',
-      borderRadius: '8px',
-      border: 'none',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px',
-    },
-    secondary: {
-      padding: '10px 20px',
-      fontSize: '14px',
-      fontWeight: 500,
-      color: '#475569',
-      background: '#f1f5f9',
-      borderRadius: '8px',
-      border: '1px solid #e2e8f0',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px',
-    },
-    success: {
-      padding: '8px 16px',
-      fontSize: '13px',
-      fontWeight: 500,
-      color: 'white',
-      background: '#22c55e',
-      borderRadius: '6px',
-      border: 'none',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '6px',
-    },
-    danger: {
-      padding: '10px 20px',
-      fontSize: '14px',
-      fontWeight: 500,
-      color: 'white',
-      background: '#ef4444',
-      borderRadius: '8px',
-      border: 'none',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px',
-    },
-    icon: {
-      padding: '4px',
-      background: 'transparent',
-      border: 'none',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: '4px',
-    },
-    iconButton: {
-      padding: '10px 12px',
-      background: '#f1f5f9',
-      border: '1px solid #e2e8f0',
-      borderRadius: '8px',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  },
-  badge: {
-    ok: { background: '#dcfce7', color: '#166534' },
-    stale: { background: '#fef3c7', color: '#92400e' },
-    archived: { background: '#ede9fe', color: '#5b21b6' },
-    failed: { background: '#fee2e2', color: '#991b1b' },
-  },
-  progress: {
-    container: {
-      width: '100%',
-      height: '8px',
-      background: '#e2e8f0',
-      borderRadius: '4px',
-      overflow: 'hidden',
-    },
-    bar: (percent: number) => ({
-      width: `${percent}%`,
-      height: '100%',
-      background: percent < 100 ? '#3b82f6' : '#22c55e',
-      transition: 'width 0.3s ease',
-    }),
-  },
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse' as const,
-  },
-  th: {
-    padding: '12px 16px',
-    textAlign: 'left' as const,
-    fontSize: '12px',
-    fontWeight: 600,
-    color: '#64748b',
-    textTransform: 'uppercase' as const,
-    letterSpacing: '0.05em',
-    borderBottom: '1px solid #e2e8f0',
-    background: '#f8fafc',
-  },
-  thSortable: {
-    padding: '12px 16px',
-    textAlign: 'left' as const,
-    fontSize: '12px',
-    fontWeight: 600,
-    color: '#64748b',
-    textTransform: 'uppercase' as const,
-    letterSpacing: '0.05em',
-    borderBottom: '1px solid #e2e8f0',
-    background: '#f8fafc',
-    cursor: 'pointer',
-    userSelect: 'none' as const,
-    transition: 'background 0.15s',
-  },
-  td: {
-    padding: '12px 16px',
-    fontSize: '14px',
-    borderBottom: '1px solid #f1f5f9',
-  },
-  treeNode: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-    padding: '8px 12px',
-    borderBottom: '1px solid #f1f5f9',
-    transition: 'background 0.15s',
-  },
+  header: CARD.header,
+  body: CARD.body,
+  input: INPUT.base,
+  inputWithButton: INPUT.withButton,
+  inputField: INPUT.field,
+  button: BUTTON,
+  badge: BADGE,
+  progress: PROGRESS,
+  table: TABLE.base,
+  th: TABLE.th,
+  thSortable: TABLE.thSortable,
+  td: TABLE.td,
+  treeNode: TREE.node,
+  
+  // 组件特有样式
   tokenStatus: {
     display: 'flex',
     alignItems: 'center',
@@ -307,17 +165,6 @@ const getStatusLabel = (status: string): string => {
     case 'archived': return '已归档';
     case 'failed': return '已失效';
     default: return status;
-  }
-};
-
-// 状态排序权重
-const getStatusWeight = (status: string): number => {
-  switch (status) {
-    case 'failed': return 0;
-    case 'archived': return 1;
-    case 'stale': return 2;
-    case 'ok': return 3;
-    default: return 4;
   }
 };
 
@@ -856,33 +703,34 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
   return (
     <div style={STYLES.container}>
       {/* 标题 */}
-      <div style={{ marginBottom: '24px' }}>
-        <h1 style={{ fontSize: '24px', fontWeight: 700, color: '#1e293b', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <Github size={28} />
+      <div style={{ marginBottom: '12px' }}>
+        <h1 style={{ fontSize: '20px', fontWeight: 700, color: '#1e293b', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Github size={20} />
           GitHub 项目状态检测
         </h1>
-        <p style={{ color: '#64748b', fontSize: '14px' }}>
+        <p style={{ color: '#64748b', fontSize: '13px', lineHeight: 1.4 }}>
           批量检测所有 GitHub 仓库的更新状态，标记长期未更新或已失效的资源
           {githubToken && <span style={{ color: '#22c55e', marginLeft: '8px' }}>✓ 已配置 GitHub Token，并发数: 20</span>}
           {!githubToken && <span style={{ color: '#f59e0b', marginLeft: '8px' }}>未配置 Token，并发数: 10</span>}
         </p>
       </div>
 
+
       {/* 配置卡片 */}
-      <div style={STYLES.card}>
-        <div style={STYLES.header}>
-          <Settings size={20} style={{ color: '#64748b' }} />
-          <span style={{ fontWeight: 600, color: '#334155' }}>检测配置</span>
+      <div style={STYLES.card.base}>
+        <div style={STYLES.card.header}>
+          <Settings size={20} style={STYLES.card.headerIcon} />
+          <span style={STYLES.card.headerTitle}>检测配置</span>
           <button 
             onClick={() => setShowSettings(!showSettings)}
-            style={{ marginLeft: 'auto', ...STYLES.button.secondary, padding: '6px 12px' }}
+            style={{ ...STYLES.button.secondary, ...STYLES.card.headerExtra, padding: '6px 12px' }}
           >
             {showSettings ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
             {showSettings ? '收起' : '展开'}
           </button>
         </div>
         {showSettings && (
-          <div style={STYLES.body}>
+          <div style={STYLES.card.body}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '14px', fontWeight: 500, color: '#334155', marginBottom: '8px' }}>
@@ -947,7 +795,6 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
                     onClick={resetToken}
                     style={{
                       ...STYLES.button.secondary,
-                      padding: '8px 16px',
                       fontSize: '13px',
                     }}
                     title="清除Token"
@@ -1022,8 +869,8 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
       </div>
 
       {/* 操作卡片 */}
-      <div style={STYLES.card}>
-        <div style={STYLES.body}>
+      <div style={STYLES.card.base}>
+        <div style={STYLES.card.body}>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
             <button
               onClick={handleScan}
@@ -1085,13 +932,13 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
 
       {/* 资源树形选择 */}
       {treeData.length > 0 && checkResults.length === 0 && (
-        <div style={STYLES.card}>
-          <div style={STYLES.header}>
-            <Layers size={20} style={{ color: '#64748b' }} />
-            <span style={{ fontWeight: 600, color: '#334155' }}>选择检测范围</span>
+        <div style={STYLES.card.base}>
+          <div style={STYLES.card.header}>
+            <Layers size={20} style={STYLES.card.headerIcon} />
+            <span style={STYLES.card.headerTitle}>选择检测范围</span>
             <button 
               onClick={handleSelectAll}
-              style={{ marginLeft: 'auto', ...STYLES.button.secondary, padding: '6px 12px' }}
+              style={{ ...STYLES.button.secondary, ...STYLES.card.headerExtra, padding: '6px 12px' }}
             >
               {treeData.every(node => node.checked) ? '取消全选' : '全选'}
             </button>
@@ -1104,8 +951,8 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
 
       {/* 结果统计 */}
       {checkResults.length > 0 && (
-        <div style={STYLES.card}>
-          <div style={STYLES.body}>
+        <div style={STYLES.card.base}>
+          <div style={STYLES.card.body}>
             <div style={{ display: 'flex', gap: '24px', marginBottom: '16px', flexWrap: 'wrap' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#22c55e' }} />
@@ -1167,7 +1014,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
 
       {/* 结果列表 */}
       {sortedAndFilteredResults.length > 0 && (
-        <div style={STYLES.card}>
+        <div style={STYLES.card.base}>
           <div style={{ overflowX: 'auto' }}>
             <table style={STYLES.table}>
               <thead>

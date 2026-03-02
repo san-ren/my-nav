@@ -1,10 +1,12 @@
-// src/components/keystatic/Toolbox/LinkChecker.tsx
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+// LinkChecker 主组件 - 整合GitHub检测和网站链接检测功能
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Link, 
-  Search, 
-  XCircle, 
-  CheckCircle, 
+  Github,
+  Shield,
+  Search,
+  XCircle,
+  CheckCircle,
   Clock,
   Play,
   RefreshCw,
@@ -17,7 +19,6 @@ import {
   Plus,
   X,
   Globe,
-  Shield,
   RotateCcw,
   Trash2,
   Layers,
@@ -27,226 +28,65 @@ import {
   ArrowUp,
   ArrowDown,
   ArrowUpDown,
-  AlertTriangle
+  AlertTriangle,
+  Archive,
+  Save,
+  Eye,
+  EyeOff,
+  Check
 } from 'lucide-react';
+import { GithubChecker } from '../GithubChecker';
+import {
+  LAYOUT,
+  TABS,
+  CARD,
+  BUTTON,
+  INPUT,
+  TABLE,
+  TREE,
+  PROGRESS,
+  BADGE,
+  PAGE_TITLE,
+  getStatusBadge,
+} from '../toolbox-shared';
 
 // --- 类型定义 ---
-interface LinkInfo {
-  url: string;
-  domain: string;
-  source: string;
-  path: string[];
-  resourceName?: string;
-  resourceStatus?: string;
+type SubTabId = 'github' | 'link';
+
+interface SubTab {
+  id: SubTabId;
+  label: string;
+  icon: React.ReactNode;
+  description: string;
 }
-
-interface CheckResult {
-  url: string;
-  domain: string;
-  status: 'ok' | 'failed' | 'timeout' | 'excluded';
-  httpCode?: number;
-  error?: string;
-  resourceName?: string;
-  resourceStatus?: string;
-  excludedReason?: string;
-}
-
-interface ScanResult {
-  total: number;
-  unique: number;
-  links: LinkInfo[];
-}
-
-// 树形结构节点
-interface TreeNode {
-  id: string;
-  type: 'page' | 'group' | 'category' | 'resource';
-  name: string;
-  checked: boolean;
-  indeterminate: boolean;
-  expanded: boolean;
-  children?: TreeNode[];
-  link?: LinkInfo;
-}
-
-type FilterType = 'all' | 'ok' | 'failed' | 'timeout' | 'excluded' | 'allFailed';
-type SortField = 'status' | 'httpCode' | 'domain' | 'resourceStatus' | null;
-type SortDirection = 'asc' | 'desc';
-
-// 默认排除域名列表
-const DEFAULT_EXCLUDED_DOMAINS = [
-  'github.com',
-  'play.google.com',
-  'marketplace.visualstudio.com',
-  'apps.apple.com',
-  'chrome.google.com',
-  'addons.mozilla.org',
-];
-
-// 常用可添加的域名建议
-const SUGGESTED_DOMAINS = [
-  { domain: 'npmjs.com', label: 'NPM' },
-  { domain: 'pypi.org', label: 'PyPI' },
-  { domain: 'crates.io', label: 'Crates.io' },
-  { domain: 'nuget.org', label: 'NuGet' },
-  { domain: 'maven.org', label: 'Maven' },
-  { domain: 'packagist.org', label: 'Packagist' },
-  { domain: 'rubygems.org', label: 'RubyGems' },
-  { domain: 'go.dev', label: 'Go.dev' },
-  { domain: 'docker.com', label: 'Docker' },
-  { domain: 'readthedocs.io', label: 'ReadTheDocs' },
-];
 
 // --- 样式常量 ---
+// 合并共享样式与组件特有样式
 const STYLES = {
-  container: {
-    padding: '24px',
-    maxWidth: '1200px',
-    margin: '0 auto',
-  },
+  // 从共享样式导入
+  ...LAYOUT,
   card: {
-    background: 'white',
-    borderRadius: '12px',
-    border: '1px solid #e2e8f0',
-    marginBottom: '16px',
-    overflow: 'hidden',
+    base: CARD.base,
+    header: CARD.header,
+    headerIcon: CARD.headerIcon,
+    headerTitle: CARD.headerTitle,
+    headerExtra: CARD.headerExtra,
+    headerCount: CARD.headerCount,
+    body: CARD.body,
   },
-  header: {
-    padding: '20px',
-    borderBottom: '1px solid #e2e8f0',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-  },
-  body: {
-    padding: '20px',
-  },
-  input: {
-    width: '100%',
-    padding: '12px 16px',
-    fontSize: '14px',
-    border: '1px solid #cbd5e1',
-    borderRadius: '8px',
-    outline: 'none',
-    fontFamily: 'monospace',
-  },
-  button: {
-    primary: {
-      padding: '12px 24px',
-      fontSize: '14px',
-      fontWeight: 600,
-      color: 'white',
-      background: '#2563eb',
-      borderRadius: '8px',
-      border: 'none',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px',
-    },
-    secondary: {
-      padding: '10px 20px',
-      fontSize: '14px',
-      fontWeight: 500,
-      color: '#475569',
-      background: '#f1f5f9',
-      borderRadius: '8px',
-      border: '1px solid #e2e8f0',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px',
-    },
-    danger: {
-      padding: '10px 20px',
-      fontSize: '14px',
-      fontWeight: 500,
-      color: 'white',
-      background: '#ef4444',
-      borderRadius: '8px',
-      border: 'none',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px',
-    },
-    small: {
-      padding: '6px 12px',
-      fontSize: '12px',
-      fontWeight: 500,
-      color: '#475569',
-      background: '#f1f5f9',
-      borderRadius: '6px',
-      border: '1px solid #e2e8f0',
-      cursor: 'pointer',
-    },
-    icon: {
-      padding: '4px',
-      background: 'transparent',
-      border: 'none',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: '4px',
-    },
-  },
-  badge: {
-    ok: { background: '#dcfce7', color: '#166534' },
-    failed: { background: '#fee2e2', color: '#991b1b' },
-    timeout: { background: '#fef3c7', color: '#92400e' },
-    excluded: { background: '#f1f5f9', color: '#64748b' },
-    stale: { background: '#fef3c7', color: '#92400e' },
-  },
-  progress: {
-    container: {
-      width: '100%',
-      height: '8px',
-      background: '#e2e8f0',
-      borderRadius: '4px',
-      overflow: 'hidden',
-    },
-    bar: (percent: number) => ({
-      width: `${percent}%`,
-      height: '100%',
-      background: percent < 100 ? '#3b82f6' : '#22c55e',
-      transition: 'width 0.3s ease',
-    }),
-  },
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse' as const,
-  },
-  th: {
-    padding: '12px 16px',
-    textAlign: 'left' as const,
-    fontSize: '12px',
-    fontWeight: 600,
-    color: '#64748b',
-    textTransform: 'uppercase' as const,
-    letterSpacing: '0.05em',
-    borderBottom: '1px solid #e2e8f0',
-    background: '#f8fafc',
-  },
-  thSortable: {
-    padding: '12px 16px',
-    textAlign: 'left' as const,
-    fontSize: '12px',
-    fontWeight: 600,
-    color: '#64748b',
-    textTransform: 'uppercase' as const,
-    letterSpacing: '0.05em',
-    borderBottom: '1px solid #e2e8f0',
-    background: '#f8fafc',
-    cursor: 'pointer',
-    userSelect: 'none' as const,
-    transition: 'background 0.15s',
-  },
-  td: {
-    padding: '12px 16px',
-    fontSize: '14px',
-    borderBottom: '1px solid #f1f5f9',
-  },
+  header: CARD.header,
+  body: CARD.body,
+  input: INPUT.base,
+  button: BUTTON,
+  badge: BADGE,
+  progress: PROGRESS,
+  table: TABLE.base,
+  th: TABLE.th,
+  thSortable: TABLE.thSortable,
+  td: TABLE.td,
+  treeNode: TREE.node,
+  
+  // 组件特有样式
   tag: {
     display: 'inline-flex',
     alignItems: 'center',
@@ -291,14 +131,6 @@ const STYLES = {
     cursor: 'pointer',
     transition: 'all 0.2s',
   },
-  treeNode: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-    padding: '8px 12px',
-    borderBottom: '1px solid #f1f5f9',
-    transition: 'background 0.15s',
-  },
   excludedGroup: {
     marginBottom: '12px',
     padding: '12px',
@@ -324,8 +156,91 @@ const STYLES = {
   },
 };
 
+// --- 子标签配置 ---
+const SUB_TABS: SubTab[] = [
+  {
+    id: 'github',
+    label: 'GitHub 检测',
+    icon: <Github size={16} />,
+    description: '检测GitHub仓库状态',
+  },
+  {
+    id: 'link',
+    label: '网站链接检测',
+    icon: <Link size={16} />,
+    description: '检测网站链接有效性',
+  },
+];
+
+// ==================== 网站链接检测相关类型和函数 ====================
+
+interface LinkInfo {
+  url: string;
+  domain: string;
+  source: string;
+  path: string[];
+  resourceName?: string;
+  resourceStatus?: string;
+}
+
+interface LinkCheckResult {
+  url: string;
+  domain: string;
+  status: 'ok' | 'failed' | 'timeout' | 'excluded';
+  httpCode?: number;
+  error?: string;
+  resourceName?: string;
+  resourceStatus?: string;
+  excludedReason?: string;
+}
+
+interface LinkScanResult {
+  total: number;
+  unique: number;
+  links: LinkInfo[];
+}
+
+interface LinkTreeNode {
+  id: string;
+  type: 'page' | 'group' | 'category' | 'resource';
+  name: string;
+  checked: boolean;
+  indeterminate: boolean;
+  expanded: boolean;
+  children?: LinkTreeNode[];
+  link?: LinkInfo;
+}
+
+type LinkFilterType = 'all' | 'ok' | 'failed' | 'timeout' | 'excluded' | 'allFailed';
+type LinkSortField = 'status' | 'httpCode' | 'domain' | 'resourceStatus' | null;
+type LinkSortDirection = 'asc' | 'desc';
+
+// 默认排除域名列表
+const DEFAULT_EXCLUDED_DOMAINS = [
+  'github.com',
+  'play.google.com',
+  'marketplace.visualstudio.com',
+  'apps.apple.com',
+  'chrome.google.com',
+  'addons.mozilla.org',
+];
+
+// 常用可添加的域名建议
+const SUGGESTED_DOMAINS = [
+  { domain: 'npmjs.com', label: 'NPM' },
+  { domain: 'pypi.org', label: 'PyPI' },
+  { domain: 'crates.io', label: 'Crates.io' },
+  { domain: 'nuget.org', label: 'NuGet' },
+  { domain: 'maven.org', label: 'Maven' },
+  { domain: 'packagist.org', label: 'Packagist' },
+  { domain: 'rubygems.org', label: 'RubyGems' },
+  { domain: 'go.dev', label: 'Go.dev' },
+  { domain: 'docker.com', label: 'Docker' },
+  { domain: 'readthedocs.io', label: 'ReadTheDocs' },
+];
+
 // --- 辅助函数 ---
-const getStatusIcon = (status: string) => {
+const getLinkStatusIcon = (status: string) => {
   switch (status) {
     case 'ok': return <CheckCircle size={16} style={{ color: '#22c55e' }} />;
     case 'failed': return <XCircle size={16} style={{ color: '#ef4444' }} />;
@@ -336,7 +251,7 @@ const getStatusIcon = (status: string) => {
   }
 };
 
-const getStatusLabel = (status: string): string => {
+const getLinkStatusLabel = (status: string): string => {
   switch (status) {
     case 'ok': return '正常';
     case 'failed': return '失效';
@@ -348,7 +263,7 @@ const getStatusLabel = (status: string): string => {
 };
 
 // 状态排序权重
-const getStatusWeight = (status: string): number => {
+const getLinkStatusWeight = (status: string): number => {
   switch (status) {
     case 'failed': return 0;
     case 'timeout': return 1;
@@ -360,7 +275,7 @@ const getStatusWeight = (status: string): number => {
 
 // 资源状态排序权重
 const getResourceStatusWeight = (status: string | undefined): number => {
-  if (!status) return 3; // 无状态视为正常
+  if (!status) return 3;
   switch (status) {
     case 'failed': return 0;
     case 'stale': return 1;
@@ -376,7 +291,7 @@ const truncateUrl = (url: string, maxLength: number = 50): string => {
 
 const isDefaultDomain = (domain: string) => DEFAULT_EXCLUDED_DOMAINS.includes(domain);
 
-const getNodeIcon = (node: TreeNode) => {
+const getLinkNodeIcon = (node: LinkTreeNode) => {
   switch (node.type) {
     case 'page': return <Layers size={16} style={{ color: '#8b5cf6' }} />;
     case 'group': return node.expanded ? <FolderOpen size={16} style={{ color: '#3b82f6' }} /> : <Folder size={16} style={{ color: '#3b82f6' }} />;
@@ -386,30 +301,87 @@ const getNodeIcon = (node: TreeNode) => {
   }
 };
 
-// --- 主组件 ---
+// ==================== 主组件 ====================
+
 interface LinkCheckerProps {
   onDataStatusChange?: (hasData: boolean) => void;
 }
 
 export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
+  const [activeSubTab, setActiveSubTab] = useState<SubTabId>('github');
+  const [hasUnsavedData, setHasUnsavedData] = useState(false);
+
+
+  // 通知父组件数据状态变化
+  const onDataStatusChangeRef = useRef(onDataStatusChange);
+  useEffect(() => {
+    onDataStatusChangeRef.current = onDataStatusChange;
+  }, [onDataStatusChange]);
+
+  useEffect(() => {
+    onDataStatusChangeRef.current?.(hasUnsavedData);
+  }, [hasUnsavedData]);
+
+  // 子组件数据状态变化回调
+  const handleDataStatusChange = (hasData: boolean) => {
+    setHasUnsavedData(hasData);
+  };
+
+  return (
+    <div>
+      {/* 子标签切换 */}
+      <div style={TABS.sub}>
+        {SUB_TABS.map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveSubTab(tab.id)}
+            style={TABS.subTab(activeSubTab === tab.id)}
+            title={tab.description}
+          >
+            {tab.icon}
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* 内容区域 - 居中显示，独立卡片 */}
+      <div style={LAYOUT.container}>
+        {activeSubTab === 'github' && (
+          <GithubChecker onDataStatusChange={handleDataStatusChange} />
+        )}
+        {activeSubTab === 'link' && (
+          <WebsiteLinkChecker onDataStatusChange={handleDataStatusChange} />
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ==================== 网站链接检测子组件 ====================
+
+interface WebsiteLinkCheckerProps {
+  onDataStatusChange?: (hasData: boolean) => void;
+}
+
+function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
   const [excludedDomains, setExcludedDomains] = useState<string[]>([]);
   const [newDomain, setNewDomain] = useState('');
-  const [scanResult, setScanResult] = useState<ScanResult | null>(null);
-  const [treeData, setTreeData] = useState<TreeNode[]>([]);
-  const [checkResults, setCheckResults] = useState<CheckResult[]>([]);
+  const [scanResult, setScanResult] = useState<LinkScanResult | null>(null);
+  const [treeData, setTreeData] = useState<LinkTreeNode[]>([]);
+  const [checkResults, setCheckResults] = useState<LinkCheckResult[]>([]);
   const [isScanning, setIsScanning] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
   const [isApplying, setIsApplying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [filter, setFilter] = useState<FilterType>('all');
+  const [filter, setFilter] = useState<LinkFilterType>('all');
   const [showSettings, setShowSettings] = useState(true);
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
-  
+
   // 排序状态 - 默认按状态排序
-  const [sortField, setSortField] = useState<SortField>('status');
-  const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
+  const [sortField, setSortField] = useState<LinkSortField>('status');
+  const [sortDirection, setSortDirection] = useState<LinkSortDirection>('asc');
 
   // 通知父组件数据状态变化
   const onDataStatusChangeRef = useRef(onDataStatusChange);
@@ -434,7 +406,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   const customDomains = excludedDomains.filter(d => !isDefaultDomain(d));
 
   // 排序函数
-  const handleSort = (field: SortField) => {
+  const handleSort = (field: LinkSortField) => {
     if (sortField === field) {
       if (sortDirection === 'asc') {
         setSortDirection('desc');
@@ -448,7 +420,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   };
 
   // 渲染排序图标
-  const renderSortIcon = (field: SortField) => {
+  const renderSortIcon = (field: LinkSortField) => {
     if (sortField !== field) {
       return <ArrowUpDown size={14} style={{ color: '#94a3b8', marginLeft: '4px' }} />;
     }
@@ -459,11 +431,10 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   };
 
   // 筛选和排序后的结果
-  const sortedAndFilteredResults = useMemo(() => {
+  const sortedAndFilteredResults = React.useMemo(() => {
     let results = checkResults.filter(r => {
       if (filter === 'all') return true;
       if (filter === 'allFailed') {
-        // 包含检测失效 + 后台状态为failed/stale的资源
         return r.status === 'failed' || r.status === 'timeout' || 
                r.resourceStatus === 'failed' || r.resourceStatus === 'stale';
       }
@@ -476,7 +447,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
         
         switch (sortField) {
           case 'status':
-            comparison = getStatusWeight(a.status) - getStatusWeight(b.status);
+            comparison = getLinkStatusWeight(a.status) - getLinkStatusWeight(b.status);
             break;
           case 'httpCode':
             comparison = (a.httpCode || 0) - (b.httpCode || 0);
@@ -497,9 +468,9 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   }, [checkResults, filter, sortField, sortDirection]);
 
   // 按域名分组的排除结果
-  const excludedByDomain = useMemo(() => {
+  const excludedByDomain = React.useMemo(() => {
     const excluded = checkResults.filter(r => r.status === 'excluded');
-    const grouped = new Map<string, CheckResult[]>();
+    const grouped = new Map<string, LinkCheckResult[]>();
     
     excluded.forEach(result => {
       const domain = result.excludedReason || result.domain;
@@ -513,7 +484,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   }, [checkResults]);
 
   // 将扫描结果转换为树形结构
-  const buildTree = (links: LinkInfo[]): TreeNode[] => {
+  const buildTree = (links: LinkInfo[]): LinkTreeNode[] => {
     const pageMap = new Map<string, Map<string, Map<string, LinkInfo[]>>>();
     
     links.forEach(link => {
@@ -543,10 +514,10 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
       categoryMap.get(categoryName)!.push(link);
     });
     
-    const tree: TreeNode[] = [];
+    const tree: LinkTreeNode[] = [];
     
     pageMap.forEach((groupMap, pageName) => {
-      const pageNode: TreeNode = {
+      const pageNode: LinkTreeNode = {
         id: `page-${pageName}`,
         type: 'page',
         name: `页面: ${pageName}`,
@@ -557,7 +528,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
       };
       
       groupMap.forEach((categoryMap, groupName) => {
-        const groupNode: TreeNode = {
+        const groupNode: LinkTreeNode = {
           id: `group-${pageName}-${groupName}`,
           type: 'group',
           name: groupName,
@@ -568,7 +539,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
         };
         
         categoryMap.forEach((links, categoryName) => {
-          const categoryNode: TreeNode = {
+          const categoryNode: LinkTreeNode = {
             id: `category-${pageName}-${groupName}-${categoryName}`,
             type: 'category',
             name: categoryName,
@@ -598,7 +569,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   };
 
   // 更新节点状态
-  const updateNodeStatus = (node: TreeNode): TreeNode => {
+  const updateNodeStatus = (node: LinkTreeNode): LinkTreeNode => {
     if (!node.children || node.children.length === 0) {
       return { ...node, indeterminate: false };
     }
@@ -616,7 +587,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   };
 
   // 递归设置所有子节点的 checked 状态
-  const setAllChildrenChecked = (node: TreeNode, checked: boolean): TreeNode => {
+  const setAllChildrenChecked = (node: LinkTreeNode, checked: boolean): LinkTreeNode => {
     if (!node.children || node.children.length === 0) {
       return { ...node, checked, indeterminate: false };
     }
@@ -630,7 +601,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   };
 
   // 切换节点选中状态
-  const toggleNodeChecked = (nodes: TreeNode[], nodeId: string): TreeNode[] => {
+  const toggleNodeChecked = (nodes: LinkTreeNode[], nodeId: string): LinkTreeNode[] => {
     return nodes.map(node => {
       if (node.id === nodeId) {
         const newNode = setAllChildrenChecked(node, !node.checked);
@@ -649,7 +620,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   };
 
   // 切换节点展开状态
-  const toggleNodeExpanded = (nodes: TreeNode[], nodeId: string): TreeNode[] => {
+  const toggleNodeExpanded = (nodes: LinkTreeNode[], nodeId: string): LinkTreeNode[] => {
     return nodes.map(node => {
       if (node.id === nodeId) {
         return { ...node, expanded: !node.expanded };
@@ -673,10 +644,10 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   };
 
   // 获取所有选中的链接
-  const getSelectedLinks = (nodes: TreeNode[]): LinkInfo[] => {
+  const getSelectedLinks = (nodes: LinkTreeNode[]): LinkInfo[] => {
     const links: LinkInfo[] = [];
     
-    const traverse = (node: TreeNode) => {
+    const traverse = (node: LinkTreeNode) => {
       if (node.type === 'resource' && node.checked && node.link) {
         links.push(node.link);
       }
@@ -690,7 +661,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   };
 
   // 统计选中数量
-  const getSelectedCount = (nodes: TreeNode[]): number => {
+  const getSelectedCount = (nodes: LinkTreeNode[]): number => {
     return getSelectedLinks(nodes).length;
   };
 
@@ -733,7 +704,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
     try {
       const res = await fetch('/api/link-check?mode=scan');
       if (!res.ok) throw new Error('扫描失败');
-      const data: ScanResult = await res.json();
+      const data: LinkScanResult = await res.json();
       setScanResult(data);
       const tree = buildTree(data.links);
       setTreeData(tree);
@@ -762,10 +733,10 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
     
     const urls = selectedLinks.map(l => l.url);
     const concurrency = 20;
-    const results: CheckResult[] = [];
+    const results: LinkCheckResult[] = [];
     let completed = 0;
     
-    const checkSingleLink = async (url: string): Promise<CheckResult> => {
+    const checkSingleLink = async (url: string): Promise<LinkCheckResult> => {
       const res = await fetch(`/api/link-check?mode=check&url=${encodeURIComponent(url)}&excluded=${encodeURIComponent(excludedDomains.join(','))}`);
       if (res.ok) {
         return await res.json();
@@ -851,7 +822,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   };
 
   // 渲染树节点
-  const renderTreeNode = (node: TreeNode, depth: number = 0) => {
+  const renderTreeNode = (node: LinkTreeNode, depth: number = 0) => {
     const hasChildren = node.children && node.children.length > 0;
     const indent = depth * 24;
     
@@ -886,7 +857,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
             style={{ cursor: 'pointer' }}
           />
           
-          {getNodeIcon(node)}
+          {getLinkNodeIcon(node)}
           
           
           <span style={{ 
@@ -915,37 +886,25 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   };
 
   return (
-    <div style={STYLES.container}>
-      {/* 标题 */}
-      <div style={{ marginBottom: '24px' }}>
-        <h1 style={{ fontSize: '24px', fontWeight: 700, color: '#1e293b', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <Link size={28} />
-          网站有效性检测
-        </h1>
-        <p style={{ color: '#64748b', fontSize: '14px' }}>
-          批量检测所有网站链接的有效性，标记失效资源
-          <span style={{ color: '#22c55e', marginLeft: '8px' }}>并发数: 20</span>
-        </p>
-      </div>
-
+    <>
       {/* 排除域名配置 */}
-      <div style={STYLES.card}>
-        <div style={STYLES.header}>
-          <Shield size={20} style={{ color: '#64748b' }} />
-          <span style={{ fontWeight: 600, color: '#334155' }}>排除域名配置</span>
-          <span style={{ marginLeft: '8px', fontSize: '12px', color: '#94a3b8' }}>
+      <div style={STYLES.card.base}>
+        <div style={STYLES.card.header}>
+          <Shield size={20} style={STYLES.card.headerIcon} />
+          <span style={STYLES.card.headerTitle}>排除域名配置</span>
+          <span style={STYLES.card.headerCount}>
             ({excludedDomains.length} 个域名)
           </span>
           <button 
             onClick={() => setShowSettings(!showSettings)}
-            style={{ marginLeft: 'auto', ...STYLES.button.secondary, padding: '6px 12px' }}
+            style={{ ...STYLES.button.secondary, ...STYLES.card.headerExtra, padding: '6px 12px' }}
           >
             {showSettings ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
             {showSettings ? '收起' : '展开'}
           </button>
         </div>
         {showSettings && (
-          <div style={STYLES.body}>
+          <div style={STYLES.card.body}>
             <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '16px' }}>
               以下域名的链接将被跳过检测。蓝色标签为系统默认，灰色标签为自定义添加。
             </p>
@@ -973,6 +932,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
                   </button>
                 )}
               </div>
+              
               
               <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                 {excludedDomains.map(domain => (
@@ -1041,8 +1001,8 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
       </div>
 
       {/* 操作卡片 */}
-      <div style={STYLES.card}>
-        <div style={STYLES.body}>
+      <div style={STYLES.card.base}>
+        <div style={STYLES.card.body}>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
             <button
               onClick={handleScan}
@@ -1063,6 +1023,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
                   {isChecking ? <RefreshCw size={16} className="animate-spin" /> : <Play size={16} />}
                   并行检测选中 ({getSelectedCount(treeData)})
                 </button>
+                
                 
                 
                 <span style={{ color: '#64748b', fontSize: '14px' }}>
@@ -1104,13 +1065,13 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
 
       {/* 资源树形选择 */}
       {treeData.length > 0 && checkResults.length === 0 && (
-        <div style={STYLES.card}>
-          <div style={STYLES.header}>
-            <Layers size={20} style={{ color: '#64748b' }} />
-            <span style={{ fontWeight: 600, color: '#334155' }}>选择检测范围</span>
+        <div style={STYLES.card.base}>
+          <div style={STYLES.card.header}>
+            <Layers size={20} style={STYLES.card.headerIcon} />
+            <span style={STYLES.card.headerTitle}>选择检测范围</span>
             <button 
               onClick={handleSelectAll}
-              style={{ marginLeft: 'auto', ...STYLES.button.secondary, padding: '6px 12px' }}
+              style={{ ...STYLES.button.secondary, ...STYLES.card.headerExtra, padding: '6px 12px' }}
             >
               {treeData.every(node => node.checked) ? '取消全选' : '全选'}
             </button>
@@ -1148,12 +1109,13 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
               </div>
             </div>
             
+            
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                 <Filter size={16} style={{ color: '#64748b' }} />
                 <select
                   value={filter}
-                  onChange={e => setFilter(e.target.value as FilterType)}
+                  onChange={e => setFilter(e.target.value as LinkFilterType)}
                   style={{ ...STYLES.input, width: 'auto', padding: '8px 12px' }}
                 >
                   <option value="all">全部 ({stats.total})</option>
@@ -1164,6 +1126,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
                   <option value="allFailed">全部异常 ({stats.allFailed})</option>
                 </select>
               </div>
+              
               
               <button 
                 onClick={() => {
@@ -1191,12 +1154,12 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
 
       {/* 已排除链接按域名分组显示 */}
       {filter === 'excluded' && excludedByDomain.size > 0 && (
-        <div style={STYLES.card}>
-          <div style={STYLES.header}>
-            <Shield size={20} style={{ color: '#64748b' }} />
-            <span style={{ fontWeight: 600, color: '#334155' }}>已排除链接（按域名分组）</span>
+        <div style={STYLES.card.base}>
+          <div style={STYLES.card.header}>
+            <Shield size={20} style={STYLES.card.headerIcon} />
+            <span style={STYLES.card.headerTitle}>已排除链接（按域名分组）</span>
           </div>
-          <div style={STYLES.body}>
+          <div style={STYLES.card.body}>
             {Array.from(excludedByDomain.entries()).map(([domain, results]) => (
               <div key={domain} style={STYLES.excludedGroup}>
                 <div style={STYLES.excludedGroupHeader}>
@@ -1229,7 +1192,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
 
       {/* 结果列表 */}
       {sortedAndFilteredResults.length > 0 && filter !== 'excluded' && (
-        <div style={STYLES.card}>
+        <div style={STYLES.card.base}>
           <div style={{ overflowX: 'auto' }}>
             <table style={STYLES.table}>
               <thead>
@@ -1253,7 +1216,7 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
                     onMouseLeave={(e) => e.currentTarget.style.background = '#f8fafc'}
                   >
                     <span style={{ display: 'flex', alignItems: 'center' }}>
-                      资源状态
+                      后台状态
                       {renderSortIcon('resourceStatus')}
                     </span>
                   </th>
@@ -1279,7 +1242,17 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
                       {renderSortIcon('httpCode')}
                     </span>
                   </th>
-                  <th style={STYLES.th}>备注</th>
+                  <th 
+                    style={STYLES.thSortable}
+                    onClick={() => handleSort('domain')}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f1f5f9'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = '#f8fafc'}
+                  >
+                    <span style={{ display: 'flex', alignItems: 'center' }}>
+                      域名
+                      {renderSortIcon('domain')}
+                    </span>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -1290,15 +1263,14 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
                         type="checkbox"
                         checked={selectedItems.has(result.url)}
                         onChange={() => {
-                          const newSet = new Set(selectedItems);
-                          if (newSet.has(result.url)) {
-                            newSet.delete(result.url);
+                          const newSelected = new Set(selectedItems);
+                          if (newSelected.has(result.url)) {
+                            newSelected.delete(result.url);
                           } else {
-                            newSet.add(result.url);
+                            newSelected.add(result.url);
                           }
-                          setSelectedItems(newSet);
+                          setSelectedItems(newSelected);
                         }}
-                        disabled={result.status !== 'failed'}
                       />
                     </td>
                     <td style={STYLES.td}>
@@ -1306,60 +1278,57 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
                         href={result.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        title={result.url}
-                        style={{ color: '#2563eb', textDecoration: 'none', fontSize: '13px' }}
+                        style={{ color: '#2563eb', textDecoration: 'none' }}
                       >
-                        {truncateUrl(result.url, 45)}
+                        {truncateUrl(result.url, 40)}
                       </a>
                     </td>
-                    <td style={STYLES.td}>
-                      <span style={{ color: '#334155' }}>{result.resourceName || '-'}</span>
+                    <td style={{ ...STYLES.td, color: '#64748b' }}>
+                      {result.resourceName || '-'}
                     </td>
                     <td style={STYLES.td}>
                       {result.resourceStatus ? (
                         <span style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '4px',
                           padding: '4px 8px',
                           borderRadius: '4px',
                           fontSize: '12px',
                           fontWeight: 500,
-                          ...STYLES.badge[result.resourceStatus] || { background: '#f1f5f9', color: '#64748b' },
+                          ...STYLES.badge[result.resourceStatus as keyof typeof STYLES.badge] || STYLES.badge.ok
                         }}>
-                          {getStatusIcon(result.resourceStatus)}
-                          {getStatusLabel(result.resourceStatus)}
+                          {getLinkStatusLabel(result.resourceStatus)}
                         </span>
                       ) : (
-                        <span style={{ color: '#94a3b8', fontSize: '12px' }}>-</span>
+                        <span style={{ color: '#94a3b8' }}>-</span>
                       )}
                     </td>
                     <td style={STYLES.td}>
                       <span style={{
-                        display: 'inline-flex',
+                        display: 'flex',
                         alignItems: 'center',
-                        gap: '4px',
+                        gap: '6px',
                         padding: '4px 8px',
                         borderRadius: '4px',
                         fontSize: '12px',
                         fontWeight: 500,
-                        ...STYLES.badge[result.status],
+                        ...STYLES.badge[result.status as keyof typeof STYLES.badge]
                       }}>
-                        {getStatusIcon(result.status)}
-                        {getStatusLabel(result.status)}
+                        {getLinkStatusIcon(result.status)}
+                        {getLinkStatusLabel(result.status)}
                       </span>
                     </td>
                     <td style={STYLES.td}>
-                      <span style={{ 
-                        fontFamily: 'monospace', 
-                        fontSize: '13px',
-                        color: result.httpCode && result.httpCode < 400 ? '#22c55e' : '#ef4444'
+                      <span style={{
+                        padding: '4px 8px',
+                        borderRadius: '4px',
+                        fontSize: '12px',
+                        background: '#f1f5f9',
+                        color: '#475569',
                       }}>
                         {result.httpCode || '-'}
                       </span>
                     </td>
-                    <td style={STYLES.td}>
-                      <span style={{ color: '#94a3b8', fontSize: '13px' }}>{result.error || '-'}</span>
+                    <td style={{ ...STYLES.td, color: '#64748b', fontSize: '13px' }}>
+                      {result.domain}
                     </td>
                   </tr>
                 ))}
@@ -1368,6 +1337,6 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

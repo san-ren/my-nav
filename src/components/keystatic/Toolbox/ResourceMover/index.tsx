@@ -17,189 +17,27 @@ import {
   Check,
 } from 'lucide-react';
 import type { ResourceItem, TargetLocation } from './types';
-
-// --- 动画样式 ---
-const ANIMATION_STYLES = `
-  @keyframes expandDown {
-    from {
-      opacity: 0;
-      max-height: 0;
-      transform: translateY(-8px);
-    }
-    to {
-      opacity: 1;
-      max-height: 2000px;
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  
-  .tree-children {
-    animation: expandDown 0.25s ease-out forwards;
-    overflow: hidden;
-  }
-  
-  .tree-node-enter {
-    animation: fadeIn 0.2s ease-out forwards;
-  }
-  
-  .chevron-icon {
-    transition: transform 0.2s ease;
-  }
-  
-  .chevron-icon.expanded {
-    transform: rotate(90deg);
-  }
-  
-  .folder-icon {
-    transition: transform 0.2s ease;
-  }
-  
-  .folder-icon:hover {
-    transform: scale(1.1);
-  }
-  
-  .tree-node-row {
-    transition: all 0.15s ease;
-  }
-  
-  .tree-node-row:hover {
-    background: #f1f5f9 !important;
-  }
-  
-  .target-node-row {
-    transition: all 0.15s ease;
-    cursor: pointer;
-  }
-  
-  .target-node-row:hover {
-    background: #eff6ff !important;
-  }
-  
-  .target-node-row.selected {
-    background: #dbeafe !important;
-    border-left: 3px solid #2563eb;
-  }
-  
-  .resource-row {
-    transition: all 0.15s ease;
-  }
-  
-  .resource-row:hover {
-    background: #f8fafc;
-  }
-  
-  .resource-row.selected {
-    background: #eff6ff;
-  }
-`;
+import {
+  LAYOUT,
+  CARD,
+  BUTTON,
+  INPUT,
+  TREE,
+  PAGE_TITLE,
+  ANIMATION_CSS,
+} from '../toolbox-shared';
 
 // --- 样式常量 ---
+// 使用共享样式
 const STYLES = {
-  container: {
-    padding: '24px',
-    maxWidth: '1400px',
-    margin: '0 auto',
-  },
-  card: {
-    background: 'white',
-    borderRadius: '12px',
-    border: '1px solid #e2e8f0',
-    marginBottom: '16px',
-    overflow: 'hidden',
-  },
-  header: {
-    padding: '20px',
-    borderBottom: '1px solid #e2e8f0',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-  },
-  body: {
-    padding: '20px',
-  },
-  button: {
-    primary: {
-      padding: '12px 24px',
-      fontSize: '14px',
-      fontWeight: 600,
-      color: 'white',
-      background: '#2563eb',
-      borderRadius: '8px',
-      border: 'none',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px',
-    },
-    secondary: {
-      padding: '10px 20px',
-      fontSize: '14px',
-      fontWeight: 500,
-      color: '#475569',
-      background: '#f1f5f9',
-      borderRadius: '8px',
-      border: '1px solid #e2e8f0',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px',
-    },
-    success: {
-      padding: '12px 24px',
-      fontSize: '14px',
-      fontWeight: 600,
-      color: 'white',
-      background: '#22c55e',
-      borderRadius: '8px',
-      border: 'none',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px',
-    },
-    icon: {
-      padding: '4px',
-      background: 'transparent',
-      border: 'none',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: '4px',
-      transition: 'transform 0.2s ease',
-    },
-  },
-  treeNode: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-    padding: '10px 12px',
-    borderBottom: '1px solid #f1f5f9',
-    userSelect: 'none' as const,
-  },
-  input: {
-    width: '100%',
-    padding: '12px 16px',
-    fontSize: '14px',
-    border: '1px solid #cbd5e1',
-    borderRadius: '8px',
-    outline: 'none',
-  },
-  select: {
-    width: '100%',
-    padding: '12px 16px',
-    fontSize: '14px',
-    border: '1px solid #cbd5e1',
-    borderRadius: '8px',
-    outline: 'none',
-    background: 'white',
-    cursor: 'pointer',
-  },
+  container: LAYOUT.containerWide,
+  card: CARD.base,
+  header: CARD.header,
+  body: CARD.body,
+  button: BUTTON,
+  treeNode: TREE.node,
+  input: INPUT.base,
+  select: INPUT.select,
 };
 
 // --- 辅助函数 ---
@@ -687,18 +525,19 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
   return (
     <div style={STYLES.container}>
       {/* 注入动画样式 */}
-      <style>{ANIMATION_STYLES}</style>
+      <style>{ANIMATION_CSS}</style>
       
       {/* 标题 */}
-      <div style={{ marginBottom: '24px' }}>
-        <h1 style={{ fontSize: '24px', fontWeight: 700, color: '#1e293b', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <ArrowRightLeft size={28} />
+      <div style={{ marginBottom: '12px' }}>
+        <h1 style={{ fontSize: '20px', fontWeight: 700, color: '#1e293b', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <ArrowRightLeft size={20} />
           资源转移
         </h1>
-        <p style={{ color: '#64748b', fontSize: '14px' }}>
+        <p style={{ color: '#64748b', fontSize: '13px', lineHeight: 1.4 }}>
           将卡片、Tab或列表中的资源移动到其他位置
         </p>
       </div>
+
       
       {/* 消息提示 */}
       {message && (
@@ -762,11 +601,11 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
         {/* 源资源列表 */}
         <div style={STYLES.card}>
           <div style={STYLES.header}>
-            <Layers size={20} style={{ color: '#64748b' }} />
-            <span style={{ fontWeight: 600, color: '#334155' }}>选择要移动的资源</span>
+            <Layers size={20} style={STYLES.card.headerIcon} />
+            <span style={STYLES.card.headerTitle}>选择要移动的资源</span>
             <button 
               onClick={loadData} 
-              style={{ ...STYLES.button.secondary, marginLeft: 'auto', padding: '6px 12px' }}
+              style={{ ...STYLES.button.secondary, ...STYLES.card.headerExtra, padding: '6px 12px' }}
               disabled={isLoading}
             >
               <RefreshCw size={14} className={isLoading ? 'animate-spin' : ''} />
@@ -792,11 +631,11 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
         {/* 目标位置选择 */}
         <div style={STYLES.card}>
           <div style={STYLES.header}>
-            <Folder size={20} style={{ color: '#64748b' }} />
-            <span style={{ fontWeight: 600, color: '#334155' }}>选择目标位置</span>
+            <Folder size={20} style={STYLES.card.headerIcon} />
+            <span style={STYLES.card.headerTitle}>选择目标位置</span>
             {selectedTarget && (
               <span style={{ 
-                marginLeft: 'auto', 
+                ...STYLES.card.headerExtra,
                 fontSize: '12px', 
                 color: '#22c55e',
                 display: 'flex',

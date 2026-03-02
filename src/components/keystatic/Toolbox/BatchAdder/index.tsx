@@ -350,22 +350,23 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
   return (
     <div style={STYLES.container}>
       {/* 标题 */}
-      <div style={{ marginBottom: '24px' }}>
-        <h1 style={{ fontSize: '24px', fontWeight: 700, color: '#1e293b', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <Plus size={28} />
+      <div style={{ marginBottom: '12px' }}>
+        <h1 style={{ fontSize: '20px', fontWeight: 700, color: '#1e293b', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Plus size={20} />
           批量添加资源
         </h1>
-        <p style={{ color: '#64748b', fontSize: '14px' }}>
+        <p style={{ color: '#64748b', fontSize: '13px', lineHeight: 1.4 }}>
           输入多个网址，自动解析并批量添加到指定分组
           {githubToken && <span style={{ color: '#22c55e', marginLeft: '8px' }}>✓ 已配置 GitHub Token，解析速度更快</span>}
         </p>
       </div>
 
+
       {/* 输入卡片 */}
-      <div style={STYLES.card}>
-        <div style={STYLES.header}>
-          <Link size={20} style={{ color: '#64748b' }} />
-          <span style={{ fontWeight: 600, color: '#334155' }}>输入网址</span>
+      <div style={STYLES.card.base}>
+        <div style={STYLES.card.header}>
+          <Link size={20} style={STYLES.card.headerIcon} />
+          <span style={STYLES.card.headerTitle}>输入网址</span>
         </div>
         <div style={STYLES.body}>
           <textarea
@@ -411,11 +412,11 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
 
       {/* 解析结果 */}
       {pendingItems.length > 0 && (
-        <div style={STYLES.card}>
-          <div style={STYLES.header}>
-            <FileText size={20} style={{ color: '#64748b' }} />
-            <span style={{ fontWeight: 600, color: '#334155' }}>解析结果</span>
-            <span style={{ marginLeft: 'auto', color: '#64748b', fontSize: '14px' }}>
+        <div style={STYLES.card.base}>
+          <div style={STYLES.card.header}>
+            <FileText size={20} style={STYLES.card.headerIcon} />
+            <span style={STYLES.card.headerTitle}>解析结果</span>
+            <span style={{ ...STYLES.card.headerExtra, color: '#64748b', fontSize: '14px' }}>
               就绪: {readyCount} / {pendingItems.length}
             </span>
             
@@ -467,7 +468,7 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
           
           {/* 批量添加模式选择器 */}
           <div style={{ padding: '16px 20px', borderBottom: '1px solid #e2e8f0', background: '#f8fafc' }}>
-            <div style={{ marginBottom: '12px', fontWeight: 600, color: '#334155', fontSize: '14px' }}>
+            <div style={STYLES.card.headerTitle}>
               批量添加模式
             </div>
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
@@ -603,11 +604,11 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
       )}
 
       {/* 使用说明 */}
-      <div style={STYLES.card}>
-        <div style={STYLES.header}>
-          <span style={{ fontWeight: 600, color: '#334155' }}>📖 使用说明</span>
+      <div style={STYLES.card.base}>
+        <div style={STYLES.card.header}>
+          <span style={STYLES.card.headerTitle}>📖 使用说明</span>
         </div>
-        <div style={STYLES.body}>
+        <div style={STYLES.card.body}>
           <ul style={{ margin: 0, paddingLeft: '20px', color: '#64748b', fontSize: '14px', lineHeight: '1.8' }}>
             <li><strong>并行解析</strong>：所有URL同时解析，大幅提升速度</li>
             <li><strong>GitHub Token</strong>：在GitHub检测页配置Token后，批量添加也会使用，提高API限额</li>
