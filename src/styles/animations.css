@@ -15,38 +15,9 @@
   }
 }
 
-.anim-fade-up {
-  animation: fadeInUp 0.6s ease-out forwards;
-}
+ 
 
-/* 2. 缩放弹跳效果 (适合图标) */
-@keyframes popIn {
-  0% { transform: scale(0.5); opacity: 0; }
-  70% { transform: scale(1.1); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-.anim-pop {
-  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-
-/* 3. 悬浮轻微摆动 (适合卡片 Hover) */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-
-.anim-float:hover {
-  animation: float 3s ease-in-out infinite;
-}
-
-/* 延迟工具类 (辅助类) */
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-
-
-
+ 
 /* ======================================================
    Portal 浮窗高级增强 (Progressive Enhancement)
    ====================================================== */
@@ -56,18 +27,12 @@
    如果加载了这个文件，下面的规则会覆盖默认设置，实现“生长”质感。
 */
 .portal-popup {
-  /* 
-     1. 覆盖时长：让动画稍微慢一点 (300ms)，显得更从容。
-     2. 覆盖曲线：使用 Ease-Out-Quint (启动快，收尾极慢)，产生“生长”的物理感。
-     !important 确保覆盖 Tailwind 的原子类
-  */
-  transition-duration: 300ms !important;
-  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1) !important;
-  
-  /* 
-     如果你想让它弹得更夸张（果冻效果），可以用这个贝塞尔曲线：
-     transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55) !important; 
-  */
+  transition: opacity 300ms cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.portal-popup.no-transition {
+  transition: none !important;
 }
 
 /* 
@@ -106,4 +71,94 @@
 @keyframes page-fade-in {
   from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ======================================================
+   流光边框动画 (Neon Border) - ThemePicker 动效风格
+   ====================================================== */
+
+/* 注册 CSS 变量，支持平滑旋转 */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* 旋转动画 */
+@keyframes neon-rotate {
+  from { --angle: 0deg; }
+  to { --angle: 360deg; }
+}
+
+
+/* 流光边框容器 */
+[data-anim="neon-border"] .site-card-wrapper .neon-border,
+.site-card-wrapper.neon-border-active .neon-border {
+  position: absolute;
+  inset: -0.75px;
+  z-index: -1;
+  border-radius: 12px;
+  overflow: visible;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* Hover 时显示流光 */
+[data-anim="neon-border"] .site-card-wrapper:hover .neon-border,
+[data-anim="neon-border"] .site-card-wrapper.flow-active .neon-border,
+.site-card-wrapper.neon-border-active:hover .neon-border,
+.site-card-wrapper.neon-border-active.flow-active .neon-border {
+  opacity: 1;
+}
+
+/* 光晕层 */
+[data-anim="neon-border"] .site-card-wrapper .neon-border::before,
+.site-card-wrapper.neon-border-active .neon-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: conic-gradient(
+    from var(--angle), 
+    #ff0000, 
+    #ff00a0,
+    #0000ff, 
+    #00eaff,
+    #ffdd00, 
+    #ff0000
+  );
+  filter: blur(1px);
+  opacity: 0.8;
+  animation: neon-rotate 3s linear infinite;
+}
+
+/* 锐利边框层 */
+[data-anim="neon-border"] .site-card-wrapper .neon-border::after,
+.site-card-wrapper.neon-border-active .neon-border::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 0.75px;
+  box-sizing: border-box;
+  background: conic-gradient(
+    from var(--angle), 
+    #ff0000, 
+    #ff00a0,
+    #0000ff, 
+    #00eaff,
+    #ffdd00, 
+    #ff0000
+  );
+  border-radius: 12px;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask: 
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: neon-rotate 3s linear infinite;
 }

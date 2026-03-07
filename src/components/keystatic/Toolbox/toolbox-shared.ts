@@ -20,9 +20,9 @@ export const TABS = {
   // 主标签容器（顶部导航级别）
   main: {
     display: 'flex',
-    gap: '0',
-    padding: '8px 16px 0 16px',
-    background: 'white',
+    gap: '2px', // 添加微小的间距以便区分相邻的非活动标签
+    padding: '12px 16px 0 16px',
+    background: '#f8fafc', // 与页面背景一致，作为"标签栏"的底色
     borderBottom: 'none',
   },
   // 主标签按钮
@@ -30,50 +30,51 @@ export const TABS = {
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
-    padding: '10px 16px',
+    padding: '10px 20px',
     fontSize: '14px',
-    fontWeight: 500,
-    color: isActive ? '#1e40af' : '#64748b',
-    background: isActive ? '#dbeafe' : 'transparent',
-    border: isActive ? '1px solid #bfdbfe' : '1px solid transparent',
+    fontWeight: isActive ? 600 : 500,
+    color: isActive ? '#1e293b' : '#64748b',
+    background: isActive ? '#ffffff' : 'transparent',
+    border: 'none', // 移除默认边框，使用阴影或背景色区分
     borderBottom: 'none',
-    borderRadius: isActive ? '8px 8px 0 0' : '8px',
+    borderRadius: '10px 10px 0 0', // 更圆润的顶部边缘（Chrome风格）
     cursor: 'pointer',
-    transition: 'all 0.2s',
+    transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)', // 柔和的动画过渡
     position: 'relative' as const,
     zIndex: isActive ? 10 : 1,
-    marginRight: '4px',
+    // 活动标签添加微弱的顶部内阴影或边框以突出立体感
+    boxShadow: isActive ? '0 -2px 10px rgba(0,0,0,0.02)' : 'none',
   }),
   // 子标签容器（二级导航，与主标签融为一体）
   sub: {
     display: 'flex',
-    gap: '0',
+    gap: '8px', // 子标签之间的间距
     marginTop: '0',
     marginBottom: '0',
-    background: '#dbeafe',
-    padding: '8px 16px',
-    borderBottom: '1px solid #bfdbfe',
-    borderLeft: '1px solid #bfdbfe',
-    borderRight: '1px solid #bfdbfe',
+    background: '#ffffff', // 与活动的主标签背景色一致，形成视觉连结
+    padding: '12px 16px',
+    borderBottom: '1px solid #e2e8f0', // 仅底部和左右有边框
+    borderLeft: '1px solid #e2e8f0',
+    borderRight: '1px solid #e2e8f0',
     marginLeft: '16px',
     marginRight: '16px',
-    borderRadius: '0 0 8px 8px',
+    borderRadius: '0 0 12px 12px', // 底部圆角
+    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02)', // 柔和的阴影
   },
   // 子标签按钮（选中样式与主标签一致）
   subTab: (isActive: boolean) => ({
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
-    padding: '8px 16px',
-    fontSize: '14px',
+    padding: '6px 14px',
+    fontSize: '13px',
     fontWeight: 500,
-    color: isActive ? '#1e40af' : '#64748b',
+    color: isActive ? '#2563eb' : '#475569',
     background: isActive ? '#eff6ff' : 'transparent',
     border: 'none',
-    borderRadius: '6px',
+    borderRadius: '20px', // 胶囊形状（pill-style）
     cursor: 'pointer',
-    transition: 'all 0.2s',
-    marginRight: '4px',
+    transition: 'all 0.2s ease',
   }),
 };
 
@@ -87,19 +88,23 @@ export const CARD = {
     overflow: 'hidden',
   },
   header: {
-    padding: '6px',
+    padding: '12px 16px',
+    background: '#f8fafc',
     borderBottom: '1px solid #e2e8f0',
     display: 'flex',
     alignItems: 'center',
     gap: '12px',
+    minHeight: '56px',
+    boxSizing: 'border-box' as const,
   },
   // Header 内部元素样式
   headerIcon: {
-    color: '#64748b',
+    color: '#3b82f6',
   },
   headerTitle: {
+    fontSize: '15px',
     fontWeight: 600,
-    color: '#334155',
+    color: '#0f172a',
   },
   headerExtra: {
     marginLeft: 'auto',
@@ -117,7 +122,7 @@ export const CARD = {
 // ==================== 按钮样式 ====================
 export const BUTTON = {
   primary: {
-    padding: '6px 10px',
+    padding: '8px 16px',
     fontSize: '14px',
     fontWeight: 600,
     color: 'white',
@@ -127,10 +132,12 @@ export const BUTTON = {
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
-    gap: '8px',
+    justifyContent: 'center',
+    gap: '6px',
+    transition: 'all 0.2s',
   },
   secondary: {
-    padding: '6px 10px',
+    padding: '8px 16px',
     fontSize: '14px',
     fontWeight: 500,
     color: '#475569',
@@ -140,10 +147,12 @@ export const BUTTON = {
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
-    gap: '8px',
+    justifyContent: 'center',
+    gap: '6px',
+    transition: 'all 0.2s',
   },
   success: {
-    padding: '6px 12px',
+    padding: '8px 16px',
     fontSize: '14px',
     fontWeight: 600,
     color: 'white',
@@ -153,10 +162,12 @@ export const BUTTON = {
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
-    gap: '8px',
+    justifyContent: 'center',
+    gap: '6px',
+    transition: 'all 0.2s',
   },
   danger: {
-    padding: '10px 20px',
+    padding: '8px 16px',
     fontSize: '14px',
     fontWeight: 500,
     color: 'white',
@@ -166,7 +177,9 @@ export const BUTTON = {
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
-    gap: '8px',
+    justifyContent: 'center',
+    gap: '6px',
+    transition: 'all 0.2s',
   },
   // 图标按钮
   icon: {
@@ -551,11 +564,16 @@ export const getStatusBadge = (status: string): { text: string; color: string; b
     ready: { text: '就绪', color: '#22c55e', bg: '#dcfce7' },
     // 检测状态
     ok: { text: '正常', color: '#166534', bg: '#dcfce7' },
-    failed: { text: '失效', color: '#991b1b', bg: '#fee2e2' },
+    '官网失效': { text: '官网失效', color: '#991b1b', bg: '#fee2e2' },
     timeout: { text: '超时', color: '#92400e', bg: '#fef3c7' },
     excluded: { text: '已排除', color: '#64748b', bg: '#f1f5f9' },
     stale: { text: '长期未更新', color: '#92400e', bg: '#fef3c7' },
     archived: { text: '已归档', color: '#5b21b6', bg: '#ede9fe' },
+    // 新增状态
+    'github已归档': { text: 'github已归档', color: '#5b21b6', bg: '#ede9fe' },
+    'github仓库已失效': { text: 'github仓库已失效', color: '#991b1b', bg: '#fee2e2' },
+    '网站失效': { text: '网站失效', color: '#991b1b', bg: '#fee2e2' },
+    '网站超时': { text: '网站超时', color: '#92400e', bg: '#fef3c7' },
     // 错误状态
     error: { text: '解析失败', color: '#ef4444', bg: '#fee2e2' },
   };
@@ -566,23 +584,31 @@ export const getStatusBadge = (status: string): { text: string; color: string; b
 // 状态排序权重
 export const getStatusWeight = (status: string): number => {
   const weights: Record<string, number> = {
-    failed: 0,
+    '官网失效': 0,
+    'github仓库已失效': 0,
+    '网站失效': 0,
     archived: 1,
+    'github已归档': 1,
     timeout: 2,
-    stale: 2,
-    excluded: 3,
-    ok: 4,
+    '网站超时': 2,
+    stale: 3,
+    excluded: 4,
+    ok: 5,
   };
-  return weights[status] ?? 5;
+  return weights[status] ?? 6;
 };
 
 // 资源状态排序权重
 export const getResourceStatusWeight = (status: string | undefined): number => {
-  if (!status) return 3;
+  if (!status) return 5;
   const weights: Record<string, number> = {
-    failed: 0,
-    stale: 1,
-    ok: 2,
+    '官网失效': 0,
+    'github仓库已失效': 0,
+    '网站失效': 0,
+    'github已归档': 1,
+    '网站超时': 2,
+    stale: 3,
+    ok: 4,
   };
-  return weights[status] ?? 3;
+  return weights[status] ?? 5;
 };

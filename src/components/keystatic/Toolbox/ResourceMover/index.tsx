@@ -601,11 +601,11 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
         {/* 源资源列表 */}
         <div style={STYLES.card}>
           <div style={STYLES.header}>
-            <Layers size={20} style={STYLES.card.headerIcon} />
-            <span style={STYLES.card.headerTitle}>选择要移动的资源</span>
+            <Layers size={20} style={CARD.headerIcon} />
+            <span style={CARD.headerTitle}>选择要移动的资源</span>
             <button 
               onClick={loadData} 
-              style={{ ...STYLES.button.secondary, ...STYLES.card.headerExtra, padding: '6px 12px' }}
+              style={{ ...STYLES.button.secondary, ...CARD.headerExtra }}
               disabled={isLoading}
             >
               <RefreshCw size={14} className={isLoading ? 'animate-spin' : ''} />
@@ -631,11 +631,11 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
         {/* 目标位置选择 */}
         <div style={STYLES.card}>
           <div style={STYLES.header}>
-            <Folder size={20} style={STYLES.card.headerIcon} />
-            <span style={STYLES.card.headerTitle}>选择目标位置</span>
+            <Folder size={20} style={CARD.headerIcon} />
+            <span style={CARD.headerTitle}>选择目标位置</span>
             {selectedTarget && (
               <span style={{ 
-                ...STYLES.card.headerExtra,
+                ...CARD.headerExtra,
                 fontSize: '12px', 
                 color: '#22c55e',
                 display: 'flex',
@@ -691,15 +691,14 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
       </div>
       
       {/* 操作按钮 */}
-      <div style={{ marginTop: '16px' }}>
+      <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center' }}>
         <button
           onClick={handleMove}
           disabled={selectedResources.size === 0 || !selectedTarget || isMoving}
           style={{
             ...STYLES.button.success,
             opacity: (selectedResources.size === 0 || !selectedTarget) ? 0.5 : 1,
-            width: '100%',
-            justifyContent: 'center',
+            padding: '10px 24px',
           }}
         >
           {isMoving ? (

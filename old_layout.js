@@ -1,27 +1,6 @@
 // src/scripts/ui-layout.js
 
 // ==========================================
-// 0. 设备类型检测 (精准判断移动端)
-// ==========================================
-function detectDeviceType() {
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-  // 检查常见移动设备标识
-  const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
-  
-  if (isMobile) {
-    document.documentElement.classList.add('mobile-device');
-    document.documentElement.classList.remove('desktop-device');
-  } else {
-    document.documentElement.classList.add('desktop-device');
-    document.documentElement.classList.remove('mobile-device');
-  }
-}
-// 立即执行一次 (仅在客户端)
-if (typeof window !== 'undefined') {
-  detectDeviceType();
-}
-
-// ==========================================
 // 1. 侧边栏切换逻辑 (PC)
 // ==========================================
 window.toggleSidebarPC = () => {
@@ -301,13 +280,10 @@ function initTabs() {
 function initResourceFilter() {
   const filterToggle = document.getElementById('resource-filter-toggle');
   const dropdown = document.querySelector('.filter-dropdown');
-  const checkboxes = document.querySelectorAll('.status-filter-checkbox');
+  const showStaleCheckbox = document.getElementById('show-stale');
+  const showFailedCheckbox = document.getElementById('show-failed');
   
-  // 检查必要元素是否存在
-  if (!filterToggle || !dropdown || checkboxes.length === 0) {
-    console.warn('ResourceFilter: 关键元素未找到，或没有筛选条件');
-    return;
-  }
+  if (!filterToggle || !dropdown) return;
 
   // 点击筛选按钮切换下拉菜单
   filterToggle.addEventListener('change', () => {
@@ -330,41 +306,37 @@ function initResourceFilter() {
     }
   });
 
-  // 应用筛选状态的函数
-  function applyFilterStatus() {
-    // 收集所有「被勾选」的状态，这些是需要被隐藏的
-    const checkedStatuses = Array.from(checkboxes)
-      .filter(cb => cb.checked)
-      .map(cb => cb.getAttribute('data-status'));
-    
-    // 获取所有卡片容器
-    const allCards = Array.from(document.querySelectorAll('.site-card-wrapper'));
-
-    // 去重
-    const uniqueCards = [...new Set(allCards)];
-
-    uniqueCards.forEach(card => {
-        const cardStatus = card.getAttribute('data-status');
-        // 如果当前卡片的状态存在于被勾选的状态数组中，说明用户期望隐藏它
-        if (cardStatus && checkedStatuses.includes(cardStatus)) {
-          card.classList.add('hidden', 'opacity-0');
-          card.style.setProperty('display', 'none', 'important');
+  // 长期未更新资源显隐
+  if (showStaleCheckbox) {
+    showStaleCheckbox.addEventListener('change', () => {
+      const staleCards = document.querySelectorAll('[data-status="stale"]');
+      staleCards.forEach(card => {
+        if (showStaleCheckbox.checked) {
+          card.classList.remove('hidden');
         } else {
-          card.classList.remove('hidden', 'opacity-0');
-          card.style.display = '';
+          card.classList.add('hidden');
         }
+      });
     });
   }
 
-  // 给所有 checkboxes 绑定事件
-  checkboxes.forEach(cb => {
-    cb.addEventListener('change', applyFilterStatus);
-  });
+  // 失效资源显隐
+  if (showFailedCheckbox) {
+    showFailedCheckbox.addEventListener('change', () => {
+      const failedCards = document.querySelectorAll('[data-status="failed"]');
+      failedCards.forEach(card => {
+        if (showFailedCheckbox.checked) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  }
 
-  // ��用初始筛选状态（延迟执行确保 DOM 完全渲染）
-  requestAnimationFrame(() => {
-    applyFilterStatus();
-  });
+  // 初始状态：隐藏失效资源
+  const failedCards = document.querySelectorAll('[data-status="failed"]');
+  failedCards.forEach(card => card.classList.add('hidden'));
 }
 
 // ==========================================

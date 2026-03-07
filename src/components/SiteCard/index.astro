@@ -20,7 +20,7 @@ const targetUrl = url || official_site || '#';
 const displayTitle = title || name;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-// 1. 图标逻辑 - 简化：直接使用本地图标或回退到默认图标
+// 1. 图标逻辑 - 修复：添加 base 前缀到本地图标路径
 const localFallback = `${base}/favicon.svg`;
 const finalIcon = (icon && icon.includes('/images/')) ? `${base}${icon}` : localFallback;
 
@@ -50,7 +50,11 @@ const ICON_SIZE = 48;
 const statusStyles = {
   ok: '',
   stale: 'grayscale-[30%] opacity-70 hover:grayscale-0 hover:opacity-100',
-  failed: 'grayscale-[60%] opacity-50 pointer-events-none',
+  '官网失效': 'grayscale-[60%] opacity-50 pointer-events-none',
+  'github已归档': 'grayscale-[30%] opacity-70 hover:grayscale-0 hover:opacity-100',
+  'github仓库已失效': 'grayscale-[60%] opacity-50 pointer-events-none',
+  '网站失效': 'grayscale-[60%] opacity-50 pointer-events-none',
+  '网站超时': 'grayscale-[40%] opacity-60 hover:grayscale-0 hover:opacity-100',
 };
 
 const cardWrapperStyles = cn(
@@ -63,27 +67,28 @@ const cardLinkStyles = cn(
   'bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl rounded-xl',
   'border border-white/60 dark:border-gray-700/50',
   'transition-all duration-300 ease-[cubic-bezier(0.25,0.8,0.25,1)]',
-  'hover:-translate-y-1.5',
-  'hover:bg-white/95 dark:hover:bg-gray-800/95',
-  'hover:border-brand-500/30 dark:hover:border-brand-400/30',
-  'hover:shadow-xl hover:shadow-brand-600/10',
-  'hover:ring-1 hover:ring-brand-500/20',
-  'relative overflow-hidden',
+  'group-hover:bg-white/95 dark:group-hover:bg-gray-800/95',
+  'group-hover:border-brand-500/30 dark:group-hover:border-brand-400/30',
+  'group-hover:shadow-xl group-hover:shadow-brand-600/10',
+  'group-hover:ring-1 group-hover:ring-brand-500/20',
+  'overflow-hidden',
   statusStyles[status as keyof typeof statusStyles] || ''
 );
 
 const titleStyles = cn(
   'font-heading font-bold text-[14px] text-slate-800 dark:text-slate-100 truncate mb-0.5 text-left group-hover:text-brand-600 transition-colors duration-200',
-  status === 'failed' && 'line-through'
+  (status === '官网失效' || status === 'github仓库已失效' || status === '网站失效') && 'line-through'
 );
 ---
 
 <div class={cardWrapperStyles} data-status={status}>
+  {/* 流光边框容器 */}
+  <div class="neon-border" aria-hidden="true"></div>
   <a href={targetUrl} target="_blank" class={cardLinkStyles}>
-    <div class="flex items-center flex-1 min-w-0 mr-1">
+    <div class="flex items-center flex-1 min-w-0 mr-1 overflow-hidden">
       <div class="relative flex-shrink-0 mr-3 w-10 h-10 flex items-center justify-center">
-        {/* 背景光晕层 */}
-        <div class="absolute inset-0 z-0 transition-all duration-500 ease-out opacity-0 group-hover:opacity-50 group-hover:scale-150 filter blur-lg saturate-150 pointer-events-none transform-gpu">
+        {/* 背景光晕层 - icon-glow */}
+        <div class="icon-glow absolute inset-0 z-0 transition-all duration-500 ease-out opacity-0 group-hover:opacity-50 group-hover:scale-150 filter blur-lg saturate-150 pointer-events-none transform-gpu">
           <img 
             src={finalIcon} 
             alt="" 
@@ -95,8 +100,8 @@ const titleStyles = cn(
           />
         </div>
         
-        {/* 核心图标层 */}
-        <div class="relative z-10 w-10 h-10 rounded-lg bg-white/80 dark:bg-gray-700/90 shadow-sm flex items-center justify-center border border-gray-100 dark:border-gray-600 group-hover:scale-105 group-hover:shadow-md transition-all duration-300">
+        {/* 核心图标层 - icon-container */}
+        <div class="icon-container relative z-10 w-10 h-10 rounded-lg bg-white/80 dark:bg-gray-700/90 shadow-sm flex items-center justify-center border border-gray-100 dark:border-gray-600 group-hover:scale-105 group-hover:shadow-md transition-all duration-300">
           <img 
             id={cardId}
             src={finalIcon}
@@ -110,31 +115,30 @@ const titleStyles = cn(
         </div>
       </div>
       
-      <div class="flex-1 min-w-0 relative z-20">
+      <div class="flex-1 min-w-0 relative z-20 overflow-hidden">
         <h3 class={titleStyles}>
           {displayTitle}
         </h3>
-        {desc && (
-          <p class="font-body text-[12px] text-slate-400 dark:text-slate-500 leading-tight line-clamp-1 overflow-hidden text-left break-words opacity-80 group-hover:opacity-100 transition-opacity">
-            {desc}
-          </p>
-        )}
+        <p class="desc-text font-body text-[12px] text-slate-400 dark:text-slate-500 leading-tight line-clamp-1 overflow-hidden text-left break-words opacity-80 group-hover:opacity-100 transition-opacity h-[1.1em]">
+          {desc || '\u00A0'}
+        </p>
       </div>
     </div>
 
-    {/* 右侧按钮区域 */}
-    <div class="flex flex-col gap-1 shrink-0 pl-1 border-l border-slate-100 dark:border-slate-700/50 transition-all duration-200 z-20 opacity-100 translate-x-0 md:opacity-0 md:-translate-x-2 md:group-hover:opacity-100 md:group-hover:translate-x-0">
+    {/* 右侧按钮区域 - action-buttons */}
+    <div class="action-buttons shrink-0 pl-1 border-l border-slate-100 dark:border-slate-700/50 transition-all duration-200 z-20">
       {hasPopup && (
-        <button type="button" class="info-btn md:hidden p-1 rounded-md text-slate-400 hover:text-brand-600 hover:bg-brand-50 dark:hover:bg-gray-700 transition-all flex items-center justify-center" title="详情">
+        <button type="button" class="info-btn p-1 rounded-md text-slate-400 hover:text-brand-600 hover:bg-brand-50 dark:hover:bg-gray-700 transition-all flex items-center justify-center" title="详情">
           <Info size={14} />
         </button>
       )}
       {guide_id && (
-        <button onclick={`event.preventDefault(); event.stopPropagation(); window.open('${base}/guide/${guide_id}', '_blank');`} class="p-1 rounded-md text-brand-400 hover:bg-brand-600 hover:text-white transition-all flex items-center justify-center" title="教程">
+        <button onclick={`event.preventDefault(); event.stopPropagation(); window.open('${base}/guide/${guide_id}', '_blank');`} class="guide-btn p-1 rounded-md text-brand-600 hover:bg-brand-600 hover:text-white transition-all flex items-center justify-center" title="教程">
           <BookOpen size={14} strokeWidth={2.5} />
         </button>
       )}
     </div>
+  </a>
   </a>
 
   {/* 弹窗区域 */}
@@ -146,7 +150,7 @@ const titleStyles = cn(
         </div>
         {badges.length > 0 && (
           <div class="flex flex-wrap gap-2 mb-2 border-b border-slate-100 dark:border-slate-800 pb-2">
-            {badges.map(b => <img src={b.src} alt={b.alt} class="h-4 rounded-sm" />)}
+            {badges.map(b => <img src={b.src} alt={b.alt} class="h-4 min-w-16 rounded-sm" />)}
           </div>
         )}
         {hasDetailContent && (

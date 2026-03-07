@@ -6,23 +6,7 @@ import { ResourceEditor } from './ResourceEditor';
 import { TABS as TAB_STYLES, MODAL, BUTTON } from './toolbox-shared';
 
 // --- ✅ 全局Token上下文 ---
-interface TokenContextType {
-  githubToken: string;
-  setGithubToken: (token: string) => void;
-  saveToken: () => void;
-  resetToken: () => void;
-  isTokenSaved: boolean;
-}
-
-const TokenContext = createContext<TokenContextType>({
-  githubToken: '',
-  setGithubToken: () => {},
-  saveToken: () => {},
-  resetToken: () => {},
-  isTokenSaved: false,
-});
-
-export const useGithubToken = () => useContext(TokenContext);
+import { TokenContext } from './TokenContext';
 
 // localStorage key
 const GITHUB_TOKEN_KEY = 'toolbox_github_token';
@@ -246,10 +230,10 @@ export function ToolboxPage() {
           {TABS.map(tab => (
             <button
               key={tab.id}
+              className="toolbox-main-tab"
               onClick={() => requestTabChange(tab.id)}
               style={{
                 ...TAB_STYLES.mainTab(activeTab === tab.id),
-                position: 'relative',
               }}
               title={tab.description}
             >

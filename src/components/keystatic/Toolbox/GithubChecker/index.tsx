@@ -29,7 +29,7 @@ import {
   EyeOff,
   Check
 } from 'lucide-react';
-import { useGithubToken } from '../ToolboxPage';
+import { useGithubToken } from '../TokenContext';
 import {
   LAYOUT,
   CARD,
@@ -61,7 +61,7 @@ interface CheckResult {
   archived: boolean;
   pushedAt: string | null;
   staleYears: number | null;
-  status: 'ok' | 'stale' | 'archived' | 'failed';
+  status: 'ok' | 'stale' | 'github已归档' | 'github仓库已失效';
   error?: string;
 }
 
@@ -89,7 +89,7 @@ interface TreeNode {
   repo?: GitHubRepoInfo;
 }
 
-type FilterType = 'all' | 'ok' | 'stale' | 'archived' | 'failed';
+type FilterType = 'all' | 'ok' | 'stale' | 'github已归档' | 'github仓库已失效';
 type SortField = 'status' | 'pushedAt' | 'staleYears' | null;
 type SortDirection = 'asc' | 'desc';
 
@@ -152,8 +152,8 @@ const getStatusIcon = (status: string) => {
   switch (status) {
     case 'ok': return <CheckCircle size={16} style={{ color: '#22c55e' }} />;
     case 'stale': return <AlertTriangle size={16} style={{ color: '#f59e0b' }} />;
-    case 'archived': return <Archive size={16} style={{ color: '#8b5cf6' }} />;
-    case 'failed': return <XCircle size={16} style={{ color: '#ef4444' }} />;
+    case 'github已归档': return <Archive size={16} style={{ color: '#8b5cf6' }} />;
+    case 'github仓库已失效': return <XCircle size={16} style={{ color: '#ef4444' }} />;
     default: return null;
   }
 };
@@ -162,8 +162,8 @@ const getStatusLabel = (status: string): string => {
   switch (status) {
     case 'ok': return '正常';
     case 'stale': return '长期未更新';
-    case 'archived': return '已归档';
-    case 'failed': return '已失效';
+    case 'github已归档': return '已归档';
+    case 'github仓库已失效': return '已失效';
     default: return status;
   }
 };
@@ -187,13 +187,29 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
   const { githubToken, setGithubToken, saveToken, resetToken, isTokenSaved } = useGithubToken();
   const [staleYears, setStaleYears] = useState(3);
   const [scanResult, setScanResult] = useState<ScanResult | null>(null);
+  
+  // 筛选下拉框外部点击引用
+  const filterDropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (filterDropdownRef.current && !filterDropdownRef.current.contains(event.target as Node)) {
+        setIsFilterOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   const [treeData, setTreeData] = useState<TreeNode[]>([]);
   const [checkResults, setCheckResults] = useState<CheckResult[]>([]);
   const [isScanning, setIsScanning] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
   const [isApplying, setIsApplying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [filter, setFilter] = useState<FilterType>('all');
+  const [filter, setFilter] = useState<FilterType[]>(['ok', 'stale', 'github已归档', 'github仓库已失效']);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(true);
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
@@ -256,8 +272,9 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
   // 筛选和排序后的结果
   const sortedAndFilteredResults = useMemo(() => {
     let results = checkResults.filter(r => {
-      if (filter === 'all') return true;
-      return r.status === filter;
+      // 多选过滤
+      if (filter.length === 0) return true; // 全不选等于全选展示（或者也可以什么都不展示）
+      return filter.includes(r.status as FilterType);
     });
 
     if (sortField) {
@@ -527,7 +544,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
         archived: false,
         pushedAt: null,
         staleYears: null,
-        status: 'failed',
+        status: 'github仓库已失效',
         error: '请求失败',
       };
     };
@@ -557,7 +574,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
         
         // 如果开启了归档检测，且仓库已归档，标记为archived
         if (checkOptions.checkArchived && result.archived) {
-          finalStatus = 'archived';
+          finalStatus = 'github已归档';
         }
         // 如果仓库未归档（或未开启归档检测），且开启了长期未更新检测
         else if (checkOptions.checkStale && result.staleYears !== null && result.staleYears >= staleYears) {
@@ -565,10 +582,10 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
         }
         // 如果两个检测都关闭，只检测仓库是否存在
         else if (!checkOptions.checkArchived && !checkOptions.checkStale) {
-          finalStatus = result.exists ? 'ok' : 'failed';
+          finalStatus = result.exists ? 'ok' : 'github仓库已失效';
         }
         
-        return { ...result, status: finalStatus };
+        return { ...result, status: finalStatus as any };
       }
       return {
         url: r.url,
@@ -578,7 +595,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
         archived: false,
         pushedAt: null,
         staleYears: null,
-        status: 'failed' as const,
+        status: 'github仓库已失效',
         error: '未检测',
       };
     });
@@ -632,8 +649,8 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
     total: checkResults.length,
     ok: checkResults.filter(r => r.status === 'ok').length,
     stale: checkResults.filter(r => r.status === 'stale').length,
-    archived: checkResults.filter(r => r.status === 'archived').length,
-    failed: checkResults.filter(r => r.status === 'failed').length,
+    'github已归档': checkResults.filter(r => r.status === 'github已归档').length,
+    'github仓库已失效': checkResults.filter(r => r.status === 'github仓库已失效').length,
   };
 
   // 渲染树节点
@@ -723,7 +740,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
           <span style={STYLES.card.headerTitle}>检测配置</span>
           <button 
             onClick={() => setShowSettings(!showSettings)}
-            style={{ ...STYLES.button.secondary, ...STYLES.card.headerExtra, padding: '6px 12px' }}
+            style={{ ...STYLES.button.secondary, ...STYLES.card.headerExtra }}
           >
             {showSettings ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
             {showSettings ? '收起' : '展开'}
@@ -738,8 +755,15 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
                 </label>
                 
                 {/* Token输入框和按钮 */}
-                <div style={STYLES.inputWithButton}>
+                <form 
+                  style={STYLES.inputWithButton} 
+                  onSubmit={(e: React.FormEvent) => e.preventDefault()}
+                >
                   <input
+                    id="github-token-input"
+                    name="githubToken"
+                    autoComplete="new-password"
+                    data-lpignore="true"
                     type={showToken ? 'text' : 'password'}
                     value={githubToken}
                     onChange={e => setGithubToken(e.target.value)}
@@ -747,13 +771,14 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
                     style={STYLES.inputField}
                   />
                   <button
+                    type="button"
                     onClick={() => setShowToken(!showToken)}
                     style={STYLES.button.iconButton}
                     title={showToken ? '隐藏' : '显示'}
                   >
                     {showToken ? <EyeOff size={18} style={{ color: '#64748b' }} /> : <Eye size={18} style={{ color: '#64748b' }} />}
                   </button>
-                </div>
+                </form>
                 
                 {/* Token状态和操作按钮 */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
@@ -835,82 +860,82 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
             
             {/* 检测选项 */}
             <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid #e2e8f0' }}>
-              <label style={{ display: 'block', fontSize: '14px', fontWeight: 500, color: '#334155', marginBottom: '12px' }}>
-                检测选项
-              </label>
               <div style={{ display: 'flex', gap: '24px' }}>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-                  <input
-                    type="checkbox"
-                    checked={checkOptions.checkArchived}
-                    onChange={e => setCheckOptions(prev => ({ ...prev, checkArchived: e.target.checked }))}
-                    style={{ width: '16px', height: '16px', cursor: 'pointer' }}
-                  />
-                  <Archive size={16} style={{ color: '#8b5cf6' }} />
-                  <span style={{ fontSize: '14px', color: '#334155' }}>检测归档仓库</span>
-                </label>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-                  <input
-                    type="checkbox"
-                    checked={checkOptions.checkStale}
-                    onChange={e => setCheckOptions(prev => ({ ...prev, checkStale: e.target.checked }))}
-                    style={{ width: '16px', height: '16px', cursor: 'pointer' }}
-                  />
-                  <Clock size={16} style={{ color: '#f59e0b' }} />
-                  <span style={{ fontSize: '14px', color: '#334155' }}>检测长期未更新</span>
-                </label>
+                <div style={{ flex: 1 }}>
+                  <label style={{ display: 'block', fontSize: '14px', fontWeight: 500, color: '#334155', marginBottom: '12px' }}>
+                    检测选项
+                  </label>
+                  <div style={{ display: 'flex', gap: '24px' }}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                      <input
+                        type="checkbox"
+                        checked={checkOptions.checkArchived}
+                        onChange={e => setCheckOptions(prev => ({ ...prev, checkArchived: e.target.checked }))}
+                        style={{ width: '16px', height: '16px', cursor: 'pointer' }}
+                      />
+                      <Archive size={16} style={{ color: '#8b5cf6' }} />
+                      <span style={{ fontSize: '14px', color: '#334155' }}>检测归档仓库</span>
+                    </label>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                      <input
+                        type="checkbox"
+                        checked={checkOptions.checkStale}
+                        onChange={e => setCheckOptions(prev => ({ ...prev, checkStale: e.target.checked }))}
+                        style={{ width: '16px', height: '16px', cursor: 'pointer' }}
+                      />
+                      <Clock size={16} style={{ color: '#f59e0b' }} />
+                      <span style={{ fontSize: '14px', color: '#334155' }}>检测长期未更新</span>
+                    </label>
+                  </div>
+                  <p style={{ fontSize: '12px', color: '#94a3b8', marginTop: '8px' }}>
+                    💡 若仓库已归档，将不再检查更新时间；若未开启任何检测，仅检测仓库是否存在
+                  </p>
+                </div>
+                
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', gap: '12px', alignItems: 'center', justifyContent: 'center' }}>
+                    <button
+                      onClick={handleScan}
+                      disabled={isScanning}
+                      style={{ ...STYLES.button.primary, opacity: isScanning ? 0.7 : 1 }}
+                    >
+                      {isScanning ? <RefreshCw size={16} className="animate-spin" /> : <Search size={16} />}
+                      扫描项目
+                    </button>
+                    
+                    {scanResult && (
+                      <>
+                        <button
+                          onClick={handleCheck}
+                          disabled={isChecking || getSelectedCount(treeData) === 0}
+                          style={{ ...STYLES.button.primary, opacity: isChecking || getSelectedCount(treeData) === 0 ? 0.7 : 1 }}
+                        >
+                          {isChecking ? <RefreshCw size={16} className="animate-spin" /> : <Play size={16} />}
+                          并行检测选中 ({getSelectedCount(treeData)})
+                        </button>
+                        
+                        <span style={{ color: '#64748b', fontSize: '14px' }}>
+                          共 <strong>{scanResult.total}</strong> 个仓库，<strong>{scanResult.unique}</strong> 个唯一
+                        </span>
+                      </>
+                    )}
+                  </div>
+                </div>
               </div>
-              <p style={{ fontSize: '12px', color: '#94a3b8', marginTop: '8px' }}>
-                💡 若仓库已归档，将不再检查更新时间；若未开启任何检测，仅检测仓库是否存在
-              </p>
+              
+              {isChecking && (
+                <div style={{ marginTop: '16px' }}>
+                  <div style={STYLES.progress.container}>
+                    <div style={STYLES.progress.bar(progress)} />
+                  </div>
+                  <p style={{ fontSize: '12px', color: '#64748b', marginTop: '8px', textAlign: 'center' }}>
+                    正在并行检测... {progress}%
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         )}
-      </div>
-
-      {/* 操作卡片 */}
-      <div style={STYLES.card.base}>
-        <div style={STYLES.card.body}>
-          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <button
-              onClick={handleScan}
-              disabled={isScanning}
-              style={{ ...STYLES.button.primary, opacity: isScanning ? 0.7 : 1 }}
-            >
-              {isScanning ? <RefreshCw size={16} className="animate-spin" /> : <Search size={16} />}
-              扫描项目
-            </button>
-            
-            {scanResult && (
-              <>
-                <button
-                  onClick={handleCheck}
-                  disabled={isChecking || getSelectedCount(treeData) === 0}
-                  style={{ ...STYLES.button.primary, opacity: isChecking || getSelectedCount(treeData) === 0 ? 0.7 : 1 }}
-                >
-                  {isChecking ? <RefreshCw size={16} className="animate-spin" /> : <Play size={16} />}
-                  并行检测选中 ({getSelectedCount(treeData)})
-                </button>
-                
-                
-                <span style={{ color: '#64748b', fontSize: '14px' }}>
-                  共 <strong>{scanResult.total}</strong> 个仓库，<strong>{scanResult.unique}</strong> 个唯一
-                </span>
-              </>
-            )}
-          </div>
-          
-          {isChecking && (
-            <div style={{ marginTop: '16px' }}>
-              <div style={STYLES.progress.container}>
-                <div style={STYLES.progress.bar(progress)} />
-              </div>
-              <p style={{ fontSize: '12px', color: '#64748b', marginTop: '8px' }}>
-                正在并行检测... {progress}%
-              </p>
-            </div>
-          )}
-        </div>
       </div>
 
       {/* 消息提示 */}
@@ -938,7 +963,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
             <span style={STYLES.card.headerTitle}>选择检测范围</span>
             <button 
               onClick={handleSelectAll}
-              style={{ ...STYLES.button.secondary, ...STYLES.card.headerExtra, padding: '6px 12px' }}
+              style={{ ...STYLES.button.secondary, ...STYLES.card.headerExtra }}
             >
               {treeData.every(node => node.checked) ? '取消全选' : '全选'}
             </button>
@@ -951,7 +976,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
 
       {/* 结果统计 */}
       {checkResults.length > 0 && (
-        <div style={STYLES.card.base}>
+        <div style={{ ...STYLES.card.base, overflow: 'visible' }}>
           <div style={STYLES.card.body}>
             <div style={{ display: 'flex', gap: '24px', marginBottom: '16px', flexWrap: 'wrap' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -960,7 +985,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#8b5cf6' }} />
-                <span style={{ fontSize: '14px', color: '#334155' }}>已归档: {stats.archived}</span>
+                <span style={{ fontSize: '14px', color: '#334155' }}>已归档: {stats['github已归档']}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#f59e0b' }} />
@@ -968,24 +993,84 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ef4444' }} />
-                <span style={{ fontSize: '14px', color: '#334155' }}>已失效: {stats.failed}</span>
+                <span style={{ fontSize: '14px', color: '#334155' }}>已失效: {stats['github仓库已失效']}</span>
               </div>
             </div>
             
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <Filter size={16} style={{ color: '#64748b' }} />
-                <select
-                  value={filter}
-                  onChange={e => setFilter(e.target.value as FilterType)}
-                  style={{ ...STYLES.input, width: 'auto', padding: '8px 12px' }}
+              <div style={{ position: 'relative' }} ref={filterDropdownRef}>
+                <button
+                  onClick={() => setIsFilterOpen(!isFilterOpen)}
+                  style={{
+                    ...STYLES.button.secondary,
+                    background: 'white',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '8px 12px'
+                  }}
                 >
-                  <option value="all">全部 ({stats.total})</option>
-                  <option value="ok">正常 ({stats.ok})</option>
-                  <option value="archived">已归档 ({stats.archived})</option>
-                  <option value="stale">长期未更新 ({stats.stale})</option>
-                  <option value="failed">已失效 ({stats.failed})</option>
-                </select>
+                  <Filter size={16} style={{ color: '#64748b' }} />
+                  <span>筛选 ({filter.length})</span>
+                  {isFilterOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                </button>
+                
+                <div 
+                  className={`portal-popup ${isFilterOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`}
+                  style={{
+                  position: 'absolute',
+                  top: '100%',
+                  right: 0,
+                  marginTop: '12px',
+                  background: 'white',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '12px',
+                  boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)',
+                  padding: '8px',
+                  zIndex: 50,
+                  minWidth: '200px',
+                  visibility: isFilterOpen ? 'visible' : 'hidden',
+                  transformOrigin: 'top right',
+                  pointerEvents: isFilterOpen ? 'auto' : 'none'
+                }}>
+                  {[
+                    { value: 'ok', label: '正常', count: stats.ok, color: '#22c55e' },
+                    { value: 'github已归档', label: '已归档', count: stats['github已归档'], color: '#8b5cf6' },
+                      { value: 'stale', label: '长期未更新', count: stats.stale, color: '#f59e0b' },
+                      { value: 'github仓库已失效', label: '已失效', count: stats['github仓库已失效'], color: '#ef4444' }
+                    ].map(opt => (
+                      <label
+                        key={opt.value}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          padding: '6px 8px',
+                          cursor: 'pointer',
+                          borderRadius: '4px',
+                          transition: 'background 0.2s'
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.background = '#f1f5f9'}
+                        onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={filter.includes(opt.value as FilterType)}
+                          onChange={e => {
+                            if (e.target.checked) {
+                              setFilter([...filter, opt.value as FilterType]);
+                            } else {
+                              setFilter(filter.filter(f => f !== opt.value));
+                            }
+                          }}
+                          style={{ cursor: 'pointer' }}
+                        />
+                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: opt.color }} />
+                        <span style={{ fontSize: '13px', color: '#334155', flex: 1 }}>{opt.label}</span>
+                        <span style={{ fontSize: '12px', color: '#94a3b8' }}>{opt.count}</span>
+                      </label>
+                    ))}
+                </div>
               </div>
               
               <button 

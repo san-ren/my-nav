@@ -130,7 +130,7 @@ export async function checkLink(url: string, excludedDomains: string[]): Promise
     const result = await safeFetch(url);
     
     if (!result) {
-      return { url, domain, status: 'timeout', error: '请求超时' };
+      return { url, domain, status: '网站超时', error: '请求超时' };
     }
     
     if (result.ok) {
@@ -146,9 +146,9 @@ export async function checkLink(url: string, excludedDomains: string[]): Promise
       }
     }
     
-    return { url, domain, status: 'failed', httpCode: result.status, error: `HTTP ${result.status}` };
+    return { url, domain, status: '网站失效', httpCode: result.status, error: `HTTP ${result.status}` };
   } catch (e: any) {
-    return { url, domain: '', status: 'failed', error: e.message };
+    return { url, domain: '', status: '网站失效', error: e.message };
   }
 }
 

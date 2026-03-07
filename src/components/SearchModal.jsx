@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+// import { createPortal } from 'react-dom';
 import Fuse from 'fuse.js';
 import { Search, X, Command, ExternalLink } from 'lucide-react';
 
@@ -7,9 +8,28 @@ const navFiles = import.meta.glob('../content/nav-groups/*.json', { eager: true 
 // 处理可能的 default 导出
 const navResources = Object.values(navFiles).map((file) => file.default || file);
 
+export function SearchTrigger() {
+  const openModal = () => {
+    window.dispatchEvent(new CustomEvent('open-search-modal'));
+  };
+
+  return (
+    <button
+      onClick={openModal}
+      className="flex items-center gap-2 px-3 py-1.5 text-sm text-slate-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:ring-2 hover:ring-blue-500/20 transition-all border border-slate-200 dark:border-slate-700"
+    >
+      <Search size={16} />
+      <span className="hidden sm:inline">搜索...</span>
+      <kbd className="hidden sm:flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-sans font-medium text-slate-500 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md">
+        <Command size={10} />K
+      </kbd>
+    </button>
+  );
+}
+
 export default function SearchModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -18,17 +38,19 @@ export default function SearchModal() {
 
   // 打开/关闭搜索栏的过渡动画
   const openModal = () => {
-    setIsClosing(false);
     setIsOpen(true);
+    // 延迟一帧以触发进入动画
+    setTimeout(() => {
+      setIsVisible(true);
+    }, 10);
   };
 
   const closeModal = () => {
-    setIsClosing(true);
+    setIsVisible(false);
     // 等待动画完成后再真正关闭
     setTimeout(() => {
       setIsOpen(false);
-      setIsClosing(false);
-    }, 200);
+    }, 400); // 这里的时长应与 CSS transition duration 保持一致
   };
 
   // --- 修复：适配 nav-groups 数据结构的扁平化逻辑 ---
@@ -104,335 +126,196 @@ export default function SearchModal() {
     return links;
   });
 
-  // 配置模糊搜索
-  const fuse = new Fuse(allLinks, {
-    keys: ['name', 'desc', 'category', 'tabName'],
-    threshold: 0.4,
-  });
-
   useEffect(() => {
-    if (query.length > 0) {
-      const res = fuse.search(query);
-      setResults(res.slice(0, 8));
-      setSelectedIndex(0);
-    } else {
-      setResults([]);
-    }
-  }, [query]);
+    const handleOpen = () => openModal();
+    window.addEventListener('open-search-modal', handleOpen);
 
-  // 快捷键监听
-  useEffect(() => {
     const handleKeyDown = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        if (isOpen) {
-          closeModal();
-        } else {
-          openModal();
-        }
+        openModal();
       }
       if (e.key === 'Escape' && isOpen) {
         closeModal();
       }
-      
-      // 键盘导航
-      if (isOpen && results.length > 0) {
+      // ... arrow key navigation ...
+      if (isOpen) {
         if (e.key === 'ArrowDown') {
           e.preventDefault();
-          setSelectedIndex(prev => Math.min(prev + 1, results.length - 1));
-        } else if (e.key === 'ArrowUp') {
+          setSelectedIndex(prev => (prev + 1) % results.length);
+        }
+        if (e.key === 'ArrowUp') {
           e.preventDefault();
-          setSelectedIndex(prev => Math.max(prev - 1, 0));
-        } else if (e.key === 'Enter' && results[selectedIndex]) {
+          setSelectedIndex(prev => (prev - 1 + results.length) % results.length);
+        }
+        if (e.key === 'Enter' && results.length > 0) {
           e.preventDefault();
           handleNavigate(results[selectedIndex].item);
         }
       }
     };
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('open-search-modal', handleOpen);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [isOpen, results, selectedIndex]);
 
   useEffect(() => {
-    if (isOpen && !isClosing) {
+    if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 100);
       document.body.style.overflow = 'hidden';
-    } else if (!isOpen) {
+    } else {
       document.body.style.overflow = 'auto';
     }
-  }, [isOpen, isClosing]);
+  }, [isOpen]);
 
-  // 获取当前页面ID
-  const getCurrentPageId = () => {
-    const path = window.location.pathname;
-    // 匹配 /home, /sub1, /sub2 等，考虑base路径
-    const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-    const pathWithoutBase = path.replace(base, '');
-    const match = pathWithoutBase.match(/\/([^/]+)/);
-    return match ? match[1] : 'home';
-  };
-
-  // 导航到资源位置
-  const handleNavigate = (item) => {
-    const currentPageId = getCurrentPageId();
-    const targetPageId = item.pageName;
-    
-    // 保存搜索状态到 sessionStorage
-    sessionStorage.setItem('searchQuery', query);
-    sessionStorage.setItem('searchResults', JSON.stringify(results.map(r => r.item)));
-    sessionStorage.setItem('scrollToResource', JSON.stringify(item));
-    // 标记即将有搜索跳转带来的滚动
-    sessionStorage.setItem('searchScrollPending', 'true');
-    
-    if (currentPageId === targetPageId) {
-      // 同一页面，直接滚动
-      closeModal();
-      setTimeout(() => {
-        scrollToResource(item);
-        sessionStorage.removeItem('searchScrollPending');
-      }, 300);
-    } else {
-      // 不同页面，跳转并保留状态
-      const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-      closeModal();
-      window.location.href = `${base}/${targetPageId}`;
-    }
-  };
-
-  // 滚动到资源位置
-  const scrollToResource = (item) => {
-    // 方法1: 通过 site-card-wrapper 类名查找
-    const cards = document.querySelectorAll('.site-card-wrapper');
-    
-    for (const card of cards) {
-      const nameEl = card.querySelector('h3');
-      const cardName = nameEl ? nameEl.textContent.trim() : '';
-      
-      if (cardName === item.name) {
-        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        // 高亮效果
-        card.classList.add('ring-2', 'ring-blue-500', 'ring-offset-2');
-        setTimeout(() => {
-          card.classList.remove('ring-2', 'ring-blue-500', 'ring-offset-2');
-        }, 2000);
-        return true;
-      }
-    }
-    
-    // 方法2: 如果方法1失败，尝试通过链接查找
-    const links = document.querySelectorAll('a[href*="' + item.url + '"]');
-    if (links.length > 0) {
-      const card = links[0].closest('.site-card-wrapper');
-      if (card) {
-        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        card.classList.add('ring-2', 'ring-blue-500', 'ring-offset-2');
-        setTimeout(() => {
-          card.classList.remove('ring-2', 'ring-blue-500', 'ring-offset-2');
-        }, 2000);
-        return true;
-      }
-    }
-    return false;
-  };
-
-  // 恢复搜索状态 - 改进：等待页面完全加载后再滚动
+  // 搜索逻辑
   useEffect(() => {
-    const scrollToItem = sessionStorage.getItem('scrollToResource');
-    
-    if (scrollToItem) {
-      const item = JSON.parse(scrollToItem);
-      
-      // 恢复搜索词
-      const savedQuery = sessionStorage.getItem('searchQuery');
-      if (savedQuery) {
-        setQuery(savedQuery);
-        sessionStorage.removeItem('searchQuery');
-      }
-      
-      // 使用多种方式确保页面加载完成
-      const attemptScroll = (attempts = 0) => {
-        const maxAttempts = 10;
-        const delay = 500;
-        
-        if (attempts >= maxAttempts) {
-          // 最终尝试：直接滚动
-          scrollToResource(item);
-          sessionStorage.removeItem('scrollToResource');
-          sessionStorage.removeItem('searchScrollPending');
-          return;
-        }
-        
-        // 检查目标元素是否存在
-        const cards = document.querySelectorAll('.site-card-wrapper');
-        let found = false;
-        
-        for (const card of cards) {
-          const nameEl = card.querySelector('h3');
-          const cardName = nameEl ? nameEl.textContent.trim() : '';
-          if (cardName === item.name) {
-            found = true;
-            break;
-          }
-        }
-        
-        if (found) {
-          // 元素已存在，执行滚动
-          scrollToResource(item);
-          // 滚动完成后清除标记（延迟一点确保滚动动画开始）
-          setTimeout(() => {
-            sessionStorage.removeItem('scrollToResource');
-            sessionStorage.removeItem('searchScrollPending');
-          }, 500);
-        } else {
-          // 元素还未加载，延迟重试
-          setTimeout(() => attemptScroll(attempts + 1), delay);
-        }
-      };
-      
-      // 等待DOM完全加载后开始尝试
-      if (document.readyState === 'complete') {
-        setTimeout(() => attemptScroll(0), 300);
-      } else {
-        window.addEventListener('load', () => {
-          setTimeout(() => attemptScroll(0), 300);
-        });
-      }
+    if (!query) {
+      setResults([]);
+      return;
     }
-  }, []);
+
+    const fuse = new Fuse(allLinks, {
+      keys: ['name', 'desc', 'category', 'tabName'],
+      threshold: 0.4,
+      distance: 100,
+    });
+
+    const searchResults = fuse.search(query);
+    setResults(searchResults.slice(0, 10)); // 只显示前10个结果
+    setSelectedIndex(0);
+  }, [query]);
+
+  const handleNavigate = (item) => {
+    closeModal();
+    if (item.url) {
+       window.open(item.url, '_blank');
+       return;
+    }
+  };
+
+  const modalClass = `fixed inset-0 z-[110] flex items-start justify-center pt-[120px] px-4 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+    isVisible ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' : 'opacity-0 scale-95 -translate-y-4 pointer-events-none'
+  }`;
 
   // 动画样式类
-  const overlayClass = `fixed inset-0 z-[25] bg-slate-900/60 backdrop-blur-sm transition-opacity duration-200 ${
-    isClosing ? 'opacity-0' : 'opacity-100'
+  const overlayClass = `fixed inset-0 z-[100] bg-slate-900/40 transition-opacity duration-500 ${
+    isVisible ? 'opacity-100' : 'opacity-0'
   }`;
-  
-  const modalClass = `fixed inset-0 z-[50] flex items-start justify-center pt-[120px] px-4 pointer-events-none transition-all duration-200 ${
-    isClosing ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
-  }`;
+
+  if (!isOpen) return null;
 
   return (
     <>
-      <button
-        onClick={openModal}
-        className="flex items-center gap-2 px-3 py-1.5 text-sm text-slate-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:ring-2 hover:ring-blue-500/20 transition-all border border-slate-200 dark:border-slate-700"
+      {/* 背景遮罩 - 覆盖全屏 */}
+      <div 
+        className={overlayClass}
+        onClick={closeModal}
+      />
+      
+      {/* 弹窗容器 - 捕获点击关闭 */}
+      <div 
+        className={modalClass}
+        onClick={closeModal}
       >
-        <Search size={16} />
-        <span className="hidden sm:inline">搜索...</span>
-        <kbd className="hidden sm:flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-sans font-medium text-slate-500 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md">
-          <Command size={10} />K
-        </kbd>
-      </button>
-
-      {isOpen && (
-        <>
-          {/* 背景遮罩 - 只覆盖内容区域，不覆盖顶栏 */}
-          <div 
-            className={overlayClass}
-            onClick={closeModal}
-            style={{ top: '72px' }}
-          />
-          
-          {/* 弹窗容器 */}
-          <div 
-            className={modalClass}
-            onClick={closeModal}
-          >
-            <div 
-              className="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden max-h-[70vh] flex flex-col pointer-events-auto"
-              onClick={(e) => e.stopPropagation()}
+        <div 
+          className="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden max-h-[70vh] flex flex-col pointer-events-auto"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* 搜索输入区 */}
+          <div className="flex items-center px-4 py-4 border-b border-slate-100 dark:border-slate-800 shrink-0">
+            <Search className="text-slate-400 mr-3" size={20} />
+            <input
+              ref={inputRef}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="输入关键字搜索..."
+              className="flex-1 bg-transparent border-none outline-none text-slate-800 dark:text-slate-100 placeholder-slate-400"
+            />
+            <button 
+              onClick={() => setQuery('')} 
+              className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-slate-400"
             >
-              {/* 搜索输入区 */}
-              <div className="flex items-center px-4 py-4 border-b border-slate-100 dark:border-slate-800 shrink-0">
-                <Search className="text-slate-400 mr-3" size={20} />
-                <input
-                  ref={inputRef}
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="输入关键字搜索..."
-                  className="flex-1 bg-transparent border-none outline-none text-slate-800 dark:text-slate-100 placeholder-slate-400"
-                />
-                <button 
-                  onClick={() => setQuery('')} 
-                  className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-slate-400"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-
-              {/* 搜索结果区 */}
-              <div className="overflow-y-auto p-2 flex-1" ref={listRef}>
-                {results.length > 0 ? (
-                  <div className="space-y-1">
-                    {results.map((result, index) => (
-                      <div
-                        key={index}
-                        className={`flex items-center gap-2 p-3 rounded-xl transition-all cursor-pointer group ${
-                          selectedIndex === index ? 'bg-blue-600 text-white shadow-lg' : 'hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300'
-                        }`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleNavigate(result.item);
-                        }}
-                        onMouseEnter={() => setSelectedIndex(index)}
-                      >
-                        <div className="flex-1 flex flex-col overflow-hidden min-w-0">
-                          <span className="font-bold text-sm truncate">{result.item.name}</span>
-                          <div className="flex items-center gap-2 text-[11px] opacity-70">
-                            <span className="shrink-0 px-1.5 py-0.5 rounded bg-slate-200/50 dark:bg-slate-700/50 text-[10px]">
-                              {result.item.pageName}
-                            </span>
-                            <span className="truncate">{result.item.sectionName}</span>
-                            {result.item.category && (
-                              <>
-                                <span className="shrink-0">/</span>
-                                <span className="truncate">{result.item.category}</span>
-                              </>
-                            )}
-                            {result.item.tabName && (
-                              <>
-                                <span className="shrink-0">/</span>
-                                <span className="truncate">{result.item.tabName}</span>
-                              </>
-                            )}
-                          </div>
-                        </div>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            window.open(result.item.url, '_blank');
-                          }}
-                          className={`shrink-0 p-2 rounded-lg transition-all ${
-                            selectedIndex === index 
-                              ? 'hover:bg-white/20 text-white' 
-                              : 'hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'
-                          }`}
-                          title="直接打开链接"
-                        >
-                          <ExternalLink size={16} />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                ) : query ? (
-                  <div className="py-12 text-center text-slate-400">无相关结果</div>
-                ) : (
-                  <div className="py-12 text-center text-slate-400 text-sm">
-                    <div className="mb-2">输入名称或描述开始搜索</div>
-                    <div className="text-xs opacity-70">点击结果跳转到对应位置，点击右侧图标直接打开链接</div>
-                  </div>
-                )}
-              </div>
-              
-              {/* 底部提示 */}
-              {results.length > 0 && (
-                <div className="px-4 py-2 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-400 flex items-center justify-between shrink-0">
-                  <span>↑↓ 选择 · Enter 跳转</span>
-                  <span>点击 <ExternalLink size={10} className="inline" /> 直接打开</span>
-                </div>
-              )}
-            </div>
+              <X size={20} />
+            </button>
           </div>
-        </>
-      )}
+
+          {/* 搜索结果区 */}
+          <div className="overflow-y-auto p-2 flex-1" ref={listRef}>
+            {results.length > 0 ? (
+              <div className="space-y-1">
+                {results.map((result, index) => (
+                  <div
+                    key={index}
+                    className={`flex items-center gap-2 p-3 rounded-xl transition-all cursor-pointer group ${
+                      selectedIndex === index ? 'bg-blue-600 text-white shadow-lg' : 'hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300'
+                    }`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleNavigate(result.item);
+                    }}
+                    onMouseEnter={() => setSelectedIndex(index)}
+                  >
+                    <div className="flex-1 flex flex-col overflow-hidden min-w-0">
+                      <span className="font-bold text-sm truncate">{result.item.name}</span>
+                      <div className="flex items-center gap-2 text-[11px] opacity-70">
+                        <span className="shrink-0 px-1.5 py-0.5 rounded bg-slate-200/50 dark:bg-slate-700/50 text-[10px]">
+                          {result.item.pageName}
+                        </span>
+                        <span className="truncate">{result.item.sectionName}</span>
+                        {result.item.category && (
+                          <>
+                            <span className="shrink-0">/</span>
+                            <span className="truncate">{result.item.category}</span>
+                          </>
+                        )}
+                        {result.item.tabName && (
+                          <>
+                            <span className="shrink-0">/</span>
+                            <span className="truncate">{result.item.tabName}</span>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(result.item.url, '_blank');
+                      }}
+                      className={`shrink-0 p-2 rounded-lg transition-all ${
+                        selectedIndex === index 
+                          ? 'hover:bg-white/20 text-white' 
+                          : 'hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'
+                      }`}
+                      title="直接打开链接"
+                    >
+                      <ExternalLink size={16} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            ) : query ? (
+              <div className="py-12 text-center text-slate-400">无相关结果</div>
+            ) : (
+              <div className="py-12 text-center text-slate-400 text-sm">
+                <div className="mb-2">输入名称或描述开始搜索</div>
+                <div className="text-xs opacity-70">点击结果跳转到对应位置，点击右侧图标直接打开链接</div>
+              </div>
+            )}
+          </div>
+          
+          {/* 底部提示 */}
+          {results.length > 0 && (
+            <div className="px-4 py-2 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-400 flex items-center justify-between shrink-0">
+              <span>↑↓ 选择 · Enter 跳转</span>
+              <span>点击 <ExternalLink size={10} className="inline" /> 直接打开</span>
+            </div>
+          )}
+        </div>
+      </div>
     </>
   );
 }

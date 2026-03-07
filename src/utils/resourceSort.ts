@@ -6,7 +6,11 @@
 const STATUS_ORDER: Record<string, number> = {
   ok: 0,
   stale: 1,
-  failed: 2
+  '网站超时': 2,
+  'github已归档': 3,
+  '官网失效': 4,
+  '网站失效': 4,
+  'github仓库已失效': 4
 };
 
 /**

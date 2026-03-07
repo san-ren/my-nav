@@ -166,7 +166,8 @@ const commonMdxOptions = {
 // 资源状态 Emoji 映射
 const getStatusEmoji = (status: string | undefined): string => {
   switch (status) {
-    case 'failed': return '❌ ';
+    case '官网失效': return '❌ ';
+    case '网站失效': return '❌ ';
     case 'stale': return '⚠️ ';
     default: return '';
   }
@@ -208,7 +209,11 @@ const resourceFields = {
     options: [
       { label: '✅ 正常', value: 'ok' },
       { label: '⚠️ 长期未更新', value: 'stale' },
-      { label: '❌ 已失效', value: 'failed' },
+      { label: '📦 github已归档', value: 'github已归档' },
+      { label: '❌ github仓库已失效', value: 'github仓库已失效' },
+      { label: '❌ 网站失效', value: '网站失效' },
+      { label: '⏱️ 网站超时', value: '网站超时' },
+      { label: '❌ 官网失效', value: '官网失效' },
     ],
     defaultValue: 'ok',
   }),

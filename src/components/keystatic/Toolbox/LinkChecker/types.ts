@@ -25,7 +25,7 @@ export interface LinkInfo {
 export interface CheckResult {
   url: string;
   domain: string;
-  status: 'ok' | 'failed' | 'timeout' | 'excluded';
+  status: 'ok' | '网站失效' | '网站超时' | 'excluded' | 'stale';
   httpCode?: number;
   error?: string;
   excludedReason?: string;

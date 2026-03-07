@@ -22,7 +22,7 @@ export interface CheckResult {
   archived: boolean;
   pushedAt: string | null;
   staleYears: number | null;
-  status: 'ok' | 'stale' | 'archived' | 'failed';
+  status: 'ok' | 'stale' | 'github已归档' | 'github仓库已失效';
   error?: string;
 }
 

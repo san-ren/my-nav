@@ -1,5 +1,5 @@
 // LinkChecker 主组件 - 整合GitHub检测和网站链接检测功能
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { 
   Link, 
   Github,
@@ -47,6 +47,7 @@ import {
   PROGRESS,
   BADGE,
   PAGE_TITLE,
+  MODAL,
   getStatusBadge,
 } from '../toolbox-shared';
 
@@ -186,7 +187,7 @@ interface LinkInfo {
 interface LinkCheckResult {
   url: string;
   domain: string;
-  status: 'ok' | 'failed' | 'timeout' | 'excluded';
+  status: 'ok' | '网站失效' | '网站超时' | 'excluded' | 'stale';
   httpCode?: number;
   error?: string;
   resourceName?: string;
@@ -211,7 +212,7 @@ interface LinkTreeNode {
   link?: LinkInfo;
 }
 
-type LinkFilterType = 'all' | 'ok' | 'failed' | 'timeout' | 'excluded' | 'allFailed';
+type LinkFilterType = 'ok' | '网站失效' | '网站超时' | 'excluded';
 type LinkSortField = 'status' | 'httpCode' | 'domain' | 'resourceStatus' | null;
 type LinkSortDirection = 'asc' | 'desc';
 
@@ -243,8 +244,8 @@ const SUGGESTED_DOMAINS = [
 const getLinkStatusIcon = (status: string) => {
   switch (status) {
     case 'ok': return <CheckCircle size={16} style={{ color: '#22c55e' }} />;
-    case 'failed': return <XCircle size={16} style={{ color: '#ef4444' }} />;
-    case 'timeout': return <Clock size={16} style={{ color: '#f59e0b' }} />;
+    case '网站失效': return <XCircle size={16} style={{ color: '#ef4444' }} />;
+    case '网站超时': return <Clock size={16} style={{ color: '#f59e0b' }} />;
     case 'excluded': return <Shield size={16} style={{ color: '#64748b' }} />;
     case 'stale': return <AlertTriangle size={16} style={{ color: '#f59e0b' }} />;
     default: return null;
@@ -254,8 +255,8 @@ const getLinkStatusIcon = (status: string) => {
 const getLinkStatusLabel = (status: string): string => {
   switch (status) {
     case 'ok': return '正常';
-    case 'failed': return '失效';
-    case 'timeout': return '超时';
+    case '网站失效': return '网站失效';
+    case '网站超时': return '网站超时';
     case 'excluded': return '已排除';
     case 'stale': return '长期未更新';
     default: return status || '-';
@@ -265,8 +266,8 @@ const getLinkStatusLabel = (status: string): string => {
 // 状态排序权重
 const getLinkStatusWeight = (status: string): number => {
   switch (status) {
-    case 'failed': return 0;
-    case 'timeout': return 1;
+    case '网站失效': return 0;
+    case '网站超时': return 1;
     case 'excluded': return 2;
     case 'ok': return 3;
     default: return 4;
@@ -310,6 +311,8 @@ interface LinkCheckerProps {
 export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
   const [activeSubTab, setActiveSubTab] = useState<SubTabId>('github');
   const [hasUnsavedData, setHasUnsavedData] = useState(false);
+  const [pendingSubTab, setPendingSubTab] = useState<SubTabId | null>(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
 
   // 通知父组件数据状态变化
@@ -322,9 +325,32 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
     onDataStatusChangeRef.current?.(hasUnsavedData);
   }, [hasUnsavedData]);
 
-  // 子组件数据状态变化回调
-  const handleDataStatusChange = (hasData: boolean) => {
+  // 子组件数据状态处理
+  const handleDataStatusChange = useCallback((hasData: boolean) => {
     setHasUnsavedData(hasData);
+  }, []);
+
+  const requestSubTabChange = (targetTab: SubTabId) => {
+    if (hasUnsavedData && targetTab !== activeSubTab) {
+      setPendingSubTab(targetTab);
+      setShowConfirmModal(true);
+    } else {
+      setActiveSubTab(targetTab);
+    }
+  };
+
+  const confirmSwitch = () => {
+    if (pendingSubTab) {
+      setActiveSubTab(pendingSubTab);
+      setHasUnsavedData(false);
+    }
+    setShowConfirmModal(false);
+    setPendingSubTab(null);
+  };
+
+  const cancelSwitch = () => {
+    setShowConfirmModal(false);
+    setPendingSubTab(null);
   };
 
   return (
@@ -334,7 +360,8 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
         {SUB_TABS.map(tab => (
           <button
             key={tab.id}
-            onClick={() => setActiveSubTab(tab.id)}
+            className="toolbox-sub-tab"
+            onClick={() => requestSubTabChange(tab.id)}
             style={TABS.subTab(activeSubTab === tab.id)}
             title={tab.description}
           >
@@ -353,6 +380,32 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
           <WebsiteLinkChecker onDataStatusChange={handleDataStatusChange} />
         )}
       </div>
+      {/* 确认切换弹窗 */}
+      {showConfirmModal && (
+        <div style={MODAL.overlay} onClick={cancelSwitch}>
+          <div style={MODAL.content} onClick={e => e.stopPropagation()}>
+            <div style={MODAL.title}>
+              <AlertTriangle size={24} style={{ color: '#f59e0b' }} />
+              确认离开？
+            </div>
+            
+            <p style={MODAL.text}>
+              当前标签页有未保存的扫描数据，离开将导致数据丢失。
+              <br /><br />
+              确定要切换吗？
+            </p>
+            
+            <div style={MODAL.buttons}>
+              <button onClick={cancelSwitch} style={BUTTON.secondary}>
+                取消
+              </button>
+              <button onClick={confirmSwitch} style={BUTTON.danger}>
+                确认离开
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -373,10 +426,26 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
   const [isChecking, setIsChecking] = useState(false);
   const [isApplying, setIsApplying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [filter, setFilter] = useState<LinkFilterType>('all');
+  const [filter, setFilter] = useState<LinkFilterType[]>(['ok', '网站失效', '网站超时', 'excluded']);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(true);
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  // 筛选下拉框外部点击引用
+  const filterDropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (filterDropdownRef.current && !filterDropdownRef.current.contains(event.target as Node)) {
+        setIsFilterOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
 
   // 排序状态 - 默认按状态排序
@@ -433,12 +502,8 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
   // 筛选和排序后的结果
   const sortedAndFilteredResults = React.useMemo(() => {
     let results = checkResults.filter(r => {
-      if (filter === 'all') return true;
-      if (filter === 'allFailed') {
-        return r.status === 'failed' || r.status === 'timeout' || 
-               r.resourceStatus === 'failed' || r.resourceStatus === 'stale';
-      }
-      return r.status === filter;
+      if (filter.length === 0) return true;
+      return filter.includes(r.status as LinkFilterType);
     });
 
     if (sortField) {
@@ -744,7 +809,7 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
       return {
         url,
         domain: new URL(url).hostname,
-        status: 'failed',
+        status: '网站失效',
         error: '请求失败',
       };
     };
@@ -778,13 +843,13 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
       const updates: { source: string; path: string[]; status: string }[] = [];
       
       checkResults.forEach((result) => {
-        if (selectedItems.has(result.url) && result.status === 'failed') {
+        if (selectedItems.has(result.url) && (result.status === '网站失效' || result.status === '网站超时')) {
           const link = getSelectedLinks(treeData).find(l => l.url === result.url);
           if (link) {
             updates.push({
               source: link.source,
               path: link.path.slice(0, -1),
-              status: 'failed',
+              status: result.status,
             });
           }
         }
@@ -812,12 +877,12 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
   const stats = {
     total: checkResults.length,
     ok: checkResults.filter(r => r.status === 'ok').length,
-    failed: checkResults.filter(r => r.status === 'failed').length,
-    timeout: checkResults.filter(r => r.status === 'timeout').length,
+    '网站失效': checkResults.filter(r => r.status === '网站失效').length,
+    '网站超时': checkResults.filter(r => r.status === '网站超时').length,
     excluded: checkResults.filter(r => r.status === 'excluded').length,
     allFailed: checkResults.filter(r => 
-      r.status === 'failed' || r.status === 'timeout' || 
-      r.resourceStatus === 'failed' || r.resourceStatus === 'stale'
+      r.status === '网站失效' || r.status === '网站超时' || 
+      r.resourceStatus === '官网失效' || r.resourceStatus === 'stale'
     ).length,
   };
 
@@ -897,7 +962,7 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
           </span>
           <button 
             onClick={() => setShowSettings(!showSettings)}
-            style={{ ...STYLES.button.secondary, ...STYLES.card.headerExtra, padding: '6px 12px' }}
+            style={{ ...STYLES.button.secondary, ...STYLES.card.headerExtra }}
           >
             {showSettings ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
             {showSettings ? '收起' : '展开'}
@@ -996,56 +1061,51 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
                 添加
               </button>
             </div>
+
+            {/* 操作按钮区 */}
+            <div style={{ marginTop: '24px' }}>
+              <div style={{ display: 'flex', gap: '12px', alignItems: 'center', justifyContent: 'center' }}>
+                <button
+                  onClick={handleScan}
+                  disabled={isScanning}
+                  style={{ ...STYLES.button.primary, opacity: isScanning ? 0.7 : 1 }}
+                >
+                  {isScanning ? <RefreshCw size={16} className="animate-spin" /> : <Search size={16} />}
+                  扫描链接
+                </button>
+                
+                {scanResult && (
+                  <>
+                    <button
+                      onClick={handleCheck}
+                      disabled={isChecking || getSelectedCount(treeData) === 0}
+                      style={{ ...STYLES.button.primary, opacity: isChecking || getSelectedCount(treeData) === 0 ? 0.7 : 1 }}
+                    >
+                      {isChecking ? <RefreshCw size={16} className="animate-spin" /> : <Play size={16} />}
+                      并行检测选中 ({getSelectedCount(treeData)})
+                    </button>
+                    
+                    <span style={{ color: '#64748b', fontSize: '14px' }}>
+                      共 <strong>{scanResult.total}</strong> 个链接，<strong>{scanResult.unique}</strong> 个唯一下级域名
+                    </span>
+                  </>
+                )}
+              </div>
+              
+              {isChecking && (
+                <div style={{ marginTop: '16px' }}>
+                  <div style={STYLES.progress.container}>
+                    <div style={STYLES.progress.bar(progress)} />
+                  </div>
+                  <p style={{ fontSize: '12px', color: '#64748b', marginTop: '8px', textAlign: 'center' }}>
+                    正在并行检测... {progress}%
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
-
-      {/* 操作卡片 */}
-      <div style={STYLES.card.base}>
-        <div style={STYLES.card.body}>
-          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <button
-              onClick={handleScan}
-              disabled={isScanning}
-              style={{ ...STYLES.button.primary, opacity: isScanning ? 0.7 : 1 }}
-            >
-              {isScanning ? <RefreshCw size={16} className="animate-spin" /> : <Search size={16} />}
-              扫描链接
-            </button>
-            
-            {scanResult && (
-              <>
-                <button
-                  onClick={handleCheck}
-                  disabled={isChecking || getSelectedCount(treeData) === 0}
-                  style={{ ...STYLES.button.primary, opacity: isChecking || getSelectedCount(treeData) === 0 ? 0.7 : 1 }}
-                >
-                  {isChecking ? <RefreshCw size={16} className="animate-spin" /> : <Play size={16} />}
-                  并行检测选中 ({getSelectedCount(treeData)})
-                </button>
-                
-                
-                
-                <span style={{ color: '#64748b', fontSize: '14px' }}>
-                  共 <strong>{scanResult.total}</strong> 个链接，<strong>{scanResult.unique}</strong> 个唯一
-                </span>
-              </>
-            )}
-          </div>
-          
-          {isChecking && (
-            <div style={{ marginTop: '16px' }}>
-              <div style={STYLES.progress.container}>
-                <div style={STYLES.progress.bar(progress)} />
-              </div>
-              <p style={{ fontSize: '12px', color: '#64748b', marginTop: '8px' }}>
-                正在并行检测... {progress}%
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
-
       {/* 消息提示 */}
       {message && (
         <div style={{
@@ -1071,7 +1131,7 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
             <span style={STYLES.card.headerTitle}>选择检测范围</span>
             <button 
               onClick={handleSelectAll}
-              style={{ ...STYLES.button.secondary, ...STYLES.card.headerExtra, padding: '6px 12px' }}
+              style={{ ...STYLES.button.secondary, ...STYLES.card.headerExtra }}
             >
               {treeData.every(node => node.checked) ? '取消全选' : '全选'}
             </button>
@@ -1084,7 +1144,7 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
 
       {/* 结果统计 */}
       {checkResults.length > 0 && (
-        <div style={STYLES.card}>
+        <div style={{ ...STYLES.card.base, overflow: 'visible' }}>
           <div style={STYLES.body}>
             <div style={{ display: 'flex', gap: '24px', marginBottom: '16px', flexWrap: 'wrap' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -1093,11 +1153,11 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ef4444' }} />
-                <span style={{ fontSize: '14px', color: '#334155' }}>失效: {stats.failed}</span>
+                <span style={{ fontSize: '14px', color: '#334155' }}>网站失效: {stats['网站失效']}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#f59e0b' }} />
-                <span style={{ fontSize: '14px', color: '#334155' }}>超时: {stats.timeout}</span>
+                <span style={{ fontSize: '14px', color: '#334155' }}>网站超时: {stats['网站超时']}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#94a3b8' }} />
@@ -1111,31 +1171,90 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
             
             
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <Filter size={16} style={{ color: '#64748b' }} />
-                <select
-                  value={filter}
-                  onChange={e => setFilter(e.target.value as LinkFilterType)}
-                  style={{ ...STYLES.input, width: 'auto', padding: '8px 12px' }}
+              <div style={{ position: 'relative' }} ref={filterDropdownRef}>
+                <button
+                  onClick={() => setIsFilterOpen(!isFilterOpen)}
+                  style={{
+                    ...STYLES.button.secondary,
+                    background: 'white',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '8px 12px'
+                  }}
                 >
-                  <option value="all">全部 ({stats.total})</option>
-                  <option value="ok">正常 ({stats.ok})</option>
-                  <option value="failed">失效 ({stats.failed})</option>
-                  <option value="timeout">超时 ({stats.timeout})</option>
-                  <option value="excluded">已排除 ({stats.excluded})</option>
-                  <option value="allFailed">全部异常 ({stats.allFailed})</option>
-                </select>
+                  <Filter size={16} style={{ color: '#64748b' }} />
+                  <span>筛选 ({filter.length})</span>
+                  {isFilterOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                </button>
+                
+                <div 
+                  className={`portal-popup ${isFilterOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`}
+                  style={{
+                  position: 'absolute',
+                  top: '100%',
+                  right: 0,
+                  marginTop: '12px',
+                  background: 'white',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '12px',
+                  boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)',
+                  padding: '8px',
+                  zIndex: 50,
+                  minWidth: '200px',
+                  visibility: isFilterOpen ? 'visible' : 'hidden',
+                  transformOrigin: 'top right',
+                  pointerEvents: isFilterOpen ? 'auto' : 'none'
+                }}>
+                  {[
+                    { value: 'ok', label: '正常', count: stats.ok, color: '#22c55e' },
+                      { value: '网站失效', label: '网站失效', count: stats['网站失效'], color: '#ef4444' },
+                      { value: '网站超时', label: '网站超时', count: stats['网站超时'], color: '#f59e0b' },
+                      { value: 'excluded', label: '已排除', count: stats.excluded, color: '#94a3b8' }
+                    ].map(opt => (
+                      <label
+                        key={opt.value}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          padding: '6px 8px',
+                          cursor: 'pointer',
+                          borderRadius: '4px',
+                          transition: 'background 0.2s'
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.background = '#f1f5f9'}
+                        onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={filter.includes(opt.value as LinkFilterType)}
+                          onChange={e => {
+                            if (e.target.checked) {
+                              setFilter([...filter, opt.value as LinkFilterType]);
+                            } else {
+                              setFilter(filter.filter(f => f !== opt.value));
+                            }
+                          }}
+                          style={{ cursor: 'pointer' }}
+                        />
+                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: opt.color }} />
+                        <span style={{ fontSize: '13px', color: '#334155', flex: 1 }}>{opt.label}</span>
+                        <span style={{ fontSize: '12px', color: '#94a3b8' }}>{opt.count}</span>
+                      </label>
+                    ))}
+                </div>
               </div>
               
               
               <button 
                 onClick={() => {
-                  const failedUrls = sortedAndFilteredResults.filter(r => r.status === 'failed').map(r => r.url);
+                  const failedUrls = sortedAndFilteredResults.filter(r => r.status !== 'ok').map(r => r.url);
                   setSelectedItems(new Set(failedUrls));
                 }} 
                 style={STYLES.button.secondary}
               >
-                全选失效项
+                全选异常
               </button>
 
               
@@ -1145,7 +1264,7 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
                 style={{ ...STYLES.button.danger, opacity: selectedItems.size === 0 ? 0.5 : 1 }}
               >
                 {isApplying ? <RefreshCw size={16} className="animate-spin" /> : <Download size={16} />}
-                标记选中为失效 ({selectedItems.size})
+                应用选中 ({selectedItems.size})
               </button>
             </div>
           </div>
@@ -1153,7 +1272,7 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
       )}
 
       {/* 已排除链接按域名分组显示 */}
-      {filter === 'excluded' && excludedByDomain.size > 0 && (
+      {filter.includes('excluded') && excludedByDomain.size > 0 && (
         <div style={STYLES.card.base}>
           <div style={STYLES.card.header}>
             <Shield size={20} style={STYLES.card.headerIcon} />
@@ -1191,7 +1310,7 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
       )}
 
       {/* 结果列表 */}
-      {sortedAndFilteredResults.length > 0 && filter !== 'excluded' && (
+      {sortedAndFilteredResults.length > 0 && !filter.includes('excluded') && (
         <div style={STYLES.card.base}>
           <div style={{ overflowX: 'auto' }}>
             <table style={STYLES.table}>
@@ -1200,9 +1319,9 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
                   <th style={{ ...STYLES.th, width: '40px' }}>
                     <input
                       type="checkbox"
-                      checked={selectedItems.size === sortedAndFilteredResults.filter(r => r.status === 'failed').length && sortedAndFilteredResults.some(r => r.status === 'failed')}
+                      checked={selectedItems.size === sortedAndFilteredResults.filter(r => r.status !== 'ok').length && sortedAndFilteredResults.some(r => r.status !== 'ok')}
                       onChange={() => {
-                        const failedUrls = sortedAndFilteredResults.filter(r => r.status === 'failed').map(r => r.url);
+                        const failedUrls = sortedAndFilteredResults.filter(r => r.status !== 'ok').map(r => r.url);
                         setSelectedItems(selectedItems.size === failedUrls.length ? new Set() : new Set(failedUrls));
                       }}
                     />

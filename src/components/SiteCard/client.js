@@ -1,4 +1,29 @@
 // -------------------------------------------------------------
+// 悬浮效果管理（PC端 hover 和手机端点击共用）
+// -------------------------------------------------------------
+
+/**
+ * 应用所有悬浮效果
+ * @param {HTMLElement} wrapper - site-card-wrapper 元素
+ */
+function applyHoverEffects(wrapper) {
+  wrapper.classList.add('flow-active');
+  // 手机端额外添加 mobile-hover 类
+  if (window.innerWidth < 768) {
+    wrapper.classList.add('mobile-hover');
+  }
+}
+
+/**
+ * 移除所有悬浮效果
+ * @param {HTMLElement} wrapper - site-card-wrapper 元素
+ */
+function removeHoverEffects(wrapper) {
+  wrapper.classList.remove('flow-active');
+  wrapper.classList.remove('mobile-hover');
+}
+
+// -------------------------------------------------------------
 // 浮窗逻辑（保留）
 // -------------------------------------------------------------
 let tooltipEl = null;
@@ -12,7 +37,7 @@ function createTooltipDOM() {
   }
   tooltipEl = document.createElement('div');
   tooltipEl.id = 'global-detail-tooltip';
-  tooltipEl.className = 'portal-popup fixed z-[9999] hidden w-72 p-4 bg-white dark:bg-[#1e2025] rounded-xl shadow-2xl border border-slate-200/60 dark:border-slate-700 pointer-events-none opacity-0 scale-75 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]';
+  tooltipEl.className = 'portal-popup fixed z-[9999] hidden w-72 p-4 bg-white dark:bg-[#1e2025] rounded-xl shadow-2xl border border-slate-200/60 dark:border-slate-700 pointer-events-none opacity-0 scale-75';
   
   const arrow = document.createElement('div');
   arrow.className = 'tooltip-arrow-el absolute w-4 h-4 border-r border-b border-slate-200 dark:border-slate-700 rotate-45 bg-white dark:bg-[#1e2025] z-0';
@@ -29,55 +54,51 @@ function showTooltip(wrapper) {
   if (!tooltipEl) createTooltipDOM();
   if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
 
-  wrapper.classList.add('flow-active');
+  applyHoverEffects(wrapper);
   const source = wrapper.querySelector('.tooltip-source');
   if (!source) return;
 
   const contentBox = document.getElementById('tooltip-content');
   contentBox.innerHTML = source.innerHTML;
 
-  // --- 修复开始 ---
-  // 1. 暂时禁用过渡动画，防止测量到缩放中的尺寸
-  tooltipEl.style.transition = 'none';
+  // 1. 禁用过渡
+  tooltipEl.classList.add('no-transition');
 
-  // 2. 将浮窗设置为完全可见且无缩放状态 (scale-100)
-  tooltipEl.classList.remove('hidden', 'scale-75', 'opacity-0');
-  tooltipEl.classList.add('scale-100', 'opacity-0'); // 保持 opacity-0 以防闪烁，但尺寸必须是完全体
+  // 2. 设置为 scale-100（完整尺寸）用于准确测量位置
+  tooltipEl.classList.remove('hidden', 'opacity-0', 'opacity-100', 'scale-75', 'scale-100');
+  tooltipEl.classList.add('opacity-0', 'scale-100');
 
-  // 3. 在 100% 尺寸下计算准确位置
+  // 3. 在完整尺寸下计算位置
   updatePosition(wrapper);
 
-  // 4. 准备入场动画：先设置回初始状态 (scale-75)
+  // 4. 设置回动画起始状态 scale-75
   tooltipEl.classList.remove('scale-100');
   tooltipEl.classList.add('scale-75');
 
-  // 5. 强制浏览器重绘 (Reflow)，确保上述状态被应用（位置已定，状态为 scale-75）
+  // 5. 强制重绘，确保起始状态已应用
   void tooltipEl.offsetWidth;
 
-  // 6. 恢复 CSS 过渡效果
-  tooltipEl.style.transition = ''; 
-  
-  // 7. 执行动画到结束状态 (scale-100)
-  requestAnimationFrame(() => {
-    tooltipEl.classList.remove('opacity-0', 'scale-75');
-    tooltipEl.classList.add('opacity-100', 'scale-100');
-  });
-  // --- 修复结束 ---
+  // 6. 恢复过渡
+  tooltipEl.classList.remove('no-transition');
+
+  // 7. 执行动画
+  tooltipEl.classList.remove('opacity-0', 'scale-75');
+  tooltipEl.classList.add('opacity-100', 'scale-100');
 }
 
 function hideTooltip(immediate = false) {
   if (!tooltipEl) return;
   if (activeCard) {
-    activeCard.classList.remove('flow-active');
+    removeHoverEffects(activeCard);
   }
 
   if (immediate) {
-      tooltipEl.style.transition = 'none';
-      tooltipEl.classList.add('hidden', 'opacity-0', 'scale-75');
-      tooltipEl.classList.remove('opacity-100', 'scale-100');
-      activeCard = null;
+    tooltipEl.classList.add('no-transition');
+    tooltipEl.classList.add('hidden', 'opacity-0', 'scale-75');
+    tooltipEl.classList.remove('opacity-100', 'scale-100');
+    tooltipEl.classList.remove('no-transition');
+    activeCard = null;
   } else {
-    tooltipEl.style.transition = '';
     tooltipEl.classList.remove('opacity-100', 'scale-100');
     tooltipEl.classList.add('opacity-0', 'scale-75');
     
@@ -96,18 +117,23 @@ function updatePosition(wrapper) {
   if (!tooltipEl) return;
   const rect = wrapper.getBoundingClientRect();
   const tooltipRect = tooltipEl.getBoundingClientRect();
-  const padding = 12; 
+  const padding = 20; 
   const sidebarEl = document.getElementById('sidebar');
   const sidebarRight = (sidebarEl && window.innerWidth >= 768) ? sidebarEl.getBoundingClientRect().right : 0;
 
+  // 优先向上渲染（卡片上方）
   let top = rect.top - tooltipRect.height - padding;
   let isTop = true;
-  if (top < padding && (rect.bottom + tooltipRect.height + padding < window.innerHeight)) { 
+  
+  // 只有当上方空间完全不足时才向下渲染
+  if (top < padding) { 
     top = rect.bottom + padding;
     isTop = false;
   }
 
+  // 设置 transform-origin，使缩放/扩展从底部开始（向上扩展）
   tooltipEl.style.transformOrigin = isTop ? 'bottom center' : 'top center';
+  
   let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
   
   const minLeft = sidebarRight + padding;
@@ -127,18 +153,21 @@ function updatePosition(wrapper) {
   arrow.style.left = `${arrowLeft}px`;
   if (isTop) {
     arrow.style.bottom = '-8px'; arrow.style.top = 'auto'; arrow.style.transform = 'rotate(45deg)';
+    arrow.className = 'tooltip-arrow-el absolute w-4 h-4 border-r border-b border-slate-200 dark:border-slate-700 rotate-45 bg-white dark:bg-[#1e2025] z-0';
   } else {
     arrow.style.top = '-8px'; arrow.style.bottom = 'auto'; arrow.style.transform = 'rotate(225deg)';
+    arrow.className = 'tooltip-arrow-el absolute w-4 h-4 border-r border-b border-slate-200 dark:border-slate-700 rotate-45 bg-white dark:bg-[#1e2025] z-0';
   }
 }
 
 // 事件处理器
 const handleMouseOver = (e) => {
-  if (window.innerWidth < 768) return;
+  if (document.documentElement.classList.contains('mobile-device')) return;
+  
   const wrapper = e.target.closest('.site-card-wrapper');
   if (wrapper) {
     if (activeCard !== wrapper && wrapper.querySelector('.tooltip-source')) {
-      if (activeCard) activeCard.classList.remove('flow-active');
+      if (activeCard) removeHoverEffects(activeCard);
       activeCard = wrapper;
       showTooltip(wrapper);
     }
@@ -151,20 +180,25 @@ const handleMouseOver = (e) => {
 };
 
 const handleClick = (e) => {
+  // 检查是否点击了详情按钮 (无论是移动端还是桌面端)
   const btn = e.target.closest('.info-btn');
   if (btn) {
     e.preventDefault(); e.stopPropagation();
     const wrapper = btn.closest('.site-card-wrapper');
     if (wrapper) {
-       if (activeCard === wrapper && !tooltipEl.classList.contains('hidden')) hideTooltip();
-       else { 
-         if(activeCard) activeCard.classList.remove('flow-active');
+       // 如果当前卡片已激活且浮窗显示中，则关闭
+       if (activeCard === wrapper && tooltipEl && !tooltipEl.classList.contains('hidden')) {
+         hideTooltip();
+       } else { 
+         if(activeCard) removeHoverEffects(activeCard);
          activeCard = wrapper;
          showTooltip(wrapper); 
        }
     }
     return;
   }
+  
+  // 点击空白处关闭浮窗
   if (tooltipEl && !tooltipEl.classList.contains('hidden')) {
     if (!e.target.closest('.site-card-wrapper') && !e.target.closest('#global-detail-tooltip')) {
       hideTooltip();

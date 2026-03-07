@@ -10,7 +10,7 @@ import type {
   PendingItem, GroupInfo, AddResult, BatchAddMode, 
   DuplicateCheckResult, ParsedResource 
 } from './types';
-import { useGithubToken } from '../ToolboxPage';
+import { useGithubToken } from '../TokenContext';
 
 // --- 主组件 ---
 
@@ -382,7 +382,7 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
               style={{ ...STYLES.button.primary, opacity: (isParsing || !inputText.trim()) ? 0.7 : 1 }}
             >
               {isParsing ? <RefreshCw size={16} className="animate-spin" /> : <Play size={16} />}
-              {isParsing ? `解析中 (${progress.current}/${progress.total})` : '并行解析全部'}
+              {isParsing ? `解析中 (${progress.current}/${progress.total})` : '并行解析'}
             </button>
             <span style={{ color: '#64748b', fontSize: '14px' }}>
               检测到 {parseUrls(inputText).length} 个 URL
@@ -577,7 +577,7 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
                     
                     <div style={{ display: 'flex', gap: '4px' }}>
                       {item.data?.desc && (
-                        <button onClick={() => toggleExpand(item.id)} style={{ ...STYLES.button.secondary, padding: '6px 10px' }}>
+                        <button onClick={() => toggleExpand(item.id)} style={{ ...STYLES.button.secondary }}>
                           {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                         </button>
                       )}

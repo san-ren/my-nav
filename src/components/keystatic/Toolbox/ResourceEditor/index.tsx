@@ -3,7 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Edit3, 
   Plus, 
-  ArrowRightLeft
+  ArrowRightLeft,
+  AlertTriangle
 } from 'lucide-react';
 import { BatchAdder } from '../BatchAdder';
 import { ResourceMover } from '../ResourceMover';
@@ -11,6 +12,8 @@ import {
   LAYOUT,
   TABS,
   PAGE_TITLE,
+  MODAL,
+  BUTTON
 } from '../toolbox-shared';
 
 // --- 类型定义 ---
@@ -53,6 +56,8 @@ interface ResourceEditorProps {
 export function ResourceEditor({ onDataStatusChange }: ResourceEditorProps) {
   const [activeSubTab, setActiveSubTab] = useState<SubTabId>('batch');
   const [hasUnsavedData, setHasUnsavedData] = useState(false);
+  const [pendingSubTab, setPendingSubTab] = useState<SubTabId | null>(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   // 通知父组件数据状态变化
   const onDataStatusChangeRef = useRef(onDataStatusChange);
@@ -69,6 +74,29 @@ export function ResourceEditor({ onDataStatusChange }: ResourceEditorProps) {
     setHasUnsavedData(hasData);
   };
 
+  const requestSubTabChange = (targetTab: SubTabId) => {
+    if (hasUnsavedData && targetTab !== activeSubTab) {
+      setPendingSubTab(targetTab);
+      setShowConfirmModal(true);
+    } else {
+      setActiveSubTab(targetTab);
+    }
+  };
+
+  const confirmSwitch = () => {
+    if (pendingSubTab) {
+      setActiveSubTab(pendingSubTab);
+      setHasUnsavedData(false);
+    }
+    setShowConfirmModal(false);
+    setPendingSubTab(null);
+  };
+
+  const cancelSwitch = () => {
+    setShowConfirmModal(false);
+    setPendingSubTab(null);
+  };
+
   return (
     <div>
       {/* 子标签切换 */}
@@ -76,7 +104,8 @@ export function ResourceEditor({ onDataStatusChange }: ResourceEditorProps) {
         {SUB_TABS.map(tab => (
           <button
             key={tab.id}
-            onClick={() => setActiveSubTab(tab.id)}
+            className="toolbox-sub-tab"
+            onClick={() => requestSubTabChange(tab.id)}
             style={TABS.subTab(activeSubTab === tab.id)}
             title={tab.description}
           >
@@ -95,6 +124,33 @@ export function ResourceEditor({ onDataStatusChange }: ResourceEditorProps) {
           <ResourceMover onDataStatusChange={handleDataStatusChange} />
         )}
       </div>
+
+      {/* 确认切换弹窗 */}
+      {showConfirmModal && (
+        <div style={MODAL.overlay} onClick={cancelSwitch}>
+          <div style={MODAL.content} onClick={e => e.stopPropagation()}>
+            <div style={MODAL.title}>
+              <AlertTriangle size={24} style={{ color: '#f59e0b' }} />
+              确认离开？
+            </div>
+            
+            <p style={MODAL.text}>
+              当前标签页有未保存的数据，离开将导致数据丢失。
+              <br /><br />
+              确定要切换吗？
+            </p>
+            
+            <div style={MODAL.buttons}>
+              <button onClick={cancelSwitch} style={BUTTON.secondary}>
+                取消
+              </button>
+              <button onClick={confirmSwitch} style={BUTTON.danger}>
+                确认离开
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

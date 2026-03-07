@@ -262,7 +262,7 @@
               "desc": "2025年因不知名原因关闭官网、软件",
               "icon": "/images/logos/fonger-top.webp",
               "hide_badges": [],
-              "status": "failed"
+              "status": "官网失效"
             },
             {
               "toolbox": null,
@@ -272,7 +272,7 @@
               "desc": "2021停更",
               "icon": "/images/logos/xiaozhu188-electron-vue-cloud-music.webp",
               "hide_badges": [],
-              "status": "failed"
+              "status": "官网失效"
             },
             {
               "toolbox": null,
@@ -283,7 +283,7 @@
               "desc": "发布即停更",
               "icon": "/images/logos/Java-S12138-Music-Download.webp",
               "hide_badges": [],
-              "status": "failed"
+              "status": "官网失效"
             },
             {
               "toolbox": null,
@@ -542,7 +542,7 @@
               "desc": "2025失效",
               "icon": "/images/logos/flowus-cn.webp",
               "hide_badges": [],
-              "status": "failed"
+              "status": "官网失效"
             },
             {
               "toolbox": null,
@@ -552,7 +552,7 @@
               "desc": "2025失效",
               "icon": "/images/logos/khkj6-com.webp",
               "hide_badges": [],
-              "status": "failed"
+              "status": "官网失效"
             },
             {
               "toolbox": null,
@@ -562,7 +562,7 @@
               "desc": "2025失效",
               "icon": "/images/logos/wds-cxoip-com.webp",
               "hide_badges": [],
-              "status": "failed"
+              "status": "官网失效"
             },
             {
               "toolbox": null,
@@ -572,7 +572,7 @@
               "desc": "2025失效",
               "icon": "/images/logos/pan-xunlei-com.webp",
               "hide_badges": [],
-              "status": "failed"
+              "status": "官网失效"
             }
           ]
         },

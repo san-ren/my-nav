@@ -92,6 +92,26 @@ if (!isDev) {
     a:hover {
       text-decoration: underline;
     }
+    
+    /* 工具箱自定义标签样式 (Chrome-style) */
+    .toolbox-main-tab {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    
+    .toolbox-main-tab:hover:not([style*="background: rgb(255, 255, 255)"]):not([style*="background: #ffffff"]) {
+      background: rgba(0, 0, 0, 0.04) !important;
+      color: #334155 !important;
+    }
+    
+    .toolbox-sub-tab {
+      transition: all 0.2s ease !important;
+    }
+    
+    .toolbox-sub-tab:hover:not([style*="background: rgb(239, 246, 255)"]):not([style*="background: #eff6ff"]) {
+      background: #f1f5f9 !important;
+      color: #334155 !important;
+      transform: translateY(-1px);
+    }
   </style>
 
 </head>

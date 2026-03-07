@@ -1,0 +1,19 @@
+{
+  "animations": [
+    {
+      "id": "default",
+      "name": "默认",
+      "description": "基础悬浮效果：上浮6px + 背景变亮 + 阴影 + 边框光环",
+      "preview": "✨",
+      "default": true
+    },
+   
+   
+    {
+      "id": "neon-border",
+      "name": "流光边框",
+      "description": "彩虹色流光边框效果",
+      "preview": "🌈"
+    }
+  ]
+}

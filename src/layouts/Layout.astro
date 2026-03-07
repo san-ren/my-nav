@@ -55,8 +55,8 @@ const base = '/my-nav';
           const savedBlur = localStorage.getItem('bg-blur') || '0';
           root.style.setProperty('--bg-blur', `${savedBlur}px`);
 
-          // 4. 恢复动画偏好
-          const savedAnim = localStorage.getItem('site-anim') || 'fade-up';
+          // 4. 恢复动画偏好（所有样式在 animations.css 中已定义）
+          const savedAnim = localStorage.getItem('site-anim') || 'default';
           root.setAttribute('data-anim', savedAnim);
 
           // 5. 恢复背景图片 (如果有缓存的 URL)
@@ -85,6 +85,7 @@ const base = '/my-nav';
     <slot />
 
     <script src="../scripts/ui-layout.js"></script>
+    <script src="../scripts/init-animations.js"></script>
   </body>
 </html>
 

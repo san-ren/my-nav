@@ -1,29 +1,107 @@
 ---
-// 这一部分没有用到额外的图标，所以没有 import
+// 动效风格模块 - 切换 data-anim 属性来应用不同动画
+// 所有动画样式已合并到 src/styles/animations.css
 ---
 
-<div class="mb-4">
+<div class="mb-4" id="anim-section">
   <div class="flex items-center justify-between mb-2">
     <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">动效风格</span>
+    <span id="current-anim-name" class="text-[10px] text-slate-400"></span>
   </div>
-  <div class="grid grid-cols-3 gap-2">
-    <button 
-      class="anim-btn px-2 py-1.5 rounded-lg border border-slate-200 dark:border-gray-700 text-[10px] text-center hover:border-brand-500 transition-all" 
-      data-anim="none"
-    >
-      无
-    </button>
-    <button 
-      class="anim-btn px-2 py-1.5 rounded-lg border border-slate-200 dark:border-gray-700 text-[10px] text-center hover:border-brand-500 transition-all" 
-      data-anim="fade-up"
-    >
-      上浮
-    </button>
-    <button 
-      class="anim-btn px-2 py-1.5 rounded-lg border border-slate-200 dark:border-gray-700 text-[10px] text-center hover:border-brand-500 transition-all" 
-      data-anim="wave"
-    >
-      波浪
-    </button>
+  
+  {/* 动画按钮容器 */}
+  <div id="anim-buttons-container" class="grid grid-cols-3 gap-2">
+    {/* 由 JS 动态生成 */}
   </div>
 </div>
+
+<script>
+  // 动画配置（内联，与 animations.json 保持一致）
+  const ANIMATIONS = [
+    { id: 'default', name: '默认', description: '基础悬浮效果：上浮6px + 背景变亮 + 阴影 + 边框光环', preview: '✨' },
+    { id: 'neon-border', name: '流光边框', description: '彩虹色流光边框效果', preview: '🌈' }
+  ];
+
+  // 动画管理器
+  class AnimationManager {
+    constructor() {
+      this.currentAnim = localStorage.getItem('site-anim') || 'default';
+      this.animations = ANIMATIONS;
+    }
+    
+    // 初始化
+    init() {
+      this.renderButtons();
+      this.applyAnimation(this.currentAnim, false);
+    }
+    
+    // 渲染按钮
+    renderButtons() {
+      const container = document.getElementById('anim-buttons-container');
+      if (!container) return;
+      
+      container.innerHTML = this.animations.map(anim => `
+        <button 
+          class="anim-btn px-2 py-1.5 rounded-lg border text-[10px] text-center transition-all ${
+            this.currentAnim === anim.id 
+              ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400' 
+              : 'border-slate-200 dark:border-gray-700 hover:border-brand-500'
+          }" 
+          data-anim="${anim.id}"
+          title="${anim.description}"
+        >
+          <span class="block text-base mb-0.5">${anim.preview}</span>
+          <span class="block">${anim.name}</span>
+        </button>
+      `).join('');
+      
+      // 绑定点击事件
+      container.querySelectorAll('.anim-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const animId = e.currentTarget.dataset.anim;
+          this.applyAnimation(animId, true);
+        });
+      });
+      
+      // 更新当前动画名称
+      const currentAnim = this.animations.find(a => a.id === this.currentAnim);
+      const nameEl = document.getElementById('current-anim-name');
+      if (nameEl && currentAnim) {
+        nameEl.textContent = currentAnim.name;
+      }
+    }
+    
+    // 应用动画
+    applyAnimation(animId, save = true) {
+      const anim = this.animations.find(a => a.id === animId);
+      if (!anim) return;
+      
+      this.currentAnim = animId;
+      
+      // 保存到 localStorage
+      if (save) {
+        localStorage.setItem('site-anim', animId);
+      }
+      
+      // 设置 data-anim 属性（样式在 animations.css 中定义）
+      document.documentElement.setAttribute('data-anim', animId);
+      
+      // 更新 UI
+      this.renderButtons();
+      
+      // 触发全局事件
+      window.dispatchEvent(new CustomEvent('animation-changed', { 
+        detail: { animId, anim } 
+      }));
+    }
+  }
+  
+  // 初始化
+  const animManager = new AnimationManager();
+  animManager.init();
+  
+  // 监听 Astro 页面切换后重新初始化
+  document.addEventListener('astro:after-swap', () => {
+    animManager.init();
+  });
+</script>

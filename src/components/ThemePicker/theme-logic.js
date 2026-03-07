@@ -186,30 +186,16 @@ export async function initThemePicker() {
   }
 
 
-  // --- D. 动画切换逻辑 ---
-  const animBtns = document.querySelectorAll('.anim-btn');
-  const updateAnimBtns = (name) => {
-    animBtns.forEach(b => {
-      const active = b.dataset.anim === name;
-      b.classList.toggle('bg-brand-50', active);
-      b.classList.toggle('text-brand-600', active);
-      b.classList.toggle('border-brand-500', active);
-      b.classList.toggle('dark:bg-brand-900/20', active);
-      
-      b.classList.toggle('border-slate-200', !active);
-      b.classList.toggle('dark:border-gray-700', !active);
-    });
-  };
+  // --- D. 动画切换逻辑 (由 AnimSection 组件处理) ---
+  // 监听动画切换事件，更新 data-anim 属性供 CSS 使用
+  window.addEventListener('animation-changed', (e) => {
+    const { animId } = e.detail;
+    document.documentElement.setAttribute('data-anim', animId);
+  });
   
-  const currentAnim = localStorage.getItem('site-anim') || 'fade-up';
-  updateAnimBtns(currentAnim);
-
-  window.setAnim = function(name) { // 挂载到 window 方便调试，或直接使用局部函数
-    document.documentElement.setAttribute('data-anim', name);
-    localStorage.setItem('site-anim', name);
-    updateAnimBtns(name);
-  };
-  animBtns.forEach(b => b.onclick = () => window.setAnim(b.dataset.anim));
+  // 初始化时应用保存的动画属性，默认使用 'default'
+  const currentAnim = localStorage.getItem('site-anim') || 'default';
+  document.documentElement.setAttribute('data-anim', currentAnim);
 
 
   // --- E. 模式切换逻辑 ---

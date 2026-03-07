@@ -114,7 +114,7 @@ export async function checkRepo(owner: string, repo: string, token?: string): Pr
       archived: false,
       pushedAt: null,
       staleYears: null,
-      status: 'failed',
+      status: 'github仓库已失效',
       error: '网络请求失败',
     };
   }
@@ -128,7 +128,7 @@ export async function checkRepo(owner: string, repo: string, token?: string): Pr
       archived: false,
       pushedAt: null,
       staleYears: null,
-      status: 'failed',
+      status: 'github仓库已失效',
       error: '仓库不存在',
     };
   }
@@ -156,7 +156,7 @@ export async function checkRepo(owner: string, repo: string, token?: string): Pr
       archived: false,
       pushedAt: null,
       staleYears: null,
-      status: 'failed',
+      status: 'github仓库已失效',
       error: `HTTP ${res.status}`,
     };
   }
@@ -167,7 +167,7 @@ export async function checkRepo(owner: string, repo: string, token?: string): Pr
     const archived = data.archived === true;
     
     let staleYears: number | null = null;
-    let status: 'ok' | 'stale' | 'failed' | 'archived' = 'ok';
+    let status: 'ok' | 'stale' | 'github已归档' | 'github仓库已失效' = 'ok';
     
     if (pushedAt) {
       const pushDate = new Date(pushedAt);
@@ -176,7 +176,7 @@ export async function checkRepo(owner: string, repo: string, token?: string): Pr
     }
     
     if (archived) {
-      status = 'archived';
+      status = 'github已归档';
     } else if (staleYears !== null && staleYears >= 3) {
       status = 'stale';
     }
