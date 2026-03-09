@@ -187,7 +187,7 @@
           "toolbox": null,
           "name": "三角洲行动API",
           "url": "https://github.com/coolxitech/deltaforce",
-          "icon": "/images/logos/github-com.webp",
+          "icon": "/images/logos/github-coolxitech-deltaforce.png",
           "hide_badges": []
         }
       ],
@@ -210,7 +210,7 @@
               "url": "https://github.com/Afilmory/afilmory",
               "official_site": "https://afilmory.art",
               "desc": "Modern photo gallery for photographers, with S3/GitHub sync, EXIF details, maps, and a WebGL viewer.",
-              "icon": "/images/logos/Afilmory-afilmory.webp",
+              "icon": "/images/logos/github-Afilmory-afilmory.png",
               "hide_badges": []
             },
             {
@@ -219,7 +219,7 @@
               "url": "https://github.com/HoshinoSuzumi/chronoframe",
               "official_site": "https://chronoframe.bh8.ga/",
               "desc": "Self-hosted personal gallery application with online photo management and albums, supporting Live/Motion Photos, EXIF parsing, geolocation recognition, and an explore map.",
-              "icon": "/images/logos/HoshinoSuzumi-chronoframe.webp",
+              "icon": "/images/logos/github-HoshinoSuzumi-chronoframe.png",
               "hide_badges": []
             }
           ]

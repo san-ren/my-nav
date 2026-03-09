@@ -81,7 +81,7 @@
               "toolbox": null,
               "name": "easychart",
               "url": "https://github.com/EasyChart/Excel-Chart-Plugin-EasyCharts",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-EasyChart-Excel-Chart-Plugin-EasyCharts.png",
               "hide_badges": []
             },
             {
@@ -100,7 +100,7 @@
               "toolbox": null,
               "name": "LKY Office Tools",
               "url": "https://github.com/OdysseusYuan/LKY_OfficeTools",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-OdysseusYuan-LKY_OfficeTools.png",
               "hide_badges": []
             },
             {
@@ -160,14 +160,14 @@
               "toolbox": null,
               "name": "pdfarranger",
               "url": "https://github.com/pdfarranger/pdfarranger",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-pdfarranger-pdfarranger.png",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "pdf-helper",
               "url": "https://github.com/iamlinhui/pdf-helper",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-iamlinhui-pdf-helper.png",
               "hide_badges": []
             },
             {
@@ -427,7 +427,7 @@
               "official_site": "https://tocify.aeriszhu.com",
               "desc": "给 PDF 添加目录 / 书签",
               "detail": "Add or edit PDF bookmarks / Table of Contents (ToCs) online - 快速给 PDF 添加目录 / 书签",
-              "icon": "/images/logos/anig1scur-tocify.webp",
+              "icon": "/images/logos/github-anig1scur-tocify.png",
               "hide_badges": []
             }
           ]
@@ -441,7 +441,7 @@
           "toolbox": null,
           "name": "Readest",
           "url": "https://github.com/readest/readest",
-          "icon": "/images/logos/github-com.webp",
+          "icon": "/images/logos/github-readest-readest.png",
           "hide_badges": []
         },
         {
@@ -455,14 +455,14 @@
           "toolbox": null,
           "name": "ReadCat",
           "url": "https://github.com/read-cat/read-cat",
-          "icon": "/images/logos/github-com.webp",
+          "icon": "/images/logos/github-read-cat-read-cat.png",
           "hide_badges": []
         },
         {
           "toolbox": null,
           "name": "STRapp",
           "url": "https://github.com/cataerogong/STRapp/",
-          "icon": "/images/logos/github-com.webp",
+          "icon": "/images/logos/github-cataerogong-STRapp.png",
           "hide_badges": []
         },
         {
@@ -478,7 +478,7 @@
           "url": "https://github.com/Sigil-Ebook/PageEdit",
           "desc": "ePub XHTML编辑器",
           "detail": "ePub XHTML Visual Editor",
-          "icon": "/images/logos/Sigil-Ebook-PageEdit.webp",
+          "icon": "/images/logos/github-Sigil-Ebook-PageEdit.png",
           "hide_badges": []
         },
         {
@@ -486,7 +486,7 @@
           "name": "bookworm",
           "url": "https://github.com/blindpandas/bookworm",
           "detail": "The Universally Accessible document Reader",
-          "icon": "/images/logos/blindpandas-bookworm.webp",
+          "icon": "/images/logos/github-blindpandas-bookworm.png",
           "hide_badges": []
         }
       ],

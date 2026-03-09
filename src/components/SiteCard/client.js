@@ -13,15 +13,32 @@ function applyHoverEffects(wrapper) {
   const descWrapper = wrapper.querySelector('.desc-wrapper');
   const descText = wrapper.querySelector('.desc-text');
   if (descWrapper && descText) {
-    // 强制复位，重新测量实际滚动宽度（防止受上次截断动画影响）
     descWrapper.classList.remove('is-overflowing');
     
-    if (descText.scrollWidth > descWrapper.clientWidth) {
+    // 利用 getBoundingClientRect 或解除样式获取真实无截断的文字长度
+    const oldMaxWidth = descText.style.maxWidth;
+    const oldOverflow = descText.style.overflow;
+    const oldTextOverflow = descText.style.textOverflow;
+    
+    descText.style.maxWidth = 'none';
+    descText.style.overflow = 'visible';
+    descText.style.textOverflow = 'clip';
+    
+    // 强制浏览器回流刷新测量
+    const realTextWidth = descText.scrollWidth;
+    const containerWidth = descWrapper.clientWidth;
+    
+    descText.style.maxWidth = oldMaxWidth;
+    descText.style.overflow = oldOverflow;
+    descText.style.textOverflow = oldTextOverflow;
+    
+    // 考虑到小数点误差与微小的截断隐患，给 2px 的容差
+    if (realTextWidth > containerWidth + 2) {
       descWrapper.classList.add('is-overflowing');
       
-      const scrollDistance = descText.scrollWidth - descWrapper.clientWidth + 8; // 额外补充8px空间避免边缘紧贴
-      // 根据长度计算合适的时间 (比如大约每秒 25px 的滚速，最少 3 秒)
-      const duration = Math.max(3, scrollDistance / 25);
+      const scrollDistance = realTextWidth - containerWidth + 8; // 额外补充8px空间避免边缘紧贴
+      // 改良公式：使得速度始终为恒定 30px/s 左右，但保障最低时间为 1.5 秒，且最多不超过 8 秒
+      const duration = Math.min(8, Math.max(1.5, scrollDistance / 30));
       
       descText.style.setProperty('--scroll-dist', `-${scrollDistance}px`);
       descText.style.setProperty('--scroll-dur', `${duration}s`);

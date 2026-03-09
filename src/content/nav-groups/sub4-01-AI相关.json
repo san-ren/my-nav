@@ -22,7 +22,7 @@
               "official_site": "https://cowagent.ai",
               "desc": "超级AI助理",
               "detail": "CowAgent是基于大模型的超级AI助理，能主动思考和任务规划、访问操作系统和外部资源、创造和执行Skills、拥有长期记忆并不断成长。同时支持飞书、钉钉、企业微信应用、微信公众号、网页等接入，可选择OpenAI/Claude/Gemini/DeepSeek/ Qwen/GLM/Kimi/LinkAI，能处理文本、语音、图片和文件，可快速搭建个人AI助手和企业数字员工。",
-              "icon": "/images/logos/zhayujie-chatgpt-on-wechat.webp?t=1772955523057",
+              "icon": "/images/logos/github-zhayujie-chatgpt-on-wechat.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -34,7 +34,7 @@
               "official_site": "https://www.zeroclawlabs.ai/",
               "desc": "替代OpenClaw",
               "detail": "- Rust 实现，RAM<5MB，启动<10ms\n- 能在最便宜的开发板、旧路由器上跑\n- 13 个核心 trait，所有组件可替换",
-              "icon": "/images/logos/zeroclaw-labs-zeroclaw.webp?t=1772890712957",
+              "icon": "/images/logos/github-zeroclaw-labs-zeroclaw.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -45,7 +45,7 @@
               "url": "https://github.com/openclaw/openclaw",
               "official_site": "https://openclaw.ai",
               "desc": "AI Agent 鼻祖",
-              "icon": "/images/logos/openclaw-openclaw.webp?t=1771742022133",
+              "icon": "/images/logos/github-openclaw-openclaw.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -56,7 +56,7 @@
               "url": "https://github.com/HKUDS/nanobot",
               "desc": "Python实现OpenClaw",
               "detail": "- RAM> 100MB，启动> 30s\n- 超轻量、占用低，代码比OpenClaw小99%\n- MCP 优先，工具插件化\n- 香港大学数据智能实验室开发",
-              "icon": "/images/logos/HKUDS-nanobot.webp?t=1771742054446",
+              "icon": "/images/logos/github-HKUDS-nanobot.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -68,7 +68,7 @@
               "official_site": "https://picoclaw.io",
               "desc": "基于NanoBot",
               "detail": "- RAM <10MB，启动时间 < 1s\n- AI用Go实现，95%代码 AI 自举\n- 用七个 markdown 文件定义智能体行为的一切（identity.md、personality.md、knowledge.md、rules.md、skills.md、plans.md、self.md）\n- 国内开源硬件公司开发：https://sipeed.com/",
-              "icon": "/images/logos/sipeed-picoclaw.webp?t=1772921730136",
+              "icon": "/images/logos/github-sipeed-picoclaw.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -79,7 +79,7 @@
               "url": "https://github.com/VoltAgent/awesome-openclaw-skills",
               "official_site": "https://github.com/VoltAgent/voltagent",
               "desc": "OpenClaw Skills",
-              "icon": "/images/logos/VoltAgent-awesome-openclaw-skills.webp?t=1771742055342",
+              "icon": "/images/logos/github-VoltAgent-awesome-openclaw-skills.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -91,7 +91,7 @@
               "official_site": "https://nanoclaw.dev",
               "desc": "封装Claude Code",
               "detail": "- TypeScript实现\n- 支持多代理集群（Agent Swarms），每个agent之间物理隔离",
-              "icon": "/images/logos/qwibitai-nanoclaw.webp?t=1771742089815",
+              "icon": "/images/logos/github-qwibitai-nanoclaw.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -102,7 +102,7 @@
               "url": "https://github.com/iOfficeAI/AionUi",
               "official_site": "https://www.aionui.com",
               "desc": "AI Agent",
-              "icon": "/images/logos/github-com.webp?t=1771742061690",
+              "icon": "/images/logos/github-iOfficeAI-AionUi.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -114,7 +114,7 @@
               "official_site": "http://copaw.agentscope.io/",
               "desc": "阿里Agent",
               "detail": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple chat apps with easily extensible capabilities.",
-              "icon": "/images/logos/agentscope-ai-CoPaw.webp?t=1772956329190",
+              "icon": "/images/logos/github-agentscope-ai-CoPaw.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -126,7 +126,7 @@
               "official_site": "https://www.ironclaw.com",
               "desc": "Rust实现",
               "detail": "- RAM < 10MB，启动 < 10ms\n- 凭证隔离、权限最小化原则\n- WASM沙箱运行",
-              "icon": "/images/logos/nearai-ironclaw.webp?t=1772887677318",
+              "icon": "/images/logos/github-nearai-ironclaw.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -137,7 +137,7 @@
               "url": "https://github.com/TinyAGI/tinyclaw",
               "official_site": "https://discord.com/invite/jH6AcEChuD",
               "detail": "- 多代理、多团队、多渠道\n- 自带实时TUI（终端仪表盘）",
-              "icon": "/images/logos/TinyAGI-tinyclaw.webp?t=1772922108428",
+              "icon": "/images/logos/github-TinyAGI-tinyclaw.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -148,7 +148,7 @@
               "url": "https://github.com/AstrBotDevs/AstrBot",
               "official_site": "https://astrbot.app",
               "desc": "聊天机器人",
-              "icon": "/images/logos/AstrBotDevs-AstrBot.webp?t=1771742057174",
+              "icon": "/images/logos/github-AstrBotDevs-AstrBot.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -159,7 +159,7 @@
               "url": "https://github.com/langbot-app/LangBot",
               "official_site": "https://langbot.app",
               "desc": "AI机器人开发平台.",
-              "icon": "/images/logos/langbot-app-LangBot.webp?t=1771742088386",
+              "icon": "/images/logos/github-langbot-app-LangBot.png",
               "hide_badges": [],
               "status": "ok"
             }
@@ -176,7 +176,7 @@
               "official_site": "https://docs.videolingo.io",
               "desc": "本地视频生成字幕配音",
               "detail": "Netflix-level subtitle cutting, translation, alignment, and even dubbing - one-click fully automated AI video subtitle team | Netflix级字幕切割、翻译、对齐、甚至加上配音，一键全自动视频搬运AI字幕组",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-Huanshere-VideoLingo.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -187,7 +187,7 @@
               "url": "https://github.com/sczhou/ProPainter",
               "official_site": "https://shangchenzhou.com/projects/ProPainter/",
               "desc": "改进用于视频修复的传播和Transformer算法",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-sczhou-ProPainter.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -198,7 +198,7 @@
               "url": "https://github.com/PDFMathTranslate/PDFMathTranslate",
               "official_site": "https://pdf2zh.com",
               "detail": "[EMNLP 2025 Demo] PDF scientific paper translation with preserved formats - 基于 AI 完整保留排版的 PDF 文档全文双语翻译，支持 Google/DeepL/Ollama/OpenAI 等服务，提供 CLI/GUI/MCP/Docker/Zotero",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-PDFMathTranslate-PDFMathTranslate.png",
               "hide_badges": [],
               "status": "ok"
             }
@@ -214,7 +214,7 @@
               "url": "https://github.com/yusixian/moe-copy-ai",
               "official_site": "https://moe.cosine.ren/docs",
               "desc": " AI 网页数据提取助手 ✨",
-              "icon": "/images/logos/yusixian-moe-copy-ai.webp",
+              "icon": "/images/logos/github-yusixian-moe-copy-ai.png",
               "hide_badges": [],
               "status": "ok"
             }
@@ -230,7 +230,7 @@
               "url": "https://github.com/WEIFENG2333/VideoCaptioner",
               "official_site": "https://www.videocaptioner.cn",
               "desc": "🎬 卡卡字幕助手 | VideoCaptioner - 基于 LLM 的智能字幕助手 - 视频字幕生成、断句、校正、字幕翻译全流程处理！- A powered tool for easy and efficient video subtitling.",
-              "icon": "/images/logos/WEIFENG2333-VideoCaptioner.webp",
+              "icon": "/images/logos/github-WEIFENG2333-VideoCaptioner.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -241,7 +241,7 @@
               "url": "https://github.com/abi/screenshot-to-code",
               "official_site": "https://screenshottocode.com",
               "desc": "Drop in a screenshot and convert it to clean code (HTML/Tailwind/React/Vue)",
-              "icon": "/images/logos/abi-screenshot-to-code.webp",
+              "icon": "/images/logos/github-abi-screenshot-to-code.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -252,7 +252,7 @@
               "url": "https://github.com/SmartSchoolAI/ai-to-pptx",
               "official_site": "https://pptx.dandian.net",
               "desc": "前端后端同时开源。 Ai-to-pptx是一个使用AI技术(DeepSeek)制作PPTX的助手，支持在线生成和导出PPTX。 主要功能: 1 使用DeepSeek等大语言模型来生成大纲 2 生成PPTX的时候可以选择不同的模板 3 支持导出PPTX",
-              "icon": "/images/logos/happymod-com.webp",
+              "icon": "/images/logos/github-SmartSchoolAI-ai-to-pptx.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -262,7 +262,7 @@
               "name": "DiffRhythm",
               "url": "https://github.com/ASLP-lab/DiffRhythm",
               "desc": "Di♪♪Rhythm: Blazingly Fast and Embarrassingly Simple End-to-End Full-Length Song Generation with Latent Diffusion",
-              "icon": "/images/logos/ASLP-lab-DiffRhythm.webp",
+              "icon": "/images/logos/github-ASLP-lab-DiffRhythm.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -272,7 +272,7 @@
               "name": "AI_NovelGenerator",
               "url": "https://github.com/YILING0013/AI_NovelGenerator",
               "desc": "使用ai生成多章节的长篇小说，自动衔接上下文、伏笔",
-              "icon": "/images/logos/YILING0013-AI-NovelGenerator.webp",
+              "icon": "/images/logos/github-YILING0013-AI_NovelGenerator.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -283,7 +283,7 @@
               "url": "https://github.com/multimodal-art-projection/YuE",
               "official_site": "https://map-yue.github.io",
               "desc": "YuE: Open Full-song Music Generation Foundation Model, something similar to Suno.ai but open",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-multimodal-art-projection-YuE.png",
               "hide_badges": [],
               "status": "ok"
             }
@@ -298,7 +298,7 @@
               "name": "v2vt",
               "url": "https://github.com/halfzm/v2vt",
               "desc": "video to video translation with voice clone and lip synchronization|带有语音克隆和口型同步的视频翻译，支持中英互换",
-              "icon": "/images/logos/halfzm-v2vt.webp",
+              "icon": "/images/logos/github-halfzm-v2vt.png",
               "hide_badges": [],
               "status": "ok"
             }
@@ -318,7 +318,7 @@
               "toolboxLink": null,
               "name": "Yank Note",
               "url": "https://github.com/purocean/yn",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-purocean-yn.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -327,7 +327,7 @@
               "toolboxLink": null,
               "name": "wj-markdown-editor",
               "url": "https://github.com/nlbwqmz/wj-markdown-editor",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-nlbwqmz-wj-markdown-editor.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -338,7 +338,7 @@
               "url": "https://github.com/zouwei/moraya",
               "official_site": "https://moraya.app",
               "detail": "An extremely elegant open-source AI Markdown editor.",
-              "icon": "/images/logos/zouwei-moraya.webp?t=1771925231450",
+              "icon": "/images/logos/github-zouwei-moraya.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -347,7 +347,7 @@
               "toolboxLink": null,
               "name": "hedgedoc",
               "url": "https://github.com/hedgedoc/hedgedoc",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-hedgedoc-hedgedoc.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -374,7 +374,7 @@
               "toolboxLink": null,
               "name": "md",
               "url": "https://github.com/doocs/md",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-doocs-md.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -393,7 +393,7 @@
               "toolboxLink": null,
               "name": "markdown-online-editor",
               "url": "https://github.com/nicejade/markdown-online-editor",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-nicejade-markdown-online-editor.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -402,7 +402,7 @@
               "toolboxLink": null,
               "name": "flymd",
               "url": "https://github.com/flyhunterl/flymd",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-flyhunterl-flymd.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -411,7 +411,7 @@
               "toolboxLink": null,
               "name": "joplin",
               "url": "https://github.com/laurent22/joplin",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-laurent22-joplin.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -420,7 +420,7 @@
               "toolboxLink": null,
               "name": "ghostwriter",
               "url": "https://github.com/KDE/ghostwriter",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-KDE-ghostwriter.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -429,7 +429,7 @@
               "toolboxLink": null,
               "name": "mdx-notes",
               "url": "https://github.com/maqi1520/mdx-notes",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-maqi1520-mdx-notes.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -438,7 +438,7 @@
               "toolboxLink": null,
               "name": "Archive-Markdown-Editor",
               "url": "https://github.com/ScottSmith666/Archive-Markdown-Editor",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-ScottSmith666-Archive-Markdown-Editor.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -447,7 +447,7 @@
               "toolboxLink": null,
               "name": "markor",
               "url": "https://github.com/gsantner/markor",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-gsantner-markor.png",
               "hide_badges": [],
               "status": "ok"
             }
@@ -461,7 +461,7 @@
               "toolboxLink": null,
               "name": "markitdown",
               "url": "https://github.com/microsoft/markitdown",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-microsoft-markitdown.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -470,7 +470,7 @@
               "toolboxLink": null,
               "name": "MinerU",
               "url": "https://github.com/opendatalab/MinerU",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-opendatalab-MinerU.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -479,7 +479,7 @@
               "toolboxLink": null,
               "name": "marker",
               "url": "https://github.com/datalab-to/marker",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-datalab-to-marker.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -488,7 +488,7 @@
               "toolboxLink": null,
               "name": "pdf-craft",
               "url": "https://github.com/oomol-lab/pdf-craft",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-oomol-lab-pdf-craft.png",
               "hide_badges": [],
               "status": "ok"
             }
@@ -502,7 +502,7 @@
               "toolboxLink": null,
               "name": "retext",
               "url": "https://github.com/retext-project/retext",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-retext-project-retext.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -511,7 +511,7 @@
               "toolboxLink": null,
               "name": "tui.editor",
               "url": "https://github.com/nhn/tui.editor",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-nhn-tui.editor.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -520,7 +520,7 @@
               "toolboxLink": null,
               "name": "milkdown",
               "url": "https://github.com/Milkdown/milkdown",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-Milkdown-milkdown.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -529,7 +529,7 @@
               "toolboxLink": null,
               "name": "mavonEditor",
               "url": "https://github.com/hinesboy/mavonEditor",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-hinesboy-mavonEditor.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -538,7 +538,7 @@
               "toolboxLink": null,
               "name": "react-markplus",
               "url": "https://github.com/markpluslabs/react-markplus",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-markpluslabs-react-markplus.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -547,7 +547,7 @@
               "toolboxLink": null,
               "name": "react-md-editor",
               "url": "https://github.com/uiwjs/react-md-editor",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-uiwjs-react-md-editor.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -556,7 +556,7 @@
               "toolboxLink": null,
               "name": "Raneto",
               "url": "https://github.com/ryanlelek/Raneto",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-ryanlelek-Raneto.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -565,7 +565,7 @@
               "toolboxLink": null,
               "name": "cherry-markdown",
               "url": "https://github.com/Tencent/cherry-markdown",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-Tencent-cherry-markdown.png",
               "hide_badges": [],
               "status": "ok"
             }

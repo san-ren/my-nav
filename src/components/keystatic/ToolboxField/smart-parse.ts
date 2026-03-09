@@ -169,11 +169,18 @@ async function scrapePageIconUrl(urlStr: string): Promise<string | null> {
     const html = await res.text();
     const $ = cheerio.load(html);
     
+    // 新版增强多层级选择器（按画幅和成功率排序优先级）
     const selectors = [
-      'link[rel="apple-touch-icon"]',
-      'link[rel="icon"]',
-      'link[rel="shortcut icon"]',
-      'meta[property="og:image"]'
+      'link[rel="apple-touch-icon-precomposed"]', // 苹果高清免修剪
+      'link[rel="apple-touch-icon"]',             // 苹果标准高清
+      'link[rel="icon"][sizes="192x192"]',        // 安卓高分 PWA
+      'link[rel="icon"][sizes="144x144"]', 
+      'link[rel="icon"][sizes="128x128"]',
+      'link[rel="icon"][sizes*="x"]',             // 其它附带尺寸声明的
+      'meta[property="og:image"]',                // 社交分享大图
+      'meta[itemprop="image"]',                   // 微数据大图
+      'link[rel="icon"]',                         // 常规普通Icon
+      'link[rel="shortcut icon"]'
     ];
 
     for (const selector of selectors) {
@@ -366,9 +373,25 @@ async function handleWebPage(targetUrl: URL) {
       title = $('meta[property="og:title"]').attr('content') || $('title').text().trim();
       desc = $('meta[name="description"]').attr('content') || $('meta[property="og:description"]').attr('content') || '';
       
-      const iconLink = $('link[rel="icon"]').attr('href') || $('link[rel="shortcut icon"]').attr('href');
-      if (iconLink) {
-        try { iconUrl = new URL(iconLink, targetUrl).href; } catch {}
+      // 同样对基本解析执行新的高清优先规则
+      const iconSelectors = [
+        'link[rel="apple-touch-icon-precomposed"]',
+        'link[rel="apple-touch-icon"]',
+        'link[rel="icon"][sizes*="x"]',
+        'meta[property="og:image"]',
+        'meta[itemprop="image"]',
+        'link[rel="icon"]',
+        'link[rel="shortcut icon"]'
+      ];
+      
+      for (const selector of iconSelectors) {
+         const href = $(selector).attr('href') || $(selector).attr('content');
+         if (href) {
+            try { 
+              iconUrl = new URL(href, targetUrl).href; 
+              break; // 找到最高优先级的即可跳出
+            } catch {}
+         }
       }
     } catch (e) {}
   }

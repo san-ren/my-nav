@@ -16,7 +16,7 @@
           "url": "https://github.com/uiverse-io/galaxy",
           "official_site": "https://Uiverse.io",
           "detail": "The largest Open-Source UI Library! Community-made and free to use. Made with either CSS or Tailwind.",
-          "icon": "/images/logos/uiverse-io-galaxy.webp",
+          "icon": "/images/logos/github-uiverse-io-galaxy.png",
           "hide_badges": []
         },
         {
@@ -25,7 +25,7 @@
           "url": "https://github.com/Daymychen/art-design-pro",
           "official_site": "https://www.artd.pro",
           "detail": "A Vue 3 admin dashboard template using Vite + TypeScript + Element Plus | vue3 admin | vue-admin — focused on user experience and visual design.",
-          "icon": "/images/logos/Daymychen-art-design-pro.webp",
+          "icon": "/images/logos/github-Daymychen-art-design-pro.png",
           "hide_badges": []
         }
       ],

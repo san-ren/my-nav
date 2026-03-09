@@ -20,7 +20,7 @@
               "name": "OFGB",
               "url": "https://github.com/xM4ddy/OFGB",
               "desc": "关闭win11系统广告",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-xM4ddy-OFGB.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -38,7 +38,7 @@
               "toolboxLink": null,
               "name": "Malware-Patch",
               "url": "https://github.com/the1812/Malware-Patch",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-the1812-Malware-Patch.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -47,7 +47,7 @@
               "toolboxLink": null,
               "name": "ExplorerPatcher",
               "url": "https://github.com/valinet/ExplorerPatcher",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-valinet-ExplorerPatcher.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -56,7 +56,7 @@
               "toolboxLink": null,
               "name": "PowerToys",
               "url": "https://github.com/microsoft/PowerToys",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-microsoft-PowerToys.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -74,7 +74,7 @@
               "toolboxLink": null,
               "name": "Dism++",
               "url": "https://github.com/Chuyu-Team/Dism-Multi-language",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-Chuyu-Team-Dism-Multi-language.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -119,7 +119,7 @@
               "toolboxLink": null,
               "name": "Ventoy",
               "url": "https://github.com/ventoy/Ventoy",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-ventoy-Ventoy.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -128,7 +128,7 @@
               "toolboxLink": null,
               "name": "Rufus",
               "url": "https://github.com/pbatard/rufus",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-pbatard-rufus.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -164,7 +164,7 @@
               "toolboxLink": null,
               "name": "Winpilot",
               "url": "https://github.com/builtbybel/Winpilot",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-builtbybel-Winpilot.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -191,7 +191,7 @@
               "toolboxLink": null,
               "name": "Sophi",
               "url": "https://github.com/Sophia-Community/SophiApp",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-Sophia-Community-SophiApp.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -209,7 +209,7 @@
               "toolboxLink": null,
               "name": "Optimizer",
               "url": "https://github.com/hellzerg/optimizer",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-hellzerg-optimizer.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -297,7 +297,7 @@
               "name": "Microsoft Activation Scripts (MAS)",
               "url": "https://github.com/massgravel/Microsoft-Activation-Scripts",
               "desc": "windows激活之神",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-massgravel-Microsoft-Activation-Scripts.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -306,7 +306,7 @@
               "toolboxLink": null,
               "name": "HEU_KMS_Activator",
               "url": "https://github.com/zbezj/HEU_KMS_Activator",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-zbezj-HEU_KMS_Activator.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -316,7 +316,7 @@
               "name": "云萌 Windows 激活（CMWTAT_Digital_Edition）",
               "url": "https://github.com/TGSAN/CMWTAT_Digital_Edition",
               "official_site": "https://cmwtat.cloudmoe.com/cn.html",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-TGSAN-CMWTAT_Digital_Edition.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -336,7 +336,7 @@
               "name": "KMS_VL_ALL_AIO",
               "url": "https://github.com/abbodi1406/KMS_VL_ALL_AIO",
               "desc": "2025.12发现删库",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-abbodi1406-KMS_VL_ALL_AIO.png",
               "hide_badges": [],
               "status": "ok"
             }
@@ -354,7 +354,7 @@
           "url": "https://github.com/FilePulseSoft/FilePulse",
           "official_site": "https://www.filepulsesoft.com",
           "desc": "对象信息搜索工具，对象包括 文件 和 文件夹，",
-          "icon": "/images/logos/FilePulseSoft-FilePulse.webp",
+          "icon": "/images/logos/github-FilePulseSoft-FilePulse.png",
           "hide_badges": [],
           "status": "ok"
         },
@@ -552,7 +552,7 @@
           "toolboxLink": null,
           "name": "HelpUploadFiles （星空上传助手）",
           "url": "https://github.com/KrxkGit/HelpUploadFiles",
-          "icon": "/images/logos/github-com.webp",
+          "icon": "/images/logos/github-KrxkGit-HelpUploadFiles.png",
           "hide_badges": [],
           "status": "ok"
         },
@@ -561,7 +561,7 @@
           "toolboxLink": null,
           "name": "悬浮宇宙/FloatingUniverse",
           "url": "https://github.com/iwxyi/FloatingUniverse",
-          "icon": "/images/logos/github-com.webp",
+          "icon": "/images/logos/github-iwxyi-FloatingUniverse.png",
           "hide_badges": [],
           "status": "ok"
         }
@@ -603,7 +603,7 @@
           "toolboxLink": null,
           "name": "WindowTop",
           "url": "https://github.com/WindowTop/WindowTop-App",
-          "icon": "/images/logos/github-com.webp",
+          "icon": "/images/logos/github-WindowTop-WindowTop-App.png",
           "hide_badges": [],
           "status": "ok"
         },
@@ -675,7 +675,7 @@
           "toolboxLink": null,
           "name": "Sandboxie",
           "url": "https://github.com/sandboxie-plus/Sandboxie",
-          "icon": "/images/logos/github-com.webp",
+          "icon": "/images/logos/github-sandboxie-plus-Sandboxie.png",
           "hide_badges": [],
           "status": "ok"
         },
@@ -717,7 +717,7 @@
           "toolboxLink": null,
           "name": "HybridFileXfer/多轨快传",
           "url": "https://github.com/weixiansen574/HybridFileXfer",
-          "icon": "/images/logos/github-com.webp",
+          "icon": "/images/logos/github-weixiansen574-HybridFileXfer.png",
           "hide_badges": [],
           "status": "ok"
         },
@@ -726,7 +726,7 @@
           "toolboxLink": null,
           "name": "localsend",
           "url": "https://github.com/localsend/localsend",
-          "icon": "/images/logos/github-com.webp",
+          "icon": "/images/logos/github-localsend-localsend.png",
           "hide_badges": [],
           "status": "ok"
         },
@@ -753,7 +753,7 @@
           "toolboxLink": null,
           "name": "百灵快传(B0Pass)",
           "url": "https://github.com/bitepeng/b0pass",
-          "icon": "/images/logos/github-com.webp",
+          "icon": "/images/logos/github-bitepeng-b0pass.png",
           "hide_badges": [],
           "status": "ok"
         },
@@ -762,7 +762,7 @@
           "toolboxLink": null,
           "name": "alley-transfer/小路速传",
           "url": "https://github.com/alley-rs/alley-transfer",
-          "icon": "/images/logos/github-com.webp",
+          "icon": "/images/logos/github-alley-rs-alley-transfer.png",
           "hide_badges": [],
           "status": "ok"
         },
@@ -771,7 +771,7 @@
           "toolboxLink": null,
           "name": "FlyingCarpet",
           "url": "https://github.com/spieglt/FlyingCarpet",
-          "icon": "/images/logos/github-com.webp",
+          "icon": "/images/logos/github-spieglt-FlyingCarpet.png",
           "hide_badges": [],
           "status": "ok"
         },
@@ -798,7 +798,7 @@
           "toolboxLink": null,
           "name": "miniserve",
           "url": "https://github.com/svenstaro/miniserve",
-          "icon": "/images/logos/github-com.webp",
+          "icon": "/images/logos/github-svenstaro-miniserve.png",
           "hide_badges": [],
           "status": "ok"
         },
@@ -807,7 +807,7 @@
           "toolboxLink": null,
           "name": "LANDrop",
           "url": "https://github.com/LANDrop/LANDrop",
-          "icon": "/images/logos/github-com.webp",
+          "icon": "/images/logos/github-LANDrop-LANDrop.png",
           "hide_badges": [],
           "status": "ok"
         },
@@ -816,7 +816,7 @@
           "toolboxLink": null,
           "name": "Beaker Browser",
           "url": "https://github.com/beakerbrowser/beaker",
-          "icon": "/images/logos/github-com.webp",
+          "icon": "/images/logos/github-beakerbrowser-beaker.png",
           "hide_badges": [],
           "status": "ok"
         }
@@ -894,7 +894,7 @@
           "toolboxLink": null,
           "name": "scrcpy",
           "url": "https://github.com/Genymobile/scrcpy",
-          "icon": "/images/logos/github-com.webp",
+          "icon": "/images/logos/github-Genymobile-scrcpy.png",
           "hide_badges": [],
           "status": "ok"
         },
@@ -921,7 +921,7 @@
           "toolboxLink": null,
           "name": "RemoteControlDesktop",
           "url": "https://github.com/codext-remotecontrol/remotecontrol-desktop",
-          "icon": "/images/logos/github-com.webp",
+          "icon": "/images/logos/github-codext-remotecontrol-remotecontrol-desktop.png",
           "hide_badges": [],
           "status": "ok"
         },

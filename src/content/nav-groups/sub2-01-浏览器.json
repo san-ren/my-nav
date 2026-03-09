@@ -210,7 +210,7 @@
               "name": "bilibili-cleaner",
               "url": "https://github.com/festoney8/bilibili-cleaner",
               "desc": "bilibili 页面净化大师，深度净化 B 站页面，过滤视频，过滤评论",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-festoney8-bilibili-cleaner.png",
               "hide_badges": []
             },
             {
@@ -218,7 +218,7 @@
               "name": "hanydd/BilibiliSponsorBlock",
               "url": "https://github.com/hanydd/BilibiliSponsorBlock",
               "desc": "一款跳过B站视频中恰饭片段的浏览器插件，移植自 SponsorBlock。",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-hanydd-BilibiliSponsorBlock.png",
               "hide_badges": []
             },
             {
@@ -227,7 +227,7 @@
               "url": "https://github.com/hanydd/BilibiliSponsorBlock",
               "official_site": "https://www.bsbsb.top",
               "desc": "跳过小电视视频中恰饭片段",
-              "icon": "/images/logos/hanydd-BilibiliSponsorBlock.webp",
+              "icon": "/images/logos/github-hanydd-BilibiliSponsorBlock.png",
               "hide_badges": []
             },
             {
@@ -249,7 +249,7 @@
               "name": "EasyCSDN: 这是一款促进CSDN极致简洁和高效的插件。免费共享大量创新功能，如",
               "url": "https://github.com/xcanwin/EasyCSDN",
               "desc": "净化页面、展示全屏、显示推荐、复制文本、展开代码等。让我们的学习体验无比简洁、专注、高效、畅快。",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-xcanwin-EasyCSDN.png",
               "hide_badges": []
             },
             {
@@ -279,7 +279,7 @@
               "url": "https://github.com/keleus/BewlyCat",
               "official_site": "https://chromewebstore.google.com/detail/bewlycat/oopkfefbgecikmfbbapnlpjidoomhjpl",
               "desc": "BewlyCat——基于BewlyBewly开发的Bilibili拓展",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-keleus-BewlyCat.png",
               "hide_badges": []
             },
             {
@@ -300,42 +300,42 @@
               "toolbox": null,
               "name": "tab-copy",
               "url": "https://github.com/hansifer/tab-copy",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-hansifer-tab-copy.png",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "CopyTabTitleUrl",
               "url": "https://github.com/k08045kk/CopyTabTitleUrl",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-k08045kk-CopyTabTitleUrl.png",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "copy-as-markdown",
               "url": "https://github.com/notlmn/copy-as-markdown",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-notlmn-copy-as-markdown.png",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "globalSpeed",
               "url": "https://github.com/polywock/globalSpeed",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-polywock-globalSpeed.png",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "SingleFile",
               "url": "https://github.com/gildas-lormeau/SingleFile",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-gildas-lormeau-SingleFile.png",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "cat-catch",
               "url": "https://github.com/xifangczy/cat-catch",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-xifangczy-cat-catch.png",
               "hide_badges": []
             },
             {
@@ -344,7 +344,7 @@
               "url": "https://github.com/md-reader/md-reader",
               "official_site": "https://md-reader.github.io",
               "desc": "📜 The best way to read Markdown in Browser.",
-              "icon": "/images/logos/md-reader-md-reader.webp",
+              "icon": "/images/logos/github-md-reader-md-reader.png",
               "hide_badges": []
             }
           ]
@@ -357,14 +357,14 @@
               "name": "Open-the-F-king-URL-Right-Now",
               "url": "https://github.com/OldPanda/Open-the-F-king-URL-Right-Now",
               "desc": "自动跳转某些网站不希望用户直达的外链",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-OldPanda-Open-the-F-king-URL-Right-Now.png",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "自动展开、 \t骚扰拦截",
               "url": "https://github.com/AirBashX/UserScript?tab=readme-ov-file",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-AirBashX-UserScript.png",
               "hide_badges": []
             },
             {
@@ -440,7 +440,7 @@
               "name": "netdisk-fast-download",
               "url": "https://github.com/qaiu/netdisk-fast-download",
               "desc": "网盘分享链接云解析服务",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-qaiu-netdisk-fast-download.png",
               "hide_badges": []
             },
             {
@@ -448,7 +448,7 @@
               "name": "Cloud189Checkin",
               "url": "https://github.com/wes-lin/Cloud189Checkin",
               "desc": "天翼网盘自动签到",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-wes-lin-Cloud189Checkin.png",
               "hide_badges": []
             },
             {
@@ -456,7 +456,7 @@
               "name": "wps_script",
               "url": "https://github.com/poboll/wps_script",
               "desc": "WPS签到脚本集合，适用于“金山文档”中AirScript自动化执行。签到列表: ｜爱奇艺｜全民K歌｜有道云笔记｜百度贴吧｜Bilibili｜V2EX｜AcFun｜天翼云盘｜Fa米家｜小米运动｜百度搜索资源平台｜",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-poboll-wps_script.png",
               "hide_badges": []
             },
             {
@@ -464,7 +464,7 @@
               "name": "alipan_auto_sign",
               "url": "https://github.com/nibabashilkk/alipan_auto_sign",
               "desc": "阿里云盘、B站直播、京东领京豆每日自动签到脚本",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-nibabashilkk-alipan_auto_sign.png",
               "hide_badges": []
             },
             {
@@ -472,14 +472,14 @@
               "name": "Online-disk-direct-link-download-assistant",
               "url": "https://github.com/hmjz100/Online-disk-direct-link-download-assistant",
               "desc": "一个基于 JavaScript 的网盘文件下载地址获取工具。基于【网盘直链下载助手】修改 ，自用，去推广，无需输入“暗号”即可使用，甚至比原版还要好用！",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-hmjz100-Online-disk-direct-link-download-assistant.png",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "天翼云盘自动签到工具",
               "url": "https://github.com/dext7r/189pan",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-dext7r-189pan.png",
               "hide_badges": []
             },
             {
@@ -487,7 +487,7 @@
               "name": "netdisk-fast-download",
               "url": "https://github.com/qaiu/netdisk-fast-download",
               "desc": "各类网盘直链解析, 已支持蓝奏云/奶牛快传/移动云云空间/UC网盘/小飞机盘/亿方云/123云盘等. 预览地址 https://lz.qaiu.top",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-qaiu-netdisk-fast-download.png",
               "hide_badges": []
             },
             {
@@ -495,7 +495,7 @@
               "name": "94list",
               "url": "https://github.com/codehub666/94list",
               "desc": "百度网盘分享链接分析渲染列表辅助下载开源程序",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-codehub666-94list.png",
               "hide_badges": []
             },
             {
@@ -503,7 +503,7 @@
               "name": "baiduwp-php",
               "url": "https://github.com/yuantuo666/baiduwp-php",
               "desc": "A tool to get the download link of the Baidu netdisk / 一个获取百度网盘分享链接下载地址的工具",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-yuantuo666-baiduwp-php.png",
               "hide_badges": []
             },
             {
@@ -511,7 +511,7 @@
               "name": "github-chinese",
               "url": "https://github.com/maboloshi/github-chinese?tab=readme-ov-file",
               "desc": "GitHub 汉化插件，GitHub 中文化界面。 (GitHub Translation To Chinese)",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-maboloshi-github-chinese.png",
               "hide_badges": []
             }
           ]
@@ -554,14 +554,14 @@
               "toolbox": null,
               "name": "maoxian-web-clipper",
               "url": "https://github.com/mika-cn/maoxian-web-clipper",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-mika-cn-maoxian-web-clipper.png",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "unclutter",
               "url": "https://github.com/lindylearn/unclutter",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-lindylearn-unclutter.png",
               "hide_badges": []
             },
             {
@@ -583,14 +583,14 @@
               "toolbox": null,
               "name": "Just-Read",
               "url": "https://github.com/ZachSaucier/Just-Read",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-ZachSaucier-Just-Read.png",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "reader-view",
               "url": "https://github.com/rNeomy/reader-view",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-rNeomy-reader-view.png",
               "hide_badges": []
             }
           ]

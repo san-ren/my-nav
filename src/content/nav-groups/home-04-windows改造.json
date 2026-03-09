@@ -28,7 +28,7 @@
               "official_site": "https://quickclipboard.cn",
               "desc": "剪贴板增强",
               "detail": "QuickClipboard 是一款剪贴板增强工具， 让你的复制与粘贴更加智能、高效与愉悦",
-              "icon": "/images/logos/mosheng1-QuickClipboard.webp",
+              "icon": "/images/logos/github-mosheng1-QuickClipboard.png",
               "hide_badges": []
             },
             {
@@ -38,7 +38,7 @@
               "official_site": "https://ecopaste.cn",
               "desc": "剪贴板管理",
               "detail": "🎉跨平台的剪贴板管理工具 | Cross-platform clipboard management tool",
-              "icon": "/images/logos/ayangweb-EcoPaste.webp",
+              "icon": "/images/logos/github-ayangweb-EcoPaste.png",
               "hide_badges": []
             },
             {
@@ -54,7 +54,7 @@
               "url": "https://github.com/huiyadanli/PasteEx",
               "desc": "剪贴板内容保存为文件",
               "detail": ":clipboard: Paste As File 把剪贴板的内容直接粘贴为文件",
-              "icon": "/images/logos/huiyadanli-PasteEx.webp",
+              "icon": "/images/logos/github-huiyadanli-PasteEx.png",
               "hide_badges": []
             },
             {
@@ -64,7 +64,7 @@
               "official_site": "https://hluk.github.io/CopyQ/",
               "desc": "剪贴板内容管理",
               "detail": "Clipboard manager with advanced features",
-              "icon": "/images/logos/hluk-CopyQ.webp",
+              "icon": "/images/logos/github-hluk-CopyQ.png",
               "hide_badges": []
             },
             {
@@ -73,7 +73,7 @@
               "url": "https://github.com/Idered/snatch",
               "official_site": "http://snatch.kasper.io",
               "detail": "📋 Beautiful clipboard manager for Windows",
-              "icon": "/images/logos/Idered-snatch.webp",
+              "icon": "/images/logos/github-Idered-snatch.png",
               "hide_badges": []
             },
             {
@@ -81,7 +81,7 @@
               "name": "TinyCopyBoard",
               "url": "https://github.com/AlanWanco/TinyCopyBoard",
               "desc": "迷你剪贴板显示悬浮窗",
-              "icon": "/images/logos/AlanWanco-TinyCopyBoard.webp",
+              "icon": "/images/logos/github-AlanWanco-TinyCopyBoard.png",
               "hide_badges": []
             },
             {
@@ -98,7 +98,7 @@
               "official_site": "https://lemontree.one/sibtools/lemon_push/",
               "desc": "推送文本到电脑剪切板",
               "detail": "同一WiFi环境下手机高效推送文本到电脑剪切板的工具 || An efficient tool for pushing text from your mobile device to your computer's clipboard under the same WiFi environment.",
-              "icon": "/images/logos/lemon-codehub-lemonPush.webp",
+              "icon": "/images/logos/github-lemon-codehub-lemonPush.png",
               "hide_badges": []
             },
             {
@@ -106,7 +106,7 @@
               "name": "SyncClipboard",
               "url": "https://github.com/Jeric-X/SyncClipboard",
               "desc": "剪贴板同步",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-Jeric-X-SyncClipboard.png",
               "hide_badges": []
             }
           ]
@@ -181,7 +181,7 @@
               "toolbox": null,
               "name": "Sticky Notes | 贴纸便签",
               "url": "https://github.com/imlinhanchao/sticky_notes",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-imlinhanchao-sticky_notes.png",
               "hide_badges": []
             },
             {
@@ -216,7 +216,7 @@
               "toolbox": null,
               "name": "StikyNotes",
               "url": "https://github.com/li-zheng-hao/StickyNotes",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-li-zheng-hao-StickyNotes.png",
               "hide_badges": []
             },
             {
@@ -268,7 +268,7 @@
               "toolbox": null,
               "name": "AutoHotPie",
               "url": "https://github.com/dumbeau/AutoHotPie",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-dumbeau-AutoHotPie.png",
               "hide_badges": []
             },
             {
@@ -378,7 +378,7 @@
               "toolbox": null,
               "name": "Stroke",
               "url": "https://github.com/poerin/Stroke",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-poerin-Stroke.png",
               "hide_badges": []
             },
             {
@@ -392,7 +392,7 @@
               "toolbox": null,
               "name": "Mouse actions",
               "url": "https://github.com/jersou/mouse-actions",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-jersou-mouse-actions.png",
               "hide_badges": []
             },
             {
@@ -406,7 +406,7 @@
               "toolbox": null,
               "name": "Wheel",
               "url": "https://github.com/majorworld/Wheel",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-majorworld-Wheel.png",
               "hide_badges": []
             },
             {
@@ -415,7 +415,7 @@
               "url": "https://github.com/vhanla/winxcorners/",
               "official_site": "https://apps.codigobit.info/2015/10/winxcorners-hot-corners-for-windows-10.html",
               "detail": "Hot corners for Windows 10 & 11",
-              "icon": "/images/logos/vhanla-winxcorners.webp",
+              "icon": "/images/logos/github-vhanla-winxcorners.png",
               "hide_badges": []
             },
             {
@@ -499,7 +499,7 @@
               "url": "https://github.com/microsoft/litebox",
               "desc": "微软Rust沙箱系统",
               "detail": "A security-focused library OS supporting kernel- and user-mode execution",
-              "icon": "/images/logos/microsoft-litebox.webp",
+              "icon": "/images/logos/github-microsoft-litebox.png",
               "hide_badges": []
             }
           ]
@@ -514,7 +514,7 @@
               "official_site": "https://droppoint.netlify.app/",
               "desc": "浮窗中转文件",
               "detail": "Make drag-and-drop easier using DropPoint. Drag content without having to open side-by-side windows",
-              "icon": "/images/logos/GameGodS3-DropPoint.webp",
+              "icon": "/images/logos/github-GameGodS3-DropPoint.png",
               "hide_badges": []
             }
           ]
@@ -532,28 +532,28 @@
               "toolbox": null,
               "name": "RoundedTB",
               "url": "https://github.com/RoundedTB/RoundedTB",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-RoundedTB-RoundedTB.png",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "TranslucentTB",
               "url": "https://github.com/TranslucentTB/TranslucentTB",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-TranslucentTB-TranslucentTB.png",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "TaskbarTools",
               "url": "https://github.com/Elestriel/TaskbarTools",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-Elestriel-TaskbarTools.png",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "TranslucentSM",
               "url": "https://github.com/rounk-ctrl/TranslucentSM",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-rounk-ctrl-TranslucentSM.png",
               "hide_badges": []
             },
             {
@@ -581,21 +581,21 @@
               "toolbox": null,
               "name": "Wifinian",
               "url": "https://github.com/emoacht/Wifinian",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-emoacht-Wifinian.png",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "ModernFlyouts",
               "url": "https://github.com/ModernFlyouts-Community/ModernFlyouts",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-ModernFlyouts-Community-ModernFlyouts.png",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "EarTrumpet",
               "url": "https://github.com/File-New-Project/EarTrumpet",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-File-New-Project-EarTrumpet.png",
               "hide_badges": []
             },
             {
@@ -623,7 +623,7 @@
               "toolbox": null,
               "name": "TrafficMonitor",
               "url": "https://github.com/zhongyang219/TrafficMonitor",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-zhongyang219-TrafficMonitor.png",
               "hide_badges": []
             },
             {
@@ -637,7 +637,7 @@
               "toolbox": null,
               "name": "OFGB",
               "url": "https://github.com/zetaloop/OFGB",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-zetaloop-OFGB.png",
               "hide_badges": []
             },
             {
@@ -672,7 +672,7 @@
               "toolbox": null,
               "name": "Multrin",
               "url": "https://github.com/sentialx/multrin/",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-sentialx-multrin.png",
               "hide_badges": []
             }
           ]
@@ -698,7 +698,7 @@
               "toolbox": null,
               "name": "ContextMenuForWindows11",
               "url": "https://github.com/ikas-mc/ContextMenuForWindows11",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-ikas-mc-ContextMenuForWindows11.png",
               "hide_badges": []
             },
             {
@@ -712,14 +712,14 @@
               "toolbox": null,
               "name": "Breeze Shell",
               "url": "https://github.com/std-microblock/breeze-shell",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-std-microblock-breeze-shell.png",
               "hide_badges": []
             },
             {
               "toolbox": null,
               "name": "TranslucentFlyouts V2",
               "url": "https://github.com/ALTaleX531/TranslucentFlyouts",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-ALTaleX531-TranslucentFlyouts.png",
               "hide_badges": []
             },
             {
@@ -766,7 +766,7 @@
               "toolbox": null,
               "name": "Wallhaven",
               "url": "https://github.com/leoFitz1024/wallhaven",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-leoFitz1024-wallhaven.png",
               "hide_badges": []
             },
             {
@@ -780,7 +780,7 @@
               "toolbox": null,
               "name": "Sucrose",
               "url": "https://github.com/Taiizor/Sucrose",
-              "icon": "/images/logos/github-com.webp",
+              "icon": "/images/logos/github-Taiizor-Sucrose.png",
               "hide_badges": []
             },
             {

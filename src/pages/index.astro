@@ -4,16 +4,14 @@ import { ClientRouter, fade } from 'astro:transitions';
 import Layout from '../layouts/Layout.astro';
 import Sidebar from '../components/Sidebar/index.astro';
 import SiteCard from '../components/SiteCard/index.astro';
-import SearchModal, { SearchTrigger } from '../components/SearchModal.jsx';
+import SearchModal from '../components/SearchModal.jsx';
 import ShareExportModal from '../components/ShareExportModal.jsx';
 import ThemePicker from '../components/ThemePicker/index.astro';
 import ResourceFilter from '../components/ResourceFilter.astro';
 import siteConfig from '../content/site-settings/config.json';
 import { getCollection } from 'astro:content'; 
-import { LayoutDashboard, Star, Code, Palette, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu } from 'lucide-react';
+import { LayoutDashboard, Star, Code, Palette, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu, Search, Command, Share2 } from 'lucide-react';
 import { sortResourcesByStatus } from '../utils/resourceSort';
-
-import GlobalShareButton from '../components/GlobalShareButton.jsx';
 
 // 辅助函数：构建包含页面所有分组、分类和卡片的嵌套树形数据结构
 function buildShareTree(groups: any[]) {
@@ -116,9 +114,20 @@ const CurrentIcon = section.icon ? (Icons[section.icon as keyof typeof Icons] ||
         </div>
         
         <div class="flex items-center gap-2 md:gap-3 shrink-0">
-          <SearchTrigger client:idle />
+          <button class="flex items-center gap-2 px-3 py-1.5 text-sm text-slate-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:ring-2 hover:ring-brand-500/20 transition-all border border-slate-200 dark:border-slate-700" onclick="window.dispatchEvent(new CustomEvent('open-search-modal'))">
+            <Search size={16} />
+            <span class="hidden sm:inline">搜索...</span>
+            <kbd class="hidden sm:flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-sans font-medium text-slate-500 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md">
+              <Command size={10} />K
+            </kbd>
+          </button>
+          
           <ResourceFilter />
-          <GlobalShareButton client:idle />
+          
+          <button class="p-2 text-slate-500 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 bg-white/50 dark:bg-gray-800/50 hover:bg-brand-50 dark:hover:bg-brand-900/30 rounded-lg shadow-sm border border-gray-200/50 dark:border-gray-700/50 shrink-0 transition-all duration-200" title="分享页面资源" onclick="if(window.__PAGE_SHARE_TREE__) window.dispatchEvent(new CustomEvent('open-share-modal', { detail: { tree: window.__PAGE_SHARE_TREE__, title: window.__PAGE_SHARE_TITLE__ || '资源推荐', activeId: window.__ACTIVE_SHARE_ID__ || null } }))">
+            <Share2 size={20} />
+          </button>
+          
           <ThemePicker />
         </div>
       </header>

@@ -21,7 +21,7 @@
               "url": "https://github.com/MoeKoeMusic/MoeKoeMusic",
               "official_site": "https://music.moekoe.cn/",
               "desc": "开源第三方酷狗，登陆就是vip",
-              "icon": "/images/logos/MoeKoeMusic-MoeKoeMusic.webp",
+              "icon": "/images/logos/github-MoeKoeMusic-MoeKoeMusic.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -31,7 +31,7 @@
               "name": "洛雪音乐助手",
               "url": "https://github.com/lyswhut/lx-music-desktop",
               "official_site": "https://lxmusic.toside.cn/",
-              "icon": "/images/logos/happymod-com.webp",
+              "icon": "/images/logos/github-lyswhut-lx-music-desktop.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -41,7 +41,7 @@
               "name": "Listen1",
               "url": "https://github.com/listen1/listen1_desktop",
               "official_site": "https://listen1.github.io/listen1/",
-              "icon": "/images/logos/happymod-com.webp",
+              "icon": "/images/logos/github-listen1-listen1_desktop.png",
               "hide_badges": [],
               "guide_id": "listen1",
               "status": "ok"
@@ -61,7 +61,7 @@
               "name": "MusicFree",
               "url": "https://github.com/maotoumao/MusicFreeDesktop",
               "official_site": "https://musicfree.catcat.work/",
-              "icon": "/images/logos/maotoumao-MusicFree.webp",
+              "icon": "/images/logos/github-maotoumao-MusicFreeDesktop.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -71,7 +71,7 @@
               "name": "NSMusicS",
               "url": "https://github.com/Super-Badmen-Viper/NSMusicS",
               "detail": "NSMusicS NineSong Cloud-Native Music Server/ Full platform Client，support navidrome, jellyfin, emby",
-              "icon": "/images/logos/Super-Badmen-Viper-NSMusicS.webp?t=1771736360601",
+              "icon": "/images/logos/github-Super-Badmen-Viper-NSMusicS.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -80,7 +80,7 @@
               "toolboxLink": null,
               "name": "TTKMusicPlayer",
               "url": "https://github.com/Greedysky/TTKMusicPlayer",
-              "icon": "/images/logos/Greedysky-TTKMusicPlayer.webp",
+              "icon": "/images/logos/github-Greedysky-TTKMusicPlayer.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -89,7 +89,7 @@
               "toolboxLink": null,
               "name": "go-musicfox",
               "url": "https://github.com/go-musicfox/go-musicfox",
-              "icon": "/images/logos/go-musicfox-go-musicfox.webp",
+              "icon": "/images/logos/github-go-musicfox-go-musicfox.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -100,7 +100,7 @@
               "url": "https://github.com/guanguans/music-dl",
               "official_site": "https://www.guanguans.cn/music-dl/",
               "desc": "命令行音乐搜索下载",
-              "icon": "/images/logos/gjw123-com.webp",
+              "icon": "/images/logos/github-guanguans-music-dl.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -109,7 +109,7 @@
               "toolboxLink": null,
               "name": "NSMusicS",
               "url": "https://github.com/Super-Badmen-Viper/NSMusicS",
-              "icon": "/images/logos/Super-Badmen-Viper-NSMusicS.webp",
+              "icon": "/images/logos/github-Super-Badmen-Viper-NSMusicS.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -118,7 +118,7 @@
               "toolboxLink": null,
               "name": "musicn",
               "url": "https://github.com/zonemeen/musicn",
-              "icon": "/images/logos/zonemeen-musicn.webp",
+              "icon": "/images/logos/github-zonemeen-musicn.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -145,7 +145,7 @@
               "toolboxLink": null,
               "name": "foobox-cn",
               "url": "https://github.com/dream7180/foobox-cn",
-              "icon": "/images/logos/dream7180-foobox-cn.webp",
+              "icon": "/images/logos/github-dream7180-foobox-cn.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -172,7 +172,7 @@
               "toolboxLink": null,
               "name": "MusicPlayer2",
               "url": "https://github.com/zhongyang219/MusicPlayer2",
-              "icon": "/images/logos/zhongyang219-MusicPlayer2.webp",
+              "icon": "/images/logos/github-zhongyang219-MusicPlayer2.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -181,7 +181,7 @@
               "toolboxLink": null,
               "name": "Dopamine",
               "url": "https://github.com/digimezzo/dopamine-windows",
-              "icon": "/images/logos/happymod-com.webp",
+              "icon": "/images/logos/github-digimezzo-dopamine-windows.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -199,7 +199,7 @@
               "toolboxLink": null,
               "name": "Wora",
               "url": "https://github.com/playwora/wora",
-              "icon": "/images/logos/playwora-wora.webp",
+              "icon": "/images/logos/github-playwora-wora.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -229,7 +229,7 @@
               "url": "https://github.com/qier222/YesPlayMusic",
               "official_site": "https://music.qier222.com/",
               "desc": "第三方网易云播放器",
-              "icon": "/images/logos/happymod-com.webp",
+              "icon": "/images/logos/github-qier222-YesPlayMusic.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -240,7 +240,7 @@
               "url": "https://github.com/imsyy/SPlayer",
               "official_site": "http://splayer.imsyy.top/",
               "desc": "网易云第三方",
-              "icon": "/images/logos/imsyy-SPlayer.webp",
+              "icon": "/images/logos/github-imsyy-SPlayer.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -270,7 +270,7 @@
               "name": "electron-vue-cloud-music",
               "url": "https://github.com/xiaozhu188/electron-vue-cloud-music",
               "desc": "2021停更",
-              "icon": "/images/logos/xiaozhu188-electron-vue-cloud-music.webp",
+              "icon": "/images/logos/github-xiaozhu188-electron-vue-cloud-music.png",
               "hide_badges": [],
               "status": "官网失效"
             },
@@ -281,7 +281,7 @@
               "url": "https://github.com/Java-S12138/Music_Download",
               "official_site": "https://java-syj.feishu.cn/wiki/DBqIwuJ1ji228ike4necim4cnDg",
               "desc": "发布即停更",
-              "icon": "/images/logos/Java-S12138-Music-Download.webp",
+              "icon": "/images/logos/github-Java-S12138-Music_Download.png",
               "hide_badges": [],
               "status": "官网失效"
             },
@@ -291,7 +291,7 @@
               "name": "mp3tag-douban-id3-plugins",
               "url": "https://github.com/yoyicue/mp3tag-douban-id3-plugins",
               "desc": "Mp3tag 豆瓣音乐 id3 插件 v2.5 （2020年10月可用）",
-              "icon": "/images/logos/yoyicue-mp3tag-douban-id3-plugins.webp",
+              "icon": "/images/logos/github-yoyicue-mp3tag-douban-id3-plugins.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -301,7 +301,7 @@
               "name": "EvolveUI",
               "url": "https://github.com/sudoevolve/EvolveUI",
               "detail": "EvolveUI is a modern, highly styled Qt6 QML front-end component library dedicated to providing a consistent, elegant, and responsive UI experience for cross-platform applications. Inspired by Telegram's animations and Material Design specifications, it takes into full consideration the interaction habits of desktop and mobile devices.",
-              "icon": "/images/logos/sudoevolve-EvolveUI.webp",
+              "icon": "/images/logos/github-sudoevolve-EvolveUI.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -311,7 +311,7 @@
               "name": "ParticleMusic",
               "url": "https://github.com/AfalpHy/ParticleMusic",
               "detail": "A cross-platform local music player based on Flutter",
-              "icon": "/images/logos/AfalpHy-ParticleMusic.webp",
+              "icon": "/images/logos/github-AfalpHy-ParticleMusic.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -323,7 +323,7 @@
               "official_site": "https://music.kukuqaq.com/",
               "desc": "音乐搜索与下载",
               "detail": "一个基于 Go 语言的全网音乐搜索与下载工具。支持 CLI 命令行与 Web 服务双模式，内置网易云、QQ、酷狗、Bilibili、汽水音乐等 10+ 个主流平台，支持多源并发搜索与无损音质解析。",
-              "icon": "/images/logos/guohuiyuan-go-music-dl.webp",
+              "icon": "/images/logos/github-guohuiyuan-go-music-dl.png",
               "hide_badges": [],
               "status": "ok"
             }
@@ -347,7 +347,7 @@
               "toolboxLink": null,
               "name": "LX Music",
               "url": "https://github.com/lyswhut/lx-music-mobile",
-              "icon": "/images/logos/happymod-com.webp",
+              "icon": "/images/logos/github-lyswhut-lx-music-mobile.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -365,7 +365,7 @@
               "toolboxLink": null,
               "name": "MusicFree",
               "url": "https://github.com/maotoumao/MusicFree",
-              "icon": "/images/logos/maotoumao-MusicFree.webp",
+              "icon": "/images/logos/github-maotoumao-MusicFree.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -375,7 +375,7 @@
               "name": "Music Player",
               "url": "https://github.com/FossifyOrg/Music-Player",
               "official_site": "https://www.fossify.org/",
-              "icon": "/images/logos/FossifyOrg-Music-Player.webp",
+              "icon": "/images/logos/github-FossifyOrg-Music-Player.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -420,7 +420,7 @@
               "toolboxLink": null,
               "name": "椒盐音乐",
               "url": "https://play.google.com/store/apps/details?id=com.salt.music",
-              "icon": "",
+              "icon": "/images/logos/googleplay-com.salt.music.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -459,7 +459,7 @@
               "toolboxLink": null,
               "name": "Stellio Player",
               "url": "https://play.google.com/store/apps/details?id=io.stellio.music",
-              "icon": "",
+              "icon": "/images/logos/googleplay-io.stellio.music.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -479,7 +479,7 @@
               "name": "DialogMusicPlayer",
               "url": "https://github.com/VishnuSanal/DialogMusicPlayer/",
               "desc": "极简，无桌面图标",
-              "icon": "/images/logos/happymod-com.webp",
+              "icon": "/images/logos/github-VishnuSanal-DialogMusicPlayer.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -489,7 +489,7 @@
               "name": "Muviz Edge",
               "url": "https://play.google.com/store/apps/details?id=com.sparkine.muvizedge&ref=appinn",
               "desc": "在屏幕边缘显示现场音乐可视化",
-              "icon": "",
+              "icon": "/images/logos/googleplay-com.sparkine.muvizedge.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -509,7 +509,7 @@
               "name": "不倦",
               "url": "https://github.com/2697a/bujuan",
               "desc": "第三方网易云播放器",
-              "icon": "/images/logos/2697a-bujuan.webp",
+              "icon": "/images/logos/github-2697a-bujuan.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -520,7 +520,7 @@
               "url": "https://github.com/KRTirtho/spotube",
               "official_site": "https://spotube.krtirtho.dev/",
               "desc": "开源 Spotify 客户端",
-              "icon": "/images/logos/KRTirtho-spotube.webp",
+              "icon": "/images/logos/github-KRTirtho-spotube.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -530,7 +530,7 @@
               "name": "InnerTune",
               "url": "https://github.com/z-huang/InnerTune",
               "desc": "第三方 YouTube Music",
-              "icon": "/images/logos/z-huang-InnerTune.webp",
+              "icon": "/images/logos/github-z-huang-InnerTune.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -584,7 +584,7 @@
               "toolboxLink": null,
               "name": "lx-music-source",
               "url": "https://github.com/pdone/lx-music-source",
-              "icon": "/images/logos/pdone-lx-music-source.webp",
+              "icon": "/images/logos/github-pdone-lx-music-source.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -593,7 +593,7 @@
               "toolboxLink": null,
               "name": "LX-music-collection",
               "url": "https://github.com/LuoXiaohei-2025/LX-music-collection",
-              "icon": "/images/logos/LuoXiaohei-2025-LX-music-collection.webp",
+              "icon": "/images/logos/github-LuoXiaohei-2025-LX-music-collection.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -603,7 +603,7 @@
               "name": "lxmusic-",
               "url": "https://github.com/guoyue2010/lxmusic-",
               "desc": "2025年10月终止分享，转付费服务",
-              "icon": "/images/logos/guoyue2010-lxmusic.webp",
+              "icon": "/images/logos/github-guoyue2010-lxmusic-.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -612,7 +612,7 @@
               "toolboxLink": null,
               "name": "keep-alive",
               "url": "https://github.com/Huibq/keep-alive",
-              "icon": "/images/logos/Huibq-keep-alive.webp",
+              "icon": "/images/logos/github-Huibq-keep-alive.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -621,7 +621,7 @@
               "toolboxLink": null,
               "name": "New_lxmusic_source",
               "url": "https://github.com/laosunmaker/New_lxmusic_source",
-              "icon": "/images/logos/laosunmaker-New-lxmusic-source.webp",
+              "icon": "/images/logos/github-laosunmaker-New_lxmusic_source.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -630,7 +630,7 @@
               "toolboxLink": null,
               "name": "music-sources",
               "url": "https://github.com/OneCodeMonkey/music-sources",
-              "icon": "/images/logos/OneCodeMonkey-music-sources.webp",
+              "icon": "/images/logos/github-OneCodeMonkey-music-sources.png",
               "hide_badges": [],
               "status": "ok"
             }
@@ -780,7 +780,7 @@
               "name": "PicView",
               "url": "https://github.com/Ruben2776/PicView",
               "official_site": "https://picview.org/",
-              "icon": "/images/logos/Ruben2776-PicView.webp",
+              "icon": "/images/logos/github-Ruben2776-PicView.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -830,7 +830,7 @@
               "url": "https://github.com/jurplel/qView",
               "official_site": "https://interversehq.com/qview/",
               "desc": "极简界面",
-              "icon": "/images/logos/jurplel-qView.webp",
+              "icon": "/images/logos/github-jurplel-qView.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -839,7 +839,7 @@
               "toolboxLink": null,
               "name": "Masonry Image Viewer",
               "url": "https://github.com/wlm3201/Masonry_Image_Viewer",
-              "icon": "/images/logos/happymod-com.webp",
+              "icon": "/images/logos/github-wlm3201-Masonry_Image_Viewer.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -859,7 +859,7 @@
               "url": "https://github.com/Molunerfinn/PicGo",
               "official_site": "https://picx.xpoet.cn/",
               "desc": "支持主流图床平台",
-              "icon": "/images/logos/Molunerfinn-PicGo.webp",
+              "icon": "/images/logos/github-Molunerfinn-PicGo.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -869,7 +869,7 @@
               "name": "PicX",
               "url": "https://github.com/XPoet/picx",
               "desc": "GitHub 图床",
-              "icon": "/images/logos/XPoet-picx.webp",
+              "icon": "/images/logos/github-XPoet-picx.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -880,7 +880,7 @@
               "url": "https://github.com/icret/EasyImages2.0",
               "official_site": "https://png.cm/",
               "desc": "简单图床",
-              "icon": "/images/logos/happymod-com.webp",
+              "icon": "/images/logos/github-icret-EasyImages2.0.png",
               "hide_badges": [],
               "status": "ok"
             }
@@ -905,7 +905,7 @@
               "url": "https://github.com/ShareX/ShareX",
               "official_site": "https://getsharex.com/",
               "desc": "功能太强大",
-              "icon": "/images/logos/ShareX-ShareX.webp",
+              "icon": "/images/logos/github-ShareX-ShareX.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -916,7 +916,7 @@
               "url": "https://github.com/flameshot-org/flameshot",
               "official_site": "https://flameshot.org/",
               "desc": "标注功能强大",
-              "icon": "/images/logos/flameshot-org-flameshot.webp",
+              "icon": "/images/logos/github-flameshot-org-flameshot.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -936,7 +936,7 @@
               "name": "eSearch",
               "url": "https://github.com/xushengfeng/eSearch",
               "official_site": "https://esearch-app.netlify.app/",
-              "icon": "/images/logos/xushengfeng-eSearch.webp",
+              "icon": "/images/logos/github-xushengfeng-eSearch.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -946,7 +946,7 @@
               "name": "Snow Shot",
               "url": "https://github.com/mg-chao/snow-shot",
               "official_site": "https://snowshot.top/",
-              "icon": "/images/logos/mg-chao-snow-shot.webp",
+              "icon": "/images/logos/github-mg-chao-snow-shot.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -955,7 +955,7 @@
               "toolboxLink": null,
               "name": "ScreenCapture",
               "url": "https://github.com/xland/ScreenCapture",
-              "icon": "/images/logos/xland-ScreenCapture.webp",
+              "icon": "/images/logos/github-xland-ScreenCapture.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -966,7 +966,7 @@
               "url": "https://github.com/027xiguapi/pear-rec",
               "official_site": "https://027xiguapi.github.io/pear-rec/",
               "desc": "截图、录屏、录音、录像",
-              "icon": "/images/logos/happymod-com.webp",
+              "icon": "/images/logos/github-027xiguapi-pear-rec.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -976,7 +976,7 @@
               "name": "AutoScreenShot",
               "url": "https://github.com/artem78/AutoScreenshot",
               "desc": "定时自动截图",
-              "icon": "/images/logos/happymod-com.webp",
+              "icon": "/images/logos/github-artem78-AutoScreenshot.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -995,7 +995,7 @@
               "name": "SETUNA2",
               "url": "https://github.com/tylearymf/SETUNA2",
               "desc": "2024年归档",
-              "icon": "/images/logos/tylearymf-SETUNA2.webp",
+              "icon": "/images/logos/github-tylearymf-SETUNA2.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1055,7 +1055,7 @@
               "toolboxLink": null,
               "name": "Img Toolbox",
               "url": "https://github.com/LokerL/img-toolbox",
-              "icon": "/images/logos/LokerL-img-toolbox.webp",
+              "icon": "/images/logos/github-LokerL-img-toolbox.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1118,7 +1118,7 @@
               "toolboxLink": null,
               "name": "Waifu2x-Extension-GUI",
               "url": "https://github.com/AaronFeng753/Waifu2x-Extension-GUI",
-              "icon": "/images/logos/AaronFeng753-Waifu2x-Extension-GUI.webp",
+              "icon": "/images/logos/github-AaronFeng753-Waifu2x-Extension-GUI.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1181,7 +1181,7 @@
               "toolboxLink": null,
               "name": "upscayl",
               "url": "https://github.com/upscayl/upscayl",
-              "icon": "/images/logos/upscayl-upscayl.webp",
+              "icon": "/images/logos/github-upscayl-upscayl.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1192,7 +1192,7 @@
               "url": "https://github.com/Faster3ck/Converseen",
               "official_site": "https://converseen.fasterland.net/",
               "detail": "Converseen is a batch image converter and resizer",
-              "icon": "/images/logos/Faster3ck-Converseen.webp",
+              "icon": "/images/logos/github-Faster3ck-Converseen.png",
               "hide_badges": [],
               "status": "ok"
             }
@@ -1338,7 +1338,7 @@
               "toolboxLink": null,
               "name": "Captura",
               "url": "https://github.com/MathewSachin/Captura",
-              "icon": "/images/logos/MathewSachin-Captura.webp",
+              "icon": "/images/logos/github-MathewSachin-Captura.png",
               "hide_badges": [],
               "status": "ok"
             }
@@ -1352,7 +1352,7 @@
               "toolboxLink": null,
               "name": "LosslessCut",
               "url": "https://github.com/mifi/lossless-cut",
-              "icon": "/images/logos/mifi-lossless-cut.webp",
+              "icon": "/images/logos/github-mifi-lossless-cut.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1370,7 +1370,7 @@
               "toolboxLink": null,
               "name": "HandBrake",
               "url": "https://github.com/HandBrake/HandBrake",
-              "icon": "/images/logos/HandBrake-HandBrake.webp",
+              "icon": "/images/logos/github-HandBrake-HandBrake.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1379,7 +1379,7 @@
               "toolboxLink": null,
               "name": "ShanaEncoder",
               "url": "https://github.com/1265578519/ShanaEncoder",
-              "icon": "/images/logos/1265578519-ShanaEncoder.webp",
+              "icon": "/images/logos/github-1265578519-ShanaEncoder.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1388,7 +1388,7 @@
               "toolboxLink": null,
               "name": "Video-subtitle-remover",
               "url": "https://github.com/YaoFANGUK/video-subtitle-remover",
-              "icon": "/images/logos/YaoFANGUK-video-subtitle-remover.webp",
+              "icon": "/images/logos/github-YaoFANGUK-video-subtitle-remover.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1406,7 +1406,7 @@
               "toolboxLink": null,
               "name": "FFmpegFreeUI",
               "url": "https://github.com/Lake1059/FFmpegFreeUI/",
-              "icon": "/images/logos/Lake1059-FFmpegFreeUI.webp",
+              "icon": "/images/logos/github-Lake1059-FFmpegFreeUI.png",
               "hide_badges": [],
               "status": "ok"
             },
@@ -1416,7 +1416,7 @@
               "name": "anto",
               "url": "https://github.com/speauty/anto",
               "desc": "字幕文件(srt)翻译工具，Windows专用",
-              "icon": "/images/logos/speauty-anto.webp",
+              "icon": "/images/logos/github-speauty-anto.png",
               "hide_badges": [],
               "status": "ok"
             }
