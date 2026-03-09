@@ -2,25 +2,42 @@
 // 悬浮效果管理（PC端 hover 和手机端点击共用）
 // -------------------------------------------------------------
 
-/**
- * 应用所有悬浮效果
- * @param {HTMLElement} wrapper - site-card-wrapper 元素
- */
 function applyHoverEffects(wrapper) {
   wrapper.classList.add('flow-active');
   // 手机端额外添加 mobile-hover 类
   if (window.innerWidth < 768) {
     wrapper.classList.add('mobile-hover');
   }
+
+  // 检测描述是否超出宽度
+  const descWrapper = wrapper.querySelector('.desc-wrapper');
+  const descText = wrapper.querySelector('.desc-text');
+  if (descWrapper && descText) {
+    // 强制复位，重新测量实际滚动宽度（防止受上次截断动画影响）
+    descWrapper.classList.remove('is-overflowing');
+    
+    if (descText.scrollWidth > descWrapper.clientWidth) {
+      descWrapper.classList.add('is-overflowing');
+      
+      const scrollDistance = descText.scrollWidth - descWrapper.clientWidth + 8; // 额外补充8px空间避免边缘紧贴
+      // 根据长度计算合适的时间 (比如大约每秒 25px 的滚速，最少 3 秒)
+      const duration = Math.max(3, scrollDistance / 25);
+      
+      descText.style.setProperty('--scroll-dist', `-${scrollDistance}px`);
+      descText.style.setProperty('--scroll-dur', `${duration}s`);
+    }
+  }
 }
 
-/**
- * 移除所有悬浮效果
- * @param {HTMLElement} wrapper - site-card-wrapper 元素
- */
 function removeHoverEffects(wrapper) {
   wrapper.classList.remove('flow-active');
   wrapper.classList.remove('mobile-hover');
+
+  // 移除描述溢出状态
+  const descWrapper = wrapper.querySelector('.desc-wrapper');
+  if (descWrapper) {
+    descWrapper.classList.remove('is-overflowing');
+  }
 }
 
 // -------------------------------------------------------------
@@ -60,6 +77,13 @@ function showTooltip(wrapper) {
 
   const contentBox = document.getElementById('tooltip-content');
   contentBox.innerHTML = source.innerHTML;
+
+  // 0. 真正触发图片加载 (实现严格懒加载，解决首屏 500+ 网络请求卡顿)
+  const lazyImages = contentBox.querySelectorAll('img[data-src]');
+  lazyImages.forEach(img => {
+    img.src = img.getAttribute('data-src');
+    img.removeAttribute('data-src');
+  });
 
   // 1. 禁用过渡
   tooltipEl.classList.add('no-transition');

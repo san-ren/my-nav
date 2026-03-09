@@ -1,6 +1,6 @@
 // src/components/keystatic/Toolbox/ToolboxPage.tsx
 import React, { useState, useCallback, createContext, useContext, useEffect } from 'react';
-import { Link, Wrench, ArrowLeft, AlertTriangle, Edit3 } from 'lucide-react';
+import { Link, Wrench, ArrowLeft, AlertTriangle, Edit3, CheckCircle, RefreshCw } from 'lucide-react';
 import { LinkChecker } from './LinkChecker';
 import { ResourceEditor } from './ResourceEditor';
 import { TABS as TAB_STYLES, MODAL, BUTTON } from './toolbox-shared';
@@ -98,6 +98,37 @@ export function ToolboxPage() {
     editor: false,
   });
 
+  // ✅ 运行中的任务和Toast通知
+  const [runningTasks, setRunningTasks] = useState<{ [key: string]: { name: string, progress: number } }>({});
+  const [toasts, setToasts] = useState<{ id: number, message: string }[]>([]);
+
+  const addToast = useCallback((message: string) => {
+    const id = Date.now();
+    setToasts(prev => [...prev, { id, message }]);
+    setTimeout(() => {
+      setToasts(prev => prev.filter(t => t.id !== id));
+    }, 4000);
+  }, []);
+
+  const handleTaskStart = useCallback((id: string, name: string) => {
+    setRunningTasks(prev => ({ ...prev, [id]: { name, progress: 0 } }));
+  }, []);
+
+  const handleTaskProgress = useCallback((id: string, progress: number) => {
+    setRunningTasks(prev => ({ ...prev, [id]: { ...prev[id], progress } }));
+  }, []);
+
+  const handleTaskEnd = useCallback((id: string, message?: string) => {
+    setRunningTasks(prev => {
+      const next = { ...prev };
+      delete next[id];
+      return next;
+    });
+    if (message) {
+      addToast(message);
+    }
+  }, [addToast]);
+
   // 设置Token（标记为未保存）
   const setGithubToken = useCallback((token: string) => {
     setGithubTokenState(token);
@@ -164,14 +195,26 @@ export function ToolboxPage() {
   }, [updateDataStatus]);
 
   const renderContent = () => {
-    switch (activeTab) {
-      case 'link':
-        return <LinkChecker onDataStatusChange={handleLinkDataStatusChange} />;
-      case 'editor':
-        return <ResourceEditor onDataStatusChange={handleEditorDataStatusChange} />;
-      default:
-        return null;
-    }
+    return (
+      <>
+        <div style={{ display: activeTab === 'link' ? 'block' : 'none' }}>
+          <LinkChecker 
+            onDataStatusChange={handleLinkDataStatusChange} 
+            onTaskStart={handleTaskStart}
+            onTaskProgress={handleTaskProgress}
+            onTaskEnd={handleTaskEnd}
+          />
+        </div>
+        <div style={{ display: activeTab === 'editor' ? 'block' : 'none' }}>
+          <ResourceEditor 
+            onDataStatusChange={handleEditorDataStatusChange} 
+            onTaskStart={handleTaskStart}
+            onTaskProgress={handleTaskProgress}
+            onTaskEnd={handleTaskEnd}
+          />
+        </div>
+      </>
+    );
   };
 
 
@@ -213,6 +256,15 @@ export function ToolboxPage() {
             </div>
           </div>
           
+          {/* 中间进度区 */}
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '32px' }}>
+            {Object.values(runningTasks).map((task, idx) => (
+              <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#f1f5f9', padding: '4px 12px', borderRadius: '20px', fontSize: '13px', color: '#334155' }}>
+                <RefreshCw size={14} style={{ color: '#3b82f6' }} className="animate-spin" />
+                <span>{task.name}: {task.progress}%</span>
+              </div>
+            ))}
+          </div>
           
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
             <a 
@@ -260,6 +312,27 @@ export function ToolboxPage() {
           {renderContent()}
         </div>
 
+        {/* Toasts */}
+        <div style={{ position: 'fixed', top: '24px', right: '24px', zIndex: 1000, display: 'flex', flexDirection: 'column', gap: '8px', pointerEvents: 'none' }}>
+          {toasts.map(toast => (
+            <div key={toast.id} style={{
+              background: 'white',
+              borderLeft: '4px solid #22c55e',
+              boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)',
+              padding: '12px 16px',
+              borderRadius: '6px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              animation: 'slideInRight 0.3s ease-out forwards',
+              pointerEvents: 'auto',
+            }}>
+              <CheckCircle size={18} style={{ color: '#22c55e' }} />
+              <span style={{ fontSize: '14px', color: '#1e293b', fontWeight: 500 }}>{toast.message}</span>
+            </div>
+          ))}
+        </div>
+
         {/* 确认切��弹窗 */}
         {showConfirmModal && (
           <div style={MODAL.overlay} onClick={cancelSwitch}>
@@ -270,17 +343,17 @@ export function ToolboxPage() {
               </div>
               
               <p style={MODAL.text}>
-                当前页面有未保存的扫描数据，切换到其他标签页将导致数据丢失。
+                当前页面有未保存的扫描数据，数据将被保存，请注意完成提示。
                 <br /><br />
-                确定要离开吗？
+                确定要切换吗？
               </p>
               
               <div style={MODAL.buttons}>
                 <button onClick={cancelSwitch} style={BUTTON.secondary}>
                   取消
                 </button>
-                <button onClick={confirmSwitch} style={BUTTON.danger}>
-                  确认离开
+                <button onClick={confirmSwitch} style={BUTTON.primary}>
+                  确认切换
                 </button>
               </div>
             </div>

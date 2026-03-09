@@ -7,6 +7,9 @@
 @import "./plugins/anim-fade-up.css";
 @import "./plugins/anim-wave.css";
 
+/* 📤 引入分享导出模态框样式 */
+@import "./share-export.css";
+
 
 @tailwind base;
 @tailwind components;
@@ -29,6 +32,12 @@
   --sidebar-font-cat: 14px;
   --sidebar-font-tab: 13px;
   --card-radius: 1rem;
+
+  /* 4. 字体设置 (将由 JS 覆盖 overrides) */
+  --custom-font-family: system-ui, -apple-system, sans-serif;
+  --custom-font2-family: inherit; /* 英数优先 */
+  --custom-font-size-ratio: 1.0;
+  --custom-font-title-weight: 700;
 }
 
 html.dark {
@@ -38,9 +47,17 @@ html.dark {
 body {
   min-height: 100vh;
   background-color: rgb(249 250 251);
+  /* 优先应用 font2，如果不匹配再降级到 font1 */
+  font-family: var(--custom-font2-family), var(--custom-font-family) !important;
+  font-size: calc(14px * var(--custom-font-size-ratio));
+}
+
+/* 标题统一套用可调节字重 */
+h1, h2, h3, h4, h5, h6, .font-heading, .card-name {
+  font-weight: var(--custom-font-title-weight) !important;
 }
 html.dark body {
-  background-color: rgb(17 24 39);
+  background-color: rgb(30 34 40); /* #1e2228 (对应 IDE 截图中主要编辑区背景色的柔和深灰) */
 }
 
 /* 

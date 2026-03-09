@@ -8,6 +8,305 @@
   "resources": [],
   "categories": [
     {
+      "name": "AI工具",
+      "resources": [],
+      "tabs": [
+        {
+          "tabName": "AI_agent",
+          "list": [
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "CowAgent",
+              "url": "https://github.com/zhayujie/chatgpt-on-wechat",
+              "official_site": "https://cowagent.ai",
+              "desc": "超级AI助理",
+              "detail": "CowAgent是基于大模型的超级AI助理，能主动思考和任务规划、访问操作系统和外部资源、创造和执行Skills、拥有长期记忆并不断成长。同时支持飞书、钉钉、企业微信应用、微信公众号、网页等接入，可选择OpenAI/Claude/Gemini/DeepSeek/ Qwen/GLM/Kimi/LinkAI，能处理文本、语音、图片和文件，可快速搭建个人AI助手和企业数字员工。",
+              "icon": "/images/logos/zhayujie-chatgpt-on-wechat.webp?t=1772955523057",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "ZeroClaw",
+              "url": "https://github.com/zeroclaw-labs/zeroclaw",
+              "official_site": "https://www.zeroclawlabs.ai/",
+              "desc": "替代OpenClaw",
+              "detail": "- Rust 实现，RAM<5MB，启动<10ms\n- 能在最便宜的开发板、旧路由器上跑\n- 13 个核心 trait，所有组件可替换",
+              "icon": "/images/logos/zeroclaw-labs-zeroclaw.webp?t=1772890712957",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "OpenClaw",
+              "url": "https://github.com/openclaw/openclaw",
+              "official_site": "https://openclaw.ai",
+              "desc": "AI Agent 鼻祖",
+              "icon": "/images/logos/openclaw-openclaw.webp?t=1771742022133",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "NanoBot",
+              "url": "https://github.com/HKUDS/nanobot",
+              "desc": "Python实现OpenClaw",
+              "detail": "- RAM> 100MB，启动> 30s\n- 超轻量、占用低，代码比OpenClaw小99%\n- MCP 优先，工具插件化\n- 香港大学数据智能实验室开发",
+              "icon": "/images/logos/HKUDS-nanobot.webp?t=1771742054446",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "PicoClaw",
+              "url": "https://github.com/sipeed/picoclaw",
+              "official_site": "https://picoclaw.io",
+              "desc": "基于NanoBot",
+              "detail": "- RAM <10MB，启动时间 < 1s\n- AI用Go实现，95%代码 AI 自举\n- 用七个 markdown 文件定义智能体行为的一切（identity.md、personality.md、knowledge.md、rules.md、skills.md、plans.md、self.md）\n- 国内开源硬件公司开发：https://sipeed.com/",
+              "icon": "/images/logos/sipeed-picoclaw.webp?t=1772921730136",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "Awesome OpenClaw Skills",
+              "url": "https://github.com/VoltAgent/awesome-openclaw-skills",
+              "official_site": "https://github.com/VoltAgent/voltagent",
+              "desc": "OpenClaw Skills",
+              "icon": "/images/logos/VoltAgent-awesome-openclaw-skills.webp?t=1771742055342",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "NanoClaw",
+              "url": "https://github.com/qwibitai/nanoclaw",
+              "official_site": "https://nanoclaw.dev",
+              "desc": "封装Claude Code",
+              "detail": "- TypeScript实现\n- 支持多代理集群（Agent Swarms），每个agent之间物理隔离",
+              "icon": "/images/logos/qwibitai-nanoclaw.webp?t=1771742089815",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "Cowork（AionUi）",
+              "url": "https://github.com/iOfficeAI/AionUi",
+              "official_site": "https://www.aionui.com",
+              "desc": "AI Agent",
+              "icon": "/images/logos/github-com.webp?t=1771742061690",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "CoPaw",
+              "url": "https://github.com/agentscope-ai/CoPaw",
+              "official_site": "http://copaw.agentscope.io/",
+              "desc": "阿里Agent",
+              "detail": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple chat apps with easily extensible capabilities.",
+              "icon": "/images/logos/agentscope-ai-CoPaw.webp?t=1772956329190",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "IronClaw",
+              "url": "https://github.com/nearai/ironclaw",
+              "official_site": "https://www.ironclaw.com",
+              "desc": "Rust实现",
+              "detail": "- RAM < 10MB，启动 < 10ms\n- 凭证隔离、权限最小化原则\n- WASM沙箱运行",
+              "icon": "/images/logos/nearai-ironclaw.webp?t=1772887677318",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "TinyClaw",
+              "url": "https://github.com/TinyAGI/tinyclaw",
+              "official_site": "https://discord.com/invite/jH6AcEChuD",
+              "detail": "- 多代理、多团队、多渠道\n- 自带实时TUI（终端仪表盘）",
+              "icon": "/images/logos/TinyAGI-tinyclaw.webp?t=1772922108428",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "AstrBot",
+              "url": "https://github.com/AstrBotDevs/AstrBot",
+              "official_site": "https://astrbot.app",
+              "desc": "聊天机器人",
+              "icon": "/images/logos/AstrBotDevs-AstrBot.webp?t=1771742057174",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "LangBot",
+              "url": "https://github.com/langbot-app/LangBot",
+              "official_site": "https://langbot.app",
+              "desc": "AI机器人开发平台.",
+              "icon": "/images/logos/langbot-app-LangBot.webp?t=1771742088386",
+              "hide_badges": [],
+              "status": "ok"
+            }
+          ]
+        },
+        {
+          "tabName": "AI处理",
+          "list": [
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "VideoLingo",
+              "url": "https://github.com/Huanshere/VideoLingo",
+              "official_site": "https://docs.videolingo.io",
+              "desc": "本地视频生成字幕配音",
+              "detail": "Netflix-level subtitle cutting, translation, alignment, and even dubbing - one-click fully automated AI video subtitle team | Netflix级字幕切割、翻译、对齐、甚至加上配音，一键全自动视频搬运AI字幕组",
+              "icon": "/images/logos/github-com.webp",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "ProPainter",
+              "url": "https://github.com/sczhou/ProPainter",
+              "official_site": "https://shangchenzhou.com/projects/ProPainter/",
+              "desc": "改进用于视频修复的传播和Transformer算法",
+              "icon": "/images/logos/github-com.webp",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "PDFMathTranslate",
+              "url": "https://github.com/PDFMathTranslate/PDFMathTranslate",
+              "official_site": "https://pdf2zh.com",
+              "detail": "[EMNLP 2025 Demo] PDF scientific paper translation with preserved formats - 基于 AI 完整保留排版的 PDF 文档全文双语翻译，支持 Google/DeepL/Ollama/OpenAI 等服务，提供 CLI/GUI/MCP/Docker/Zotero",
+              "icon": "/images/logos/github-com.webp",
+              "hide_badges": [],
+              "status": "ok"
+            }
+          ]
+        },
+        {
+          "tabName": "数据获取",
+          "list": [
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "moe-copy-ai",
+              "url": "https://github.com/yusixian/moe-copy-ai",
+              "official_site": "https://moe.cosine.ren/docs",
+              "desc": " AI 网页数据提取助手 ✨",
+              "icon": "/images/logos/yusixian-moe-copy-ai.webp",
+              "hide_badges": [],
+              "status": "ok"
+            }
+          ]
+        },
+        {
+          "tabName": "生成",
+          "list": [
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "卡卡字幕助手/VideoCaptioner",
+              "url": "https://github.com/WEIFENG2333/VideoCaptioner",
+              "official_site": "https://www.videocaptioner.cn",
+              "desc": "🎬 卡卡字幕助手 | VideoCaptioner - 基于 LLM 的智能字幕助手 - 视频字幕生成、断句、校正、字幕翻译全流程处理！- A powered tool for easy and efficient video subtitling.",
+              "icon": "/images/logos/WEIFENG2333-VideoCaptioner.webp",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "screenshot-to-code",
+              "url": "https://github.com/abi/screenshot-to-code",
+              "official_site": "https://screenshottocode.com",
+              "desc": "Drop in a screenshot and convert it to clean code (HTML/Tailwind/React/Vue)",
+              "icon": "/images/logos/abi-screenshot-to-code.webp",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "ai-to-pptx",
+              "url": "https://github.com/SmartSchoolAI/ai-to-pptx",
+              "official_site": "https://pptx.dandian.net",
+              "desc": "前端后端同时开源。 Ai-to-pptx是一个使用AI技术(DeepSeek)制作PPTX的助手，支持在线生成和导出PPTX。 主要功能: 1 使用DeepSeek等大语言模型来生成大纲 2 生成PPTX的时候可以选择不同的模板 3 支持导出PPTX",
+              "icon": "/images/logos/happymod-com.webp",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "DiffRhythm",
+              "url": "https://github.com/ASLP-lab/DiffRhythm",
+              "desc": "Di♪♪Rhythm: Blazingly Fast and Embarrassingly Simple End-to-End Full-Length Song Generation with Latent Diffusion",
+              "icon": "/images/logos/ASLP-lab-DiffRhythm.webp",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "AI_NovelGenerator",
+              "url": "https://github.com/YILING0013/AI_NovelGenerator",
+              "desc": "使用ai生成多章节的长篇小说，自动衔接上下文、伏笔",
+              "icon": "/images/logos/YILING0013-AI-NovelGenerator.webp",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "YuE",
+              "url": "https://github.com/multimodal-art-projection/YuE",
+              "official_site": "https://map-yue.github.io",
+              "desc": "YuE: Open Full-song Music Generation Foundation Model, something similar to Suno.ai but open",
+              "icon": "/images/logos/github-com.webp",
+              "hide_badges": [],
+              "status": "ok"
+            }
+          ]
+        },
+        {
+          "tabName": "AI翻译",
+          "list": [
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "v2vt",
+              "url": "https://github.com/halfzm/v2vt",
+              "desc": "video to video translation with voice clone and lip synchronization|带有语音克隆和口型同步的视频翻译，支持中英互换",
+              "icon": "/images/logos/halfzm-v2vt.webp",
+              "hide_badges": [],
+              "status": "ok"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "markdown",
       "resources": [],
       "tabs": [
@@ -267,243 +566,6 @@
               "name": "cherry-markdown",
               "url": "https://github.com/Tencent/cherry-markdown",
               "icon": "/images/logos/github-com.webp",
-              "hide_badges": [],
-              "status": "ok"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "AI工具",
-      "resources": [],
-      "tabs": [
-        {
-          "tabName": "AI处理",
-          "list": [
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "VideoLingo",
-              "url": "https://github.com/Huanshere/VideoLingo",
-              "official_site": "https://docs.videolingo.io",
-              "desc": "本地视频生成字幕配音",
-              "detail": "Netflix-level subtitle cutting, translation, alignment, and even dubbing - one-click fully automated AI video subtitle team | Netflix级字幕切割、翻译、对齐、甚至加上配音，一键全自动视频搬运AI字幕组",
-              "icon": "/images/logos/github-com.webp",
-              "hide_badges": [],
-              "status": "ok"
-            },
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "ProPainter",
-              "url": "https://github.com/sczhou/ProPainter",
-              "official_site": "https://shangchenzhou.com/projects/ProPainter/",
-              "desc": "改进用于视频修复的传播和Transformer算法",
-              "icon": "/images/logos/github-com.webp",
-              "hide_badges": [],
-              "status": "ok"
-            },
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "PDFMathTranslate",
-              "url": "https://github.com/PDFMathTranslate/PDFMathTranslate",
-              "official_site": "https://pdf2zh.com",
-              "detail": "[EMNLP 2025 Demo] PDF scientific paper translation with preserved formats - 基于 AI 完整保留排版的 PDF 文档全文双语翻译，支持 Google/DeepL/Ollama/OpenAI 等服务，提供 CLI/GUI/MCP/Docker/Zotero",
-              "icon": "/images/logos/github-com.webp",
-              "hide_badges": [],
-              "status": "ok"
-            }
-          ]
-        },
-        {
-          "tabName": "数据获取",
-          "list": [
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "moe-copy-ai",
-              "url": "https://github.com/yusixian/moe-copy-ai",
-              "official_site": "https://moe.cosine.ren/docs",
-              "desc": " AI 网页数据提取助手 ✨",
-              "icon": "/images/logos/yusixian-moe-copy-ai.webp",
-              "hide_badges": [],
-              "status": "ok"
-            }
-          ]
-        },
-        {
-          "tabName": "生成",
-          "list": [
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "卡卡字幕助手/VideoCaptioner",
-              "url": "https://github.com/WEIFENG2333/VideoCaptioner",
-              "official_site": "https://www.videocaptioner.cn",
-              "desc": "🎬 卡卡字幕助手 | VideoCaptioner - 基于 LLM 的智能字幕助手 - 视频字幕生成、断句、校正、字幕翻译全流程处理！- A powered tool for easy and efficient video subtitling.",
-              "icon": "/images/logos/WEIFENG2333-VideoCaptioner.webp",
-              "hide_badges": [],
-              "status": "ok"
-            },
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "screenshot-to-code",
-              "url": "https://github.com/abi/screenshot-to-code",
-              "official_site": "https://screenshottocode.com",
-              "desc": "Drop in a screenshot and convert it to clean code (HTML/Tailwind/React/Vue)",
-              "icon": "/images/logos/abi-screenshot-to-code.webp",
-              "hide_badges": [],
-              "status": "ok"
-            },
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "ai-to-pptx",
-              "url": "https://github.com/SmartSchoolAI/ai-to-pptx",
-              "official_site": "https://pptx.dandian.net",
-              "desc": "前端后端同时开源。 Ai-to-pptx是一个使用AI技术(DeepSeek)制作PPTX的助手，支持在线生成和导出PPTX。 主要功能: 1 使用DeepSeek等大语言模型来生成大纲 2 生成PPTX的时候可以选择不同的模板 3 支持导出PPTX",
-              "icon": "/images/logos/happymod-com.webp",
-              "hide_badges": [],
-              "status": "ok"
-            },
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "DiffRhythm",
-              "url": "https://github.com/ASLP-lab/DiffRhythm",
-              "desc": "Di♪♪Rhythm: Blazingly Fast and Embarrassingly Simple End-to-End Full-Length Song Generation with Latent Diffusion",
-              "icon": "/images/logos/ASLP-lab-DiffRhythm.webp",
-              "hide_badges": [],
-              "status": "ok"
-            },
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "AI_NovelGenerator",
-              "url": "https://github.com/YILING0013/AI_NovelGenerator",
-              "desc": "使用ai生成多章节的长篇小说，自动衔接上下文、伏笔",
-              "icon": "/images/logos/YILING0013-AI-NovelGenerator.webp",
-              "hide_badges": [],
-              "status": "ok"
-            },
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "YuE",
-              "url": "https://github.com/multimodal-art-projection/YuE",
-              "official_site": "https://map-yue.github.io",
-              "desc": "YuE: Open Full-song Music Generation Foundation Model, something similar to Suno.ai but open",
-              "icon": "/images/logos/github-com.webp",
-              "hide_badges": [],
-              "status": "ok"
-            }
-          ]
-        },
-        {
-          "tabName": "AI翻译",
-          "list": [
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "v2vt",
-              "url": "https://github.com/halfzm/v2vt",
-              "desc": "video to video translation with voice clone and lip synchronization|带有语音克隆和口型同步的视频翻译，支持中英互换",
-              "icon": "/images/logos/halfzm-v2vt.webp",
-              "hide_badges": [],
-              "status": "ok"
-            }
-          ]
-        },
-        {
-          "tabName": "AI_agent",
-          "list": [
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "openclaw",
-              "url": "https://github.com/openclaw/openclaw",
-              "official_site": "https://openclaw.ai",
-              "desc": "Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞 ",
-              "icon": "/images/logos/openclaw-openclaw.webp?t=1771742022133",
-              "hide_badges": [],
-              "status": "ok"
-            },
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "chatgpt-on-wechat",
-              "url": "https://github.com/zhayujie/chatgpt-on-wechat",
-              "official_site": "https://link-ai.tech",
-              "desc": "CowAgent是基于大模型的超级AI助理，能主动思考和任务规划、访问操作系统和外部资源、创造和执行Skills、拥有长期记忆并不断成长。同时支持飞书、钉钉、企业微信应用、微信公众号、网页等接入，可选择OpenAI/Claude/Gemini/DeepSeek/ Qwen/GLM/Kimi/LinkAI，能处理文本、语音、图片和文件，可快速搭建个人AI助手和企业数字员工。",
-              "icon": "/images/logos/zhayujie-chatgpt-on-wechat.webp?t=1771742053339",
-              "hide_badges": [],
-              "status": "ok"
-            },
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "nanobot",
-              "url": "https://github.com/HKUDS/nanobot",
-              "desc": "\"🐈 nanobot: The Ultra-Lightweight OpenClaw\"",
-              "icon": "/images/logos/HKUDS-nanobot.webp?t=1771742054446",
-              "hide_badges": [],
-              "status": "ok"
-            },
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "awesome-openclaw-skills",
-              "url": "https://github.com/VoltAgent/awesome-openclaw-skills",
-              "official_site": "https://github.com/VoltAgent/voltagent",
-              "desc": "The awesome collection of OpenClaw Skills. Formerly known as Moltbot, originally Clawdbot.",
-              "icon": "/images/logos/VoltAgent-awesome-openclaw-skills.webp?t=1771742055342",
-              "hide_badges": [],
-              "status": "ok"
-            },
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "AstrBot",
-              "url": "https://github.com/AstrBotDevs/AstrBot",
-              "official_site": "https://astrbot.app",
-              "desc": "Agentic IM Chatbot infrastructure that integrates lots of IM platforms, LLMs, plugins and AI feature, and can be your openclaw alternative. ✨",
-              "icon": "/images/logos/AstrBotDevs-AstrBot.webp?t=1771742057174",
-              "hide_badges": [],
-              "status": "ok"
-            },
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "AionUi",
-              "url": "https://github.com/iOfficeAI/AionUi",
-              "official_site": "https://www.aionui.com",
-              "desc": "Free, local, open-source 24/7 Cowork app and OpenClaw for Gemini CLI, Claude Code, Codex, OpenCode, Qwen Code, Goose CLI, Auggie, and more | 🌟 Star if you like it!",
-              "icon": "/images/logos/github-com.webp?t=1771742061690",
-              "hide_badges": [],
-              "status": "ok"
-            },
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "LangBot",
-              "url": "https://github.com/langbot-app/LangBot",
-              "official_site": "https://langbot.app",
-              "desc": "Production-grade platform for building agentic IM bots - 生产级多平台智能机器人开发平台. 提供 Agent、知识库编排、插件系统 / Bots for Discord / Slack / LINE / Telegram / WeChat(企业微信, 企微智能机器人, 公众号) / 飞书 / 钉钉 / QQ e.g. Integrated with ChatGPT(GPT), DeepSeek, Dify, n8n, Langflow, Coze, Claude, Gemini, MiniMax, Ollama, SiliconFlow, Moonshot, GLM, clawdbot / moltbot / openclaw",
-              "icon": "/images/logos/langbot-app-LangBot.webp?t=1771742088386",
-              "hide_badges": [],
-              "status": "ok"
-            },
-            {
-              "toolbox": null,
-              "toolboxLink": null,
-              "name": "nanoclaw",
-              "url": "https://github.com/qwibitai/nanoclaw",
-              "official_site": "https://nanoclaw.dev",
-              "desc": "A lightweight alternative to Clawdbot / OpenClaw that runs in containers for security. Connects to WhatsApp, has memory, scheduled jobs, and runs directly on Anthropic's Agents SDK",
-              "icon": "/images/logos/qwibitai-nanoclaw.webp?t=1771742089815",
               "hide_badges": [],
               "status": "ok"
             }

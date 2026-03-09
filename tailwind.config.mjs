@@ -37,6 +37,13 @@ export default {
         'sidebar-tab': 'var(--sidebar-font-tab)',
       },
 
+      // 🔥 覆盖 Tailwind 内置字体类名，根治子组件私自使用 font-sans 等类名导致的覆盖问题
+      fontFamily: {
+        sans: ['var(--custom-font2-family)', 'var(--custom-font-family)', 'sans-serif'],
+        body: ['var(--custom-font2-family)', 'var(--custom-font-family)', 'sans-serif'],
+        heading: ['var(--custom-font2-family)', 'var(--custom-font-family)', 'sans-serif'],
+      },
+
       // (3) Typography 配置
       typography: {
         DEFAULT: {

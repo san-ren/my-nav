@@ -4,6 +4,7 @@ import { Palette } from 'lucide-react';
 // 引入拆分后的子组件 (推荐方式)
 import ModeSection from './sections/ModeSection.astro';
 import ColorSection from './sections/ColorSection.astro';
+import FontSection from './sections/FontSection.astro';
 import AnimSection from './sections/AnimSection.astro';
 import BgSection from './sections/BgSection.astro';
 import BackupSection from './sections/BackupSection.astro';
@@ -27,6 +28,9 @@ import BackupSection from './sections/BackupSection.astro';
     <ModeSection />
 
     <ColorSection />
+    <hr class="border-slate-100 dark:border-gray-700/50 my-3" />
+
+    <FontSection />
     <hr class="border-slate-100 dark:border-gray-700/50 my-3" />
 
     <AnimSection />

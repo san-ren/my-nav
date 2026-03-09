@@ -314,6 +314,13 @@ function initResourceFilter() {
     if (filterToggle.checked) {
       dropdown.classList.remove('opacity-0', 'invisible');
       dropdown.classList.add('opacity-100', 'visible');
+      
+      // [互斥逻辑] 强行关闭主题皮肤选择面板
+      const themePanel = document.getElementById('theme-panel');
+      if (themePanel && themePanel.classList.contains('visible')) {
+        const themeBtn = document.getElementById('theme-btn');
+        if (themeBtn) themeBtn.click();
+      }
     } else {
       dropdown.classList.add('opacity-0', 'invisible');
       dropdown.classList.remove('opacity-100', 'visible');

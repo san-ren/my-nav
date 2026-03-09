@@ -165,15 +165,27 @@
   font-size: 0.95rem;
 }
 
-/* --- 列表样式修复 --- */
+/* --- 列表样式修复与分层自定义 --- */
+/* 移除默认的粗暴覆盖，改为根据层级指定图标 */
+.changelog-content ul {
+  list-style-type: disc; /* 1级：实心圆点 */
+}
+
+.changelog-content ul ul {
+  list-style-type: circle; /* 2级：空心圆点 */
+  margin-top: 0.25rem;
+}
+
+.changelog-content ul ul ul {
+  list-style-type: square; /* 3级：方块 */
+}
+
+/* 独立设置 marker（项目符号）的颜色，使其跟随主题色 */
 .changelog-content li::marker {
-  color: #000000 !important; 
+  color: rgb(var(--color-brand-rgb)) !important;
 }
 
-.dark .changelog-content li::marker {
-  color: #ffffff !important;
-}
-
+/* 保证文字颜色正常独立于 marker 颜色 */
 .changelog-content li {
   color: #334155; /* slate-700 */
 }

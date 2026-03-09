@@ -306,9 +306,12 @@ const getLinkNodeIcon = (node: LinkTreeNode) => {
 
 interface LinkCheckerProps {
   onDataStatusChange?: (hasData: boolean) => void;
+  onTaskStart?: (id: string, name: string) => void;
+  onTaskProgress?: (id: string, progress: number) => void;
+  onTaskEnd?: (id: string, message?: string) => void;
 }
 
-export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
+export function LinkChecker({ onDataStatusChange, onTaskStart, onTaskProgress, onTaskEnd }: LinkCheckerProps) {
   const [activeSubTab, setActiveSubTab] = useState<SubTabId>('github');
   const [hasUnsavedData, setHasUnsavedData] = useState(false);
   const [pendingSubTab, setPendingSubTab] = useState<SubTabId | null>(null);
@@ -371,14 +374,24 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
         ))}
       </div>
 
-      {/* 内容区域 - 居中显示，独立卡片 */}
+      {/* 内容区域 - 居中显示，独立卡片，使用 CSS 隐藏代替卸载 */}
       <div style={LAYOUT.container}>
-        {activeSubTab === 'github' && (
-          <GithubChecker onDataStatusChange={handleDataStatusChange} />
-        )}
-        {activeSubTab === 'link' && (
-          <WebsiteLinkChecker onDataStatusChange={handleDataStatusChange} />
-        )}
+        <div style={{ display: activeSubTab === 'github' ? 'block' : 'none' }}>
+          <GithubChecker 
+            onDataStatusChange={handleDataStatusChange}
+            onTaskStart={onTaskStart}
+            onTaskProgress={onTaskProgress}
+            onTaskEnd={onTaskEnd}
+          />
+        </div>
+        <div style={{ display: activeSubTab === 'link' ? 'block' : 'none' }}>
+          <WebsiteLinkChecker 
+            onDataStatusChange={handleDataStatusChange}
+            onTaskStart={onTaskStart}
+            onTaskProgress={onTaskProgress}
+            onTaskEnd={onTaskEnd}
+          />
+        </div>
       </div>
       {/* 确认切换弹窗 */}
       {showConfirmModal && (
@@ -386,11 +399,11 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
           <div style={MODAL.content} onClick={e => e.stopPropagation()}>
             <div style={MODAL.title}>
               <AlertTriangle size={24} style={{ color: '#f59e0b' }} />
-              确认离开？
+              确认切换？
             </div>
             
             <p style={MODAL.text}>
-              当前标签页有未保存的扫描数据，离开将导致数据丢失。
+              当前页面有未保存的扫描数据，数据将被保存，请注意提示。
               <br /><br />
               确定要切换吗？
             </p>
@@ -399,8 +412,8 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
               <button onClick={cancelSwitch} style={BUTTON.secondary}>
                 取消
               </button>
-              <button onClick={confirmSwitch} style={BUTTON.danger}>
-                确认离开
+              <button onClick={confirmSwitch} style={BUTTON.primary}>
+                确认切换
               </button>
             </div>
           </div>
@@ -414,9 +427,12 @@ export function LinkChecker({ onDataStatusChange }: LinkCheckerProps) {
 
 interface WebsiteLinkCheckerProps {
   onDataStatusChange?: (hasData: boolean) => void;
+  onTaskStart?: (id: string, name: string) => void;
+  onTaskProgress?: (id: string, progress: number) => void;
+  onTaskEnd?: (id: string, message?: string) => void;
 }
 
-function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
+function WebsiteLinkChecker({ onDataStatusChange, onTaskStart, onTaskProgress, onTaskEnd }: WebsiteLinkCheckerProps) {
   const [excludedDomains, setExcludedDomains] = useState<string[]>([]);
   const [newDomain, setNewDomain] = useState('');
   const [scanResult, setScanResult] = useState<LinkScanResult | null>(null);
@@ -431,6 +447,47 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
   const [showSettings, setShowSettings] = useState(true);
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [hasSavedData, setHasSavedData] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('my_nav_link_results');
+      if (saved) {
+        setHasSavedData(true);
+      }
+    }
+  }, []);
+
+  const handleSaveResults = () => {
+    if (!scanResult) return;
+    try {
+      const data = { scanResult, checkResults };
+      localStorage.setItem('my_nav_link_results', JSON.stringify(data));
+      setHasSavedData(true);
+      setMessage({ type: 'success', text: '检测结果已保存到本地' });
+    } catch (e) {
+      setMessage({ type: 'error', text: '保存结果失败' });
+    }
+  };
+
+  const handleLoadResults = () => {
+    try {
+      const saved = localStorage.getItem('my_nav_link_results');
+      if (saved) {
+        const data = JSON.parse(saved);
+        setScanResult(data.scanResult);
+        setCheckResults(data.checkResults || []);
+        const tree = buildTree(data.scanResult.links);
+        setTreeData(tree);
+        setSelectedItems(new Set());
+        setSortField('status');
+        setSortDirection('asc');
+        setMessage({ type: 'success', text: '已读取上次保存的检测结果' });
+      }
+    } catch (e) {
+      setMessage({ type: 'error', text: '读取保存的结果失败' });
+    }
+  };
 
   // 筛选下拉框外部点击引用
   const filterDropdownRef = useRef<HTMLDivElement>(null);
@@ -784,19 +841,31 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
     }
   };
 
-  // 检测链接 - 并行检测
+  // 检测链接 - 并行检测或者对已选结果进行重新检测
   const handleCheck = async () => {
-    const selectedLinks = getSelectedLinks(treeData);
-    if (selectedLinks.length === 0) {
-      setMessage({ type: 'error', text: '请先选择要检测的链接' });
-      return;
+    const isRetry = checkResults.length > 0;
+    let linksToCheck: LinkInfo[] = [];
+
+    if (isRetry) {
+      linksToCheck = scanResult?.links.filter(l => selectedItems.has(l.url)) || [];
+      if (linksToCheck.length === 0) {
+        setMessage({ type: 'error', text: '请在下方的列表中勾选要重新检测的链接' });
+        return;
+      }
+    } else {
+      linksToCheck = getSelectedLinks(treeData);
+      if (linksToCheck.length === 0) {
+        setMessage({ type: 'error', text: '请先选择要检测的链接' });
+        return;
+      }
     }
     
     setIsChecking(true);
     setProgress(0);
-    setCheckResults([]);
+    if (!isRetry) setCheckResults([]);
+    onTaskStart?.('weblink', isRetry ? '重新检测选中链接' : '网站链接检测');
     
-    const urls = selectedLinks.map(l => l.url);
+    const urls = linksToCheck.map(l => l.url);
     const concurrency = 20;
     const results: LinkCheckResult[] = [];
     let completed = 0;
@@ -820,18 +889,31 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
       results.push(...batchResults);
       
       completed += batch.length;
-      setProgress(Math.min(100, Math.round((completed / urls.length) * 100)));
+      const currentProgress = Math.min(100, Math.round((completed / urls.length) * 100));
+      setProgress(currentProgress);
+      onTaskProgress?.('weblink', currentProgress);
     }
     
     const finalResults = results.map((result, index) => ({
       ...result,
-      resourceName: selectedLinks[index]?.resourceName,
-      resourceStatus: selectedLinks[index]?.resourceStatus,
+      resourceName: linksToCheck[index]?.resourceName,
+      resourceStatus: linksToCheck[index]?.resourceStatus,
     }));
     
-    setCheckResults(finalResults);
+    if (isRetry) {
+      const merged = [...checkResults];
+      finalResults.forEach(nr => {
+         const idx = merged.findIndex(r => r.url === nr.url);
+         if (idx !== -1) merged[idx] = nr;
+         else merged.push(nr);
+      });
+      setCheckResults(merged);
+    } else {
+      setCheckResults(finalResults);
+    }
     setIsChecking(false);
     setProgress(100);
+    onTaskEnd?.('weblink', isRetry ? '重新检测完成' : '网站链接检测完成');
   };
 
   // 应用状态更新
@@ -1078,17 +1160,36 @@ function WebsiteLinkChecker({ onDataStatusChange }: WebsiteLinkCheckerProps) {
                   <>
                     <button
                       onClick={handleCheck}
-                      disabled={isChecking || getSelectedCount(treeData) === 0}
-                      style={{ ...STYLES.button.primary, opacity: isChecking || getSelectedCount(treeData) === 0 ? 0.7 : 1 }}
+                      disabled={isChecking || (checkResults.length === 0 ? getSelectedCount(treeData) === 0 : selectedItems.size === 0)}
+                      style={{ ...STYLES.button.primary, opacity: isChecking || (checkResults.length === 0 ? getSelectedCount(treeData) === 0 : selectedItems.size === 0) ? 0.7 : 1 }}
                     >
                       {isChecking ? <RefreshCw size={16} className="animate-spin" /> : <Play size={16} />}
-                      并行检测选中 ({getSelectedCount(treeData)})
+                      {checkResults.length > 0 ? `重新检测勾选 (${selectedItems.size})` : `并行检测选中 (${getSelectedCount(treeData)})`}
+                    </button>
+                    
+                    <button
+                      onClick={handleSaveResults}
+                      style={STYLES.button.secondary}
+                      title="保存当前的检测和结果到本地缓存"
+                    >
+                      <Save size={16} />
+                      保存结果
                     </button>
                     
                     <span style={{ color: '#64748b', fontSize: '14px' }}>
                       共 <strong>{scanResult.total}</strong> 个链接，<strong>{scanResult.unique}</strong> 个唯一下级域名
                     </span>
                   </>
+                )}
+                
+                {hasSavedData && !scanResult && (
+                  <button
+                    onClick={handleLoadResults}
+                    style={{ ...STYLES.button.secondary, color: '#3b82f6', borderColor: '#3b82f6' }}
+                    title="从本地缓存读取上次的结果"
+                  >
+                    读取上次结果
+                  </button>
                 )}
               </div>
               

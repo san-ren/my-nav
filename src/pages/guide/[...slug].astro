@@ -21,11 +21,12 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 const title = entry.data.title || entry.id; // 兜底标题
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Layout title={title}>
   <div class="max-w-4xl mx-auto px-6 py-12 min-h-screen">
-    <a href="/my-nav/home" class="inline-flex items-center text-sm text-blue-600 mb-8 hover:underline">
+    <a href={`${base}/home`} class="inline-flex items-center text-sm text-blue-600 mb-8 hover:underline">
       ← 返回导航首页
     </a>
 
@@ -35,8 +36,8 @@ const title = entry.data.title || entry.id; // 兜底标题
         发布时间：{entry.data.date?.toISOString().split('T')[0]}
       </div>
       
-      {/* 🔥 注入组件，确保 MDX 中的 <container> 标签能被正确解析 */}
-      <Content components={{ Container }} />
+      {/* 🔥 注入组件，确保 MDX 中的 <Container> 和 <GitHubAlert> 标签能被正确解析 */}
+      <Content components={{ Container, GitHubAlert: Container }} />
     </article>
   </div>
 </Layout>

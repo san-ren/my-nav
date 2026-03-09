@@ -181,9 +181,12 @@ const getNodeIcon = (node: TreeNode) => {
 // --- 主组件 ---
 interface GithubCheckerProps {
   onDataStatusChange?: (hasData: boolean) => void;
+  onTaskStart?: (id: string, name: string) => void;
+  onTaskProgress?: (id: string, progress: number) => void;
+  onTaskEnd?: (id: string, message?: string) => void;
 }
 
-export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
+export function GithubChecker({ onDataStatusChange, onTaskStart, onTaskProgress, onTaskEnd }: GithubCheckerProps) {
   const { githubToken, setGithubToken, saveToken, resetToken, isTokenSaved } = useGithubToken();
   const [staleYears, setStaleYears] = useState(3);
   const [scanResult, setScanResult] = useState<ScanResult | null>(null);
@@ -519,6 +522,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
     setIsChecking(true);
     setProgress(0);
     setCheckResults([]);
+    onTaskStart?.('github', 'GitHub 项目检测');
     
     const concurrency = githubToken ? 20 : 10;
     const uniqueRepos = new Map<string, { owner: string; repo: string }>();
@@ -555,7 +559,9 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
       results.push(...batchResults);
       
       completed += batch.length;
-      setProgress(Math.min(100, Math.round((completed / uniqueList.length) * 100)));
+      const currentProgress = Math.min(100, Math.round((completed / uniqueList.length) * 100));
+      setProgress(currentProgress);
+      onTaskProgress?.('github', currentProgress);
       
       if (i + concurrency < uniqueList.length) {
         await new Promise(resolve => setTimeout(resolve, githubToken ? 100 : 500));
@@ -603,6 +609,7 @@ export function GithubChecker({ onDataStatusChange }: GithubCheckerProps) {
     setCheckResults(finalResults);
     setIsChecking(false);
     setProgress(100);
+    onTaskEnd?.('github', 'GitHub 项目检测完成');
   };
 
   // 应用状态更新

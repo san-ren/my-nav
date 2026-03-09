@@ -203,3 +203,47 @@
   flex-shrink: 0;
   position: relative;
 }
+
+/* ============================================
+   卡片描述跑马灯效果
+   ============================================ */
+
+/* 描述外层遮罩 - 常规状态下无渐隐边缘 */
+.site-card-wrapper .desc-wrapper {
+  mask-image: linear-gradient(to right, black 0%, black 100%);
+  -webkit-mask-image: linear-gradient(to right, black 0%, black 100%);
+  transition: mask-image 0.3s ease, -webkit-mask-image 0.3s ease;
+}
+
+/* 发生溢出且悬浮时：应用两侧淡入淡出遮罩 */
+.site-card-wrapper.flow-active .desc-wrapper.is-overflowing,
+.site-card-wrapper:hover .desc-wrapper.is-overflowing {
+  mask-image: linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent);
+}
+
+/* 文本常规状态：截断 */
+.site-card-wrapper .desc-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* 文本悬浮且发生溢出时：取消截断展开滚动 */
+.site-card-wrapper.flow-active .desc-wrapper.is-overflowing .desc-text,
+.site-card-wrapper:hover .desc-wrapper.is-overflowing .desc-text {
+  overflow: visible;
+  text-overflow: clip; /* 滚动时取消省略号 */
+  max-width: none;
+  animation: desc-marquee var(--scroll-dur, 3s) linear infinite alternate;
+}
+
+/* 定义循环滚动关键帧，预留首尾的停顿时间 */
+@keyframes desc-marquee {
+  0%, 12% {
+    transform: translateX(0);
+  }
+  88%, 100% {
+    transform: translateX(var(--scroll-dist, -20px));
+  }
+}

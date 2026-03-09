@@ -51,9 +51,12 @@ const SUB_TABS: SubTab[] = [
 // --- 主组件 ---
 interface ResourceEditorProps {
   onDataStatusChange?: (hasData: boolean) => void;
+  onTaskStart?: (id: string, name: string) => void;
+  onTaskProgress?: (id: string, progress: number) => void;
+  onTaskEnd?: (id: string, message?: string) => void;
 }
 
-export function ResourceEditor({ onDataStatusChange }: ResourceEditorProps) {
+export function ResourceEditor({ onDataStatusChange, onTaskStart, onTaskProgress, onTaskEnd }: ResourceEditorProps) {
   const [activeSubTab, setActiveSubTab] = useState<SubTabId>('batch');
   const [hasUnsavedData, setHasUnsavedData] = useState(false);
   const [pendingSubTab, setPendingSubTab] = useState<SubTabId | null>(null);
@@ -131,11 +134,11 @@ export function ResourceEditor({ onDataStatusChange }: ResourceEditorProps) {
           <div style={MODAL.content} onClick={e => e.stopPropagation()}>
             <div style={MODAL.title}>
               <AlertTriangle size={24} style={{ color: '#f59e0b' }} />
-              确认离开？
+              确认切换？
             </div>
             
             <p style={MODAL.text}>
-              当前标签页有未保存的数据，离开将导致数据丢失。
+              当前页面有未填完的数据，数据将被保存，请注意提示。
               <br /><br />
               确定要切换吗？
             </p>
@@ -144,8 +147,8 @@ export function ResourceEditor({ onDataStatusChange }: ResourceEditorProps) {
               <button onClick={cancelSwitch} style={BUTTON.secondary}>
                 取消
               </button>
-              <button onClick={confirmSwitch} style={BUTTON.danger}>
-                确认离开
+              <button onClick={confirmSwitch} style={BUTTON.primary}>
+                确认切换
               </button>
             </div>
           </div>

@@ -1,0 +1,143 @@
+---
+// src/components/ThemePicker/sections/FontSection.astro
+import { Type } from 'lucide-react';
+---
+
+<div class="theme-section space-y-3">
+  <div class="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-200">
+    <Type size={16} className="text-brand-500" />
+    <span>字体</span>
+  </div>
+  
+  <div class="space-y-3 pl-6">
+    <!-- 主要字体选择 -->
+    <div class="flex flex-col gap-1.5">
+      <label class="text-xs text-slate-500 dark:text-slate-400 font-medium flex justify-between">
+        <span>主要字体 (Primary Font)</span>
+        <span id="font-loading-status" class="text-[10px] text-brand-500 hidden">读取中...</span>
+      </label>
+      <div class="relative" id="font-dropdown-container">
+        <!-- 核心触发按钮 -->
+        <button 
+          id="custom-font-btn"
+          class="w-full text-xs py-1.5 px-3 bg-slate-50 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 rounded-lg text-slate-700 dark:text-slate-300 focus:outline-none hover:border-brand-500 cursor-pointer flex justify-between items-center transition-colors shadow-sm"
+          type="button"
+        >
+          <span id="custom-font-selected-text" class="truncate font-medium">默认系统字体 (Default)</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-slate-400 shrink-0 ml-2"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+
+        <!-- 自定义列表面板 -->
+        <div 
+          id="custom-font-menu" 
+          class="absolute z-50 left-0 right-0 top-[calc(100%+4px)] bg-white dark:bg-gray-800 border border-slate-200/80 dark:border-gray-700 rounded-lg shadow-xl opacity-0 invisible transform scale-95 origin-top transition-all duration-200 overflow-hidden flex flex-col"
+        >
+          <!-- 搜索悬浮层 -->
+          <div class="p-2 border-b border-gray-100 dark:border-gray-700 shrink-0 bg-slate-50/50 dark:bg-gray-800/80 sticky top-0 z-10 backdrop-blur-md">
+            <input 
+              type="text" 
+              id="font-search-input" 
+              placeholder="输入名称搜索字体..." 
+              autocomplete="off"
+              class="w-full text-xs py-1 px-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500"
+            />
+          </div>
+          
+          <ul id="local-fonts-list" class="flex flex-col py-1 text-xs max-h-96 overflow-y-auto custom-scrollbar">
+            <li class="font-option px-3 py-2 hover:bg-slate-50 dark:hover:bg-gray-700 cursor-pointer text-slate-700 dark:text-slate-300 flex items-center justify-between border-b border-gray-50 dark:border-gray-800/50" data-value="default" data-name="默认系统字体 (Default)">
+              <span>默认系统字体 (Default)</span>
+              <span class="check-icon hidden text-brand-500 font-bold shrink-0">✔</span>
+            </li>
+            
+            <li class="px-3 py-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider bg-slate-50/50 dark:bg-gray-900/50 pointer-events-none sticky top-0 backdrop-blur-sm z-0">
+              本地系统字体
+            </li>
+            <li id="font-fetch-trigger" class="px-3 py-3 hover:bg-brand-50 dark:hover:bg-brand-900/30 cursor-pointer text-brand-600 block text-center font-bold tracking-wide transition-colors">
+              ↓ 点击拉取所有本地字体 ↓
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 次要(英数)回退字体选择 -->
+    <div class="flex flex-col gap-1.5 pt-1">
+      <label class="text-xs text-slate-500 dark:text-slate-400 font-medium flex justify-between">
+        <span>英数优先字体 (Fallback/English)</span>
+      </label>
+      <div class="relative" id="font2-dropdown-container">
+        <!-- 核心触发按钮 -->
+        <button 
+          id="custom-font2-btn"
+          class="w-full text-xs py-1.5 px-3 bg-slate-50 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 rounded-lg text-slate-700 dark:text-slate-300 focus:outline-none hover:border-brand-500 cursor-pointer flex justify-between items-center transition-colors shadow-sm"
+          type="button"
+        >
+          <span id="custom-font2-selected-text" class="truncate font-medium">无 (未设置)</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-slate-400 shrink-0 ml-2"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+
+        <!-- 自定义列表面板 -->
+        <div 
+          id="custom-font2-menu" 
+          class="absolute z-50 left-0 right-0 top-[calc(100%+4px)] bg-white dark:bg-gray-800 border border-slate-200/80 dark:border-gray-700 rounded-lg shadow-xl opacity-0 invisible transform scale-95 origin-top transition-all duration-200 overflow-hidden flex flex-col"
+        >
+          <div class="p-2 border-b border-gray-100 dark:border-gray-700 shrink-0 bg-slate-50/50 dark:bg-gray-800/80 sticky top-0 z-10 backdrop-blur-md">
+            <input 
+              type="text" 
+              id="font2-search-input" 
+              placeholder="输入名称搜索英文字体..." 
+              autocomplete="off"
+              class="w-full text-xs py-1 px-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500"
+            />
+          </div>
+          
+          <ul id="local-fonts2-list" class="flex flex-col py-1 text-xs max-h-96 overflow-y-auto custom-scrollbar">
+            <li class="font2-option px-3 py-2 hover:bg-slate-50 dark:hover:bg-gray-700 cursor-pointer text-slate-700 dark:text-slate-300 flex items-center justify-between border-b border-gray-50 dark:border-gray-800/50" data-value="none" data-name="无 (使用主字体)">
+              <span>无 (完全使用上述主字体)</span>
+              <span class="check-icon2 hidden text-brand-500 font-bold shrink-0">✔</span>
+            </li>
+            
+            <li class="px-3 py-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider bg-slate-50/50 dark:bg-gray-900/50 pointer-events-none sticky top-0 backdrop-blur-sm z-0">
+              本地系统字体 (共享)
+            </li>
+            <li id="font2-fetch-trigger" class="px-3 py-3 hover:bg-brand-50 dark:hover:bg-brand-900/30 cursor-pointer text-slate-400 block text-center font-bold tracking-wide transition-colors">
+              等待本地字体拉取中...
+            </li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-[10px] text-slate-400 dark:text-slate-500 leading-tight">
+        * 若设置了英数优先，它将优先对英文和数字起效，遇到渲染不出的中文时再退回(Fallback)至主字体。
+      </p>
+    </div>
+
+    <!-- 字号微调 -->
+    <div class="flex flex-col gap-1.5 pt-1">
+      <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
+        <span>基础字号倍率</span>
+        <span id="font-size-val" class="text-brand-600 font-bold bg-brand-50 dark:bg-gray-800 px-1.5 py-0.5 rounded">1.0x</span>
+      </div>
+      <input 
+        type="range" 
+        id="font-size-range" 
+        min="0.8" max="1.5" step="0.05" value="1.0"
+        class="w-full h-1.5 bg-slate-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer" 
+      />
+    </div>
+
+    <!-- 标题字重微调 -->
+    <div class="flex flex-col gap-1.5 pt-1">
+      <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
+        <span>标题加粗 (Weight)</span>
+        <span id="font-weight-val" class="text-brand-600 font-bold bg-brand-50 dark:bg-gray-800 px-1.5 py-0.5 rounded">700</span>
+      </div>
+      <input 
+        type="range" 
+        id="font-weight-range" 
+        min="400" max="900" step="100" value="700"
+        class="w-full h-1.5 bg-slate-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer" 
+      />
+    </div>
+
+  </div>
+</div>

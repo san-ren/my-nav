@@ -422,7 +422,9 @@ export const GET: APIRoute = async ({ request, url }) => {
     }
 
     let targetUrlStr = urlParam.trim();
-    if (!/^https?:\/\//i.test(targetUrlStr)) targetUrlStr = 'https://' + targetUrlStr;
+    if (!targetUrlStr.match(/^https?:\/\//i)) {
+      targetUrlStr = 'https://' + targetUrlStr;
+    }
 
     let targetUrlObj: URL;
     try {

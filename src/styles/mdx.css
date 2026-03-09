@@ -22,3 +22,31 @@ html.dark .prose :not(pre) > code {
   content: "" !important;
   display: none;
 }
+
+/* 🚀 新增：强制 Markdown 正文容器（涵盖教程页与更新日志等）继承全局设定的双语双选字体 */
+.prose {
+  font-family: var(--custom-font2-family), var(--custom-font-family) !important;
+}
+
+/* 🚀 新增：强制 Markdown 容器内部的各级标题继承全局的加粗字重设定 */
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  font-weight: var(--custom-font-title-weight) !important;
+}
+
+/* 🚀 新增：教程页面的多级无序列表样式，与更新记录页面保持统一体验 */
+.prose ul {
+  list-style-type: disc !important; /* 1级：实心圆点 */
+}
+
+.prose ul ul {
+  list-style-type: circle !important; /* 2级：空心圆点 */
+}
+
+.prose ul ul ul {
+  list-style-type: square !important; /* 3级：方块 */
+}
+
+/* 独立设置 marker（项目符号）的颜色，使其跟随主题色 */
+.prose li::marker {
+  color: rgb(var(--color-brand-rgb)) !important;
+}

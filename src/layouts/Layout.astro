@@ -59,7 +59,28 @@ const base = '/my-nav';
           const savedAnim = localStorage.getItem('site-anim') || 'default';
           root.setAttribute('data-anim', savedAnim);
 
-          // 5. 恢复背景图片 (如果有缓存的 URL)
+          // 5. 恢复字体设置
+          const ff1 = localStorage.getItem('site-font-family') || 'default';
+          const ff2 = localStorage.getItem('site-font2-family') || 'none';
+          const fs = localStorage.getItem('site-font-size') || '1.0';
+          const fw = localStorage.getItem('site-font-weight') || '700';
+
+          if (ff1 !== 'default' && ff1 !== '') {
+            root.style.setProperty('--custom-font-family', `"${ff1}", system-ui, -apple-system, sans-serif`);
+          } else {
+            root.style.removeProperty('--custom-font-family');
+          }
+
+          if (ff2 !== 'none' && ff2 !== '') {
+            root.style.setProperty('--custom-font2-family', `"${ff2}"`);
+          } else {
+            root.style.removeProperty('--custom-font2-family');
+          }
+
+          root.style.setProperty('--custom-font-size-ratio', fs);
+          root.style.setProperty('--custom-font-title-weight', fw);
+
+          // 6. 恢复背景图片 (如果有缓存的 URL)
           // 注意：真正的图片加载涉及 IndexedDB 是异步的，这里只检查 CSS 变量是否残留
           // 实际的图片恢复逻辑由 ThemePicker 或独立的 UI 脚本在 body 底部执行
         } catch (e) {

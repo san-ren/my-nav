@@ -5,12 +5,57 @@ import Layout from '../layouts/Layout.astro';
 import Sidebar from '../components/Sidebar/index.astro';
 import SiteCard from '../components/SiteCard/index.astro';
 import SearchModal, { SearchTrigger } from '../components/SearchModal.jsx';
+import ShareExportModal from '../components/ShareExportModal.jsx';
 import ThemePicker from '../components/ThemePicker/index.astro';
 import ResourceFilter from '../components/ResourceFilter.astro';
 import siteConfig from '../content/site-settings/config.json';
 import { getCollection } from 'astro:content'; 
 import { LayoutDashboard, Star, Code, Palette, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu } from 'lucide-react';
 import { sortResourcesByStatus } from '../utils/resourceSort';
+
+import GlobalShareButton from '../components/GlobalShareButton.jsx';
+
+// 辅助函数：构建包含页面所有分组、分类和卡片的嵌套树形数据结构
+function buildShareTree(groups: any[]) {
+  return groups.map((group: any, groupIdx: number) => {
+    const node = {
+      id: `group-${groupIdx}`,
+      type: 'group',
+      name: group.name,
+      children: [] as any[]
+    };
+    if (group.resources && group.resources.length > 0) {
+      node.children.push(...group.resources.map((r: any) => ({ type: 'card', data: r })));
+    }
+    (group.categories || []).forEach((cat: any, catIdx: number) => {
+      const catId = `cat-${groupIdx}-${catIdx}`;
+      const catNode = {
+        id: catId,
+        type: 'category',
+        name: cat.name,
+        children: [] as any[]
+      };
+      if (cat.resources && cat.resources.length > 0) {
+        catNode.children.push(...cat.resources.map((r: any) => ({ type: 'card', data: r })));
+      }
+      (cat.tabs || []).forEach((tab: any, tabIdx: number) => {
+        const tabId = `pane-${groupIdx}-${catIdx}-${tabIdx}`;
+        const tabNode = {
+          id: tabId,
+          type: 'tab',
+          name: tab.tabName,
+          children: [] as any[]
+        };
+        if (tab.list && tab.list.length > 0) {
+          tabNode.children.push(...tab.list.map((r: any) => ({ type: 'card', data: r })));
+        }
+        if (tabNode.children.length > 0) catNode.children.push(tabNode);
+      });
+      if (catNode.children.length > 0) node.children.push(catNode);
+    });
+    return node;
+  });
+}
 
 // 1. 获取数据
 const rawPages = await getCollection('nav-pages');
@@ -71,8 +116,9 @@ const CurrentIcon = section.icon ? (Icons[section.icon as keyof typeof Icons] ||
         </div>
         
         <div class="flex items-center gap-2 md:gap-3 shrink-0">
-          <ResourceFilter />
           <SearchTrigger client:idle />
+          <ResourceFilter />
+          <GlobalShareButton client:idle />
           <ThemePicker />
         </div>
       </header>
@@ -85,7 +131,7 @@ const CurrentIcon = section.icon ? (Icons[section.icon as keyof typeof Icons] ||
 
         {(section.groups || []).map((group: any, groupIdx: number) => (
           <div class="group-wrapper w-full">
-            <div id={`group-${groupIdx}`} class="flex items-center gap-3 mb-8 mt-12 first:mt-0 pb-2 border-b border-slate-100 dark:border-slate-800 scroll-mt-28">
+            <div id={`group-${groupIdx}`} class="flex items-center gap-3 mb-8 mt-12 first:mt-0 pb-2 border-b border-slate-100 dark:border-slate-800 scroll-mt-28 share-observe-target">
               <h2 class="text-xl font-black text-slate-800 dark:text-slate-100">
                  {group.visualTag && <span class="mr-2">{group.visualTag}</span>}
                  {group.name}
@@ -110,7 +156,7 @@ const CurrentIcon = section.icon ? (Icons[section.icon as keyof typeof Icons] ||
                 if (!hasList && !hasTabs) return null;
 
                 return (
-                  <section id={`cat-${uniqueId}`} class="category-group scroll-mt-28 w-full">
+                  <section id={`cat-${uniqueId}`} class="category-group scroll-mt-28 w-full share-observe-target">
                     <div class="flex flex-wrap items-center justify-start gap-x-6 gap-y-4 mb-8">
                       <h3 class="flex items-center gap-3 text-lg font-bold text-slate-700 dark:text-slate-200 shrink-0">
                         <span class="w-1.5 h-5 bg-brand-600 rounded-full"></span>
@@ -119,19 +165,21 @@ const CurrentIcon = section.icon ? (Icons[section.icon as keyof typeof Icons] ||
 
                       {/* Tab 按钮 */}
                       {hasTabs && (
-                        <div class="tab-nav-container relative z-0 flex bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-full overflow-x-auto no-scrollbar max-w-full isolate">
-                          <div class="tab-indicator absolute bg-white dark:bg-slate-700 shadow-sm rounded-full h-[calc(100%-8px)] top-1 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] transform-gpu pointer-events-none"></div>
+                        <div class="flex items-center gap-2">
+                          <div class="tab-nav-container relative z-0 flex bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-full overflow-x-auto no-scrollbar max-w-full isolate">
+                            <div class="tab-indicator absolute bg-white dark:bg-slate-700 shadow-sm rounded-full h-[calc(100%-8px)] top-1 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] transform-gpu pointer-events-none"></div>
 
-                          {category.tabs.map((tab: any, tabIdx: number) => (
-                            <button
-                              class={`tab-btn relative z-10 px-4 py-1.5 text-xs font-bold rounded-full transition-colors duration-200 whitespace-nowrap focus:outline-none focus:ring-0
-                              ${tabIdx === 0 ? 'text-brand-600 active-tab' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}`}
-                              data-target={`pane-${uniqueId}-${tabIdx}`}
-                              data-index={tabIdx}
-                            >
-                              {tab.tabName}
-                            </button>
-                          ))}
+                            {category.tabs.map((tab: any, tabIdx: number) => (
+                              <button
+                                class={`tab-btn relative z-10 px-4 py-1.5 text-xs font-bold rounded-full transition-colors duration-200 whitespace-nowrap focus:outline-none focus:ring-0
+                                ${tabIdx === 0 ? 'text-brand-600 active-tab' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}`}
+                                data-target={`pane-${uniqueId}-${tabIdx}`}
+                                data-index={tabIdx}
+                              >
+                                {tab.tabName}
+                              </button>
+                            ))}
+                          </div>
                         </div>
                       )}
                     </div>
@@ -173,4 +221,55 @@ const CurrentIcon = section.icon ? (Icons[section.icon as keyof typeof Icons] ||
   </div>
   
   <SearchModal client:idle />
+  {/* 分享导出模态框 */}
+  <ShareExportModal client:idle />
 </Layout>
+
+<script define:vars={{ shareTree: buildShareTree(section.groups || []), shareTitle: section.name }}>
+  window.__PAGE_SHARE_TREE__ = shareTree;
+  window.__PAGE_SHARE_TITLE__ = shareTitle;
+</script>
+
+{/* IntersectionObserver 页面区块定位监听 */}
+<script>
+  function initShareObserver() {
+    const targets = document.querySelectorAll('.share-observe-target');
+    if (!targets.length) return;
+
+    // 获取当前在视口内的元素
+    const observer = new IntersectionObserver((entries) => {
+      // 找出当前可见比例最大的元素
+      let maxRatio = 0;
+      let activeId = null;
+      
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+          maxRatio = entry.intersectionRatio;
+          activeId = entry.target.id;
+        }
+      });
+      
+      if (activeId) {
+        (window as any).__ACTIVE_SHARE_ID__ = activeId;
+      }
+    }, {
+      rootMargin: '-10% 0px -40% 0px', // 关注偏上半部分的屏幕
+      threshold: [0, 0.25, 0.5, 0.75, 1]
+    });
+
+    targets.forEach(el => observer.observe(el));
+    
+    // 如果没有被覆盖时设置默认第一个为 active
+    if (!(window as any).__ACTIVE_SHARE_ID__ && targets[0]) {
+      (window as any).__ACTIVE_SHARE_ID__ = targets[0].id;
+    }
+  }
+
+  // Astro 页面加载时初始化
+  document.addEventListener('astro:page-load', initShareObserver);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initShareObserver);
+  } else {
+    initShareObserver();
+  }
+</script>

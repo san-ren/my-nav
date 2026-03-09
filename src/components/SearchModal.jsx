@@ -9,13 +9,12 @@ const navFiles = import.meta.glob('../content/nav-groups/*.json', { eager: true 
 const navResources = Object.values(navFiles).map((file) => file.default || file);
 
 export function SearchTrigger() {
-  const openModal = () => {
-    window.dispatchEvent(new CustomEvent('open-search-modal'));
-  };
-
   return (
     <button
-      onClick={openModal}
+      onClick={(e) => { 
+        e.preventDefault(); 
+        window.dispatchEvent(new CustomEvent('open-search-modal')); 
+      }}
       className="flex items-center gap-2 px-3 py-1.5 text-sm text-slate-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:ring-2 hover:ring-blue-500/20 transition-all border border-slate-200 dark:border-slate-700"
     >
       <Search size={16} />
