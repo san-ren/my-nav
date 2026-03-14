@@ -10,8 +10,9 @@ import ThemePicker from '../components/ThemePicker/index.astro';
 import ResourceFilter from '../components/ResourceFilter.astro';
 import siteConfig from '../content/site-settings/config.json';
 import { getCollection } from 'astro:content'; 
-import { LayoutDashboard, Star, Code, Palette, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu, Search, Command, Share2 } from 'lucide-react';
+import { LayoutDashboard, Star, Code, Palette, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu, Search, Command, Share2, MoreHorizontal } from 'lucide-react';
 import { sortResourcesByStatus } from '../utils/resourceSort';
+import { attachGuidesToResources } from '../utils/guideMatcher';
 
 // 辅助函数：构建包含页面所有分组、分类和卡片的嵌套树形数据结构
 function buildShareTree(groups: any[]) {
@@ -58,26 +59,30 @@ function buildShareTree(groups: any[]) {
 // 1. 获取数据
 const rawPages = await getCollection('nav-pages');
 const rawGroups = await getCollection('nav-groups');
+const guides = await getCollection('guides');
 
 // 2. 核心逻辑：关联与排序
 const navResources = rawPages.map(page => {
-  const currentGroups = rawGroups.filter(g => {
+  let currentGroups = rawGroups.filter(g => {
     const groupPageId = typeof g.data.pageName === 'object' 
         ? g.data.pageName.id 
         : g.data.pageName;
     return groupPageId === page.id; 
-  });
+  }).map(g => JSON.parse(JSON.stringify(g.data))); // 深拷贝以避免污染原始 Collection 缓存
   
+  // 自动填充 guide_id
+  currentGroups = attachGuidesToResources(currentGroups, guides);
+
   currentGroups.sort((a, b) => {
-    const sortA = Number(a.data.pageConfig?.sortPrefix || 10);
-    const sortB = Number(b.data.pageConfig?.sortPrefix || 10);
+    const sortA = Number(a.pageConfig?.sortPrefix || 10);
+    const sortB = Number(b.pageConfig?.sortPrefix || 10);
     return sortA - sortB;
   });
   
   return {
     ...page.data,
     id: page.id,
-    groups: currentGroups.map(g => g.data) 
+    groups: currentGroups
   };
 }).sort((a, b) => (a.sortOrder || 99) - (b.sortOrder || 99));
 
@@ -102,33 +107,39 @@ const CurrentIcon = section.icon ? (Icons[section.icon as keyof typeof Icons] ||
       {/* 顶部 Header */}
       <header id="page-header" class="layout-transition fixed top-0 right-0 z-30 flex items-center justify-between px-4 md:px-8 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50 w-full md:w-[calc(100%-var(--sidebar-width,17rem))] transition-all duration-300">
         
-        <div class="flex items-center gap-3 min-w-0">
+        <div id="header-left-group" class="flex items-center gap-3 min-w-0">
           <button id="menu-btn" class="p-2 text-slate-600 dark:text-slate-300 bg-white/80 dark:bg-gray-800/80 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 shrink-0 hover:text-brand-600 transition-colors" onclick="if(window.innerWidth < 768) window.toggleSidebarMobile(); else window.toggleSidebarPC();">
             <Menu size={20} />
           </button>
           
           <h1 class="text-xl font-black flex items-center gap-3 text-slate-800 dark:text-white truncate">
             <div class="p-2 bg-brand-50 dark:bg-brand-900/30 rounded-lg text-brand-600 shrink-0"><CurrentIcon size={20} /></div>
-            <span class="truncate">{section.name}</span>
+            <span class="truncate transition-all duration-300">{section.name}</span>
           </h1>
         </div>
         
-        <div class="flex items-center gap-2 md:gap-3 shrink-0">
-          <button class="flex items-center gap-2 px-3 py-1.5 text-sm text-slate-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:ring-2 hover:ring-brand-500/20 transition-all border border-slate-200 dark:border-slate-700" onclick="window.dispatchEvent(new CustomEvent('open-search-modal'))">
-            <Search size={16} />
-            <span class="hidden sm:inline">搜索...</span>
-            <kbd class="hidden sm:flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-sans font-medium text-slate-500 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md">
-              <Command size={10} />K
-            </kbd>
+        <div id="header-actions-container" class="relative flex items-center shrink-0">
+          <div id="header-actions-group" class="relative flex items-center gap-2 md:gap-3 shrink-0 scale-100 opacity-100 pointer-events-auto origin-right">
+            <button class="flex items-center gap-2 px-3 py-1.5 text-sm text-slate-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:ring-2 hover:ring-brand-500/20 transition-all border border-slate-200 dark:border-slate-700" onclick="window.dispatchEvent(new CustomEvent('open-search-modal'))">
+              <Search size={16} />
+              <span class="hidden sm:inline">搜索...</span>
+              <kbd class="hidden sm:flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-sans font-medium text-slate-500 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md">
+                <Command size={10} />K
+              </kbd>
+            </button>
+            
+            <ResourceFilter />
+            
+            <button class="p-2 text-slate-500 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 bg-white/50 dark:bg-gray-800/50 hover:bg-brand-50 dark:hover:bg-brand-900/30 rounded-lg shadow-sm border border-gray-200/50 dark:border-gray-700/50 shrink-0 transition-all duration-200" title="分享页面资源" onclick="if(window.__PAGE_SHARE_TREE__) window.dispatchEvent(new CustomEvent('open-share-modal', { detail: { tree: window.__PAGE_SHARE_TREE__, title: window.__PAGE_SHARE_TITLE__ || '资源推荐', activeId: window.__ACTIVE_SHARE_ID__ || null } }))">
+              <Share2 size={20} />
+            </button>
+            
+            <ThemePicker />
+          </div>
+          
+          <button id="header-actions-trigger" class="hidden ml-2 p-2 text-slate-500 hover:text-brand-600 bg-white/80 dark:bg-gray-800/80 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 z-[60] focus:outline-none relative">
+            <MoreHorizontal size={20} className="transition-transform duration-300" id="header-actions-icon" />
           </button>
-          
-          <ResourceFilter />
-          
-          <button class="p-2 text-slate-500 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 bg-white/50 dark:bg-gray-800/50 hover:bg-brand-50 dark:hover:bg-brand-900/30 rounded-lg shadow-sm border border-gray-200/50 dark:border-gray-700/50 shrink-0 transition-all duration-200" title="分享页面资源" onclick="if(window.__PAGE_SHARE_TREE__) window.dispatchEvent(new CustomEvent('open-share-modal', { detail: { tree: window.__PAGE_SHARE_TREE__, title: window.__PAGE_SHARE_TITLE__ || '资源推荐', activeId: window.__ACTIVE_SHARE_ID__ || null } }))">
-            <Share2 size={20} />
-          </button>
-          
-          <ThemePicker />
         </div>
       </header>
 
@@ -237,6 +248,125 @@ const CurrentIcon = section.icon ? (Icons[section.icon as keyof typeof Icons] ||
 <script define:vars={{ shareTree: buildShareTree(section.groups || []), shareTitle: section.name }}>
   window.__PAGE_SHARE_TREE__ = shareTree;
   window.__PAGE_SHARE_TITLE__ = shareTitle;
+</script>
+
+{/* 顶栏响应式折叠监听 */}
+<script>
+  function initHeaderCollapse() {
+    // 降级为 HTMLElement 以适应 TS 对 style 等属性的类型推断
+    const leftGroup = document.getElementById('header-left-group') as HTMLElement;
+    const actionsGroup = document.getElementById('header-actions-group') as HTMLElement;
+    const triggerBtn = document.getElementById('header-actions-trigger') as HTMLElement;
+    const triggerIcon = document.getElementById('header-actions-icon') as HTMLElement;
+    const rightContainer = document.getElementById('header-actions-container') as HTMLElement;
+    const header = document.getElementById('page-header') as HTMLElement;
+    
+    if (!leftGroup || !actionsGroup || !triggerBtn || !header) return;
+    
+    // 桌面无约束下原本的样式组合
+    const originalClasses = 'relative flex items-center gap-2 md:gap-3 shrink-0 scale-100 opacity-100 pointer-events-auto origin-right z-auto top-auto right-auto translate-y-0 bg-transparent py-0 px-0 shadow-none border-t-0 p-0';
+    // 隐藏状态（收纳到触发按钮左侧看不见的地方）- cubic-bezier 实现Q弹效果
+    const collapsedHiddenClasses = 'absolute right-[calc(100%+0.5rem)] top-1/2 -translate-y-1/2 flex items-center gap-2 px-3 py-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl rounded-2xl shadow-xl border border-gray-200/60 dark:border-gray-700/60 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] origin-right scale-50 opacity-0 pointer-events-none z-50';
+    // 滑出展示状态（完全展开显示在触发按钮左侧）
+    const collapsedVisibleClasses = 'absolute right-[calc(100%+0.5rem)] top-1/2 -translate-y-1/2 flex items-center gap-2 px-3 py-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl rounded-2xl shadow-xl border border-gray-200/60 dark:border-gray-700/60 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] origin-right scale-100 opacity-100 pointer-events-auto z-50';
+    
+    const win = window as any;
+    if (!win.__headerActionsNaturalWidth) {
+       actionsGroup.className = originalClasses;
+       win.__headerActionsNaturalWidth = actionsGroup.scrollWidth || 180;
+    }
+    const actionsWidth = win.__headerActionsNaturalWidth;
+    
+    function measure() {
+       const titleSpan = leftGroup.querySelector('span.truncate') as HTMLElement;
+       if (!titleSpan) return;
+       
+       // 为了获取最真实的文字长度，临时取消限制类的截断
+       const oldMax = titleSpan.style.maxWidth;
+       const oldOverflow = titleSpan.style.overflow;
+       const oldDisplay = titleSpan.style.display;
+       titleSpan.style.maxWidth = 'none';
+       titleSpan.style.overflow = 'visible';
+       titleSpan.style.display = 'inline-block';
+       
+       const naturalTitleWidth = titleSpan.scrollWidth;
+       
+       titleSpan.style.maxWidth = oldMax;
+       titleSpan.style.overflow = oldOverflow;
+       titleSpan.style.display = oldDisplay;
+       
+       // 左侧整个标题部分按原比例撑开时原本需要占据的分辨率（汉堡菜单40 + icon垫圈36 + 文字长 + 间隙24 = 约加100像素空余）
+       const leftNaturalWidth = naturalTitleWidth + 100;
+       
+       const containerWidth = header.clientWidth;
+       // 移动端由于屏幕小，容差小，桌面端保持较大余量
+       const paddingAndGap = window.innerWidth < 768 ? 32 : 80; 
+       
+       // 预判：如果文字天然长度 + 按钮天然长度超过屏幕安全区域则启用折叠机制
+       const needsCollapse = leftNaturalWidth + actionsWidth + paddingAndGap > containerWidth;
+       
+       if (needsCollapse) {
+          triggerBtn.classList.remove('hidden');
+          triggerBtn.classList.add('flex');
+          // 由于折叠后汉堡键(40)+Icon组(36)+三点按键(40)加间隙大约占110-120px
+          // 我们给标题留出尽可能多的剩余空间
+          titleSpan.style.maxWidth = `${containerWidth - 110}px`;
+          
+          if (rightContainer.classList.contains('is-open')) {
+             actionsGroup.className = collapsedVisibleClasses;
+             if(triggerIcon) triggerIcon.style.transform = 'rotate(90deg)';
+             triggerBtn.classList.add('bg-brand-50', 'text-brand-600', 'border-brand-200', 'dark:border-brand-700/50');
+          } else {
+             actionsGroup.className = collapsedHiddenClasses;
+             if(triggerIcon) triggerIcon.style.transform = 'rotate(0deg)';
+             triggerBtn.classList.remove('bg-brand-50', 'text-brand-600', 'border-brand-200', 'dark:border-brand-700/50');
+          }
+       } else {
+          // 空间足够，禁用折叠
+          triggerBtn.classList.remove('flex', 'bg-brand-50', 'text-brand-600', 'border-brand-200', 'dark:border-brand-700/50');
+          triggerBtn.classList.add('hidden');
+          rightContainer.classList.remove('is-open'); 
+          actionsGroup.className = originalClasses;
+          titleSpan.style.maxWidth = ''; // 去除自定义限制
+          if(triggerIcon) triggerIcon.style.transform = 'rotate(0deg)';
+       }
+    }
+    
+    triggerBtn.onclick = (e) => {
+       e.stopPropagation();
+       rightContainer.classList.toggle('is-open');
+       measure();
+    };
+    
+    // 监听外部点击（如果在抽屉外部点击则关闭抽屉）
+    document.addEventListener('click', (e) => {
+       const target = e.target as Element;
+       if (rightContainer.classList.contains('is-open') && !rightContainer.contains(target)) {
+          // 不要误关：判断是否点击在那些弹出的深层面板中
+          const isFilterPanel = target.closest('.filter-dropdown');
+          const isThemePanel = target.closest('#theme-panel');
+          if (!isFilterPanel && !isThemePanel) {
+            rightContainer.classList.remove('is-open');
+            measure();
+          }
+       }
+    });
+
+    if (win.__headerResizeObserver) {
+       win.__headerResizeObserver.disconnect();
+    }
+    win.__headerResizeObserver = new ResizeObserver(() => measure());
+    win.__headerResizeObserver.observe(header);
+    
+    measure();
+  }
+  
+  document.addEventListener('astro:page-load', initHeaderCollapse);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeaderCollapse);
+  } else {
+    initHeaderCollapse();
+  }
 </script>
 
 {/* IntersectionObserver 页面区块定位监听 */}

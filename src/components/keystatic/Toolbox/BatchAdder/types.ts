@@ -24,7 +24,7 @@ export interface GroupInfo {
   name: string;
   pageName: string;
   file: string;
-  categories: { name: string; index: number }[];
+  categories: { name: string; index: number; tabs: { name: string; index: number }[] }[];
 }
 
 // 添加结果
@@ -43,6 +43,7 @@ export interface PendingItem {
   error?: string;
   targetGroup?: string;
   targetCategory?: number | 'top';
+  targetTab?: number | 'top';
 }
 
 // 批量添加模式类型

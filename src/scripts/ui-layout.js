@@ -409,6 +409,8 @@ function handleHashJump() {
 // 7. 全局初始化入口
 // ==========================================
 function initLayout() {
+  // 0. 重新检测设备类型附加 CSS 类（防丢失）
+  detectDeviceType();
   // 1. 初始化顶栏滚动
   initHeaderScroll();
   

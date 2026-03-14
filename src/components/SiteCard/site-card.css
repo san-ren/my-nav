@@ -193,7 +193,12 @@
   align-items: center;
   flex: 1;
   min-width: 0;
-  margin-right: 0.25rem; /* mr-1 */
+  margin-right: 0; /* 移动端改为 0 */
+}
+
+/* PC 端间距调整 */
+:root:not(.mobile-device) .site-card-wrapper a > div:first-child {
+  margin-right: 0.125rem; /* md:mr-0.5 (2px) */
 }
 
 /* 确保右侧按钮区域固定在右侧 */
@@ -215,7 +220,7 @@
   transition: mask-image 0.3s ease, -webkit-mask-image 0.3s ease;
 }
 
-/* 发生溢出且悬浮时：应用两侧淡入淡出遮罩 */
+/* 发生溢出时：应用两侧淡入淡出遮罩 */
 .site-card-wrapper.flow-active .desc-wrapper.is-overflowing,
 .site-card-wrapper:hover .desc-wrapper.is-overflowing {
   mask-image: linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent);
@@ -229,21 +234,27 @@
   max-width: 100%;
 }
 
-/* 文本悬浮且发生溢出时：取消截断展开滚动 */
-.site-card-wrapper.flow-active .desc-wrapper.is-overflowing .desc-text,
-.site-card-wrapper:hover .desc-wrapper.is-overflowing .desc-text {
+/* 文本发生溢出时：取消截断并启用滚动 */
+.site-card-wrapper .desc-wrapper.is-overflowing .desc-text {
   overflow: visible;
   text-overflow: clip; /* 滚动时取消省略号 */
   max-width: none;
   animation: desc-marquee var(--scroll-dur, 3s) linear infinite alternate;
 }
 
+/* 悬浮时暂停滚动，移开后继续 */
+.site-card-wrapper:hover .desc-wrapper.is-overflowing .desc-text,
+.site-card-wrapper.flow-active .desc-wrapper.is-overflowing .desc-text,
+.site-card-wrapper.mobile-hover .desc-wrapper.is-overflowing .desc-text {
+  animation-play-state: paused;
+}
+
 /* 定义循环滚动关键帧，预留首尾的停顿时间 */
 @keyframes desc-marquee {
-  0%, 12% {
-    transform: translateX(0);
+  0%, 10% {
+    transform: translateX(var(--scroll-start, 0));
   }
-  88%, 100% {
-    transform: translateX(var(--scroll-dist, -20px));
+  90%, 100% {
+    transform: translateX(var(--scroll-dist));
   }
 }

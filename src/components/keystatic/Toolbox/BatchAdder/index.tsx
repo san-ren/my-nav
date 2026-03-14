@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Plus, Link, Play, RefreshCw, CheckCircle, XCircle, Trash2,
   ChevronDown, ChevronUp, ExternalLink, Image, FileText,
-  FolderOpen, Layers, FolderPlus, LayersIcon, AlertTriangle
+  Layers, FolderPlus, LayersIcon, AlertTriangle
 } from 'lucide-react';
 import { STYLES, getStatusBadge } from './styles';
 import type { 
@@ -12,13 +12,212 @@ import type {
 } from './types';
 import { useGithubToken } from '../TokenContext';
 
+type TargetSelection = {
+  groupFile: string;
+  categoryIndex: number | 'top';
+  tabIndex: number | 'top';
+};
+
+const normalizeSelection = (value: TargetSelection): TargetSelection => {
+  if (!value.groupFile) {
+    return { groupFile: '', categoryIndex: 'top', tabIndex: 'top' };
+  }
+  if (value.categoryIndex === 'top') {
+    return { ...value, tabIndex: 'top' };
+  }
+  return value;
+};
+
+const getSelectionLabel = (groups: GroupInfo[], value: TargetSelection, placeholder: string) => {
+  if (!value.groupFile) return placeholder;
+  const group = groups.find(g => g.file === value.groupFile);
+  const groupLabel = group?.name || value.groupFile;
+  if (value.categoryIndex === 'top') {
+    return `${groupLabel} / 分组直属`;
+  }
+  const category = group?.categories.find(c => c.index === value.categoryIndex);
+  const categoryLabel = category?.name || `分类${value.categoryIndex}`;
+  if (value.tabIndex === 'top') {
+    return `${groupLabel} / ${categoryLabel} / 分类直属`;
+  }
+  const tab = category?.tabs.find(t => t.index === value.tabIndex);
+  const tabLabel = tab?.name || `Tab${value.tabIndex}`;
+  return `${groupLabel} / ${categoryLabel} / ${tabLabel}`;
+};
+
+const TargetPicker = ({
+  groups,
+  value,
+  onChange,
+  placeholder = '选择目标位置',
+  disabled,
+}: {
+  groups: GroupInfo[];
+  value: TargetSelection;
+  onChange: (next: TargetSelection) => void;
+  placeholder?: string;
+  disabled?: boolean;
+}) => {
+  const [open, setOpen] = useState(false);
+  const [hoverGroupFile, setHoverGroupFile] = useState<string | null>(null);
+  const [hoverCategoryIndex, setHoverCategoryIndex] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (open) {
+      setHoverGroupFile(value.groupFile || groups[0]?.file || null);
+      setHoverCategoryIndex(value.categoryIndex !== 'top' ? (value.categoryIndex as number) : null);
+    }
+  }, [open, value.groupFile, value.categoryIndex, groups]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (containerRef.current && target && !containerRef.current.contains(target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const activeGroup = groups.find(g => g.file === (hoverGroupFile || value.groupFile)) || groups[0];
+  const activeCategories = activeGroup?.categories || [];
+  const activeCategory = activeCategories.find(c => c.index === (hoverCategoryIndex ?? (value.categoryIndex !== 'top' ? value.categoryIndex : -1)));
+  const activeTabs = activeCategory?.tabs || [];
+
+  const handleSelect = (next: TargetSelection) => {
+    onChange(normalizeSelection(next));
+    setOpen(false);
+  };
+
+  return (
+    <div ref={containerRef} style={{ position: 'relative', minWidth: '240px' }}>
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        disabled={disabled}
+        style={{ ...STYLES.select, width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', opacity: disabled ? 0.6 : 1 }}
+      >
+        <span style={{ fontSize: '12px', color: value.groupFile ? '#0f172a' : '#94a3b8', textAlign: 'left' }}>
+          {getSelectionLabel(groups, value, placeholder)}
+        </span>
+        <ChevronDown size={14} style={{ color: '#64748b' }} />
+      </button>
+
+      {open && (
+        <div style={{ position: 'absolute', top: 'calc(100% + 6px)', left: 0, zIndex: 50, display: 'flex', background: 'white', border: '1px solid #e2e8f0', borderRadius: '8px', boxShadow: '0 10px 20px rgba(15, 23, 42, 0.12)', overflow: 'hidden' }}>
+          <div style={{ minWidth: '180px', maxHeight: '260px', overflowY: 'auto', borderRight: '1px solid #e2e8f0' }}>
+            {groups.map(group => {
+              const isSelected = value.groupFile === group.file && value.categoryIndex === 'top';
+              return (
+                <label
+                  key={group.file}
+                  onMouseEnter={() => { setHoverGroupFile(group.file); setHoverCategoryIndex(null); }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 10px', cursor: 'pointer', background: hoverGroupFile === group.file ? '#f8fafc' : 'transparent' }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={isSelected}
+                    onChange={() => handleSelect({ groupFile: group.file, categoryIndex: 'top', tabIndex: 'top' })}
+                  />
+                  <span style={{ fontSize: '12px', color: '#1e293b' }}>{group.name}</span>
+                </label>
+              );
+            })}
+          </div>
+          <div style={{ minWidth: '200px', maxHeight: '260px', overflowY: 'auto', borderRight: '1px solid #e2e8f0' }}>
+            {activeCategories.length === 0 && (
+              <div style={{ padding: '10px', fontSize: '12px', color: '#94a3b8' }}>暂无分类</div>
+            )}
+            {activeGroup && (
+              <label
+                onMouseEnter={() => setHoverCategoryIndex(null)}
+                style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 10px', cursor: 'pointer', background: hoverCategoryIndex === null ? '#f8fafc' : 'transparent' }}
+              >
+                <input
+                  type="checkbox"
+                  checked={value.groupFile === activeGroup.file && value.categoryIndex === 'top'}
+                  onChange={() => handleSelect({ groupFile: activeGroup.file, categoryIndex: 'top', tabIndex: 'top' })}
+                />
+                <span style={{ fontSize: '12px', color: '#64748b' }}>分组直属</span>
+              </label>
+            )}
+            {activeCategories.map(cat => {
+              const isSelected = value.groupFile === activeGroup?.file && value.categoryIndex === cat.index && value.tabIndex === 'top';
+              return (
+                <label
+                  key={cat.index}
+                  onMouseEnter={() => setHoverCategoryIndex(cat.index)}
+                  style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 10px', cursor: 'pointer', background: hoverCategoryIndex === cat.index ? '#f8fafc' : 'transparent' }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={isSelected}
+                    onChange={() => handleSelect({ groupFile: activeGroup?.file || '', categoryIndex: cat.index, tabIndex: 'top' })}
+                    disabled={!activeGroup}
+                  />
+                  <span style={{ fontSize: '12px', color: '#1e293b' }}>{cat.name}</span>
+                </label>
+              );
+            })}
+          </div>
+          <div style={{ minWidth: '200px', maxHeight: '260px', overflowY: 'auto' }}>
+            {activeTabs.length === 0 && (
+              <div style={{ padding: '10px', fontSize: '12px', color: '#94a3b8' }}>暂无 Tab</div>
+            )}
+            {activeCategory && (
+              <label
+                style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 10px', cursor: 'pointer' }}
+              >
+                <input
+                  type="checkbox"
+                  checked={value.groupFile === activeGroup?.file && value.categoryIndex === activeCategory.index && value.tabIndex === 'top'}
+                  onChange={() => handleSelect({ groupFile: activeGroup?.file || '', categoryIndex: activeCategory.index, tabIndex: 'top' })}
+                  disabled={!activeGroup}
+                />
+                <span style={{ fontSize: '12px', color: '#64748b' }}>分类直属</span>
+              </label>
+            )}
+            {activeTabs.map(tab => {
+              const isSelected = value.groupFile === activeGroup?.file && value.categoryIndex === activeCategory?.index && value.tabIndex === tab.index;
+              return (
+                <label
+                  key={tab.index}
+                  style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 10px', cursor: 'pointer' }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={isSelected}
+                    onChange={() => handleSelect({ groupFile: activeGroup?.file || '', categoryIndex: activeCategory?.index ?? 0, tabIndex: tab.index })}
+                    disabled={!activeGroup || !activeCategory}
+                  />
+                  <span style={{ fontSize: '12px', color: '#1e293b' }}>{tab.name}</span>
+                </label>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 // --- 主组件 ---
 
 interface BatchAdderProps {
   onDataStatusChange: (hasData: boolean) => void;
+  onTaskStart?: (id: string, name: string) => void;
+  onTaskProgress?: (id: string, progress: number) => void;
+  onTaskEnd?: (id: string, message?: string) => void;
 }
 
-export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
+export function BatchAdder({ 
+  onDataStatusChange, 
+  onTaskStart, 
+  onTaskProgress, 
+  onTaskEnd 
+}: BatchAdderProps) {
   const { githubToken } = useGithubToken();
   const [inputText, setInputText] = useState('');
   const [pendingItems, setPendingItems] = useState<PendingItem[]>([]);
@@ -35,6 +234,9 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
   const [batchTargetCategory, setBatchTargetCategory] = useState<number | 'top'>('top');
   const [newTabName, setNewTabName] = useState('');
   const [newCategoryName, setNewCategoryName] = useState('');
+  const [unifiedTargetGroup, setUnifiedTargetGroup] = useState<string>('');
+  const [unifiedTargetCategory, setUnifiedTargetCategory] = useState<number | 'top'>('top');
+  const [unifiedTargetTab, setUnifiedTargetTab] = useState<number | 'top'>('top');
   
   // 重复检测相关状态
   const [duplicateCheckResult, setDuplicateCheckResult] = useState<DuplicateCheckResult | null>(null);
@@ -46,6 +248,9 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
       .then(res => res.json())
       .then((data: GroupInfo[]) => {
         setGroups(data);
+        if (data.length > 0 && !unifiedTargetGroup) {
+          setUnifiedTargetGroup(data[0].file);
+        }
       })
       .catch(console.error);
   }, []);
@@ -90,6 +295,9 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
     setMessage(null);
     setDuplicateCheckResult(null);
 
+    const taskId = 'batch-parse';
+    onTaskStart?.(taskId, '正在解析 URL');
+
     // 初始化所有项目状态
     const items: PendingItem[] = urls.map((url, index) => ({
       id: `item-${index}`,
@@ -115,7 +323,9 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
         const result = await res.json();
         
         completed++;
+        const currentProgress = Math.round((completed / urls.length) * 100);
         setProgress({ current: completed, total: urls.length });
+        onTaskProgress?.(taskId, currentProgress);
         
         return { index, result };
       } catch (e: any) {
@@ -146,6 +356,7 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
               error: result.error,
               targetGroup: groups[0]?.file,
               targetCategory: 'top',
+              targetTab: 'top',
             };
           }
           return item;
@@ -154,6 +365,7 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
     }
 
     setIsParsing(false);
+    onTaskEnd?.(taskId, `URL 解析完成: ${urls.length} 个`);
   };
 
   // 检测重复
@@ -244,6 +456,9 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
     setIsAdding(true);
     setMessage(null);
 
+    const taskId = 'batch-add-all';
+    onTaskStart?.(taskId, '正在执行添加');
+
     try {
       let results: AddResult[] = [];
 
@@ -276,10 +491,16 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
         const addItems = itemsToAdd.map(item => ({
           groupFile: item.targetGroup!,
           resource: item.data!,
-          target: { 
-            type: item.targetCategory === 'top' ? 'top' : 'category',
-            categoryIndex: item.targetCategory === 'top' ? undefined : item.targetCategory,
-          },
+          target: (() => {
+            if (item.targetCategory === 'top') {
+              return { type: 'top' as const };
+            }
+            const categoryIndex = item.targetCategory as number;
+            if (item.targetTab !== undefined && item.targetTab !== 'top') {
+              return { type: 'tab' as const, categoryIndex, tabIndex: item.targetTab as number };
+            }
+            return { type: 'category' as const, categoryIndex };
+          })(),
         }));
 
         const res = await fetch('/api/batch-add', {
@@ -307,14 +528,102 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
       setMessage({ type: 'error', text: e.message });
     } finally {
       setIsAdding(false);
+      onTaskEnd?.(taskId, '批量添加任务结束');
     }
   };
 
-  // 更新项目目标
-  const updateItemTarget = (id: string, field: 'targetGroup' | 'targetCategory', value: any) => {
+  // 统一添加到一个位置
+  const handleUnifiedAdd = async () => {
+    const readyItems = pendingItems.filter(item => item.status === 'ready' && item.data);
+
+    if (readyItems.length === 0) {
+      setMessage({ type: 'error', text: '没有可添加的资源' });
+      return;
+    }
+
+    let itemsToAdd = readyItems;
+    if (duplicateCheckResult && duplicateCheckResult.isDuplicate) {
+      const uniqueUrls = new Set(duplicateCheckResult.uniqueResources.map(r => r.url));
+      itemsToAdd = readyItems.filter(item => uniqueUrls.has(item.data!.url));
+    }
+
+    if (itemsToAdd.length === 0) {
+      setMessage({ type: 'error', text: '所有资源都已存在，无需添加' });
+      return;
+    }
+
+    if (!unifiedTargetGroup) {
+      setMessage({ type: 'error', text: '请选择统一添加的目标分组' });
+      return;
+    }
+
+    let target: any;
+    if (unifiedTargetCategory === 'top') {
+      target = { type: 'top' };
+    } else if (unifiedTargetTab !== 'top') {
+      target = { type: 'tab', categoryIndex: unifiedTargetCategory, tabIndex: unifiedTargetTab };
+    } else {
+      target = { type: 'category', categoryIndex: unifiedTargetCategory };
+    }
+
+    setIsAdding(true);
+    setMessage(null);
+
+    const taskId = 'batch-unified-add';
+    onTaskStart?.(taskId, '正在统一添加资源');
+
+    try {
+      const addItems = itemsToAdd.map(item => ({
+        groupFile: unifiedTargetGroup,
+        resource: item.data!,
+        target,
+      }));
+
+      const res = await fetch('/api/batch-add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'batch-add', items: addItems }),
+      });
+      const results: AddResult[] = await res.json();
+
+      const successCount = results.filter(r => r.success).length;
+      const failCount = results.filter(r => !r.success).length;
+
+      if (failCount === 0) {
+        setMessage({ type: 'success', text: `成功添加 ${successCount} 个资源` });
+        setPendingItems(prev => prev.filter(item => item.status !== 'ready'));
+        setInputText('');
+        setDuplicateCheckResult(null);
+      } else {
+        setMessage({ type: 'error', text: `成功 ${successCount} 个，失败 ${failCount} 个` });
+      }
+    } catch (e: any) {
+      setMessage({ type: 'error', text: e.message });
+    } finally {
+      setIsAdding(false);
+      onTaskEnd?.(taskId, '统一添加完成');
+    }
+  };
+
+  const updateItemTargetSelection = (id: string, selection: TargetSelection) => {
     setPendingItems(prev => prev.map(item => {
       if (item.id === id) {
-        return { ...item, [field]: value };
+        return { ...item, targetGroup: selection.groupFile, targetCategory: selection.categoryIndex, targetTab: selection.tabIndex };
+      }
+      return item;
+    }));
+  };
+
+  const updateUnifiedTargetSelection = (selection: TargetSelection) => {
+    setUnifiedTargetGroup(selection.groupFile);
+    setUnifiedTargetCategory(selection.categoryIndex);
+    setUnifiedTargetTab(selection.tabIndex);
+  };
+
+  const updateItemDesc = (id: string, value: string) => {
+    setPendingItems(prev => prev.map(item => {
+      if (item.id === id) {
+        return item.data ? { ...item, data: { ...item.data, desc: value } } : item;
       }
       return item;
     }));
@@ -485,6 +794,35 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
                 <span style={{ fontSize: '13px', fontWeight: 500, color: batchAddMode === 'newCategory' ? '#2563eb' : '#475569' }}>作为新分类添加</span>
               </button>
             </div>
+
+            {batchAddMode === 'individual' && (
+              <div style={{ marginTop: '16px', padding: '16px', background: 'white', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                <div style={{ fontSize: '12px', fontWeight: 600, color: '#64748b', marginBottom: '8px' }}>统一添加到一个位置</div>
+                <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', minWidth: '240px' }}>
+                    <label style={{ fontSize: '12px', fontWeight: 500, color: '#64748b' }}>目标位置</label>
+                    <TargetPicker
+                      groups={groups}
+                      value={{
+                        groupFile: unifiedTargetGroup,
+                        categoryIndex: unifiedTargetCategory,
+                        tabIndex: unifiedTargetTab,
+                      }}
+                      onChange={updateUnifiedTargetSelection}
+                      placeholder="请选择目标位置"
+                    />
+                  </div>
+                  <button
+                    onClick={handleUnifiedAdd}
+                    disabled={isAdding || !unifiedTargetGroup}
+                    style={{ ...STYLES.button.primary, opacity: (isAdding || !unifiedTargetGroup) ? 0.7 : 1 }}
+                  >
+                    {isAdding ? <RefreshCw size={16} className="animate-spin" /> : <CheckCircle size={16} />}
+                    统一添加 ({uniqueCount})
+                  </button>
+                </div>
+              </div>
+            )}
             
             {/* 批量添加模式配置 */}
             {(batchAddMode === 'newTab' || batchAddMode === 'newCategory') && (
@@ -558,20 +896,17 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
                     
                     {/* 目标选择 - 仅在单独添加模式下显示 */}
                     {item.status === 'ready' && batchAddMode === 'individual' && (
-                      <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <FolderOpen size={14} style={{ color: '#64748b' }} />
-                          <select value={item.targetGroup || ''} onChange={e => updateItemTarget(item.id, 'targetGroup', e.target.value)} style={{ ...STYLES.select, minWidth: '120px' }}>
-                            {groups.map(g => (<option key={g.file} value={g.file}>{g.name}</option>))}
-                          </select>
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <Layers size={14} style={{ color: '#64748b' }} />
-                          <select value={item.targetCategory?.toString() || 'top'} onChange={e => updateItemTarget(item.id, 'targetCategory', e.target.value === 'top' ? 'top' : Number(e.target.value))} style={{ ...STYLES.select, minWidth: '100px' }}>
-                            <option value="top">顶部资源</option>
-                            {getCategories(item.targetGroup || '').map(cat => (<option key={cat.index} value={cat.index}>{cat.name}</option>))}
-                          </select>
-                        </div>
+                      <div style={{ display: 'flex', gap: '8px', alignItems: 'center', minWidth: '240px' }}>
+                        <TargetPicker
+                          groups={groups}
+                          value={{
+                            groupFile: item.targetGroup || '',
+                            categoryIndex: item.targetCategory ?? 'top',
+                            tabIndex: item.targetTab ?? 'top',
+                          }}
+                          onChange={(selection) => updateItemTargetSelection(item.id, selection)}
+                          placeholder="选择目标位置"
+                        />
                       </div>
                     )}
                     
@@ -589,7 +924,12 @@ export function BatchAdder({ onDataStatusChange }: BatchAdderProps) {
                   
                   {isExpanded && item.data?.desc && (
                     <div style={{ marginTop: '12px', padding: '12px', background: 'white', borderRadius: '6px' }}>
-                      <p style={{ fontSize: '13px', color: '#475569', lineHeight: '1.6', margin: 0 }}>{item.data.desc}</p>
+                      <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '6px' }}>编辑描述</div>
+                      <textarea
+                        value={item.data.desc}
+                        onChange={e => updateItemDesc(item.id, e.target.value)}
+                        style={{ ...STYLES.textarea, minHeight: '90px', fontFamily: 'inherit' }}
+                      />
                     </div>
                   )}
                   

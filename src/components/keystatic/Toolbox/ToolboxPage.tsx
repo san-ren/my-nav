@@ -343,7 +343,7 @@ export function ToolboxPage() {
               </div>
               
               <p style={MODAL.text}>
-                当前页面有未保存的扫描数据，数据将被保存，请注意完成提示。
+                当前页面有未处理的数据，请注意提示。
                 <br /><br />
                 确定要切换吗？
               </p>

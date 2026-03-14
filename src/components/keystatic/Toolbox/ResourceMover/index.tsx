@@ -6,7 +6,6 @@ import {
   FolderOpen, 
   FileText, 
   Layers,
-  ChevronDown,
   ChevronRight,
   CheckCircle,
   XCircle,
@@ -15,6 +14,7 @@ import {
   Search,
   Filter,
   Check,
+  Plus,
 } from 'lucide-react';
 import type { ResourceItem, TargetLocation } from './types';
 import {
@@ -23,7 +23,6 @@ import {
   BUTTON,
   INPUT,
   TREE,
-  PAGE_TITLE,
   ANIMATION_CSS,
 } from '../toolbox-shared';
 
@@ -63,14 +62,57 @@ const AnimatedChevron = ({ expanded, size = 16 }: { expanded: boolean; size?: nu
   />
 );
 
+const TriStateCheckbox = ({
+  checked,
+  indeterminate,
+  onChange,
+  onClick,
+  disabled,
+}: {
+  checked: boolean;
+  indeterminate: boolean;
+  onChange: () => void;
+  onClick?: (e: React.MouseEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
+}) => {
+  const ref = useRef<HTMLInputElement | null>(null);
+  
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.indeterminate = indeterminate;
+    }
+  }, [indeterminate]);
+  
+  return (
+    <input
+      ref={ref}
+      type="checkbox"
+      checked={checked}
+      onChange={onChange}
+      onClick={onClick}
+      disabled={disabled}
+      style={{ cursor: disabled ? 'not-allowed' : 'pointer' }}
+    />
+  );
+};
+
 // --- 主组件 ---
 interface ResourceMoverProps {
   onDataStatusChange?: (hasData: boolean) => void;
+  onTaskStart?: (id: string, name: string) => void;
+  onTaskProgress?: (id: string, progress: number) => void;
+  onTaskEnd?: (id: string, message?: string) => void;
 }
 
-export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
+export function ResourceMover({ 
+  onDataStatusChange,
+  onTaskStart,
+  onTaskProgress,
+  onTaskEnd,
+}: ResourceMoverProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
+  const [isCreating, setIsCreating] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   
   // 数据状态
@@ -80,6 +122,20 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
   // 选择状态
   const [selectedResources, setSelectedResources] = useState<Set<string>>(new Set());
   const [selectedTarget, setSelectedTarget] = useState<TargetLocation | null>(null);
+
+  // 新建目标状态
+  const [creatingGroup, setCreatingGroup] = useState(false);
+  const [creatingCategory, setCreatingCategory] = useState<{ file: string; pageName: string; groupName: string } | null>(null);
+  const [creatingTab, setCreatingTab] = useState<{ file: string; pageName: string; groupName: string; categoryName: string } | null>(null);
+  const [newGroup, setNewGroup] = useState({
+    pageName: '',
+    sortPrefix: '01',
+    groupName: '',
+    categoryName: '',
+    visualTag: ' ',
+  });
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [newTabName, setNewTabName] = useState('');
   
   // 筛选状态
   const [searchQuery, setSearchQuery] = useState('');
@@ -207,6 +263,17 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
     });
     return Array.from(files.entries());
   }, [allResources]);
+
+  const pageNameOptions = useMemo(() => {
+    const options = new Set<string>();
+    allResources.forEach(r => options.add(r.location.pageName));
+    targetLocations.forEach(t => options.add(t.pageName));
+    return Array.from(options.values());
+  }, [allResources, targetLocations]);
+
+  const sortPrefixOptions = useMemo(() => {
+    return Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0'));
+  }, []);
   
   // 切换源资源节点展开
   const toggleSourceNode = (nodeId: string) => {
@@ -240,6 +307,31 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
     }
     setSelectedResources(newSelected);
   };
+
+  const toggleResourceGroup = (resourceIds: string[]) => {
+    if (resourceIds.length === 0) return;
+    setSelectedResources(prev => {
+      const next = new Set(prev);
+      const allSelected = resourceIds.every(id => next.has(id));
+      if (allSelected) {
+        resourceIds.forEach(id => next.delete(id));
+      } else {
+        resourceIds.forEach(id => next.add(id));
+      }
+      return next;
+    });
+  };
+
+  const getSelectionState = (resourceIds: string[]) => {
+    const selectedCount = resourceIds.filter(id => selectedResources.has(id)).length;
+    const total = resourceIds.length;
+    return {
+      selectedCount,
+      total,
+      isAllSelected: total > 0 && selectedCount === total,
+      isPartial: selectedCount > 0 && selectedCount < total,
+    };
+  };
   
   // 全选/取消全选
   const toggleSelectAll = () => {
@@ -262,6 +354,129 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
       setSelectedTarget(loc);
     }
   };
+
+  const expandTargetTo = (loc: TargetLocation) => {
+    const fileKey = `${loc.pageName}--${loc.groupName}`;
+    const fileId = `target-file-${fileKey}`;
+    const catId = `${fileId}-cat-${loc.categoryName}`;
+    setTargetExpandedNodes(prev => {
+      const next = new Set(prev);
+      next.add(fileId);
+      next.add(catId);
+      return next;
+    });
+  };
+
+  const createTarget = async (payload: any) => {
+    setIsCreating(true);
+    try {
+      const res = await fetch('/api/resource-mover', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'createTarget', ...payload }),
+      });
+      
+      const result = await res.json().catch(() => ({}));
+      if (!res.ok || !result.success) {
+        setMessage({ type: 'error', text: result.message || result.error || '创建失败' });
+        return null;
+      }
+      
+      setMessage({ type: 'success', text: result.message || '创建成功' });
+      await loadData();
+      
+      if (result.createdTarget) {
+        setSelectedTarget(result.createdTarget);
+        expandTargetTo(result.createdTarget);
+      }
+      
+      return result.createdTarget || null;
+    } catch (e: any) {
+      setMessage({ type: 'error', text: e.message });
+      return null;
+    } finally {
+      setIsCreating(false);
+    }
+  };
+
+  const handleCreateGroup = async () => {
+    const pageName = newGroup.pageName.trim();
+    const sortPrefix = newGroup.sortPrefix.trim();
+    const groupName = newGroup.groupName.trim();
+    const categoryName = newGroup.categoryName.trim();
+    
+    if (!pageName || !sortPrefix || !groupName || !categoryName) {
+      setMessage({ type: 'error', text: '请填写完整的分组信息' });
+      return;
+    }
+    
+    const created = await createTarget({
+      type: 'group',
+      group: {
+        pageName,
+        sortPrefix,
+        groupName,
+        categoryName,
+        visualTag: newGroup.visualTag || ' ',
+      },
+    });
+    
+    if (created) {
+      setCreatingGroup(false);
+      setNewGroup({
+        pageName: '',
+        sortPrefix: '01',
+        groupName: '',
+        categoryName: '',
+        visualTag: ' ',
+      });
+    }
+  };
+
+  const handleCreateCategory = async () => {
+    if (!creatingCategory) return;
+    const categoryName = newCategoryName.trim();
+    if (!categoryName) {
+      setMessage({ type: 'error', text: '请输入分类名称' });
+      return;
+    }
+    
+    const created = await createTarget({
+      type: 'category',
+      category: {
+        file: creatingCategory.file,
+        categoryName,
+      },
+    });
+    
+    if (created) {
+      setCreatingCategory(null);
+      setNewCategoryName('');
+    }
+  };
+
+  const handleCreateTab = async () => {
+    if (!creatingTab) return;
+    const tabName = newTabName.trim();
+    if (!tabName) {
+      setMessage({ type: 'error', text: '请输入 Tab 名称' });
+      return;
+    }
+    
+    const created = await createTarget({
+      type: 'tab',
+      tab: {
+        file: creatingTab.file,
+        categoryName: creatingTab.categoryName,
+        tabName,
+      },
+    });
+    
+    if (created) {
+      setCreatingTab(null);
+      setNewTabName('');
+    }
+  };
   
   // 执行移动
   const handleMove = async () => {
@@ -271,6 +486,9 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
     }
     
     setIsMoving(true);
+    const taskId = 'resource-move';
+    onTaskStart?.(taskId, '正在移动资源');
+
     try {
       const sourceItems = allResources.filter(r => selectedResources.has(r.id));
       
@@ -298,6 +516,7 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
       setMessage({ type: 'error', text: e.message });
     } finally {
       setIsMoving(false);
+      onTaskEnd?.(taskId, '移动操作已完成');
     }
   };
   
@@ -309,6 +528,10 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
       const [pageName, groupName] = fileKey.split('--');
       const fileId = `source-file-${fileKey}`;
       const isFileExpanded = sourceExpandedNodes.has(fileId);
+      const fileResourceIds = Array.from(catMap.values()).flatMap(tabMap => 
+        Array.from(tabMap.values()).flatMap(resources => resources.map(resource => resource.id))
+      );
+      const fileSelection = getSelectionState(fileResourceIds);
       
       nodes.push(
         <div key={fileId} className="tree-node-enter">
@@ -320,6 +543,12 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
             <button style={STYLES.button.icon}>
               <AnimatedChevron expanded={isFileExpanded} />
             </button>
+            <TriStateCheckbox
+              checked={fileSelection.isAllSelected}
+              indeterminate={fileSelection.isPartial}
+              onChange={() => toggleResourceGroup(fileResourceIds)}
+              onClick={(e) => e.stopPropagation()}
+            />
             {getNodeIcon('file')}
             <span style={{ flex: 1, fontWeight: 500, color: '#1e293b' }}>
               {pageName} / {groupName}
@@ -334,6 +563,8 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
               {Array.from(catMap.entries()).map(([catName, tabMap]) => {
                 const catId = `${fileId}-cat-${catName}`;
                 const isCatExpanded = sourceExpandedNodes.has(catId);
+                const catResourceIds = Array.from(tabMap.values()).flatMap(resources => resources.map(resource => resource.id));
+                const catSelection = getSelectionState(catResourceIds);
                 
                 return (
                   <div key={catId}>
@@ -345,6 +576,12 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
                       <button style={STYLES.button.icon}>
                         <AnimatedChevron expanded={isCatExpanded} />
                       </button>
+                      <TriStateCheckbox
+                        checked={catSelection.isAllSelected}
+                        indeterminate={catSelection.isPartial}
+                        onChange={() => toggleResourceGroup(catResourceIds)}
+                        onClick={(e) => e.stopPropagation()}
+                      />
                       {getNodeIcon('category', isCatExpanded)}
                       <span style={{ flex: 1, fontWeight: 500, color: '#334155' }}>
                         {catName}
@@ -361,6 +598,8 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
                           const tabName = isTab ? tabKey.replace('tab:', '') : '顶部资源';
                           const tabId = `${catId}-tab-${tabKey}`;
                           const isTabExpanded = sourceExpandedNodes.has(tabId);
+                          const tabResourceIds = resources.map(resource => resource.id);
+                          const tabSelection = getSelectionState(tabResourceIds);
                           
                           return (
                             <div key={tabId}>
@@ -372,6 +611,12 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
                                 <button style={STYLES.button.icon}>
                                   <AnimatedChevron expanded={isTabExpanded} />
                                 </button>
+                                <TriStateCheckbox
+                                  checked={tabSelection.isAllSelected}
+                                  indeterminate={tabSelection.isPartial}
+                                  onChange={() => toggleResourceGroup(tabResourceIds)}
+                                  onClick={(e) => e.stopPropagation()}
+                                />
                                 {getNodeIcon(isTab ? 'tab' : 'category')}
                                 <span style={{ flex: 1, color: '#475569' }}>
                                   {tabName}
@@ -394,6 +639,7 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
                                         type="checkbox"
                                         checked={selectedResources.has(resource.id)}
                                         onChange={() => toggleResource(resource.id)}
+                                        onClick={(e) => e.stopPropagation()}
                                         style={{ cursor: 'pointer' }}
                                       />
                                       {getNodeIcon('resource')}
@@ -434,6 +680,10 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
       const [pageName, groupName] = fileKey.split('--');
       const fileId = `target-file-${fileKey}`;
       const isFileExpanded = targetExpandedNodes.has(fileId);
+      const fileSample = Array.from(catMap.values()).flatMap(tabMap => 
+        Array.from(tabMap.values()).flatMap(locations => locations)
+      )[0];
+      const file = fileSample?.file || '';
       
       nodes.push(
         <div key={fileId} className="tree-node-enter">
@@ -449,16 +699,70 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
             <span style={{ flex: 1, fontWeight: 500, color: '#1e293b' }}>
               {pageName} / {groupName}
             </span>
-            <span style={{ fontSize: '12px', color: '#94a3b8' }}>
-              {Array.from(catMap.values()).reduce((sum, m) => sum + Array.from(m.values()).reduce((s, arr) => s + arr.length, 0), 0)} 个位置
-            </span>
+            <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <button
+                style={{ ...STYLES.button.small }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (!file) return;
+                  setCreatingCategory({ file, pageName, groupName });
+                  setNewCategoryName('');
+                  setCreatingTab(null);
+                  setTargetExpandedNodes(prev => {
+                    const next = new Set(prev);
+                    next.add(fileId);
+                    return next;
+                  });
+                }}
+                disabled={!file || isCreating}
+              >
+                <Plus size={12} />
+                新建分类
+              </button>
+              <span style={{ fontSize: '12px', color: '#94a3b8' }}>
+                {Array.from(catMap.values()).reduce((sum, m) => sum + Array.from(m.values()).reduce((s, arr) => s + arr.length, 0), 0)} 个位置
+              </span>
+            </div>
           </div>
           
           {isFileExpanded && (
             <div className="tree-children">
+              {creatingCategory && creatingCategory.file === file && (
+                <div style={{ padding: '8px 12px 8px 36px', background: '#f8fafc', borderBottom: '1px solid #f1f5f9' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <input
+                      type="text"
+                      placeholder="新分类名称"
+                      value={newCategoryName}
+                      onChange={(e) => setNewCategoryName(e.target.value)}
+                      style={{ ...STYLES.input, fontFamily: 'inherit' }}
+                      disabled={isCreating}
+                    />
+                    <button
+                      style={STYLES.button.primary}
+                      onClick={handleCreateCategory}
+                      disabled={isCreating}
+                    >
+                      创建
+                    </button>
+                    <button
+                      style={STYLES.button.secondary}
+                      onClick={() => {
+                        setCreatingCategory(null);
+                        setNewCategoryName('');
+                      }}
+                      disabled={isCreating}
+                    >
+                      取消
+                    </button>
+                  </div>
+                </div>
+              )}
               {Array.from(catMap.entries()).map(([catName, tabMap]) => {
                 const catId = `${fileId}-cat-${catName}`;
                 const isCatExpanded = targetExpandedNodes.has(catId);
+                const catSample = Array.from(tabMap.values()).flatMap(locations => locations)[0];
+                const catFile = catSample?.file || file;
                 
                 return (
                   <div key={catId}>
@@ -474,13 +778,65 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
                       <span style={{ flex: 1, fontWeight: 500, color: '#334155' }}>
                         {catName}
                       </span>
-                      <span style={{ fontSize: '12px', color: '#94a3b8' }}>
-                        {Array.from(tabMap.values()).reduce((sum, arr) => sum + arr.length, 0)} 个位置
-                      </span>
+                      <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <button
+                          style={{ ...STYLES.button.small }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (!catFile) return;
+                            setCreatingTab({ file: catFile, pageName, groupName, categoryName: catName });
+                            setNewTabName('');
+                            setTargetExpandedNodes(prev => {
+                              const next = new Set(prev);
+                              next.add(fileId);
+                              next.add(catId);
+                              return next;
+                            });
+                          }}
+                          disabled={!catFile || isCreating}
+                        >
+                          <Plus size={12} />
+                          新建 Tab
+                        </button>
+                        <span style={{ fontSize: '12px', color: '#94a3b8' }}>
+                          {Array.from(tabMap.values()).reduce((sum, arr) => sum + arr.length, 0)} 个位置
+                        </span>
+                      </div>
                     </div>
                     
                     {isCatExpanded && (
                       <div className="tree-children">
+                        {creatingTab && creatingTab.file === catFile && creatingTab.categoryName === catName && (
+                          <div style={{ padding: '8px 12px 8px 60px', background: '#f1f5f9', borderBottom: '1px solid #e2e8f0' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              <input
+                                type="text"
+                                placeholder="新 Tab 名称"
+                                value={newTabName}
+                                onChange={(e) => setNewTabName(e.target.value)}
+                                style={{ ...STYLES.input, fontFamily: 'inherit' }}
+                                disabled={isCreating}
+                              />
+                              <button
+                                style={STYLES.button.primary}
+                                onClick={handleCreateTab}
+                                disabled={isCreating}
+                              >
+                                创建
+                              </button>
+                              <button
+                                style={STYLES.button.secondary}
+                                onClick={() => {
+                                  setCreatingTab(null);
+                                  setNewTabName('');
+                                }}
+                                disabled={isCreating}
+                              >
+                                取消
+                              </button>
+                            </div>
+                          </div>
+                        )}
                         {Array.from(tabMap.entries()).map(([tabKey, locations]) => {
                           const isTab = tabKey.startsWith('tab:');
                           const tabName = isTab ? tabKey.replace('tab:', '') : '顶部资源';
@@ -613,6 +969,102 @@ export function ResourceMover({ onDataStatusChange }: ResourceMoverProps) {
             </button>
           </div>
           <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
+            <div style={{ padding: '12px 16px', borderBottom: '1px solid #e2e8f0', background: '#f8fafc' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+                <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>新建目标分组</span>
+                <button
+                  style={STYLES.button.secondary}
+                  onClick={() => {
+                    setCreatingGroup(!creatingGroup);
+                    setCreatingCategory(null);
+                    setCreatingTab(null);
+                  }}
+                  disabled={isCreating}
+                >
+                  <Plus size={14} />
+                  {creatingGroup ? '收起' : '新建分组'}
+                </button>
+              </div>
+              {creatingGroup && (
+                <div style={{ marginTop: '12px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '8px' }}>
+                  <input
+                    type="text"
+                    list="resource-mover-page-options"
+                    placeholder="pageName (如 home)"
+                    value={newGroup.pageName}
+                    onChange={(e) => setNewGroup(prev => ({ ...prev, pageName: e.target.value }))}
+                    style={{ ...STYLES.input, fontFamily: 'inherit' }}
+                    disabled={isCreating}
+                  />
+                  <select
+                    value={newGroup.sortPrefix}
+                    onChange={(e) => setNewGroup(prev => ({ ...prev, sortPrefix: e.target.value }))}
+                    style={STYLES.select}
+                    disabled={isCreating}
+                  >
+                    {sortPrefixOptions.map(prefix => (
+                      <option key={prefix} value={prefix}>{prefix}</option>
+                    ))}
+                  </select>
+                  <input
+                    type="text"
+                    placeholder="分组名称"
+                    value={newGroup.groupName}
+                    onChange={(e) => setNewGroup(prev => ({ ...prev, groupName: e.target.value }))}
+                    style={{ ...STYLES.input, fontFamily: 'inherit' }}
+                    disabled={isCreating}
+                  />
+                  <input
+                    type="text"
+                    placeholder="新分类名称"
+                    value={newGroup.categoryName}
+                    onChange={(e) => setNewGroup(prev => ({ ...prev, categoryName: e.target.value }))}
+                    style={{ ...STYLES.input, fontFamily: 'inherit' }}
+                    disabled={isCreating}
+                  />
+                  <input
+                    type="text"
+                    placeholder="visualTag (可选)"
+                    value={newGroup.visualTag}
+                    onChange={(e) => setNewGroup(prev => ({ ...prev, visualTag: e.target.value }))}
+                    style={{ ...STYLES.input, fontFamily: 'inherit' }}
+                    disabled={isCreating}
+                  />
+                </div>
+              )}
+              {creatingGroup && (
+                <div style={{ marginTop: '8px', display: 'flex', gap: '8px' }}>
+                  <button
+                    style={STYLES.button.primary}
+                    onClick={handleCreateGroup}
+                    disabled={isCreating}
+                  >
+                    创建分组
+                  </button>
+                  <button
+                    style={STYLES.button.secondary}
+                    onClick={() => {
+                      setCreatingGroup(false);
+                      setNewGroup({
+                        pageName: '',
+                        sortPrefix: '01',
+                        groupName: '',
+                        categoryName: '',
+                        visualTag: ' ',
+                      });
+                    }}
+                    disabled={isCreating}
+                  >
+                    取消
+                  </button>
+                </div>
+              )}
+              <datalist id="resource-mover-page-options">
+                {pageNameOptions.map(option => (
+                  <option key={option} value={option} />
+                ))}
+              </datalist>
+            </div>
             {isLoading ? (
               <div style={{ padding: '40px', textAlign: 'center', color: '#94a3b8' }}>
                 <RefreshCw size={24} className="animate-spin" style={{ margin: '0 auto 12px' }} />

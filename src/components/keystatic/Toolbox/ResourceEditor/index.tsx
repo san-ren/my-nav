@@ -1,19 +1,14 @@
 // ResourceEditor 主组件 - 整合批量添加和资源转移功能
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  Edit3, 
   Plus, 
-  ArrowRightLeft,
-  AlertTriangle
+  ArrowRightLeft
 } from 'lucide-react';
 import { BatchAdder } from '../BatchAdder';
 import { ResourceMover } from '../ResourceMover';
 import {
   LAYOUT,
-  TABS,
-  PAGE_TITLE,
-  MODAL,
-  BUTTON
+  TABS
 } from '../toolbox-shared';
 
 // --- 类型定义 ---
@@ -58,9 +53,7 @@ interface ResourceEditorProps {
 
 export function ResourceEditor({ onDataStatusChange, onTaskStart, onTaskProgress, onTaskEnd }: ResourceEditorProps) {
   const [activeSubTab, setActiveSubTab] = useState<SubTabId>('batch');
-  const [hasUnsavedData, setHasUnsavedData] = useState(false);
-  const [pendingSubTab, setPendingSubTab] = useState<SubTabId | null>(null);
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [tabDataStatus, setTabDataStatus] = useState<{ batch: boolean; mover: boolean }>({ batch: false, mover: false });
 
   // 通知父组件数据状态变化
   const onDataStatusChangeRef = useRef(onDataStatusChange);
@@ -68,36 +61,20 @@ export function ResourceEditor({ onDataStatusChange, onTaskStart, onTaskProgress
     onDataStatusChangeRef.current = onDataStatusChange;
   }, [onDataStatusChange]);
 
+  // 渲染任务参数
+  const taskProps = {
+    onTaskStart,
+    onTaskProgress,
+    onTaskEnd
+  };
+
   useEffect(() => {
-    onDataStatusChangeRef.current?.(hasUnsavedData);
-  }, [hasUnsavedData]);
+    onDataStatusChangeRef.current?.(tabDataStatus[activeSubTab]);
+  }, [tabDataStatus, activeSubTab]);
 
   // 子组件数据状态变化回调
-  const handleDataStatusChange = (hasData: boolean) => {
-    setHasUnsavedData(hasData);
-  };
-
-  const requestSubTabChange = (targetTab: SubTabId) => {
-    if (hasUnsavedData && targetTab !== activeSubTab) {
-      setPendingSubTab(targetTab);
-      setShowConfirmModal(true);
-    } else {
-      setActiveSubTab(targetTab);
-    }
-  };
-
-  const confirmSwitch = () => {
-    if (pendingSubTab) {
-      setActiveSubTab(pendingSubTab);
-      setHasUnsavedData(false);
-    }
-    setShowConfirmModal(false);
-    setPendingSubTab(null);
-  };
-
-  const cancelSwitch = () => {
-    setShowConfirmModal(false);
-    setPendingSubTab(null);
+  const handleDataStatusChange = (tabId: SubTabId) => (hasData: boolean) => {
+    setTabDataStatus(prev => ({ ...prev, [tabId]: hasData }));
   };
 
   return (
@@ -108,7 +85,7 @@ export function ResourceEditor({ onDataStatusChange, onTaskStart, onTaskProgress
           <button
             key={tab.id}
             className="toolbox-sub-tab"
-            onClick={() => requestSubTabChange(tab.id)}
+            onClick={() => setActiveSubTab(tab.id)}
             style={TABS.subTab(activeSubTab === tab.id)}
             title={tab.description}
           >
@@ -120,40 +97,13 @@ export function ResourceEditor({ onDataStatusChange, onTaskStart, onTaskProgress
 
       {/* 内容区域 - 居中显示，独立卡片 */}
       <div style={STYLES.container}>
-        {activeSubTab === 'batch' && (
-          <BatchAdder onDataStatusChange={handleDataStatusChange} />
-        )}
-        {activeSubTab === 'mover' && (
-          <ResourceMover onDataStatusChange={handleDataStatusChange} />
-        )}
-      </div>
-
-      {/* 确认切换弹窗 */}
-      {showConfirmModal && (
-        <div style={MODAL.overlay} onClick={cancelSwitch}>
-          <div style={MODAL.content} onClick={e => e.stopPropagation()}>
-            <div style={MODAL.title}>
-              <AlertTriangle size={24} style={{ color: '#f59e0b' }} />
-              确认切换？
-            </div>
-            
-            <p style={MODAL.text}>
-              当前页面有未填完的数据，数据将被保存，请注意提示。
-              <br /><br />
-              确定要切换吗？
-            </p>
-            
-            <div style={MODAL.buttons}>
-              <button onClick={cancelSwitch} style={BUTTON.secondary}>
-                取消
-              </button>
-              <button onClick={confirmSwitch} style={BUTTON.primary}>
-                确认切换
-              </button>
-            </div>
-          </div>
+        <div style={{ display: activeSubTab === 'batch' ? 'block' : 'none' }}>
+          <BatchAdder onDataStatusChange={handleDataStatusChange('batch')} {...taskProps} />
         </div>
-      )}
+        <div style={{ display: activeSubTab === 'mover' ? 'block' : 'none' }}>
+          <ResourceMover onDataStatusChange={handleDataStatusChange('mover')} {...taskProps} />
+        </div>
+      </div>
     </div>
   );
 }

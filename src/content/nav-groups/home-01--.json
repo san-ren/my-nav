@@ -1,7 +1,7 @@
 {
+  "pageName": "home",
   "visualTag": "🏠",
   "name": ".",
-  "pageName": "home",
   "pageConfig": {
     "sortPrefix": "01"
   },
@@ -12,34 +12,42 @@
       "resources": [
         {
           "toolbox": null,
+          "toolboxLink": null,
           "name": "NewsNow",
           "url": "https://github.com/ourongxing/newsnow",
           "official_site": "https://newsnow.busiyi.world/",
           "desc": "实时新闻聚合阅读器",
+          "icon": "/images/logos/github-ourongxing-newsnow.png",
           "hide_badges": [],
-          "icon": "/images/logos/github-ourongxing-newsnow.png"
+          "status": "ok"
         },
         {
           "toolbox": null,
+          "toolboxLink": null,
           "name": "小田田",
           "url": "https://xydh.fun/xiaotiantian/",
           "desc": "dg",
+          "icon": "/images/logos/xydh-fun.webp",
           "hide_badges": [],
-          "icon": "/images/logos/xydh-fun.webp"
+          "status": "ok"
         },
         {
           "toolbox": null,
+          "toolboxLink": null,
           "name": "低调观影",
           "url": "https://shouku123.com/tiantian/",
+          "icon": "/images/logos/shouku123-com.webp",
           "hide_badges": [],
-          "icon": "/images/logos/shouku123-com.webp"
+          "status": "ok"
         },
         {
           "toolbox": null,
+          "toolboxLink": null,
           "name": "不死鸟",
           "url": "https://iui.su/",
+          "icon": "/images/logos/iao-su.webp",
           "hide_badges": [],
-          "icon": "/images/logos/iao-su.webp"
+          "status": "ok"
         }
       ],
       "tabs": []

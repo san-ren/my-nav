@@ -11,6 +11,7 @@ import siteConfig from '../content/site-settings/config.json';
 import { getCollection } from 'astro:content'; 
 import { LayoutDashboard, Star, Code, Palette, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu } from 'lucide-react';
 import { sortResourcesByStatus } from '../utils/resourceSort';
+import { attachGuidesToResources } from '../utils/guideMatcher';
 
 import GlobalShareButton from '../components/GlobalShareButton.jsx';
 
@@ -61,25 +62,31 @@ export const prerender = true;
 export async function getStaticPaths() {
   const rawPages = await getCollection('nav-pages');
   const rawGroups = await getCollection('nav-groups');
+  const guides = await getCollection('guides');
 
   const navResources = rawPages.map(page => {
-    const currentGroups = rawGroups
+    let currentGroups = rawGroups
        .filter(g => {
          const groupPageId = typeof g.data.pageName === 'object' 
             ? g.data.pageName.id 
             : g.data.pageName;
          return groupPageId === page.id;
-       }) 
-       .sort((a, b) => {
-          const sortA = Number(a.data.pageConfig?.sortPrefix || 10);
-          const sortB = Number(b.data.pageConfig?.sortPrefix || 10);
+       })
+       .map(g => JSON.parse(JSON.stringify(g.data))); // 深拷贝避坑
+    
+    // 自动填充 guide_id
+    currentGroups = attachGuidesToResources(currentGroups, guides);
+
+    currentGroups.sort((a, b) => {
+          const sortA = Number(a.pageConfig?.sortPrefix || 10);
+          const sortB = Number(b.pageConfig?.sortPrefix || 10);
           return sortA - sortB;
        });
     
     return {
       ...page.data,
       id: page.id,
-      groups: currentGroups.map(g => g.data)
+      groups: currentGroups
     };
   }).sort((a, b) => (a.sortOrder || 99) - (b.sortOrder || 99));
 

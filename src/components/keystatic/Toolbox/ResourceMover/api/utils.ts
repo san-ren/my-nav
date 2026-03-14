@@ -3,6 +3,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { CONFIG, type ResourceItem, type ResourceLocation, type TargetLocation, type ScanResult, type FileInfo, type CategoryInfo, type TabInfo } from '../types';
 
+const sanitizeFilePart = (value: string): string => value.replace(/[\\/]/g, '-').trim();
+const safeTrim = (value: string | undefined | null): string => (value ?? '').toString().trim();
+
 // 扫描所有资源
 export function scanAllResources(): ScanResult {
   const contentDir = path.join(process.cwd(), CONFIG.contentDir);
@@ -274,6 +277,22 @@ export function moveResources(
           }
         }
       }
+
+      // 清理空的 tab 和分类
+      if (Array.isArray(json.categories)) {
+        json.categories = json.categories.filter((category: any) => {
+          if (Array.isArray(category.tabs)) {
+            category.tabs = category.tabs.filter((tab: any) => Array.isArray(tab.list) && tab.list.length > 0);
+          } else {
+            category.tabs = [];
+          }
+          
+          const resourcesCount = Array.isArray(category.resources) ? category.resources.length : 0;
+          const tabsCount = Array.isArray(category.tabs) ? category.tabs.length : 0;
+          
+          return resourcesCount > 0 || tabsCount > 0;
+        });
+      }
       
       fs.writeFileSync(filePath, JSON.stringify(json, null, 2), 'utf-8');
     }
@@ -317,6 +336,186 @@ export function moveResources(
     console.error('[ResourceMover] 移动资源失败', e);
     return { success: false, message: e.message, movedCount: 0 };
   }
+}
+
+// 创建新的分组（文件）
+export function createGroup(params: {
+  pageName: string;
+  sortPrefix: string;
+  groupName: string;
+  categoryName: string;
+  visualTag?: string;
+}): { success: boolean; message: string; createdTarget?: TargetLocation } {
+  const pageName = safeTrim(params.pageName);
+  const sortPrefix = safeTrim(params.sortPrefix);
+  const groupName = safeTrim(params.groupName);
+  const categoryName = safeTrim(params.categoryName);
+  const visualTag = safeTrim(params.visualTag) || ' ';
+  
+  if (!pageName || !sortPrefix || !groupName || !categoryName) {
+    return { success: false, message: '缺少必要字段' };
+  }
+  
+  const contentDir = path.join(process.cwd(), CONFIG.contentDir);
+  const safeGroupName = sanitizeFilePart(groupName);
+  const fileBase = `${pageName}-${sortPrefix}-${safeGroupName}`;
+  const fileName = `${fileBase}.json`;
+  const filePath = path.join(contentDir, fileName);
+  
+  if (fs.existsSync(filePath)) {
+    return { success: false, message: '目标文件已存在，请更换分组名称或排序前缀' };
+  }
+  
+  const payload = {
+    id: fileBase,
+    pageName,
+    visualTag,
+    name: groupName,
+    pageConfig: { sortPrefix },
+    resources: [],
+    categories: [
+      {
+        name: categoryName,
+        resources: [],
+        tabs: [],
+      },
+    ],
+  };
+  
+  fs.writeFileSync(filePath, JSON.stringify(payload, null, 2), 'utf-8');
+  
+  return {
+    success: true,
+    message: '创建分组成功',
+    createdTarget: {
+      file: fileName,
+      pageName,
+      groupName,
+      categoryName,
+      targetList: 'resources',
+    },
+  };
+}
+
+// 在现有文件中创建分类
+export function createCategory(params: {
+  file: string;
+  categoryName: string;
+}): { success: boolean; message: string; createdTarget?: TargetLocation } {
+  const file = safeTrim(params.file);
+  const categoryName = safeTrim(params.categoryName);
+  
+  if (!file || !categoryName) {
+    return { success: false, message: '缺少必要字段' };
+  }
+  
+  const contentDir = path.join(process.cwd(), CONFIG.contentDir);
+  const filePath = path.join(contentDir, file);
+  
+  if (!fs.existsSync(filePath)) {
+    return { success: false, message: '目标文件不存在' };
+  }
+  
+  const content = fs.readFileSync(filePath, 'utf-8');
+  const json = JSON.parse(content);
+  
+  if (!json.categories || !Array.isArray(json.categories)) {
+    json.categories = [];
+  }
+  
+  if (json.categories.some((c: any) => (c.name || '').trim() === categoryName)) {
+    return { success: false, message: '分类已存在，请更换名称' };
+  }
+  
+  json.categories.push({
+    name: categoryName,
+    resources: [],
+    tabs: [],
+  });
+  
+  fs.writeFileSync(filePath, JSON.stringify(json, null, 2), 'utf-8');
+  
+  const pageName = json.pageName || 'unknown';
+  const groupName = json.name || file.replace('.json', '');
+  
+  return {
+    success: true,
+    message: '创建分类成功',
+    createdTarget: {
+      file,
+      pageName,
+      groupName,
+      categoryName,
+      targetList: 'resources',
+    },
+  };
+}
+
+// 在分类中创建 Tab
+export function createTab(params: {
+  file: string;
+  categoryName: string;
+  tabName: string;
+}): { success: boolean; message: string; createdTarget?: TargetLocation } {
+  const file = safeTrim(params.file);
+  const categoryName = safeTrim(params.categoryName);
+  const tabName = safeTrim(params.tabName);
+  
+  if (!file || !categoryName || !tabName) {
+    return { success: false, message: '缺少必要字段' };
+  }
+  
+  const contentDir = path.join(process.cwd(), CONFIG.contentDir);
+  const filePath = path.join(contentDir, file);
+  
+  if (!fs.existsSync(filePath)) {
+    return { success: false, message: '目标文件不存在' };
+  }
+  
+  const content = fs.readFileSync(filePath, 'utf-8');
+  const json = JSON.parse(content);
+  
+  if (!json.categories || !Array.isArray(json.categories)) {
+    return { success: false, message: '目标分类不存在' };
+  }
+  
+  const category = json.categories.find((c: any) => (c.name || '').trim() === categoryName);
+  if (!category) {
+    return { success: false, message: '目标分类不存在' };
+  }
+  
+  if (!category.tabs || !Array.isArray(category.tabs)) {
+    category.tabs = [];
+  }
+  
+  if (category.tabs.some((t: any) => (t.tabName || '').trim() === tabName)) {
+    return { success: false, message: 'Tab 已存在，请更换名称' };
+  }
+  
+  category.tabs.push({
+    tabName,
+    list: [],
+  });
+  
+  fs.writeFileSync(filePath, JSON.stringify(json, null, 2), 'utf-8');
+  
+  const tabIndex = category.tabs.length - 1;
+  const pageName = json.pageName || 'unknown';
+  const groupName = json.name || file.replace('.json', '');
+  
+  return {
+    success: true,
+    message: '创建 Tab 成功',
+    createdTarget: {
+      file,
+      pageName,
+      groupName,
+      categoryName,
+      tabIndex,
+      tabName,
+      targetList: 'list',
+    },
+  };
 }
 
 // 获取目标位置列表

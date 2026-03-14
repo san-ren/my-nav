@@ -40,16 +40,20 @@ export async function parseUrl(urlStr: string): Promise<{ success: boolean; data
     const data = await res.json();
     
     // smart-parse 返回的数据格式
+    // 逻辑升级：如果是 GitHub，则 url 字段存原始仓库地址 (data.originalUrl)，homepage 字段存官网地址
+    const isGithub = data.isGithub || false;
+    
     return {
       success: true,
       data: {
         title: data.title || '',
         desc: data.desc || '',
-        homepage: data.homepage || urlStr,
+        homepage: data.homepage || '',
         icon: data.icon || '',
-        isGithub: data.isGithub || false,
+        isGithub: isGithub,
         originalUrl: urlStr,
-        url: data.homepage || urlStr,
+        // 如果是 GitHub 项目，url 设为仓库地址；否则设为网页地址 (homepage)
+        url: isGithub ? (data.originalUrl || urlStr) : (data.homepage || urlStr),
       },
     };
   } catch (e: any) {

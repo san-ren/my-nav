@@ -8,7 +8,7 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { X, Check, Image, FileText, Share2, CheckSquare, Square, Layers, ChevronRight } from 'lucide-react';
+import { X, Check, Image, FileText, Share2, CheckSquare, Square, Layers, ChevronRight, Copy } from 'lucide-react';
 import { marked } from 'marked';
 
 // ============================================
@@ -26,6 +26,8 @@ export default function ShareExportModal() {
   const [selectedIds, setSelectedIds] = useState(new Set()); // now stores _flatIndex
   // 导出状态
   const [exporting, setExporting] = useState(false);
+  // 复制成功提示状态
+  const [copySuccess, setCopySuccess] = useState(false);
 
   // 预览容器引用 - 用于 html2canvas 截图
   const renderRef = useRef(null);
@@ -37,7 +39,7 @@ export default function ShareExportModal() {
   const openModal = useCallback((treeParams, shareTitle, activeId) => {
     let currentIndex = 0;
     const cards = [];
-    
+
     // Process tree and mutate to inject _flatIndex
     const traverse = (nodes, parentLabels) => {
       const allIndices = [];
@@ -45,6 +47,8 @@ export default function ShareExportModal() {
         if (node.type === 'card') {
           node.data._flatIndex = currentIndex++;
           node.data._groupLabel = parentLabels.join(' · ');
+          // 存储分组路径数组，用于后续计算最长公共前缀
+          node.data._groupLabelParts = [...parentLabels];
           cards.push(node.data);
           node._descendantIndices = [node.data._flatIndex];
           allIndices.push(node.data._flatIndex);
@@ -57,14 +61,14 @@ export default function ShareExportModal() {
       return allIndices;
     };
     traverse(treeParams || [], []);
-    
+
     setTreeData(treeParams || []);
     setFlatCards(cards);
     setTitle(shareTitle || '资源推荐');
     setSelectedIds(new Set(cards.map(c => c._flatIndex))); // 默认全选
     setIsOpen(true);
     setTimeout(() => setIsVisible(true), 10);
-    
+
     // Auto scroll left panel and expand to activeId
     const activePath = new Set();
     const findPath = (nodes, targetId, currentPath) => {
@@ -115,7 +119,7 @@ export default function ShareExportModal() {
     const handleOpen = (e) => {
       // 兼容老的数据结构（如果直接传 cards）或者新的 data
       const { cards: singleCards, tree, title: t, activeId } = e.detail || {};
-      
+
       let finalTree = tree;
       if (!finalTree && singleCards) {
         // 兼容单卡分享
@@ -193,6 +197,27 @@ export default function ShareExportModal() {
     return marked.parse(text);
   };
 
+  // ---- 复制 Title:URL 到剪贴板 ----
+  const copyTitleUrl = async () => {
+    if (selectedCards.length === 0) return;
+    // 格式化每张卡片：标题、项目地址(url)、官网地址(official_site) 各占一行，缺失跳过
+    const text = selectedCards.map(card => {
+      const lines = [];
+      lines.push(card.name || card.title || '未命名');
+      if (card.url) lines.push(card.url);
+      if (card.official_site) lines.push(card.official_site);
+      return lines.join('\n');
+    }).join('\n\n'); // 卡片之间空行隔离
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    } catch (err) {
+      console.error('复制失败:', err);
+      alert('复制失败，请重试');
+    }
+  };
+
   // ---- 导出为图片 (PNG) ----
   const exportAsImage = async () => {
     if (selectedCards.length === 0 || !renderRef.current) return;
@@ -226,18 +251,13 @@ export default function ShareExportModal() {
       .getPropertyValue('--color-brand-rgb').trim() || '79 70 229';
     const brandColor = `rgb(${brandRgb})`;
     const brandColorLight = `rgba(${brandRgb}, 0.08)`;
-    const dateStr = new Date().toLocaleDateString('zh-CN');
 
-    // 按 _groupLabel 分组
-    const groupedCards = selectedCards.reduce((acc, card) => {
-      const label = card._groupLabel || '';
-      if (!acc[label]) acc[label] = [];
-      acc[label].push(card);
-      return acc;
-    }, {});
+    // 使用简化后的标题和分组数据（由于在组件内部，可以直接访问 topTitle 和 groupedCards）
+    // 但为了确保在打印时数据是最新的，我们可以在这里重新获取一次，或者直接使用外层的
+    const { topTitle: printTopTitle, groupedCards: printGroupedCards } = computeTitleHierarchy();
 
     // 按分组生成 HTML
-    const cardsHtml = Object.entries(groupedCards).map(([label, cards]) => {
+    const cardsHtml = Object.entries(printGroupedCards).map(([label, cards]) => {
       const groupHeaderHtml = label ? `<div class="group-title">${label}</div>` : '';
       const cardsInGroupHtml = cards.map(card => {
         const detailHtml = parseMarkdown(card.detail);
@@ -254,7 +274,7 @@ export default function ShareExportModal() {
           </div>
         `;
       }).join('');
-      
+
       return `
         <div class="card-group">
           ${groupHeaderHtml}
@@ -268,7 +288,7 @@ export default function ShareExportModal() {
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>${title} - 资源推荐</title>
+  <title>${printTopTitle} - 资源推荐</title>
   <style>
     /* 基础重置 */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -426,11 +446,11 @@ export default function ShareExportModal() {
 </head>
 <body>
   <div class="header">
-    <h1>${title}</h1>
-    <div class="subtitle">共 ${selectedCards.length} 项精选资源 · ${dateStr}</div>
+    <h1>${printTopTitle}</h1>
+    <div class="subtitle">共 ${selectedCards.length} 项</div>
   </div>
   ${cardsHtml}
-  <div class="footer">Generated by my-nav · ${dateStr}</div>
+  <div class="footer">Generated by my-nav · ${new Date().toLocaleDateString('zh-CN')}</div>
   <script>
     // 图片加载完毕后自动触发打印
     window.onload = function() {
@@ -468,13 +488,13 @@ export default function ShareExportModal() {
 
   // ---- 左侧树形渲染 ----
   const toggleExpand = (e, nodeId) => {
-     e.stopPropagation();
-     setExpandedNodes(prev => {
-       const next = new Set(prev);
-       if (next.has(nodeId)) next.delete(nodeId);
-       else next.add(nodeId);
-       return next;
-     });
+    e.stopPropagation();
+    setExpandedNodes(prev => {
+      const next = new Set(prev);
+      if (next.has(nodeId)) next.delete(nodeId);
+      else next.add(nodeId);
+      return next;
+    });
   };
 
   const renderTreeNode = (node, depth = 0) => {
@@ -483,38 +503,38 @@ export default function ShareExportModal() {
       const isSelected = selectedIds.has(idx);
       return (
         <div key={`card-${idx}`} className={`share-tree-item card-level ${isSelected ? 'selected' : ''}`} style={{ paddingLeft: `${depth * 20 + 24}px` }} onClick={() => toggleNode(node)}>
-           <div className={`share-checkbox ${isSelected ? 'checked' : ''}`}>
-             {isSelected && <Check size={12} color="white" strokeWidth={3} />}
-           </div>
-           <div className="share-card-info">
-             <div className="card-name">{node.data.name || node.data.title || '未命名'}</div>
-             {node.data.desc && <div className="card-desc">{node.data.desc}</div>}
-           </div>
+          <div className={`share-checkbox ${isSelected ? 'checked' : ''}`}>
+            {isSelected && <Check size={12} color="white" strokeWidth={3} />}
+          </div>
+          <div className="share-card-info">
+            <div className="card-name">{node.data.name || node.data.title || '未命名'}</div>
+            {node.data.desc && <div className="card-desc">{node.data.desc}</div>}
+          </div>
         </div>
       );
     }
-    
+
     // Structural node
     const indices = node._descendantIndices || [];
     if (indices.length === 0) return null; // Hide empty empty nodes
     const selectedCount = indices.filter(i => selectedIds.has(i)).length;
     const isAllSelected = selectedCount === indices.length;
     const isPartial = selectedCount > 0 && selectedCount < indices.length;
-    const isExpanded = expandedNodes.has(node.id) || !node.id; 
+    const isExpanded = expandedNodes.has(node.id) || !node.id;
 
     return (
       <div key={node.id} id={`share-tree-node-${node.id}`} className="share-tree-group">
         <div className={`share-tree-node depth-${depth} ${isAllSelected ? 'selected' : isPartial ? 'partial' : ''}`} style={{ paddingLeft: `${depth * 20 + 12}px` }} onClick={() => toggleNode(node)}>
-           <div className={`share-tree-expand ${isExpanded ? 'expanded' : ''}`} onClick={(e) => toggleExpand(e, node.id)}>
-              <ChevronRight size={16} />
-           </div>
-           
-           <div className={`share-checkbox ${isAllSelected ? 'checked' : isPartial ? 'partial-check' : ''}`}>
-             {isAllSelected && <Check size={12} color="white" strokeWidth={3} />}
-             {isPartial && <div className="partial-mark" />}
-           </div>
-           <div className="share-node-name">{node.name}</div>
-           <div className="share-node-count">{selectedCount}/{indices.length}</div>
+          <div className={`share-tree-expand ${isExpanded ? 'expanded' : ''}`} onClick={(e) => toggleExpand(e, node.id)}>
+            <ChevronRight size={16} />
+          </div>
+
+          <div className={`share-checkbox ${isAllSelected ? 'checked' : isPartial ? 'partial-check' : ''}`}>
+            {isAllSelected && <Check size={12} color="white" strokeWidth={3} />}
+            {isPartial && <div className="partial-mark" />}
+          </div>
+          <div className="share-node-name">{node.name}</div>
+          <div className="share-node-count">{selectedCount}/{indices.length}</div>
         </div>
         {isExpanded && (
           <div className="share-tree-children">
@@ -528,8 +548,45 @@ export default function ShareExportModal() {
   // ---- 不渲染时返回 null ----
   if (!isOpen) return null;
 
-  // 获取当前日期
-  const dateStr = new Date().toLocaleDateString('zh-CN');
+  // ---- 计算选中卡片的最长公共路径前缀（LCP），用于简化标题层级 ----
+  const computeTitleHierarchy = () => {
+    if (selectedCards.length === 0) return { topTitle: title, groupedCards: {} };
+
+    // 收集所有选中卡片的分组路径数组
+    const allParts = selectedCards.map(c => c._groupLabelParts || []);
+
+    // 计算最长公共前缀
+    let lcpLength = 0;
+    if (allParts.length > 0 && allParts[0].length > 0) {
+      const first = allParts[0];
+      for (let i = 0; i < first.length; i++) {
+        if (allParts.every(parts => parts.length > i && parts[i] === first[i])) {
+          lcpLength = i + 1;
+        } else {
+          break;
+        }
+      }
+    }
+
+    // 顶部标题 = 公共前缀部分的最后一项 (只显示当前级，不叠加上级)
+    const lcpParts = allParts[0] ? allParts[0].slice(0, lcpLength) : [];
+    const topTitle = lcpParts.length > 0 ? lcpParts[lcpParts.length - 1] : title;
+
+    // 按去除公共前缀后的下一级子路径分组
+    const grouped = selectedCards.reduce((acc, card) => {
+      const parts = card._groupLabelParts || [];
+      const remaining = parts.slice(lcpLength);
+      // 分组标签仅显示当前层级名称
+      const label = remaining.length > 0 ? remaining[0] : '';
+      if (!acc[label]) acc[label] = [];
+      acc[label].push(card);
+      return acc;
+    }, {});
+
+    return { topTitle, groupedCards: grouped };
+  };
+
+  const { topTitle, groupedCards } = computeTitleHierarchy();
 
   return (
     <>
@@ -608,25 +665,22 @@ export default function ShareExportModal() {
                   /* 用于 html2canvas 截图的渲染容器 */
                   <div ref={renderRef} className="share-render-container">
                     {/* 标题 */}
-                    <div className="share-render-title">
-                      <Layers size={20} style={{ color: `rgb(var(--color-brand-rgb))` }}/>
-                      {title}
+                    <div className="share-render-title" style={{ display: 'table', marginBottom: '4px' }}>
+                      <div style={{ display: 'table-cell', verticalAlign: 'middle', width: '24px', height: '24px', paddingRight: '8px', color: 'rgb(var(--color-brand-rgb))' }}>
+                        <Layers size={20} />
+                      </div>
+                      <div style={{ display: 'table-cell', verticalAlign: 'middle', fontSize: '20px', fontWeight: 900, color: '#1e293b', lineHeight: '24px' }}>
+                        {topTitle}
+                      </div>
                     </div>
-                    <div className="share-render-subtitle">
-                      共 {selectedCards.length} 项精选资源 · {dateStr}
+                    <div className="share-render-subtitle" style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '24px', paddingBottom: '12px', borderBottom: '1px solid rgba(148, 163, 184, 0.2)' }}>
+                      共 {selectedCards.length} 项
                     </div>
 
-                    {/* 按分组渲染选中的卡片 */}
-                    {Object.entries(
-                      selectedCards.reduce((acc, card) => {
-                        const label = card._groupLabel || '';
-                        if (!acc[label]) acc[label] = [];
-                        acc[label].push(card);
-                        return acc;
-                      }, {})
-                    ).map(([label, cards], groupIdx) => (
+                    {/* 按简化后的分组渲染选中的卡片 */}
+                    {Object.entries(groupedCards).map(([label, cards], groupIdx) => (
                       <div key={`group-${groupIdx}`} style={{ marginBottom: '24px' }}>
-                        {/* 分组标题 */}
+                        {/* 分组标题 - 仅当有下级名称时显示 */}
                         {label && (
                           <div style={{
                             fontSize: '14px',
@@ -635,17 +689,17 @@ export default function ShareExportModal() {
                             marginBottom: '12px',
                             paddingLeft: '8px',
                             borderLeft: '3px solid rgb(var(--color-brand-rgb))',
-                            display: 'flex',
-                            alignItems: 'center'
+                            display: 'table',
+                            lineHeight: '18px',
+                            minHeight: '18px'
                           }}>
-                            {label}
+                            <span style={{ display: 'table-cell', verticalAlign: 'middle', height: '18px' }}>{label}</span>
                           </div>
                         )}
-                        
+
                         {/* 分组内的卡片 */}
                         {cards.map((card, idx) => {
                           const detailHtml = parseMarkdown(card.detail);
-                          // html2canvas 对 CSS 解析非常严格，改用全内联样式确保 100% 还原
                           return (
                             <div key={`card-${idx}`} style={{
                               width: '100%',
@@ -657,60 +711,48 @@ export default function ShareExportModal() {
                               marginBottom: '12px',
                               boxShadow: '0 1px 3px rgba(15, 23, 42, 0.02)'
                             }}>
-                              {/* 卡片头部：图标 + 名称 */}
-                              <div style={{
-                                display: 'table',
-                                width: '100%',
-                                marginBottom: '0'
-                              }}>
-                                <div style={{
-                                  display: 'table-cell',
-                                  width: '48px', /* 36px icon + 12px margin */
-                                  height: '36px',
-                                  verticalAlign: 'middle',
-                                  paddingRight: '12px',
-                                  boxSizing: 'border-box'
-                                }}>
+                              {/* 卡片头部：图标 + 名称 - 使用 inline-block 修复对齐 */}
+                              <div style={{ width: '100%', marginBottom: '0', display: 'table' }}>
+                                <div style={{ display: 'table-cell', verticalAlign: 'middle', width: '36px', height: '36px', paddingRight: '12px' }}>
                                   <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
                                     width: '36px',
                                     height: '36px',
                                     borderRadius: '8px',
                                     background: '#f1f5f9',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
                                     border: '1px solid rgba(226, 232, 240, 0.5)',
                                     boxSizing: 'border-box'
                                   }}>
                                     <img
                                       src={getIconSrc(card)}
                                       alt={card.name || ''}
-                                      style={{ width: '24px', height: '24px', objectFit: 'contain', display: 'block', margin: 'auto' }}
+                                      style={{ width: '24px', height: '24px', objectFit: 'contain', display: 'block' }}
                                       onError={(e) => { e.target.src = `${base}/favicon.svg`; }}
                                     />
                                   </div>
                                 </div>
                                 <div style={{
                                   display: 'table-cell',
-                                  height: '36px',
                                   verticalAlign: 'middle',
                                   fontSize: '16px',
                                   fontWeight: 800,
                                   color: '#1e293b',
-                                  lineHeight: '1.2'
+                                  lineHeight: '24px'
                                 }}>
                                   {card.name || card.title || '未命名'}
                                 </div>
                               </div>
 
-                              {/* 描述 */}
+                              {/* 描述 - 居中放置修复 */}
                               {card.desc && (
                                 <div style={{
                                   width: '100%',
                                   boxSizing: 'border-box',
                                   fontSize: '13px',
                                   color: '#64748b',
-                                  marginTop: '12px',
+                                  marginTop: '10px', /* 调整间距使其看起来更居中 */
                                   marginBottom: '0',
                                   lineHeight: 1.5,
                                   wordBreak: 'break-word'
@@ -758,9 +800,9 @@ export default function ShareExportModal() {
                       </div>
                     ))}
 
-                    {/* 底部水印 */}
-                    <div className="share-render-footer">
-                      Generated by my-nav · {dateStr}
+                    {/* 底部水印 - 加上日期 */}
+                    <div className="share-render-footer" style={{ textAlign: 'center', fontSize: '11px', color: '#94a3b8', marginTop: '20px', paddingTop: '12px', borderTop: '1px solid rgba(148, 163, 184, 0.15)' }}>
+                      Generated by my-nav · {new Date().toLocaleDateString('zh-CN')}
                     </div>
                   </div>
                 ) : (
@@ -778,6 +820,16 @@ export default function ShareExportModal() {
                   选中 {selectedCards.length} 项资源
                 </span>
                 <div style={{ display: 'flex', gap: '8px' }}>
+                  {/* 复制 Title:URL 按钮 */}
+                  <button
+                    className={`share-export-btn secondary`}
+                    onClick={copyTitleUrl}
+                    disabled={selectedCards.length === 0}
+                    style={{ position: 'relative' }}
+                  >
+                    {copySuccess ? <Check size={14} /> : <Copy size={14} />}
+                    {copySuccess ? '已复制' : '复制资源'}
+                  </button>
                   {/* 导出为图片按钮 */}
                   <button
                     className={`share-export-btn secondary ${exporting ? 'share-exporting' : ''}`}

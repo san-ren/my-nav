@@ -21,6 +21,10 @@ export function getGroups(): GroupInfo[] {
       const categories = (json.categories || []).map((cat: any, index: number) => ({
         name: cat.name,
         index,
+        tabs: (cat.tabs || []).map((tab: any, tabIndex: number) => ({
+          name: tab.tabName || `Tab${tabIndex + 1}`,
+          index: tabIndex,
+        })),
       }));
       
       groups.push({
@@ -54,7 +58,7 @@ function createNewResource(resource: ParsedResource) {
 export function addResourceToGroup(
   groupFile: string,
   resource: ParsedResource,
-  target: { type: 'top' | 'category'; categoryIndex?: number }
+  target: { type: 'top' | 'category' | 'tab'; categoryIndex?: number; tabIndex?: number }
 ): AddResult {
   const contentDir = path.join(process.cwd(), CONFIG.contentDir);
   const filePath = path.join(contentDir, groupFile);
@@ -77,18 +81,33 @@ export function addResourceToGroup(
         json.categories[target.categoryIndex].resources = [];
       }
       json.categories[target.categoryIndex].resources.push(newResource);
+    } else if (target.type === 'tab' && target.categoryIndex !== undefined && target.tabIndex !== undefined) {
+      if (!json.categories) json.categories = [];
+      if (!json.categories[target.categoryIndex]) {
+        return { success: false, message: '分类不存在' };
+      }
+      if (!json.categories[target.categoryIndex].tabs || !json.categories[target.categoryIndex].tabs[target.tabIndex]) {
+        return { success: false, message: 'Tab不存在' };
+      }
+      if (!json.categories[target.categoryIndex].tabs[target.tabIndex].list) {
+        json.categories[target.categoryIndex].tabs[target.tabIndex].list = [];
+      }
+      json.categories[target.categoryIndex].tabs[target.tabIndex].list.push(newResource);
     }
     
         fs.writeFileSync(filePath, JSON.stringify(json, null, 2), 'utf-8');
     
-    const categoryName = target.type === 'category' && target.categoryIndex !== undefined 
+    const categoryName = (target.type === 'category' || target.type === 'tab') && target.categoryIndex !== undefined 
       ? json.categories[target.categoryIndex]?.name 
+      : undefined;
+    const tabName = target.type === 'tab' && target.categoryIndex !== undefined && target.tabIndex !== undefined
+      ? json.categories[target.categoryIndex]?.tabs?.[target.tabIndex]?.tabName
       : undefined;
     
     return {
       success: true,
       message: '添加成功',
-      addedTo: `${json.name}${categoryName ? ' / ' + categoryName : ''}`,
+      addedTo: `${json.name}${categoryName ? ' / ' + categoryName : ''}${tabName ? ' / ' + tabName : ''}`,
     };
 
   } catch (e: any) {

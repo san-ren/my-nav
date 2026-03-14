@@ -1,6 +1,6 @@
 // ResourceMover API 入口
 import type { APIRoute } from 'astro';
-import { scanAllResources, getAllResources, getTargetLocations, moveResources, getResourceList } from './utils';
+import { scanAllResources, getAllResources, getTargetLocations, moveResources, getResourceList, createGroup, createCategory, createTab } from './utils';
 
 // 强制动态模式
 export const prerender = false;
@@ -61,6 +61,34 @@ export const GET: APIRoute = async ({ url }) => {
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
+    const { action } = body as { action?: string };
+    
+    if (action === 'createTarget') {
+      const { type, group, category, tab } = body as { 
+        type: 'group' | 'category' | 'tab';
+        group?: any;
+        category?: any;
+        tab?: any;
+      };
+      
+      let result;
+      if (type === 'group') {
+        result = createGroup(group || {});
+      } else if (type === 'category') {
+        result = createCategory(category || {});
+      } else if (type === 'tab') {
+        result = createTab(tab || {});
+      } else {
+        return new Response(JSON.stringify({ success: false, message: '未知的创建类型' }), { status: 400 });
+      }
+      
+      const status = result.success ? 200 : 400;
+      return new Response(JSON.stringify(result), {
+        status,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    
     const { sourceItems, target } = body as { 
       sourceItems: any[]; 
       target: any;

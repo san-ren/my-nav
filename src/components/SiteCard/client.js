@@ -13,8 +13,6 @@ function applyHoverEffects(wrapper) {
   const descWrapper = wrapper.querySelector('.desc-wrapper');
   const descText = wrapper.querySelector('.desc-text');
   if (descWrapper && descText) {
-    descWrapper.classList.remove('is-overflowing');
-    
     // 利用 getBoundingClientRect 或解除样式获取真实无截断的文字长度
     const oldMaxWidth = descText.style.maxWidth;
     const oldOverflow = descText.style.overflow;
@@ -36,12 +34,18 @@ function applyHoverEffects(wrapper) {
     if (realTextWidth > containerWidth + 2) {
       descWrapper.classList.add('is-overflowing');
       
-      const scrollDistance = realTextWidth - containerWidth + 8; // 额外补充8px空间避免边缘紧贴
+      // 首尾白区预留（消除左右遮罩各约 16px 的模糊带）
+      const overscroll = 16;
+      // 动画总路程：真实超出文字宽 + 左出圈需 16px + 右出圈需 16px
+      const totalDistance = (realTextWidth - containerWidth) + (overscroll * 2); 
       // 改良公式：使得速度始终为恒定 30px/s 左右，但保障最低时间为 1.5 秒，且最多不超过 8 秒
-      const duration = Math.min(8, Math.max(1.5, scrollDistance / 30));
+      const duration = Math.min(8, Math.max(1.5, totalDistance / 30));
       
-      descText.style.setProperty('--scroll-dist', `-${scrollDistance}px`);
+      descText.style.setProperty('--scroll-start', `${overscroll}px`); // 让起始帧文字向右顶进躲开左边朦版
+      descText.style.setProperty('--scroll-dist', `-${realTextWidth - containerWidth + overscroll}px`); // 终点为左穿过剩余本体加上右边朦版的负坐标
       descText.style.setProperty('--scroll-dur', `${duration}s`);
+    } else {
+      descWrapper.classList.remove('is-overflowing');
     }
   }
 }
@@ -49,12 +53,6 @@ function applyHoverEffects(wrapper) {
 function removeHoverEffects(wrapper) {
   wrapper.classList.remove('flow-active');
   wrapper.classList.remove('mobile-hover');
-
-  // 移除描述溢出状态
-  const descWrapper = wrapper.querySelector('.desc-wrapper');
-  if (descWrapper) {
-    descWrapper.classList.remove('is-overflowing');
-  }
 }
 
 // -------------------------------------------------------------
@@ -207,10 +205,17 @@ const handleMouseOver = (e) => {
   
   const wrapper = e.target.closest('.site-card-wrapper');
   if (wrapper) {
-    if (activeCard !== wrapper && wrapper.querySelector('.tooltip-source')) {
-      if (activeCard) removeHoverEffects(activeCard);
+    if (activeCard && activeCard !== wrapper) {
+      removeHoverEffects(activeCard);
+      hideTooltip(true);
+    }
+    if (activeCard !== wrapper) {
       activeCard = wrapper;
+    }
+    if (wrapper.querySelector('.tooltip-source')) {
       showTooltip(wrapper);
+    } else {
+      applyHoverEffects(wrapper);
     }
   } else {
     if (activeCard) {
