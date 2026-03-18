@@ -23,7 +23,6 @@ import {
   BUTTON,
   INPUT,
   TREE,
-  ANIMATION_CSS,
 } from '../toolbox-shared';
 
 // --- 样式常量 ---
@@ -880,9 +879,6 @@ export function ResourceMover({
   
   return (
     <div style={STYLES.container}>
-      {/* 注入动画样式 */}
-      <style>{ANIMATION_CSS}</style>
-      
       {/* 标题 */}
       <div style={{ marginBottom: '12px' }}>
         <h1 style={{ fontSize: '20px', fontWeight: 700, color: '#1e293b', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '8px' }}>

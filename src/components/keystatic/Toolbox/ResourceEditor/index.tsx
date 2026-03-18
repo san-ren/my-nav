@@ -96,7 +96,7 @@ export function ResourceEditor({ onDataStatusChange, onTaskStart, onTaskProgress
       </div>
 
       {/* 内容区域 - 居中显示，独立卡片 */}
-      <div style={STYLES.container}>
+      <div style={STYLES.container} className="tab-content">
         <div style={{ display: activeSubTab === 'batch' ? 'block' : 'none' }}>
           <BatchAdder onDataStatusChange={handleDataStatusChange('batch')} {...taskProps} />
         </div>

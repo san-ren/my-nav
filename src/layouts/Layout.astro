@@ -3,6 +3,7 @@ import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css'; 
 import '../styles/theme.css';  
 import '../styles/animations.css'; 
+import Toast from '../components/Toast.astro';
 
 const { title } = Astro.props;
 const base = '/my-nav';
@@ -104,9 +105,48 @@ const base = '/my-nav';
     </div>
 
     <slot />
+    
+    <!-- Toast 通知组件 -->
+    <Toast />
 
     <script src="../scripts/ui-layout.js"></script>
     <script src="../scripts/init-animations.js"></script>
+    
+    <!-- 全局键盘快捷键 -->
+    <script>
+      // 全局键盘快捷键处理
+      document.addEventListener('keydown', (e) => {
+        // 忽略在输入框中的快捷键
+        const target = e.target as HTMLElement;
+        if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
+          return;
+        }
+        
+        // Cmd/Ctrl + K: 打开搜索
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          window.dispatchEvent(new CustomEvent('open-search-modal'));
+          return;
+        }
+        
+        // Cmd/Ctrl + /: 显示快捷键帮助
+        if ((e.metaKey || e.ctrlKey) && e.key === '/') {
+          e.preventDefault();
+          if (window.toast) {
+            window.toast.info('⌘K 搜索 · Esc 关闭弹窗 · ↑↓ 选择结果');
+          }
+          return;
+        }
+        
+        // Esc: 关闭侧边栏 (移动端)
+        if (e.key === 'Escape') {
+          if (window.closeSidebarMobile) {
+            window.closeSidebarMobile();
+          }
+          return;
+        }
+      });
+    </script>
   </body>
 </html>
 

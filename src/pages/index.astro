@@ -163,7 +163,7 @@ const CurrentIcon = section.icon ? (Icons[section.icon as keyof typeof Icons] ||
               {group.resources && group.resources.length > 0 && (
                 <section class="group-resources mb-8 w-full">
                   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-3 md:gap-4 pt-1 w-full">
-                    {sortResourcesByStatus(group.resources).map((site: any) => <SiteCard {...site} />)}
+                    {sortResourcesByStatus(group.resources).map((site: any, cardIdx: number) => <SiteCard {...site} animationDelay={cardIdx * 30} />)}
                   </div>
                 </section>
               )}
@@ -208,7 +208,7 @@ const CurrentIcon = section.icon ? (Icons[section.icon as keyof typeof Icons] ||
                       {/* 直属资源 */}
                       {hasList && (
                         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-3 md:gap-4 pt-1 w-full mb-8">
-                          {sortResourcesByStatus(category.resources).map((site: any) => <SiteCard {...site} />)}
+                          {sortResourcesByStatus(category.resources).map((site: any, cardIdx: number) => <SiteCard {...site} animationDelay={cardIdx * 30} />)}
                         </div>
                       )}
 
@@ -220,7 +220,7 @@ const CurrentIcon = section.icon ? (Icons[section.icon as keyof typeof Icons] ||
                             class={`tab-pane animate-fade-in relative z-20 w-full ${tabIdx !== 0 ? 'hidden' : ''}`}
                           >
                             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-3 md:gap-4 pt-1 w-full">
-                              {sortResourcesByStatus(tab.list || []).map((site: any) => <SiteCard {...site} />)}
+                              {sortResourcesByStatus(tab.list || []).map((site: any, cardIdx: number) => <SiteCard {...site} animationDelay={cardIdx * 30} />)}
                             </div>
                           </div>
                         ))
@@ -412,3 +412,85 @@ const CurrentIcon = section.icon ? (Icons[section.icon as keyof typeof Icons] ||
     initShareObserver();
   }
 </script>
+
+{/* 平滑滚动导航增强 */}
+<script>
+  // 增强的滚动到区块函数
+  window.scrollToSection = function(sectionId: string) {
+    const target = document.getElementById(sectionId);
+    if (target) {
+      // 显示滚动反馈
+      target.classList.add('scroll-target-active');
+      setTimeout(() => target.classList.remove('scroll-target-active'), 500);
+      
+      // 平滑滚动
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      
+      // 显示 Toast 提示
+      const heading = target.querySelector('h2, h3');
+      if (heading && window.toast) {
+        const title = heading.textContent?.trim();
+        if (title) {
+          window.toast.info(`正在跳转: ${title}`);
+        }
+      }
+    }
+  };
+
+  // 增强的 Tab 切换函数
+  window.scrollToTab = function(uniqueId: string, tabIdx: number) {
+    // 隐藏所有 tab pane
+    const allPanes = document.querySelectorAll(`[id^="pane-${uniqueId}-"]`);
+    allPanes.forEach(pane => {
+      pane.classList.add('hidden');
+      pane.classList.remove('block');
+    });
+    
+    // 显示目标 tab pane
+    const targetPane = document.getElementById(`pane-${uniqueId}-${tabIdx}`);
+    if (targetPane) {
+      targetPane.classList.remove('hidden');
+      targetPane.classList.add('block');
+      
+      // 重新触发动画
+      targetPane.classList.remove('animate-fade-in');
+      void targetPane.offsetWidth; // 强制重绘
+      targetPane.classList.add('animate-fade-in');
+    }
+    
+    // 更新 tab 按钮状态
+    const allBtns = document.querySelectorAll(`[data-target^="pane-${uniqueId}-"]`);
+    allBtns.forEach((btn, idx) => {
+      if (idx === tabIdx) {
+        btn.classList.add('text-brand-600', 'active-tab');
+        btn.classList.remove('text-slate-500');
+      } else {
+        btn.classList.remove('text-brand-600', 'active-tab');
+        btn.classList.add('text-slate-500');
+      }
+    });
+  };
+</script>
+
+<style>
+  /* 滚动目标激活时的视觉效果 */
+  .scroll-target-active {
+    animation: scroll-target-pulse 0.5s ease-out;
+  }
+  
+  @keyframes scroll-target-pulse {
+    0% { background-color: transparent; }
+    30% { background-color: rgba(79, 70, 229, 0.1); }
+    100% { background-color: transparent; }
+  }
+  
+  :global(.dark) .scroll-target-active {
+    animation: scroll-target-pulse-dark 0.5s ease-out;
+  }
+  
+  @keyframes scroll-target-pulse-dark {
+    0% { background-color: transparent; }
+    30% { background-color: rgba(99, 102, 241, 0.15); }
+    100% { background-color: transparent; }
+  }
+</style>

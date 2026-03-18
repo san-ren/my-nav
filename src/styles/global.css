@@ -134,3 +134,73 @@ body::before {
   from { opacity: 0; transform: scale(0.95) translateY(-8px); }
   to { opacity: 1; transform: scale(1) translateY(0); }
 }
+
+/* ============================================
+   按钮点击反馈动画
+   ============================================ */
+
+/* 按钮点击时的缩放效果 */
+button, .cursor-pointer {
+  transform-origin: center;
+  transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+button:active, .cursor-pointer:active {
+  transform: scale(0.95);
+}
+
+/* 链接点击效果 */
+a {
+  transition: color 0.2s ease, transform 0.15s ease;
+}
+
+a:active {
+  transform: scale(0.98);
+}
+
+/* ============================================
+   焦点状态增强 (Accessibility)
+   ============================================ */
+
+*:focus-visible {
+  outline: 2px solid rgb(var(--color-brand-rgb));
+  outline-offset: 2px;
+}
+
+/* 移除原生 focus 样式，改用自定义 outline */
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(var(--color-brand-rgb), 0.3);
+}
+
+/* ============================================
+   滚动条美化
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}

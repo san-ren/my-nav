@@ -375,7 +375,7 @@ export function LinkChecker({ onDataStatusChange, onTaskStart, onTaskProgress, o
       </div>
 
       {/* 内容区域 - 居中显示，独立卡片，使用 CSS 隐藏代替卸载 */}
-      <div style={LAYOUT.container}>
+      <div style={LAYOUT.container} className="tab-content">
         <div style={{ display: activeSubTab === 'github' ? 'block' : 'none' }}>
           <GithubChecker 
             onDataStatusChange={handleDataStatusChange}

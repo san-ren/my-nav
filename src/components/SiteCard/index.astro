@@ -13,7 +13,7 @@ import './site-card.css';
 const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
 // 接收 Props
-const { title, name, url, icon, desc, detail, official_site, hide_badges = [], guide_id, status = 'ok' } = Astro.props;
+const { title, name, url, icon, desc, detail, official_site, hide_badges = [], guide_id, status = 'ok', animationDelay = 0 } = Astro.props;
 
 const targetUrl = url || official_site || '#';
 
@@ -59,7 +59,8 @@ const statusStyles = {
 
 const cardWrapperStyles = cn(
   'site-card-wrapper group relative w-full h-full',
-  status !== 'ok' && `resource-${status}`
+  status !== 'ok' && `resource-${status}`,
+  animationDelay > 0 && 'animate-card-enter'
 );
 
 const cardLinkStyles = cn(
@@ -81,7 +82,11 @@ const titleStyles = cn(
 );
 ---
 
-<div class={cardWrapperStyles} data-status={status}>
+<div 
+  class={cardWrapperStyles} 
+  data-status={status}
+  style={animationDelay > 0 ? `animation-delay: ${animationDelay}ms;` : ''}
+>
   {/* 流光边框容器 */}
   <div class="neon-border" aria-hidden="true"></div>
   <a href={targetUrl} target="_blank" class={cardLinkStyles}>

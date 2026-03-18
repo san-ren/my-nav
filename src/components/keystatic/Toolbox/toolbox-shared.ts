@@ -20,59 +20,57 @@ export const TABS = {
   // 主标签容器（顶部导航级别）
   main: {
     display: 'flex',
-    gap: '2px', // 添加微小的间距以便区分相邻的非活动标签
+    gap: '2px',
     padding: '12px 16px 0 16px',
-    background: '#f8fafc', // 与页面背景一致，作为"标签栏"的底色
-    borderBottom: 'none',
+    background: '#f8fafc',
+    borderBottom: '1px solid #e2e8f0',
+    position: 'relative' as const,
+    zIndex: 1,
   },
   // 主标签按钮
   mainTab: (isActive: boolean) => ({
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
-    padding: '10px 20px',
+    padding: '12px 24px',
     fontSize: '14px',
     fontWeight: isActive ? 600 : 500,
     color: isActive ? '#1e293b' : '#64748b',
     background: isActive ? '#ffffff' : 'transparent',
-    border: 'none', // 移除默认边框，使用阴影或背景色区分
-    borderBottom: 'none',
-    borderRadius: '10px 10px 0 0', // 更圆润的顶部边缘（Chrome风格）
+    border: 'none',
+    borderRadius: isActive ? '12px 12px 0 0' : '8px 8px 0 0',
     cursor: 'pointer',
-    transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)', // 柔和的动画过渡
+    transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
     position: 'relative' as const,
     zIndex: isActive ? 10 : 1,
-    // 活动标签添加微弱的顶部内阴影或边框以突出立体感
-    boxShadow: isActive ? '0 -2px 10px rgba(0,0,0,0.02)' : 'none',
+    // 活动标签使用白色背景覆盖下面的边框
+    marginBottom: '-1px',
+    boxShadow: isActive ? '0 -2px 8px rgba(0,0,0,0.04)' : 'none',
   }),
-  // 子标签容器（二级导航，与主标签融为一体）
+  // 子标签容器（二级导航，与主标签视觉连接）
   sub: {
     display: 'flex',
-    gap: '8px', // 子标签之间的间距
-    marginTop: '0',
+    gap: '8px',
+    marginTop: '-1px',
     marginBottom: '0',
-    background: '#ffffff', // 与活动的主标签背景色一致，形成视觉连结
+    background: '#ffffff',
     padding: '12px 16px',
-    borderBottom: '1px solid #e2e8f0', // 仅底部和左右有边框
-    borderLeft: '1px solid #e2e8f0',
-    borderRight: '1px solid #e2e8f0',
-    marginLeft: '16px',
-    marginRight: '16px',
-    borderRadius: '0 0 12px 12px', // 底部圆角
-    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02)', // 柔和的阴影
+    borderBottom: '1px solid #e2e8f0',
+    position: 'relative' as const,
+    zIndex: 0,
   },
   // 子标签按钮（选中样式与主标签一致）
   subTab: (isActive: boolean) => ({
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
-    padding: '6px 14px',
+    padding: '8px 16px',
     fontSize: '13px',
     fontWeight: 500,
-    color: isActive ? '#2563eb' : '#475569',
+    color: isActive ? '#2563eb' : '#64748b',
     background: isActive ? '#eff6ff' : 'transparent',
     border: 'none',
-    borderRadius: '20px', // 胶囊形状（pill-style）
+    borderRadius: '8px',
     cursor: 'pointer',
     transition: 'all 0.2s ease',
   }),

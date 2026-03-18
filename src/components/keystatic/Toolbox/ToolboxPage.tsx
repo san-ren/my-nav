@@ -308,7 +308,7 @@ export function ToolboxPage() {
         </div>
 
         {/* 内容区域 */}
-        <div style={{ padding: '0' }}>
+        <div style={{ padding: '0' }} className="tab-content">
           {renderContent()}
         </div>
 

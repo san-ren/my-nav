@@ -198,6 +198,53 @@
               "icon": "/images/logos/netease-youdao-LobsterAI.webp?t=1773479307018",
               "hide_badges": [],
               "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "N.E.K.O",
+              "url": "https://github.com/Project-N-E-K-O/N.E.K.O",
+              "official_site": "https://store.steampowered.com/app/4099310",
+              "desc": "猫娘claw",
+              "detail": "N.E.K.O. — A proactive, multi-modal AI companion featuring 24/7 ambient awareness, agent capability and an embodied emotional engine.",
+              "icon": "/images/logos/Project-N-E-K-O-N-E-K-O.webp?t=1773537631444",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "airi",
+              "url": "https://github.com/moeru-ai/airi",
+              "official_site": "https://airi.moeru.ai/docs/",
+              "desc": "还不太可用",
+              "detail": "💖🧸 Self hosted, you-owned Grok Companion, a container of souls of waifu, cyber livings to bring them into our worlds, wishing to achieve Neuro-sama's altitude. Capable of realtime voice chat, Minecraft, Factorio playing. Web / macOS / Windows supported.",
+              "icon": "/images/logos/moeru-ai-airi.webp?t=1773543088371",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "openhanako",
+              "url": "https://github.com/liliMozi/openhanako",
+              "desc": "优美claw",
+              "detail": "A personal AI agent with memory, personality, and autonomy — built on Electron.",
+              "icon": "/images/logos/liliMozi-openhanako.webp?t=1773794802766",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "NemoClaw",
+              "url": "https://github.com/NVIDIA/NemoClaw",
+              "official_site": "https://docs.nvidia.com/nemoclaw/latest/",
+              "desc": "英伟达发布的openclaw插件",
+              "detail": "NVIDIA plugin for secure installation of OpenClaw",
+              "icon": "/images/logos/NVIDIA-NemoClaw.webp?t=1773802233276",
+              "hide_badges": [],
+              "status": "ok"
             }
           ]
         },
@@ -356,12 +403,55 @@
               "icon": "/images/logos/lvdaxianer-cmrm.webp?t=1773496724799",
               "hide_badges": [],
               "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "CLI-Anything",
+              "url": "https://github.com/HKUDS/CLI-Anything",
+              "desc": "让agent使用任意软件",
+              "detail": "CLI-Anything: Making ALL Software Agent-Native",
+              "icon": "/images/logos/HKUDS-CLI-Anything.webp?t=1773536871029",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "agency-agents",
+              "url": "https://github.com/msitarzewski/agency-agents",
+              "desc": "agent集群",
+              "detail": "A complete AI agency at your fingertips - From frontend wizards to Reddit community ninjas, from whimsy injectors to reality checkers. Each agent is a specialized expert with personality, processes, and proven deliverables.",
+              "icon": "/images/logos/msitarzewski-agency-agents.webp?t=1773537278832",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "Memoh",
+              "url": "https://github.com/memohai/Memoh",
+              "official_site": "https://docs.memoh.ai",
+              "desc": "agent集群",
+              "detail": "Multi-Member, Structured Long-Memory, Containerized AI Agent System ✨",
+              "icon": "/images/logos/memohai-Memoh.webp?t=1773542194984",
+              "hide_badges": [],
+              "status": "ok"
             }
           ]
         },
         {
           "tabName": "Skill",
           "list": [
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "单个skill",
+              "icon": "",
+              "hide_badges": [],
+              "guide_id": "单个skill",
+              "status": "ok"
+            },
             {
               "toolbox": null,
               "toolboxLink": null,
@@ -541,6 +631,28 @@
               "icon": "/images/logos/github-PDFMathTranslate-PDFMathTranslate.png",
               "hide_badges": [],
               "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "Mr.Director",
+              "url": "https://github.com/wenkipan/Mr.Director",
+              "desc": "视频剪辑agent",
+              "detail": "opensource alternative to chatcut/nemovideo. Edit videos just by typing.",
+              "icon": "/images/logos/wenkipan-Mr-Director.webp?t=1773536429534",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "bilibili-rag",
+              "url": "https://github.com/via007/bilibili-rag",
+              "desc": "B站收藏夹变知识库",
+              "detail": "B站收藏夹RAG知识库：收藏不吃灰，B 站收藏夹 → 语音转写 → 向量检索 → 对话问答",
+              "icon": "/images/logos/via007-bilibili-rag.webp?t=1773537391276",
+              "hide_badges": [],
+              "status": "ok"
             }
           ]
         },
@@ -624,6 +736,17 @@
               "official_site": "https://map-yue.github.io",
               "desc": "YuE: Open Full-song Music Generation Foundation Model, something similar to Suno.ai but open",
               "icon": "/images/logos/github-multimodal-art-projection-YuE.png",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "inkos",
+              "url": "https://github.com/Narcooo/inkos",
+              "desc": "写小说",
+              "detail": "Multi-agent novel production system — AI agents autonomously write, audit, and revise novels with human review gates",
+              "icon": "/images/logos/Narcooo-inkos.webp?t=1773537007705",
               "hide_badges": [],
               "status": "ok"
             }

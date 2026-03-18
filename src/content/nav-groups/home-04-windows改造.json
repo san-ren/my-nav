@@ -130,6 +130,17 @@
               "icon": "/images/logos/github-Jeric-X-SyncClipboard.png",
               "hide_badges": [],
               "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "zsclip",
+              "url": "https://github.com/qiu7824/zsclip",
+              "desc": "小巧剪贴板",
+              "detail": "面向 系统ui 的轻量级 Rust 剪贴板管理器",
+              "icon": "/images/logos/qiu7824-zsclip.webp?t=1773794755261",
+              "hide_badges": [],
+              "status": "ok"
             }
           ]
         },
@@ -659,6 +670,17 @@
               "desc": "方便目录跳转",
               "detail": "A smarter cd command. Supports all major shells.",
               "icon": "/images/logos/ajeetdsouza-zoxide.webp?t=1773450367120",
+              "hide_badges": [],
+              "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "starship",
+              "url": "https://github.com/starship/starship",
+              "official_site": "https://starship.rs",
+              "detail": "☄🌌️  The minimal, blazing-fast, and infinitely customizable prompt for any shell!",
+              "icon": "/images/logos/starship-starship.webp?t=1773796345152",
               "hide_badges": [],
               "status": "ok"
             }

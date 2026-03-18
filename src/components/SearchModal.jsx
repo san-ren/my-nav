@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 // import { createPortal } from 'react-dom';
 import Fuse from 'fuse.js';
-import { Search, X, Command, ExternalLink } from 'lucide-react';
+import { Search, X, Command, ExternalLink, Copy, Check, Zap } from 'lucide-react';
 
 // 动态获取 nav-groups 文件夹下的所有分组数据
 const navFiles = import.meta.glob('../content/nav-groups/*.json', { eager: true });
@@ -32,6 +32,7 @@ export default function SearchModal() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [copiedUrl, setCopiedUrl] = useState(null);
   const inputRef = useRef(null);
   const listRef = useRef(null);
 
@@ -49,7 +50,27 @@ export default function SearchModal() {
     // 等待动画完成后再真正关闭
     setTimeout(() => {
       setIsOpen(false);
+      setQuery('');
+      setResults([]);
+      setSelectedIndex(0);
     }, 400); // 这里的时长应与 CSS transition duration 保持一致
+  };
+
+  // 复制链接功能
+  const copyToClipboard = async (url, index) => {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopiedUrl(index);
+      // 显示 Toast 通知
+      if (window.toast) {
+        window.toast.success('链接已复制到剪贴板');
+      }
+      setTimeout(() => setCopiedUrl(null), 2000);
+    } catch (err) {
+      if (window.toast) {
+        window.toast.error('复制失败');
+      }
+    }
   };
 
   // --- 修复：适配 nav-groups 数据结构的扁平化逻辑 ---
@@ -236,7 +257,7 @@ export default function SearchModal() {
             />
             <button 
               onClick={() => setQuery('')} 
-              className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-slate-400"
+              className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-slate-400 transition-colors"
             >
               <X size={20} />
             </button>
@@ -279,29 +300,62 @@ export default function SearchModal() {
                         )}
                       </div>
                     </div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        window.open(result.item.url, '_blank');
-                      }}
-                      className={`shrink-0 p-2 rounded-lg transition-all ${
-                        selectedIndex === index 
-                          ? 'hover:bg-white/20 text-white' 
-                          : 'hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'
-                      }`}
-                      title="直接打开链接"
-                    >
-                      <ExternalLink size={16} />
-                    </button>
+                    <div className="flex items-center gap-1 shrink-0">
+                      {/* 复制链接按钮 */}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          copyToClipboard(result.item.url, index);
+                        }}
+                        className={`shrink-0 p-2 rounded-lg transition-all ${
+                          selectedIndex === index 
+                            ? 'hover:bg-white/20 text-white' 
+                            : 'hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'
+                        }`}
+                        title="复制链接"
+                      >
+                        {copiedUrl === index ? <Check size={16} className="text-green-400" /> : <Copy size={16} />}
+                      </button>
+                      {/* 直接打开按钮 */}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.open(result.item.url, '_blank');
+                        }}
+                        className={`shrink-0 p-2 rounded-lg transition-all ${
+                          selectedIndex === index 
+                            ? 'hover:bg-white/20 text-white' 
+                            : 'hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'
+                        }`}
+                        title="直接打开链接"
+                      >
+                        <ExternalLink size={16} />
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
             ) : query ? (
-              <div className="py-12 text-center text-slate-400">无相关结果</div>
+              <div className="py-12 text-center text-slate-400">
+                <div className="mb-4">
+                  <Zap className="mx-auto w-12 h-12 opacity-30" />
+                </div>
+                <div className="text-lg font-medium mb-1">未找到相关结果</div>
+                <div className="text-sm opacity-70">试试其他关键词？</div>
+              </div>
             ) : (
               <div className="py-12 text-center text-slate-400 text-sm">
-                <div className="mb-2">输入名称或描述开始搜索</div>
-                <div className="text-xs opacity-70">点击结果跳转到对应位置，点击右侧图标直接打开链接</div>
+                <div className="mb-6">
+                  <Search className="mx-auto w-16 h-16 opacity-20" />
+                </div>
+                <div className="mb-2 font-medium">输入名称或描述开始搜索</div>
+                <div className="text-xs opacity-70 space-y-1">
+                  <div className="flex items-center justify-center gap-4">
+                    <span className="flex items-center gap-1"><kbd className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-[10px]">↑↓</kbd> 选择</span>
+                    <span className="flex items-center gap-1"><kbd className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-[10px]">Enter</kbd> 跳转</span>
+                    <span className="flex items-center gap-1"><kbd className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-[10px]">C</kbd> 复制</span>
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -309,8 +363,14 @@ export default function SearchModal() {
           {/* 底部提示 */}
           {results.length > 0 && (
             <div className="px-4 py-2 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-400 flex items-center justify-between shrink-0">
-              <span>↑↓ 选择 · Enter 跳转</span>
-              <span>点击 <ExternalLink size={10} className="inline" /> 直接打开</span>
+              <span className="flex items-center gap-3">
+                <span className="flex items-center gap-1"><kbd className="px-1 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-[9px]">↑↓</kbd> 选择</span>
+                <span className="flex items-center gap-1"><kbd className="px-1 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-[9px]">Enter</kbd> 跳转</span>
+              </span>
+              <span className="flex items-center gap-3">
+                <span className="flex items-center gap-1"><kbd className="px-1 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-[9px]">C</kbd> 复制</span>
+                <span className="flex items-center gap-1"><ExternalLink size={10} className="inline" /> 打开</span>
+              </span>
             </div>
           )}
         </div>
