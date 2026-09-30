@@ -36,10 +36,12 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       # 3. 构建命令
-      # ⚠️ 确保你的 package.json 中有 "build:gh" 这个命令
-      # 通常它应该是: "astro build --site https://<用户名>.github.io --base /<仓库名>"
-      - name: Build for GitHub Pages
-        run: pnpm run build:gh
+      # ⚠️ 必须用 build:root（DEPLOY_TARGET=root，base='/'）。
+      # 本站是用户站点（仓库名即 san-ren.github.io），服务在域名根路径；
+      # 而 Keystatic Cloud 的 OAuth 回调写死为 ${origin}/keystatic/cloud/oauth/callback，
+      # 不带 base 前缀 —— 用 build:gh（base=/my-nav）会让后台永远无法登录。
+      - name: Build for GitHub Pages (root path)
+        run: pnpm run build:root
         env:
           # 如果你的 keystatic.config.ts 里用到了 process.env 变量，需要在这里配置
           # 比如: PUBLIC_KEYSTATIC_MODE: 'github' (如果在生产环境用 GitHub 模式)
