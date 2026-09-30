@@ -19,22 +19,27 @@ jobs:
         uses: actions/checkout@v4
 
       # 1. 配置 Node.js 环境
-      # Keystatic 和 Astro 5 推荐使用 Node 20+
+      # Astro 7 要求 Node >= 22.12
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm'
+          node-version: 22
+          cache: 'pnpm'
 
       # 2. 安装依赖
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       # 3. 构建命令
       # ⚠️ 确保你的 package.json 中有 "build:gh" 这个命令
       # 通常它应该是: "astro build --site https://<用户名>.github.io --base /<仓库名>"
       - name: Build for GitHub Pages
-        run: npm run build:gh
+        run: pnpm run build:gh
         env:
           # 如果你的 keystatic.config.ts 里用到了 process.env 变量，需要在这里配置
           # 比如: PUBLIC_KEYSTATIC_MODE: 'github' (如果在生产环境用 GitHub 模式)
