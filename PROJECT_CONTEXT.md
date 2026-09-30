@@ -64,8 +64,29 @@
 
 | 模式 | 需要的宿主 | 鉴权 |
 |---|---|---|
-| `cloud`（默认） | 纯静态即可（GitHub Pages 就行） | Keystatic Cloud 项目 `astro-nav/my-nav`，浏览器走 PKCE 直连 `https://api.keystatic.cloud`，零环境变量、零服务器 |
+| `cloud`（默认） | 纯静态即可（GitHub Pages 就行），**但必须部署在根路径** | Keystatic Cloud 项目 `astro-nav/my-nav`，浏览器走 PKCE 直连 `https://api.keystatic.cloud`，零环境变量、零服务器 |
 | `github` | Node（Vercel / Railway / 自建） | 自建 GitHub App，需 `KEYSTATIC_GITHUB_CLIENT_ID` / `KEYSTATIC_GITHUB_CLIENT_SECRET` / `KEYSTATIC_SECRET`（已在 `.env`） |
+
+#### ⚠️ Cloud 模式只能部署在根路径（实测确认）
+
+`@keystatic/core` 把 OAuth 回调写死成：
+
+```js
+url.searchParams.set('redirect_uri', `${window.location.origin}/keystatic/cloud/oauth/callback`);
+```
+
+它只拼 `origin`，**完全无视 Astro 的 `base`**。所以：
+
+- 项目站点 `https://san-ren.github.io/my-nav/`（base=`/my-nav`）→ 回调被打到
+  `https://san-ren.github.io/keystatic/cloud/oauth/callback`，那里什么都没有 → **GitHub 裸 404 / Not Found**。
+- 用户站点 `https://san-ren.github.io/`（base=`/`，仓库必须叫 `san-ren.github.io`）→ 回调落在站内，正常。
+
+为了让回调路径真的有文件（而不是走 404.html 兜底），额外预渲染了同构外壳页
+`src/pages/keystatic/cloud/oauth/callback.astro`。原因是 `404.astro` 的兜底用
+`location.replace(keystaticPath + '/')` 跳转，会把 `?code=&state=` 查询串丢掉，
+应用只能报 "Missing code or state"。有了真实文件后该路径直接 200 返回，参数完整保留。
+
+因此换部署目标时务必确认：**Cloud 模式下必须用 `pnpm build:root`**（`pnpm build` 的 base=`/my-nav` 会让后台不可用）。
 
 **当前推荐且默认的就是 cloud** —— 站长没有自托管服务器，官方免费额度（3 人/team）足够个人用。
 内容改动由 Keystatic Cloud 直接 commit 到 GitHub 仓库 → Actions 重建前台静态站，闭环完整。
