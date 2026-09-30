@@ -245,6 +245,17 @@
               "icon": "/images/logos/NVIDIA-NemoClaw.webp?t=1773802233276",
               "hide_badges": [],
               "status": "ok"
+            },
+            {
+              "toolbox": null,
+              "toolboxLink": null,
+              "name": "QClaw ",
+              "url": "https://qclaw.qq.com/",
+              "official_site": "https://qclaw.qq.com/",
+              "desc": "腾讯推出的个人AI助手",
+              "icon": "/images/logos/qclaw-qq-com.webp?t=1774160505843",
+              "hide_badges": [],
+              "status": "ok"
             }
           ]
         },
