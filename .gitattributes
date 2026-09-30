@@ -1,0 +1,17 @@
+# 统一行尾为 LF，避免整文件 CRLF/LF 来回重写导致 diff 全是噪音
+* text=auto eol=lf
+
+# 显式声明二进制，防止被误当文本做换行符转换
+*.png binary
+*.webp binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text eol=lf
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.pdf binary
+*.zip binary
