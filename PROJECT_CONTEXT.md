@@ -81,10 +81,21 @@ url.searchParams.set('redirect_uri', `${window.location.origin}/keystatic/cloud/
   `https://san-ren.github.io/keystatic/cloud/oauth/callback`，那里什么都没有 → **GitHub 裸 404 / Not Found**。
 - 用户站点 `https://san-ren.github.io/`（base=`/`，仓库必须叫 `san-ren.github.io`）→ 回调落在站内，正常。
 
-为了让回调路径真的有文件（而不是走 404.html 兜底），额外预渲染了同构外壳页
-`src/pages/keystatic/cloud/oauth/callback.astro`。原因是 `404.astro` 的兜底用
-`location.replace(keystaticPath + '/')` 跳转，会把 `?code=&state=` 查询串丢掉，
-应用只能报 "Missing code or state"。有了真实文件后该路径直接 200 返回，参数完整保留。
+回调路径**必须走 404.html 兜底，不能落地真实文件**（这点踩过两次）：
+
+| 做法 | 结果 |
+|---|---|
+| 该路径无文件 → 走 `404.astro` 兜底 | ✅ 正确 |
+| 预渲染成静态目录（`callback/index.html`） | ❌ GitHub Pages 会 301 补尾部斜杠变成 `/keystatic/cloud/oauth/callback/`，应用路由匹配不上，直接显示 `Not found` |
+
+所以 `404.astro` 的兜底脚本必须保存 **路径 + 查询串**：
+
+```js
+sessionStorage.setItem('keystatic_spa_path', path + window.location.search);
+```
+
+漏掉 `window.location.search` 的话，`?code=&state=` 会在 `location.replace()` 跳转中丢失，
+应用报 `Missing code or state`，登录照样完不成。
 
 因此换部署目标时务必确认：**Cloud 模式下必须用 `pnpm build:root`**（`pnpm build` 的 base=`/my-nav` 会让后台不可用）。
 
