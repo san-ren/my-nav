@@ -1,123 +1,207 @@
 # 项目开发指南 & 上下文说明 (LLM Context)
 
-本文档旨在帮助大语言模型（LLM）快速理解本项目 `my-nav` 的架构、技术栈、核心功能及实现细节，以便在后续对话中提供准确的代码建议和修改。
+本文档旨在帮助大语言模型（LLM）快速理解本项目 `my-nav` 的架构、技术栈、核心功能及实现细节，
+以便在后续对话中提供准确的代码建议和修改。
+
+> 最后校验：2026-09-30，基于实际运行验证（Astro 7.3.5 / Tailwind 4 / pnpm 12）。
+> 与 AGENTS.md 有重叠时，本文侧重「为什么这么设计」，AGENTS.md 侧重「命令与规范」。
 
 ---
 
 ## 1. 项目概览
 
-**项目名称**: my-nav  
-**项目类型**: 个人导航网站 / 资源聚合平台  
-**核心目标**: 提供一个美观、响应式、易于管理的资源导航界面，支持分类、搜索、暗色模式及移动端适配。
+**项目名称**: my-nav
+**项目类型**: 个人导航网站 / 资源聚合平台（15 个分组、数百条网址）
+**部署**: GitHub Pages `https://san-ren.github.io/my-nav/`
+**核心目标**: 美观、响应式、易管理的资源导航界面，支持四级分类、搜索、暗色模式及移动端适配。
+
+---
 
 ## 2. 技术栈
 
-*   **框架**: [Astro v5](https://astro.build/) (采用其强大的静态生成能力和组件化架构)
-*   **UI 库**: [React 19](https://react.dev/) (用于交互性较强的组件，如搜索框、管理后台)
-*   **样式**: [TailwindCSS v3](https://tailwindcss.com/) (原子化 CSS) + 自定义 CSS 动画
-*   **图标**: [Lucide React](https://lucide.dev/) (SVG 图标库)
-*   **内容管理**: [Keystatic](https://keystatic.com/) (用于管理 Markdown/JSON 内容)
-*   **搜索**: [Fuse.js](https://fusejs.io/) (前端模糊搜索)
-*   **构建工具**: Vite (Astro 内置)
-
-## 3. 目录结构
-
-```
-my-nav/
-├── public/                 # 静态资源
-│   ├── images/logos/       # 网站图标 (本地化存储)
-│   └── favicon.svg         # 默认图标
-├── src/
-│   ├── components/         # 组件库
-│   │   ├── SiteCard/       # 核心组件：资源卡片
-│   │   │   ├── index.astro # 卡片结构与逻辑
-│   │   │   ├── client.js   # 卡片交互脚本
-│   │   │   └── site-card.css # 卡片专用样式
-│   │   ├── SearchModal.jsx # 全局搜索框 (React 组件)
-│   │   ├── Sidebar/        # 侧边栏导航
-│   │   └── ThemePicker/    # 主题切换器
-│   ├── content/            # 数据源
-│   │   ├── nav-groups/     # 导航数据 (JSON 格式)
-│   │   └── changelog/      # 更新日志 (MDX 格式)
-│   ├── layouts/            # 页面布局 (Layout.astro)
-│   ├── pages/              # 路由页面
-│   │   ├── index.astro     # 首页
-│   │   ├── [id].astro      # 分类页 (动态路由)
-│   │   └── guide/          # 教程页
-│   ├── scripts/            # 全局脚本
-│   │   ├── ui-layout.js    # 核心 UI 逻辑 (侧边栏、Tab、滚动、设备检测)
-│   │   └── init-animations.js # 动画初始化
-│   └── styles/             # 全局样式
-│       ├── global.css      # 全局 CSS 变量与重置
-│       └── theme.css       # 主题色配置
-├── astro.config.mjs        # Astro 配置
-└── package.json            # 依赖管理
-```
-
-## 4. 核心功能与实现细节
-
-### 4.1 资源卡片 (SiteCard)
-*   **位置**: `src/components/SiteCard/`
-*   **功能**: 展示资源图标、标题、描述。
-*   **交互**:
-    *   **Desktop**: 鼠标悬停显示 "详情" 和 "教程" 按钮（如果有），卡片有光影效果。
-    *   **Mobile**: 按钮组始终显示，且纵向排列（详情在上，教程在下）。
-*   **状态**: 支持 `ok`, `stale` (长期未更新), `failed` (已失效) 三种状态。
-    *   `failed` 状态会有删除线，且在筛选中可隐藏。
-*   **详情弹窗**: 点击 "详情" 按钮显示 Markdown 格式的详细介绍和徽章 (Badges)。
-
-### 4.2 全局搜索 (SearchModal)
-*   **位置**: `src/components/SearchModal.jsx`
-*   **实现**: React 组件，使用 `createPortal` 挂载到 `document.body` 以避免层叠上下文 (`z-index`) 问题。
-*   **特性**:
-    *   快捷键 `Cmd/Ctrl + K` 呼出。
-    *   基于 `Fuse.js` 进行本地模糊搜索。
-    *   **动画**: 使用 `setTimeout` 延迟触发 CSS `transition`，实现柔和的缩放和位移入场动画。
-    *   **关闭策略**: 点击遮罩层、点击空白处、按 ESC 键均可关闭。
-    *   **跳转**: 支持页内平滑滚动跳转和跨页面跳转。
-
-### 4.3 响应式布局与设备检测
-*   **实现**: `src/scripts/ui-layout.js`
-*   **逻辑**:
-    *   `detectDeviceType()` 函数检测 UserAgent。
-    *   在 `<html>` 标签添加 `mobile-device` 或 `desktop-device` 类。
-    *   CSS 基于此类名应用不同的交互样式（如 SiteCard 的按钮显示逻辑）。
-*   **侧边栏**: Mobile 端为抽屉式，Desktop 端为固定式。
-
-### 4.4 资源筛选
-*   **位置**: `src/components/ResourceFilter.astro` & `src/scripts/ui-layout.js`
-*   **功能**: 可筛选 "长期未更新" 和 "已失效" 资源。
-*   **实现**: 通过 JS 监听 Checkbox 变化，切换卡片的 `hidden` 类和 `style.display` 属性。
-
-### 4.5 数据结构 (Nav Groups)
-*   **位置**: `src/content/nav-groups/*.json`
-*   **层级**:
-    1.  **Group** (分组，对应 JSON 文件)
-    2.  **Category** (分类)
-    3.  **Tab** (选项卡，可选)
-    4.  **Resource** (资源项)
-*   **字段**: `name`, `url`, `icon`, `desc`, `detail` (Markdown), `status` 等。
-
-## 5. 最近修改记录 (Important)
-
-1.  **SearchModal 修复**:
-    *   解决了遮罩层无法覆盖顶栏的问题（使用 `React Portal` + `z-index: 100/110`）。
-    *   优化了入场动画（`scale-95` -> `scale-100`, `opacity-0` -> `opacity-100`，时长 500ms）。
-    *   实现了点击空白处关闭功能。
-
-2.  **移动端适配优化**:
-    *   引入了 JS 精准设备检测 (`mobile-device` class)。
-    *   SiteCard 在移动端强制显示详情按钮，且按钮组改为纵向排列。
-
-3.  **筛选功能修复**:
-    *   修复了 "已失效" 资源无法隐藏的 Bug（强制使用 `style.display = 'none'`）。
-
-## 6. 开发规范
-
-*   **样式**: 优先使用 Tailwind Utility Classes。复杂动画或组件特定样式写在对应的 CSS 文件中。
-*   **图标**: 尽量使用本地图标 (`/public/images/logos/`)，减少外部依赖。
-*   **代码风格**: 保持组件化，逻辑与视图分离。React 组件用于复杂交互，Astro 组件用于静态页面构建。
-*   **文件操作**: 修改代码时，请先 `Read` 相关文件，确保上下文准确。
+| 领域 | 选型 | 备注 |
+|---|---|---|
+| 框架 | **Astro 7.3.5** | `output: 'static'`，走 Content Layer 静态生成 |
+| 交互 | **React 19.2** | 仅用于搜索框、分享导出、Keystatic 后台等重交互部分 |
+| 样式 | **Tailwind CSS v4** | `@tailwindcss/vite` 插件 + `postcss.config.mjs`，入口为 `src/styles/global.css` |
+| 图标 | **Lucide React 1.14** | 界面图标；网址 Logo 走本地 `public/images/logos/`（397 个 webp + 376 个 png） |
+| 内容管理 | **Keystatic** (`@keystatic/core` 0.5.50 + `@keystatic/astro` 5.0.6) | 本地模式 + 线上 GitHub/Cloud 模式 |
+| 搜索 | **Fuse.js 7.3** | 前端模糊搜索 |
+| Markdown | MDX + Markdoc + astro-expressive-code | 代码块 dracula / github-light 双主题 |
+| 包管理 | **pnpm 12.8.1** | Node >= 22.12 |
 
 ---
-**提示**: 开始新任务时，请先查阅此文档确认当前的架构设计和实现方式。
+
+## 3. 构建与部署目标（重要）
+
+`DEPLOY_TARGET` 环境变量是唯一真源，`astro.config.mjs` 依据它决定 `base`、是否挂 Node 适配器、
+以及是否注入 Keystatic 的 SSR API 路由。**不要手工改配置里的 base。**
+
+| 命令 | target | base | 产物 | 说明 |
+|---|---|---|---|---|
+| `pnpm build` | `github` | `/my-nav` | 纯静态 | 默认，GitHub Pages |
+| `pnpm build:gh` | `github` | `/my-nav` | 纯静态 | 供 `.github/workflows/deploy.yml` 调用 |
+| `pnpm build:root` | `root` | `/` | 纯静态 | 自有域名根路径 |
+| `pnpm build:admin` | `admin` | `/` | 静态 + Node SSR | 在线后台用，需 Node 宿主 |
+
+### 为什么在线后台一直做不成（历史原因 + 解法）
+
+`@keystatic/astro` 的 `keystatic()` 会注入两条 `prerender: false` 的路由：
+`/keystatic/[...params]` 和 `/api/keystatic/[...params]`。生产必须跑 Node。
+而本项目有两个阻碍：
+
+1. 旧配置**只在 `dev` 命令下**挂载 `keystatic()`，生产构建里根本没有 `/api/keystatic`，
+   只有 `src/pages/keystatic/[...params].astro` 这个空壳静态页 → 打开后台所有请求都 404。
+2. GitHub Pages 是纯静态托管，**跑不了 SSR**，所以就算注入了也无处安放。
+
+现在的解法：admin 目标下新增 `keystatic-admin-api` 集成，只补 `/api/keystatic` 这一个 SSR 路由
+（刻意不注册全量 `keystatic()`，否则会和自有的 `/keystatic/[...params].astro` 路由冲突），
+并保留 `virtual:keystatic-config` 的 Vite 解析钩子（`internal/keystatic-api.js` 依赖它取配置）。
+
+### 两种线上模式二选一
+
+`keystatic.config.tsx` 的 `remoteStorage` 决定，**构建期生效、写进产物**：
+
+| 模式 | 需要的宿主 | 鉴权 |
+|---|---|---|
+| `cloud`（默认） | 纯静态即可（GitHub Pages 就行） | Keystatic Cloud 项目 `astro-nav/my-nav`，浏览器走 PKCE 直连 `https://api.keystatic.cloud`，零环境变量、零服务器 |
+| `github` | Node（Vercel / Railway / 自建） | 自建 GitHub App，需 `KEYSTATIC_GITHUB_CLIENT_ID` / `KEYSTATIC_GITHUB_CLIENT_SECRET` / `KEYSTATIC_SECRET`（已在 `.env`） |
+
+**当前推荐且默认的就是 cloud** —— 站长没有自托管服务器，官方免费额度（3 人/team）足够个人用。
+内容改动由 Keystatic Cloud 直接 commit 到 GitHub 仓库 → Actions 重建前台静态站，闭环完整。
+
+两者互斥：cloud 模式下 `@keystatic/core` 会把本地 API 路由硬编码返回
+`{ status: 404, body: 'Not Found' }`（见 `dist/keystatic-core-api-generic.js`），
+所以一旦用 cloud 就不需要、也不应该再搭 SSR；反之 github 模式必须有 SSR，纯静态部署必然失败。
+
+上线后必须把生产回调地址加进 GitHub App：
+`https://<your-domain>/api/keystatic/github/oauth/callback`
+
+---
+
+## 4. 数据模型
+
+`src/content.config.ts`（注意：位于 `src/` 下，不在 `src/content/` 内）定义 5 个集合：
+
+| 集合 | type | 条目 | 说明 |
+|---|---|---|---|
+| `nav-pages` | data | 5 | `home` / `sub1..sub4`，带 `sortOrder` |
+| `nav-groups` | data | 15 | `reference('nav-pages')` 归属，`pageConfig.sortPrefix` 排序 |
+| `guides` | content | 3 | MDX |
+| `changelog` | content | 16 | MDX |
+| `site-settings` | data | 1 | 直接 JSON import |
+
+### 四级嵌套
+
+```
+Page → Group → Category → Tab → resources
+```
+
+每层都能直接挂 `resources`（资源数组），实际数据里 Group 基本都用 Category/Tab 承载。
+
+### 资源字段
+
+`name` / `url` / `official_site` / `desc` / `icon` / `badge_list` / `detail`(Markdown) /
+`guide_id` / `status`。`status` 支持 `ok` / `stale` / `github已归档` / `github仓库已失效` /
+`网站失效` / `网站超时` / `官网失效` —— 非 `ok` 会被 `sortResourcesByStatus()` 排到末尾并套降级样式。
+
+### id 规则（踩过坑）
+
+- data 集合（JSON）的 entry id **不带扩展名**：`home`、`home-01--`
+- content 集合（MDX）的 entry id **带扩展名**：`Claude Code.mdx`，页面里要用 `entry.slug`
+
+---
+
+## 5. 组件与页面
+
+```
+src/pages/
+├── index.astro              首页，硬编码 currentId = 'home'
+├── [id].astro               其余分类页，getStaticPaths 从 nav-pages 生成
+├── changelog.astro          更新日志（函数更新 / 内容更新 两栏）
+├── toolbox.astro            工具箱入口
+├── guide/[...slug].astro    MDX 教程，按 entry.slug 生成
+├── keystatic/[...params].astro  自定义后台 SPA 外壳
+└── 404.astro
+```
+
+核心组件职责：
+
+* **`SiteCard/`** — 卡片主体 + `Renderers.tsx`(Markdown 详情) + `client.js`(hover/详情弹窗)。
+  完全服务端渲染，**没有** `client:*`，靠页面级脚本在 `astro:page-load` 时初始化。
+* **`SearchModal.jsx`** — `client:idle`，⌘K 唤起，Fuse.js 搜全部 `nav-groups`，用 Portal 挂 body 避开层级问题。
+* **`Sidebar/index.astro`** — 桌面常驻、移动抽屉；自动展开当前页面的分组树。
+* **`ThemePicker/`** — 外观模式 / 主题色 / 背景 / 字体 / 动效开关，全部持久化到 localStorage，
+  由 `Layout.astro` 头部的 `is:inline` 脚本阻塞式恢复（避免首屏闪白）。
+* **`ResourceFilter.astro`** — 隐藏失效资源，强制用 `style.display = 'none'`。
+* **`ShareExportModal.jsx`** — 选中当前区块导出图片/PDF。
+* **`keystatic/Toolbox/`** — BatchAdder(智能解析批量导入) / GithubChecker(Star 同步) /
+  LinkChecker(死链检测) / ResourceEditor / ResourceMover。它们的 `api/` 走本地文件系统，
+  **仅 dev 注入，生产不可用**。
+
+---
+
+## 6. 关键约定
+
+1. **所有全局 JS 必须同时监听 `astro:page-load` 与 `astro:after-swap`**，`<ClientRouter />` 已全局启用。
+2. 错误提示统一走 `window.toast.success/error/info/warning`。
+3. 网址 Logo 优先本地化到 `public/images/logos/`，减少外链。
+4. Astro 组件用于静态结构，React 组件用于复杂交互。
+5. 修改代码前先 Read 目标文件确认上下文；改数据结构后务必跑 `pnpm astro sync`。
+
+---
+
+## 7. 排错备忘
+
+**症状**：首页显示“暂无内容，请在后台配置分组并关联到此页面”，所有分类页 404。
+
+**根因**：`.astro/` 内容缓存过期（集合配置迁移到 `src/content.config.ts` 之后旧缓存失效），
+`getCollection()` 全部返回空数组。
+
+**解决**：
+
+```bash
+rm -rf .astro && pnpm astro sync && pnpm dev
+```
+
+同步时若出现 `Invalid content reference: ... references "home" ... does not exist`，
+说明 entry id 与 JSON 里的 `pageName` 对不上，通常是 id 带了/没带扩展名。
+
+---
+
+### 详情浮窗（`.tooltip-source` → `#global-detail-tooltip`）
+
+`SiteCard/client.js` 用一个全局单例浮窗复用展示所有卡片的详情。这里有三个必须知道的约束：
+
+1. **同一张卡片内移动光标不能重播动画。** `mouseover` 会在卡片的每个子元素之间反复冒泡，
+   `showTooltip()` 里已加早退：只要浮窗还属于同一张卡片（哪怕正在淡出），只恢复显示态，
+   不重建 innerHTML、不重启动画 —— 否则就是肉眼可见的闪烁。
+2. **缩放原点维持仓库原值**：`transformOrigin = isTop ? 'bottom center' : 'top center'`。
+   曾尝试改成锚在箭头 x 上（想消除"箭头随生长横向漂移"），但那会改变入场时"从哪里长出来"的观感，
+   属于改动画，站长明确要求保持原样 —— **不要再动这一行**。
+3. **入场动效属禁区。** `src/styles/animations.css` 里 `.portal-popup` 的
+   `cubic-bezier(0.34, 1.56, 0.64, 1)`（带过冲的 Q 弹手感）和时间参数与仓库逐字节一致，
+   别为了"顺手感"或"几何更稳"私自改它，真要动先问站长。
+
+### Tailwind v4 的两个隐性坑（都已修复，勿回退）
+
+1. **`rotate-*` 不要再写在有内联 `transform` 的元素上。** v4 的 `.rotate-45` 输出的是
+   独立的 CSS `rotate` 属性，会与内联 `transform: rotate(45deg)` **叠加成 90°** —— 详情浮窗的
+   菱形箭头就是这样变成正方块的。现在箭头的旋转统一由 `client.js` 里的内联 transform 独占控制。
+2. **永远不要用 `define:vars` 搭配 `is:inline`**，变量会注入失败（`src/pages/404.astro` 踩过）。
+   需要给内联脚本传值时改用 `data-*` 属性 + `getAttribute`。
+
+---
+
+## 8. 曾经踩过的坑（留给未来的自己）
+
+1. `@astrojs/node` 适配器**必须写在 `defineConfig({ adapter })` 里**，塞进 `integrations` 数组
+   Astro 识别不到，构建会报 `NoAdapterInstalled`。
+2. `keystatic()` 全量集成与 `src/pages/keystatic/[...params].astro` 路由冲突，二者只能选其一。
+3. `storage.kind: 'cloud'` 时 `@keystatic/core` 会让本地 API 路由全部返回 `{404, 'Not Found'}`，
+   这是源码里写死的行为，不是配置错误。
+4. `storage` 的选择在构建期固化，运行时的环境变量改不了它。
+
+---
+
+**提示**：开始新任务时，请先查阅此文档确认当前的架构设计和实现方式。
