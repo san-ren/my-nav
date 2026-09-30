@@ -25,8 +25,13 @@ const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
       
       // 检测是否是 keystatic 子路径
       if (path.startsWith(keystaticPath) && path !== keystaticPath + '/' && path !== keystaticPath) {
-        // 保存路径，用于 SPA 恢复
-        sessionStorage.setItem('keystatic_spa_path', path);
+        // 保存「路径 + 查询串」，用于 SPA 恢复。
+        // ⚠️ 查询串必须带上：Keystatic Cloud 的 OAuth 回调是
+        //   ${origin}/keystatic/cloud/oauth/callback?code=...&state=...
+        // 而该路径在产物里刻意不存在（存在就会被目录形式强制补斜杠 301，
+        // 应用路由匹配不上会显示 Not found）。所以它一定落到本兜底页，
+        // 若这里丢掉 ?code=&state=，登录就会停在 Missing code or state。
+        sessionStorage.setItem('keystatic_spa_path', path + window.location.search);
         // 重定向到 SPA 入口
         window.location.replace(keystaticPath + '/');
         return;
