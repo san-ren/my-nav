@@ -222,13 +222,20 @@ const resourceFields = {
 // 1. 定义环境判断变量
 const isDev = import.meta.env.DEV;
 
+// 2. 线上存储模式（⚠️ 必须在构建期确定，它会被打进产物，运行时再改无效）
+//    cloud (默认)  : Keystatic 官方托管。浏览器直连 https://api.keystatic.cloud 走 PKCE 登录，
+//                    不经由自家后端，所以纯静态托管（GitHub Pages）就能打开在线后台，无需服务器。
+//                    前提：Keystatic Cloud 里已建好 astro-nav/my-nav 并绑定 GitHub 仓库。
+//    github        : 自建 GitHub App + 自托管 SSR (/api/keystatic)，必须有 Node 宿主。
+//                    用 KEYSTATIC_STORAGE=github 配合 `pnpm build:admin` 构建。
+//                    ⚠️ 二者互斥：cloud 模式下 @keystatic/core 会让本地 API 路由全部返回 404。
+const remoteStorage = process.env.KEYSTATIC_STORAGE === 'github'
+  ? { kind: 'github', repo: { owner: 'san-ren', name: 'my-nav' } } as const
+  : { kind: 'cloud' } as const;
+
 export default config({
-  storage: isDev
-    ? { kind: 'local' }
-    : {
-        kind: 'github',
-        repo: { owner: 'san-ren', name: 'my-nav' },
-      },
+  // 本地开发：直接读写磁盘 (local)，不需要任何登录；线上：见上方 remoteStorage 注释
+  storage: isDev ? { kind: 'local' } : remoteStorage,
   cloud: { project: 'astro-nav/my-nav' },
   ui: {
     brand: { name: 'MyNav 管理后台' },

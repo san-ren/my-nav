@@ -1,9 +1,12 @@
 ---
 // SPA Fallback - 处理 keystatic 子路由
+// basePath 必须跟随 astro.config 的 base（github → /my-nav，root/admin → ""），
+// 写死会导致换部署目标后后台刷新 404。
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-base={basePath}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,8 +17,10 @@
   </style>
   <script is:inline>
     (function() {
+      // basePath 来自 html[data-base]，由 frontmatter 注入，随部署目标自动变化。
+      // 不能用 define:vars —— 它与 is:inline 冲突会导致变量注入失败。
+      var basePath = document.documentElement.getAttribute('data-base') || '';
       var path = window.location.pathname;
-      var basePath = '/my-nav';
       var keystaticPath = basePath + '/keystatic';
       
       // 检测是否是 keystatic 子路径
