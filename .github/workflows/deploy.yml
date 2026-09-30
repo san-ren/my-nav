@@ -22,8 +22,8 @@ jobs:
       # Astro 7 要求 Node >= 22.12
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 12
+        # 不要在这里写 version: —— 与 package.json 的 packageManager 同时指定会报
+        # "Multiple versions of pnpm specified" 直接失败。留空则自动读取 packageManager。
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
