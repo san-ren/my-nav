@@ -1,6 +1,6 @@
 // src/components/keystatic/Toolbox/ToolboxLink.tsx
 import React from 'react';
-import { Wrench, Github, Link, Plus } from 'lucide-react';
+import { Wrench, GitBranch, Link, Plus } from 'lucide-react';
 
 export function ToolboxLink() {
   return (
@@ -62,7 +62,7 @@ export function ToolboxLink() {
             color: '#334155',
           }}
         >
-          <Github size={16} style={{ color: '#1e293b' }} />
+          <GitBranch size={16} style={{ color: '#1e293b' }} />
           GitHub 检测
         </a>
 

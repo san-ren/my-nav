@@ -3,7 +3,7 @@
 import Layout from '../layouts/Layout.astro';
 import Sidebar from '../components/Sidebar/index.astro';
 import siteConfig from '../content/site-settings/config.json';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 // 1. 引入 Menu 图标
 import { History, Menu } from 'lucide-react'; 
 import Container from '../components/mdx/Container.astro';
@@ -97,8 +97,8 @@ const navResources = allPages.map(p => p.data).sort((a, b) => (a.sortOrder || 99
             <div class="changelog-timeline space-y-2">
               {functionLogs.length > 0 ?
                 functionLogs.map(async (log) => {
-                const { Content } = await log.render();
-                const displayVersion = log.data.version || log.id.replace(/\.mdx?$/, '') || log.slug;
+                const { Content } = await render(log);
+                const displayVersion = log.data.version || log.id.replace(/\.mdx?$/, '');
                 const isDraft = log.data.status === 'draft';
 
                 return (
@@ -139,8 +139,8 @@ const navResources = allPages.map(p => p.data).sort((a, b) => (a.sortOrder || 99
             <div class="changelog-timeline space-y-2">
               {contentLogs.length > 0 ?
                 contentLogs.map(async (log) => {
-                const { Content } = await log.render();
-                const displayVersion = log.data.version || log.id.replace(/\.mdx?$/, '') || log.slug;
+                const { Content } = await render(log);
+                const displayVersion = log.data.version || log.id.replace(/\.mdx?$/, '');
                 const isDraft = log.data.status === 'draft';
 
                 return (

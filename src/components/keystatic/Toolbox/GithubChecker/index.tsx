@@ -1,7 +1,7 @@
 // src/components/keystatic/Toolbox/GithubChecker.tsx
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { 
-  Github, 
+  GitBranch, 
   Search, 
   AlertTriangle, 
   XCircle, 
@@ -173,7 +173,7 @@ const getNodeIcon = (node: TreeNode) => {
     case 'page': return <Layers size={16} style={{ color: '#8b5cf6' }} />;
     case 'group': return node.expanded ? <FolderOpen size={16} style={{ color: '#3b82f6' }} /> : <Folder size={16} style={{ color: '#3b82f6' }} />;
     case 'category': return <FileText size={16} style={{ color: '#10b981' }} />;
-    case 'resource': return <Github size={14} style={{ color: '#64748b' }} />;
+    case 'resource': return <GitBranch size={14} style={{ color: '#64748b' }} />;
     default: return null;
   }
 };
@@ -729,7 +729,7 @@ export function GithubChecker({ onDataStatusChange, onTaskStart, onTaskProgress,
       {/* 标题 */}
       <div style={{ marginBottom: '12px' }}>
         <h1 style={{ fontSize: '20px', fontWeight: 700, color: '#1e293b', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Github size={20} />
+          <GitBranch size={20} />
           GitHub 项目状态检测
         </h1>
         <p style={{ color: '#64748b', fontSize: '13px', lineHeight: 1.4 }}>

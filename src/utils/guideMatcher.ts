@@ -20,7 +20,7 @@ export function attachGuidesToResources(groups: any[], guides: any[]) {
   const guideMap = new Map<string, string>();
   guides.forEach(g => {
     // 假设 g 是 getCollection('guides') 返回的项，其 slug 是正确的 URL 路径
-    const slug = g.slug;
+    const slug = g.slug || String(g.id).replace(/\.(mdx|md)$/, '');
     // 1. 根据 slug 自身匹配 (例如 'claude-code' 匹配 'Claude Code')
     guideMap.set(slug.toLowerCase(), slug);
     // 2. 根据 id/文件名匹配 (不含后缀)

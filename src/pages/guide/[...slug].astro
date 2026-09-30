@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Container from '../../components/mdx/Container.astro';
 import '../../styles/mdx.css';
@@ -12,14 +12,14 @@ export const prerender = true;
 export async function getStaticPaths() {
   const guideEntries = await getCollection('guides');
   return guideEntries.map(entry => ({
-    params: { slug: entry.slug }, 
+    params: { slug: String(entry.id).replace(/\.(mdx|md)$/, '') }, 
     props: { entry },
   }));
 }
 
 // 2. 获取内容
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 const title = entry.data.title || entry.id; // 兜底标题
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---

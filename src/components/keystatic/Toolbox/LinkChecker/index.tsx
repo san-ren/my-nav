@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { 
   Link, 
-  Github,
+  GitBranch,
   Shield,
   Search,
   XCircle,
@@ -162,7 +162,7 @@ const SUB_TABS: SubTab[] = [
   {
     id: 'github',
     label: 'GitHub 检测',
-    icon: <Github size={16} />,
+    icon: <GitBranch size={16} />,
     description: '检测GitHub仓库状态',
   },
   {
