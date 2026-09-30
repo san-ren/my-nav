@@ -83,7 +83,9 @@ export const CARD = {
     borderRadius: '12px',
     border: '1px solid #e2e8f0',
     marginBottom: '16px',
-    overflow: 'hidden',
+    // overflow: 'hidden' 会导致 TargetPicker 等绝对定位下拉框被裁剪
+    // 使用 visible + 按需在子元素设置 overflow-y: auto
+    overflow: 'visible',
   },
   header: {
     padding: '12px 16px',
@@ -94,6 +96,8 @@ export const CARD = {
     gap: '12px',
     minHeight: '56px',
     boxSizing: 'border-box' as const,
+    // 顶栏不需要 overflow，但保持与其他 header 一致
+    overflow: 'hidden',
   },
   // Header 内部元素样式
   headerIcon: {
@@ -114,6 +118,8 @@ export const CARD = {
   },
   body: {
     padding: '10px 20px',
+    // 需要滚动裁剪的 body 加 overflow-y: auto
+    overflowY: 'auto' as const,
   },
 };
 
