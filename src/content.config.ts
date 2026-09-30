@@ -1,4 +1,5 @@
 import { defineCollection, reference, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 // 资源结构
 const resourceItemSchema = z.object({
@@ -17,7 +18,7 @@ const resourceItemSchema = z.object({
 
 // 1. 页面
 const pages = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '**/*.json', base: './src/content/nav-pages', generateId: ({ entry }) => entry.replace(/\.json$/, '') }),
   schema: z.object({
     name: z.string(),
     id: z.string(),
@@ -28,7 +29,7 @@ const pages = defineCollection({
 
 // 2. 分组 - 适配新的扁平化结构 + 配置对象
 const groups = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '**/*.json', base: './src/content/nav-groups', generateId: ({ entry }) => entry.replace(/\.json$/, '') }),
   schema: z.object({
     visualTag: z.string().optional(),
     name: z.string(),
@@ -65,7 +66,7 @@ const groups = defineCollection({
 
 // 3. 教程文章
 const guides = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/guides', generateId: ({ entry }) => entry.replace(/\.mdx$/, '').replace(/\s+/g, '-') }),
   schema: z.object({
     title: z.string().optional(),
     date: z.date().optional().default(() => new Date()),
@@ -80,7 +81,7 @@ const guides = defineCollection({
 
 // 4. 网站设置
 const siteSettings = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '**/*.json', base: './src/content/site-settings', generateId: ({ entry }) => entry.replace(/\.json$/, '') }),
   schema: z.object({
     title: z.string().optional(),
     description: z.string().optional(),
@@ -92,7 +93,7 @@ const siteSettings = defineCollection({
 
 // 5. 更新日志
 const changelog = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/changelog', generateId: ({ entry }) => entry.replace(/\.mdx$/, '').replace(/\s+/g, '-') }),
   schema: z.object({
     version: z.union([z.string(), z.number()]).optional().transform((v) => v ? String(v) : undefined),
     type: z.enum(['function', 'content']).default('content'),
