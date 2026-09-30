@@ -188,7 +188,12 @@ const Icon = current.icon;
     position: absolute;
     width: 10px; height: 18px; top: 50%; margin-top: -9px;
     border: 1.5px solid currentColor;
-    @apply bg-white/90 dark:bg-slate-800/90;
+    background-color: rgb(255 255 255 / 0.9);
+  }
+
+  :global(html.dark) .base-page-left,
+  :global(html.dark) .base-page-right,
+  :global(html.dark) .book-page { background-color: rgb(30 41 59 / 0.9);
   }
 
   .base-page-left {
