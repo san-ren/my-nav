@@ -26,8 +26,16 @@
    如果没有这个文件，浮窗会使用 SiteCard.astro 里定义的 duration-200 ease-out。
    如果加载了这个文件，下面的规则会覆盖默认设置，实现“生长”质感。
 */
+/* 
+   ⚠️ 必须显式把 scale 写进 transition-property。
+   Tailwind v4 的 scale-75/scale-100 输出的是独立的 CSS `scale` 属性
+   （v3 时是 transform 的一部分），只写 transform 的话缩放会瞬间跳变，
+   看起来就只剩淡入、完全没有"放大到最大再回缩"的 Q 弹感。
+   cubic-bezier 的 y=1.56 就是那段过冲回弹，别改。
+*/
 .portal-popup {
   transition: opacity 300ms cubic-bezier(0.34, 1.56, 0.64, 1),
+              scale 300ms cubic-bezier(0.34, 1.56, 0.64, 1),
               transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
