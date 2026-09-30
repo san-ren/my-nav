@@ -72,7 +72,12 @@ function createTooltipDOM() {
   tooltipEl.className = 'portal-popup fixed z-[9999] hidden w-72 p-4 bg-white dark:bg-[#1e2025] rounded-xl shadow-2xl border border-slate-200/60 dark:border-slate-700 pointer-events-none opacity-0 scale-75';
   
   const arrow = document.createElement('div');
-  arrow.className = 'tooltip-arrow-el absolute w-4 h-4 border-r border-b border-slate-200 dark:border-slate-700 rotate-45 bg-white dark:bg-[#1e2025] z-0';
+  // ⚠️ 不要给箭头加 Tailwind 的 rotate-* 类：
+  // Tailwind v4 的 `.rotate-45` 输出的是独立的 CSS `rotate` 属性，
+  // 会和内联的 `transform: rotate()` 叠加成 90°，菱形箭头就变回正方块了。
+  // 旋转统一由内联 transform 独占控制，与 Tailwind 版本无关。
+  arrow.className = 'tooltip-arrow-el absolute w-4 h-4 border-r border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1e2025] z-0';
+  arrow.style.transform = 'rotate(45deg)';
   tooltipEl.appendChild(arrow);
   
   const content = document.createElement('div');
@@ -85,6 +90,17 @@ function createTooltipDOM() {
 function showTooltip(wrapper) {
   if (!tooltipEl) createTooltipDOM();
   if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+
+  // 【修复闪烁】mouseover 会在卡片内部的每个子元素之间反复冒泡触发。
+  // 只要浮窗仍属于同一张卡片（哪怕正在淡出），就只恢复显示态，
+  // 绝不重新渲染内容 / 重播入场动画 —— 否则光标在图标→标题→描述之间移动时会肉眼可见闪动。
+  if (activeCard === wrapper && !tooltipEl.classList.contains('hidden')) {
+    tooltipEl.classList.remove('opacity-0', 'scale-75');
+    tooltipEl.classList.add('opacity-100', 'scale-100');
+    // 淡出期间若光标移回，hover 态已被 removeHoverEffects 摘掉，这里必须补回来
+    applyHoverEffects(wrapper);
+    return;
+  }
 
   applyHoverEffects(wrapper);
   const source = wrapper.querySelector('.tooltip-source');
@@ -190,12 +206,14 @@ function updatePosition(wrapper) {
   
   const arrow = tooltipEl.querySelector('.tooltip-arrow-el');
   arrow.style.left = `${arrowLeft}px`;
+  // 注意：arrow.style.transform 是唯一的旋转来源，className 里绝不能再出现 rotate-*，
+  // 否则 Tailwind v4 的 `rotate` 属性会与之叠加（45+45=90°）把箭头转成方块。
   if (isTop) {
     arrow.style.bottom = '-8px'; arrow.style.top = 'auto'; arrow.style.transform = 'rotate(45deg)';
-    arrow.className = 'tooltip-arrow-el absolute w-4 h-4 border-r border-b border-slate-200 dark:border-slate-700 rotate-45 bg-white dark:bg-[#1e2025] z-0';
+    arrow.className = 'tooltip-arrow-el absolute w-4 h-4 border-r border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1e2025] z-0';
   } else {
     arrow.style.top = '-8px'; arrow.style.bottom = 'auto'; arrow.style.transform = 'rotate(225deg)';
-    arrow.className = 'tooltip-arrow-el absolute w-4 h-4 border-r border-b border-slate-200 dark:border-slate-700 rotate-45 bg-white dark:bg-[#1e2025] z-0';
+    arrow.className = 'tooltip-arrow-el absolute w-4 h-4 border-r border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1e2025] z-0';
   }
 }
 
@@ -252,6 +270,13 @@ const handleClick = (e) => {
   }
 };
 
+// 浮窗显示期间若视口/布局变化（改窗口大小、侧边栏折叠），只做位置校正，不打断当前展示
+const handleResize = () => {
+  if (activeCard && tooltipEl && !tooltipEl.classList.contains('hidden')) {
+    updatePosition(activeCard);
+  }
+};
+
 const handleScroll = () => { if (activeCard) hideTooltip(true); };
 const handleDocMouseLeave = () => { if (activeCard) hideTooltip(true); };
 const handleWindowBlur = () => { if (activeCard) hideTooltip(true); };
@@ -266,6 +291,7 @@ export function initSiteCard() {
   window.removeEventListener('scroll', handleScroll, { capture: true });
   window.removeEventListener('touchmove', handleScroll);
   window.removeEventListener('blur', handleWindowBlur);
+  window.removeEventListener('resize', handleResize);
 
   // 添加新监听器
   document.body.addEventListener('mouseover', handleMouseOver);
@@ -274,4 +300,5 @@ export function initSiteCard() {
   window.addEventListener('scroll', handleScroll, { capture: true, passive: true });
   window.addEventListener('touchmove', handleScroll, { passive: true });
   window.addEventListener('blur', handleWindowBlur);
+  window.addEventListener('resize', handleResize);
 }
