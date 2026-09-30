@@ -1,5 +1,5 @@
 // ResourceEditor 主组件 - 整合批量添加和资源转移功能
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { 
   Plus, 
   ArrowRightLeft
@@ -73,9 +73,12 @@ export function ResourceEditor({ onDataStatusChange, onTaskStart, onTaskProgress
   }, [tabDataStatus, activeSubTab]);
 
   // 子组件数据状态变化回调
-  const handleDataStatusChange = (tabId: SubTabId) => (hasData: boolean) => {
-    setTabDataStatus(prev => ({ ...prev, [tabId]: hasData }));
-  };
+  // ⚠️ 两个要点：
+  // 1. useCallback 固定身份 —— 否则每次渲染都产生新函数，子组件 effect 会反复触发；
+  // 2. 状态未变化时返回原对象 —— 否则每次都产生新对象触发重渲染，与子组件 effect 形成无限循环。
+  const handleDataStatusChange = useCallback((tabId: SubTabId) => (hasData: boolean) => {
+    setTabDataStatus(prev => (prev[tabId] === hasData ? prev : { ...prev, [tabId]: hasData }));
+  }, []);
 
   return (
     <div>

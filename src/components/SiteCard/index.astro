@@ -87,67 +87,72 @@ const titleStyles = cn(
   data-status={status}
   style={animationDelay > 0 ? `animation-delay: ${animationDelay}ms;` : ''}
 >
-  {/* 流光边框容器 */}
-  <div class="neon-border" aria-hidden="true"></div>
-  <a href={targetUrl} target="_blank" class={cardLinkStyles}>
-    <div class="flex items-center flex-1 min-w-0 mr-0 md:mr-0.5 overflow-hidden">
-      <div class="relative flex-shrink-0 mr-1 md:mr-1.5 w-10 h-10 flex items-center justify-center">
-        {/* 背景光晕层 - icon-glow */}
-        <div class="icon-glow absolute inset-0 z-0 transition-all duration-500 ease-out opacity-0 group-hover:opacity-50 group-hover:scale-150 filter blur-lg saturate-150 pointer-events-none transform-gpu">
-          <img 
-            src={finalIcon} 
-            alt="" 
-            width={ICON_SIZE} 
-            height={ICON_SIZE} 
-            loading="lazy"       
-            decoding="async" 
-            class="w-full h-full object-contain" 
-          />
+  {/* 视觉层：唯一负责“上浮”的元素。
+      命中区域由外层 .site-card-wrapper 承担且保持静止，
+      否则光标停在卡片下边缘时 hover 会落空 → 卡片落回 → 又命中，浮窗随之抖动。 */}
+  <div class="site-card-visual">
+    {/* 流光边框容器 */}
+    <div class="neon-border" aria-hidden="true"></div>
+    <a href={targetUrl} target="_blank" class={cardLinkStyles}>
+      <div class="flex items-center flex-1 min-w-0 mr-0 md:mr-0.5 overflow-hidden">
+        <div class="relative flex-shrink-0 mr-1 md:mr-1.5 w-10 h-10 flex items-center justify-center">
+          {/* 背景光晕层 - icon-glow */}
+          <div class="icon-glow absolute inset-0 z-0 transition-all duration-500 ease-out opacity-0 group-hover:opacity-50 group-hover:scale-150 filter blur-lg saturate-150 pointer-events-none transform-gpu">
+            <img 
+              src={finalIcon} 
+              alt="" 
+              width={ICON_SIZE} 
+              height={ICON_SIZE} 
+              loading="lazy"       
+              decoding="async" 
+              class="w-full h-full object-contain" 
+            />
+          </div>
+          
+          {/* 核心图标层 - icon-container */}
+          <div class="icon-container relative z-10 w-10 h-10 rounded-lg bg-white/80 dark:bg-gray-700/90 shadow-sm flex items-center justify-center border border-gray-100 dark:border-gray-600 group-hover:scale-105 group-hover:shadow-md transition-all duration-300">
+            <img 
+              id={cardId}
+              src={finalIcon}
+              alt={displayTitle} 
+              width={24}
+              height={24}
+              loading="lazy"        
+              decoding="async" 
+              class="w-8 h-8 object-contain transition-transform duration-300" 
+            />
+          </div>
         </div>
         
-        {/* 核心图标层 - icon-container */}
-        <div class="icon-container relative z-10 w-10 h-10 rounded-lg bg-white/80 dark:bg-gray-700/90 shadow-sm flex items-center justify-center border border-gray-100 dark:border-gray-600 group-hover:scale-105 group-hover:shadow-md transition-all duration-300">
-          <img 
-            id={cardId}
-            src={finalIcon}
-            alt={displayTitle} 
-            width={24}
-            height={24}
-            loading="lazy"        
-            decoding="async" 
-            class="w-8 h-8 object-contain transition-transform duration-300" 
-          />
+        <div class={cn("flex-1 min-w-0 relative z-20 overflow-hidden flex flex-col", !desc && "justify-center")}>
+          <h3 class={titleStyles}>
+            {displayTitle}
+          </h3>
+          {desc && (
+            <div class="desc-wrapper relative w-full flex items-center overflow-hidden opacity-80 group-hover:opacity-100 transition-opacity h-[1.25em] -mt-0.5 pt-0.5">
+              <p class="desc-text font-body text-[12px] text-slate-400 dark:text-slate-500 leading-none whitespace-nowrap block max-w-none">
+                {desc}
+              </p>
+            </div>
+          )}
         </div>
       </div>
-      
-      <div class={cn("flex-1 min-w-0 relative z-20 overflow-hidden flex flex-col", !desc && "justify-center")}>
-        <h3 class={titleStyles}>
-          {displayTitle}
-        </h3>
-        {desc && (
-          <div class="desc-wrapper relative w-full flex items-center overflow-hidden opacity-80 group-hover:opacity-100 transition-opacity h-[1.25em] -mt-0.5 pt-0.5">
-            <p class="desc-text font-body text-[12px] text-slate-400 dark:text-slate-500 leading-none whitespace-nowrap block max-w-none">
-              {desc}
-            </p>
-          </div>
+
+      {/* 右侧按钮区域 - action-buttons */}
+      <div class="action-buttons shrink-0 pl-0 md:pl-1 border-l border-slate-100 dark:border-slate-700/50 transition-all duration-200 z-20">
+        {hasPopup && (
+          <button type="button" class="info-btn p-1 rounded-md text-slate-400 hover:text-brand-600 hover:bg-brand-50 dark:hover:bg-gray-700 transition-all flex items-center justify-center" title="详情">
+            <Info size={14} />
+          </button>
+        )}
+        {guide_id && (
+          <button onclick={`event.preventDefault(); event.stopPropagation(); window.open('${base}/guide/${guide_id}', '_blank');`} class="guide-btn p-1 rounded-md text-brand-600 hover:bg-brand-600 hover:text-white transition-all flex items-center justify-center" title="教程">
+            <BookOpen size={14} strokeWidth={2.5} />
+          </button>
         )}
       </div>
-    </div>
-
-    {/* 右侧按钮区域 - action-buttons */}
-    <div class="action-buttons shrink-0 pl-0 md:pl-1 border-l border-slate-100 dark:border-slate-700/50 transition-all duration-200 z-20">
-      {hasPopup && (
-        <button type="button" class="info-btn p-1 rounded-md text-slate-400 hover:text-brand-600 hover:bg-brand-50 dark:hover:bg-gray-700 transition-all flex items-center justify-center" title="详情">
-          <Info size={14} />
-        </button>
-      )}
-      {guide_id && (
-        <button onclick={`event.preventDefault(); event.stopPropagation(); window.open('${base}/guide/${guide_id}', '_blank');`} class="guide-btn p-1 rounded-md text-brand-600 hover:bg-brand-600 hover:text-white transition-all flex items-center justify-center" title="教程">
-          <BookOpen size={14} strokeWidth={2.5} />
-        </button>
-      )}
-    </div>
-  </a>
+    </a>
+  </div>
 
 
   {/* 弹窗区域 */}

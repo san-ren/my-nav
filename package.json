@@ -2,14 +2,15 @@
   "name": "my-nav",
   "type": "module",
   "version": "0.0.1",
-  "homepage": "https://san-ren.github.io/my-nav/",
+  "homepage": "https://san-ren.github.io/",
   "packageManager": "pnpm@12.8.1",
   "engines": {
     "node": ">=22.12.0"
   },
   "scripts": {
     "dev": "astro dev --host 0.0.0.0",
-    "start": "astro dev",
+    "start:dev": "astro dev",
+    "start": "node ./dist/server/entry.mjs",
     "check": "astro check",
     "preview": "astro preview",
     "astro": "astro",

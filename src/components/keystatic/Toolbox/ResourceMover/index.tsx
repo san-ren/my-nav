@@ -146,9 +146,18 @@ export function ResourceMover({
   const [targetExpandedNodes, setTargetExpandedNodes] = useState<Set<string>>(new Set());
   
   // 通知父组件
+  // ⚠️ 必须用 ref 持有回调：父组件（ResourceEditor）每次渲染都会传入新的函数身份，
+  // 若把它写进依赖数组，effect 会反复触发 → 父组件 setState → 再传新函数 → 无限更新循环
+  // （React 报 "Maximum update depth exceeded" 并卸载整棵组件树，表现就是 /toolbox 白屏）。
+  const onDataStatusChangeRef = useRef(onDataStatusChange);
   useEffect(() => {
-    onDataStatusChange?.(selectedResources.size > 0);
-  }, [selectedResources.size, onDataStatusChange]);
+    onDataStatusChangeRef.current = onDataStatusChange;
+  }, [onDataStatusChange]);
+
+  const hasSelectedResources = selectedResources.size > 0;
+  useEffect(() => {
+    onDataStatusChangeRef.current?.(hasSelectedResources);
+  }, [hasSelectedResources]);
   
   // 加载数据
   const loadData = async () => {

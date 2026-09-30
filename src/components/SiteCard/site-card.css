@@ -10,19 +10,30 @@
    卡片基础样式
    ============================================ */
 
-/* 卡片容器 */
+/* 卡片容器：只负责布局与命中判定，浮起时它的盒子必须保持静止 */
 .site-card-wrapper {
   position: relative;
   display: block;
+}
+
+/* 卡片视觉层：上浮的是它，wrapper 的盒子不动。
+   ⚠️ 千万别把 translateY 挪回 .site-card-wrapper 上：
+   命中区域会跟着上移 6px，光标停在卡片下边缘时 hover 瞬间落空 →
+   卡片落回 → 又命中…… 高频升降循环，浮窗随之抖动。 */
+.site-card-visual {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
   transform: translateY(0);
   transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   will-change: transform;
 }
 
 /* 统一管理 Hover 时上浮动画 */
-.site-card-wrapper:hover,
-.site-card-wrapper.flow-active,
-.site-card-wrapper.mobile-hover {
+.site-card-wrapper:hover .site-card-visual,
+.site-card-wrapper.flow-active .site-card-visual,
+.site-card-wrapper.mobile-hover .site-card-visual {
   transform: translateY(-6px);
 }
 
@@ -42,7 +53,7 @@
   position: relative;
 }
 
-.site-card-wrapper.resource-stale::before {
+.site-card-wrapper.resource-stale .site-card-visual::before {
   content: "⚠️";
   position: absolute;
   top: 4px;
@@ -53,7 +64,7 @@
   transition: opacity 0.3s ease;
 }
 
-.site-card-wrapper.resource-stale:hover::before {
+.site-card-wrapper.resource-stale:hover .site-card-visual::before {
   opacity: 1;
 }
 
@@ -64,9 +75,9 @@
   position: relative;
 }
 
-.site-card-wrapper.resource-官网失效::before,
-.site-card-wrapper.resource-网站失效::before,
-.site-card-wrapper.resource-github仓库已失效::before {
+.site-card-wrapper.resource-官网失效 .site-card-visual::before,
+.site-card-wrapper.resource-网站失效 .site-card-visual::before,
+.site-card-wrapper.resource-github仓库已失效 .site-card-visual::before {
   content: "❌";
   position: absolute;
   top: 4px;
@@ -88,7 +99,7 @@
   position: relative;
 }
 
-.site-card-wrapper.resource-github已归档::before {
+.site-card-wrapper.resource-github已归档 .site-card-visual::before {
   content: "📦";
   position: absolute;
   top: 4px;
@@ -103,7 +114,7 @@
   position: relative;
 }
 
-.site-card-wrapper.resource-网站超时::before {
+.site-card-wrapper.resource-网站超时 .site-card-visual::before {
   content: "⏱️";
   position: absolute;
   top: 4px;
@@ -114,12 +125,12 @@
 }
 
 /* 暗色模式下的状态样式 */
-:global(.dark) .site-card-wrapper.resource-stale::before,
-:global(.dark) .site-card-wrapper.resource-官网失效::before,
-:global(.dark) .site-card-wrapper.resource-网站失效::before,
-:global(.dark) .site-card-wrapper.resource-github仓库已失效::before,
-:global(.dark) .site-card-wrapper.resource-github已归档::before,
-:global(.dark) .site-card-wrapper.resource-网站超时::before {
+:global(.dark) .site-card-wrapper.resource-stale .site-card-visual::before,
+:global(.dark) .site-card-wrapper.resource-官网失效 .site-card-visual::before,
+:global(.dark) .site-card-wrapper.resource-网站失效 .site-card-visual::before,
+:global(.dark) .site-card-wrapper.resource-github仓库已失效 .site-card-visual::before,
+:global(.dark) .site-card-wrapper.resource-github已归档 .site-card-visual::before,
+:global(.dark) .site-card-wrapper.resource-网站超时 .site-card-visual::before {
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
 }
 

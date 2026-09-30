@@ -16,10 +16,22 @@ pnpm install
 pnpm dev          # 开发服务器 http://localhost:4321
                   # 同时挂载 /keystatic 后台（local 模式，直接读写磁盘）
                   # 以及 Toolbox 的 /api/* 服务端路由
+pnpm start:dev    # 同上，但不带 --host 0.0.0.0（保留的历史写法）
 
 pnpm check        # astro check 类型校验
 pnpm preview      # 预览生产产物
+
+pnpm build:admin && pnpm start
+                  # 生产 SSR 服务器：node ./dist/server/entry.mjs
+                  # 端口读环境变量 PORT（默认 4321），已监听 0.0.0.0
+                  # 本地与线上是同一条命令；npm start / npm run dev 同样可用
 ```
+
+> **npm 的边界**：`npm run <script>` / `npm start` 都能跑（npm 只是执行 package.json 里的脚本，
+> 脚本内的 CLI 走 `node_modules/.bin` 解析，与依赖由谁安装无关，已实测）。
+> 但**依赖只能用 pnpm 装**：仓库无 `package-lock.json`（`npm ci` 直接失败），
+> `npm install` 会生成扁平 `node_modules` 并忽略 `pnpm-workspace.yaml` 里的 `allowBuilds`
+> （esbuild / sharp 的构建放行名单）。
 
 ### 构建目标：由 `DEPLOY_TARGET` 环境变量决定（唯一真源）
 
@@ -34,7 +46,9 @@ pnpm preview      # 预览生产产物
 | `pnpm build:admin` | `admin` | `/` | 静态 + Node SSR | 挂 `@astrojs/node`，只有 `/api/keystatic/*` 走 SSR；部署到 Node 宿主后可用**在线后台** |
 | `pnpm serve:admin` | `admin` | `/` | — | 本地构建并运行 admin 产物，用于上线前自检 |
 
-`.github/workflows/deploy.yml` 调用的是 `pnpm run build:gh`。
+`.github/workflows/deploy.yml` 调用的是 `pnpm run build:root`：本站是 `san-ren.github.io` **用户站点**，
+服务在域名根路径；且 Keystatic Cloud 的 OAuth 回调固定写作 `${origin}/keystatic/cloud/oauth/callback`，
+不带 base 前缀 —— 若改用 `build:gh`（base=`/my-nav`），在线后台将永远无法登录。
 
 ### 在线后台（Keystatic）的两种互斥方案
 
@@ -187,6 +201,25 @@ curl -i 'http://127.0.0.1:3000/api/keystatic/github/login/'
 ### 常见坑
 
 - **改了集合定义却忘了 `astro sync`** → 见第 1 节的缓存陷阱。
+- **dev server 运行期间不要跑 `pnpm check` / `pnpm build`**（两个都会踩）：
+  `astro check` 会用另一套入口集重跑 Vite 依赖预打包并覆写 `node_modules/.vite/deps`，
+  运行中的 dev server 仍按旧 hash 发模块地址，浏览器拿到 `504 Outdated Optimize Dep`，
+  而 504 发生在 `client:only` 岛屿的动态 `import()` 里、不会触发 Vite 的自动重载兜底，
+  表现是**岛屿静默白屏**（典型：`/toolbox` 一片空白，控制台报 `Failed to fetch dynamically imported module`）。
+  恢复：`rm -rf node_modules/.vite` + 重启 dev server。
+  而 `pnpm build`（github 静态目标）会清空并覆写 `dist/`，之前构建的 `dist/server/entry.mjs` 会消失。
+- **岛屿依赖已显式列进 `astro.config.mjs` 的 `optimizeDeps.include`**（`lucide-react` / `fuse.js` / `marked`）。
+  新增 `client:only` 岛屿用到新的裸依赖时，必须同步补进去，否则会退回"运行时发现依赖"的不稳定路径。
+- **`keystatic.config.tsx` 会被打进浏览器 bundle**（`KeystaticAdmin.tsx` 里 `makePage(config)`），
+  所以那里**绝不能出现裸 `process.env.*`**：浏览器没有 `process` 全局，会抛
+  `ReferenceError: process is not defined`，表现为 `/keystatic` 静默白屏（dev 与线上同样中招）。
+  现有两道防线：`astro.config.mjs` 的 `define`（注入 `process.env.KEYSTATIC_STORAGE` 与
+  `__KEYSTATIC_STORAGE__`，构建期替换为字面量）+ 源码里的 `typeof` 兜底（dev 下 Vite 不替换项目源码，靠它保命）。
+  以后新增环境变量请照抄这个模式，不要直接写 `process.env.X`。
+- **Toolbox 里"通知父组件"的 effect 不能用会变的回调身份做依赖**：
+  `ResourceMover` 曾把父组件每次渲染新建的 `onDataStatusChange` 写进依赖数组，effect 里又 `setState` 新对象，
+  形成无限更新循环 → React 抛 `Maximum update depth exceeded` 并卸载整棵树 → `/toolbox` 白屏。
+  正确写法（其他组件已是范例）：回调存 `useRef`，依赖数组只放真正会变的状态；`setState` 时值没变就 `return prev`。
 - ToolBox 的 `/api/*` 依赖本地文件系统读写，只有 dev 能用，**不要期望在生产里跑**。
 - `guide/[...slug].astro` 用 `entry.slug` 而不是 `entry.id`（后者带 `.mdx`）。
 

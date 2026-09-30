@@ -165,6 +165,27 @@ if (isDevCommand) {
 // 6. Vite 构建优化配置
 const viteConfig = {
   plugins: [tailwindcss()],
+  // ⚠️ keystatic.config.tsx 会被 KeystaticAdmin.tsx `import config from '../../keystatic.config'`
+  // 打进浏览器端 bundle，而它在模块顶层读 process.env.KEYSTATIC_STORAGE 来选数据模式。
+  // 浏览器里没有 process 全局 → "ReferenceError: process is not defined" →
+  // 后台岛屿水合失败 → /keystatic 一片空白（dev 与线上同样会中招）。
+  // 用 define 在转换/构建期把这个表达式替换成字面量：客户端与服务端取值一致，且不再引用 process。
+  define: {
+    // 两个 key 各管一边：
+    //   process.env.*  → Node / 构建期读取（dev 下 Vite 对项目源码不替换，靠源码里的 typeof 兜底）
+    //   __KEYSTATIC_STORAGE__ → 浏览器端（keystatic.config.tsx 里 typeof 判断后取它）
+    'process.env.KEYSTATIC_STORAGE': JSON.stringify(process.env.KEYSTATIC_STORAGE || 'cloud'),
+    __KEYSTATIC_STORAGE__: JSON.stringify(process.env.KEYSTATIC_STORAGE || 'cloud'),
+  },
+  // ⚠️ client:only 岛屿（Toolbox / SearchModal / ShareExportModal 等）的裸依赖
+  // 是浏览器运行时才动态 import 的，Vite 的依赖扫描器看不见它们，只能在首次请求时
+  // 临时发现并重跑预打包。这期间如果有别的进程（例如 `astro check`）用不同的入口集
+  // 覆写了 node_modules/.vite/deps，运行中的 dev server 会继续吐旧 hash 的模块地址，
+  // 浏览器拿到 504 Outdated Optimize Dep → 岛屿静默白屏（表现为 /toolbox 一片空白）。
+  // 显式列进来可保证它们永远在首轮预打包结果里，不再依赖运行时发现。
+  optimizeDeps: {
+    include: ['lucide-react', 'fuse.js', 'marked'],
+  },
   server: {
     watch: {
       usePolling: true,

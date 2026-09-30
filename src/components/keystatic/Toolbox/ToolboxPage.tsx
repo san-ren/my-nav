@@ -181,8 +181,9 @@ export function ToolboxPage() {
   }, []);
 
   // 子组件更新数据状态
+  // 值没变就返回原对象，避免无意义的重渲染（配合子组件的 effect 可防止无限更新循环）
   const updateDataStatus = useCallback((tab: TabId, hasData: boolean) => {
-    setHasUnsavedData(prev => ({ ...prev, [tab]: hasData }));
+    setHasUnsavedData(prev => (prev[tab] === hasData ? prev : { ...prev, [tab]: hasData }));
   }, []);
 
   // ✅ 使用 useCallback 缓存传递给子组件的回调函数，避免无限渲染循环

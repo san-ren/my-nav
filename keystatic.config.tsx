@@ -229,7 +229,20 @@ const isDev = import.meta.env.DEV;
 //    github        : 自建 GitHub App + 自托管 SSR (/api/keystatic)，必须有 Node 宿主。
 //                    用 KEYSTATIC_STORAGE=github 配合 `pnpm build:admin` 构建。
 //                    ⚠️ 二者互斥：cloud 模式下 @keystatic/core 会让本地 API 路由全部返回 404。
-const remoteStorage = process.env.KEYSTATIC_STORAGE === 'github'
+// 注意：本文件会被 KeystaticAdmin.tsx `import config from '../../keystatic.config'`
+// 打进**浏览器** bundle（makePage(config)），而浏览器里没有 process 全局 ——
+// 直接写 process.env.X 会抛 ReferenceError，整个后台岛屿水合失败 → /keystatic 白屏。
+// 取值三条路，保证任何环境下都不会崩、且值正确：
+//   1. Node / 构建期：读 process.env.KEYSTATIC_STORAGE（astro.config.mjs 里也 define 了它）；
+//   2. 浏览器：读 astro.config.mjs 注入的 __KEYSTATIC_STORAGE__（构建期已替换成字面量）；
+//   3. 两者都拿不到（例如 define 被误删）：退回 undefined → 落到 cloud 分支。
+declare const __KEYSTATIC_STORAGE__: string | undefined;
+
+const storageEnv = typeof process !== 'undefined'
+  ? process.env.KEYSTATIC_STORAGE
+  : (typeof __KEYSTATIC_STORAGE__ !== 'undefined' ? __KEYSTATIC_STORAGE__ : undefined);
+
+const remoteStorage = storageEnv === 'github'
   ? { kind: 'github', repo: { owner: 'san-ren', name: 'my-nav' } } as const
   : { kind: 'cloud' } as const;
 

@@ -123,8 +123,25 @@
 
 ### 环境要求
 
-* Node.js (建议 v18 或以上版本)
-* npm / pnpm / yarn
+* **Node.js ≥ 22.12**（`package.json` 的 `engines` 已声明）
+* **pnpm**（唯一包管理器，`packageManager` 字段锁定 `pnpm@12.8.1`）
+
+```bash
+corepack enable     # 可选：让 Node 自动按 packageManager 字段选用正确版本的 pnpm
+pnpm install        # ⚠️ 不要用 npm install / npm ci
+```
+
+> **能用 npm 跑脚本吗？可以。**
+> `npm run dev`、`npm run build`、`npm start` 都能正常执行——npm 只是读 `package.json` 执行脚本，
+> 脚本里的 `astro` 通过 `node_modules/.bin` 解析，与「依赖是谁装的」无关（本仓库实测通过）。
+>
+> 但**不要用 `npm install` 安装依赖**：
+> * 仓库里没有 `package-lock.json`，`npm ci` 会直接失败；
+> * `npm install` 会生成扁平化的 `node_modules`，并忽略 `pnpm-workspace.yaml` 里的
+>   `allowBuilds`（esbuild / sharp 等原生依赖的构建放行名单，只有 pnpm 认）；
+> * 之后再用 `pnpm install` 会因目录结构冲突要求 `--force` 重装。
+>
+> 一句话：**脚本用哪个管理器跑都行，依赖只用 pnpm 装。**
 
 ### 1. 安装依赖
 
@@ -133,22 +150,22 @@
 git clone https://github.com/你的用户名/my-nav.git
 cd my-nav
 
-# 安装依赖
-npm install
+# 安装依赖（只用 pnpm）
+pnpm install
 
 ```
 
 ### 2. 本地开发与运行
 
 ```bash
-npm run dev
-
+pnpm dev            # 等价写法：npm run dev / npx astro dev
 ```
 
 运行后，将开启两个核心服务：
 
 * **前台网站**: `http://localhost:4321` (默认)
 * **Keystatic 管理后台**: `http://localhost:4321/keystatic`
+* **工具箱（仅 dev）**: `http://localhost:4321/toolbox`
 
 ### 3. 数据管理
 
@@ -165,13 +182,62 @@ npm run dev
 
 ## ☁️ 部署指南
 
+> **本站当前的实际流程（不需要任何服务器）**
+> 本地 `pnpm dev` 开发 + 用 `/keystatic` 改数据（local 模式直接写盘）→ `git push` → GitHub Actions 执行
+> `pnpm build:root` → GitHub Pages 输出静态站 → 线上后台走 **Keystatic Cloud**（浏览器直连官方 API，无需自托管）。
+> 下面第三节的「Node 服务器」只有在你改用**自建 GitHub App** 时才需要，日常可以完全忽略。
+
+### 一、先选构建目标（唯一真源：`DEPLOY_TARGET`）
+
+`astro.config.mjs` 会读取 `DEPLOY_TARGET` 来决定 `base` 和产物形态，**不要手工改 `base`**：
+
+| 命令 | DEPLOY_TARGET | base | 产物 | 线上用途 |
+|---|---|---|---|---|
+| `pnpm build` / `pnpm build:gh` | `github` | `/my-nav` | 纯静态 | 部署在 `用户名.github.io/仓库名` 子路径时用 |
+| `pnpm build:root` | `root` | `/` | 纯静态 | **本站实际使用**：`san-ren.github.io` 用户站点在域根，也是 Actions 里的构建命令 |
+| `pnpm build:admin` | `admin` | `/` | 静态 + Node SSR | 仅「自建 GitHub App」模式需要，见第三节 |
+
+### 二、纯静态部署（GitHub Pages，默认）
+
 本项目原生支持部署到 **GitHub Pages**，并且自带了配置文件。
 
 1. 修改 `astro.config.mjs` 中的 `site` 和 `base`（如果使用自定义域名则通常不需要 base）。
 2. 在你的 GitHub Repository 的 `Settings` -> `Pages` 中，将来源设置为 **GitHub Actions**。
 3. 推送代码到 GitHub 的默认分支，项目根目录下的 `.github/workflows/deploy.yml` 会自动触发构建，并将生成的静态文件部署到 GitHub Pages 上。
 
-*提示：由于本项目采用了本地存储的 Keystatic（Local Mode），建议在本地运行 `npm run dev` 并在本地的 `/keystatic` 界面添加好数据，然后将生成的 json 文件 Git commit 推送到仓库即可完成全站更新。*
+*提示：建议在本地运行 `pnpm dev`，在本地的 `/keystatic` 界面添加好数据，然后把生成的 json / mdx 文件 commit 推送到仓库，由 Actions 重建静态站。*
+
+### 三、（可选）Node 服务器 —— 仅当你改用自建 GitHub App 时才需要
+
+只要 `dist/server/entry.mjs` 存在，**本地和线上就是同一条启动命令**：
+
+```bash
+# 构建（admin 目标才会产出 SSR 入口）
+pnpm build:admin
+
+# 启动：本地 3000 端口自检
+PORT=3000 node ./dist/server/entry.mjs      # 等价于 pnpm start / npm start
+```
+
+线上（Railway / Render / Fly.io / VPS / 容器）按下面这张表配置：
+
+| 配置项 | 值 |
+|---|---|
+| Node 版本 | ≥ 22.12 |
+| 包管理器 | **pnpm**（`pnpm install --frozen-lockfile`，不要用 npm） |
+| Build Command | `pnpm build:admin`；自建 GitHub App 时用 `KEYSTATIC_STORAGE=github pnpm build:admin` |
+| Start Command | `node ./dist/server/entry.mjs`（即 `pnpm start`） |
+| 端口 | 读环境变量 `PORT`（默认 4321）；已监听 `0.0.0.0`，无需额外配 `HOST` |
+| 需要部署的目录 | `dist/client` 与 `dist/server` 必须一起部署（静态资源相对于 server 目录读取） |
+
+**注意事项**
+
+* `KEYSTATIC_STORAGE` 决定线上数据模式，且**在构建期定型**（会被打进产物，运行时再改无效）：
+  * `cloud`（默认）：Keystatic 官方托管，纯静态部署即可，此时**不该**跑 Node 服务器（本地 API 会全部 404）；
+  * `github`：自建 GitHub App + 自托管 `/api/keystatic`，**必须**配 `build:admin` + Node 宿主。
+* Toolbox 的 `/api/*`（批量添加 / 死链检测 / GitHub 同步）**只在 dev 注入**，线上必然 404 —— 它们依赖本地文件系统读写，请在本地 `pnpm dev` 里用。
+* SSR 入口是**路径无关**的：可以在任意工作目录用绝对路径启动（已实测首页、分类页跳转、`/favicon.svg` 等静态资源均正常）。
+* `sharp` 是原生依赖，宿主的 libc 需能装对应预编译包（Alpine 用 musl 版）。
 
 ---
 
