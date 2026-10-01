@@ -109,14 +109,19 @@ src/
 ├── components/          # UI 组件（Astro + React）
 │   ├── SiteCard/        # 网址卡片：index.astro / Renderers.tsx / client.js / site-card.css / utils.js
 │   ├── Sidebar/         # 侧边栏：index.astro / interactive.js / sidebar.css
-│   ├── ThemePicker/     # 主题面板：index.astro / theme-logic.js / sections/(Color|Bg|Backup)
+│   ├── ThemePicker/     # 主题面板：index.astro / theme-logic.js（交互入口）/ sections/(Color|Bg|Backup)
+│   │                    #   logic/ = storage（IndexedDB+编解码）/ fonts（字体区块）/ backup（导入导出）
 │   ├── keystatic/
 │   │   ├── Toolbox/     # 后台工具箱：BatchAdder / GithubChecker / LinkChecker /
 │   │   │                #   ResourceEditor / ResourceMover（各带 api/ 服务端路由，仅 dev 注入）
-│   │   ├── ToolboxField/# 自定义字段：IconPicker / AutoFiller / smart-parse
+│   │   │                #   api-shared/ = 服务端公共库（response / fetch / content / updates）
+│   │   │                #   shared/ = 客户端公共组件（styles / tree / StatsBar / FilterDropdown / SortableTh）
+│   │   ├── ToolboxField/# 自定义字段：IconPicker / AutoFiller / smart-parse（API 路由入口）
+│   │   │                #   parse/ = smart-parse 实现：config / fetch / icons / handlers
 │   │   └── BadgeField.tsx
 │   ├── SearchModal.jsx        # ⌘K 全局搜索（Fuse.js）
 │   ├── ShareExportModal.jsx   # 区块分享导出（html2canvas + jspdf）
+│   ├── share-export-print.js  # 打印/PDF 用的独立 HTML 模板（自 ShareExportModal 抽出）
 │   ├── ResourceFilter.astro   # 失效资源筛选
 │   ├── UpdateStatsCard.astro  # 最近更新统计
 │   ├── KeystaticAdmin.tsx     # 后台 SPA 外壳（makePage(config)）
@@ -130,8 +135,10 @@ src/
 ├── layouts/Layout.astro
 ├── pages/               # index / [id] / changelog / toolbox / 404 / guide/[...slug] / keystatic/[...params]
 ├── scripts/             # ui-layout.js（16K，全局 UI 逻辑）+ init-animations.js
+│                        #   + header-collapse / share-observer / scroll-helpers（自 index、[id] 内联脚本抽取）
 ├── styles/              # global / theme / animations / mdx / changelog / toolbox / share-export
-├── utils/               # resourceSort.ts（按 status 排序置底）+ guideMatcher.ts（自动关联教程）
+├── utils/               # resourceStatus.ts（资源状态唯一真源）+ navData.ts（导航数据聚合/分享树/图标）
+│                        #   + guideMatcher.ts（自动关联教程）
 └── content.config.ts    # 集合定义（注意：不在 content/ 里）
 ```
 
@@ -162,10 +169,15 @@ src/
 const groupPageId = typeof g.data.pageName === 'object' ? g.data.pageName.id : g.data.pageName;
 ```
 
-### 资源状态
+### 资源状态（唯一真源：`src/utils/resourceStatus.ts`）
 
 `status` 枚举：`ok` / `stale` / `github已归档` / `github仓库已失效` / `网站失效` / `网站超时` / `官网失效`。
 非 `ok` 的会被 `sortResourcesByStatus()` 沉底，并套用置灰/删除线样式。
+
+枚举、后台下拉选项（`RESOURCE_STATUS_OPTIONS`）、徽章配色（`getStatusBadge`）、
+工具箱权重（`getStatusWeight`，方向与页面排序相反）、页面排序（`sortResourcesByStatus`）全部定义在该文件。
+消费方：`content.config.ts` 的 `z.enum`、`keystatic.config.tsx`、`Toolbox/toolbox-shared.ts`（纯转发）。
+**不要再新增第二份 status 映射表**；改状态只改这一个文件，然后按第 1 节清 `.astro` 缓存重新 sync。
 
 ### 交互与状态
 
@@ -221,6 +233,12 @@ curl -i 'http://127.0.0.1:3000/api/keystatic/github/login/'
   形成无限更新循环 → React 抛 `Maximum update depth exceeded` 并卸载整棵树 → `/toolbox` 白屏。
   正确写法（其他组件已是范例）：回调存 `useRef`，依赖数组只放真正会变的状态；`setState` 时值没变就 `return prev`。
 - ToolBox 的 `/api/*` 依赖本地文件系统读写，只有 dev 能用，**不要期望在生产里跑**。
+- **`src/components/keystatic/Toolbox/api-shared/*` 是服务端专用库**（`content.ts` / `updates.ts` 含 `node:fs`），
+  只能被 `api/*.ts` 路由引用；客户端组件（`index.tsx` / `ToolboxPage.tsx`）一律走 `toolbox-shared.ts`
+  （纯浏览器安全）或 `src/utils/resourceStatus.ts`。`api-shared/types.ts` 是无运行时依赖的纯类型，可安全共享。
+- 新增 Toolbox API 时直接复用 `api-shared`：`jsonResponse` / `errorResponse`（响应）、
+  `safeFetch`（超时探活）、`readContentFiles` / `readContentFile` / `writeContentFile`（内容读写）、
+  `applyStatusUpdates`（批量改 status），不要再手写 `new Response(JSON.stringify(...))` 与 `path.join(process.cwd(), ...)`。
 - `guide/[...slug].astro` 用 `entry.slug` 而不是 `entry.id`（后者带 `.mdx`）。
 
 ---
