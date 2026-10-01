@@ -31,18 +31,20 @@ import {
 } from 'lucide-react';
 import { useGithubToken } from '../TokenContext';
 import {
-  LAYOUT,
-  CARD,
-  BUTTON,
   INPUT,
-  TABLE,
-  TREE,
-  PROGRESS,
-  BADGE,
-  PAGE_TITLE,
-  getStatusBadge,
   getStatusWeight,
+  getStatusLabel as getSharedStatusLabel,
 } from '../toolbox-shared';
+import { buildToolboxStyles } from '../shared/styles';
+import {
+  collectChecked,
+  toggleNodeChecked,
+  toggleNodeExpanded,
+  toggleSelectAll,
+} from '../shared/tree';
+import { StatsBar } from '../shared/StatsBar';
+import { FilterDropdown } from '../shared/FilterDropdown';
+import { SortableTh } from '../shared/SortableTh';
 
 // --- 类型定义 ---
 interface GitHubRepoInfo {
@@ -94,33 +96,11 @@ type SortField = 'status' | 'pushedAt' | 'staleYears' | null;
 type SortDirection = 'asc' | 'desc';
 
 // --- 样式常量 ---
-// 合并共享样式与组件特有样式
-const STYLES = {
-  // 从共享样式导入
-  ...LAYOUT,
-  card: {
-    base: CARD.base,
-    header: CARD.header,
-    headerIcon: CARD.headerIcon,
-    headerTitle: CARD.headerTitle,
-    headerExtra: CARD.headerExtra,
-    headerCount: CARD.headerCount,
-    body: CARD.body,
-  },
-  header: CARD.header,
-  body: CARD.body,
-  input: INPUT.base,
+// 基础样式由 shared/styles 提供（各工具共用），这里只补本组件特有样式
+const STYLES = buildToolboxStyles({
   inputWithButton: INPUT.withButton,
   inputField: INPUT.field,
-  button: BUTTON,
-  badge: BADGE,
-  progress: PROGRESS,
-  table: TABLE.base,
-  th: TABLE.th,
-  thSortable: TABLE.thSortable,
-  td: TABLE.td,
-  treeNode: TREE.node,
-  
+
   // 组件特有样式
   tokenStatus: {
     display: 'flex',
@@ -139,7 +119,7 @@ const STYLES = {
     background: '#fef3c7',
     color: '#92400e',
   },
-};
+});
 
 // --- 辅助函数 ---
 const formatDate = (dateStr: string | null): string => {
@@ -158,15 +138,14 @@ const getStatusIcon = (status: string) => {
   }
 };
 
-const getStatusLabel = (status: string): string => {
-  switch (status) {
-    case 'ok': return '正常';
-    case 'stale': return '长期未更新';
-    case 'github已归档': return '已归档';
-    case 'github仓库已失效': return '已失效';
-    default: return status;
-  }
+// GitHub 检测结果有意使用更短的文案，其余状态沿用共享映射（src/utils/resourceStatus.ts）
+const STATUS_LABEL_OVERRIDES: Record<string, string> = {
+  'github已归档': '已归档',
+  'github仓库已失效': '已失效',
 };
+
+const getStatusLabel = (status: string): string =>
+  STATUS_LABEL_OVERRIDES[status] ?? getSharedStatusLabel(status);
 
 const getNodeIcon = (node: TreeNode) => {
   switch (node.type) {
@@ -191,20 +170,6 @@ export function GithubChecker({ onDataStatusChange, onTaskStart, onTaskProgress,
   const [staleYears, setStaleYears] = useState(3);
   const [scanResult, setScanResult] = useState<ScanResult | null>(null);
   
-  // 筛选下拉框外部点击引用
-  const filterDropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (filterDropdownRef.current && !filterDropdownRef.current.contains(event.target as Node)) {
-        setIsFilterOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
   const [treeData, setTreeData] = useState<TreeNode[]>([]);
   const [checkResults, setCheckResults] = useState<CheckResult[]>([]);
   const [isScanning, setIsScanning] = useState(false);
@@ -212,7 +177,6 @@ export function GithubChecker({ onDataStatusChange, onTaskStart, onTaskProgress,
   const [isApplying, setIsApplying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [filter, setFilter] = useState<FilterType[]>(['ok', 'stale', 'github已归档', 'github仓库已失效']);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(true);
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
@@ -259,17 +223,6 @@ export function GithubChecker({ onDataStatusChange, onTaskStart, onTaskProgress,
       setSortField(field);
       setSortDirection('desc');
     }
-  };
-
-  // 渲染排序图标
-  const renderSortIcon = (field: SortField) => {
-    if (sortField !== field) {
-      return <ArrowUpDown size={14} style={{ color: '#94a3b8', marginLeft: '4px' }} />;
-    }
-    if (sortDirection === 'asc') {
-      return <ArrowUp size={14} style={{ color: '#2563eb', marginLeft: '4px' }} />;
-    }
-    return <ArrowDown size={14} style={{ color: '#2563eb', marginLeft: '4px' }} />;
   };
 
   // 筛选和排序后的结果
@@ -392,102 +345,17 @@ export function GithubChecker({ onDataStatusChange, onTaskStart, onTaskProgress,
     return tree;
   };
 
-  // 更新节点状态
-  const updateNodeStatus = (node: TreeNode): TreeNode => {
-    if (!node.children || node.children.length === 0) {
-      return { ...node, indeterminate: false };
-    }
-    
-    const updatedChildren = node.children.map(updateNodeStatus);
-    const checkedCount = updatedChildren.filter(c => c.checked).length;
-    const indeterminateCount = updatedChildren.filter(c => c.indeterminate).length;
-    
-    return {
-      ...node,
-      children: updatedChildren,
-      checked: checkedCount === updatedChildren.length && checkedCount > 0,
-      indeterminate: indeterminateCount > 0 || (checkedCount > 0 && checkedCount < updatedChildren.length),
-    };
-  };
-
-  // 递归设置所有子节点的 checked 状态
-  const setAllChildrenChecked = (node: TreeNode, checked: boolean): TreeNode => {
-    if (!node.children || node.children.length === 0) {
-      return { ...node, checked, indeterminate: false };
-    }
-    
-    return {
-      ...node,
-      checked,
-      indeterminate: false,
-      children: node.children.map(child => setAllChildrenChecked(child, checked)),
-    };
-  };
-
-  // 切换节点选中状态
-  const toggleNodeChecked = (nodes: TreeNode[], nodeId: string): TreeNode[] => {
-    return nodes.map(node => {
-      if (node.id === nodeId) {
-        const newNode = setAllChildrenChecked(node, !node.checked);
-        return newNode;
-      }
-      
-      if (node.children) {
-        return {
-          ...node,
-          children: toggleNodeChecked(node.children, nodeId),
-        };
-      }
-      
-      return node;
-    }).map(updateNodeStatus);
-  };
-
-  // 切换节点展开状态
-  const toggleNodeExpanded = (nodes: TreeNode[], nodeId: string): TreeNode[] => {
-    return nodes.map(node => {
-      if (node.id === nodeId) {
-        return { ...node, expanded: !node.expanded };
-      }
-      
-      if (node.children) {
-        return {
-          ...node,
-          children: toggleNodeExpanded(node.children, nodeId),
-        };
-      }
-      
-      return node;
-    });
-  };
-
-  // 全选/取消全选
+  // 全选/取消全选（实现见 shared/tree）
   const handleSelectAll = () => {
-    const allChecked = treeData.every(node => node.checked);
-    setTreeData(treeData.map(node => setAllChildrenChecked(node, !allChecked)).map(updateNodeStatus));
+    setTreeData(toggleSelectAll(treeData));
   };
 
-  // 获取所有选中的资源
-  const getSelectedRepos = (nodes: TreeNode[]): GitHubRepoInfo[] => {
-    const repos: GitHubRepoInfo[] = [];
-    
-    const traverse = (node: TreeNode) => {
-      if (node.type === 'resource' && node.checked && node.repo) {
-        repos.push(node.repo);
-      }
-      if (node.children) {
-        node.children.forEach(traverse);
-      }
-    };
-    
-    nodes.forEach(traverse);
-    return repos;
-  };
+  // 获取所有选中的资源（实现见 shared/tree）
+  const getSelectedRepos = (nodes: TreeNode[]): GitHubRepoInfo[] =>
+    collectChecked(nodes, (node) => (node.type === 'resource' && node.checked ? node.repo : undefined));
 
   // 统计选中数量
-  const getSelectedCount = (nodes: TreeNode[]): number => {
-    return getSelectedRepos(nodes).length;
-  };
+  const getSelectedCount = (nodes: TreeNode[]): number => getSelectedRepos(nodes).length;
 
   // 扫描 GitHub 链接
   const handleScan = async () => {
@@ -985,100 +853,26 @@ export function GithubChecker({ onDataStatusChange, onTaskStart, onTaskProgress,
       {checkResults.length > 0 && (
         <div style={{ ...STYLES.card.base, overflow: 'visible' }}>
           <div style={STYLES.card.body}>
-            <div style={{ display: 'flex', gap: '24px', marginBottom: '16px', flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#22c55e' }} />
-                <span style={{ fontSize: '14px', color: '#334155' }}>正常: {stats.ok}</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#8b5cf6' }} />
-                <span style={{ fontSize: '14px', color: '#334155' }}>已归档: {stats['github已归档']}</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#f59e0b' }} />
-                <span style={{ fontSize: '14px', color: '#334155' }}>长期未更新: {stats.stale}</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ef4444' }} />
-                <span style={{ fontSize: '14px', color: '#334155' }}>已失效: {stats['github仓库已失效']}</span>
-              </div>
-            </div>
+            <StatsBar
+              items={[
+                { color: '#22c55e', label: '正常', value: stats.ok },
+                { color: '#8b5cf6', label: '已归档', value: stats['github已归档'] },
+                { color: '#f59e0b', label: '长期未更新', value: stats.stale },
+                { color: '#ef4444', label: '已失效', value: stats['github仓库已失效'] },
+              ]}
+            />
             
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-              <div style={{ position: 'relative' }} ref={filterDropdownRef}>
-                <button
-                  onClick={() => setIsFilterOpen(!isFilterOpen)}
-                  style={{
-                    ...STYLES.button.secondary,
-                    background: 'white',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    padding: '8px 12px'
-                  }}
-                >
-                  <Filter size={16} style={{ color: '#64748b' }} />
-                  <span>筛选 ({filter.length})</span>
-                  {isFilterOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-                </button>
-                
-                <div 
-                  className={`portal-popup ${isFilterOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`}
-                  style={{
-                  position: 'absolute',
-                  top: '100%',
-                  right: 0,
-                  marginTop: '12px',
-                  background: 'white',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '12px',
-                  boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)',
-                  padding: '8px',
-                  zIndex: 50,
-                  minWidth: '200px',
-                  visibility: isFilterOpen ? 'visible' : 'hidden',
-                  transformOrigin: 'top right',
-                  pointerEvents: isFilterOpen ? 'auto' : 'none'
-                }}>
-                  {[
-                    { value: 'ok', label: '正常', count: stats.ok, color: '#22c55e' },
-                    { value: 'github已归档', label: '已归档', count: stats['github已归档'], color: '#8b5cf6' },
-                      { value: 'stale', label: '长期未更新', count: stats.stale, color: '#f59e0b' },
-                      { value: 'github仓库已失效', label: '已失效', count: stats['github仓库已失效'], color: '#ef4444' }
-                    ].map(opt => (
-                      <label
-                        key={opt.value}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '8px',
-                          padding: '6px 8px',
-                          cursor: 'pointer',
-                          borderRadius: '4px',
-                          transition: 'background 0.2s'
-                        }}
-                        onMouseEnter={e => e.currentTarget.style.background = '#f1f5f9'}
-                        onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={filter.includes(opt.value as FilterType)}
-                          onChange={e => {
-                            if (e.target.checked) {
-                              setFilter([...filter, opt.value as FilterType]);
-                            } else {
-                              setFilter(filter.filter(f => f !== opt.value));
-                            }
-                          }}
-                          style={{ cursor: 'pointer' }}
-                        />
-                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: opt.color }} />
-                        <span style={{ fontSize: '13px', color: '#334155', flex: 1 }}>{opt.label}</span>
-                        <span style={{ fontSize: '12px', color: '#94a3b8' }}>{opt.count}</span>
-                      </label>
-                    ))}
-                </div>
-              </div>
+              <FilterDropdown
+                options={[
+                  { value: 'ok', label: '正常', count: stats.ok, color: '#22c55e' },
+                  { value: 'github已归档', label: '已归档', count: stats['github已归档'], color: '#8b5cf6' },
+                  { value: 'stale', label: '长期未更新', count: stats.stale, color: '#f59e0b' },
+                  { value: 'github仓库已失效', label: '已失效', count: stats['github仓库已失效'], color: '#ef4444' },
+                ]}
+                selected={filter}
+                onChange={(next) => setFilter(next as FilterType[])}
+              />
               
               <button 
                 onClick={() => {
@@ -1122,39 +916,9 @@ export function GithubChecker({ onDataStatusChange, onTaskStart, onTaskProgress,
                     />
                   </th>
                   <th style={STYLES.th}>仓库</th>
-                  <th 
-                    style={STYLES.thSortable}
-                    onClick={() => handleSort('status')}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#f1f5f9'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = '#f8fafc'}
-                  >
-                    <span style={{ display: 'flex', alignItems: 'center' }}>
-                      状态
-                      {renderSortIcon('status')}
-                    </span>
-                  </th>
-                  <th 
-                    style={STYLES.thSortable}
-                    onClick={() => handleSort('pushedAt')}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#f1f5f9'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = '#f8fafc'}
-                  >
-                    <span style={{ display: 'flex', alignItems: 'center' }}>
-                      最后提交
-                      {renderSortIcon('pushedAt')}
-                    </span>
-                  </th>
-                  <th 
-                    style={STYLES.thSortable}
-                    onClick={() => handleSort('staleYears')}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#f1f5f9'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = '#f8fafc'}
-                  >
-                    <span style={{ display: 'flex', alignItems: 'center' }}>
-                      未更新
-                      {renderSortIcon('staleYears')}
-                    </span>
-                  </th>
+                  <SortableTh label="状态" field="status" sortField={sortField} sortDirection={sortDirection} onSort={handleSort} />
+                  <SortableTh label="最后提交" field="pushedAt" sortField={sortField} sortDirection={sortDirection} onSort={handleSort} />
+                  <SortableTh label="未更新" field="staleYears" sortField={sortField} sortDirection={sortDirection} onSort={handleSort} />
                   <th style={STYLES.th}>备注</th>
                 </tr>
               </thead>

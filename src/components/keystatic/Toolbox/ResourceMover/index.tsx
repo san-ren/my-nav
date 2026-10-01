@@ -20,23 +20,17 @@ import type { ResourceItem, TargetLocation } from './types';
 import {
   LAYOUT,
   CARD,
-  BUTTON,
   INPUT,
-  TREE,
 } from '../toolbox-shared';
+import { buildToolboxStyles } from '../shared/styles';
 
 // --- 样式常量 ---
-// 使用共享样式
-const STYLES = {
+// 基础样式来自 shared/styles；container / card 按本组件的结构覆盖
+const STYLES = buildToolboxStyles({
   container: LAYOUT.containerWide,
   card: CARD.base,
-  header: CARD.header,
-  body: CARD.body,
-  button: BUTTON,
-  treeNode: TREE.node,
-  input: INPUT.base,
   select: INPUT.select,
-};
+});
 
 // --- 辅助函数 ---
 const getNodeIcon = (type: string, expanded?: boolean) => {

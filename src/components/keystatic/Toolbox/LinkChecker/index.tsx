@@ -37,19 +37,21 @@ import {
 } from 'lucide-react';
 import { GithubChecker } from '../GithubChecker';
 import {
-  LAYOUT,
   TABS,
-  CARD,
+  LAYOUT,
   BUTTON,
-  INPUT,
-  TABLE,
-  TREE,
-  PROGRESS,
-  BADGE,
-  PAGE_TITLE,
   MODAL,
-  getStatusBadge,
 } from '../toolbox-shared';
+import { buildToolboxStyles } from '../shared/styles';
+import {
+  collectChecked,
+  toggleNodeChecked,
+  toggleNodeExpanded,
+  toggleSelectAll,
+} from '../shared/tree';
+import { StatsBar } from '../shared/StatsBar';
+import { FilterDropdown } from '../shared/FilterDropdown';
+import { SortableTh } from '../shared/SortableTh';
 
 // --- 类型定义 ---
 type SubTabId = 'github' | 'link';
@@ -62,31 +64,8 @@ interface SubTab {
 }
 
 // --- 样式常量 ---
-// 合并共享样式与组件特有样式
-const STYLES = {
-  // 从共享样式导入
-  ...LAYOUT,
-  card: {
-    base: CARD.base,
-    header: CARD.header,
-    headerIcon: CARD.headerIcon,
-    headerTitle: CARD.headerTitle,
-    headerExtra: CARD.headerExtra,
-    headerCount: CARD.headerCount,
-    body: CARD.body,
-  },
-  header: CARD.header,
-  body: CARD.body,
-  input: INPUT.base,
-  button: BUTTON,
-  badge: BADGE,
-  progress: PROGRESS,
-  table: TABLE.base,
-  th: TABLE.th,
-  thSortable: TABLE.thSortable,
-  td: TABLE.td,
-  treeNode: TREE.node,
-  
+// 基础样式由 shared/styles 提供（各工具共用），这里只补本组件特有样式
+const STYLES = buildToolboxStyles({
   // 组件特有样式
   tag: {
     display: 'inline-flex',
@@ -155,7 +134,7 @@ const STYLES = {
     fontSize: '11px',
     color: '#64748b',
   },
-};
+});
 
 // --- 子标签配置 ---
 const SUB_TABS: SubTab[] = [
@@ -275,6 +254,8 @@ const getLinkStatusWeight = (status: string): number => {
 };
 
 // 资源状态排序权重
+// ⚠️ 注意：这里是「链接检测结果」域的权重（failed / stale / ok，其余状态落到默认档），
+//    与 src/utils/resourceStatus.ts 的 getStatusWeight（资源状态域）不是同一套，改动前先确认是哪一边。
 const getResourceStatusWeight = (status: string | undefined): number => {
   if (!status) return 3;
   switch (status) {
@@ -443,7 +424,6 @@ function WebsiteLinkChecker({ onDataStatusChange, onTaskStart, onTaskProgress, o
   const [isApplying, setIsApplying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [filter, setFilter] = useState<LinkFilterType[]>(['ok', '网站失效', '网站超时', 'excluded']);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(true);
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
@@ -489,22 +469,6 @@ function WebsiteLinkChecker({ onDataStatusChange, onTaskStart, onTaskProgress, o
     }
   };
 
-  // 筛选下拉框外部点击引用
-  const filterDropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (filterDropdownRef.current && !filterDropdownRef.current.contains(event.target as Node)) {
-        setIsFilterOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-
   // 排序状态 - 默认按状态排序
   const [sortField, setSortField] = useState<LinkSortField>('status');
   const [sortDirection, setSortDirection] = useState<LinkSortDirection>('asc');
@@ -543,17 +507,6 @@ function WebsiteLinkChecker({ onDataStatusChange, onTaskStart, onTaskProgress, o
       setSortField(field);
       setSortDirection('desc');
     }
-  };
-
-  // 渲染排序图标
-  const renderSortIcon = (field: LinkSortField) => {
-    if (sortField !== field) {
-      return <ArrowUpDown size={14} style={{ color: '#94a3b8', marginLeft: '4px' }} />;
-    }
-    if (sortDirection === 'asc') {
-      return <ArrowUp size={14} style={{ color: '#2563eb', marginLeft: '4px' }} />;
-    }
-    return <ArrowDown size={14} style={{ color: '#2563eb', marginLeft: '4px' }} />;
   };
 
   // 筛选和排序后的结果
@@ -691,96 +644,14 @@ function WebsiteLinkChecker({ onDataStatusChange, onTaskStart, onTaskProgress, o
   };
 
   // 更新节点状态
-  const updateNodeStatus = (node: LinkTreeNode): LinkTreeNode => {
-    if (!node.children || node.children.length === 0) {
-      return { ...node, indeterminate: false };
-    }
-    
-    const updatedChildren = node.children.map(updateNodeStatus);
-    const checkedCount = updatedChildren.filter(c => c.checked).length;
-    const indeterminateCount = updatedChildren.filter(c => c.indeterminate).length;
-    
-    return {
-      ...node,
-      children: updatedChildren,
-      checked: checkedCount === updatedChildren.length && checkedCount > 0,
-      indeterminate: indeterminateCount > 0 || (checkedCount > 0 && checkedCount < updatedChildren.length),
-    };
-  };
-
-  // 递归设置所有子节点的 checked 状态
-  const setAllChildrenChecked = (node: LinkTreeNode, checked: boolean): LinkTreeNode => {
-    if (!node.children || node.children.length === 0) {
-      return { ...node, checked, indeterminate: false };
-    }
-    
-    return {
-      ...node,
-      checked,
-      indeterminate: false,
-      children: node.children.map(child => setAllChildrenChecked(child, checked)),
-    };
-  };
-
-  // 切换节点选中状态
-  const toggleNodeChecked = (nodes: LinkTreeNode[], nodeId: string): LinkTreeNode[] => {
-    return nodes.map(node => {
-      if (node.id === nodeId) {
-        const newNode = setAllChildrenChecked(node, !node.checked);
-        return newNode;
-      }
-      
-      if (node.children) {
-        return {
-          ...node,
-          children: toggleNodeChecked(node.children, nodeId),
-        };
-      }
-      
-      return node;
-    }).map(updateNodeStatus);
-  };
-
-  // 切换节点展开状态
-  const toggleNodeExpanded = (nodes: LinkTreeNode[], nodeId: string): LinkTreeNode[] => {
-    return nodes.map(node => {
-      if (node.id === nodeId) {
-        return { ...node, expanded: !node.expanded };
-      }
-      
-      if (node.children) {
-        return {
-          ...node,
-          children: toggleNodeExpanded(node.children, nodeId),
-        };
-      }
-      
-      return node;
-    });
-  };
-
-  // 全选/取消全选
+  // 全选/取消全选（实现见 shared/tree）
   const handleSelectAll = () => {
-    const allChecked = treeData.every(node => node.checked);
-    setTreeData(treeData.map(node => setAllChildrenChecked(node, !allChecked)).map(updateNodeStatus));
+    setTreeData(toggleSelectAll(treeData));
   };
 
-  // 获取所有选中的链接
-  const getSelectedLinks = (nodes: LinkTreeNode[]): LinkInfo[] => {
-    const links: LinkInfo[] = [];
-    
-    const traverse = (node: LinkTreeNode) => {
-      if (node.type === 'resource' && node.checked && node.link) {
-        links.push(node.link);
-      }
-      if (node.children) {
-        node.children.forEach(traverse);
-      }
-    };
-    
-    nodes.forEach(traverse);
-    return links;
-  };
+  // 获取所有选中的链接（实现见 shared/tree）
+  const getSelectedLinks = (nodes: LinkTreeNode[]): LinkInfo[] =>
+    collectChecked(nodes, (node) => (node.type === 'resource' && node.checked ? node.link : undefined));
 
   // 统计选中数量
   const getSelectedCount = (nodes: LinkTreeNode[]): number => {
@@ -1247,105 +1118,28 @@ function WebsiteLinkChecker({ onDataStatusChange, onTaskStart, onTaskProgress, o
       {checkResults.length > 0 && (
         <div style={{ ...STYLES.card.base, overflow: 'visible' }}>
           <div style={STYLES.body}>
-            <div style={{ display: 'flex', gap: '24px', marginBottom: '16px', flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#22c55e' }} />
-                <span style={{ fontSize: '14px', color: '#334155' }}>正常: {stats.ok}</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ef4444' }} />
-                <span style={{ fontSize: '14px', color: '#334155' }}>网站失效: {stats['网站失效']}</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#f59e0b' }} />
-                <span style={{ fontSize: '14px', color: '#334155' }}>网站超时: {stats['网站超时']}</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#94a3b8' }} />
-                <span style={{ fontSize: '14px', color: '#334155' }}>已排除: {stats.excluded}</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#dc2626' }} />
-                <span style={{ fontSize: '14px', color: '#334155' }}>全部异常: {stats.allFailed}</span>
-              </div>
-            </div>
+            <StatsBar
+              items={[
+                { color: '#22c55e', label: '正常', value: stats.ok },
+                { color: '#ef4444', label: '网站失效', value: stats['网站失效'] },
+                { color: '#f59e0b', label: '网站超时', value: stats['网站超时'] },
+                { color: '#94a3b8', label: '已排除', value: stats.excluded },
+                { color: '#dc2626', label: '全部异常', value: stats.allFailed },
+              ]}
+            />
             
             
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
-              <div style={{ position: 'relative' }} ref={filterDropdownRef}>
-                <button
-                  onClick={() => setIsFilterOpen(!isFilterOpen)}
-                  style={{
-                    ...STYLES.button.secondary,
-                    background: 'white',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    padding: '8px 12px'
-                  }}
-                >
-                  <Filter size={16} style={{ color: '#64748b' }} />
-                  <span>筛选 ({filter.length})</span>
-                  {isFilterOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-                </button>
-                
-                <div 
-                  className={`portal-popup ${isFilterOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`}
-                  style={{
-                  position: 'absolute',
-                  top: '100%',
-                  right: 0,
-                  marginTop: '12px',
-                  background: 'white',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '12px',
-                  boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)',
-                  padding: '8px',
-                  zIndex: 50,
-                  minWidth: '200px',
-                  visibility: isFilterOpen ? 'visible' : 'hidden',
-                  transformOrigin: 'top right',
-                  pointerEvents: isFilterOpen ? 'auto' : 'none'
-                }}>
-                  {[
-                    { value: 'ok', label: '正常', count: stats.ok, color: '#22c55e' },
-                      { value: '网站失效', label: '网站失效', count: stats['网站失效'], color: '#ef4444' },
-                      { value: '网站超时', label: '网站超时', count: stats['网站超时'], color: '#f59e0b' },
-                      { value: 'excluded', label: '已排除', count: stats.excluded, color: '#94a3b8' }
-                    ].map(opt => (
-                      <label
-                        key={opt.value}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '8px',
-                          padding: '6px 8px',
-                          cursor: 'pointer',
-                          borderRadius: '4px',
-                          transition: 'background 0.2s'
-                        }}
-                        onMouseEnter={e => e.currentTarget.style.background = '#f1f5f9'}
-                        onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={filter.includes(opt.value as LinkFilterType)}
-                          onChange={e => {
-                            if (e.target.checked) {
-                              setFilter([...filter, opt.value as LinkFilterType]);
-                            } else {
-                              setFilter(filter.filter(f => f !== opt.value));
-                            }
-                          }}
-                          style={{ cursor: 'pointer' }}
-                        />
-                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: opt.color }} />
-                        <span style={{ fontSize: '13px', color: '#334155', flex: 1 }}>{opt.label}</span>
-                        <span style={{ fontSize: '12px', color: '#94a3b8' }}>{opt.count}</span>
-                      </label>
-                    ))}
-                </div>
-              </div>
+              <FilterDropdown
+                options={[
+                  { value: 'ok', label: '正常', count: stats.ok, color: '#22c55e' },
+                  { value: '网站失效', label: '网站失效', count: stats['网站失效'], color: '#ef4444' },
+                  { value: '网站超时', label: '网站超时', count: stats['网站超时'], color: '#f59e0b' },
+                  { value: 'excluded', label: '已排除', count: stats.excluded, color: '#94a3b8' },
+                ]}
+                selected={filter}
+                onChange={(next) => setFilter(next as LinkFilterType[])}
+              />
               
               
               <button 
@@ -1429,50 +1223,10 @@ function WebsiteLinkChecker({ onDataStatusChange, onTaskStart, onTaskProgress, o
                   </th>
                   <th style={STYLES.th}>链接</th>
                   <th style={STYLES.th}>资源名称</th>
-                  <th 
-                    style={STYLES.thSortable}
-                    onClick={() => handleSort('resourceStatus')}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#f1f5f9'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = '#f8fafc'}
-                  >
-                    <span style={{ display: 'flex', alignItems: 'center' }}>
-                      后台状态
-                      {renderSortIcon('resourceStatus')}
-                    </span>
-                  </th>
-                  <th 
-                    style={STYLES.thSortable}
-                    onClick={() => handleSort('status')}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#f1f5f9'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = '#f8fafc'}
-                  >
-                    <span style={{ display: 'flex', alignItems: 'center' }}>
-                      检测状态
-                      {renderSortIcon('status')}
-                    </span>
-                  </th>
-                  <th 
-                    style={STYLES.thSortable}
-                    onClick={() => handleSort('httpCode')}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#f1f5f9'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = '#f8fafc'}
-                  >
-                    <span style={{ display: 'flex', alignItems: 'center' }}>
-                      HTTP
-                      {renderSortIcon('httpCode')}
-                    </span>
-                  </th>
-                  <th 
-                    style={STYLES.thSortable}
-                    onClick={() => handleSort('domain')}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#f1f5f9'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = '#f8fafc'}
-                  >
-                    <span style={{ display: 'flex', alignItems: 'center' }}>
-                      域名
-                      {renderSortIcon('domain')}
-                    </span>
-                  </th>
+                  <SortableTh label="后台状态" field="resourceStatus" sortField={sortField} sortDirection={sortDirection} onSort={handleSort} />
+                  <SortableTh label="检测状态" field="status" sortField={sortField} sortDirection={sortDirection} onSort={handleSort} />
+                  <SortableTh label="HTTP" field="httpCode" sortField={sortField} sortDirection={sortDirection} onSort={handleSort} />
+                  <SortableTh label="域名" field="domain" sortField={sortField} sortDirection={sortDirection} onSort={handleSort} />
                 </tr>
               </thead>
               <tbody>

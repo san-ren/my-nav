@@ -1,31 +1,12 @@
 // BatchAdder 样式常量
-// 使用共享样式模块
-import {
-  LAYOUT,
-  CARD,
-  BUTTON,
-  INPUT,
-} from '../toolbox-shared';
+// 基础样式来自 shared/styles（各工具共用），这里只补本组件特有样式
+import { INPUT } from '../toolbox-shared';
+import { buildToolboxStyles } from '../shared/styles';
 
-export const STYLES = {
-  // 从共享样式导入
-  container: LAYOUT.container,
-  card: {
-    base: CARD.base,
-    header: CARD.header,
-    headerIcon: CARD.headerIcon,
-    headerTitle: CARD.headerTitle,
-    headerExtra: CARD.headerExtra,
-    headerCount: CARD.headerCount,
-    body: CARD.body,
-  },
-  header: CARD.header,
-  body: CARD.body,
-  input: INPUT.base,
+export const STYLES = buildToolboxStyles({
   textarea: INPUT.textarea,
-  button: BUTTON,
   select: INPUT.select,
-  
+
   // 组件特有样式
   resourceCard: {
     border: '1px solid #e2e8f0',
@@ -47,20 +28,7 @@ export const STYLES = {
     overflow: 'hidden',
     flexShrink: 0,
   },
-};
+});
 
-// 状态徽章辅助函数
-export const getStatusBadge = (status: string) => {
-  switch (status) {
-    case 'pending':
-      return { text: '待解析', color: '#64748b', bg: '#f1f5f9' };
-    case 'parsing':
-      return { text: '解析中...', color: '#2563eb', bg: '#eff6ff' };
-    case 'ready':
-      return { text: '就绪', color: '#22c55e', bg: '#dcfce7' };
-    case 'error':
-      return { text: '解析失败', color: '#ef4444', bg: '#fee2e2' };
-    default:
-      return { text: status, color: '#64748b', bg: '#f1f5f9' };
-  }
-};
+// 状态徽章辅助函数：统一来自 src/utils/resourceStatus.ts（唯一真源）
+export { getStatusBadge } from '../../../../utils/resourceStatus';
