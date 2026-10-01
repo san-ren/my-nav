@@ -1,29 +1,24 @@
 // LinkChecker 工具函数
-import fs from 'node:fs';
-import path from 'node:path';
-import { CONFIG, type LinkInfo, type CheckResult, type StatusUpdate } from '../types';
+import { CONFIG, type LinkInfo, type CheckResult } from '../types';
+import { safeFetch } from '../../api-shared/fetch';
+import { readContentFiles } from '../../api-shared/content';
+import { applyStatusUpdates as applyStatusUpdatesShared, type StatusUpdate } from '../../api-shared/updates';
 
-// 安全请求
-export async function safeFetch(url: string, timeout: number = CONFIG.timeout): Promise<{ ok: boolean; status: number } | null> {
-  try {
-    const controller = new AbortController();
-    const id = setTimeout(() => controller.abort(), timeout);
-    
-    const res = await fetch(url, {
-      method: 'HEAD',
-      signal: controller.signal,
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-      },
-      redirect: 'follow',
-    });
-    
-    clearTimeout(id);
-    return { ok: res.ok, status: res.status };
-  } catch {
-    return null;
-  }
+// 探活请求头：多数站点会拒绝非浏览器 UA，所以这里不用公共默认 UA
+const PROBE_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+};
+
+// 探活单个 URL（HEAD 请求；超时/失败返回 null）
+async function probe(url: string): Promise<{ ok: boolean; status: number } | null> {
+  const res = await safeFetch(url, {
+    method: 'HEAD',
+    timeout: CONFIG.timeout,
+    headers: PROBE_HEADERS,
+  });
+
+  return res ? { ok: res.ok, status: res.status } : null;
 }
 
 // 递归查找 URL
@@ -82,27 +77,13 @@ function findUrls(obj: any, source: string, path: string[], links: LinkInfo[], s
 
 // 扫描所有链接
 export function scanAllLinks() {
-  const contentDir = path.join(process.cwd(), CONFIG.contentDir);
   const links: LinkInfo[] = [];
   const seen = new Set<string>();
-  
-  if (!fs.existsSync(contentDir)) {
-    return { total: 0, unique: 0, links: [] };
+
+  for (const { file, data } of readContentFiles('[LinkCheck]')) {
+    findUrls(data, file, [], links, seen);
   }
-  
-  const files = fs.readdirSync(contentDir).filter(f => f.endsWith('.json'));
-  
-  for (const file of files) {
-    const filePath = path.join(contentDir, file);
-    try {
-      const content = fs.readFileSync(filePath, 'utf-8');
-      const json = JSON.parse(content);
-      findUrls(json, file, [], links, seen);
-    } catch (e) {
-      console.error(`[LinkCheck] 解析文件失败: ${file}`, e);
-    }
-  }
-  
+
   return {
     total: links.length,
     unique: seen.size,
@@ -127,7 +108,7 @@ export async function checkLink(url: string, excludedDomains: string[]): Promise
       };
     }
     
-    const result = await safeFetch(url);
+    const result = await probe(url);
     
     if (!result) {
       return { url, domain, status: '网站超时', error: '请求超时' };
@@ -139,7 +120,7 @@ export async function checkLink(url: string, excludedDomains: string[]): Promise
     
     if (result.status >= 400 && result.status < 500) {
       if (result.status === 403) {
-        const getResult = await safeFetch(url);
+        const getResult = await probe(url);
         if (getResult && getResult.ok) {
           return { url, domain, status: 'ok', httpCode: getResult.status };
         }
@@ -152,49 +133,7 @@ export async function checkLink(url: string, excludedDomains: string[]): Promise
   }
 }
 
-// 应用状态更新
-export function applyStatusUpdates(updates: StatusUpdate[]): { success: number; failed: number } {
-  const contentDir = path.join(process.cwd(), CONFIG.contentDir);
-  const fileUpdates = new Map<string, StatusUpdate[]>();
-  
-  for (const update of updates) {
-    if (!fileUpdates.has(update.source)) {
-      fileUpdates.set(update.source, []);
-    }
-    fileUpdates.get(update.source)!.push(update);
-  }
-  
-  let success = 0;
-  let failed = 0;
-  
-  for (const [file, fileUpdateList] of fileUpdates) {
-    const filePath = path.join(contentDir, file);
-    try {
-      const content = fs.readFileSync(filePath, 'utf-8');
-      const json = JSON.parse(content);
-      
-      for (const update of fileUpdateList) {
-        let target: any = json;
-        for (let i = 0; i < update.path.length - 1; i++) {
-          const key = update.path[i];
-          if (key.startsWith('[') && key.endsWith(']')) {
-            target = target[parseInt(key.slice(1, -1))];
-          } else {
-            target = target[key];
-          }
-        }
-        if (target && typeof target === 'object') {
-          target.status = update.status;
-          success++;
-        }
-      }
-      
-      fs.writeFileSync(filePath, JSON.stringify(json, null, 2), 'utf-8');
-    } catch (e) {
-      console.error(`[LinkCheck] 更新文件失败: ${file}`, e);
-      failed++;
-    }
-  }
-  
-  return { success, failed };
+// 应用状态更新（公共实现，保留 [LinkCheck] 日志前缀）
+export function applyStatusUpdates(updates: StatusUpdate[]) {
+  return applyStatusUpdatesShared(updates, '[LinkCheck]');
 }

@@ -1,6 +1,7 @@
 // GithubChecker API 入口
 import type { APIRoute } from 'astro';
 import { CONFIG, type CheckResult } from '../types';
+import { jsonResponse, errorResponse } from '../../api-shared/response';
 import { scanGithubRepos, checkRepo, applyStatusUpdates } from './utils';
 
 
@@ -14,11 +15,7 @@ export const GET: APIRoute = async ({ url }) => {
   
   // 模式 1: 扫描所有 GitHub 链接
   if (mode === 'scan') {
-    const result = scanGithubRepos();
-    return new Response(JSON.stringify(result), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(scanGithubRepos());
   }
   
   // 模式 2: 检查单个仓库
@@ -27,28 +24,24 @@ export const GET: APIRoute = async ({ url }) => {
     const repo = url.searchParams.get('repo');
     
     if (!owner || !repo) {
-      return new Response(JSON.stringify({ error: '缺少 owner 或 repo 参数' }), { status: 400 });
+      return errorResponse('缺少 owner 或 repo 参数');
     }
     
-    const result = await checkRepo(owner, repo, token || undefined);
-    return new Response(JSON.stringify(result), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(await checkRepo(owner, repo, token || undefined));
   }
   
   // 模式 3: 批量检查
   if (mode === 'batch') {
     const reposParam = url.searchParams.get('repos');
     if (!reposParam) {
-      return new Response(JSON.stringify({ error: '缺少 repos 参数' }), { status: 400 });
+      return errorResponse('缺少 repos 参数');
     }
     
     let repos: { owner: string; repo: string }[];
     try {
       repos = JSON.parse(reposParam);
     } catch {
-      return new Response(JSON.stringify({ error: '无效的 repos JSON' }), { status: 400 });
+      return errorResponse('无效的 repos JSON');
     }
     
     const results: CheckResult[] = [];
@@ -58,13 +51,10 @@ export const GET: APIRoute = async ({ url }) => {
       await new Promise(resolve => setTimeout(resolve, token ? 100 : 1000));
     }
     
-    return new Response(JSON.stringify(results), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(results);
   }
   
-  return new Response(JSON.stringify({ error: '未知模式' }), { status: 400 });
+  return errorResponse('未知模式');
 };
 
 // --- POST: 应用更新 ---
@@ -74,15 +64,11 @@ export const POST: APIRoute = async ({ request }) => {
     const { updates } = body as { updates: { source: string; path: string[]; status: string }[] };
     
     if (!updates || !Array.isArray(updates)) {
-      return new Response(JSON.stringify({ error: '缺少 updates 参数' }), { status: 400 });
+      return errorResponse('缺少 updates 参数');
     }
     
-    const result = applyStatusUpdates(updates);
-    return new Response(JSON.stringify(result), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(applyStatusUpdates(updates));
   } catch (e: any) {
-    return new Response(JSON.stringify({ error: e.message }), { status: 500 });
+    return errorResponse(e.message, 500);
   }
 };

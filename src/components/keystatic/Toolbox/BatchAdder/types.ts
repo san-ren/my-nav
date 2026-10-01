@@ -63,12 +63,5 @@ export interface DuplicateCheckResult {
   uniqueResources: ParsedResource[];
 }
 
-// API 配置
-export const CONFIG = {
-  localIconPath: 'public/images/logos',
-  publicIconPrefix: '/images/logos',
-  githubToken: typeof import.meta !== 'undefined' ? (import.meta.env.GITHUB_TOKEN || '') : '',
-  timeout: 10000,
-  maxDownloadSize: 5 * 1024 * 1024,
-  contentDir: 'src/content/nav-groups',
-};
+// 说明：原来此处的 CONFIG 与 ToolboxField/smart-parse.ts 的 CONFIG 重复且已无引用，
+// 解析相关配置统一由 smart-parse.ts 自己维护；内容目录统一见 Toolbox/api-shared/content.ts。

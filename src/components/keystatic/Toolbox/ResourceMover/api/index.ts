@@ -1,6 +1,7 @@
 // ResourceMover API 入口
 import type { APIRoute } from 'astro';
 import { scanAllResources, getAllResources, getTargetLocations, moveResources, getResourceList, createGroup, createCategory, createTab } from './utils';
+import { jsonResponse, errorResponse } from '../../api-shared/response';
 
 // 强制动态模式
 export const prerender = false;
@@ -11,29 +12,17 @@ export const GET: APIRoute = async ({ url }) => {
   
   // 模式 1: 扫描所有资源结构
   if (mode === 'scan') {
-    const result = scanAllResources();
-    return new Response(JSON.stringify(result), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(scanAllResources());
   }
   
   // 模式 2: 获取所有资源项
   if (mode === 'resources') {
-    const result = getAllResources();
-    return new Response(JSON.stringify(result), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(getAllResources());
   }
   
   // 模式 3: 获取目标位置列表
   if (mode === 'targets') {
-    const result = getTargetLocations();
-    return new Response(JSON.stringify(result), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(getTargetLocations());
   }
   
   // 模式 4: 获取指定位置的资源列表
@@ -44,17 +33,13 @@ export const GET: APIRoute = async ({ url }) => {
     const tabIndex = tabIndexStr ? parseInt(tabIndexStr, 10) : undefined;
     
     if (!file || !categoryName) {
-      return new Response(JSON.stringify({ error: '缺少参数' }), { status: 400 });
+      return errorResponse('缺少参数');
     }
     
-    const result = getResourceList(file, categoryName, tabIndex);
-    return new Response(JSON.stringify(result), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(getResourceList(file, categoryName, tabIndex));
   }
   
-  return new Response(JSON.stringify({ error: '未知模式' }), { status: 400 });
+  return errorResponse('未知模式');
 };
 
 // --- POST: 移动资源 ---
@@ -79,14 +64,11 @@ export const POST: APIRoute = async ({ request }) => {
       } else if (type === 'tab') {
         result = createTab(tab || {});
       } else {
-        return new Response(JSON.stringify({ success: false, message: '未知的创建类型' }), { status: 400 });
+        return jsonResponse({ success: false, message: '未知的创建类型' }, 400);
       }
       
-      const status = result.success ? 200 : 400;
-      return new Response(JSON.stringify(result), {
-        status,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      // 创建失败（重名 / 缺字段 / 文件不存在）沿用 400
+      return jsonResponse(result, result.success ? 200 : 400);
     }
     
     const { sourceItems, target } = body as { 
@@ -95,19 +77,15 @@ export const POST: APIRoute = async ({ request }) => {
     };
     
     if (!sourceItems || !Array.isArray(sourceItems) || sourceItems.length === 0) {
-      return new Response(JSON.stringify({ error: '缺少源资源' }), { status: 400 });
+      return errorResponse('缺少源资源');
     }
     
     if (!target) {
-      return new Response(JSON.stringify({ error: '缺少目标位置' }), { status: 400 });
+      return errorResponse('缺少目标位置');
     }
     
-    const result = moveResources(sourceItems, target);
-    return new Response(JSON.stringify(result), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(moveResources(sourceItems, target));
   } catch (e: any) {
-    return new Response(JSON.stringify({ error: e.message }), { status: 500 });
+    return errorResponse(e.message, 500);
   }
 };

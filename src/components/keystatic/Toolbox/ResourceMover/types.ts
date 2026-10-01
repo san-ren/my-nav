@@ -1,9 +1,5 @@
 // ResourceMover 类型定义
 
-export const CONFIG = {
-  contentDir: 'src/content/nav-groups',
-};
-
 // 资源类型
 export type ResourceType = 'card' | 'tab' | 'list';
 

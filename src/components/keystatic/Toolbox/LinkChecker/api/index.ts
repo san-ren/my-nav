@@ -1,6 +1,7 @@
 // LinkChecker API 入口
 import type { APIRoute } from 'astro';
 import { CONFIG, type CheckResult } from '../types';
+import { jsonResponse, errorResponse } from '../../api-shared/response';
 import { scanAllLinks, checkLink, applyStatusUpdates } from './utils';
 
 
@@ -18,39 +19,31 @@ export const GET: APIRoute = async ({ url }) => {
   
   // 模式 1: 扫描所有链接
   if (mode === 'scan') {
-    const result = scanAllLinks();
-    return new Response(JSON.stringify(result), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(scanAllLinks());
   }
   
   // 模式 2: 检查单个链接
   if (mode === 'check') {
     const targetUrl = url.searchParams.get('url');
     if (!targetUrl) {
-      return new Response(JSON.stringify({ error: '缺少 url 参数' }), { status: 400 });
+      return errorResponse('缺少 url 参数');
     }
     
-    const result = await checkLink(targetUrl, excludedDomains);
-    return new Response(JSON.stringify(result), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(await checkLink(targetUrl, excludedDomains));
   }
   
   // 模式 3: 批量检查
   if (mode === 'batch') {
     const urlsParam = url.searchParams.get('urls');
     if (!urlsParam) {
-      return new Response(JSON.stringify({ error: '缺少 urls 参数' }), { status: 400 });
+      return errorResponse('缺少 urls 参数');
     }
     
     let urls: string[];
     try {
       urls = JSON.parse(urlsParam);
     } catch {
-      return new Response(JSON.stringify({ error: '无效的 urls JSON' }), { status: 400 });
+      return errorResponse('无效的 urls JSON');
     }
     
     const results: CheckResult[] = [];
@@ -64,21 +57,15 @@ export const GET: APIRoute = async ({ url }) => {
       results.push(...batchResults);
     }
     
-    return new Response(JSON.stringify(results), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(results);
   }
   
   // 模式 4: 获取默认排除域名
   if (mode === 'excluded') {
-    return new Response(JSON.stringify(CONFIG.defaultExcludedDomains), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(CONFIG.defaultExcludedDomains);
   }
   
-  return new Response(JSON.stringify({ error: '未知模式' }), { status: 400 });
+  return errorResponse('未知模式');
 };
 
 // --- POST: 应用更新 ---
@@ -88,15 +75,11 @@ export const POST: APIRoute = async ({ request }) => {
     const { updates } = body as { updates: { source: string; path: string[]; status: string }[] };
     
     if (!updates || !Array.isArray(updates)) {
-      return new Response(JSON.stringify({ error: '缺少 updates 参数' }), { status: 400 });
+      return errorResponse('缺少 updates 参数');
     }
     
-    const result = applyStatusUpdates(updates);
-    return new Response(JSON.stringify(result), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(applyStatusUpdates(updates));
   } catch (e: any) {
-    return new Response(JSON.stringify({ error: e.message }), { status: 500 });
+    return errorResponse(e.message, 500);
   }
 };

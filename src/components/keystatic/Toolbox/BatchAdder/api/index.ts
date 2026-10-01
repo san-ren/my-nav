@@ -3,7 +3,8 @@
 import type { APIRoute } from 'astro';
 import { parseUrl, parseUrls } from './utils';
 import { getGroups, addResourceToGroup, addAsNewTab, addAsNewCategory, checkDuplicates } from './dataOperations';
-import type { ParseResult, AddResult } from '../types';
+import { jsonResponse, errorResponse } from '../../api-shared/response';
+import type { AddResult } from '../types';
 
 // 强制动态模式
 export const prerender = false;
@@ -14,28 +15,20 @@ export const GET: APIRoute = async ({ url }) => {
   
   // 模式 1: 获取分组列表
   if (mode === 'groups') {
-    const groups = getGroups();
-    return new Response(JSON.stringify(groups), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(getGroups());
   }
   
   // 模式 2: 解析单个 URL（转发到 smart-parse）
   if (mode === 'parse') {
     const targetUrl = url.searchParams.get('url');
     if (!targetUrl) {
-      return new Response(JSON.stringify({ error: '缺少 url 参数' }), { status: 400 });
+      return errorResponse('缺少 url 参数');
     }
     
-    const result = await parseUrl(targetUrl);
-    return new Response(JSON.stringify(result), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(await parseUrl(targetUrl));
   }
   
-  return new Response(JSON.stringify({ error: '未知模式' }), { status: 400 });
+  return errorResponse('未知模式');
 };
 
 // --- POST: 批量解析或添加 ---
@@ -46,26 +39,18 @@ export const POST: APIRoute = async ({ request }) => {
     // 批量解析（并行调用 smart-parse API）
     if (body.urls && Array.isArray(body.urls)) {
       const concurrency = body.concurrency || 10;
-      const results = await parseUrls(body.urls, concurrency);
-      
-      return new Response(JSON.stringify(results), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return jsonResponse(await parseUrls(body.urls, concurrency));
     }
     
     // 添加资源
     if (body.action === 'add' && body.resource && body.groupFile) {
-      const result = addResourceToGroup(
-        body.groupFile,
-        body.resource,
-        body.target || { type: 'top' }
+      return jsonResponse(
+        addResourceToGroup(
+          body.groupFile,
+          body.resource,
+          body.target || { type: 'top' }
+        )
       );
-      
-      return new Response(JSON.stringify(result), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      });
     }
     
     // 批量添加
@@ -81,53 +66,39 @@ export const POST: APIRoute = async ({ request }) => {
         results.push(result);
       }
       
-      return new Response(JSON.stringify(results), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return jsonResponse(results);
     }
     
     // 作为新Tab添加
     if (body.action === 'add-as-new-tab' && body.groupFile && body.tabName && body.resources) {
-      const results = addAsNewTab(
-        body.groupFile,
-        body.categoryIndex,
-        body.tabName,
-        body.resources
+      return jsonResponse(
+        addAsNewTab(
+          body.groupFile,
+          body.categoryIndex,
+          body.tabName,
+          body.resources
+        )
       );
-      
-      return new Response(JSON.stringify(results), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      });
     }
     
     // 作为新分类添加
     if (body.action === 'add-as-new-category' && body.groupFile && body.categoryName && body.resources) {
-      const results = addAsNewCategory(
-        body.groupFile,
-        body.categoryName,
-        body.resources
+      return jsonResponse(
+        addAsNewCategory(
+          body.groupFile,
+          body.categoryName,
+          body.resources
+        )
       );
-      
-      return new Response(JSON.stringify(results), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      });
     }
     
     // 检测重复
     if (body.action === 'check-duplicates' && body.resources && Array.isArray(body.resources)) {
-      const result = checkDuplicates(body.resources);
-      
-      return new Response(JSON.stringify(result), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return jsonResponse(checkDuplicates(body.resources));
     }
     
-    return new Response(JSON.stringify({ error: '无效的请求体' }), { status: 400 });
+    return errorResponse('无效的请求体');
   } catch (e: any) {
-    return new Response(JSON.stringify({ error: e.message }), { status: 500 });
+    return errorResponse(e.message, 500);
   }
 };

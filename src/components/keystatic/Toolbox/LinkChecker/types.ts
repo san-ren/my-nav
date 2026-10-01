@@ -2,7 +2,6 @@
 
 export const CONFIG = {
   timeout: 15000,
-  contentDir: 'src/content/nav-groups',
   defaultExcludedDomains: [
     'github.com',
     'play.google.com',
@@ -37,8 +36,5 @@ export interface ScanResult {
   links: LinkInfo[];
 }
 
-export interface StatusUpdate {
-  source: string;
-  path: string[];
-  status: string;
-}
+// 状态更新结构由服务端公共库统一定义（纯类型，无运行时依赖）
+export type { StatusUpdate } from '../api-shared/types';

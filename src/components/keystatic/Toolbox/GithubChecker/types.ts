@@ -2,7 +2,6 @@
 
 export const CONFIG = {
   timeout: 15000,
-  contentDir: 'src/content/nav-groups',
   githubToken: typeof import.meta !== 'undefined' ? (import.meta.env.GITHUB_TOKEN || '') : '',
 };
 
@@ -32,8 +31,5 @@ export interface ScanResult {
   repos: GitHubRepoInfo[];
 }
 
-export interface StatusUpdate {
-  source: string;
-  path: string[];
-  status: string;
-}
+// 状态更新结构由服务端公共库统一定义（纯类型，无运行时依赖）
+export type { StatusUpdate } from '../api-shared/types';
