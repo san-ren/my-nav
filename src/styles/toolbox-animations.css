@@ -224,38 +224,6 @@
   background: #eff6ff;
 }
 
-/* ==================== Toast 动画 ==================== */
-
-@keyframes toast-slide-in {
-  from {
-    opacity: 0;
-    transform: translateX(100px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes toast-slide-out {
-  from {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateX(100px);
-  }
-}
-
-.tb-toast {
-  animation: toast-slide-in 0.3s ease-out;
-}
-
-.tb-toast-exit {
-  animation: toast-slide-out 0.3s ease-in forwards;
-}
-
 /* ==================== 骨架屏动画 ==================== */
 
 @keyframes skeleton-loading {

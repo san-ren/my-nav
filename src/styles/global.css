@@ -7,10 +7,6 @@
 @import "./plugins/anim-fade-up.css";
 @import "./plugins/anim-wave.css";
 
-/* 📤 引入分享导出模态框样式 */
-@import "./share-export.css";
-
-
 @import "tailwindcss";
 @config "../../tailwind.config.mjs";
 
@@ -106,12 +102,7 @@ body::before {
    页面动画样式
    ============================================ */
 
-/* Tab 内容淡入动画 */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
+/* Tab 内容淡入动画（@keyframes fadeInUp 见 animations.css，此处不再重复定义以免同名覆盖） */
 .animate-fade-in {
   animation: fadeInUp 0.4s ease-out forwards;
 }

@@ -418,38 +418,6 @@
 }
 
 /* ============================================
-   Toast 通知
-   ============================================ */
-
-.tb-toast-container {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  pointer-events: none;
-}
-
-.tb-toast {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 20px;
-  background: var(--tb-card-bg);
-  border-radius: var(--tb-radius-sm);
-  box-shadow: var(--tb-shadow-lg);
-  border-left: 4px solid var(--tb-success);
-  pointer-events: auto;
-  max-width: 400px;
-}
-
-.tb-toast-error { border-left-color: var(--tb-danger); }
-.tb-toast-warning { border-left-color: var(--tb-warning); }
-.tb-toast-info { border-left-color: var(--tb-primary); }
-
-/* ============================================
    表格
    ============================================ */
 
@@ -628,14 +596,5 @@
   .tb-toolbar-left,
   .tb-toolbar-right {
     justify-content: center;
-  }
-  
-  .tb-toast-container {
-    left: 16px;
-    right: 16px;
-  }
-  
-  .tb-toast {
-    max-width: 100%;
   }
 }
