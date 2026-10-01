@@ -53,8 +53,13 @@ pnpm build:admin && pnpm start
 ### 在线后台（Keystatic）的两种互斥方案
 
 `src/pages/keystatic/[...params].astro` 是自定义的 SPA 外壳（内含删除二次确认等增强），
-所以它不走官方 `keystatic()` 注入的那条同名路由。缺少的只是**后端 API**，故 admin 目标下
-只注入 `@keystatic/astro/internal/keystatic-api.js`。数据模式在 `keystatic.config.tsx` 的
+所以它不走官方 `keystatic()` 注入的那条同名路由。缺少的只是**后端 API**，故 **dev 与 admin
+目标都不注册 `keystatic()` 全量集成**，只注入 `@keystatic/astro/internal/keystatic-api.js`
+（外加它依赖的 `virtual:keystatic-config` 虚拟模块与 `.astro/keystatic-imports.js` 预打包入口，
+见 `astro.config.mjs` 第 4 节）。**别把 `keystatic()` 加回来**：它注入的 `/keystatic/[...params]`
+是 `prerender: false` 的动态路由，dev 下会截胡自定义外壳的子路径 —— 刷新
+`/keystatic/collection/xxx` 会渲染官方页面（没有删除二次确认，也没有下面的 crypto.subtle 兜底）。
+数据模式在 `keystatic.config.tsx` 的
 `remoteStorage` 里决定，**必须在构建期确定**（会被打进产物，运行时再改无效）：
 
 | KEYSTATIC_STORAGE | 是否需要 Node 宿主 | 说明 |
@@ -228,6 +233,14 @@ curl -i 'http://127.0.0.1:3000/api/keystatic/github/login/'
   现有两道防线：`astro.config.mjs` 的 `define`（注入 `process.env.KEYSTATIC_STORAGE` 与
   `__KEYSTATIC_STORAGE__`，构建期替换为字面量）+ 源码里的 `typeof` 兜底（dev 下 Vite 不替换项目源码，靠它保命）。
   以后新增环境变量请照抄这个模式，不要直接写 `process.env.X`。
+- **局域网 IP（`http://192.168.x.x`）访问后台会因 `crypto.subtle` 缺失而加载失败**：
+  Web Crypto 只在**安全上下文**提供（https 或 `http://localhost`）。非安全上下文下
+  `crypto.subtle === undefined`，Keystatic 计算内容 digest 时抛
+  `Cannot read properties of undefined (reading 'digest')`，集合页显示 "Unable to load collection"
+  （Dashboard 可能还是好的，容易误以为内容数据坏了）。兜底在
+  `src/components/keystatic/crypto-subtle-polyfill.ts`（由 `KeystaticAdmin.tsx` 顶部引入）：
+  仅在 `crypto.subtle` 缺失时注入纯 JS 的 SHA-1/SHA-256，安全上下文自动跳过、用原生实现。
+  浏览器端 Keystatic 只用到 `subtle.digest`（`importKey`/`encrypt` 等仅存在于服务端 bundle）。
 - **Toolbox 里"通知父组件"的 effect 不能用会变的回调身份做依赖**：
   `ResourceMover` 曾把父组件每次渲染新建的 `onDataStatusChange` 写进依赖数组，effect 里又 `setState` 新对象，
   形成无限更新循环 → React 抛 `Maximum update depth exceeded` 并卸载整棵树 → `/toolbox` 白屏。

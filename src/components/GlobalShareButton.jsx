@@ -20,10 +20,11 @@ export default function GlobalShareButton() {
           })
         );
       }}
-      className="p-2 text-slate-500 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 bg-white/50 dark:bg-gray-800/50 hover:bg-brand-50 dark:hover:bg-brand-900/30 rounded-lg shadow-sm border border-gray-200/50 dark:border-gray-700/50 shrink-0 transition-all duration-200"
+      className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-gray-700/60 hover:text-brand-600 dark:hover:text-brand-400 transition-colors text-left"
       title="分享页面资源"
     >
-      <Share2 size={20} />
+      <Share2 size={18} className="shrink-0" />
+      <span>分享页面</span>
     </button>
   );
 }

@@ -15,11 +15,11 @@ export function SearchTrigger() {
         e.preventDefault(); 
         window.dispatchEvent(new CustomEvent('open-search-modal')); 
       }}
-      className="flex items-center gap-2 px-3 py-1.5 text-sm text-slate-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:ring-2 hover:ring-blue-500/20 transition-all border border-slate-200 dark:border-slate-700"
+      className="w-full max-w-md flex items-center gap-2 px-3 py-1.5 text-sm text-slate-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:ring-2 hover:ring-brand-500/20 transition-all border border-slate-200 dark:border-slate-700"
     >
-      <Search size={16} />
-      <span className="hidden sm:inline">搜索...</span>
-      <kbd className="hidden sm:flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-sans font-medium text-slate-500 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md">
+      <Search size={16} className="shrink-0" />
+      <span className="flex-1 truncate text-left">搜索...</span>
+      <kbd className="hidden sm:flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-sans font-medium text-slate-500 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md shrink-0">
         <Command size={10} />K
       </kbd>
     </button>

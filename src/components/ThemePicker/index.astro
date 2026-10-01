@@ -1,5 +1,5 @@
 ---
-import { Palette } from 'lucide-react';
+import { Palette, ChevronDown } from 'lucide-react';
 
 // 引入拆分后的子组件 (推荐方式)
 import ModeSection from './sections/ModeSection.astro';
@@ -15,15 +15,17 @@ import BackupSection from './sections/BackupSection.astro';
 <div class="relative z-50" id="theme-picker-container">
   <button 
     id="theme-btn"
-    class="p-2.5 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-xl text-slate-500 hover:text-brand-600 hover:bg-slate-100 dark:hover:bg-gray-700 transition-all shadow-sm border border-slate-200/50 dark:border-gray-700/50"
+    class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-gray-700/60 hover:text-brand-600 dark:hover:text-brand-400 transition-colors cursor-pointer"
     title="外观设置"
   >
-    <Palette size={20} />
+    <Palette size={18} className="shrink-0" />
+    <span>外观设置</span>
+    <ChevronDown size={14} className="ml-auto shrink-0 opacity-50" />
   </button>
 
   <div 
     id="theme-panel"
-    class="absolute right-0 top-14 w-72 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/50 dark:border-gray-700/50 p-4 transform transition-all duration-200 origin-top-right scale-95 opacity-0 invisible select-none max-h-[calc(100vh-100px)] h-auto overflow-y-auto custom-scrollbar"
+    class="absolute right-0 top-full mt-2 w-72 max-w-[calc(100vw-2rem)] bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/50 dark:border-gray-700/50 p-4 transform transition-all duration-200 origin-top-right scale-95 opacity-0 invisible select-none max-h-[calc(100vh-230px)] h-auto overflow-y-auto custom-scrollbar"
   >
     <ModeSection />
 

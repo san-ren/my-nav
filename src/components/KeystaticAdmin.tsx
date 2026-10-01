@@ -1,3 +1,6 @@
+// 必须先于 Keystatic 内部代码执行：非安全上下文（http + 局域网 IP）下
+// crypto.subtle 为 undefined，会导致后台集合页报 "reading 'digest'" 加载失败
+import './keystatic/crypto-subtle-polyfill';
 import React from 'react';
 import { makePage } from '@keystatic/astro/ui';
 import config from '../../keystatic.config';

@@ -10,9 +10,13 @@ import ShareExportModal from '../components/ShareExportModal.jsx';
 import ThemePicker from '../components/ThemePicker/index.astro';
 import ResourceFilter from '../components/ResourceFilter.astro';
 import siteConfig from '../content/site-settings/config.json';
-import { Menu } from 'lucide-react';
+import { Menu, MoreHorizontal, SquarePen } from 'lucide-react';
 import { sortResourcesByStatus } from '../utils/resourceStatus';
 import { buildShareTree, getNavIcon, loadNavResources } from '../utils/navData';
+
+// Keystatic 后台入口：路径跟随部署 base（github → /my-nav/keystatic，root/admin → /keystatic）
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const keystaticUrl = `${basePath}/keystatic/`;
 
 import GlobalShareButton from '../components/GlobalShareButton.jsx';
 
@@ -42,24 +46,40 @@ const CurrentIcon = getNavIcon(section.icon);
 
     <main class="layout-transition flex-1 min-w-0 md:ml-[var(--sidebar-width,17rem)] min-h-screen flex flex-col">
       {/* 顶部 Header */}
-      <header id="page-header" class="layout-transition fixed top-0 right-0 z-30 flex items-center justify-between px-4 md:px-8 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50 w-full md:w-[calc(100%-var(--sidebar-width,17rem))] transition-all duration-300">
+      <header id="page-header" class="layout-transition fixed top-0 right-0 z-30 flex items-center gap-2 md:gap-4 px-4 md:px-8 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-gray-800/50 w-full md:w-[calc(100%-var(--sidebar-width,17rem))] transition-all duration-300">
         
-        <div class="flex items-center gap-3 min-w-0">
+        <div id="header-left-group" class="flex items-center gap-3 min-w-0 max-w-[45%] shrink">
           <button id="menu-btn" class="p-2 text-slate-600 dark:text-slate-300 bg-white/80 dark:bg-gray-800/80 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 shrink-0 hover:text-brand-600 transition-colors" onclick="if(window.innerWidth < 768) window.toggleSidebarMobile(); else window.toggleSidebarPC();">
             <Menu size={20} />
           </button>
           
-          <h1 class="text-xl font-black flex items-center gap-3 text-slate-800 dark:text-white truncate">
+          <h1 class="text-xl font-black flex items-center gap-3 text-slate-800 dark:text-white truncate min-w-0">
             <div class="p-2 bg-brand-50 dark:bg-brand-900/30 rounded-lg text-brand-600 shrink-0"><CurrentIcon size={20} /></div>
             <span class="truncate">{section.name}</span>
           </h1>
         </div>
-        
-        <div class="flex items-center gap-2 md:gap-3 shrink-0">
+
+        {/* 搜索框：顶栏居中 */}
+        <div id="header-search-center" class="flex-1 min-w-0 flex items-center justify-center px-1 md:px-4">
           <SearchTrigger client:idle />
-          <ResourceFilter />
-          <GlobalShareButton client:idle />
-          <ThemePicker />
+        </div>
+        
+        <div id="header-actions-container" class="relative flex items-center gap-2 shrink-0">
+          {/* Keystatic 后台入口（新标签页打开） */}
+          <a id="keystatic-admin-link" href={keystaticUrl} target="_blank" rel="noopener noreferrer" class="p-2 text-slate-500 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 bg-white/50 dark:bg-gray-800/50 hover:bg-brand-50 dark:hover:bg-brand-900/30 rounded-lg shadow-sm border border-gray-200/50 dark:border-gray-700/50 shrink-0 transition-all duration-200" title="打开 Keystatic 后台（新标签页）" aria-label="打开 Keystatic 后台">
+            <SquarePen size={20} />
+          </a>
+
+          {/* 更多操作：状态筛选 / 分享 / 主题 折叠于此 */}
+          <button id="header-actions-trigger" class="p-2 text-slate-500 hover:text-brand-600 bg-white/80 dark:bg-gray-800/80 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 z-[60] focus:outline-none relative" title="更多操作" aria-label="更多操作" aria-haspopup="true">
+            <MoreHorizontal size={20} className="transition-transform duration-300" id="header-actions-icon" />
+          </button>
+
+          <div id="header-actions-group" class="absolute right-0 top-[calc(100%+0.5rem)] w-56 flex flex-col gap-1 p-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl rounded-2xl shadow-xl border border-gray-200/60 dark:border-gray-700/60 transition-all duration-200 origin-top-right scale-95 opacity-0 invisible pointer-events-none z-50">
+            <ResourceFilter />
+            <GlobalShareButton client:idle />
+            <ThemePicker />
+          </div>
         </div>
       </header>
 
@@ -167,6 +187,18 @@ const CurrentIcon = getNavIcon(section.icon);
 <script define:vars={{ shareTree: buildShareTree(section.groups || []), shareTitle: section.name }}>
   window.__PAGE_SHARE_TREE__ = shareTree;
   window.__PAGE_SHARE_TITLE__ = shareTitle;
+</script>
+
+{/* 顶栏「更多操作」菜单 */}
+<script>
+  import { initHeaderCollapse } from '../scripts/header-collapse';
+
+  document.addEventListener('astro:page-load', initHeaderCollapse);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeaderCollapse);
+  } else {
+    initHeaderCollapse();
+  }
 </script>
 
 {/* IntersectionObserver 页面区块定位监听 */}

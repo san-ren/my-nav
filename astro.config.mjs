@@ -1,7 +1,7 @@
 // --- START OF FILE astro.config.mjs ---
 
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { defineConfig } from 'astro/config';
-import keystatic from '@keystatic/astro';
 import node from '@astrojs/node';
 import react from "@astrojs/react";
 import markdoc from "@astrojs/markdoc";
@@ -52,16 +52,18 @@ const integrations = [
   sitemap()
 ];
 
-// 4. admin 目标：挂上 Node 适配器，并把 Keystatic 的 SSR API 路由放进生产构建
-if (isAdminTarget) {
+// 4. Keystatic 后端 API 注入（dev 与 admin 目标都需要）
+//    注意：这里故意不注册 keystatic() 全量集成，因为它会注入 /keystatic/[...params] 动态路由，
+//    在 dev 下会抢走自定义 SPA 外壳的子路径 —— 刷新 /keystatic/collection/xxx 时渲染官方页面，
+//    而官方页面缺少自定义外壳的客户端增强（删除二次确认）与非安全上下文下的 crypto.subtle 兜底。
+//    页面路由一律交给 src/pages/keystatic/[...params].astro + 404 SPA fallback，
+//    这样 dev 与生产行为保持一致，只补后端 API 即可。
+if (isAdminTarget || isDevCommand) {
   integrations.push({
-    // 注意：这里故意不注册 keystatic() 全量集成，因为它会注入 /keystatic/[...params]，
-    // 与本项目自定义的 src/pages/keystatic/[...params].astro 路由冲突。
-    // 项目自己已有 SPA 外壳页面（含删除二次确认等增强），所以只需补上后端 API 即可。
     name: 'keystatic-admin-api',
     hooks: {
-      'astro:config:setup': ({ injectRoute, updateConfig }) => {
-        console.log('🔑 [Admin] 正在注入 Keystatic API 路由 (SSR)...');
+      'astro:config:setup': ({ injectRoute, updateConfig, config }) => {
+        console.log(`🔑 [${isAdminTarget ? 'Admin' : 'Dev'}] 正在注入 Keystatic API 路由...`);
         // keystatic() 内置的虚拟模块provide，缺了它 internal/keystatic-api.js 无法解析配置
         updateConfig({
           vite: {
@@ -77,6 +79,16 @@ if (isAdminTarget) {
             optimizeDeps: { entries: ['keystatic.config.*', '.astro/keystatic-imports.js'] },
           },
         });
+        // dev 下补上 .astro/keystatic-imports.js（官方 keystatic() 会生成它，
+        // 作为 Vite 首轮依赖预打包的入口，缺了它 Keystatic UI 依赖会在运行时才被发现）
+        if (isDevCommand) {
+          const dotAstroDir = new URL('./.astro/', config.root);
+          mkdirSync(dotAstroDir, { recursive: true });
+          writeFileSync(new URL('keystatic-imports.js', dotAstroDir), `import "@keystatic/astro/ui";
+import "@keystatic/astro/api";
+import "@keystatic/core/ui";
+`);
+        }
         injectRoute({
           pattern: '/api/keystatic/[...params]',
           entrypoint: '@keystatic/astro/internal/keystatic-api.js',
@@ -114,8 +126,10 @@ if (isDevCommand) {
     },
   });
 
-  // 5.1 加载 Keystatic (仅本地)
-  integrations.push(keystatic());
+  // 5.1 Keystatic 本地后台：API 路由已在第 4 节统一注入。
+  // 这里刻意不再 push keystatic() 全量集成 —— 它会注入官方页面动态路由
+  // /keystatic/[...params]（prerender: false），在 dev 下截胡自定义 SPA 外壳的
+  // 子路径（刷新 /keystatic/collection/xxx 会渲染官方页面）。详见第 4 节注释。
 
   // 5.2 注入智能解析 API (仅开发环境)
   integrations.push({
