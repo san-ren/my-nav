@@ -1,6 +1,8 @@
 ---
 // src/pages/[id].astro
 import Layout from '../layouts/Layout.astro';
+// 分享导出模态框样式：原来由 global.css 全局引入，现按需加载
+import '../styles/share-export.css';
 import Sidebar from '../components/Sidebar/index.astro';
 import SiteCard from '../components/SiteCard/index.astro';
 import SearchModal, { SearchTrigger } from '../components/SearchModal.jsx';
@@ -8,87 +10,16 @@ import ShareExportModal from '../components/ShareExportModal.jsx';
 import ThemePicker from '../components/ThemePicker/index.astro';
 import ResourceFilter from '../components/ResourceFilter.astro';
 import siteConfig from '../content/site-settings/config.json';
-import { getCollection } from 'astro:content'; 
-import { LayoutDashboard, Star, Code, Palette, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu } from 'lucide-react';
-import { sortResourcesByStatus } from '../utils/resourceSort';
-import { attachGuidesToResources } from '../utils/guideMatcher';
+import { Menu } from 'lucide-react';
+import { sortResourcesByStatus } from '../utils/resourceStatus';
+import { buildShareTree, getNavIcon, loadNavResources } from '../utils/navData';
 
 import GlobalShareButton from '../components/GlobalShareButton.jsx';
-
-// 辅助函数：构建包含页面所有分组、分类和卡片的嵌套树形数据结构
-function buildShareTree(groups: any[]) {
-  return groups.map((group, groupIdx) => {
-    const node = {
-      id: `group-${groupIdx}`,
-      type: 'group',
-      name: group.name,
-      children: [] as any[]
-    };
-    if (group.resources && group.resources.length > 0) {
-      node.children.push(...group.resources.map((r: any) => ({ type: 'card', data: r })));
-    }
-    (group.categories || []).forEach((cat: any, catIdx: number) => {
-      const catId = `cat-${groupIdx}-${catIdx}`;
-      const catNode = {
-        id: catId,
-        type: 'category',
-        name: cat.name,
-        children: [] as any[]
-      };
-      if (cat.resources && cat.resources.length > 0) {
-        catNode.children.push(...cat.resources.map((r: any) => ({ type: 'card', data: r })));
-      }
-      (cat.tabs || []).forEach((tab: any, tabIdx: number) => {
-        const tabId = `pane-${groupIdx}-${catIdx}-${tabIdx}`;
-        const tabNode = {
-          id: tabId,
-          type: 'tab',
-          name: tab.tabName,
-          children: [] as any[]
-        };
-        if (tab.list && tab.list.length > 0) {
-          tabNode.children.push(...tab.list.map((r: any) => ({ type: 'card', data: r })));
-        }
-        if (tabNode.children.length > 0) catNode.children.push(tabNode);
-      });
-      if (catNode.children.length > 0) node.children.push(catNode);
-    });
-    return node;
-  });
-}
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const rawPages = await getCollection('nav-pages');
-  const rawGroups = await getCollection('nav-groups');
-  const guides = await getCollection('guides');
-
-  const navResources = rawPages.map(page => {
-    let currentGroups = rawGroups
-       .filter(g => {
-         const groupPageId = typeof g.data.pageName === 'object' 
-            ? g.data.pageName.id 
-            : g.data.pageName;
-         return groupPageId === page.id;
-       })
-       .map(g => JSON.parse(JSON.stringify(g.data))); // 深拷贝避坑
-    
-    // 自动填充 guide_id
-    currentGroups = attachGuidesToResources(currentGroups, guides);
-
-    currentGroups.sort((a, b) => {
-          const sortA = Number(a.pageConfig?.sortPrefix || 10);
-          const sortB = Number(b.pageConfig?.sortPrefix || 10);
-          return sortA - sortB;
-       });
-    
-    return {
-      ...page.data,
-      id: page.id,
-      groups: currentGroups
-    };
-  }).sort((a, b) => (a.sortOrder || 99) - (b.sortOrder || 99));
+  const navResources = await loadNavResources();
 
   return navResources.map((section) => ({
     params: { id: section.id },
@@ -100,8 +31,7 @@ const { section, navResources } = Astro.props;
 const { id } = Astro.params;
 
 // 图标处理
-const Icons = { Star, Code, Palette, LayoutDashboard, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download };
-const CurrentIcon = section.icon ? (Icons[section.icon] || LayoutDashboard) : LayoutDashboard;
+const CurrentIcon = getNavIcon(section.icon);
 ---
 
 <Layout title={`${section.name} - ${siteConfig.title}`}>
@@ -241,38 +171,7 @@ const CurrentIcon = section.icon ? (Icons[section.icon] || LayoutDashboard) : La
 
 {/* IntersectionObserver 页面区块定位监听 */}
 <script>
-  function initShareObserver() {
-    const targets = document.querySelectorAll('.share-observe-target');
-    if (!targets.length) return;
-
-    // 获取当前在视口内的元素
-    const observer = new IntersectionObserver((entries) => {
-      // 找出当前可见比例最大的元素
-      let maxRatio = 0;
-      let activeId = null;
-      
-      entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
-          maxRatio = entry.intersectionRatio;
-          activeId = entry.target.id;
-        }
-      });
-      
-      if (activeId) {
-        (window as any).__ACTIVE_SHARE_ID__ = activeId;
-      }
-    }, {
-      rootMargin: '-10% 0px -40% 0px', // 关注偏上半部分的屏幕
-      threshold: [0, 0.25, 0.5, 0.75, 1]
-    });
-
-    targets.forEach(el => observer.observe(el));
-    
-    // 如果没有被覆盖时设置默认第一个为 active
-    if (!(window as any).__ACTIVE_SHARE_ID__ && targets[0]) {
-      (window as any).__ACTIVE_SHARE_ID__ = targets[0].id;
-    }
-  }
+  import { initShareObserver } from '../scripts/share-observer';
 
   document.addEventListener('astro:page-load', initShareObserver);
   if (document.readyState === 'loading') {

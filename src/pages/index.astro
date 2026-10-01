@@ -1,7 +1,8 @@
 ---
 // src/pages/index.astro
-import { ClientRouter, fade } from 'astro:transitions';
 import Layout from '../layouts/Layout.astro';
+// 分享导出模态框样式：原来由 global.css 全局引入，现按需加载
+import '../styles/share-export.css';
 import Sidebar from '../components/Sidebar/index.astro';
 import SiteCard from '../components/SiteCard/index.astro';
 import SearchModal from '../components/SearchModal.jsx';
@@ -9,90 +10,19 @@ import ShareExportModal from '../components/ShareExportModal.jsx';
 import ThemePicker from '../components/ThemePicker/index.astro';
 import ResourceFilter from '../components/ResourceFilter.astro';
 import siteConfig from '../content/site-settings/config.json';
-import { getCollection } from 'astro:content'; 
-import { LayoutDashboard, Star, Code, Palette, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download, Menu, Search, Command, Share2, MoreHorizontal } from 'lucide-react';
-import { sortResourcesByStatus } from '../utils/resourceSort';
-import { attachGuidesToResources } from '../utils/guideMatcher';
+import { Menu, Search, Command, Share2, MoreHorizontal } from 'lucide-react';
+import { sortResourcesByStatus } from '../utils/resourceStatus';
+import { buildShareTree, getNavIcon, loadNavResources } from '../utils/navData';
 
-// 辅助函数：构建包含页面所有分组、分类和卡片的嵌套树形数据结构
-function buildShareTree(groups: any[]) {
-  return groups.map((group: any, groupIdx: number) => {
-    const node = {
-      id: `group-${groupIdx}`,
-      type: 'group',
-      name: group.name,
-      children: [] as any[]
-    };
-    if (group.resources && group.resources.length > 0) {
-      node.children.push(...group.resources.map((r: any) => ({ type: 'card', data: r })));
-    }
-    (group.categories || []).forEach((cat: any, catIdx: number) => {
-      const catId = `cat-${groupIdx}-${catIdx}`;
-      const catNode = {
-        id: catId,
-        type: 'category',
-        name: cat.name,
-        children: [] as any[]
-      };
-      if (cat.resources && cat.resources.length > 0) {
-        catNode.children.push(...cat.resources.map((r: any) => ({ type: 'card', data: r })));
-      }
-      (cat.tabs || []).forEach((tab: any, tabIdx: number) => {
-        const tabId = `pane-${groupIdx}-${catIdx}-${tabIdx}`;
-        const tabNode = {
-          id: tabId,
-          type: 'tab',
-          name: tab.tabName,
-          children: [] as any[]
-        };
-        if (tab.list && tab.list.length > 0) {
-          tabNode.children.push(...tab.list.map((r: any) => ({ type: 'card', data: r })));
-        }
-        if (tabNode.children.length > 0) catNode.children.push(tabNode);
-      });
-      if (catNode.children.length > 0) node.children.push(catNode);
-    });
-    return node;
-  });
-}
+// 1. 获取数据（页面 → 分组 → 分类 / Tab，含 guide_id 关联与排序）
+const navResources = await loadNavResources();
 
-// 1. 获取数据
-const rawPages = await getCollection('nav-pages');
-const rawGroups = await getCollection('nav-groups');
-const guides = await getCollection('guides');
-
-// 2. 核心逻辑：关联与排序
-const navResources = rawPages.map(page => {
-  let currentGroups = rawGroups.filter(g => {
-    const groupPageId = typeof g.data.pageName === 'object' 
-        ? g.data.pageName.id 
-        : g.data.pageName;
-    return groupPageId === page.id; 
-  }).map(g => JSON.parse(JSON.stringify(g.data))); // 深拷贝以避免污染原始 Collection 缓存
-  
-  // 自动填充 guide_id
-  currentGroups = attachGuidesToResources(currentGroups, guides);
-
-  currentGroups.sort((a, b) => {
-    const sortA = Number(a.pageConfig?.sortPrefix || 10);
-    const sortB = Number(b.pageConfig?.sortPrefix || 10);
-    return sortA - sortB;
-  });
-  
-  return {
-    ...page.data,
-    id: page.id,
-    groups: currentGroups
-  };
-}).sort((a, b) => (a.sortOrder || 99) - (b.sortOrder || 99));
-
-// 3. 确定当前页面
+// 2. 确定当前页面
 const currentId = 'home'; 
 const section = navResources.find(r => r.id === currentId) || navResources[0] || { name: 'Loading...', groups: [], icon: undefined };
 
-// 4. 图标映射
-const Icons = { Star, Code, Palette, LayoutDashboard, Clapperboard, Headphones, Image, Video, Hammer, Settings, Briefcase, Network, Download };
-const CurrentIcon = section.icon ? (Icons[section.icon as keyof typeof Icons] || LayoutDashboard) : LayoutDashboard;
+// 3. 图标
+const CurrentIcon = getNavIcon(section.icon);
 ---
 
 <Layout title={`${siteConfig.title} - ${section.name}`}>
@@ -252,115 +182,8 @@ const CurrentIcon = section.icon ? (Icons[section.icon as keyof typeof Icons] ||
 
 {/* 顶栏响应式折叠监听 */}
 <script>
-  function initHeaderCollapse() {
-    // 降级为 HTMLElement 以适应 TS 对 style 等属性的类型推断
-    const leftGroup = document.getElementById('header-left-group') as HTMLElement;
-    const actionsGroup = document.getElementById('header-actions-group') as HTMLElement;
-    const triggerBtn = document.getElementById('header-actions-trigger') as HTMLElement;
-    const triggerIcon = document.getElementById('header-actions-icon') as HTMLElement;
-    const rightContainer = document.getElementById('header-actions-container') as HTMLElement;
-    const header = document.getElementById('page-header') as HTMLElement;
-    
-    if (!leftGroup || !actionsGroup || !triggerBtn || !header) return;
-    
-    // 桌面无约束下原本的样式组合
-    const originalClasses = 'relative flex items-center gap-2 md:gap-3 shrink-0 scale-100 opacity-100 pointer-events-auto origin-right z-auto top-auto right-auto translate-y-0 bg-transparent py-0 px-0 shadow-none border-t-0 p-0';
-    // 隐藏状态（收纳到触发按钮左侧看不见的地方）- cubic-bezier 实现Q弹效果
-    const collapsedHiddenClasses = 'absolute right-[calc(100%+0.5rem)] top-1/2 -translate-y-1/2 flex items-center gap-2 px-3 py-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl rounded-2xl shadow-xl border border-gray-200/60 dark:border-gray-700/60 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] origin-right scale-50 opacity-0 pointer-events-none z-50';
-    // 滑出展示状态（完全展开显示在触发按钮左侧）
-    const collapsedVisibleClasses = 'absolute right-[calc(100%+0.5rem)] top-1/2 -translate-y-1/2 flex items-center gap-2 px-3 py-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl rounded-2xl shadow-xl border border-gray-200/60 dark:border-gray-700/60 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] origin-right scale-100 opacity-100 pointer-events-auto z-50';
-    
-    const win = window as any;
-    if (!win.__headerActionsNaturalWidth) {
-       actionsGroup.className = originalClasses;
-       win.__headerActionsNaturalWidth = actionsGroup.scrollWidth || 180;
-    }
-    const actionsWidth = win.__headerActionsNaturalWidth;
-    
-    function measure() {
-       const titleSpan = leftGroup.querySelector('span.truncate') as HTMLElement;
-       if (!titleSpan) return;
-       
-       // 为了获取最真实的文字长度，临时取消限制类的截断
-       const oldMax = titleSpan.style.maxWidth;
-       const oldOverflow = titleSpan.style.overflow;
-       const oldDisplay = titleSpan.style.display;
-       titleSpan.style.maxWidth = 'none';
-       titleSpan.style.overflow = 'visible';
-       titleSpan.style.display = 'inline-block';
-       
-       const naturalTitleWidth = titleSpan.scrollWidth;
-       
-       titleSpan.style.maxWidth = oldMax;
-       titleSpan.style.overflow = oldOverflow;
-       titleSpan.style.display = oldDisplay;
-       
-       // 左侧整个标题部分按原比例撑开时原本需要占据的分辨率（汉堡菜单40 + icon垫圈36 + 文字长 + 间隙24 = 约加100像素空余）
-       const leftNaturalWidth = naturalTitleWidth + 100;
-       
-       const containerWidth = header.clientWidth;
-       // 移动端由于屏幕小，容差小，桌面端保持较大余量
-       const paddingAndGap = window.innerWidth < 768 ? 32 : 80; 
-       
-       // 预判：如果文字天然长度 + 按钮天然长度超过屏幕安全区域则启用折叠机制
-       const needsCollapse = leftNaturalWidth + actionsWidth + paddingAndGap > containerWidth;
-       
-       if (needsCollapse) {
-          triggerBtn.classList.remove('hidden');
-          triggerBtn.classList.add('flex');
-          // 由于折叠后汉堡键(40)+Icon组(36)+三点按键(40)加间隙大约占110-120px
-          // 我们给标题留出尽可能多的剩余空间
-          titleSpan.style.maxWidth = `${containerWidth - 110}px`;
-          
-          if (rightContainer.classList.contains('is-open')) {
-             actionsGroup.className = collapsedVisibleClasses;
-             if(triggerIcon) triggerIcon.style.transform = 'rotate(90deg)';
-             triggerBtn.classList.add('bg-brand-50', 'text-brand-600', 'border-brand-200', 'dark:border-brand-700/50');
-          } else {
-             actionsGroup.className = collapsedHiddenClasses;
-             if(triggerIcon) triggerIcon.style.transform = 'rotate(0deg)';
-             triggerBtn.classList.remove('bg-brand-50', 'text-brand-600', 'border-brand-200', 'dark:border-brand-700/50');
-          }
-       } else {
-          // 空间足够，禁用折叠
-          triggerBtn.classList.remove('flex', 'bg-brand-50', 'text-brand-600', 'border-brand-200', 'dark:border-brand-700/50');
-          triggerBtn.classList.add('hidden');
-          rightContainer.classList.remove('is-open'); 
-          actionsGroup.className = originalClasses;
-          titleSpan.style.maxWidth = ''; // 去除自定义限制
-          if(triggerIcon) triggerIcon.style.transform = 'rotate(0deg)';
-       }
-    }
-    
-    triggerBtn.onclick = (e) => {
-       e.stopPropagation();
-       rightContainer.classList.toggle('is-open');
-       measure();
-    };
-    
-    // 监听外部点击（如果在抽屉外部点击则关闭抽屉）
-    document.addEventListener('click', (e) => {
-       const target = e.target as Element;
-       if (rightContainer.classList.contains('is-open') && !rightContainer.contains(target)) {
-          // 不要误关：判断是否点击在那些弹出的深层面板中
-          const isFilterPanel = target.closest('.filter-dropdown');
-          const isThemePanel = target.closest('#theme-panel');
-          if (!isFilterPanel && !isThemePanel) {
-            rightContainer.classList.remove('is-open');
-            measure();
-          }
-       }
-    });
+  import { initHeaderCollapse } from '../scripts/header-collapse';
 
-    if (win.__headerResizeObserver) {
-       win.__headerResizeObserver.disconnect();
-    }
-    win.__headerResizeObserver = new ResizeObserver(() => measure());
-    win.__headerResizeObserver.observe(header);
-    
-    measure();
-  }
-  
   document.addEventListener('astro:page-load', initHeaderCollapse);
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initHeaderCollapse);
@@ -371,40 +194,8 @@ const CurrentIcon = section.icon ? (Icons[section.icon as keyof typeof Icons] ||
 
 {/* IntersectionObserver 页面区块定位监听 */}
 <script>
-  function initShareObserver() {
-    const targets = document.querySelectorAll('.share-observe-target');
-    if (!targets.length) return;
+  import { initShareObserver } from '../scripts/share-observer';
 
-    // 获取当前在视口内的元素
-    const observer = new IntersectionObserver((entries) => {
-      // 找出当前可见比例最大的元素
-      let maxRatio = 0;
-      let activeId = null;
-      
-      entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
-          maxRatio = entry.intersectionRatio;
-          activeId = entry.target.id;
-        }
-      });
-      
-      if (activeId) {
-        (window as any).__ACTIVE_SHARE_ID__ = activeId;
-      }
-    }, {
-      rootMargin: '-10% 0px -40% 0px', // 关注偏上半部分的屏幕
-      threshold: [0, 0.25, 0.5, 0.75, 1]
-    });
-
-    targets.forEach(el => observer.observe(el));
-    
-    // 如果没有被覆盖时设置默认第一个为 active
-    if (!(window as any).__ACTIVE_SHARE_ID__ && targets[0]) {
-      (window as any).__ACTIVE_SHARE_ID__ = targets[0].id;
-    }
-  }
-
-  // Astro 页面加载时初始化
   document.addEventListener('astro:page-load', initShareObserver);
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initShareObserver);
@@ -415,61 +206,9 @@ const CurrentIcon = section.icon ? (Icons[section.icon as keyof typeof Icons] ||
 
 {/* 平滑滚动导航增强 */}
 <script>
-  // 增强的滚动到区块函数
-  window.scrollToSection = function(sectionId: string) {
-    const target = document.getElementById(sectionId);
-    if (target) {
-      // 显示滚动反馈
-      target.classList.add('scroll-target-active');
-      setTimeout(() => target.classList.remove('scroll-target-active'), 500);
-      
-      // 平滑滚动
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      
-      // 显示 Toast 提示
-      const heading = target.querySelector('h2, h3');
-      if (heading && window.toast) {
-        const title = heading.textContent?.trim();
-        if (title) {
-          window.toast.info(`正在跳转: ${title}`);
-        }
-      }
-    }
-  };
+  import { initScrollHelpers } from '../scripts/scroll-helpers';
 
-  // 增强的 Tab 切换函数
-  window.scrollToTab = function(uniqueId: string, tabIdx: number) {
-    // 隐藏所有 tab pane
-    const allPanes = document.querySelectorAll(`[id^="pane-${uniqueId}-"]`);
-    allPanes.forEach(pane => {
-      pane.classList.add('hidden');
-      pane.classList.remove('block');
-    });
-    
-    // 显示目标 tab pane
-    const targetPane = document.getElementById(`pane-${uniqueId}-${tabIdx}`);
-    if (targetPane) {
-      targetPane.classList.remove('hidden');
-      targetPane.classList.add('block');
-      
-      // 重新触发动画
-      targetPane.classList.remove('animate-fade-in');
-      void targetPane.offsetWidth; // 强制重绘
-      targetPane.classList.add('animate-fade-in');
-    }
-    
-    // 更新 tab 按钮状态
-    const allBtns = document.querySelectorAll(`[data-target^="pane-${uniqueId}-"]`);
-    allBtns.forEach((btn, idx) => {
-      if (idx === tabIdx) {
-        btn.classList.add('text-brand-600', 'active-tab');
-        btn.classList.remove('text-slate-500');
-      } else {
-        btn.classList.remove('text-brand-600', 'active-tab');
-        btn.classList.add('text-slate-500');
-      }
-    });
-  };
+  initScrollHelpers();
 </script>
 
 <style>
