@@ -1,5 +1,6 @@
 import { defineCollection, reference, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { RESOURCE_STATUSES } from './utils/resourceStatus';
 
 // 资源结构
 const resourceItemSchema = z.object({
@@ -13,7 +14,8 @@ const resourceItemSchema = z.object({
   // Keystatic fields.document 生成的是 JSON 结构，这里使用 z.any() 是安全的
   detail: z.any().optional(),
   // 资源状态: ok(正常) | stale(长期未更新) | 官网失效(已失效) | github已归档 | github仓库已失效 | 网站失效 | 网站超时
-  status: z.enum(['ok', 'stale', '官网失效', 'github已归档', 'github仓库已失效', '网站失效', '网站超时']).default('ok'),
+  // 枚举收敛到 src/utils/resourceStatus.ts，与 Keystatic 后台下拉共用唯一真源
+  status: z.enum(RESOURCE_STATUSES).default('ok'),
 });
 
 // 1. 页面

@@ -3,6 +3,7 @@ import { wrapper } from '@keystatic/core/content-components';
 import React from 'react';
 import { toolboxField, iconPickerField, toolboxLinkField } from './src/components/keystatic/ToolboxField'; 
 import { badgeListField } from './src/components/keystatic/BadgeField';
+import { RESOURCE_STATUS_OPTIONS, getStatusEmoji } from './src/utils/resourceStatus';
 
 const VISUAL_TAGS = [
   { label: '🏠 首页/概览', value: '🏠' },
@@ -127,31 +128,26 @@ const ContainerContentView = (props: any) => {
 };
 
 // ========== 注册组件 ==========
-const documentBlocks = {
-  GitHubAlert: wrapper({
-    label: '📢 GitHub Alert',
-    schema: gitHubAlertSchema,
-    ContentView: GitHubAlertContentView,
-  }),
-  Container: wrapper({
-    label: '📦 容器',
-    schema: containerSchema,
-    ContentView: ContainerContentView,
-  }),
+// 两个块组件共用同一份定义（原先还额外维护了一份未被引用的 documentBlocks，已删除）
+const gitHubAlertBlock = {
+  label: '📢 GitHub Alert',
+  schema: gitHubAlertSchema,
+  ContentView: GitHubAlertContentView,
+};
+const containerBlock = {
+  label: '📦 容器',
+  schema: containerSchema,
+  ContentView: ContainerContentView,
 };
 
 const mdxBlocks: any = {
   GitHubAlert: wrapper({
-    label: '📢 GitHub Alert',
-    schema: gitHubAlertSchema,
-    ContentView: GitHubAlertContentView,
-    icon: <span style={{fontSize: '20px'}}>📢</span>, 
+    ...gitHubAlertBlock,
+    icon: <span style={{fontSize: '20px'}}>📢</span>,
   } as any),
   Container: wrapper({
-    label: '📦 容器',
-    schema: containerSchema,
-    ContentView: ContainerContentView,
-    icon: <span style={{fontSize: '20px'}}>📦</span>, 
+    ...containerBlock,
+    icon: <span style={{fontSize: '20px'}}>📦</span>,
   } as any),
 };
 
@@ -161,16 +157,6 @@ const commonMdxOptions = {
   strikethrough: true,
   code: true,
   heading: [2, 3, 4, 5, 6] as const,
-};
-
-// 资源状态 Emoji 映射
-const getStatusEmoji = (status: string | undefined): string => {
-  switch (status) {
-    case '官网失效': return '❌ ';
-    case '网站失效': return '❌ ';
-    case 'stale': return '⚠️ ';
-    default: return '';
-  }
 };
 
 // --- Reusable Fields ---
@@ -206,18 +192,21 @@ const resourceFields = {
   status: fields.select({
     label: '资源状态',
     description: '失效资源将自动沉底并显示降级样式',
-    options: [
-      { label: '✅ 正常', value: 'ok' },
-      { label: '⚠️ 长期未更新', value: 'stale' },
-      { label: '📦 github已归档', value: 'github已归档' },
-      { label: '❌ github仓库已失效', value: 'github仓库已失效' },
-      { label: '❌ 网站失效', value: '网站失效' },
-      { label: '⏱️ 网站超时', value: '网站超时' },
-      { label: '❌ 官网失效', value: '官网失效' },
-    ],
+    // 选项收敛到 src/utils/resourceStatus.ts，与内容集合 schema 共用唯一真源
+    options: RESOURCE_STATUS_OPTIONS,
     defaultValue: 'ok',
   }),
 };
+
+/**
+ * 资源数组字段
+ * 分组直属 / 分类直属 / Tab 内三处结构完全一致，只有 label 与未命名时的兜底文案不同。
+ */
+const resourceArray = (label: string, fallbackName: string) =>
+  fields.array(fields.object(resourceFields), {
+    label,
+    itemLabel: (props: any) => getStatusEmoji(props.fields.status.value) + (props.fields.name.value || fallbackName),
+  });
 
 // 1. 定义环境判断变量
 const isDev = import.meta.env.DEV;
@@ -317,24 +306,15 @@ export default config({
           { label: '⚙️ 分组配置', description: '设置分组在页面内的排序顺序' }
         ),
         id: fields.text({ label: '🆔 系统ID', validation: { length: { min: 1 } } }),
-        resources: fields.array(
-          fields.object(resourceFields),
-          { label: '📚 分组直属资源', itemLabel: (props) => getStatusEmoji(props.fields.status.value) + (props.fields.name.value || '未命名资源') }
-        ),
+        resources: resourceArray('📚 分组直属资源', '未命名资源'),
         categories: fields.array(
           fields.object({
             name: fields.text({ label: '分类名称' }),
-            resources: fields.array(
-              fields.object(resourceFields),
-              { label: '📚 直属资源列表', itemLabel: (props) => getStatusEmoji(props.fields.status.value) + (props.fields.name.value || '未命名资源') }
-            ),
+            resources: resourceArray('📚 直属资源列表', '未命名资源'),
             tabs: fields.array(
               fields.object({
                 tabName: fields.text({ label: '标签页名称' }),
-                list: fields.array(
-                  fields.object(resourceFields),
-                  { label: '资源列表', itemLabel: (props) => getStatusEmoji(props.fields.status.value) + (props.fields.name.value || '资源') }
-                )
+                list: resourceArray('资源列表', '资源'),
               }),
               { label: '🗂️ 标签页', itemLabel: (props) => props.fields.tabName.value || '标签页' }
             )

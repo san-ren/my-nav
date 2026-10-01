@@ -558,61 +558,12 @@ export const ANIMATION_CSS = `
 `;
 
 // ==================== 辅助函数 ====================
-
-// 获取状态徽章样式
-export const getStatusBadge = (status: string): { text: string; color: string; bg: string } => {
-  const statusMap: Record<string, { text: string; color: string; bg: string }> = {
-    // 解析状态
-    pending: { text: '待解析', color: '#64748b', bg: '#f1f5f9' },
-    parsing: { text: '解析中...', color: '#2563eb', bg: '#eff6ff' },
-    ready: { text: '就绪', color: '#22c55e', bg: '#dcfce7' },
-    // 检测状态
-    ok: { text: '正常', color: '#166534', bg: '#dcfce7' },
-    '官网失效': { text: '官网失效', color: '#991b1b', bg: '#fee2e2' },
-    timeout: { text: '超时', color: '#92400e', bg: '#fef3c7' },
-    excluded: { text: '已排除', color: '#64748b', bg: '#f1f5f9' },
-    stale: { text: '长期未更新', color: '#92400e', bg: '#fef3c7' },
-    archived: { text: '已归档', color: '#5b21b6', bg: '#ede9fe' },
-    // 新增状态
-    'github已归档': { text: 'github已归档', color: '#5b21b6', bg: '#ede9fe' },
-    'github仓库已失效': { text: 'github仓库已失效', color: '#991b1b', bg: '#fee2e2' },
-    '网站失效': { text: '网站失效', color: '#991b1b', bg: '#fee2e2' },
-    '网站超时': { text: '网站超时', color: '#92400e', bg: '#fef3c7' },
-    // 错误状态
-    error: { text: '解析失败', color: '#ef4444', bg: '#fee2e2' },
-  };
-  
-  return statusMap[status] || { text: status, color: '#64748b', bg: '#f1f5f9' };
-};
-
-// 状态排序权重
-export const getStatusWeight = (status: string): number => {
-  const weights: Record<string, number> = {
-    '官网失效': 0,
-    'github仓库已失效': 0,
-    '网站失效': 0,
-    archived: 1,
-    'github已归档': 1,
-    timeout: 2,
-    '网站超时': 2,
-    stale: 3,
-    excluded: 4,
-    ok: 5,
-  };
-  return weights[status] ?? 6;
-};
-
-// 资源状态排序权重
-export const getResourceStatusWeight = (status: string | undefined): number => {
-  if (!status) return 5;
-  const weights: Record<string, number> = {
-    '官网失效': 0,
-    'github仓库已失效': 0,
-    '网站失效': 0,
-    'github已归档': 1,
-    '网站超时': 2,
-    stale: 3,
-    ok: 4,
-  };
-  return weights[status] ?? 5;
-};
+// 状态映射已收敛到 src/utils/resourceStatus.ts（唯一真源），此处仅做转发，
+// 保持工具箱内既有 import 路径不变。新增状态请改 src/utils/resourceStatus.ts。
+export {
+  getStatusBadge,
+  getStatusLabel,
+  getStatusEmoji,
+  getStatusWeight,
+  sortResourcesByStatus,
+} from '../../../utils/resourceStatus';
